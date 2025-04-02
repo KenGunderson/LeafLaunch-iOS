@@ -192,3 +192,19 @@ extension View {
     }
     
 }
+
+extension Label {
+    
+    func appFont(with font: AppFont) -> some View {
+        modifier(AppFontViewModifier(font: font))
+    }
+    
+}
+
+extension Text {
+    
+    func appFont(with font: AppFont) -> some View {
+        modifier(AppFontViewModifier(font: font))
+    }
+    
+}

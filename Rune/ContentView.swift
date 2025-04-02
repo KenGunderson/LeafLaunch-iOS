@@ -20,9 +20,20 @@
 
 import SwiftUI
 
+extension Int: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self.hashValue
+    }
+    
+}
+
 struct ContentView: View {
     
     @Environment(\.themeManager) var themeManager: ThemeManager
+    
+    @State var selectedValue: Int? = 1
+    private var values: [Int] = Array(1...3)
     
     var body: some View {
         
@@ -40,11 +51,17 @@ struct ContentView: View {
                     Image(systemName: "globe")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 120)
+                        .frame(height: 48)
                         .foregroundStyle(self.themeManager.theme.accentColorGradient)
                         .padding(.bottom, .large)
                     
                     Group {
+                        
+                        CommonSegmentedControl(
+                            selectedOption: self.$selectedValue,
+                            options: self.values,
+                            backgroundStyle: .color(ThemeManager.shared.background(.tertiary))
+                        )
                         
                         CommonTextFieldPreview()
                         

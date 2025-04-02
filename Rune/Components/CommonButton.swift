@@ -69,7 +69,7 @@ struct CommonButton: View {
         
         CommonButton(title: "Common Button", action: {
             
-            theme.updateTheme(.INDIGO)
+            theme.updateTheme(.BLUE)
             
         })
         .padding(.horizontal, .custom(64))
@@ -81,7 +81,9 @@ struct CommonButton: View {
             .background(theme.accentColor())
             .clipShape(.circle)
             .asButton {
-                print("Tapped")
+                
+                theme.updateTheme(.GOLD_NAVY)
+                
             }
         
         CircularIconView(

@@ -5,16 +5,23 @@
 //  Created by Sako Hovaguimian on 2/8/25.
 //
 
-// TODO: - CHANGE THESE TO USE THEME MANAGER
-// CHANGE THIS TO USE APP FONT ETC....
-
 import SwiftUI
+
+// TODO: -
+/// We might need one that isn't selectable and have two variations of this
+/// We might also need one that isn't optional for selection
 
 struct CommonSegmentedControl<S: Selectable>: View {
     
     @Namespace private var selectionNamespace
     @Binding var selectedOption: S?
     var options: [S]
+    
+    var titleFont: AppFont = .title(.t4)
+    var selectedTextColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
+    var unselectedTextColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
+    var foregroundStyle: AppForegroundStyle = .color(ThemeManager.shared.accentColor())
+    var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.tertiary))
     
     var body: some View {
         
@@ -35,19 +42,19 @@ struct CommonSegmentedControl<S: Selectable>: View {
                     }, label: {
                         
                         Text(option.description)
-                            .font(.body)
-                            .fontWeight(.semibold)
+                            .appFont(with: self.titleFont)
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .foregroundColor(isSelected ? .white : .black)
+                            .foregroundStyle(isSelected ? self.selectedTextColor.foregroundStyle() : self.unselectedTextColor.foregroundStyle())
                         
                     })
                     .background {
                         
                         if isSelected {
                             
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(Color.blue)
+                            RoundedRectangle(cornerRadius: CornerRadius.extraSmall.value)
+                            
+                                .fill(self.foregroundStyle.foregroundStyle())
                                 .padding(.vertical, 6)
                                 .matchedGeometryEffect(id: "selection", in: self.selectionNamespace)
                             
@@ -58,13 +65,13 @@ struct CommonSegmentedControl<S: Selectable>: View {
                 }
                 
             }
-            .padding(.horizontal, 4)
+            .padding(.horizontal, 6)
             
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(uiColor: .white))
+            RoundedRectangle(cornerRadius: CornerRadius.small.value)
+                .fill(self.backgroundStyle.backgroundStyle())
         )
         .shadow(radius: 8)
         
