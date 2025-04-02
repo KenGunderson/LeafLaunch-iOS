@@ -1,0 +1,78 @@
+//
+//  AppHeaderScrollView.swift
+//  GentlePath
+//
+//  Created by Sako Hovaguimian on 4/19/24.
+//
+
+import SwiftUI
+
+struct AppHeaderScrollView<NavBarContent: View,
+                           ScrollViewContent: View>: View {
+    
+    @Binding private var scrollOffset: CGFloat
+    
+    private let alignment: Alignment
+    private let backgroundStyle: AppBackgroundStyle
+    private let isScrollTrackingEnabled: Bool
+    private let navBarContent: NavBarContent
+    private let scrollViewContent: ScrollViewContent
+    
+    private var horizontalPadding: Spacing = .medium
+    
+    public init(alignment: Alignment = .top,
+                horizontalPadding: Spacing = .medium,
+                backgroundStyle: AppBackgroundStyle = .color(.clear),
+                scrollOffset: Binding<CGFloat>? = nil,
+                @ViewBuilder navBarContent: () -> NavBarContent,
+                @ViewBuilder scrollViewContent: () -> ScrollViewContent) {
+        
+        self.alignment = alignment
+        self.backgroundStyle = backgroundStyle
+        self.horizontalPadding = horizontalPadding
+        
+        self.isScrollTrackingEnabled = scrollOffset != nil
+        self._scrollOffset = scrollOffset ?? .constant(0)
+        
+        self.navBarContent = navBarContent()
+        self.scrollViewContent = scrollViewContent()
+        
+    }
+    
+    var body: some View {
+        
+        AppBaseView(alignment: self.alignment) {
+            
+            VStack(spacing: Spacing.none.value) {
+                
+                self.navBarContent
+                    .zIndex(100)
+                
+                ScrollView {
+                    
+                    self.scrollViewContent
+                        .padding(.top, .medium)
+                        .padding(.horizontal, self.horizontalPadding)
+
+                }
+//                .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+                .background(self.backgroundStyle.backgroundStyle())
+                .if(self.isScrollTrackingEnabled) { view in
+                    
+                    view.onScrollGeometryChange(for: CGFloat.self) { geo in
+                        return geo.contentOffset.y
+                    } action: { oldValue, newValue in
+                        self.scrollOffset = newValue
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        .navigationBarBackButtonHidden()
+        .scrollIndicators(.hidden)
+        
+    }
+    
+}
