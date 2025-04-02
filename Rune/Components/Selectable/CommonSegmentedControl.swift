@@ -73,7 +73,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
             RoundedRectangle(cornerRadius: CornerRadius.small.value)
                 .fill(self.backgroundStyle.backgroundStyle())
         )
-        .shadow(radius: 8)
+        .appShadow()
         
     }
     

@@ -17,6 +17,7 @@
 /// IMPORTANT:
 /// We need to not just use ThemeManager downstream, but also allow those properties to be in initializers to
 /// set overrides if the user wants to. ThemeEngine or raw property.
+/// Add Shadow color to Theme
 
 import SwiftUI
 
@@ -46,24 +47,23 @@ struct ContentView: View {
                     Text("Rune")
                         .appFont(with: .billboard(.b1))
                         .foregroundStyle(self.themeManager.textColor(.title))
-                        .padding(.bottom, .large)
                     
                     Image(systemName: "globe")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 48)
+                        .frame(height: 64)
                         .foregroundStyle(self.themeManager.theme.accentColorGradient)
-                        .padding(.bottom, .large)
+                        .padding(.bottom, .small)
+                    
+                    CommonTextFieldPreview()
                     
                     Group {
                         
                         CommonSegmentedControl(
                             selectedOption: self.$selectedValue,
                             options: self.values,
-                            backgroundStyle: .color(ThemeManager.shared.background(.tertiary))
+                            backgroundStyle: .color(self.themeManager.background(.tertiary))
                         )
-                        
-                        CommonTextFieldPreview()
                         
                         CommonButton(title: "Gold Theme", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
                             updateTheme(.GOLD_NAVY)
