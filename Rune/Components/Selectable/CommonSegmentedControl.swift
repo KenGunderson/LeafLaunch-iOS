@@ -5,6 +5,9 @@
 //  Created by Sako Hovaguimian on 2/8/25.
 //
 
+// TODO: - CHANGE THESE TO USE THEME MANAGER
+// CHANGE THIS TO USE APP FONT ETC....
+
 import SwiftUI
 
 struct CommonSegmentedControl<S: Selectable>: View {

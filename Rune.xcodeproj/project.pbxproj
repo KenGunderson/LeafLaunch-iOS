@@ -336,8 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				759F90442D9CE44F005FD191 /* Selectable.swift */,
-				759F90452D9CE44F005FD191 /* CommonSelectionSheet.swift */,
 				759F90462D9CE44F005FD191 /* CommonSegmentedControl.swift */,
+				759F90452D9CE44F005FD191 /* CommonSelectionSheet.swift */,
 			);
 			path = Selectable;
 			sourceTree = "<group>";
