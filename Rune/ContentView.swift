@@ -22,6 +22,8 @@
 ///
 /// NOTES:
 /// Could we move shadow + spacing + font styles etc. to a plist and have it directly applied to theme to make it a dynamic setup
+///
+/// DropDown should be convereted to use SELECTABLE
 
 import SwiftUI
 
@@ -41,6 +43,22 @@ struct ContentView: View {
     
     @State var selectedValue: Int? = 1
     private var values: [Int] = Array(1...3)
+    
+    // Dropdown
+    
+    @State var shouldShowDropDown: Bool = false
+    @State var selectedDropDownIndex: Int?
+    private var dropDownValues: [String] = [
+        "Pokemon",
+        "Super Mario",
+        "Sonic",
+        "Mario Kart",
+        "The Legend of Zelda",
+        "Resident Evil",
+        "Call of Duty",
+        "FIFA",
+        "NBA 2K"
+    ]
     
     // Slider
     
@@ -90,11 +108,23 @@ struct ContentView: View {
     
     private func pickers() -> some View {
         
-        CommonSegmentedControl(
-            selectedOption: self.$selectedValue,
-            options: self.values,
-            backgroundStyle: .color(self.themeManager.background(.tertiary))
-        )
+        VStack(alignment: .leading, spacing: Spacing.medium.value) {
+            
+            CommonSegmentedControl(
+                selectedOption: self.$selectedValue,
+                options: self.values,
+                backgroundStyle: .color(self.themeManager.background(.tertiary))
+            )
+            
+            DropDownMenu(
+                options: self.dropDownValues,
+                menuWdith: 200,
+                selectedOptionIndex: self.$selectedDropDownIndex,
+                showDropdown: self.$shouldShowDropDown
+            )
+            
+        }
+        .zIndex(100)
         
     }
     
@@ -220,7 +250,7 @@ struct ContentView: View {
                 
                 HStack {
                        
-                    ForEach(colors, id: \.description) { color in
+                    ForEach(colors, id: \.self) { color in
                         colorItem(color)
                     }
                     

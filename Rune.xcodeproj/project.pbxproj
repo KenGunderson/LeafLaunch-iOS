@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
+		752D91212D9F221E00696649 /* StaggeredConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D911D2D9F221E00696649 /* StaggeredConfig.swift */; };
+		752D91222D9F221E00696649 /* StaggeredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D911F2D9F221E00696649 /* StaggeredView.swift */; };
+		752D91232D9F221E00696649 /* CustomStaggeredTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D911E2D9F221E00696649 /* CustomStaggeredTransition.swift */; };
+		752D91252D9F239600696649 /* WStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D91242D9F239600696649 /* WStack.swift */; };
+		752D91272D9F23B100696649 /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D91262D9F23B100696649 /* DropDownMenu.swift */; };
 		755C98202D9CC89000437D5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981D2D9CC89000437D5D /* ContentView.swift */; };
 		755C98212D9CC89000437D5D /* RuneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981E2D9CC89000437D5D /* RuneApp.swift */; };
 		755C98412D9CC9A900437D5D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98402D9CC9A900437D5D /* ThemeManager.swift */; };
@@ -77,6 +82,11 @@
 /* Begin PBXFileReference section */
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		752D911D2D9F221E00696649 /* StaggeredConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaggeredConfig.swift; sourceTree = "<group>"; };
+		752D911E2D9F221E00696649 /* CustomStaggeredTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStaggeredTransition.swift; sourceTree = "<group>"; };
+		752D911F2D9F221E00696649 /* StaggeredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaggeredView.swift; sourceTree = "<group>"; };
+		752D91242D9F239600696649 /* WStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WStack.swift; sourceTree = "<group>"; };
+		752D91262D9F23B100696649 /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* Rune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rune.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* RuneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* RuneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +193,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		752D91202D9F221E00696649 /* StaggeredView */ = {
+			isa = PBXGroup;
+			children = (
+				752D911D2D9F221E00696649 /* StaggeredConfig.swift */,
+				752D911E2D9F221E00696649 /* CustomStaggeredTransition.swift */,
+				752D911F2D9F221E00696649 /* StaggeredView.swift */,
+			);
+			path = StaggeredView;
+			sourceTree = "<group>";
+		};
 		755C97E02D9CC86900437D5D = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +298,7 @@
 			children = (
 				755C98462D9CD0A900437D5D /* DesignSystem */,
 				755C986A2D9CD3AA00437D5D /* BaseViews */,
+				752D91202D9F221E00696649 /* StaggeredView */,
 				759F903C2D9CE44F005FD191 /* CommonButton.swift */,
 				759F903D2D9CE44F005FD191 /* CommonImageView.swift */,
 				75A8547F2D9EED9500B7B4C5 /* Textfield */,
@@ -286,6 +307,8 @@
 				759F903F2D9CE44F005FD191 /* Shapes */,
 				759F90612D9CE642005FD191 /* Haptics */,
 				759F90672D9CE728005FD191 /* CircularIconView.swift */,
+				752D91242D9F239600696649 /* WStack.swift */,
+				752D91262D9F23B100696649 /* DropDownMenu.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -522,7 +545,9 @@
 				759F904A2D9CE44F005FD191 /* ProgressSlider.swift in Sources */,
 				759F904B2D9CE44F005FD191 /* Selectable.swift in Sources */,
 				759F904C2D9CE44F005FD191 /* CommonButton.swift in Sources */,
+				752D91252D9F239600696649 /* WStack.swift in Sources */,
 				759F904D2D9CE44F005FD191 /* ProgressBar.swift in Sources */,
+				752D91272D9F23B100696649 /* DropDownMenu.swift in Sources */,
 				759F904E2D9CE44F005FD191 /* CommonSegmentedControl.swift in Sources */,
 				759F904F2D9CE44F005FD191 /* CommonImageView.swift in Sources */,
 				755C986E2D9CD3AA00437D5D /* AppBaseView.swift in Sources */,
@@ -532,6 +557,9 @@
 				755C98212D9CC89000437D5D /* RuneApp.swift in Sources */,
 				759F90622D9CE642005FD191 /* HapticViewModifier.swift in Sources */,
 				759F90632D9CE642005FD191 /* HapticOption.swift in Sources */,
+				752D91212D9F221E00696649 /* StaggeredConfig.swift in Sources */,
+				752D91222D9F221E00696649 /* StaggeredView.swift in Sources */,
+				752D91232D9F221E00696649 /* CustomStaggeredTransition.swift in Sources */,
 				759F90642D9CE642005FD191 /* Haptics.swift in Sources */,
 				759F906A2D9CF770005FD191 /* Ext+Sequence.swift in Sources */,
 				759F90662D9CE66D005FD191 /* KeyboardManager.swift in Sources */,
