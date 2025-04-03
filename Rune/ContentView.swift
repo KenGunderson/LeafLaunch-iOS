@@ -51,8 +51,8 @@ struct ContentView: View {
         AppBaseView {
             
             ScrollView {
-            
-                VStack(spacing: Spacing.medium.value) {
+                
+                VStack(spacing: Spacing.large.value) {
                     
                     Text("Rune")
                         .appFont(with: .billboard(.b1))
@@ -74,9 +74,13 @@ struct ContentView: View {
                         sliders()
                         
                     }
-                    .padding(.horizontal, .xLarge)
+                    .padding(.horizontal, .large)
+                    
+                    colorThemeGrid()
                     
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, .custom(64))
                 
             }
             
@@ -140,20 +144,102 @@ struct ContentView: View {
                 updateTheme(.GOLD_NAVY)
             }
             
+            CommonButton(title: "Emerald Forest", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+                updateTheme(.EMERALD_NOIR)
+            }
+            
+            CommonButton(title: "Coral Twilight", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+                updateTheme(.CORAL_TWILIGHT)
+            }
+            
+            CommonButton(title: "Neon Night", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+                updateTheme(.NEON_NIGHT)
+            }
+            
             CommonButton(
-                title: "Blue Theme",
+                title: "Sandstone Dusk",
                 titleColor: .color(themeManager.textColor(.title)),
                 icon: Image(systemName: "heart.fill"),
                 backgroundStyle: .color(themeManager.accentColor())
             ) {
-                updateTheme(.BLUE)
-            }
-            
-            CommonButton(title: "Purple Theme", icon: Image(systemName: "moon.fill")) {
-                updateTheme(.INDIGO)
+                updateTheme(.SANDSTONE_DUSK)
             }
             
         }
+        
+    }
+    
+    private func colorThemeGrid() -> some View {
+        
+        VStack(alignment: .leading, spacing: Spacing.medium.value) {
+            
+            colorScrollView(
+                title: "Accent",
+                colors: [
+                    self.themeManager.accentColor()
+                ]
+            )
+            
+            colorScrollView(
+                title: "Background",
+                colors: [
+                    self.themeManager.background(.primary),
+                    self.themeManager.background(.secondary),
+                    self.themeManager.background(.tertiary),
+                    self.themeManager.background(.quad)
+                ]
+            )
+            
+            colorScrollView(
+                title: "Text",
+                colors: [
+                    self.themeManager.textColor(.title),
+                    self.themeManager.textColor(.titleInverted),
+                    self.themeManager.textColor(.body),
+                    self.themeManager.textColor(.bodyInverted)
+                ]
+            )
+            
+        }
+        .padding(.vertical, .medium)
+        .background(.white.opacity(0.1))
+        .padding(.vertical, .medium)
+        
+    }
+    
+    private func colorScrollView(title: String, colors: [Color]) -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            Text(title)
+                .appFont(with: .title(.t8))
+                .foregroundStyle(self.themeManager.textColor(.title))
+                .padding(.horizontal, .medium)
+            
+            ScrollView(.horizontal) {
+                
+                HStack {
+                       
+                    ForEach(colors, id: \.description) { color in
+                        colorItem(color)
+                    }
+                    
+                }
+                
+            }
+            .frame(maxWidth: .infinity)
+            .safeAreaPadding(.horizontal, Spacing.medium.value)
+            
+        }
+        
+    }
+    
+    private func colorItem(_ color: Color) -> some View {
+        
+        RoundedRectangle(cornerRadius: CornerRadius.small.value)
+            .fill(color)
+            .frame(width: 120, height: 120)
+            .aspectRatio(contentMode: .fit)
         
     }
     

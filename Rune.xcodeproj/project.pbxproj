@@ -280,8 +280,7 @@
 				755C986A2D9CD3AA00437D5D /* BaseViews */,
 				759F903C2D9CE44F005FD191 /* CommonButton.swift */,
 				759F903D2D9CE44F005FD191 /* CommonImageView.swift */,
-				759F906B2D9CF7BD005FD191 /* CommonTextFieldStyle.swift */,
-				759F906C2D9CF7BD005FD191 /* CommonTextFieldPreview.swift */,
+				75A8547F2D9EED9500B7B4C5 /* Textfield */,
 				759F90502D9CE46E005FD191 /* Selectable */,
 				759F90432D9CE44F005FD191 /* ProgressBars */,
 				759F903F2D9CE44F005FD191 /* Shapes */,
@@ -350,6 +349,15 @@
 				759F90602D9CE642005FD191 /* HapticViewModifier.swift */,
 			);
 			path = Haptics;
+			sourceTree = "<group>";
+		};
+		75A8547F2D9EED9500B7B4C5 /* Textfield */ = {
+			isa = PBXGroup;
+			children = (
+				759F906B2D9CF7BD005FD191 /* CommonTextFieldStyle.swift */,
+				759F906C2D9CF7BD005FD191 /* CommonTextFieldPreview.swift */,
+			);
+			path = Textfield;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
