@@ -18,6 +18,10 @@
 /// We need to not just use ThemeManager downstream, but also allow those properties to be in initializers to
 /// set overrides if the user wants to. ThemeEngine or raw property.
 /// Add Shadow color to Theme
+///
+///
+/// NOTES:
+/// Could we move shadow + spacing + font styles etc. to a plist and have it directly applied to theme to make it a dynamic setup
 
 import SwiftUI
 
@@ -33,8 +37,14 @@ struct ContentView: View {
     
     @Environment(\.themeManager) var themeManager: ThemeManager
     
+    // Picker
+    
     @State var selectedValue: Int? = 1
     private var values: [Int] = Array(1...3)
+    
+    // Slider
+    
+    @State var sliderValue: Double = 0.8
     
     var body: some View {
         
@@ -55,60 +65,92 @@ struct ContentView: View {
                         .foregroundStyle(self.themeManager.theme.accentColorGradient)
                         .padding(.bottom, .small)
                     
-                    CommonTextFieldPreview()
-                    
                     Group {
                         
-                        CommonSegmentedControl(
-                            selectedOption: self.$selectedValue,
-                            options: self.values,
-                            backgroundStyle: .color(self.themeManager.background(.tertiary))
-                        )
-                        
-                        CommonButton(title: "Gold Theme", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
-                            updateTheme(.GOLD_NAVY)
-                        }
-                        
-                        CommonButton(
-                            title: "Blue Theme",
-                            titleColor: .color(themeManager.textColor(.title)),
-                            icon: Image(systemName: "heart.fill"),
-                            backgroundStyle: .color(themeManager.accentColor())
-                        ) {
-                            updateTheme(.BLUE)
-                        }
-                        
-                        CommonButton(title: "Purple Theme", icon: Image(systemName: "moon.fill")) {
-                            updateTheme(.INDIGO)
-                        }
-                        
-                        CommonImageView(style: .image(Image(.image2)))
-                            .scaledToFill()
-                            .clipShape(.rect(cornerRadius: CornerRadius.small.rawValue))
-                            .frame(maxHeight: 200)
-                            .asButton {
-                                print("DID SOMETHING")
-                            }
-                        
-                        CommonImageView(style: .image(Image(systemName: "person.fill")))
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundStyle(themeManager.accentColor())
-                            .frame(height: 64)
-                        
-                        ProgressSlider(
-                            value: .constant(0.50),
-                            trackStyle: .color(self.themeManager.background(.tertiary)),
-                            fillStyle: .color(self.themeManager.accentColor()),
-                            thumbStyle: .color(self.themeManager.background(.quad)),
-                            thumbCircleStyle: .color(self.themeManager.background(.primary)),
-                            thumbHeight: 50
-                        )
+                        pickers()
+                        textfields()
+                        buttons()
+                        images()
+                        sliders()
                         
                     }
                     .padding(.horizontal, .xLarge)
                     
                 }
                 
+            }
+            
+        }
+        
+    }
+    
+    private func pickers() -> some View {
+        
+        CommonSegmentedControl(
+            selectedOption: self.$selectedValue,
+            options: self.values,
+            backgroundStyle: .color(self.themeManager.background(.tertiary))
+        )
+        
+    }
+    
+    private func images() -> some View {
+        
+        VStack(spacing: Spacing.medium.value) {
+            
+            CommonImageView(style: .image(Image(.image2)))
+                .scaledToFill()
+                .clipShape(.rect(cornerRadius: CornerRadius.small.rawValue))
+                .frame(maxHeight: 200)
+                .asButton {}
+            
+            CommonImageView(style: .image(Image(systemName: "person.fill")))
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(themeManager.accentColor())
+                .frame(height: 64)
+            
+        }
+        
+    }
+    
+    private func sliders() -> some View {
+        
+        ProgressSlider(
+            value: self.$sliderValue,
+            trackStyle: .color(self.themeManager.background(.tertiary)),
+            fillStyle: .color(self.themeManager.accentColor()),
+            thumbStyle: .color(self.themeManager.background(.quad)),
+            thumbCircleStyle: .color(self.themeManager.accentColor()),
+            thumbHeight: 36
+        )
+        
+    }
+    
+    private func textfields() -> some View {
+        
+        CommonTextFieldPreview()
+        
+    }
+    
+    private func buttons() -> some View {
+        
+        VStack(spacing: Spacing.medium.value) {
+            
+            CommonButton(title: "Gold Theme", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+                updateTheme(.GOLD_NAVY)
+            }
+            
+            CommonButton(
+                title: "Blue Theme",
+                titleColor: .color(themeManager.textColor(.title)),
+                icon: Image(systemName: "heart.fill"),
+                backgroundStyle: .color(themeManager.accentColor())
+            ) {
+                updateTheme(.BLUE)
+            }
+            
+            CommonButton(title: "Purple Theme", icon: Image(systemName: "moon.fill")) {
+                updateTheme(.INDIGO)
             }
             
         }

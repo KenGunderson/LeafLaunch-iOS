@@ -67,11 +67,7 @@ struct CommonButton: View {
     
     VStack(spacing: Spacing.large.value) {
         
-        CommonButton(title: "Common Button", action: {
-            
-            theme.updateTheme(.BLUE)
-            
-        })
+        CommonButton(title: "Common Button") {}
         .padding(.horizontal, .custom(64))
         
         Image(systemName: "person.fill")
@@ -80,11 +76,7 @@ struct CommonButton: View {
             .foregroundStyle(.white)
             .background(theme.accentColor())
             .clipShape(.circle)
-            .asButton {
-                
-                theme.updateTheme(.GOLD_NAVY)
-                
-            }
+            .asButton {}
         
         CircularIconView(
             foregroundColor: .color(.cyan),

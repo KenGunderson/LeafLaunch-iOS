@@ -68,12 +68,13 @@ internal struct CommonTextFieldPreview: View {
             
         }
         
-        .padding(24)
-        
     }
     
 }
 
 #Preview {
+    
     CommonTextFieldPreview()
+        .padding(.horizontal, Spacing.large.value)
+    
 }
