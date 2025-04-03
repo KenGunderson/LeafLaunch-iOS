@@ -22,8 +22,6 @@
 ///
 /// NOTES:
 /// Could we move shadow + spacing + font styles etc. to a plist and have it directly applied to theme to make it a dynamic setup
-///
-/// DropDown should be convereted to use SELECTABLE
 
 import SwiftUI
 
@@ -31,6 +29,14 @@ extension Int: @retroactive Identifiable {
     
     public var id: Self {
         return self.hashValue
+    }
+    
+}
+
+extension String: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self
     }
     
 }
@@ -47,7 +53,7 @@ struct ContentView: View {
     // Dropdown
     
     @State var shouldShowDropDown: Bool = false
-    @State var selectedDropDownIndex: Int?
+    @State var selectedDropDownValue: String?
     private var dropDownValues: [String] = [
         "Pokemon",
         "Super Mario",
@@ -63,6 +69,11 @@ struct ContentView: View {
     // Slider
     
     @State var sliderValue: Double = 0.8
+    
+    // Fields
+    
+    @State var textEditText: String = ""
+    @FocusState private var isTextEditFocused: Bool
     
     var body: some View {
         
@@ -116,10 +127,10 @@ struct ContentView: View {
                 backgroundStyle: .color(self.themeManager.background(.tertiary))
             )
             
-            DropDownMenu(
+            CommonDropDownMenu(
                 options: self.dropDownValues,
                 menuWdith: 200,
-                selectedOptionIndex: self.$selectedDropDownIndex,
+                selectedOption: self.$selectedDropDownValue,
                 showDropdown: self.$shouldShowDropDown
             )
             
@@ -162,7 +173,20 @@ struct ContentView: View {
     
     private func textfields() -> some View {
         
-        CommonTextFieldPreview()
+        VStack(spacing: Spacing.medium.value) {
+            
+            CommonTextFieldPreview()
+            
+            CommonTextEditView(
+                text: $textEditText,
+                placehoderText: "Placeholder...",
+                isFocused: self.isTextEditFocused,
+                titleColor: .color(ThemeManager.shared.textColor(.title)),
+                lineLimit: 5...30
+            )
+            .focused(self.$isTextEditFocused)
+            
+        }
         
     }
     

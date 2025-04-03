@@ -1,5 +1,5 @@
 //
-//  DropDownMenu.swift
+//  CommonDropDownMenu.swift
 //  Rune
 //
 //  Created by Sako Hovaguimian on 4/3/25.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct DropDownMenu: View {
+struct CommonDropDownMenu<S: Selectable>: View {
     
-    let options: [String]
+    var options: [S]
     
     var menuWdith: CGFloat = 150
     var buttonHeight: CGFloat = 50
@@ -18,19 +18,13 @@ struct DropDownMenu: View {
     var foregroundStyle: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
     var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.tertiary))
 
-    @Binding var selectedOptionIndex: Int?
+    @Binding var selectedOption: S?
     @Binding var showDropdown: Bool
     
-    @State private var scrollPosition: Int?
+    @State private var scrollPosition: S?
     
     var defaultTitle: String {
-        
-        guard let selectedOptionIndex else {
-            return "Select One"
-        }
-
-        return options[selectedOptionIndex]
-        
+        self.selectedOption?.description ?? "Select One"
     }
     
     var body: some View {
@@ -70,7 +64,7 @@ struct DropDownMenu: View {
                     .scrollDisabled(options.count <=  3)
                     .frame(height: scrollViewHeight)
                     .onAppear {
-                        scrollPosition = selectedOptionIndex
+                        scrollPosition = selectedOption
                     }
                     .scrollIndicators(.visible)
                     
@@ -92,16 +86,16 @@ struct DropDownMenu: View {
         
         LazyVStack(spacing: 0) {
             
-            ForEach(0..<options.count, id: \.self) { index in
+            ForEach(options, id: \.self) { option in
                 
                 button(
-                    title: options[index],
+                    title: option.description,
                     icon: "checkmark.circle.fill",
-                    isSelected: (index == selectedOptionIndex)) {
+                    isSelected: (selectedOption == option)) {
                         
                         withAnimation(.bouncy) {
                             
-                            selectedOptionIndex = index
+                            self.selectedOption = option
                             showDropdown.toggle()
                             
                         }
@@ -157,7 +151,7 @@ struct DropDownMenu: View {
 
 fileprivate struct DropDownMenuDemo: View {
     
-    @State private var selectedOptionIndex: Int?
+    @State private var selectedOption: String?
     @State private var showDropdown =  false
     
     let fruits = ["Charmander", "Squirtle", "Pikachu", "Bulbasaur"]
@@ -168,15 +162,15 @@ fileprivate struct DropDownMenuDemo: View {
             
             VStack(spacing: 32) {
                 
-                DropDownMenu(
+                CommonDropDownMenu(
                     options: fruits,
                     menuWdith: 200,
-                    selectedOptionIndex: $selectedOptionIndex,
+                    selectedOption: $selectedOption,
                     showDropdown: $showDropdown
                 )
                 
-                if let selectedOptionIndex {
-                    Text("You have selected \(fruits[selectedOptionIndex])")
+                if let selectedOption {
+                    Text("You have selected \(selectedOption.description)")
                         .transition(.move(edge: .bottom))
                 } else {
                     Text("Please Select Something")
