@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CircularIconView: View {
     
-    var foregroundColor: AppForegroundStyle = .color(ThemeManager.shared.accentColor())
-    var backgroundColor: AppBackgroundStyle = .color(ThemeManager.shared.background(.tertiary))
+    var foregroundColor: ColorSource = .color(ThemeManager.shared.accentColor())
+    var backgroundColor: ColorSource = .color(ThemeManager.shared.background(.tertiary))
     
     var size: CGFloat
 
@@ -26,7 +26,7 @@ struct CircularIconView: View {
         return ZStack {
             
             Circle()
-                .fill(self.backgroundColor.backgroundStyle())
+                .fill(self.backgroundColor.source())
                 .frame(width: self.size, height: self.size)
             
             if let systemImage {
@@ -35,7 +35,7 @@ struct CircularIconView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: self.imageSize, height: self.imageSize)
-                    .foregroundStyle(self.foregroundColor.foregroundStyle())
+                    .foregroundStyle(self.foregroundColor.source())
                 
             }
             else if let image {
@@ -45,7 +45,7 @@ struct CircularIconView: View {
                     .renderingMode(.template)
                     .scaledToFit()
                     .frame(width: self.imageSize, height: self.imageSize)
-                    .foregroundStyle(self.foregroundColor.foregroundStyle())
+                    .foregroundStyle(self.foregroundColor.source())
                 
             }
             
@@ -57,10 +57,10 @@ struct CircularIconView: View {
 
 struct BackButton: View {
     
-    private var backgroundColor: AppBackgroundStyle
+    private var backgroundColor: ColorSource
     private var backAction: (() -> ())
     
-    init(backgroundColor: AppBackgroundStyle = .color(ThemeManager.shared.background(.quad)),
+    init(backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad)),
          backAction: @escaping () -> Void) {
         
         self.backgroundColor = backgroundColor
@@ -87,11 +87,11 @@ struct BackButton: View {
 struct FavoriteButton: View {
     
     private var isFavorited: Bool
-    private var backgroundColor: AppBackgroundStyle
+    private var backgroundColor: ColorSource
     private var favoriteAction: (() -> ())
     
     init(isFavorited: Bool,
-         backgroundColor: AppBackgroundStyle = .material(.ultraThinMaterial),
+         backgroundColor: ColorSource = .material(.ultraThinMaterial),
          favoriteAction: @escaping () -> Void) {
         
         self.isFavorited = isFavorited

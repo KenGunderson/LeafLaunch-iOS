@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ProgressSlider: View {
     
-    private var trackStyle: AppBackgroundStyle
-    private var fillStyle: AppForegroundStyle
-    private var thumbStyle: AppBackgroundStyle
-    private var thumbCircleStyle: AppForegroundStyle
+    private var trackStyle: ColorSource
+    private var fillStyle: ColorSource
+    private var thumbStyle: ColorSource
+    private var thumbCircleStyle: ColorSource
     
     @Binding var value: Double
     
@@ -20,10 +20,10 @@ struct ProgressSlider: View {
     private var thumbHeight: CGFloat = 32
     
     init(value: Binding<Double>,
-         trackStyle: AppBackgroundStyle,
-         fillStyle: AppForegroundStyle,
-         thumbStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.primary)),
-         thumbCircleStyle: AppForegroundStyle = .color(ThemeManager.shared.accentColor()),
+         trackStyle: ColorSource,
+         fillStyle: ColorSource,
+         thumbStyle: ColorSource = .color(ThemeManager.shared.background(.primary)),
+         thumbCircleStyle: ColorSource = .color(ThemeManager.shared.accentColor()),
          thumbHeight: CGFloat = 32) {
         
         self._value = value
@@ -66,7 +66,7 @@ struct ProgressSlider: View {
     private func track(geometry: GeometryProxy) -> some View {
         
         self.trackStyle
-            .viewStyle()
+            .view()
             .frame(
                 width: geometry.size.width,
                 height: 10
@@ -78,7 +78,7 @@ struct ProgressSlider: View {
     private func fill(geometry: GeometryProxy) -> some View {
         
         self.fillStyle
-            .viewStyle()
+            .view()
             .frame(
                 width: geometry.size.width * CGFloat(value),
                 height: 10
@@ -98,11 +98,11 @@ struct ProgressSlider: View {
                         width: self.thumbHeight,
                         height: self.thumbHeight
                     )
-                    .foregroundStyle(self.thumbStyle.backgroundStyle())
+                    .foregroundStyle(self.thumbStyle.source())
                     .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                 
                 Circle()
-                    .stroke(self.thumbStyle.backgroundStyle(), lineWidth: 1)
+                    .stroke(self.thumbStyle.source(), lineWidth: 1)
                     .frame(
                         width: self.thumbHeight,
                         height: self.thumbHeight
@@ -113,7 +113,7 @@ struct ProgressSlider: View {
             .offset(x: CGFloat(value) * geometry.size.width - self.thumbRadius)
             
             Circle()
-                .fill(self.thumbCircleStyle.foregroundStyle())
+                .fill(self.thumbCircleStyle.source())
                 .frame(width: 10, height: 10)
                 .offset(x: CGFloat(value) * geometry.size.width - self.thumbRadius)
             

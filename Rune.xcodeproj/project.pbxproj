@@ -36,7 +36,7 @@
 		755C986D2D9CD3AA00437D5D /* AppHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98682D9CD3AA00437D5D /* AppHeaderScrollView.swift */; };
 		755C986E2D9CD3AA00437D5D /* AppBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98652D9CD3AA00437D5D /* AppBaseView.swift */; };
 		755C986F2D9CD3AA00437D5D /* CollapsableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98692D9CD3AA00437D5D /* CollapsableCardView.swift */; };
-		755C98712D9CD3C400437D5D /* AppBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98702D9CD3C400437D5D /* AppBackgroundStyle.swift */; };
+		755C98712D9CD3C400437D5D /* ColorSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98702D9CD3C400437D5D /* ColorSource.swift */; };
 		756527852D9F363700118E18 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756527842D9F363700118E18 /* InfoView.swift */; };
 		756527872D9F368600118E18 /* CommonTextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756527862D9F368600118E18 /* CommonTextEditView.swift */; };
 		759F90472D9CE44F005FD191 /* ZigZagShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F903E2D9CE44F005FD191 /* ZigZagShape.swift */; };
@@ -114,7 +114,7 @@
 		755C98672D9CD3AA00437D5D /* AppOutlineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOutlineCardView.swift; sourceTree = "<group>"; };
 		755C98682D9CD3AA00437D5D /* AppHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderScrollView.swift; sourceTree = "<group>"; };
 		755C98692D9CD3AA00437D5D /* CollapsableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableCardView.swift; sourceTree = "<group>"; };
-		755C98702D9CD3C400437D5D /* AppBackgroundStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackgroundStyle.swift; sourceTree = "<group>"; };
+		755C98702D9CD3C400437D5D /* ColorSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSource.swift; sourceTree = "<group>"; };
 		756527842D9F363700118E18 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		756527862D9F368600118E18 /* CommonTextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextEditView.swift; sourceTree = "<group>"; };
 		759F903C2D9CE44F005FD191 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		755C98232D9CC8C200437D5D /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
-				755C98702D9CD3C400437D5D /* AppBackgroundStyle.swift */,
+				755C98702D9CD3C400437D5D /* ColorSource.swift */,
 				759F90542D9CE616005FD191 /* asButton.swift */,
 				759F90552D9CE616005FD191 /* CenterIconStyle.swift */,
 				759F90562D9CE616005FD191 /* OnFirstAppear.swift */,
@@ -581,7 +581,7 @@
 				759F905D2D9CE616005FD191 /* asButton.swift in Sources */,
 				755C98552D9CD34400437D5D /* Ext+Color.swift in Sources */,
 				755C98572D9CD34400437D5D /* Ext+Dict.swift in Sources */,
-				755C98712D9CD3C400437D5D /* AppBackgroundStyle.swift in Sources */,
+				755C98712D9CD3C400437D5D /* ColorSource.swift in Sources */,
 				755C98582D9CD34400437D5D /* Ext+View.swift in Sources */,
 				755C98592D9CD34400437D5D /* Ext+NavigationController.swift in Sources */,
 				755C985A2D9CD34400437D5D /* Ext+Text.swift in Sources */,

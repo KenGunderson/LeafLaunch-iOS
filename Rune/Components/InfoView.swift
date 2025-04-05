@@ -13,13 +13,13 @@ struct InfoView: View {
     private let title: String
     private let titleFont: AppFont
     private let image: Image?
-    private let foregroundStyle: AppForegroundStyle
+    private let foregroundStyle: ColorSource
     private let action: (() -> ())?
     
     init(title: String,
          titleFont: AppFont = AppFont.title(.t5),
          image: Image? = nil,
-         foregroundStyle: AppForegroundStyle,
+         foregroundStyle: ColorSource,
          action: (() -> ())? = nil) {
         
         self.title = title
@@ -43,7 +43,7 @@ struct InfoView: View {
                         width: 24,
                         height: 24
                     )
-                    .foregroundStyle(self.foregroundStyle.foregroundStyle())
+                    .foregroundStyle(self.foregroundStyle.source())
                 
             }
             
@@ -51,7 +51,7 @@ struct InfoView: View {
                 .appFont(with: self.titleFont)
                 .lineLimit(nil)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(self.foregroundStyle.foregroundStyle())
+                .foregroundStyle(self.foregroundStyle.source())
             
             if self.action != nil {
                 
@@ -61,7 +61,7 @@ struct InfoView: View {
                         width: 8,
                         height: 16
                     )
-                    .foregroundStyle(self.foregroundStyle.foregroundStyle())
+                    .foregroundStyle(self.foregroundStyle.source())
                 
             }
             

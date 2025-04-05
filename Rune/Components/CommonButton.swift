@@ -10,15 +10,15 @@ import SwiftUI
 struct CommonButton: View {
         
     var title: String
-    var titleColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
+    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
     var icon: Image?
-    var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.accentColor())
+    var backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor())
     var action: () -> Void
     
     init(title: String,
-         titleColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title)),
+         titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title)),
          icon: Image? = nil,
-         backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.accentColor()),
+         backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor()),
          action: @escaping () -> Void) {
         
         self.title = title
@@ -44,7 +44,7 @@ struct CommonButton: View {
                 }
                 
                 Text(self.title)
-                    .foregroundStyle(self.titleColor.foregroundStyle())
+                    .foregroundStyle(self.titleColor.source())
                     .appFont(with: .title(.t5))
                     .lineLimit(1)
                 
@@ -91,7 +91,7 @@ struct CommonButton: View {
 
 struct CommonButtonStyle: ButtonStyle {
     
-    var background: AppBackgroundStyle = .color(ThemeManager.shared.accentColor())
+    var background: ColorSource = .color(ThemeManager.shared.accentColor())
     var cornerRadius: CornerRadius
     var verticalPadding: Spacing = .custom(12)
     var horizontalPadding: Spacing = .xLarge
@@ -102,7 +102,7 @@ struct CommonButtonStyle: ButtonStyle {
             .padding(.horizontal, self.horizontalPadding.value)
             .padding(.vertical, self.verticalPadding.value)
             .frame(maxWidth: .infinity)
-            .background(self.background.backgroundStyle())
+            .background(self.background.source())
             .foregroundColor(.white)
             .clipShape(RoundedRectangle(cornerRadius: self.cornerRadius.value))
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
@@ -117,7 +117,7 @@ struct CommonButtonStyle: ButtonStyle {
 
 extension ButtonStyle where Self == CommonButtonStyle {
     
-    static func commonButtonStyle(background: AppBackgroundStyle = .color(ThemeManager.shared.accentColor()),
+    static func commonButtonStyle(background: ColorSource = .color(ThemeManager.shared.accentColor()),
                                   cornerRadius: CornerRadius = .small,
                                   verticalPadding: Spacing = .small,
                                   horizontalPadding: Spacing = .medium) -> CommonButtonStyle {

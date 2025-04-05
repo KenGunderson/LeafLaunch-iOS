@@ -13,15 +13,15 @@ struct CommonTextFieldStyle: TextFieldStyle {
     var hint: String?
     var icon: Image?
     var isFocused: Bool
-    var borderColor: AppForegroundStyle
-    var foregroundColor: AppForegroundStyle
-    var backgroundColor: AppBackgroundStyle
-    var unselectedColor: AppForegroundStyle
+    var borderColor: ColorSource
+    var foregroundColor: ColorSource
+    var backgroundColor: ColorSource
+    var unselectedColor: ColorSource
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         
-        let borderColor = self.borderColor.foregroundStyle()
-        let foregroundColor = self.foregroundColor.foregroundStyle()
+        let borderColor = self.borderColor.source()
+        let foregroundColor = self.foregroundColor.source()
         
         ZStack(alignment: .leading) {
             
@@ -42,13 +42,13 @@ struct CommonTextFieldStyle: TextFieldStyle {
             }
             .frame(height: 50)
             .padding(.horizontal, self.icon == nil ? .medium : .small)
-            .background(self.backgroundColor.backgroundStyle())
+            .background(self.backgroundColor.source())
             .foregroundStyle(foregroundColor)
             .appFont(with: .title(.t5))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(self.isFocused ? borderColor : self.unselectedColor.foregroundStyle(), lineWidth: 2)
+                    .stroke(self.isFocused ? borderColor : self.unselectedColor.source(), lineWidth: 2)
             }
             .appShadow()
             .tint(foregroundColor)
@@ -95,10 +95,10 @@ extension View {
                            hint: String? = nil,
                            icon: Image? = nil,
                            isFocused: Bool,
-                           borderColor: AppForegroundStyle = .color(ThemeManager.shared.accentColor()),
-                           foregroundColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.body)),
-                           backgroundColor: AppBackgroundStyle = .color(ThemeManager.shared.background(.secondary)),
-                           unselectedColor: AppForegroundStyle = .color(ThemeManager.shared.background(.quad))) -> some View {
+                           borderColor: ColorSource = .color(ThemeManager.shared.accentColor()),
+                           foregroundColor: ColorSource = .color(ThemeManager.shared.textColor(.body)),
+                           backgroundColor: ColorSource = .color(ThemeManager.shared.background(.secondary)),
+                           unselectedColor: ColorSource = .color(ThemeManager.shared.background(.quad))) -> some View {
         
         self
             .textFieldStyle(CommonTextFieldStyle(

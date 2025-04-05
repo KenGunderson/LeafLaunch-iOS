@@ -15,8 +15,9 @@ struct CommonDropDownMenu<S: Selectable>: View {
     var menuWdith: CGFloat = 150
     var buttonHeight: CGFloat = 50
     var maxItemDisplayed: Int = 3
-    var foregroundStyle: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
-    var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.tertiary))
+    var foregroundStyle: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.tertiary))
+    var cornerRadius: CornerRadius = .small
 
     @Binding var selectedOption: S?
     @Binding var showDropdown: Bool
@@ -71,8 +72,8 @@ struct CommonDropDownMenu<S: Selectable>: View {
                 }
                 
             }
-            .foregroundStyle(self.foregroundStyle.foregroundStyle())
-            .background(RoundedRectangle(cornerRadius: CornerRadius.medium.value).fill(backgroundStyle.backgroundStyle()))
+            .foregroundStyle(self.foregroundStyle.source())
+            .background(RoundedRectangle(cornerRadius: self.cornerRadius.value).fill(backgroundStyle.source()))
             
         }
         .clipped()
@@ -143,7 +144,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             }
             
         }
-        .foregroundStyle(self.foregroundStyle.foregroundStyle())
+        .foregroundStyle(self.foregroundStyle.source())
         
     }
     

@@ -14,10 +14,10 @@ struct TextProgressBar: View {
     
     var text: String
     var textFont: AppFont = .body(.b5)
-    var textColor: AppForegroundStyle = .color(.white)
+    var textColor: ColorSource = .color(.white)
     
-    var trackColor: AppForegroundStyle
-    var fillColor: AppBackgroundStyle
+    var trackColor: ColorSource
+    var fillColor: ColorSource
     
     var cornerRadius: CornerRadius = .small
     
@@ -47,7 +47,7 @@ struct TextProgressBar: View {
         
         Text(self.text)
             .appFont(with: self.textFont)
-            .foregroundStyle(self.textColor.foregroundStyle())
+            .foregroundStyle(self.textColor.source())
         
     }
     
@@ -67,7 +67,7 @@ struct TextProgressBar: View {
                         height: geometry.size.height
                     )
                     .opacity(0.3)
-                    .foregroundStyle(self.trackColor.foregroundStyle())
+                    .foregroundStyle(self.trackColor.source())
                 
                 // Fill
                 
@@ -76,7 +76,7 @@ struct TextProgressBar: View {
                         width: fillWidth,
                         height: geometry.size.height
                     )
-                    .foregroundStyle(self.fillColor.backgroundStyle())
+                    .foregroundStyle(self.fillColor.source())
                     .animation(.spring(), value: self.value)
                 
             }

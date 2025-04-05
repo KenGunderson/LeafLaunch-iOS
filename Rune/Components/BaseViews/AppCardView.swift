@@ -11,13 +11,13 @@ struct AppCardView<Content>: View where Content: View {
 
     private let verticalPadding: Spacing
     private let horizontalPadding: Spacing
-    private let backgroundStyle: AppBackgroundStyle
+    private let backgroundStyle: ColorSource
     private let cornerRadius: CornerRadius
     private let content: Content
     
     public init(verticalPadding: Spacing = .medium,
                 horizontalPadding: Spacing = .medium,
-                backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.secondary)),
+                backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.secondary)),
                 cornerRadius: CornerRadius = .small2,
                 @ViewBuilder content: () -> Content) {
         
@@ -44,7 +44,7 @@ struct AppCardView<Content>: View where Content: View {
             }
             
         }
-        .background(self.backgroundStyle.backgroundStyle())
+        .background(self.backgroundStyle.source())
         .cornerRadius(self.cornerRadius)
         .appShadow()
         

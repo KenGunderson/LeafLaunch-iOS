@@ -13,7 +13,7 @@ struct AppHeaderScrollView<NavBarContent: View,
     @Binding private var scrollOffset: CGFloat
     
     private let alignment: Alignment
-    private let backgroundStyle: AppBackgroundStyle
+    private let backgroundStyle: ColorSource
     private let isScrollTrackingEnabled: Bool
     private let navBarContent: NavBarContent
     private let scrollViewContent: ScrollViewContent
@@ -22,7 +22,7 @@ struct AppHeaderScrollView<NavBarContent: View,
     
     public init(alignment: Alignment = .top,
                 horizontalPadding: Spacing = .medium,
-                backgroundStyle: AppBackgroundStyle = .color(.clear),
+                backgroundStyle: ColorSource = .color(.clear),
                 scrollOffset: Binding<CGFloat>? = nil,
                 @ViewBuilder navBarContent: () -> NavBarContent,
                 @ViewBuilder scrollViewContent: () -> ScrollViewContent) {
@@ -56,7 +56,7 @@ struct AppHeaderScrollView<NavBarContent: View,
 
                 }
 //                .scrollBounceBehavior(.basedOnSize, axes: .vertical)
-                .background(self.backgroundStyle.backgroundStyle())
+                .background(self.backgroundStyle.source())
                 .if(self.isScrollTrackingEnabled) { view in
                     
                     view.onScrollGeometryChange(for: CGFloat.self) { geo in

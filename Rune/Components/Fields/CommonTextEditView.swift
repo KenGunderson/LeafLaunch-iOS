@@ -13,11 +13,11 @@ struct CommonTextEditView: View {
     @Binding var text: String
     var placehoderText: String
     var isFocused: Bool
-    var titleColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.body))
-    var placeholderColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title).opacity(0.5))
-    var unselectedBorderColor: AppBackgroundStyle = .color(ThemeManager.shared.background(.quad))
-    var selectedBorderColor: AppForegroundStyle = .color(ThemeManager.shared.accentColor())
-    var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.secondary))
+    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.body))
+    var placeholderColor: ColorSource = .color(ThemeManager.shared.textColor(.title).opacity(0.5))
+    var unselectedBorderColor: ColorSource = .color(ThemeManager.shared.background(.quad))
+    var selectedBorderColor: ColorSource = .color(ThemeManager.shared.accentColor())
+    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.secondary))
     var lineLimit: ClosedRange<Int> = 5...5
     
     var body: some View {
@@ -25,21 +25,21 @@ struct CommonTextEditView: View {
         TextField(
             "Test",
             text: self.$text,
-            prompt: Text(self.placehoderText).foregroundStyle(self.placeholderColor.foregroundStyle()),
+            prompt: Text(self.placehoderText).foregroundStyle(self.placeholderColor.source()),
             axis: .vertical
         )
         .lineLimit(self.lineLimit)
         .padding(16)
-        .background(self.backgroundStyle.backgroundStyle())
-        .foregroundStyle(self.titleColor.foregroundStyle())
+        .background(self.backgroundStyle.source())
+        .foregroundStyle(self.titleColor.source())
         .appFont(with: .title(.t5))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(self.isFocused ? self.selectedBorderColor.foregroundStyle() : self.unselectedBorderColor.backgroundStyle(), lineWidth: 2)
+                .stroke(self.isFocused ? self.selectedBorderColor.source() : self.unselectedBorderColor.source(), lineWidth: 2)
         }
         .appShadow()
-        .tint(self.placeholderColor.foregroundStyle())
+        .tint(self.placeholderColor.source())
         
     }
     

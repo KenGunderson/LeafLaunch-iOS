@@ -18,10 +18,10 @@ struct CommonSegmentedControl<S: Selectable>: View {
     var options: [S]
     
     var titleFont: AppFont = .title(.t4)
-    var selectedTextColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
-    var unselectedTextColor: AppForegroundStyle = .color(ThemeManager.shared.textColor(.title))
-    var foregroundStyle: AppForegroundStyle = .color(ThemeManager.shared.accentColor())
-    var backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.tertiary))
+    var selectedTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var unselectedTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var foregroundStyle: ColorSource = .color(ThemeManager.shared.accentColor())
+    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.tertiary))
     
     var body: some View {
         
@@ -45,7 +45,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
                             .appFont(with: self.titleFont)
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .foregroundStyle(isSelected ? self.selectedTextColor.foregroundStyle() : self.unselectedTextColor.foregroundStyle())
+                            .foregroundStyle(isSelected ? self.selectedTextColor.source() : self.unselectedTextColor.source())
                         
                     })
                     .background {
@@ -54,7 +54,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
                             
                             RoundedRectangle(cornerRadius: CornerRadius.extraSmall.value)
                             
-                                .fill(self.foregroundStyle.foregroundStyle())
+                                .fill(self.foregroundStyle.source())
                                 .padding(.vertical, 6)
                                 .matchedGeometryEffect(id: "selection", in: self.selectionNamespace)
                             
@@ -71,7 +71,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .background(
             RoundedRectangle(cornerRadius: CornerRadius.small.value)
-                .fill(self.backgroundStyle.backgroundStyle())
+                .fill(self.backgroundStyle.source())
         )
         .appShadow()
         

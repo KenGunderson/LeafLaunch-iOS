@@ -12,12 +12,12 @@ struct AppBaseView<Content>: View where Content: View {
     private let horizontalPadding: Spacing
     private let content: Content
     private let alignment: Alignment
-    private let backgroundStyle: AppBackgroundStyle
+    private let backgroundStyle: ColorSource
 
     public init(
         alignment: Alignment = .center,
         horizontalPadding: Spacing = .none,
-        backgroundStyle: AppBackgroundStyle = .color(ThemeManager.shared.background(.primary)),
+        backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.primary)),
         @ViewBuilder content: () -> Content) {
             
             self.alignment = alignment
@@ -32,7 +32,7 @@ struct AppBaseView<Content>: View where Content: View {
         ZStack(alignment: self.alignment) {
             
             self.backgroundStyle
-                .viewStyle()
+                .view()
                 .ignoresSafeArea()
             
             content

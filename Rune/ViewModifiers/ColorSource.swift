@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-enum AppBackgroundStyle: Hashable {
+enum ColorSource: Hashable {
     
     case color(ColorWrapper)
     case material(MaterialWrapper)
     case linearGradient(GradientWrapper)
     
-    func backgroundStyle() -> AnyShapeStyle {
+    func source() -> AnyShapeStyle {
         
         switch self {
         case .color(let wrapper): return AnyShapeStyle(wrapper.color)
@@ -23,7 +23,7 @@ enum AppBackgroundStyle: Hashable {
         
     }
     
-    func viewStyle() -> some View {
+    func view() -> some View {
         
         switch self {
         case .color(let wrapper): return AnyView(Rectangle().fill(wrapper.color))
@@ -35,61 +35,17 @@ enum AppBackgroundStyle: Hashable {
     
 }
 
-extension AppBackgroundStyle {
+extension ColorSource {
     
-    static func color(_ color: Color) -> AppBackgroundStyle {
+    static func color(_ color: Color) -> ColorSource {
         .color(ColorWrapper(color))
     }
     
-    static func material(_ material: Material) -> AppBackgroundStyle {
+    static func material(_ material: Material) -> ColorSource {
         .material(MaterialWrapper(material))
     }
     
-    static func linearGradient(_ gradient: LinearGradient) -> AppBackgroundStyle {
-        .linearGradient(GradientWrapper(gradient))
-    }
-    
-}
-
-enum AppForegroundStyle: Hashable {
-    
-    case color(ColorWrapper)
-    case material(MaterialWrapper)
-    case linearGradient(GradientWrapper)
-    
-    func foregroundStyle() -> AnyShapeStyle {
-        
-        switch self {
-        case .color(let wrapper): return AnyShapeStyle(wrapper.color)
-        case .material(let wrapper): return AnyShapeStyle(wrapper.material)
-        case .linearGradient(let wrapper): return AnyShapeStyle(wrapper.gradient)
-        }
-        
-    }
-    
-    func viewStyle() -> some View {
-        
-        switch self {
-        case .color(let wrapper): return AnyView(Rectangle().fill(wrapper.color))
-        case .material(let wrapper): return AnyView(Rectangle().fill(wrapper.material))
-        case .linearGradient(let wrapper): return AnyView(Rectangle().fill(wrapper.gradient))
-        }
-        
-    }
-    
-}
-
-extension AppForegroundStyle {
-    
-    static func color(_ color: Color) -> AppForegroundStyle {
-        .color(ColorWrapper(color))
-    }
-    
-    static func material(_ material: Material) -> AppForegroundStyle {
-        .material(MaterialWrapper(material))
-    }
-    
-    static func linearGradient(_ gradient: LinearGradient) -> AppForegroundStyle {
+    static func linearGradient(_ gradient: LinearGradient) -> ColorSource {
         .linearGradient(GradientWrapper(gradient))
     }
     
