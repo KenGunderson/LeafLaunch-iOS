@@ -114,6 +114,7 @@ struct ContentView: View {
             }
             
         }
+        .scrollDismissesKeyboard(.interactively)
         
     }
     
@@ -129,7 +130,7 @@ struct ContentView: View {
             
             CommonDropDownMenu(
                 options: self.dropDownValues,
-                menuWdith: 200,
+                menuWdith: UIScreen.main.bounds.width * 0.8,
                 selectedOption: self.$selectedDropDownValue,
                 showDropdown: self.$shouldShowDropDown
             )

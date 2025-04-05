@@ -5,7 +5,6 @@
 //  Created by Sako Hovaguimian on 4/3/25.
 //
 
-
 import SwiftUI
 
 struct CommonDropDownMenu<S: Selectable>: View {
@@ -18,6 +17,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
     var foregroundStyle: ColorSource = .color(ThemeManager.shared.textColor(.title))
     var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.tertiary))
     var cornerRadius: CornerRadius = .small
+    var shouldPushContentDown: Bool = true
 
     @Binding var selectedOption: S?
     @Binding var showDropdown: Bool
@@ -35,24 +35,35 @@ struct CommonDropDownMenu<S: Selectable>: View {
             VStack(spacing: 0) {
                 
                 button(
-                    title: defaultTitle,
+                    title: self.defaultTitle,
                     icon: "chevron.down",
                     isSelected: true,
                     shouldRotate: self.showDropdown
                 ) {
                     
                     withAnimation(.bouncy) {
-                        showDropdown.toggle()
+                        self.showDropdown.toggle()
                     }
                     
                 }
                 .padding(.horizontal, 20)
-                .frame(width: menuWdith, height: buttonHeight, alignment: .center)
-                
-                if (showDropdown) {
+                .frame(width: self.menuWdith, height: self.buttonHeight, alignment: .center)
+                .overlay(alignment: .bottom) {
                     
-                    let scrollViewHeight: CGFloat = options.count > maxItemDisplayed
-                    ? (buttonHeight * CGFloat(maxItemDisplayed))
+                    if self.showDropdown {
+                        
+                        Divider()
+                            .frame(minHeight: 2)
+                            .background(ThemeManager.shared.background(.quad))
+                            .transition(.blurReplace)
+                        
+                    }
+                    
+
+                }
+                    
+                let scrollViewHeight: CGFloat = self.options.count > self.maxItemDisplayed
+                    ? (buttonHeight * CGFloat(self.maxItemDisplayed))
                     : (buttonHeight * CGFloat(options.count))
                     
                     ScrollView {
@@ -61,25 +72,29 @@ struct CommonDropDownMenu<S: Selectable>: View {
                             .scrollTargetLayout()
                         
                     }
-                    .scrollPosition(id: $scrollPosition)
-                    .scrollDisabled(options.count <=  3)
-                    .frame(height: scrollViewHeight)
+                    .scrollPosition(id: self.$scrollPosition)
+                    .scrollDisabled(self.options.count <=  3)
+                    .frame(height: self.showDropdown ? scrollViewHeight : 0)
                     .onAppear {
-                        scrollPosition = selectedOption
+                        self.scrollPosition = selectedOption
                     }
                     .scrollIndicators(.visible)
-                    
-                }
                 
             }
             .foregroundStyle(self.foregroundStyle.source())
-            .background(RoundedRectangle(cornerRadius: self.cornerRadius.value).fill(backgroundStyle.source()))
+            .background(RoundedRectangle(cornerRadius: self.cornerRadius.value).fill(self.backgroundStyle.source()))
             
         }
         .clipped()
         .appShadow()
-        .frame(width: menuWdith, height: buttonHeight, alignment: .top)
-        .zIndex(100)
+        .frame(
+            width: menuWdith,
+            height: self.shouldPushContentDown ? nil : self.buttonHeight,
+            alignment: .top
+        )
+        .zIndex(
+            100
+        )
         
     }
     
@@ -87,7 +102,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
         
         LazyVStack(spacing: 0) {
             
-            ForEach(options, id: \.self) { option in
+            ForEach(options) { option in
                 
                 button(
                     title: option.description,
@@ -97,7 +112,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                         withAnimation(.bouncy) {
                             
                             self.selectedOption = option
-                            showDropdown.toggle()
+                            self.showDropdown.toggle()
                             
                         }
                         
@@ -108,6 +123,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                         height: buttonHeight,
                         alignment: .center
                     )
+                    .id(option)
                 
             }
             
