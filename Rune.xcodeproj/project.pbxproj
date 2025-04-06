@@ -39,6 +39,7 @@
 		755C98712D9CD3C400437D5D /* ColorSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98702D9CD3C400437D5D /* ColorSource.swift */; };
 		756527852D9F363700118E18 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756527842D9F363700118E18 /* InfoView.swift */; };
 		756527872D9F368600118E18 /* CommonTextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756527862D9F368600118E18 /* CommonTextEditView.swift */; };
+		759F50562DA2378100B071E5 /* CommonMultiSelectDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F50552DA2376000B071E5 /* CommonMultiSelectDropDown.swift */; };
 		759F90472D9CE44F005FD191 /* ZigZagShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F903E2D9CE44F005FD191 /* ZigZagShape.swift */; };
 		759F90482D9CE44F005FD191 /* CommonSelectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F90452D9CE44F005FD191 /* CommonSelectionSheet.swift */; };
 		759F90492D9CE44F005FD191 /* TextProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F90412D9CE44F005FD191 /* TextProgressBar.swift */; };
@@ -117,6 +118,7 @@
 		755C98702D9CD3C400437D5D /* ColorSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSource.swift; sourceTree = "<group>"; };
 		756527842D9F363700118E18 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		756527862D9F368600118E18 /* CommonTextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextEditView.swift; sourceTree = "<group>"; };
+		759F50552DA2376000B071E5 /* CommonMultiSelectDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMultiSelectDropDown.swift; sourceTree = "<group>"; };
 		759F903C2D9CE44F005FD191 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		759F903D2D9CE44F005FD191 /* CommonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		759F903E2D9CE44F005FD191 /* ZigZagShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZigZagShape.swift; sourceTree = "<group>"; };
@@ -340,6 +342,15 @@
 			path = BaseViews;
 			sourceTree = "<group>";
 		};
+		759F50572DA23EE300B071E5 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				752D91262D9F23B100696649 /* CommonDropDownMenu.swift */,
+				759F50552DA2376000B071E5 /* CommonMultiSelectDropDown.swift */,
+			);
+			path = DropDown;
+			sourceTree = "<group>";
+		};
 		759F903F2D9CE44F005FD191 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,8 +374,8 @@
 			children = (
 				759F90442D9CE44F005FD191 /* Selectable.swift */,
 				759F90462D9CE44F005FD191 /* CommonSegmentedControl.swift */,
-				752D91262D9F23B100696649 /* CommonDropDownMenu.swift */,
 				759F90452D9CE44F005FD191 /* CommonSelectionSheet.swift */,
+				759F50572DA23EE300B071E5 /* DropDown */,
 			);
 			path = Selectable;
 			sourceTree = "<group>";
@@ -538,6 +549,7 @@
 			files = (
 				755C98612D9CD38700437D5D /* AppShadow.swift in Sources */,
 				755C98622D9CD38700437D5D /* AppSpacing.swift in Sources */,
+				759F50562DA2378100B071E5 /* CommonMultiSelectDropDown.swift in Sources */,
 				755C98632D9CD38700437D5D /* AppFont.swift in Sources */,
 				759F906E2D9CF7BD005FD191 /* CommonTextFieldStyle.swift in Sources */,
 				756527852D9F363700118E18 /* InfoView.swift in Sources */,

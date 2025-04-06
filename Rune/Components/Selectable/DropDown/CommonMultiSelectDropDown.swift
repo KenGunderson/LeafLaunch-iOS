@@ -1,17 +1,16 @@
 //
-//  CommonDropDownMenu.swift
+//  CommonMultiSelectDropDown.swift
 //  Rune
 //
-//  Created by Sako Hovaguimian on 4/3/25.
+//  Created by Sako Hovaguimian on 4/5/25.
 //
 
 import SwiftUI
 
-struct CommonDropDownMenu<S: Selectable>: View {
+struct CommonDropDownMultiSelectMenu<S: Selectable>: View {
     
-    var options: [S]
+    let options: [S]
     
-    var menuWdith: CGFloat = 150
     var buttonHeight: CGFloat = 50
     var maxItemDisplayed: Int = 3
     var foregroundStyle: ColorSource = .color(ThemeManager.shared.textColor(.title))
@@ -19,13 +18,24 @@ struct CommonDropDownMenu<S: Selectable>: View {
     var cornerRadius: CornerRadius = .small
     var shouldPushContentDown: Bool = true
 
-    @Binding var selectedOption: S?
+    @Binding var selectedOptions: Set<S>
     @Binding var showDropdown: Bool
     
-    @State private var scrollPosition: S?
-    
-    var defaultTitle: String {
-        self.selectedOption?.description ?? "Select One"
+    var selectionTitle: String {
+        
+        let numberOfSelectionTitle = "\(self.selectedOptions.count) Selected"
+        let allSelectedTitle = "All Selected"
+        
+        var title: String?
+        
+        if self.selectedOptions.count == self.options.count {
+            title = allSelectedTitle
+        } else if !self.selectedOptions.isEmpty {
+            title = numberOfSelectionTitle
+        }
+        
+        return title ?? "Select All That Apply"
+        
     }
     
     var body: some View {
@@ -35,7 +45,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             VStack(spacing: 0) {
                 
                 button(
-                    title: self.defaultTitle,
+                    title: self.selectionTitle,
                     icon: "chevron.down",
                     isSelected: true,
                     shouldRotate: self.showDropdown
@@ -47,7 +57,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                     
                 }
                 .padding(.horizontal, 20)
-                .frame(width: self.menuWdith, height: self.buttonHeight, alignment: .center)
+                .frame(height: self.buttonHeight, alignment: .center)
                 .overlay(alignment: .bottom) {
                     
                     if self.showDropdown {
@@ -72,12 +82,9 @@ struct CommonDropDownMenu<S: Selectable>: View {
                             .scrollTargetLayout()
                         
                     }
-                    .scrollPosition(id: self.$scrollPosition)
                     .scrollDisabled(self.options.count <=  3)
                     .frame(height: self.showDropdown ? scrollViewHeight : 0)
-                    .onAppear {
-                        self.scrollPosition = selectedOption
-                    }
+                    .opacity(self.showDropdown ? 1 : 0)
                     .scrollIndicators(.visible)
                 
             }
@@ -87,7 +94,6 @@ struct CommonDropDownMenu<S: Selectable>: View {
         }
         .appShadow()
         .frame(
-            width: menuWdith,
             height: self.shouldPushContentDown ? nil : self.buttonHeight,
             alignment: .top
         )
@@ -101,28 +107,29 @@ struct CommonDropDownMenu<S: Selectable>: View {
         
         LazyVStack(spacing: 0) {
             
-            ForEach(options) { option in
+            ForEach(self.options) { option in
                 
                 button(
                     title: option.description,
                     icon: "checkmark.circle.fill",
-                    isSelected: (selectedOption == option)) {
+                    isSelected: self.selectedOptions.contains(option)) {
                         
-                        withAnimation(.bouncy) {
+                        withAnimation(.smooth(duration: 0.5)) {
                             
-                            self.selectedOption = option
-                            self.showDropdown.toggle()
+                            if self.selectedOptions.contains(option) {
+                                self.selectedOptions.remove(option)
+                            } else {
+                                self.selectedOptions.insert(option)
+                            }
                             
                         }
                         
                     }
                     .padding(.horizontal, 20)
                     .frame(
-                        width: menuWdith,
                         height: buttonHeight,
                         alignment: .center
                     )
-                    .id(option)
                 
             }
             
@@ -152,9 +159,14 @@ struct CommonDropDownMenu<S: Selectable>: View {
                     .contentTransition(.numericText())
                     .appFont(with: .title(.t4))
                 
-                Image(systemName: icon)
-                    .opacity(isSelected ? 1 : 0)
-                    .rotationEffect(.degrees(shouldRotate ? -180 : 0))
+                if isSelected {
+                    
+                    Image(systemName: icon)
+                        .opacity(isSelected ? 1 : 0)
+                        .rotationEffect(.degrees(shouldRotate ? -180 : 0))
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
+                    
+                }
                 
             }
             
@@ -165,9 +177,9 @@ struct CommonDropDownMenu<S: Selectable>: View {
     
 }
 
-fileprivate struct DropDownMenuDemo: View {
+fileprivate struct CommonDropDownMultiSelectMenuView: View {
     
-    @State private var selectedOption: String?
+    @State private var selectedOptions: Set<String> = []
     @State private var showDropdown =  false
     
     let fruits = ["Charmander", "Squirtle", "Pikachu", "Bulbasaur"]
@@ -178,16 +190,17 @@ fileprivate struct DropDownMenuDemo: View {
             
             VStack(spacing: 32) {
                 
-                CommonDropDownMenu(
+                CommonDropDownMultiSelectMenu(
                     options: fruits,
-                    menuWdith: 200,
-                    shouldPushContentDown: false,
-                    selectedOption: $selectedOption,
+                    maxItemDisplayed: 10,
+                    shouldPushContentDown: true,
+                    selectedOptions: $selectedOptions,
                     showDropdown: $showDropdown
                 )
+                .frame(width: 280)
                 
-                if let selectedOption {
-                    Text("You have selected \(selectedOption.description)")
+                if !selectedOptions.isEmpty {
+                    Text("You have selected \(selectedOptions.joined(separator: ", "))")
                         .transition(.move(edge: .bottom))
                 } else {
                     Text("Please Select Something")
@@ -216,6 +229,6 @@ fileprivate struct DropDownMenuDemo: View {
 
 #Preview {
     
-    DropDownMenuDemo()
+    CommonDropDownMultiSelectMenuView()
     
 }

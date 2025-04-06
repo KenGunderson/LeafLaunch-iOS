@@ -66,6 +66,9 @@ struct ContentView: View {
         "NBA 2K"
     ]
     
+    @State var shouldShowMultiSelectDropDown: Bool = false
+    @State var selectedMultiSelectDropDownValues: Set<String> = []
+    
     // Slider
     
     @State var sliderValue: Double = 0.8
@@ -130,9 +133,17 @@ struct ContentView: View {
             
             CommonDropDownMenu(
                 options: self.dropDownValues,
-                menuWdith: UIScreen.main.bounds.width * 0.8,
+                maxItemDisplayed: 3,
                 selectedOption: self.$selectedDropDownValue,
                 showDropdown: self.$shouldShowDropDown
+            )
+            
+            CommonDropDownMultiSelectMenu(
+                options: self.dropDownValues,
+                maxItemDisplayed: 10,
+                shouldPushContentDown: true,
+                selectedOptions: self.$selectedMultiSelectDropDownValues,
+                showDropdown: self.$shouldShowMultiSelectDropDown
             )
             
         }
