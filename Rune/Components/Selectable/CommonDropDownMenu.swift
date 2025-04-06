@@ -41,7 +41,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                     shouldRotate: self.showDropdown
                 ) {
                     
-                    withAnimation(.bouncy) {
+                    withAnimation(.smooth(duration: 0.5)) {
                         self.showDropdown.toggle()
                     }
                     
@@ -85,7 +85,6 @@ struct CommonDropDownMenu<S: Selectable>: View {
             .background(RoundedRectangle(cornerRadius: self.cornerRadius.value).fill(self.backgroundStyle.source()))
             
         }
-        .clipped()
         .appShadow()
         .frame(
             width: menuWdith,
@@ -182,6 +181,7 @@ fileprivate struct DropDownMenuDemo: View {
                 CommonDropDownMenu(
                     options: fruits,
                     menuWdith: 200,
+                    shouldPushContentDown: false,
                     selectedOption: $selectedOption,
                     showDropdown: $showDropdown
                 )
