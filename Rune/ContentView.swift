@@ -5,41 +5,11 @@
 //  Created by Sako Hovaguimian on 4/1/25.
 //
 
-// TODO: -
-/// Move Infrastructure from GP, move newer Components from SwiftyUI
-/// Get Spacing / Colors / Fonts / Image Source / Background Style / Shadows /Etc
-/// Get Base Views Adapt them to use AppBackgroundStyle etc...
-/// Image Views / Progress Bars / Common Tools
-/// Adapt them all to use ENV theme
-/// Consolidate AppBackgroundStyle + AppForegroundStyle into ColorSource
-/// Eventually Support Services -> From GP
-///
-/// IMPORTANT:
-/// We need to not just use ThemeManager downstream, but also allow those properties to be in initializers to
-/// set overrides if the user wants to. ThemeEngine or raw property.
-/// Add Shadow color to Theme
-///
-///
-/// NOTES:
-/// Could we move shadow + spacing + font styles etc. to a plist and have it directly applied to theme to make it a dynamic setup
-
 import SwiftUI
 
-extension Int: @retroactive Identifiable {
-    
-    public var id: Self {
-        return self.hashValue
-    }
-    
-}
-
-extension String: @retroactive Identifiable {
-    
-    public var id: Self {
-        return self
-    }
-    
-}
+// MARK: - Todo items -
+/// Adapt them all to use ENV theme
+/// Move more views from SwiftyUI + GP into here
 
 struct ContentView: View {
     
@@ -141,7 +111,7 @@ struct ContentView: View {
             CommonDropDownMultiSelectMenu(
                 options: self.dropDownValues,
                 maxItemDisplayed: 10,
-                shouldPushContentDown: true,
+                shouldPushContentDown: false,
                 selectedOptions: self.$selectedMultiSelectDropDownValues,
                 showDropdown: self.$shouldShowMultiSelectDropDown
             )
