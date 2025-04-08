@@ -11,8 +11,8 @@ struct ProgressBar: View {
     
     @Binding var value: Float
     
-    var trackColor: Color
-    var fillColor: Color
+    var trackColor: ColorSource
+    var fillColor: ColorSource
     var shouldRound: Bool = true
     
     var body: some View {
@@ -31,7 +31,7 @@ struct ProgressBar: View {
                         height: geometry.size.height
                     )
                     .opacity(0.3)
-                    .foregroundColor(self.trackColor)
+                    .foregroundStyle(self.trackColor.source())
                 
                 // Fill
                 
@@ -40,12 +40,13 @@ struct ProgressBar: View {
                         width: fillValue,
                         height: geometry.size.height
                     )
-                    .foregroundColor(self.fillColor)
+                    .foregroundStyle(self.fillColor.source())
                     .animation(.spring(), value: fillValue)
             }
             .if(self.shouldRound) { view in
                 view.clipShape(.capsule)
             }
+            .fixedSize(horizontal: false, vertical: true)
         }
     }
     
@@ -55,8 +56,8 @@ struct ProgressBar: View {
     
     ProgressBar(
         value: .constant(0.8),
-        trackColor: .green.opacity(0.8),
-        fillColor: .green
+        trackColor: .color(.green.opacity(0.8)),
+        fillColor: .color(.green)
     )
     .frame(maxWidth: .infinity, maxHeight: 20)
     .padding(24)

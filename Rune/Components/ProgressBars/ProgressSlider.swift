@@ -57,6 +57,7 @@ struct ProgressSlider: View {
                         }
                 )
             }
+            .frame(height: geometry.size.height)
             
         }
         .frame(maxHeight: 40)
@@ -161,7 +162,7 @@ struct ProgressSlider: View {
                     trackStyle: .color(Color(UIColor.systemGray6)),
                     fillStyle: .color(.pink),
                     thumbCircleStyle: .color(.pink),
-                    thumbHeight: 24
+                    thumbHeight: 36
                 )
                 .frame(maxWidth: .infinity)
                 

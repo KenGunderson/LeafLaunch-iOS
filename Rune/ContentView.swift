@@ -73,6 +73,7 @@ struct ContentView: View {
                         textfields()
                         buttons()
                         images()
+                        supportingView()
                         sliders()
                         
                     }
@@ -142,14 +143,36 @@ struct ContentView: View {
     
     private func sliders() -> some View {
         
-        ProgressSlider(
-            value: self.$sliderValue,
-            trackStyle: .color(self.themeManager.background(.tertiary)),
-            fillStyle: .color(self.themeManager.accentColor()),
-            thumbStyle: .color(self.themeManager.background(.quad)),
-            thumbCircleStyle: .color(self.themeManager.accentColor()),
-            thumbHeight: 36
-        )
+        VStack(spacing: Spacing.large.value) {
+            
+            ProgressSlider(
+                value: self.$sliderValue,
+                trackStyle: .color(self.themeManager.background(.tertiary)),
+                fillStyle: .color(self.themeManager.accentColor()),
+                thumbStyle: .color(self.themeManager.background(.quad)),
+                thumbCircleStyle: .color(self.themeManager.accentColor()),
+                thumbHeight: 36
+            )
+            
+            ProgressBar(
+                value: .constant(Float(self.sliderValue)),
+                trackColor: .color(self.themeManager.background(.tertiary)),
+                fillColor: .color(self.themeManager.accentColor()),
+                shouldRound: true
+            )
+            .frame(height: 16)
+            
+            TextProgressBar(
+                value: .constant(CGFloat(self.sliderValue)),
+                text: "Text Progress Bar",
+                textFont: .title(.t5),
+                textColor: .color(.white),
+                trackColor: .color(self.themeManager.background(.tertiary)),
+                fillColor: .color(self.themeManager.accentColor()),
+                cornerRadius: .small
+            )
+            
+        }
         
     }
     
@@ -200,6 +223,23 @@ struct ContentView: View {
             ) {
                 updateTheme(.SANDSTONE_DUSK)
             }
+            
+        }
+        
+    }
+    
+    private func supportingView() -> some View {
+        
+        VStack(alignment: .leading, spacing: Spacing.medium.value) {
+            
+            InfoView(
+                title: "Info View",
+                foregroundStyle: .color(self.themeManager.accentColor())
+            )
+            
+            InfoView(
+                title: "Info View Action",
+                foregroundStyle: .color(self.themeManager.accentColor())) {}
             
         }
         

@@ -23,8 +23,9 @@ struct CommonDropDownMultiSelectMenu<S: Selectable>: View {
     
     var selectionTitle: String {
         
-        let numberOfSelectionTitle = "\(self.selectedOptions.count) Selected"
-        let allSelectedTitle = "All Selected"
+        let count = self.selectedOptions.count
+        let numberOfSelectionTitle = "\(count) Selected"
+        let allSelectedTitle = "All Selected (\(count))"
         
         var title: String?
         
