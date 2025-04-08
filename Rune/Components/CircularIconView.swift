@@ -14,8 +14,7 @@ struct CircularIconView: View {
     
     var size: CGFloat
 
-    var systemImage: String? = nil
-    var image: String? = nil
+    var imageSource: ImageSource
     
     var imageSize: CGFloat {
         return self.size / 2
@@ -29,25 +28,11 @@ struct CircularIconView: View {
                 .fill(self.backgroundColor.source())
                 .frame(width: self.size, height: self.size)
             
-            if let systemImage {
-                
-                Image(systemName: systemImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: self.imageSize, height: self.imageSize)
-                    .foregroundStyle(self.foregroundColor.source())
-                
-            }
-            else if let image {
-                
-                Image(image)
-                    .resizable()
-                    .renderingMode(.template)
-                    .scaledToFit()
-                    .frame(width: self.imageSize, height: self.imageSize)
-                    .foregroundStyle(self.foregroundColor.source())
-                
-            }
+            self.imageSource
+                .view()
+                .scaledToFit()
+                .frame(width: self.imageSize, height: self.imageSize)
+                .foregroundStyle(self.foregroundColor.source())
             
         }
         
@@ -58,12 +43,15 @@ struct CircularIconView: View {
 struct BackButton: View {
     
     private var backgroundColor: ColorSource
+    private var size: CGFloat = 32
     private var backAction: (() -> ())
     
     init(backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad)),
+         size: CGFloat = 32,
          backAction: @escaping () -> Void) {
         
         self.backgroundColor = backgroundColor
+        self.size = size
         self.backAction = backAction
         
     }
@@ -73,8 +61,8 @@ struct BackButton: View {
         CircularIconView(
             foregroundColor: .color(.black),
             backgroundColor: self.backgroundColor,
-            size: 32,
-            systemImage: "arrow.left"
+            size: self.size,
+            imageSource: .image(Image(systemName: "arrow.left"))
         )
         .asButton {
             self.backAction()
@@ -88,14 +76,17 @@ struct FavoriteButton: View {
     
     private var isFavorited: Bool
     private var backgroundColor: ColorSource
+    private var size: CGFloat = 32
     private var favoriteAction: (() -> ())
     
     init(isFavorited: Bool,
          backgroundColor: ColorSource = .material(.ultraThinMaterial),
+         size: CGFloat = 32,
          favoriteAction: @escaping () -> Void) {
         
         self.isFavorited = isFavorited
         self.backgroundColor = backgroundColor
+        self.size = size
         self.favoriteAction = favoriteAction
         
     }
@@ -105,8 +96,8 @@ struct FavoriteButton: View {
         CircularIconView(
             foregroundColor: self.isFavorited ? .color(.yellow) : .color(.black),
             backgroundColor: self.backgroundColor,
-            size: 40,
-            systemImage: self.isFavorited ? "star.fill" : "star"
+            size: self.size,
+            imageSource: .image(Image(systemName: self.isFavorited ? "star.fill" : "star"))
         )
         .contentTransition(.symbolEffect)
         .asButton {
@@ -123,7 +114,7 @@ struct FavoriteButton: View {
         foregroundColor: .color(.white),
         backgroundColor: .color(.pink),
         size: 128,
-        systemImage: "person.fill"
+        imageSource: .image(Image(systemName: "person.fill"))
     )
     .asButton {
         print("Something")

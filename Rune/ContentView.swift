@@ -10,6 +10,8 @@ import SwiftUI
 // MARK: - Todo items -
 /// Adapt them all to use ENV theme
 /// Move more views from SwiftyUI + GP into here
+/// Move Design system to SwiftUI one
+/// IMAGE SOURCE for images too. Pass that into the image compoenents like circular icon view etc...
 
 struct ContentView: View {
     
@@ -24,7 +26,7 @@ struct ContentView: View {
     
     @State var shouldShowDropDown: Bool = false
     @State var selectedDropDownValue: String?
-    private var dropDownValues: [String] = [
+    @State private var dropDownValues: [String] = [
         "Pokemon",
         "Super Mario",
         "Sonic",
@@ -224,6 +226,18 @@ struct ContentView: View {
                 updateTheme(.SANDSTONE_DUSK)
             }
             
+            HStack {
+                
+                CircularIconView(
+                    size: 48,
+                    imageSource: .image(Image(systemName: "person.fill"))
+                )
+                
+                BackButton(size: 48) {}
+                FavoriteButton(isFavorited: true, size: 48) {}
+                
+            }
+            
         }
         
     }
@@ -239,7 +253,35 @@ struct ContentView: View {
             
             InfoView(
                 title: "Info View Action",
-                foregroundStyle: .color(self.themeManager.accentColor())) {}
+                foregroundStyle: .color(self.themeManager.accentColor())) {
+                    
+                    withAnimation(.spring) {
+                        self.dropDownValues = ["Value 1", "Value 2", "Value 3", "Value 4", "Value 5"]
+                    }
+                    
+                }
+            
+            if !self.dropDownValues.isEmpty {
+                
+                WStack {
+                    
+                    ForEach(dropDownValues) { text in
+                        
+                        TokenView(text: text)
+                            .asButton {
+                                
+                                withAnimation(.spring) {
+                                    self.dropDownValues.removeAll(where: { $0 == text })
+                                }
+                                
+                            }
+                        
+                    }
+                    
+                }
+                .transition(.move(edge: .top).combined(with: .opacity))
+                
+            }
             
         }
         

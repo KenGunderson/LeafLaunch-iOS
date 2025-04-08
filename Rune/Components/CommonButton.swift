@@ -82,7 +82,7 @@ struct CommonButton: View {
             foregroundColor: .color(.cyan),
             backgroundColor: .color(.cyan.opacity(0.3)),
             size: 50,
-            systemImage: "person.fill"
+            imageSource: .image(Image(systemName: "person.fill"))
         )
         
     }
