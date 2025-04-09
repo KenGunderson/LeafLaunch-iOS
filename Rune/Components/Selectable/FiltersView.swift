@@ -13,6 +13,8 @@ struct FiltersView: View {
     var filters: [String]
     var selectedFilter: String? = nil
     var selectedFilterColor: ColorSource = .color(ThemeManager.shared.accentColor())
+    var filterTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var filterSelectedText: ColorSource = .color(ThemeManager.shared.textColor(.title))
     var backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad))
     var strokeStyle: Bool = false
     var onFilterTapped: (String) -> ()
@@ -58,6 +60,8 @@ struct FiltersView: View {
                             title: filter,
                             isSelected: selectedFilter == filter,
                             selectedColor: self.selectedFilterColor,
+                            filterTextColor: self.filterTextColor,
+                            filterSelectedText: self.filterSelectedText,
                             backgroundColor: self.backgroundColor,
                             strokeStyle: self.strokeStyle
                         )
@@ -105,11 +109,13 @@ internal struct FilterView: View {
     let title: String
     let isSelected: Bool
     let selectedColor: ColorSource
+    let filterTextColor: ColorSource
+    let filterSelectedText: ColorSource
     let backgroundColor: ColorSource
     let strokeStyle: Bool
     
-    var foregroundStyle: Color {
-        return ThemeManager.shared.textColor(.title)
+    var foregroundStyle: ColorSource {
+        return self.isSelected ? self.filterSelectedText : self.filterTextColor
     }
     
     var body: some View {
@@ -119,7 +125,7 @@ internal struct FilterView: View {
             
             Text(self.title)
                 .font(.caption)
-                .foregroundStyle(foregroundStyle)
+                .foregroundStyle(self.foregroundStyle.source())
             
         }
         .padding(.vertical, 8)
@@ -157,18 +163,24 @@ internal struct FiltersViewPreview: View {
     
     var filters: [String] = []
     let selectedFilterColor: ColorSource
+    let filterTextColor: ColorSource
+    let filterSelectedText: ColorSource
     let backgroundColor: ColorSource
     let strokeStyle: Bool
     
     init(filters: [String],
          selectedFilter: Binding<String?>,
          selectedFilterColor: ColorSource = .color(ThemeManager.shared.accentColor()),
+         filterTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title)),
+         filterSelectedText: ColorSource = .color(ThemeManager.shared.textColor(.title)),
          backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad)),
          strokeStyle: Bool = false) {
         
         self.filters = filters
         self._selectedFilter = selectedFilter
         self.selectedFilterColor = selectedFilterColor
+        self.filterTextColor = filterTextColor
+        self.filterSelectedText = filterSelectedText
         self.backgroundColor = backgroundColor
         self.strokeStyle = strokeStyle
         
@@ -182,6 +194,8 @@ internal struct FiltersViewPreview: View {
                 filters: self.filters,
                 selectedFilter: self.selectedFilter,
                 selectedFilterColor: self.selectedFilterColor,
+                filterTextColor: self.filterTextColor,
+                filterSelectedText: self.filterSelectedText,
                 backgroundColor: self.backgroundColor,
                 strokeStyle: self.strokeStyle) { filter in
                     
@@ -206,6 +220,7 @@ internal struct FiltersViewPreview: View {
     FiltersViewPreview(
         filters: ["Sako", "Mitch", "KC", "Michael"],
         selectedFilter: $selectedFilter,
+        filterTextColor: .color(.red),
         strokeStyle: true
     )
     
