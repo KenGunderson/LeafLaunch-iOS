@@ -11,13 +11,13 @@ struct CommonButton: View {
         
     var title: String
     var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var icon: Image?
+    var icon: ImageSource?
     var backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor())
     var action: () -> Void
     
     init(title: String,
          titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title)),
-         icon: Image? = nil,
+         icon: ImageSource? = nil,
          backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor()),
          action: @escaping () -> Void) {
         
@@ -40,7 +40,7 @@ struct CommonButton: View {
             HStack {
                 
                 if let icon {
-                    icon
+                    icon.view()
                 }
                 
                 Text(self.title)

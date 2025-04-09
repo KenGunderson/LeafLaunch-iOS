@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-struct CommonTextFieldStyle: TextFieldStyle {
+@MainActor
+struct CommonTextFieldStyle: @preconcurrency TextFieldStyle {
     
     var text: String
     var hint: String?
-    var icon: Image?
+    var icon: AnyView?
     var isFocused: Bool
     var borderColor: ColorSource
     var foregroundColor: ColorSource
@@ -30,7 +31,6 @@ struct CommonTextFieldStyle: TextFieldStyle {
                 if let icon {
                     
                     icon
-                        .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 18, height: 18)
                         .foregroundStyle(self.isFocused ? borderColor : foregroundColor)
@@ -93,7 +93,7 @@ extension View {
     
     func appTextFieldStyle(text: String,
                            hint: String? = nil,
-                           icon: Image? = nil,
+                           icon: ImageSource? = nil,
                            isFocused: Bool,
                            borderColor: ColorSource = .color(ThemeManager.shared.accentColor()),
                            foregroundColor: ColorSource = .color(ThemeManager.shared.textColor(.body)),
@@ -104,7 +104,7 @@ extension View {
             .textFieldStyle(CommonTextFieldStyle(
                 text: text,
                 hint: hint,
-                icon: icon,
+                icon: icon != nil ? AnyView(icon!.view()) : nil,
                 isFocused: isFocused,
                 borderColor: borderColor,
                 foregroundColor: foregroundColor,

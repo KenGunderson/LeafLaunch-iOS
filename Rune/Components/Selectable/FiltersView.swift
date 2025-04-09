@@ -220,7 +220,6 @@ internal struct FiltersViewPreview: View {
     FiltersViewPreview(
         filters: ["Sako", "Mitch", "KC", "Michael"],
         selectedFilter: $selectedFilter,
-        filterTextColor: .color(.red),
         strokeStyle: true
     )
     

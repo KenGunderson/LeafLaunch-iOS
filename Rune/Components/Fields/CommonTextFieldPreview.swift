@@ -43,7 +43,7 @@ internal struct CommonTextFieldPreview: View {
             .appTextFieldStyle(
                 text: self.text,
                 hint: nil,
-                icon: Image(systemName: "lock.fill"),
+                icon: .image(Image(systemName: "lock.fill")),
                 isFocused: self.isFocused
             )
             .appOnTapGesture {
@@ -59,7 +59,7 @@ internal struct CommonTextFieldPreview: View {
             .appTextFieldStyle(
                 text: self.text,
                 hint: "Full Name",
-                icon: Image(systemName: "person.fill"),
+                icon: .image(Image(systemName: "person.fill")),
                 isFocused: self.isFocused
             )
             .appOnTapGesture {
@@ -74,7 +74,11 @@ internal struct CommonTextFieldPreview: View {
 
 #Preview {
     
-    CommonTextFieldPreview()
-        .padding(.horizontal, Spacing.large.value)
+    AppBaseView {
+        
+        CommonTextFieldPreview()
+            .padding(.horizontal, Spacing.large.value)
+        
+    }
     
 }

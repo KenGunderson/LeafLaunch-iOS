@@ -206,26 +206,40 @@ struct ContentView: View {
         
         VStack(spacing: Spacing.medium.value) {
             
-            CommonButton(title: "Gold Theme", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+            CommonButton(
+                title: "Gold Theme",
+                icon: .image(Image(systemName: "sun.max.fill")),
+                backgroundStyle: .color(self.themeManager.theme.accentColor)
+            ) {
                 updateTheme(.GOLD_NAVY)
             }
             
-            CommonButton(title: "Emerald Forest", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+            CommonButton(
+                title: "Emerald Forest",
+                icon: .image(Image(systemName: "sun.max.fill")),
+                backgroundStyle: .color(self.themeManager.theme.accentColor)
+            ) {
                 updateTheme(.EMERALD_NOIR)
             }
             
-            CommonButton(title: "Coral Twilight", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+            CommonButton(title: "Coral Twilight",
+                         icon: .image(Image(systemName: "sun.max.fill")),
+                         backgroundStyle: .color(self.themeManager.theme.accentColor)
+            ) {
                 updateTheme(.CORAL_TWILIGHT)
             }
             
-            CommonButton(title: "Neon Night", icon: Image(systemName: "sun.max.fill"), backgroundStyle: .color(self.themeManager.theme.accentColor)) {
+            CommonButton(title: "Neon Night",
+                         icon: .image(Image(systemName: "sun.max.fill")),
+                         backgroundStyle: .color(self.themeManager.theme.accentColor)
+            ) {
                 updateTheme(.NEON_NIGHT)
             }
             
             CommonButton(
                 title: "Sandstone Dusk",
                 titleColor: .color(themeManager.textColor(.title)),
-                icon: Image(systemName: "heart.fill"),
+                icon: .image(Image(systemName: "heart.fill")),
                 backgroundStyle: .color(themeManager.accentColor())
             ) {
                 updateTheme(.SANDSTONE_DUSK)
