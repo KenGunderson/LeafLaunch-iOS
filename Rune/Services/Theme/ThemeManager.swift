@@ -5,7 +5,6 @@
 //  Created by Sako Hovaguimian on 4/1/25.
 //
 
-
 import SwiftUI
 
 extension EnvironmentValues {
@@ -46,4 +45,3 @@ class ThemeManager {
     }
     
 }
-

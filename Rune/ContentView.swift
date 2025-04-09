@@ -11,7 +11,7 @@ import SwiftUI
 /// Adapt them all to use ENV theme
 /// Move more views from SwiftyUI + GP into here
 /// Move Design system to SwiftUI one
-/// IMAGE SOURCE for images too. Pass that into the image compoenents like circular icon view etc...
+/// IMAGE SOURCE for images too. Pass that into the image components like circular icon view etc...
 
 struct ContentView: View {
     
@@ -50,6 +50,10 @@ struct ContentView: View {
     @State var textEditText: String = ""
     @FocusState private var isTextEditFocused: Bool
     
+    // Picker
+    
+    @State var selectedFilterView: String?
+    
     var body: some View {
         
         AppBaseView {
@@ -81,6 +85,7 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, .large)
                     
+                    filterView()
                     colorThemeGrid()
                     
                 }
@@ -321,7 +326,6 @@ struct ContentView: View {
         }
         .padding(.vertical, .medium)
         .background(.white.opacity(0.1))
-        .padding(.vertical, .medium)
         
     }
     
@@ -358,6 +362,27 @@ struct ContentView: View {
             .fill(color)
             .frame(width: 120, height: 120)
             .aspectRatio(contentMode: .fit)
+        
+    }
+    
+    private func filterView() -> some View {
+        
+        VStack(spacing: Spacing.medium.value) {
+            
+            FiltersViewPreview(
+                filters: self.dropDownValues,
+                selectedFilter: self.$selectedFilterView,
+                backgroundColor: .color(ThemeManager.shared.background(.quad))
+            )
+            
+            FiltersViewPreview(
+                filters: self.dropDownValues,
+                selectedFilter: self.$selectedFilterView,
+                backgroundColor: .color(ThemeManager.shared.background(.quad)),
+                strokeStyle: true
+            )
+            
+        }
         
     }
     

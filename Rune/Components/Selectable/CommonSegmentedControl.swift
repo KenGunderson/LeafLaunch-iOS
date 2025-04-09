@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-// TODO: -
-/// We might need one that isn't selectable and have two variations of this
-/// We might also need one that isn't optional for selection
-
 struct CommonSegmentedControl<S: Selectable>: View {
     
     @Namespace private var selectionNamespace

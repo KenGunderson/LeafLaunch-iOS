@@ -66,6 +66,7 @@
 		75A0A0252DA5DEFB00D967AF /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0A0242DA5DEFB00D967AF /* TokenView.swift */; };
 		75A0A05C2DA5ED8500D967AF /* ColorSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0A0592DA5ED8500D967AF /* ColorSource.swift */; };
 		75A0A05D2DA5ED8500D967AF /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0A05A2DA5ED8500D967AF /* ImageSource.swift */; };
+		75A4202F2DA6C60300FE8765 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A4202E2DA6C60300FE8765 /* FiltersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		75A0A0242DA5DEFB00D967AF /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		75A0A0592DA5ED8500D967AF /* ColorSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSource.swift; sourceTree = "<group>"; };
 		75A0A05A2DA5ED8500D967AF /* ImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
+		75A4202E2DA6C60300FE8765 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -383,6 +385,7 @@
 				759F90442D9CE44F005FD191 /* Selectable.swift */,
 				759F90462D9CE44F005FD191 /* CommonSegmentedControl.swift */,
 				759F90452D9CE44F005FD191 /* CommonSelectionSheet.swift */,
+				75A4202E2DA6C60300FE8765 /* FiltersView.swift */,
 				759F50572DA23EE300B071E5 /* DropDown */,
 			);
 			path = Selectable;
@@ -574,6 +577,7 @@
 				755C98642D9CD38700437D5D /* CornerRadius.swift in Sources */,
 				755C986B2D9CD3AA00437D5D /* AppOutlineCardView.swift in Sources */,
 				755C986C2D9CD3AA00437D5D /* AppCardView.swift in Sources */,
+				75A4202F2DA6C60300FE8765 /* FiltersView.swift in Sources */,
 				755C986D2D9CD3AA00437D5D /* AppHeaderScrollView.swift in Sources */,
 				759F90472D9CE44F005FD191 /* ZigZagShape.swift in Sources */,
 				75A0A0252DA5DEFB00D967AF /* TokenView.swift in Sources */,

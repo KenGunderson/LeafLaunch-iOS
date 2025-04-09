@@ -5,6 +5,24 @@
 //  Created by Sako Hovaguimian on 4/5/25.
 //
 
+import Foundation
+
+extension String: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self
+    }
+    
+}
+
+extension Bool: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self
+    }
+    
+}
+
 extension Int: @retroactive Identifiable {
     
     public var id: Self {
@@ -13,7 +31,23 @@ extension Int: @retroactive Identifiable {
     
 }
 
-extension String: @retroactive Identifiable {
+extension CGFloat: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self
+    }
+    
+}
+
+extension Float: @retroactive Identifiable {
+    
+    public var id: Self {
+        return self
+    }
+    
+}
+
+extension Double: @retroactive Identifiable {
     
     public var id: Self {
         return self

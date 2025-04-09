@@ -5,26 +5,25 @@
 //  Created by Sako Hovaguimian on 4/3/25.
 //
 
-
 import SwiftUI
 
 struct InfoView: View {
     
     private let title: String
     private let titleFont: AppFont
-    private let image: Image?
+    private let imageSource: ImageSource?
     private let foregroundStyle: ColorSource
     private let action: (() -> ())?
     
     init(title: String,
          titleFont: AppFont = AppFont.title(.t5),
-         image: Image? = nil,
+         imageSource: ImageSource? = nil,
          foregroundStyle: ColorSource,
          action: (() -> ())? = nil) {
         
         self.title = title
         self.titleFont = titleFont
-        self.image = image
+        self.imageSource = imageSource
         self.foregroundStyle = foregroundStyle
         self.action = action
         
@@ -34,10 +33,10 @@ struct InfoView: View {
         
         HStack(spacing: Spacing.custom(12).value) {
             
-            if let image {
+            if let imageSource {
                 
-                image
-                    .resizable()
+                imageSource
+                    .view()
                     .aspectRatio(contentMode: .fit)
                     .frame(
                         width: 24,
@@ -113,14 +112,14 @@ struct InfoView: View {
             
             InfoView(
                 title: "This is the info",
-                image: .init(systemName: "lightbulb"),
+                imageSource: .image(.init(systemName: "lightbulb")),
                 foregroundStyle: .color(ThemeManager.shared.accentColor())) {
                     print("Something")
                 }
             
             InfoView(
                 title: "This is the info that I found useful while building this app",
-                image: .init(systemName: "house"),
+                imageSource: .image(.init(systemName: "house")),
                 foregroundStyle: .linearGradient(.init(
                     colors: [
                         .blue,
@@ -133,7 +132,7 @@ struct InfoView: View {
             
             InfoView(
                 title: "This is the info that I found useful while building this app",
-                image: .init(systemName: "info.circle"),
+                imageSource: .image(.init(systemName: "info.circle")),
                 foregroundStyle: .color(.purple)
             )
             
