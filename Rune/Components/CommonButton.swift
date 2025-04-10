@@ -40,7 +40,10 @@ struct CommonButton: View {
             HStack {
                 
                 if let icon {
+                    
                     icon.view()
+                        .fixedSize(horizontal: true, vertical: true)
+                    
                 }
                 
                 Text(self.title)
@@ -67,7 +70,7 @@ struct CommonButton: View {
     
     VStack(spacing: Spacing.large.value) {
         
-        CommonButton(title: "Common Button") {}
+        CommonButton(title: "Common Button", icon: .image(Image(systemName: "person.fill"))) {}
         .padding(.horizontal, .custom(64))
         
         Image(systemName: "person.fill")
