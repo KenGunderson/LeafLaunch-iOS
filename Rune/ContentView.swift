@@ -11,6 +11,7 @@ import SwiftUI
 /// Adapt them all to use ENV theme
 /// Move more views from SwiftyUI + GP into here
 /// Move Design system to SwiftUI one
+/// Page indiciator
 
 struct ContentView: View {
     
@@ -49,9 +50,15 @@ struct ContentView: View {
     @State var textEditText: String = ""
     @FocusState private var isTextEditFocused: Bool
     
+    @State var codeInputText: String = ""
+    
     // Picker
     
     @State var selectedFilterView: String?
+    
+    // Loading
+    
+    @State var isLoading: Bool = false
     
     var body: some View {
         
@@ -92,6 +99,9 @@ struct ContentView: View {
                 .padding(.bottom, .custom(64))
                 
             }
+            .shimmer(self.isLoading)
+            .redacted(reason: self.isLoading ? .placeholder : .invalidated)
+            .allowsHitTesting(!self.isLoading)
             
         }
         .scrollDismissesKeyboard(.interactively)
@@ -197,6 +207,11 @@ struct ContentView: View {
             )
             .focused(self.$isTextEditFocused)
             
+            CommonCodeInputView(
+                codeInput: $codeInputText,
+                maxCharacterCount: 6
+            )
+            
         }
         
     }
@@ -257,7 +272,21 @@ struct ContentView: View {
                 )
                 
                 BackButton(size: 48) {}
-                FavoriteButton(isFavorited: true, size: 48) {}
+                FavoriteButton(isFavorited: true, size: 48) {
+                    
+                    withAnimation(.bouncy(duration: 0.3)) {
+                        self.isLoading = true
+                    }
+                                  
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        
+                        withAnimation(.bouncy(duration: 0.3)) {
+                            self.isLoading = false
+                        }
+                                      
+                    }
+                    
+                }
                 
             }
             
@@ -270,6 +299,12 @@ struct ContentView: View {
              
                 AvatarView(style: .initials(name: "Sako Hovaguimian"))
                     .frame(width: 48, height: 48)
+                
+                AvatarView(
+                    style: .initials(name: "Sako Hovaguimian"),
+                    clipShape: .init(.rect(cornerRadius: 8))
+                )
+                .frame(width: 48, height: 48)
                 
                 AvatarView(style: .image(.systemImage("person.fill")))
                     .frame(width: 48, height: 48)
