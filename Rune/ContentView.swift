@@ -11,7 +11,6 @@ import SwiftUI
 /// Adapt them all to use ENV theme
 /// Move more views from SwiftyUI + GP into here
 /// Move Design system to SwiftUI one
-/// IMAGE SOURCE for images too. Pass that into the image components like circular icon view etc...
 
 struct ContentView: View {
     

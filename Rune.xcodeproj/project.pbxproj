@@ -319,8 +319,7 @@
 				755C98462D9CD0A900437D5D /* DesignSystem */,
 				755C986A2D9CD3AA00437D5D /* BaseViews */,
 				759F903C2D9CE44F005FD191 /* CommonButton.swift */,
-				759F903D2D9CE44F005FD191 /* CommonImageView.swift */,
-				75812DDD2DA8125C00130E06 /* AvatarView.swift */,
+				75AB34822DA84C4300B51593 /* Image */,
 				75A8547F2D9EED9500B7B4C5 /* Fields */,
 				759F90502D9CE46E005FD191 /* Selectable */,
 				759F90432D9CE44F005FD191 /* ProgressBars */,
@@ -328,7 +327,6 @@
 				759F90612D9CE642005FD191 /* Haptics */,
 				756527842D9F363700118E18 /* InfoView.swift */,
 				75A0A0242DA5DEFB00D967AF /* TokenView.swift */,
-				759F90672D9CE728005FD191 /* CircularIconView.swift */,
 				752D91242D9F239600696649 /* WStack.swift */,
 			);
 			path = Components;
@@ -432,6 +430,16 @@
 				756527862D9F368600118E18 /* CommonTextEditView.swift */,
 			);
 			path = Fields;
+			sourceTree = "<group>";
+		};
+		75AB34822DA84C4300B51593 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				759F903D2D9CE44F005FD191 /* CommonImageView.swift */,
+				75812DDD2DA8125C00130E06 /* AvatarView.swift */,
+				759F90672D9CE728005FD191 /* CircularIconView.swift */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

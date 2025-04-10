@@ -21,6 +21,7 @@ struct AvatarView: View {
     var style: Style
     var foregroundColor: ColorSource
     var backgroundColor: ColorSource
+    var clipShape: AnyShape = .init(.circle)
     
     var imageSize: CGFloat {
         return self.size / 2
@@ -28,11 +29,13 @@ struct AvatarView: View {
         
     init(style: Style,
          foregroundColor: ColorSource = .color(ThemeManager.shared.accentColor()),
-         backgroundColor: ColorSource = .color(ThemeManager.shared.background(.tertiary))) {
+         backgroundColor: ColorSource = .color(ThemeManager.shared.background(.tertiary)),
+         clipShape: AnyShape = .init(.circle)) {
         
         self.style = style
         self.foregroundColor = foregroundColor
         self.backgroundColor = backgroundColor
+        self.clipShape = clipShape
         
     }
     
@@ -40,14 +43,16 @@ struct AvatarView: View {
         
         ZStack {
             
-            Circle()
+            RoundedRectangle(cornerRadius: 0)
                 .fill(self.backgroundColor.source())
-            
+                .aspectRatio(contentMode: .fit)
+                .clipShape(self.clipShape)
+                
             switch self.style {
             case .initials(let name):
                 
                 Text(formattedName(name))
-                    .font(Font(UIFont.systemFont(ofSize:(0.40 * self.size), weight: .semibold)))
+                    .font(Font(UIFont.systemFont(ofSize:(0.50 * self.size), weight: .semibold)))
                     .fontDesign(.monospaced)
                     .foregroundStyle(self.foregroundColor.source())
                 
@@ -78,7 +83,7 @@ struct AvatarView: View {
             }
             
         }
-        .clipShape(.circle)
+        .clipShape(self.clipShape)
         .onGeometryChange(for: CGSize.self) { proxy in
             return proxy.size
         } action: { newValue in
@@ -104,8 +109,15 @@ struct AvatarView: View {
         
         VStack(spacing: Spacing.medium.value) {
             
-            AvatarView(style: .initials(name: "Sako Hovaguimian"))
+            AvatarView(style: .initials(name: "1 "))
+            
+            AvatarView(
+                style: .initials(name: "Sako Hovaguimian"),
+                clipShape: .init(.rect(cornerRadius: 32))
+            )
+            
             AvatarView(style: .image(.systemImage("person.fill")))
+            
             AvatarView(style: .image(.image(.prize)))
                 .asButton {
                     print("Some Button Test")
