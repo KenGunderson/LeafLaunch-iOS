@@ -112,14 +112,14 @@ struct InfoView: View {
             
             InfoView(
                 title: "This is the info",
-                imageSource: .image(.init(systemName: "lightbulb")),
+                imageSource: .systemImage("lightbulb"),
                 foregroundStyle: .color(ThemeManager.shared.accentColor())) {
                     print("Something")
                 }
             
             InfoView(
                 title: "This is the info that I found useful while building this app",
-                imageSource: .image(.init(systemName: "house")),
+                imageSource: .systemImage("house"),
                 foregroundStyle: .linearGradient(.init(
                     colors: [
                         .blue,
@@ -132,7 +132,7 @@ struct InfoView: View {
             
             InfoView(
                 title: "This is the info that I found useful while building this app",
-                imageSource: .image(.init(systemName: "info.circle")),
+                imageSource: .systemImage("info.circle"),
                 foregroundStyle: .color(.purple)
             )
             

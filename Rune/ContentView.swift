@@ -133,13 +133,13 @@ struct ContentView: View {
         
         VStack(spacing: Spacing.medium.value) {
             
-            CommonImageView(style: .image(Image(.image2)))
+            CommonImageView(style: .image((.image2)))
                 .scaledToFill()
                 .clipShape(.rect(cornerRadius: CornerRadius.small.rawValue))
                 .frame(maxHeight: 200)
                 .asButton {}
             
-            CommonImageView(style: .image(Image(systemName: "person.fill")))
+            CommonImageView(style: .systemImage("person.fill"))
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(themeManager.accentColor())
                 .frame(height: 64)
@@ -208,7 +208,7 @@ struct ContentView: View {
             
             CommonButton(
                 title: "Gold Theme",
-                icon: .image(Image(systemName: "sun.max.fill")),
+                icon: .systemImage("sun.max.fill"),
                 backgroundStyle: .color(self.themeManager.theme.accentColor)
             ) {
                 updateTheme(.GOLD_NAVY)
@@ -216,21 +216,21 @@ struct ContentView: View {
             
             CommonButton(
                 title: "Emerald Forest",
-                icon: .image(Image(systemName: "sun.max.fill")),
+                icon: .systemImage("sun.max.fill"),
                 backgroundStyle: .color(self.themeManager.theme.accentColor)
             ) {
                 updateTheme(.EMERALD_NOIR)
             }
             
             CommonButton(title: "Coral Twilight",
-                         icon: .image(Image(systemName: "sun.max.fill")),
+                         icon: .systemImage("sun.max.fill"),
                          backgroundStyle: .color(self.themeManager.theme.accentColor)
             ) {
                 updateTheme(.CORAL_TWILIGHT)
             }
             
             CommonButton(title: "Neon Night",
-                         icon: .image(Image(systemName: "sun.max.fill")),
+                         icon: .systemImage("sun.max.fill"),
                          backgroundStyle: .color(self.themeManager.theme.accentColor)
             ) {
                 updateTheme(.NEON_NIGHT)
@@ -239,7 +239,7 @@ struct ContentView: View {
             CommonButton(
                 title: "Sandstone Dusk",
                 titleColor: .color(themeManager.textColor(.title)),
-                icon: .image(Image(systemName: "heart.fill")),
+                icon: .systemImage("heart.fill"),
                 backgroundStyle: .color(themeManager.accentColor())
             ) {
                 updateTheme(.SANDSTONE_DUSK)
@@ -247,13 +247,36 @@ struct ContentView: View {
             
             HStack {
                 
+                Text("Circular Icon View")
+                    .appFont(with: .title(.t6))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(ThemeManager.shared.textColor(.title))
+                
                 CircularIconView(
                     size: 48,
-                    imageSource: .image(Image(systemName: "person.fill"))
+                    imageSource: .systemImage("person.fill")
                 )
                 
                 BackButton(size: 48) {}
                 FavoriteButton(isFavorited: true, size: 48) {}
+                
+            }
+            
+            HStack {
+                
+                Text("Avatar View")
+                    .appFont(with: .title(.t6))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(ThemeManager.shared.textColor(.title))
+             
+                AvatarView(style: .initials(name: "Sako Hovaguimian"))
+                    .frame(width: 48, height: 48)
+                
+                AvatarView(style: .image(.systemImage("person.fill")))
+                    .frame(width: 48, height: 48)
+                
+                AvatarView(style: .image(.image(.prize)))
+                    .frame(width: 48, height: 48)
                 
             }
             

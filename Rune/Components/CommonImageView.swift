@@ -21,7 +21,7 @@ struct CommonImageView: View {
 
 #Preview("Circle System Image") {
     
-    CommonImageView(style: .image(Image(systemName: "person.circle")))
+    CommonImageView(style: .systemImage("person.circle"))
         .aspectRatio(contentMode: .fit)
         .frame(height: 200)
         .foregroundStyle(.indigo)
@@ -33,7 +33,7 @@ struct CommonImageView: View {
 
 #Preview("Card Image") {
     
-    CommonImageView(style: .image(Image(.image3)))
+    CommonImageView(style: .image(.image3))
         .aspectRatio(contentMode: .fill)
         .frame(height: 200)
         .clipShape(.rect(cornerRadius: CornerRadius.large.value))

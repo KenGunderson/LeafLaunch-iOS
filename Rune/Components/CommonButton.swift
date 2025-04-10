@@ -70,7 +70,7 @@ struct CommonButton: View {
     
     VStack(spacing: Spacing.large.value) {
         
-        CommonButton(title: "Common Button", icon: .image(Image(systemName: "person.fill"))) {}
+        CommonButton(title: "Common Button", icon: .systemImage("person.fill")) {}
         .padding(.horizontal, .custom(64))
         
         Image(systemName: "person.fill")
@@ -85,7 +85,7 @@ struct CommonButton: View {
             foregroundColor: .color(.cyan),
             backgroundColor: .color(.cyan.opacity(0.3)),
             size: 50,
-            imageSource: .image(Image(systemName: "person.fill"))
+            imageSource: .systemImage("person.fill")
         )
         
     }

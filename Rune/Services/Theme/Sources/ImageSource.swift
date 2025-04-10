@@ -10,7 +10,8 @@ import Kingfisher
 
 enum ImageSource {
     
-    case image(Image)
+    case image(SwiftUI.ImageResource)
+    case systemImage(String)
     
     case remote(url: URL,
                 placeholder: AnyView? = nil,
@@ -25,7 +26,12 @@ enum ImageSource {
             
         case .image(let image):
             
-            image
+            Image(image)
+                .resizable()
+            
+        case .systemImage(let systemImage):
+            
+            Image(systemName: systemImage)
                 .resizable()
             
         case .remote(let url, let placeholder, let onSuccess, let onFailure):

@@ -43,7 +43,7 @@ internal struct CommonTextFieldPreview: View {
             .appTextFieldStyle(
                 text: self.text,
                 hint: nil,
-                icon: .image(Image(systemName: "lock.fill")),
+                icon: .systemImage("lock.fill"),
                 isFocused: self.isFocused
             )
             .appOnTapGesture {
@@ -59,7 +59,7 @@ internal struct CommonTextFieldPreview: View {
             .appTextFieldStyle(
                 text: self.text,
                 hint: "Full Name",
-                icon: .image(Image(systemName: "person.fill")),
+                icon: .systemImage("person.fill"),
                 isFocused: self.isFocused
             )
             .appOnTapGesture {

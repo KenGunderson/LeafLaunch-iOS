@@ -22,7 +22,7 @@ struct CircularIconView: View {
     
     var body: some View {
 
-        return ZStack {
+        ZStack {
             
             Circle()
                 .fill(self.backgroundColor.source())
@@ -62,7 +62,7 @@ struct BackButton: View {
             foregroundColor: .color(.black),
             backgroundColor: self.backgroundColor,
             size: self.size,
-            imageSource: .image(Image(systemName: "arrow.left"))
+            imageSource: .systemImage("arrow.left")
         )
         .asButton {
             self.backAction()
@@ -97,7 +97,7 @@ struct FavoriteButton: View {
             foregroundColor: self.isFavorited ? .color(.yellow) : .color(.black),
             backgroundColor: self.backgroundColor,
             size: self.size,
-            imageSource: .image(Image(systemName: self.isFavorited ? "star.fill" : "star"))
+            imageSource: .systemImage(self.isFavorited ? "star.fill" : "star")
         )
         .contentTransition(.symbolEffect)
         .asButton {
@@ -110,22 +110,30 @@ struct FavoriteButton: View {
 
 #Preview("Generic") {
     
-    CircularIconView(
-        foregroundColor: .color(.white),
-        backgroundColor: .color(.pink),
-        size: 128,
-        imageSource: .image(Image(systemName: "person.fill"))
-    )
-    .asButton {
-        print("Something")
+    AppBaseView {
+        
+        CircularIconView(
+            foregroundColor: .color(.white),
+            backgroundColor: .color(.pink),
+            size: 128,
+            imageSource: .systemImage("person.fill")
+        )
+        .asButton {
+            print("Something")
+        }
+        
     }
     
 }
 
 #Preview("Back") {
- 
-    BackButton {
-        print("Tapped Back Button")
+    
+    AppBaseView {
+        
+        BackButton {
+            print("Tapped Back Button")
+        }
+        
     }
     
 }
