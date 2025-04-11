@@ -13,15 +13,15 @@ struct TokenView: View {
     private let titleFont: AppFont
     private let foregroundStyle: ColorSource
     private let backgroundStyle: ColorSource
-    private let horizontalPadding: Spacing
-    private let verticalPadding: Spacing
+    private let horizontalPadding: CustomTheme.SpacingKey
+    private let verticalPadding: CustomTheme.SpacingKey
     
     init(text: String,
          titleFont: AppFont = .title(.t4),
          foregroundStyle: ColorSource = .color(.white),
          backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.quad)),
-         horizontalPadding: Spacing = .custom(12),
-         verticalPadding: Spacing = .xSmall) {
+         horizontalPadding: CustomTheme.SpacingKey = .custom(12),
+         verticalPadding: CustomTheme.SpacingKey = .extraSmall) {
         
         self.text = text
         self.titleFont = titleFont
@@ -37,8 +37,8 @@ struct TokenView: View {
         Text(self.text)
             .appFont(with: self.titleFont)
             .foregroundStyle(self.foregroundStyle.source())
-            .padding(.horizontal, self.horizontalPadding.value)
-            .padding(.vertical, self.verticalPadding.value)
+            .padding(.horizontal, DesignSystem.shared.spacing(horizontalPadding))
+            .padding(.vertical, DesignSystem.shared.spacing(verticalPadding))
             .background(self.backgroundStyle.source())
             .clipShape(.capsule)
         
@@ -56,7 +56,7 @@ struct TokenView: View {
     
     AppBaseView(backgroundStyle: .linearGradient(backgroundGradient)) {
         
-        VStack(spacing: Spacing.large.value) {
+        VStack(spacing: DesignSystem.shared.spacing(.large)) {
             
             TokenView(
                 text: "Simple Token"
@@ -67,7 +67,7 @@ struct TokenView: View {
 
             TokenView(
                 text: "Simple Padded Token",
-                horizontalPadding: .xLarge,
+                horizontalPadding: .extraLarge,
                 verticalPadding: .medium
             )
             

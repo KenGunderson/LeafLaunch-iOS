@@ -105,7 +105,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
             
         }
         .background(ThemeManager.shared.background(.primary))
-        .safeAreaPadding(.horizontal, Spacing.medium.value)
+        .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
         .scrollBounceBehavior(.basedOnSize)
         .animation(.bouncy, value: self.selectedOptions)
         
@@ -114,7 +114,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
     private func optionView(_ option: S,
                            isSelected: Bool) -> some View {
         
-        AppCardView(horizontalPadding: Spacing.none) {
+        AppCardView(horizontalPadding: CustomTheme.SpacingKey.none) {
             
             HStack {
                 
@@ -143,7 +143,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
                     .appFont(with: .title(.t5))
                 
             }
-            .safeAreaPadding(.horizontal, Spacing.medium.value)
+            .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
             
         }
         
@@ -252,7 +252,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
             }
             
         }
-        .padding(.horizontal, .xLarge)
+        .padding(.horizontal, .extraLarge)
         
     }
     .sheet(isPresented: $showSingleSelectionSheet) {

@@ -37,7 +37,7 @@ struct CommonCodeInputView: View {
     
     private func content() -> some View {
         
-        HStack(spacing: Spacing.small.value) {
+        HStack(spacing: DesignSystem.shared.spacing(.small)) {
             
             ForEach(0..<self.maxCharacterCount, id: \.self) { i in
                 

@@ -77,7 +77,7 @@ internal struct CommonTextFieldPreview: View {
     AppBaseView {
         
         CommonTextFieldPreview()
-            .padding(.horizontal, Spacing.large.value)
+            .padding(.horizontal, DesignSystem.shared.spacing(.large))
         
     }
     

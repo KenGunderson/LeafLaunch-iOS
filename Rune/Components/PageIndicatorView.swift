@@ -25,7 +25,7 @@ struct PageIndicatorView: View {
     
     var body: some View {
         
-        HStack(spacing: Spacing.small.value) {
+        HStack(spacing: DesignSystem.shared.spacing(.small)) {
             
             ForEach(0..<numberOfItems, id: \.self) { index in
                 

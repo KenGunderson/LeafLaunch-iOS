@@ -18,10 +18,10 @@ struct AppHeaderScrollView<NavBarContent: View,
     private let navBarContent: NavBarContent
     private let scrollViewContent: ScrollViewContent
     
-    private var horizontalPadding: Spacing = .medium
+    private var horizontalPadding: CustomTheme.SpacingKey = .medium
     
     public init(alignment: Alignment = .top,
-                horizontalPadding: Spacing = .medium,
+                horizontalPadding: CustomTheme.SpacingKey = .medium,
                 backgroundStyle: ColorSource = .color(.clear),
                 scrollOffset: Binding<CGFloat>? = nil,
                 @ViewBuilder navBarContent: () -> NavBarContent,
@@ -43,7 +43,7 @@ struct AppHeaderScrollView<NavBarContent: View,
         
         AppBaseView(alignment: self.alignment) {
             
-            VStack(spacing: Spacing.none.value) {
+            VStack(spacing: DesignSystem.shared.spacing(.none)) {
                 
                 self.navBarContent
                     .zIndex(100)

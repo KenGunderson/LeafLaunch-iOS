@@ -155,7 +155,7 @@ struct ProgressSlider: View {
             Text("\(progress, format: .percent.precision(.fractionLength(2)))")
                 .appFont(with: .header(.h1))
             
-            VStack(spacing: Spacing.large.value) {
+            VStack(spacing: DesignSystem.shared.spacing(.large)) {
                 
                 ProgressSlider(
                     value: $progress,

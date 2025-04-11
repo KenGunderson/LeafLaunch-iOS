@@ -15,6 +15,12 @@
 		752D91252D9F239600696649 /* WStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D91242D9F239600696649 /* WStack.swift */; };
 		752D91272D9F23B100696649 /* CommonDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D91262D9F23B100696649 /* CommonDropDownMenu.swift */; };
 		7548497B2DA8B5F800B7E053 /* RelativeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548497A2DA8B5F800B7E053 /* RelativeBarView.swift */; };
+		754849962DA8BAFA00B7E053 /* ThemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849952DA8BAFA00B7E053 /* ThemeType.swift */; };
+		754849982DA8BB1F00B7E053 /* CustomTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849972DA8BB1F00B7E053 /* CustomTheme.swift */; };
+		7548499A2DA8BB4B00B7E053 /* CustomTheme+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849992DA8BB4B00B7E053 /* CustomTheme+Mocks.swift */; };
+		7548499C2DA8BB9B00B7E053 /* DesignSystemProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548499B2DA8BB9B00B7E053 /* DesignSystemProviding.swift */; };
+		7548499E2DA8BBBF00B7E053 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548499D2DA8BBBF00B7E053 /* DesignSystem.swift */; };
+		754849A12DA8BE3300B7E053 /* DesignSystemSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849A02DA8BE3200B7E053 /* DesignSystemSpacing.swift */; };
 		755C98202D9CC89000437D5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981D2D9CC89000437D5D /* ContentView.swift */; };
 		755C98212D9CC89000437D5D /* RuneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981E2D9CC89000437D5D /* RuneApp.swift */; };
 		755C98412D9CC9A900437D5D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98402D9CC9A900437D5D /* ThemeManager.swift */; };
@@ -101,6 +107,12 @@
 		752D91242D9F239600696649 /* WStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WStack.swift; sourceTree = "<group>"; };
 		752D91262D9F23B100696649 /* CommonDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDropDownMenu.swift; sourceTree = "<group>"; };
 		7548497A2DA8B5F800B7E053 /* RelativeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeBarView.swift; sourceTree = "<group>"; };
+		754849952DA8BAFA00B7E053 /* ThemeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeType.swift; sourceTree = "<group>"; };
+		754849972DA8BB1F00B7E053 /* CustomTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTheme.swift; sourceTree = "<group>"; };
+		754849992DA8BB4B00B7E053 /* CustomTheme+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTheme+Mocks.swift"; sourceTree = "<group>"; };
+		7548499B2DA8BB9B00B7E053 /* DesignSystemProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemProviding.swift; sourceTree = "<group>"; };
+		7548499D2DA8BBBF00B7E053 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		754849A02DA8BE3200B7E053 /* DesignSystemSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemSpacing.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* Rune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rune.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* RuneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* RuneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +241,27 @@
 			path = StaggeredView;
 			sourceTree = "<group>";
 		};
+		754849942DA8BAEF00B7E053 /* NewDesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				754849952DA8BAFA00B7E053 /* ThemeType.swift */,
+				754849972DA8BB1F00B7E053 /* CustomTheme.swift */,
+				754849992DA8BB4B00B7E053 /* CustomTheme+Mocks.swift */,
+				7548499B2DA8BB9B00B7E053 /* DesignSystemProviding.swift */,
+				7548499D2DA8BBBF00B7E053 /* DesignSystem.swift */,
+				7548499F2DA8BE1F00B7E053 /* ViewExtensions */,
+			);
+			path = NewDesignSystem;
+			sourceTree = "<group>";
+		};
+		7548499F2DA8BE1F00B7E053 /* ViewExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				754849A02DA8BE3200B7E053 /* DesignSystemSpacing.swift */,
+			);
+			path = ViewExtensions;
+			sourceTree = "<group>";
+		};
 		755C97E02D9CC86900437D5D = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +378,7 @@
 		755C98462D9CD0A900437D5D /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				754849942DA8BAEF00B7E053 /* NewDesignSystem */,
 				755C985D2D9CD38700437D5D /* AppFont.swift */,
 				755C985E2D9CD38700437D5D /* AppShadow.swift */,
 				755C985F2D9CD38700437D5D /* AppSpacing.swift */,
@@ -601,17 +635,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7548499A2DA8BB4B00B7E053 /* CustomTheme+Mocks.swift in Sources */,
 				755C98612D9CD38700437D5D /* AppShadow.swift in Sources */,
 				755C98622D9CD38700437D5D /* AppSpacing.swift in Sources */,
 				759F50562DA2378100B071E5 /* CommonMultiSelectDropDown.swift in Sources */,
 				755C98632D9CD38700437D5D /* AppFont.swift in Sources */,
+				7548499C2DA8BB9B00B7E053 /* DesignSystemProviding.swift in Sources */,
 				759F906E2D9CF7BD005FD191 /* CommonTextFieldStyle.swift in Sources */,
+				7548499E2DA8BBBF00B7E053 /* DesignSystem.swift in Sources */,
 				756527852D9F363700118E18 /* InfoView.swift in Sources */,
 				759F906F2D9CF7BD005FD191 /* CommonTextFieldPreview.swift in Sources */,
 				755C98642D9CD38700437D5D /* CornerRadius.swift in Sources */,
 				755C986B2D9CD3AA00437D5D /* AppOutlineCardView.swift in Sources */,
 				755C986C2D9CD3AA00437D5D /* AppCardView.swift in Sources */,
 				75A4202F2DA6C60300FE8765 /* FiltersView.swift in Sources */,
+				754849A12DA8BE3300B7E053 /* DesignSystemSpacing.swift in Sources */,
 				755C986D2D9CD3AA00437D5D /* AppHeaderScrollView.swift in Sources */,
 				759F90472D9CE44F005FD191 /* ZigZagShape.swift in Sources */,
 				75A0A0252DA5DEFB00D967AF /* TokenView.swift in Sources */,
@@ -646,6 +684,7 @@
 				75A0A05C2DA5ED8500D967AF /* ColorSource.swift in Sources */,
 				75AB34A02DA8522D00B51593 /* Shimmer.swift in Sources */,
 				75A0A05D2DA5ED8500D967AF /* ImageSource.swift in Sources */,
+				754849982DA8BB1F00B7E053 /* CustomTheme.swift in Sources */,
 				759F90592D9CE616005FD191 /* OnFirstAppear.swift in Sources */,
 				759F905A2D9CE616005FD191 /* PlainList.swift in Sources */,
 				759F905B2D9CE616005FD191 /* SafeAreaPadding.swift in Sources */,
@@ -664,6 +703,7 @@
 				755C985C2D9CD34400437D5D /* Ext+Combine.swift in Sources */,
 				755C98412D9CC9A900437D5D /* ThemeManager.swift in Sources */,
 				7548497B2DA8B5F800B7E053 /* RelativeBarView.swift in Sources */,
+				754849962DA8BAFA00B7E053 /* ThemeType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

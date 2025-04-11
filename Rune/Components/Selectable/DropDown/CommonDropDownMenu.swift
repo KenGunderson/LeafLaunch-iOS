@@ -140,7 +140,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             
         } label: {
             
-            HStack(spacing: Spacing.medium.value) {
+            HStack(spacing: DesignSystem.shared.spacing(.medium)) {
                 
                 Text(title)
                     .frame(

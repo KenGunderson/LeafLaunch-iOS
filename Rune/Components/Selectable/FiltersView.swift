@@ -87,7 +87,7 @@ struct FiltersView: View {
             .animation(.smooth(duration: 0.5), value: selectedFilter)
             
         }
-        .safeAreaPadding(.horizontal, Spacing.medium.value)
+        .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
         .frame(maxWidth: .infinity, alignment: .leading)
         
     }

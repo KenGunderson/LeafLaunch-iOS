@@ -291,7 +291,7 @@ struct RelativeBarViewSegment: Identifiable, Equatable {
         RelativeBarViewSegment(value: 200, title: "XCode", color: .color(.blue))
     ]
     
-    VStack(spacing: Spacing.xLarge.value) {
+    VStack(spacing: DesignSystem.shared.spacing(.extraLarge)) {
         
         RelativeBarView(
             segments: items,

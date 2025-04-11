@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
 
-    private let verticalPadding: Spacing
-    private let horizontalPadding: Spacing
+    private let verticalPadding: CustomTheme.SpacingKey
+    private let horizontalPadding: CustomTheme.SpacingKey
     private let backgroundColor: Color
     private let cornerRadius: CornerRadius
     private let chevronColor: Color
@@ -31,8 +31,8 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
 
     public init(
         isExpanded: Binding<Bool>? = nil,
-        verticalPadding: Spacing = .medium,
-        horizontalPadding: Spacing = .medium,
+        verticalPadding: CustomTheme.SpacingKey = .medium,
+        horizontalPadding: CustomTheme.SpacingKey = .medium,
         backgroundColor: Color = ThemeManager.shared.background(.secondary),
         cornerRadius: CornerRadius = .small2,
         chevronColor: Color = Color(uiColor: .lightGray),

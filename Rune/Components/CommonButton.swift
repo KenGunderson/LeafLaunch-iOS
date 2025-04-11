@@ -68,7 +68,7 @@ struct CommonButton: View {
     
     @Previewable var theme = ThemeManager.shared
     
-    VStack(spacing: Spacing.large.value) {
+    VStack(spacing: DesignSystem.shared.spacing(.large)) {
         
         CommonButton(title: "Common Button", icon: .systemImage("person.fill")) {}
         .padding(.horizontal, .custom(64))
@@ -96,14 +96,14 @@ struct CommonButtonStyle: ButtonStyle {
     
     var background: ColorSource = .color(ThemeManager.shared.accentColor())
     var cornerRadius: CornerRadius
-    var verticalPadding: Spacing = .custom(12)
-    var horizontalPadding: Spacing = .xLarge
+    var verticalPadding: CustomTheme.SpacingKey = .custom(12)
+    var horizontalPadding: CustomTheme.SpacingKey = .extraLarge
 
     func makeBody(configuration: Configuration) -> some View {
         
         configuration.label
-            .padding(.horizontal, self.horizontalPadding.value)
-            .padding(.vertical, self.verticalPadding.value)
+            .padding(.horizontal, DesignSystem.shared.spacing(horizontalPadding))
+            .padding(.vertical, DesignSystem.shared.spacing(verticalPadding))
             .frame(maxWidth: .infinity)
             .background(self.background.source())
             .foregroundColor(.white)
@@ -122,8 +122,8 @@ extension ButtonStyle where Self == CommonButtonStyle {
     
     static func commonButtonStyle(background: ColorSource = .color(ThemeManager.shared.accentColor()),
                                   cornerRadius: CornerRadius = .small,
-                                  verticalPadding: Spacing = .small,
-                                  horizontalPadding: Spacing = .medium) -> CommonButtonStyle {
+                                  verticalPadding: CustomTheme.SpacingKey = .small,
+                                  horizontalPadding: CustomTheme.SpacingKey = .medium) -> CommonButtonStyle {
         
         return CommonButtonStyle(
             background: background,

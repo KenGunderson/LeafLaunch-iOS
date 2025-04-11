@@ -25,7 +25,7 @@ struct CommonImageView: View {
         .aspectRatio(contentMode: .fit)
         .frame(height: 200)
         .foregroundStyle(.indigo)
-        .padding(Spacing.xLarge.value)
+        .padding(DesignSystem.shared.spacing(.extraLarge))
         .background(.indigo.opacity(0.2))
         .clipShape(.circle)
     
@@ -64,7 +64,7 @@ struct CommonImageView: View {
     
     let url = URL(string: "https://fastly.picsum.photos/id/391/200/300.jpg?hmac=3xP-y2PRN2E0__aPOCp1sja7XrimKgLQAMiSaNd0Cko")!
     
-    VStack(spacing: Spacing.large.value) {
+    VStack(spacing: DesignSystem.shared.spacing(.large)) {
         
         if didLoadSuccessfully {
             
@@ -75,7 +75,7 @@ struct CommonImageView: View {
                 
             }
             .transition(.slide)
-            .padding(.horizontal, .xLarge)
+            .padding(.horizontal, .extraLarge)
             
         }
         
@@ -113,7 +113,7 @@ struct CommonImageView: View {
                     .appFont(with: .header(.h5))
                 
             }
-            .padding(.horizontal, .xLarge)
+            .padding(.horizontal, .extraLarge)
             .transition(.slide)
             
         }

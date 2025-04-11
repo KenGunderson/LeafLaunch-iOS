@@ -31,7 +31,7 @@ struct InfoView: View {
     
     var body: some View {
         
-        HStack(spacing: Spacing.custom(12).value) {
+        HStack(spacing: DesignSystem.shared.spacing(CustomTheme.SpacingKey.custom(12))) {
             
             if let imageSource {
                 

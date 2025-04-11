@@ -9,14 +9,14 @@ import SwiftUI
 
 struct AppCardView<Content>: View where Content: View {
 
-    private let verticalPadding: Spacing
-    private let horizontalPadding: Spacing
+    private let verticalPadding: CustomTheme.SpacingKey
+    private let horizontalPadding: CustomTheme.SpacingKey
     private let backgroundStyle: ColorSource
     private let cornerRadius: CornerRadius
     private let content: Content
     
-    public init(verticalPadding: Spacing = .medium,
-                horizontalPadding: Spacing = .medium,
+    public init(verticalPadding: CustomTheme.SpacingKey = .medium,
+                horizontalPadding: CustomTheme.SpacingKey = .medium,
                 backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.secondary)),
                 cornerRadius: CornerRadius = .small2,
                 @ViewBuilder content: () -> Content) {

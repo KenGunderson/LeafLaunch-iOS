@@ -107,7 +107,7 @@ struct AvatarView: View {
     
     AppBaseView {
         
-        VStack(spacing: Spacing.medium.value) {
+        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
             
             AvatarView(style: .initials(name: "1 "))
             

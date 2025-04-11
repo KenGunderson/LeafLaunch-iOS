@@ -78,8 +78,8 @@ struct StaggeredTestView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(ThemeManager.shared.background(.quad))
                             .frame(height: 150)
-                            .padding(.horizontal, Spacing.medium.value)
-                            .padding(.vertical, Spacing.small.value)
+                            .padding(.horizontal, DesignSystem.shared.spacing(.medium))
+                            .padding(.vertical, DesignSystem.shared.spacing(.small))
                         
                     }
                     
