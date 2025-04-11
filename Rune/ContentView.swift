@@ -8,10 +8,9 @@
 import SwiftUI
 
 // MARK: - Todo items -
-/// Adapt them all to use ENV theme
 /// Move more views from SwiftyUI + GP into here
 /// Move Design system to SwiftUI one
-/// Page indiciator
+/// 1. DraggableView 2. StringSource, 3. SlideButton, 4.ScrollBannerView, 5.Sidebar
 
 struct ContentView: View {
     
@@ -60,6 +59,32 @@ struct ContentView: View {
     
     @State var isLoading: Bool = false
     
+    // RelativeBarSegments
+    
+    @State var items: [RelativeBarViewSegment] = [
+        RelativeBarViewSegment(value: 300, title: "Apple", color: .color(.red)),
+        RelativeBarViewSegment(value: 600, title: "Microsoft", color: .color(.green)),
+        RelativeBarViewSegment(value: 200, title: "FNGU", color: .color(.blue))
+    ]
+    
+    @State var itemsGradient: [RelativeBarViewSegment] = [
+        RelativeBarViewSegment(value: 300, title: "Apple", color: .linearGradient(.redColor())),
+        RelativeBarViewSegment(value: 600, title: "Microsoft", color: .linearGradient(.greenColor())),
+        RelativeBarViewSegment(value: 200, title: "FNGU", color: .linearGradient(.blueColor()))
+    ]
+    
+    @State var items2: [RelativeBarViewSegment] = [
+        RelativeBarViewSegment(value: 300, title: "Apple", color: .color(.red)),
+        RelativeBarViewSegment(value: 600, title: "Microsoft", color: .color(.green)),
+        RelativeBarViewSegment(value: 200, title: "FNGU", color: .color(.blue)),
+        RelativeBarViewSegment(value: 200, title: "SOXL", color: .color(.indigo))
+    ]
+    
+    @State var items3: [RelativeBarViewSegment] = [
+        RelativeBarViewSegment(value: 300, title: "Logic Pro X", color: .color(.red)),
+        RelativeBarViewSegment(value: 200, title: "XCode", color: .color(.blue))
+    ]
+    
     var body: some View {
         
         AppBaseView {
@@ -85,13 +110,14 @@ struct ContentView: View {
                         textfields()
                         buttons()
                         images()
-                        supportingView()
+                        supportingViews()
                         sliders()
                         
                     }
                     .padding(.horizontal, .large)
                     
                     filterView()
+                    relativeBarView()
                     colorThemeGrid()
                     
                 }
@@ -278,7 +304,7 @@ struct ContentView: View {
                         self.isLoading = true
                     }
                                   
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         
                         withAnimation(.bouncy(duration: 0.3)) {
                             self.isLoading = false
@@ -318,7 +344,7 @@ struct ContentView: View {
         
     }
     
-    private func supportingView() -> some View {
+    private func supportingViews() -> some View {
         
         VStack(alignment: .leading, spacing: Spacing.medium.value) {
             
@@ -360,6 +386,45 @@ struct ContentView: View {
             }
             
         }
+        
+    }
+    
+    private func relativeBarView() -> some View {
+        
+        VStack(spacing: Spacing.medium.value) {
+            
+            RelativeBarView(
+                segments: items,
+                mode: .relativeFill,
+                cornerRadius: .small,
+                shouldShowTitles: false,
+                showLegend: true
+            )
+            
+            RelativeBarView(
+                segments: itemsGradient,
+                mode: .relativeFill,
+                cornerRadius: .small,
+                shouldShowTitles: true,
+                showLegend: false
+            )
+            
+            RelativeBarView(
+                segments: items2,
+                mode: .relativeFill,
+                cornerRadius: .small,
+                showLegend: true
+            )
+            
+            RelativeBarView(
+                segments: items3,
+                mode: .fixed(maxValue: 1000),
+                cornerRadius: .small,
+                showLegend: true
+            )
+            
+        }
+        .padding(.horizontal, .large)
         
     }
     
@@ -451,6 +516,11 @@ struct ContentView: View {
                 selectedFilter: self.$selectedFilterView,
                 backgroundColor: .color(ThemeManager.shared.background(.quad)),
                 strokeStyle: true
+            )
+            
+            PageIndicatorView(
+                selectedIndex: 0,
+                numberOfItems: 5
             )
             
         }
