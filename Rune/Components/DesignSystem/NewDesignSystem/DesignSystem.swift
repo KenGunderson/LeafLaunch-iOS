@@ -16,38 +16,37 @@ class DesignSystem: DesignSystemProviding {
     
     static let shared = DesignSystem()
     
-    var theme: any ThemeType = CustomTheme.goldNavy
+    var theme: any ThemeType = CustomTheme.GOLD_NAVY
 
-    // TODO: - CHANGE THIS TO UPDATE THEME AND HAVE IT TAKE A CUSTOM THEME
-    func toggleTheme() {
-        theme = (theme.id == "GOLD_NAVY") ? CustomTheme.alternate : CustomTheme.goldNavy
+    func updateTheme(_ theme: CustomTheme) {
+        self.theme = theme
     }
     
     func background(_ key: CustomTheme.BackgroundKey) -> ColorSource {
-        theme.background.value(for: key)
+        self.theme.background.value(for: key)
     }
 
     func spacing(_ key: CustomTheme.SpacingKey) -> CGFloat {
-        theme.spacing.value(for: key)
+        self.theme.spacing.value(for: key)
     }
 
     func radius(_ key: CustomTheme.RadiusKey) -> CGFloat {
-        theme.radius.value(for: key)
+        self.theme.radius.value(for: key)
     }
 
     func font(_ key: CustomTheme.FontKey) -> Font {
-        theme.fonts.value(for: key)
+        self.theme.fonts.value(for: key)
     }
 
     func textColor(_ key: CustomTheme.TextColorKey) -> ColorSource {
-        theme.textColor.value(for: key)
+        self.theme.textColor.value(for: key)
     }
     
     func shadow(_ key: CustomTheme.ShadowKey) -> CustomTheme.DecodableShadow {
-        theme.shadow.value(for: key)
+        self.theme.shadow.value(for: key)
     }
 
-    var accent: ColorSource { theme.accentColor }
-    var titleTextColor: ColorSource { theme.textColor.title }
+    var accent: ColorSource { self.theme.accentColor }
+    var titleTextColor: ColorSource { self.theme.textColor.title }
     
 }

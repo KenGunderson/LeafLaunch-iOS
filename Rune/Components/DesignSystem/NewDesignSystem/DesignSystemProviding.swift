@@ -11,7 +11,7 @@ protocol DesignSystemProviding: AnyObject {
     
     var theme: any ThemeType { get }
     
-    func toggleTheme()
+    func updateTheme(_ theme: CustomTheme)
     
     func background(_ key: CustomTheme.BackgroundKey) -> ColorSource
     func spacing(_ key: CustomTheme.SpacingKey) -> CGFloat

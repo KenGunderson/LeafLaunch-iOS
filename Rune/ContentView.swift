@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-// MARK: - Todo items -
-/// Move more views from SwiftyUI + GP into here
-/// Move Design system to SwiftUI one
+/// TODO: -
+///     Handle:
+///         DEPRICATE AppFont.swift
+///         DEPRICATE AppShadow.swift
+///         DEPRICATE AppSpacing.swift
+///         DEPRICATE CornerRadius.swift
+///     Change name of NewAppShadow to AppShadow for file and implementation when moved
+///     Add changes for each theme and make a light mode one too
 /// 1. DraggableView 2. StringSource, 3. SlideButton, 4.ScrollBannerView, 5.Sidebar
 
 struct ContentView: View {
@@ -247,7 +252,7 @@ struct ContentView: View {
         VStack(spacing: DesignSystem.shared.spacing(.medium)) {
             
             CommonButton(
-                title: "Gold Theme",
+                title: "Gold Navy",
                 icon: .systemImage("sun.max.fill"),
                 backgroundStyle: self.themeManager.accent
             ) {
@@ -260,6 +265,14 @@ struct ContentView: View {
                 backgroundStyle: self.themeManager.accent
             ) {
                 updateTheme(.EMERALD_NOIR)
+            }
+            
+            CommonButton(
+                title: "Gold Light",
+                icon: .systemImage("sun.max.fill"),
+                backgroundStyle: self.themeManager.accent
+            ) {
+                updateTheme(.GOLD_LIGHT)
             }
             
             CommonButton(title: "Coral Twilight",
@@ -527,12 +540,12 @@ struct ContentView: View {
         
     }
     
-    private func updateTheme(_ theme: Theme) {
+    private func updateTheme(_ theme: CustomTheme) {
         
         withAnimation(.smooth(duration: 1)) {
             
             self.themeManager
-                .toggleTheme()
+                .updateTheme(theme)
             
         }
         

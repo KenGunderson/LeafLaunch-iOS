@@ -1,15 +1,15 @@
 //
-//  NewAppShadow.swift
+//  GoldNavy.swift
 //  Rune
 //
-//  Created by Sako Hovaguimian on 4/10/25.
+//  Created by Sako Hovaguimian on 4/11/25.
 //
 
 import SwiftUI
 
 extension CustomTheme {
     
-    static let goldNavy = CustomTheme(
+    static let GOLD_NAVY = CustomTheme(
         id: "GOLD_NAVY",
         accentColor: .color(Color(hex: "#D4AF37")),            // Gold
         accentColorSecondary: .color(Color(hex: "#A67C00")),     // Darker gold
@@ -42,6 +42,10 @@ extension CustomTheme {
             inner: DecodableShadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
         )
     )
+    
+}
+
+extension CustomTheme {
 
     static let alternate = CustomTheme(
         id: "ALTERNATE",
@@ -86,114 +90,3 @@ extension CustomTheme {
     )
     
 }
-
-extension CustomTheme.Spacing {
-    
-    static let `default` = CustomTheme.Spacing(
-        extraSmall: 4,
-        small: 8,
-        small2: 12,
-        medium: 16,
-        medium2: 20,
-        large: 24,
-        extraLarge: 32
-    )
-    
-}
-
-extension CustomTheme.Radius {
-    
-    static let `default` = CustomTheme.Radius(
-        extraSmall: 2,
-        small: 4,
-        small2: 6,
-        medium: 8,
-        medium2: 10,
-        large: 12,
-        extraLarge: 16
-    )
-    
-}
-
-struct NewAppShadow: ViewModifier {
-    
-    let style: CustomTheme.DecodableShadow
-    
-    func body(content: Content) -> some View {
-        
-        content
-            .shadow(
-                color: self.style.color,
-                radius: self.style.radius,
-                x: self.style.x,
-                y: self.style.y
-            )
-        
-    }
-    
-}
-
-// MARK: - Preview
-
-fileprivate struct ThemeAppTestView: View {
-    
-    @Environment(\.designSystem) private var theme
-    
-    var body: some View {
-        
-        VStack(spacing: theme.spacing(.medium)) {
-            
-            Text("Design System Theme")
-                .font(theme.font(.title))
-                .foregroundStyle(theme.theme.textColor.title.source())
-                .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.hard))
-            
-            Text("Design System Theme")
-                .font(theme.font(.title))
-                .foregroundStyle(theme.theme.textColor.title.source())
-                .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.inner))
-            
-            Text("Design System Theme")
-                .font(theme.font(.title))
-                .foregroundStyle(theme.theme.textColor.title.source())
-                .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.neon))
-            
-            Text("Design System Theme")
-                .font(theme.font(.title))
-                .foregroundStyle(theme.theme.textColor.title.source())
-                .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.offset))
-            
-            Button("Toggle Theme") {
-                theme.toggleTheme()
-            }
-            .padding(theme.spacing(.small))
-            .background(theme.accent.source())
-            .clipShape(.rect(cornerRadius: theme.radius(.small2)))
-            .newAppShadow(theme.shadow(.subtle))
-            .foregroundColor(.white)
-            .contentTransition(.interpolate)
-            
-        }
-        .padding(theme.spacing(.large))
-        .background(theme.background(.primary).source())
-        .clipShape(.rect(cornerRadius: theme.radius(.medium2)))
-        .newAppShadow(theme.shadow(.card))
-        .compositingGroup()
-        .contentTransition(.interpolate)
-        .animation(.easeOut(duration: 1.2), value: self.theme.theme.id)
-        
-    }
-    
-}
-
-#Preview {
-    
-    ThemeAppTestView()
-        .environment(DesignSystem.shared)
-    
-}
-
