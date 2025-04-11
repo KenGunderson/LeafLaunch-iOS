@@ -24,3 +24,12 @@ struct NewAppShadow: ViewModifier {
     }
     
 }
+
+extension View {
+    
+    @ViewBuilder
+    func newAppShadow(_ shadow: CustomTheme.DecodableShadow) -> some View {
+        self.modifier(NewAppShadow(style: shadow))
+    }
+    
+}

@@ -32,14 +32,7 @@ extension CustomTheme {
             body: .rounded(size: 16, weight: .regular),
             caption: .rounded(size: 12, weight: .light)
         ),
-        shadow: .init(
-            card: DecodableShadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 2),
-            subtle: DecodableShadow(color: Color.black.opacity(0.03), radius: 3, x: 0, y: 1),
-            offset: DecodableShadow(color: Color.black.opacity(0.1), radius: 8, x: 4, y: 4),
-            neon: DecodableShadow(color: Color.green.opacity(0.5), radius: 12, x: 0, y: 0),
-            hard: DecodableShadow(color: Color.black.opacity(0.15), radius: 0, x: 0, y: 1),
-            inner: DecodableShadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 1)
-        )
+        shadow: .default
     )
     
 }
