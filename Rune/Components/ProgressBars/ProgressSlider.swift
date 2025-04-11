@@ -22,8 +22,8 @@ struct ProgressSlider: View {
     init(value: Binding<Double>,
          trackStyle: ColorSource,
          fillStyle: ColorSource,
-         thumbStyle: ColorSource = .color(ThemeManager.shared.background(.primary)),
-         thumbCircleStyle: ColorSource = .color(ThemeManager.shared.accentColor()),
+         thumbStyle: ColorSource = DesignSystem.shared.background(.primary),
+         thumbCircleStyle: ColorSource = DesignSystem.shared.accent,
          thumbHeight: CGFloat = 32) {
         
         self._value = value

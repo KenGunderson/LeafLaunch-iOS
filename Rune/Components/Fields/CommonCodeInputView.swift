@@ -14,9 +14,9 @@ struct CommonCodeInputView: View {
     @FocusState private var focusedField: Bool
     
     var maxCharacterCount: Int = 6
-    var accentColor: ColorSource = .color(ThemeManager.shared.accentColor())
-    var inputTextColor: ColorSource = .color(ThemeManager.shared.background(.primary))
-    var backgroundColor: ColorSource = .color(ThemeManager.shared.background(.tertiary))
+    var accentColor: ColorSource = DesignSystem.shared.accent
+    var inputTextColor: ColorSource = DesignSystem.shared.background(.primary)
+    var backgroundColor: ColorSource = DesignSystem.shared.background(.tertiary)
     
     var body: some View {
         

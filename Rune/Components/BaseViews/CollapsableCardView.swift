@@ -11,7 +11,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
 
     private let verticalPadding: CustomTheme.SpacingKey
     private let horizontalPadding: CustomTheme.SpacingKey
-    private let backgroundColor: Color
+    private let backgroundColor: ColorSource
     private let cornerRadius: CornerRadius
     private let chevronColor: Color
     private let shouldShowChevron: Bool
@@ -33,7 +33,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         isExpanded: Binding<Bool>? = nil,
         verticalPadding: CustomTheme.SpacingKey = .medium,
         horizontalPadding: CustomTheme.SpacingKey = .medium,
-        backgroundColor: Color = ThemeManager.shared.background(.secondary),
+        backgroundColor: ColorSource = DesignSystem.shared.background(.secondary),
         cornerRadius: CornerRadius = .small2,
         chevronColor: Color = Color(uiColor: .lightGray),
         shouldShowChevron: Bool = true,
@@ -75,7 +75,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             }
             .padding(.horizontal, self.horizontalPadding)
             .background(.backgroundTappable)
-            .background(self.backgroundColor)
+            .background(self.backgroundColor.source())
 
             if self.isExpanded.wrappedValue {
 
@@ -86,7 +86,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             }
 
         }
-        .background(self.backgroundColor)
+        .background(self.backgroundColor.source())
         .cornerRadius(self.cornerRadius)
         .clipShape(.rect(cornerRadius: self.cornerRadius.value))
         .appShadow()
@@ -116,7 +116,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             Spacer(minLength: 0)
             
         }
-        .foregroundStyle(ThemeManager.shared.accentColor())
+        .foregroundStyle(DesignSystem.shared.accent.source())
         
     } expandedView: {
         
@@ -131,7 +131,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         .frame(maxWidth: .infinity)
         .padding(.bottom, .medium)
         .padding(.horizontal, .medium)
-        .foregroundStyle(ThemeManager.shared.accentColor())
+        .foregroundStyle(DesignSystem.shared.accent.source())
         .frame(maxHeight: 100)
         
     }
@@ -153,7 +153,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
                 Spacer(minLength: 0)
                 
             }
-            .foregroundStyle(ThemeManager.shared.accentColor())
+            .foregroundStyle(DesignSystem.shared.accent.source())
             
         } expandedView: {
             
@@ -168,7 +168,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             .frame(maxWidth: .infinity)
             .padding(.bottom, .medium)
             .padding(.horizontal, .medium)
-            .foregroundStyle(ThemeManager.shared.accentColor())
+            .foregroundStyle(DesignSystem.shared.accent.source())
             .frame(maxHeight: 100)
             
         }

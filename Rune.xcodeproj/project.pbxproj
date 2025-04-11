@@ -23,7 +23,6 @@
 		754849A12DA8BE3300B7E053 /* DesignSystemSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849A02DA8BE3200B7E053 /* DesignSystemSpacing.swift */; };
 		755C98202D9CC89000437D5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981D2D9CC89000437D5D /* ContentView.swift */; };
 		755C98212D9CC89000437D5D /* RuneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C981E2D9CC89000437D5D /* RuneApp.swift */; };
-		755C98412D9CC9A900437D5D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98402D9CC9A900437D5D /* ThemeManager.swift */; };
 		755C98432D9CC9AF00437D5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98422D9CC9AD00437D5D /* Theme.swift */; };
 		755C98532D9CD34400437D5D /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C984E2D9CD34400437D5D /* Ext+String.swift */; };
 		755C98542D9CD34400437D5D /* Ext+UImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98512D9CD34400437D5D /* Ext+UImage.swift */; };
@@ -118,7 +117,6 @@
 		755C98032D9CC86A00437D5D /* RuneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RuneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C981D2D9CC89000437D5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		755C981E2D9CC89000437D5D /* RuneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuneApp.swift; sourceTree = "<group>"; };
-		755C98402D9CC9A900437D5D /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		755C98422D9CC9AD00437D5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		755C98492D9CD34400437D5D /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
 		755C984A2D9CD34400437D5D /* Ext+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Combine.swift"; sourceTree = "<group>"; };
@@ -249,17 +247,17 @@
 				754849992DA8BB4B00B7E053 /* CustomTheme+Mocks.swift */,
 				7548499B2DA8BB9B00B7E053 /* DesignSystemProviding.swift */,
 				7548499D2DA8BBBF00B7E053 /* DesignSystem.swift */,
-				7548499F2DA8BE1F00B7E053 /* ViewExtensions */,
+				7548499F2DA8BE1F00B7E053 /* DSExtensions */,
 			);
 			path = NewDesignSystem;
 			sourceTree = "<group>";
 		};
-		7548499F2DA8BE1F00B7E053 /* ViewExtensions */ = {
+		7548499F2DA8BE1F00B7E053 /* DSExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				754849A02DA8BE3200B7E053 /* DesignSystemSpacing.swift */,
 			);
-			path = ViewExtensions;
+			path = DSExtensions;
 			sourceTree = "<group>";
 		};
 		755C97E02D9CC86900437D5D = {
@@ -347,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				755C98422D9CC9AD00437D5D /* Theme.swift */,
-				755C98402D9CC9A900437D5D /* ThemeManager.swift */,
 				75A0A05B2DA5ED8500D967AF /* Sources */,
 			);
 			path = Theme;
@@ -701,7 +698,6 @@
 				755C985B2D9CD34400437D5D /* Ext+UIApplication.swift in Sources */,
 				75AB349C2DA84FD800B51593 /* PageIndicatorView.swift in Sources */,
 				755C985C2D9CD34400437D5D /* Ext+Combine.swift in Sources */,
-				755C98412D9CC9A900437D5D /* ThemeManager.swift in Sources */,
 				7548497B2DA8B5F800B7E053 /* RelativeBarView.swift in Sources */,
 				754849962DA8BAFA00B7E053 /* ThemeType.swift in Sources */,
 			);

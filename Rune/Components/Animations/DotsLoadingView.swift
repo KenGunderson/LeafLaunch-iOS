@@ -10,7 +10,7 @@ import SwiftUI
 struct DotsAnimationView: View {
     
     var shouldAnimate: Bool = true
-    var foregroundColor: ColorSource = .color(ThemeManager.shared.accentColor())
+    var foregroundColor: ColorSource = DesignSystem.shared.accent
     
     func animation(index: Int) -> Animation {
         

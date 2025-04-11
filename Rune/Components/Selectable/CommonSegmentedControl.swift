@@ -14,10 +14,10 @@ struct CommonSegmentedControl<S: Selectable>: View {
     var options: [S]
     
     var titleFont: AppFont = .title(.t4)
-    var selectedTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var unselectedTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var foregroundStyle: ColorSource = .color(ThemeManager.shared.accentColor())
-    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.tertiary))
+    var selectedTextColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var unselectedTextColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var foregroundStyle: ColorSource = DesignSystem.shared.accent
+    var backgroundStyle: ColorSource = DesignSystem.shared.background(.tertiary)
     
     var body: some View {
         

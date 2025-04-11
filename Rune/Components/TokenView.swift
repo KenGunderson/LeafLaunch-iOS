@@ -19,7 +19,7 @@ struct TokenView: View {
     init(text: String,
          titleFont: AppFont = .title(.t4),
          foregroundStyle: ColorSource = .color(.white),
-         backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.quad)),
+         backgroundStyle: ColorSource = DesignSystem.shared.background(.quaternary),
          horizontalPadding: CustomTheme.SpacingKey = .custom(12),
          verticalPadding: CustomTheme.SpacingKey = .extraSmall) {
         

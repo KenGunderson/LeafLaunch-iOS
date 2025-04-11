@@ -13,11 +13,11 @@ struct CommonTextEditView: View {
     @Binding var text: String
     var placehoderText: String
     var isFocused: Bool
-    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.body))
-    var placeholderColor: ColorSource = .color(ThemeManager.shared.textColor(.title).opacity(0.5))
-    var unselectedBorderColor: ColorSource = .color(ThemeManager.shared.background(.quad))
-    var selectedBorderColor: ColorSource = .color(ThemeManager.shared.accentColor())
-    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.secondary))
+    var titleColor: ColorSource = DesignSystem.shared.textColor(.body)
+    var placeholderColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var unselectedBorderColor: ColorSource = DesignSystem.shared.background(.quaternary)
+    var selectedBorderColor: ColorSource = DesignSystem.shared.accent
+    var backgroundStyle: ColorSource = DesignSystem.shared.background(.secondary)
     var lineLimit: ClosedRange<Int> = 5...5
     
     var body: some View {
@@ -25,7 +25,7 @@ struct CommonTextEditView: View {
         TextField(
             "Test",
             text: self.$text,
-            prompt: Text(self.placehoderText).foregroundStyle(self.placeholderColor.source()),
+            prompt: Text(self.placehoderText).foregroundStyle(self.placeholderColor.source().opacity(0.5)),
             axis: .vertical
         )
         .lineLimit(self.lineLimit)
@@ -58,7 +58,7 @@ struct CommonTextEditView: View {
                 text: $text,
                 placehoderText: "Answer...",
                 isFocused: false,
-                titleColor: .color(ThemeManager.shared.textColor(.title))
+                titleColor: DesignSystem.shared.textColor(.title)
             )
             .padding(.horizontal, 32)
             .focused($isFocused)
@@ -67,7 +67,7 @@ struct CommonTextEditView: View {
                 text: $text,
                 placehoderText: "New Answer....",
                 isFocused: false,
-                titleColor: .color(ThemeManager.shared.textColor(.body))
+                titleColor: DesignSystem.shared.textColor(.body)
             )
             .padding(.horizontal, 32)
             .focused($isFocused)

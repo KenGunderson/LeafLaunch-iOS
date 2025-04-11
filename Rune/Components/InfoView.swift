@@ -113,7 +113,7 @@ struct InfoView: View {
             InfoView(
                 title: "This is the info",
                 imageSource: .systemImage("lightbulb"),
-                foregroundStyle: .color(ThemeManager.shared.accentColor())) {
+                foregroundStyle: DesignSystem.shared.accent) {
                     print("Something")
                 }
             

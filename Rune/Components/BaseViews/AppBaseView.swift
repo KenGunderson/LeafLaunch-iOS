@@ -17,7 +17,7 @@ struct AppBaseView<Content>: View where Content: View {
     public init(
         alignment: Alignment = .center,
         horizontalPadding: CustomTheme.SpacingKey = .none,
-        backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.primary)),
+        backgroundStyle: ColorSource = DesignSystem.shared.background(.primary),
         @ViewBuilder content: () -> Content) {
             
             self.alignment = alignment

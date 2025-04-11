@@ -12,7 +12,7 @@ struct AppOutlineCardView<Content>: View where Content: View {
     private let verticalPadding: CustomTheme.SpacingKey
     private let horizontalPadding: CustomTheme.SpacingKey
     private let backgroundStyle: ColorSource
-    private let outlineColor: Color
+    private let outlineColor: ColorSource
     private let outlineWidth: CGFloat
     private let cornerRadius: CornerRadius
     private let content: Content
@@ -20,7 +20,7 @@ struct AppOutlineCardView<Content>: View where Content: View {
     public init(verticalPadding: CustomTheme.SpacingKey = .medium,
                 horizontalPadding: CustomTheme.SpacingKey = .medium,
                 backgroundStyle: ColorSource = .color(.clear),
-                outlineColor: Color = ThemeManager.shared.background(.tertiary),
+                outlineColor: ColorSource = DesignSystem.shared.background(.tertiary),
                 outlineWidth: CGFloat = 2,
                 cornerRadius: CornerRadius = .small2,
                 @ViewBuilder content: () -> Content) {
@@ -60,7 +60,7 @@ struct AppOutlineCardView<Content>: View where Content: View {
             
             RoundedRectangle(cornerRadius: self.cornerRadius.value)
                 .stroke(
-                    self.outlineColor,
+                    self.outlineColor.source(),
                     lineWidth: self.outlineWidth
                 )
             
@@ -87,7 +87,7 @@ struct AppOutlineCardView<Content>: View where Content: View {
             Image(systemName: "chevron.right")
             
         }
-        .foregroundStyle(ThemeManager.shared.accentColor())
+        .foregroundStyle(DesignSystem.shared.accent.source())
         
     }
     .padding(.horizontal, 32)

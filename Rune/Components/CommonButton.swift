@@ -10,15 +10,15 @@ import SwiftUI
 struct CommonButton: View {
         
     var title: String
-    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
     var icon: ImageSource?
-    var backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor())
+    var backgroundStyle: ColorSource = DesignSystem.shared.accent
     var action: () -> Void
     
     init(title: String,
-         titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title)),
+         titleColor: ColorSource = DesignSystem.shared.textColor(.title),
          icon: ImageSource? = nil,
-         backgroundStyle: ColorSource = .color(ThemeManager.shared.accentColor()),
+         backgroundStyle: ColorSource = DesignSystem.shared.accent,
          action: @escaping () -> Void) {
         
         self.title = title
@@ -66,7 +66,7 @@ struct CommonButton: View {
 
 #Preview {
     
-    @Previewable var theme = ThemeManager.shared
+    @Previewable var theme = DesignSystem.shared
     
     VStack(spacing: DesignSystem.shared.spacing(.large)) {
         
@@ -77,7 +77,7 @@ struct CommonButton: View {
             .fontWeight(.bold)
             .padding(.medium)
             .foregroundStyle(.white)
-            .background(theme.accentColor())
+            .background(theme.accent.source())
             .clipShape(.circle)
             .asButton {}
         
@@ -94,7 +94,7 @@ struct CommonButton: View {
 
 struct CommonButtonStyle: ButtonStyle {
     
-    var background: ColorSource = .color(ThemeManager.shared.accentColor())
+    var background: ColorSource = DesignSystem.shared.accent
     var cornerRadius: CornerRadius
     var verticalPadding: CustomTheme.SpacingKey = .custom(12)
     var horizontalPadding: CustomTheme.SpacingKey = .extraLarge
@@ -120,7 +120,7 @@ struct CommonButtonStyle: ButtonStyle {
 
 extension ButtonStyle where Self == CommonButtonStyle {
     
-    static func commonButtonStyle(background: ColorSource = .color(ThemeManager.shared.accentColor()),
+    static func commonButtonStyle(background: ColorSource = DesignSystem.shared.accent,
                                   cornerRadius: CornerRadius = .small,
                                   verticalPadding: CustomTheme.SpacingKey = .small,
                                   horizontalPadding: CustomTheme.SpacingKey = .medium) -> CommonButtonStyle {

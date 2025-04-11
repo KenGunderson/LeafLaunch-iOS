@@ -95,10 +95,10 @@ extension View {
                            hint: String? = nil,
                            icon: ImageSource? = nil,
                            isFocused: Bool,
-                           borderColor: ColorSource = .color(ThemeManager.shared.accentColor()),
-                           foregroundColor: ColorSource = .color(ThemeManager.shared.textColor(.body)),
-                           backgroundColor: ColorSource = .color(ThemeManager.shared.background(.secondary)),
-                           unselectedColor: ColorSource = .color(ThemeManager.shared.background(.quad))) -> some View {
+                           borderColor: ColorSource = DesignSystem.shared.accent,
+                           foregroundColor: ColorSource = DesignSystem.shared.textColor(.body),
+                           backgroundColor: ColorSource = DesignSystem.shared.background(.secondary),
+                           unselectedColor: ColorSource = DesignSystem.shared.background(.quaternary)) -> some View {
         
         self
             .textFieldStyle(CommonTextFieldStyle(

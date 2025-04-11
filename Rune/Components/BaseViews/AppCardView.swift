@@ -17,7 +17,7 @@ struct AppCardView<Content>: View where Content: View {
     
     public init(verticalPadding: CustomTheme.SpacingKey = .medium,
                 horizontalPadding: CustomTheme.SpacingKey = .medium,
-                backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.secondary)),
+                backgroundStyle: ColorSource = DesignSystem.shared.background(.secondary),
                 cornerRadius: CornerRadius = .small2,
                 @ViewBuilder content: () -> Content) {
         
@@ -68,7 +68,7 @@ struct AppCardView<Content>: View where Content: View {
             Image(systemName: "chevron.right")
             
         }
-        .foregroundStyle(ThemeManager.shared.accentColor())
+        .foregroundStyle(DesignSystem.shared.accent.source())
         
     }
     .padding(.horizontal, 32)

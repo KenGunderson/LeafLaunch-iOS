@@ -13,8 +13,8 @@ struct CommonDropDownMenu<S: Selectable>: View {
     
     var buttonHeight: CGFloat = 50
     var maxItemDisplayed: Int = 3
-    var foregroundStyle: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var backgroundStyle: ColorSource = .color(ThemeManager.shared.background(.tertiary))
+    var foregroundStyle: ColorSource = DesignSystem.shared.textColor(.title)
+    var backgroundStyle: ColorSource = DesignSystem.shared.background(.tertiary)
     var cornerRadius: CornerRadius = .small
     var shouldPushContentDown: Bool = true
 
@@ -53,7 +53,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                         
                         Divider()
                             .frame(minHeight: 2)
-                            .background(ThemeManager.shared.background(.quad))
+                            .background(DesignSystem.shared.background(.quaternary).source())
                             .transition(.blurReplace)
                         
                     }
@@ -82,7 +82,12 @@ struct CommonDropDownMenu<S: Selectable>: View {
                 
             }
             .foregroundStyle(self.foregroundStyle.source())
-            .background(RoundedRectangle(cornerRadius: self.cornerRadius.value).fill(self.backgroundStyle.source()))
+            .background {
+                
+                RoundedRectangle(cornerRadius: self.cornerRadius.value)
+                    .fill(self.backgroundStyle.source())
+                
+            }
             
         }
         .appShadow()
@@ -197,7 +202,7 @@ fileprivate struct DropDownMenuDemo: View {
                 maxHeight: .infinity,
                 alignment: .center
             )
-            .foregroundStyle(ThemeManager.shared.textColor(.title))
+            .foregroundStyle(DesignSystem.shared.textColor(.title).source())
             .onTapGesture {
                 
                 withAnimation(.bouncy) {

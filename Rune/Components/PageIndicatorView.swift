@@ -12,8 +12,8 @@ struct PageIndicatorView: View {
     
     var selectedIndex: Int = 0
     var numberOfItems: Int = 5
-    var selectedColor: ColorSource = .color(ThemeManager.shared.accentColor())
-    var unselectedColor: ColorSource = .color(ThemeManager.shared.background(.quad))
+    var selectedColor: ColorSource = DesignSystem.shared.accent
+    var unselectedColor: ColorSource = DesignSystem.shared.background(.quaternary)
     
     func fillColor(isSelected: Bool) -> AnyShapeStyle {
         

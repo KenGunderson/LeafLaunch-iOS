@@ -14,8 +14,8 @@ struct RelativeBarView: View {
     var mode: RelativeBarViewMode
     
     var cornerRadius: CornerRadius = .extraSmall
-    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad))
+    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary)
     var barHeight: CGFloat = 32
     
     var shouldShowTitles: Bool = true
@@ -173,7 +173,7 @@ fileprivate struct LegendView: View {
     
     var segments: [RelativeBarViewSegment]
     var mode: RelativeBarViewMode
-    var titleColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
+    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
     
     private var totalValue: CGFloat {
         self.segments.reduce(0) { $0 + $1.value }

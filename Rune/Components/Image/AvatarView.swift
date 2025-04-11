@@ -28,8 +28,8 @@ struct AvatarView: View {
     }
         
     init(style: Style,
-         foregroundColor: ColorSource = .color(ThemeManager.shared.accentColor()),
-         backgroundColor: ColorSource = .color(ThemeManager.shared.background(.tertiary)),
+         foregroundColor: ColorSource = DesignSystem.shared.accent,
+         backgroundColor: ColorSource = DesignSystem.shared.background(.tertiary),
          clipShape: AnyShape = .init(.circle)) {
         
         self.style = style

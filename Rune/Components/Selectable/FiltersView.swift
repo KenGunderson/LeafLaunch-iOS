@@ -12,18 +12,18 @@ struct FiltersView: View {
     
     var filters: [String]
     var selectedFilter: String? = nil
-    var selectedFilterColor: ColorSource = .color(ThemeManager.shared.accentColor())
-    var filterTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var filterSelectedText: ColorSource = .color(ThemeManager.shared.textColor(.title))
-    var backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad))
+    var selectedFilterColor: ColorSource = DesignSystem.shared.accent
+    var filterTextColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var filterSelectedText: ColorSource = DesignSystem.shared.textColor(.title)
+    var backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary)
     var strokeStyle: Bool = false
     var onFilterTapped: (String) -> ()
     var onCloseTapped: () -> ()
     
     @State private var isUserInteractionEnabled: Bool = true
     
-    var foregroundStyle: Color {
-        return ThemeManager.shared.textColor(.title)
+    var foregroundStyle: AnyShapeStyle {
+        return DesignSystem.shared.textColor(.title).source()
     }
     
     var body: some View {
@@ -170,10 +170,10 @@ internal struct FiltersViewPreview: View {
     
     init(filters: [String],
          selectedFilter: Binding<String?>,
-         selectedFilterColor: ColorSource = .color(ThemeManager.shared.accentColor()),
-         filterTextColor: ColorSource = .color(ThemeManager.shared.textColor(.title)),
-         filterSelectedText: ColorSource = .color(ThemeManager.shared.textColor(.title)),
-         backgroundColor: ColorSource = .color(ThemeManager.shared.background(.quad)),
+         selectedFilterColor: ColorSource = DesignSystem.shared.accent,
+         filterTextColor: ColorSource = DesignSystem.shared.textColor(.title),
+         filterSelectedText: ColorSource = DesignSystem.shared.textColor(.title),
+         backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary),
          strokeStyle: Bool = false) {
         
         self.filters = filters

@@ -12,7 +12,7 @@ internal struct CommonTextFieldPreview: View {
     @State private var text: String = ""
     @FocusState private var isFocused: Bool
     
-    let placeholderColor = ThemeManager.shared.textColor(.body)
+    let placeholderColor = DesignSystem.shared.textColor(.body)
     
     var body: some View {
         
@@ -21,7 +21,7 @@ internal struct CommonTextFieldPreview: View {
             TextField(
                 "Email",
                 text: self.$text,
-                prompt: Text("Email").foregroundStyle(self.placeholderColor)
+                prompt: Text("Email").foregroundStyle(self.placeholderColor.source())
             )
             .focused(self.$isFocused, equals: true)
             .appTextFieldStyle(
@@ -37,7 +37,7 @@ internal struct CommonTextFieldPreview: View {
             TextField(
                 "Password",
                 text: self.$text,
-                prompt: Text("Password").foregroundStyle(self.placeholderColor)
+                prompt: Text("Password").foregroundStyle(self.placeholderColor.source())
             )
             .focused(self.$isFocused, equals: true)
             .appTextFieldStyle(
@@ -53,7 +53,7 @@ internal struct CommonTextFieldPreview: View {
             TextField(
                 "Full Name",
                 text: self.$text,
-                prompt: Text("Full Name").foregroundStyle(self.placeholderColor)
+                prompt: Text("Full Name").foregroundStyle(self.placeholderColor.source())
             )
             .focused(self.$isFocused, equals: true)
             .appTextFieldStyle(

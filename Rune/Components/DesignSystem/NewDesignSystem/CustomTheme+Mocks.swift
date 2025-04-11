@@ -9,21 +9,21 @@ import SwiftUI
 
 extension CustomTheme {
     
-    static let `default` = CustomTheme(
-        id: "DEFAULT",
-        accentColor: .color(.blue),
-        accentColorSecondary: .color(.cyan),
+    static let goldNavy = CustomTheme(
+        id: "GOLD_NAVY",
+        accentColor: .color(Color(hex: "#D4AF37")),            // Gold
+        accentColorSecondary: .color(Color(hex: "#A67C00")),     // Darker gold
         background: .init(
-            primary: .color(Color(uiColor: .systemGray6)),
-            secondary: .color(Color(.secondarySystemBackground)),
-            tertiary: .color(Color(.tertiarySystemBackground)),
-            quaternary: .color(Color(.quaternarySystemFill))
+            primary: .color(Color(hex: "#0A1A2F")),    // Deep navy
+            secondary: .color(Color(hex: "#0E2439")),  // Slightly lighter navy
+            tertiary: .color(Color(hex: "#162E44")),   // For cards, elevated surfaces
+            quaternary: .color(Color(hex: "#213B52"))  // For shadows or fills
         ),
         textColor: .init(
-            title: .color(.primary),
-            titleInverted: .color(.white),
-            body: .color(.gray),
-            bodyInverted: .color(.gray)
+            title: .color(Color(hex: "#F5F5F5")),         // Soft white
+            titleInverted: .color(Color(hex: "#0A1A2F")),   // Navy (inverse of title)
+            body: .color(Color(hex: "#B0B0B0")),            // Muted text
+            bodyInverted: .color(Color(hex: "#B0B0B0"))       // Muted text
         ),
         spacing: .default,
         radius: .default,
@@ -59,7 +59,15 @@ extension CustomTheme {
             body: .color(.init(white: 0.8)),
             bodyInverted: .color(.init(white: 0.2))
         ),
-        spacing: .default,
+        spacing: .init(
+            extraSmall: 2,
+            small: 4,
+            small2: 8,
+            medium: 12,
+            medium2: 16,
+            large: 20,
+            extraLarge: 28
+        ),
         radius: .default,
         fonts: .init(
             title: .system(size: 20, weight: .semibold),
@@ -185,7 +193,7 @@ fileprivate struct ThemeAppTestView: View {
 #Preview {
     
     ThemeAppTestView()
-        .environment(ThemeManager.shared)
+        .environment(DesignSystem.shared)
     
 }
 

@@ -57,8 +57,8 @@ struct StaggeredTestView: View {
             
             CommonButton(
                 title: "Toggle View",
-                titleColor: .color(ThemeManager.shared.textColor(.title)),
-                backgroundStyle: .color(ThemeManager.shared.accentColor())
+                titleColor: DesignSystem.shared.textColor(.title),
+                backgroundStyle: DesignSystem.shared.accent
             ) {
                 
                 showView
@@ -76,7 +76,7 @@ struct StaggeredTestView: View {
                     ForEach(1...6, id: \.self) { _ in
                         
                         RoundedRectangle(cornerRadius: 15)
-                            .fill(ThemeManager.shared.background(.quad))
+                            .fill(DesignSystem.shared.background(.quaternary).source())
                             .frame(height: 150)
                             .padding(.horizontal, DesignSystem.shared.spacing(.medium))
                             .padding(.vertical, DesignSystem.shared.spacing(.small))

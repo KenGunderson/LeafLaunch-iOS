@@ -16,10 +16,11 @@ class DesignSystem: DesignSystemProviding {
     
     static let shared = DesignSystem()
     
-    var theme: any ThemeType = CustomTheme.default
+    var theme: any ThemeType = CustomTheme.goldNavy
 
+    // TODO: - CHANGE THIS TO UPDATE THEME AND HAVE IT TAKE A CUSTOM THEME
     func toggleTheme() {
-        theme = (theme.id == "DEFAULT") ? CustomTheme.alternate : CustomTheme.default
+        theme = (theme.id == "GOLD_NAVY") ? CustomTheme.alternate : CustomTheme.goldNavy
     }
     
     func background(_ key: CustomTheme.BackgroundKey) -> ColorSource {

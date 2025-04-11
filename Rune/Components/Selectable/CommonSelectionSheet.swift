@@ -104,7 +104,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
             }
             
         }
-        .background(ThemeManager.shared.background(.primary))
+        .background(DesignSystem.shared.background(.primary).source())
         .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
         .scrollBounceBehavior(.basedOnSize)
         .animation(.bouncy, value: self.selectedOptions)
@@ -209,9 +209,10 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
     
     ZStack {
         
-        ThemeManager
+        DesignSystem
             .shared
             .background(.primary)
+            .view()
             .ignoresSafeArea()
         
         VStack {
