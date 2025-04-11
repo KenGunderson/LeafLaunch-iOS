@@ -48,7 +48,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
                         
                         if isSelected {
                             
-                            RoundedRectangle(cornerRadius: CornerRadius.extraSmall.value)
+                            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.extraSmall))
                             
                                 .fill(self.foregroundStyle.source())
                                 .padding(.vertical, 6)
@@ -66,7 +66,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(
-            RoundedRectangle(cornerRadius: CornerRadius.small.value)
+            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small))
                 .fill(self.backgroundStyle.source())
         )
         .appShadow()

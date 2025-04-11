@@ -15,7 +15,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
     var maxItemDisplayed: Int = 3
     var foregroundStyle: ColorSource = DesignSystem.shared.textColor(.title)
     var backgroundStyle: ColorSource = DesignSystem.shared.background(.tertiary)
-    var cornerRadius: CornerRadius = .small
+    var cornerRadius: CustomTheme.RadiusKey = .small
     var shouldPushContentDown: Bool = true
 
     @Binding var selectedOption: S?
@@ -84,7 +84,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             .foregroundStyle(self.foregroundStyle.source())
             .background {
                 
-                RoundedRectangle(cornerRadius: self.cornerRadius.value)
+                RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius))
                     .fill(self.backgroundStyle.source())
                 
             }

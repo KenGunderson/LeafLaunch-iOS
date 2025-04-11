@@ -28,10 +28,10 @@ extension CustomTheme {
         spacing: .default,
         radius: .default,
         fonts: .init(
-            title: .system(size: 28, weight: .bold),
-            subtitle: .system(size: 20, weight: .medium),
-            body: .system(size: 16, weight: .regular),
-            caption: .system(size: 12, weight: .light)
+            title: .rounded(size: 28, weight: .bold),
+            subtitle: .rounded(size: 20, weight: .medium),
+            body: .rounded(size: 16, weight: .regular),
+            caption: .rounded(size: 12, weight: .light)
         ),
         shadow: .init(
             card: DecodableShadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4),

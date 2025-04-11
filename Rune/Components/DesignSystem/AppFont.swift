@@ -88,38 +88,38 @@ enum AppFont {
         case .billboard(let style):
             
             switch style {
-            case .b1: return .rounded(ofSize: 64, weight: .heavy)
+            case .b1: return .rounded(size: 64, weight: .heavy)
             }
             
         case .header(let style):
             
             switch style {
-            case .h1: return .rounded(ofSize: 36, weight: .heavy)
-            case .h5: return .rounded(ofSize: 28, weight: .heavy)
-            case .h6: return .rounded(ofSize: 22, weight: .heavy)
-            case .h10: return .rounded(ofSize: 20, weight: .heavy)
-            case .h15: return .serif(ofSize: 16, weight: .heavy)
+            case .h1: return .rounded(size: 36, weight: .heavy)
+            case .h5: return .rounded(size: 28, weight: .heavy)
+            case .h6: return .rounded(size: 22, weight: .heavy)
+            case .h10: return .rounded(size: 20, weight: .heavy)
+            case .h15: return .serif(size: 16, weight: .heavy)
             }
             
         case .title(let style):
             
             switch style {
-            case .t1: return .rounded(ofSize: 12, weight: .medium)
-            case .t2: return .rounded(ofSize: 12, weight: .bold)
-            case .t4: return .rounded(ofSize: 14, weight: .bold)
-            case .t5: return .rounded(ofSize: 16, weight: .bold)
-            case .t6: return .rounded(ofSize: 18, weight: .semibold)
-            case .t8: return .rounded(ofSize: 22, weight: .semibold)
-            case .t10: return .rounded(ofSize: 24, weight: .heavy)
+            case .t1: return .rounded(size: 12, weight: .medium)
+            case .t2: return .rounded(size: 12, weight: .bold)
+            case .t4: return .rounded(size: 14, weight: .bold)
+            case .t5: return .rounded(size: 16, weight: .bold)
+            case .t6: return .rounded(size: 18, weight: .semibold)
+            case .t8: return .rounded(size: 22, weight: .semibold)
+            case .t10: return .rounded(size: 24, weight: .heavy)
             }
             
         case .body(let style):
             
             switch style {
-            case .b1: return .rounded(ofSize: 12, weight: .regular)
-            case .b4: return .rounded(ofSize: 14, weight: .regular)
-            case .b5: return .rounded(ofSize: 16, weight: .regular)
-            case .b10: return .rounded(ofSize: 18, weight: .regular)
+            case .b1: return .rounded(size: 12, weight: .regular)
+            case .b4: return .rounded(size: 14, weight: .regular)
+            case .b5: return .rounded(size: 16, weight: .regular)
+            case .b10: return .rounded(size: 18, weight: .regular)
             }
         }
         
@@ -140,7 +140,7 @@ extension Font {
 
 extension UIFont {
     
-    class func rounded(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+    class func rounded(size size: CGFloat, weight: UIFont.Weight) -> UIFont {
         
         let systemFont = UIFont.systemFont(ofSize: size, weight: weight)
         let font: UIFont
@@ -154,7 +154,7 @@ extension UIFont {
         
     }
     
-    class func serif(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+    class func serif(size size: CGFloat, weight: UIFont.Weight) -> UIFont {
         
         let systemFont = UIFont.systemFont(ofSize: size, weight: weight)
         let font: UIFont

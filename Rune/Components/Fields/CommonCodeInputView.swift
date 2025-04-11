@@ -48,7 +48,7 @@ struct CommonCodeInputView: View {
                     .frame(maxWidth: 120, maxHeight: 120)
                     .frame(height: 60)
                     .background(self.backgroundColor.source())
-                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small2.value))
+                    .cornerRadius(.small2)
                     .appShadow()
                     .overlay(alignment: .bottom, content: {
                         
@@ -88,7 +88,7 @@ struct CommonCodeInputView: View {
     
     private func activeLine(isActiveColor: Bool) -> some View {
         
-        RoundedRectangle(cornerRadius: CornerRadius.small2.value)
+        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small2))
             .stroke(isActiveColor ? self.accentColor.source() : ColorSource.color(.clear).source(), lineWidth: 2)
             .frame(height: 1)
             .padding(.bottom, .small)
@@ -100,7 +100,7 @@ struct CommonCodeInputView: View {
     
     private func border(isActiveColor: Bool) -> some View {
         
-        RoundedRectangle(cornerRadius: CornerRadius.small2.value)
+        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small2))
             .trim(from: isActiveColor ? 0 : 1, to: 1)
             .stroke(
                 isActiveColor ? self.accentColor.source() : ColorSource.color(.clear).source(),

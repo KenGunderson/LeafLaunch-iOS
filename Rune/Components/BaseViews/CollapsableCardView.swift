@@ -12,7 +12,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
     private let verticalPadding: CustomTheme.SpacingKey
     private let horizontalPadding: CustomTheme.SpacingKey
     private let backgroundColor: ColorSource
-    private let cornerRadius: CornerRadius
+    private let cornerRadius: CustomTheme.RadiusKey
     private let chevronColor: Color
     private let shouldShowChevron: Bool
     private let collapsedView: CollapsedView
@@ -34,7 +34,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         verticalPadding: CustomTheme.SpacingKey = .medium,
         horizontalPadding: CustomTheme.SpacingKey = .medium,
         backgroundColor: ColorSource = DesignSystem.shared.background(.secondary),
-        cornerRadius: CornerRadius = .small2,
+        cornerRadius: CustomTheme.RadiusKey = .small2,
         chevronColor: Color = Color(uiColor: .lightGray),
         shouldShowChevron: Bool = true,
         @ViewBuilder collapsedView: () -> CollapsedView,
@@ -88,7 +88,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         }
         .background(self.backgroundColor.source())
         .cornerRadius(self.cornerRadius)
-        .clipShape(.rect(cornerRadius: self.cornerRadius.value))
+        .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(self.cornerRadius)))
         .appShadow()
         .asButton {
             self.toggleExpansion()

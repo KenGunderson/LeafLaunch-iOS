@@ -91,7 +91,7 @@ struct InfoView: View {
             }
             
         })
-        .clipShape(.rect(cornerRadius: CornerRadius.small.value))
+        .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(.small)))
         .if(action != nil) { view in
             
             view.asButton {

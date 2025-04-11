@@ -35,7 +35,7 @@ class DesignSystem: DesignSystemProviding {
     }
 
     func font(_ key: CustomTheme.FontKey) -> Font {
-        self.theme.fonts.value(for: key)
+        Font(self.theme.fonts.value(for: key))
     }
 
     func textColor(_ key: CustomTheme.TextColorKey) -> ColorSource {

@@ -121,12 +121,12 @@ struct CustomTheme: Equatable, Identifiable, ThemeType {
 
     struct Fonts {
         
-        let title: Font
-        let subtitle: Font
-        let body: Font
-        let caption: Font
+        let title: UIFont
+        let subtitle: UIFont
+        let body: UIFont
+        let caption: UIFont
 
-        func value(for key: FontKey) -> Font {
+        func value(for key: FontKey) -> UIFont {
             
             switch key {
             case .title: return title

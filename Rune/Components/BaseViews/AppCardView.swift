@@ -12,13 +12,13 @@ struct AppCardView<Content>: View where Content: View {
     private let verticalPadding: CustomTheme.SpacingKey
     private let horizontalPadding: CustomTheme.SpacingKey
     private let backgroundStyle: ColorSource
-    private let cornerRadius: CornerRadius
+    private let cornerRadius: CustomTheme.RadiusKey
     private let content: Content
     
     public init(verticalPadding: CustomTheme.SpacingKey = .medium,
                 horizontalPadding: CustomTheme.SpacingKey = .medium,
                 backgroundStyle: ColorSource = DesignSystem.shared.background(.secondary),
-                cornerRadius: CornerRadius = .small2,
+                cornerRadius: CustomTheme.RadiusKey = .small2,
                 @ViewBuilder content: () -> Content) {
         
         self.verticalPadding = verticalPadding

@@ -95,7 +95,7 @@ struct CommonButton: View {
 struct CommonButtonStyle: ButtonStyle {
     
     var background: ColorSource = DesignSystem.shared.accent
-    var cornerRadius: CornerRadius
+    var cornerRadius: CustomTheme.RadiusKey
     var verticalPadding: CustomTheme.SpacingKey = .custom(12)
     var horizontalPadding: CustomTheme.SpacingKey = .extraLarge
 
@@ -107,7 +107,7 @@ struct CommonButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .background(self.background.source())
             .foregroundColor(.white)
-            .clipShape(RoundedRectangle(cornerRadius: self.cornerRadius.value))
+            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius)))
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .opacity(configuration.isPressed ? 0.9 : 1.0)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
@@ -121,7 +121,7 @@ struct CommonButtonStyle: ButtonStyle {
 extension ButtonStyle where Self == CommonButtonStyle {
     
     static func commonButtonStyle(background: ColorSource = DesignSystem.shared.accent,
-                                  cornerRadius: CornerRadius = .small,
+                                  cornerRadius: CustomTheme.RadiusKey = .small,
                                   verticalPadding: CustomTheme.SpacingKey = .small,
                                   horizontalPadding: CustomTheme.SpacingKey = .medium) -> CommonButtonStyle {
         

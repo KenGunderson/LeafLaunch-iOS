@@ -28,10 +28,10 @@ extension CustomTheme {
         spacing: .default,
         radius: .default,
         fonts: .init(
-            title: .system(size: 28, weight: .bold),
-            subtitle: .system(size: 20, weight: .medium),
-            body: .system(size: 16, weight: .regular),
-            caption: .system(size: 12, weight: .light)
+            title: .rounded(size: 28, weight: .bold),
+            subtitle: .rounded(size: 20, weight: .medium),
+            body: .rounded(size: 16, weight: .regular),
+            caption: .rounded(size: 12, weight: .light)
         ),
         shadow: .init(
             card: DecodableShadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4),
@@ -47,7 +47,7 @@ extension CustomTheme {
 
 extension CustomTheme {
 
-    static let alternate = CustomTheme(
+    static let ALTERNATE = CustomTheme(
         id: "ALTERNATE",
         accentColor: .color(.orange),
         accentColorSecondary: .color(.pink),
@@ -64,20 +64,28 @@ extension CustomTheme {
             bodyInverted: .color(.init(white: 0.2))
         ),
         spacing: .init(
-            extraSmall: 2,
-            small: 4,
-            small2: 8,
-            medium: 12,
-            medium2: 16,
-            large: 20,
-            extraLarge: 28
+            extraSmall: 6,
+            small: 6,
+            small2: 10,
+            medium: 20,
+            medium2: 20,
+            large: 32,
+            extraLarge: 48
         ),
-        radius: .default,
+        radius: .init(
+            extraSmall: 4,
+            small: 6,
+            small2: 8,
+            medium: 10,
+            medium2: 12,
+            large: 16,
+            extraLarge: 20
+        ),
         fonts: .init(
-            title: .system(size: 20, weight: .semibold),
-            subtitle: .system(size: 18, weight: .medium),
-            body: .system(size: 15, weight: .regular),
-            caption: .system(size: 11, weight: .light)
+            title: .rounded(size: 28, weight: .bold),
+            subtitle: .rounded(size: 20, weight: .medium),
+            body: .rounded(size: 16, weight: .regular),
+            caption: .rounded(size: 12, weight: .light)
         ),
         shadow: .init(
             card: DecodableShadow(color: Color.green.opacity(0.1), radius: 8, x: 0, y: 4),

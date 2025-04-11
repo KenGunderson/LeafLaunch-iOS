@@ -175,7 +175,7 @@ struct ContentView: View {
             
             CommonImageView(style: .image((.image2)))
                 .scaledToFill()
-                .clipShape(.rect(cornerRadius: CornerRadius.small.rawValue))
+                .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(.small)))
                 .frame(maxHeight: 200)
                 .asButton {}
             
@@ -265,6 +265,13 @@ struct ContentView: View {
                 backgroundStyle: self.themeManager.accent
             ) {
                 updateTheme(.EMERALD_NOIR)
+            }
+            
+            CommonButton(title: "Massive Change",
+                         icon: .systemImage("sun.max.fill"),
+                         backgroundStyle: self.themeManager.accent
+            ) {
+                updateTheme(.ALTERNATE)
             }
             
             CommonButton(
@@ -507,7 +514,7 @@ struct ContentView: View {
     
     private func colorItem(_ color: ColorSource) -> some View {
         
-        RoundedRectangle(cornerRadius: CornerRadius.small.value)
+        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small))
             .fill(color.source())
             .frame(width: 120, height: 120)
             .aspectRatio(contentMode: .fit)

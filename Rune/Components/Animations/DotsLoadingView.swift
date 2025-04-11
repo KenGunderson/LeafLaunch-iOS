@@ -52,7 +52,7 @@ struct DotsAnimationView: View {
             .frame(width: 32, height: 32)
             .padding(24)
             .background(.ultraThinMaterial)
-            .clipShape(.rect(cornerRadius: CornerRadius.medium.value))
+            .cornerRadius(.medium)
         
     }
     .onTapGesture {

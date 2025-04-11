@@ -267,7 +267,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
                 assetSingleSelection = selectedAssets
             }
             .presentationDetents([.fraction(0.5)])
-            .presentationCornerRadius(CornerRadius.large.value)
+            .presentationCornerRadius(DesignSystem.shared.radius(.large))
         
     }
     .sheet(isPresented: $showMultiSelectionSheet) {
@@ -281,7 +281,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
                 debtMultiSelection = selectedDebts
             }
             .presentationDetents([.fraction(0.65)])
-            .presentationCornerRadius(CornerRadius.large.value)
+            .presentationCornerRadius(DesignSystem.shared.radius(.large))
         
     }
     .onChange(of: assetSingleSelection) { oldValue, newValue in

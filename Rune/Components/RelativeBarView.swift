@@ -13,7 +13,7 @@ struct RelativeBarView: View {
     var segments: [RelativeBarViewSegment]
     var mode: RelativeBarViewMode
     
-    var cornerRadius: CornerRadius = .extraSmall
+    var cornerRadius: CustomTheme.RadiusKey = .extraSmall
     var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
     var backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary)
     var barHeight: CGFloat = 32
@@ -79,7 +79,7 @@ struct RelativeBarView: View {
                 )
                 
             }
-            .clipShape(.rect(cornerRadius: self.cornerRadius.value))
+            .cornerRadius(self.cornerRadius)
             
         }
         

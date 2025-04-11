@@ -36,7 +36,7 @@ struct CommonImageView: View {
     CommonImageView(style: .image(.image3))
         .aspectRatio(contentMode: .fill)
         .frame(height: 200)
-        .clipShape(.rect(cornerRadius: CornerRadius.large.value))
+        .cornerRadius(.large)
         .padding(.horizontal, .large)
     
 }
