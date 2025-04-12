@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-extension CustomTheme {
+extension Theme {
     
-    static let GOLD_LIGHT = CustomTheme(
+    static let GOLD_LIGHT = Theme(
         id: "GOLD_LIGHT",
         accentColor: .color(Color(hex: "#D4AF37")),            // Gold accent
         accentColorSecondary: .color(Color(hex: "#2ECC71")),     // Emerald accent

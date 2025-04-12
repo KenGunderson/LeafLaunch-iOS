@@ -13,15 +13,15 @@ struct TokenView: View {
     private let titleFont: AppFont
     private let foregroundStyle: ColorSource
     private let backgroundStyle: ColorSource
-    private let horizontalPadding: CustomTheme.SpacingKey
-    private let verticalPadding: CustomTheme.SpacingKey
+    private let horizontalPadding: Theme.SpacingKey
+    private let verticalPadding: Theme.SpacingKey
     
     init(text: String,
          titleFont: AppFont = .title(.t4),
          foregroundStyle: ColorSource = .color(.white),
-         backgroundStyle: ColorSource = DesignSystem.shared.background(.quaternary),
-         horizontalPadding: CustomTheme.SpacingKey = .custom(12),
-         verticalPadding: CustomTheme.SpacingKey = .extraSmall) {
+         backgroundStyle: ColorSource = Style.shared.background(.quaternary),
+         horizontalPadding: Theme.SpacingKey = .custom(12),
+         verticalPadding: Theme.SpacingKey = .extraSmall) {
         
         self.text = text
         self.titleFont = titleFont
@@ -37,8 +37,8 @@ struct TokenView: View {
         Text(self.text)
             .appFont(with: self.titleFont)
             .foregroundStyle(self.foregroundStyle.source())
-            .padding(.horizontal, DesignSystem.shared.spacing(horizontalPadding))
-            .padding(.vertical, DesignSystem.shared.spacing(verticalPadding))
+            .padding(.horizontal, Style.shared.spacing(horizontalPadding))
+            .padding(.vertical, Style.shared.spacing(verticalPadding))
             .background(self.backgroundStyle.source())
             .clipShape(.capsule)
         
@@ -56,7 +56,7 @@ struct TokenView: View {
     
     AppBaseView(backgroundStyle: .linearGradient(backgroundGradient)) {
         
-        VStack(spacing: DesignSystem.shared.spacing(.large)) {
+        VStack(spacing: Style.shared.spacing(.large)) {
             
             TokenView(
                 text: "Simple Token"

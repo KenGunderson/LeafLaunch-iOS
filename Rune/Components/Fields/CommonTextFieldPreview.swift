@@ -12,7 +12,7 @@ internal struct CommonTextFieldPreview: View {
     @State private var text: String = ""
     @FocusState private var isFocused: Bool
     
-    let placeholderColor = DesignSystem.shared.textColor(.body)
+    let placeholderColor = Style.shared.textColor(.body)
     
     var body: some View {
         
@@ -77,7 +77,7 @@ internal struct CommonTextFieldPreview: View {
     AppBaseView {
         
         CommonTextFieldPreview()
-            .padding(.horizontal, DesignSystem.shared.spacing(.large))
+            .padding(.horizontal, Style.shared.spacing(.large))
         
     }
     

@@ -13,9 +13,9 @@ struct RelativeBarView: View {
     var segments: [RelativeBarViewSegment]
     var mode: RelativeBarViewMode
     
-    var cornerRadius: CustomTheme.RadiusKey = .extraSmall
-    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
-    var backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary)
+    var cornerRadius: Theme.RadiusKey = .extraSmall
+    var titleColor: ColorSource = Style.shared.textColor(.title)
+    var backgroundColor: ColorSource = Style.shared.background(.quaternary)
     var barHeight: CGFloat = 32
     
     var shouldShowTitles: Bool = true
@@ -173,7 +173,7 @@ fileprivate struct LegendView: View {
     
     var segments: [RelativeBarViewSegment]
     var mode: RelativeBarViewMode
-    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var titleColor: ColorSource = Style.shared.textColor(.title)
     
     private var totalValue: CGFloat {
         self.segments.reduce(0) { $0 + $1.value }
@@ -291,7 +291,7 @@ struct RelativeBarViewSegment: Identifiable, Equatable {
         RelativeBarViewSegment(value: 200, title: "XCode", color: .color(.blue))
     ]
     
-    VStack(spacing: DesignSystem.shared.spacing(.extraLarge)) {
+    VStack(spacing: Style.shared.spacing(.extraLarge)) {
         
         RelativeBarView(
             segments: items,

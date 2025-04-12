@@ -31,7 +31,7 @@ struct InfoView: View {
     
     var body: some View {
         
-        HStack(spacing: DesignSystem.shared.spacing(CustomTheme.SpacingKey.custom(12))) {
+        HStack(spacing: Style.shared.spacing(Theme.SpacingKey.custom(12))) {
             
             if let imageSource {
                 
@@ -91,7 +91,7 @@ struct InfoView: View {
             }
             
         })
-        .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(.small)))
+        .clipShape(.rect(cornerRadius: Style.shared.radius(.small)))
         .if(action != nil) { view in
             
             view.asButton {
@@ -113,7 +113,7 @@ struct InfoView: View {
             InfoView(
                 title: "This is the info",
                 imageSource: .systemImage("lightbulb"),
-                foregroundStyle: DesignSystem.shared.accent) {
+                foregroundStyle: Style.shared.accent) {
                     print("Something")
                 }
             

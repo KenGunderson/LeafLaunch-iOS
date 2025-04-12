@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AvatarView: View {
     
-    public enum Style {
+    public enum AvatarStyle {
         
         case initials(name: String)
         case image(ImageSource)
@@ -18,7 +18,7 @@ struct AvatarView: View {
     
     @State private var size: CGFloat = 0
     
-    var style: Style
+    var style: AvatarStyle
     var foregroundColor: ColorSource
     var backgroundColor: ColorSource
     var clipShape: AnyShape = .init(.circle)
@@ -27,9 +27,9 @@ struct AvatarView: View {
         return self.size / 2
     }
         
-    init(style: Style,
-         foregroundColor: ColorSource = DesignSystem.shared.accent,
-         backgroundColor: ColorSource = DesignSystem.shared.background(.tertiary),
+    init(style: AvatarStyle,
+         foregroundColor: ColorSource = Style.shared.accent,
+         backgroundColor: ColorSource = Style.shared.background(.tertiary),
          clipShape: AnyShape = .init(.circle)) {
         
         self.style = style
@@ -107,7 +107,7 @@ struct AvatarView: View {
     
     AppBaseView {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             AvatarView(style: .initials(name: "1 "))
             

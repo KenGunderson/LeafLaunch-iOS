@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct CustomTheme: Equatable, Identifiable, ThemeType {
+struct Theme: Equatable, Identifiable, ThemeProtocol {
     
-    static func == (lhs: CustomTheme, rhs: CustomTheme) -> Bool {
+    static func == (lhs: Theme, rhs: Theme) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -74,7 +74,7 @@ struct CustomTheme: Equatable, Identifiable, ThemeType {
         let large: CGFloat
         let extraLarge: CGFloat
 
-        func value(for key: CustomTheme.SpacingKey) -> CGFloat {
+        func value(for key: Theme.SpacingKey) -> CGFloat {
             
             switch key {
             case .none: return none

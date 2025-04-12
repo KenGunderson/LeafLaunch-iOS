@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme {
+extension Theme {
     
-    static let GOLD_NAVY = CustomTheme(
+    static let GOLD_NAVY = Theme(
         id: "GOLD_NAVY",
         accentColor: .color(Color(hex: "#D4AF37")),            // Gold
         accentColorSecondary: .color(Color(hex: "#A67C00")),     // Darker gold
@@ -38,17 +38,17 @@ extension CustomTheme {
     
 }
 
-extension CustomTheme {
+extension Theme {
 
-    static let ALTERNATE = CustomTheme(
+    static let ALTERNATE = Theme(
         id: "ALTERNATE",
-        accentColor: .color(.orange),
-        accentColorSecondary: .color(.pink),
+        accentColor: .color(.indigo),
+        accentColorSecondary: .color(.indigo),
         background: .init(
-            primary: .color(.black),
-            secondary: .color(.gray),
-            tertiary: .color(.blue),
-            quaternary: .color(.init(white: 0.1))
+            primary: .color(.init(uiColor: .white)),
+            secondary: .color(.init(uiColor: .systemGray6)),
+            tertiary: .color(.init(uiColor: .systemGray4)),
+            quaternary: .color(.init(uiColor: .systemGray2))
         ),
         textColor: .init(
             title: .color(.white),
@@ -57,22 +57,22 @@ extension CustomTheme {
             bodyInverted: .color(.init(white: 0.2))
         ),
         spacing: .init(
-            extraSmall: 6,
-            small: 6,
-            small2: 10,
-            medium: 20,
-            medium2: 20,
-            large: 32,
-            extraLarge: 48
+            extraSmall: 0,
+            small: 0,
+            small2: 0,
+            medium: 0,
+            medium2: 0,
+            large: 0,
+            extraLarge: 0
         ),
         radius: .init(
-            extraSmall: 2,
-            small: 4,
-            small2: 6,
-            medium: 8,
-            medium2: 10,
-            large: 12,
-            extraLarge: 14
+            extraSmall: 0,
+            small: 0,
+            small2: 0,
+            medium: 0,
+            medium2: 0,
+            large: 0,
+            extraLarge: 0
         ),
         fonts: .init(
             title: .rounded(size: 28, weight: .bold),

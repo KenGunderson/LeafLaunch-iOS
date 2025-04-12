@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme {
+extension Theme {
     
-    static let NEON_NIGHT = CustomTheme(
+    static let NEON_NIGHT = Theme(
         id: "NEON_NIGHT",
         accentColor: .color(Color(hex: "#00FFFF")),
         accentColorSecondary: .color(Color(hex: "#7A00FF")),

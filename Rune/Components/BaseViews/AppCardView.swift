@@ -9,16 +9,16 @@ import SwiftUI
 
 struct AppCardView<Content>: View where Content: View {
 
-    private let verticalPadding: CustomTheme.SpacingKey
-    private let horizontalPadding: CustomTheme.SpacingKey
+    private let verticalPadding: Theme.SpacingKey
+    private let horizontalPadding: Theme.SpacingKey
     private let backgroundStyle: ColorSource
-    private let cornerRadius: CustomTheme.RadiusKey
+    private let cornerRadius: Theme.RadiusKey
     private let content: Content
     
-    public init(verticalPadding: CustomTheme.SpacingKey = .medium,
-                horizontalPadding: CustomTheme.SpacingKey = .medium,
-                backgroundStyle: ColorSource = DesignSystem.shared.background(.secondary),
-                cornerRadius: CustomTheme.RadiusKey = .small2,
+    public init(verticalPadding: Theme.SpacingKey = .medium,
+                horizontalPadding: Theme.SpacingKey = .medium,
+                backgroundStyle: ColorSource = Style.shared.background(.secondary),
+                cornerRadius: Theme.RadiusKey = .small2,
                 @ViewBuilder content: () -> Content) {
         
         self.verticalPadding = verticalPadding
@@ -68,7 +68,7 @@ struct AppCardView<Content>: View where Content: View {
             Image(systemName: "chevron.right")
             
         }
-        .foregroundStyle(DesignSystem.shared.accent.source())
+        .foregroundStyle(Style.shared.accent.source())
         
     }
     .padding(.horizontal, 32)

@@ -10,15 +10,15 @@ import SwiftUI
 struct CommonButton: View {
         
     var title: String
-    var titleColor: ColorSource = DesignSystem.shared.textColor(.title)
+    var titleColor: ColorSource = Style.shared.textColor(.title)
     var icon: ImageSource?
-    var backgroundStyle: ColorSource = DesignSystem.shared.accent
+    var backgroundStyle: ColorSource = Style.shared.accent
     var action: () -> Void
     
     init(title: String,
-         titleColor: ColorSource = DesignSystem.shared.textColor(.title),
+         titleColor: ColorSource = Style.shared.textColor(.title),
          icon: ImageSource? = nil,
-         backgroundStyle: ColorSource = DesignSystem.shared.accent,
+         backgroundStyle: ColorSource = Style.shared.accent,
          action: @escaping () -> Void) {
         
         self.title = title
@@ -66,9 +66,9 @@ struct CommonButton: View {
 
 #Preview {
     
-    @Previewable var theme = DesignSystem.shared
+    @Previewable var theme = Style.shared
     
-    VStack(spacing: DesignSystem.shared.spacing(.large)) {
+    VStack(spacing: Style.shared.spacing(.large)) {
         
         CommonButton(title: "Common Button", icon: .systemImage("person.fill")) {}
         .padding(.horizontal, .custom(64))
@@ -94,20 +94,20 @@ struct CommonButton: View {
 
 struct CommonButtonStyle: ButtonStyle {
     
-    var background: ColorSource = DesignSystem.shared.accent
-    var cornerRadius: CustomTheme.RadiusKey
-    var verticalPadding: CustomTheme.SpacingKey = .custom(12)
-    var horizontalPadding: CustomTheme.SpacingKey = .extraLarge
+    var background: ColorSource = Style.shared.accent
+    var cornerRadius: Theme.RadiusKey
+    var verticalPadding: Theme.SpacingKey = .custom(12)
+    var horizontalPadding: Theme.SpacingKey = .extraLarge
 
     func makeBody(configuration: Configuration) -> some View {
         
         configuration.label
-            .padding(.horizontal, DesignSystem.shared.spacing(horizontalPadding))
-            .padding(.vertical, DesignSystem.shared.spacing(verticalPadding))
+            .padding(.horizontal, Style.shared.spacing(horizontalPadding))
+            .padding(.vertical, Style.shared.spacing(verticalPadding))
             .frame(maxWidth: .infinity)
             .background(self.background.source())
             .foregroundColor(.white)
-            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius)))
+            .clipShape(RoundedRectangle(cornerRadius: Style.shared.radius(self.cornerRadius)))
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .opacity(configuration.isPressed ? 0.9 : 1.0)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
@@ -120,10 +120,10 @@ struct CommonButtonStyle: ButtonStyle {
 
 extension ButtonStyle where Self == CommonButtonStyle {
     
-    static func commonButtonStyle(background: ColorSource = DesignSystem.shared.accent,
-                                  cornerRadius: CustomTheme.RadiusKey = .small,
-                                  verticalPadding: CustomTheme.SpacingKey = .small,
-                                  horizontalPadding: CustomTheme.SpacingKey = .medium) -> CommonButtonStyle {
+    static func commonButtonStyle(background: ColorSource = Style.shared.accent,
+                                  cornerRadius: Theme.RadiusKey = .small,
+                                  verticalPadding: Theme.SpacingKey = .small,
+                                  horizontalPadding: Theme.SpacingKey = .medium) -> CommonButtonStyle {
         
         return CommonButtonStyle(
             background: background,

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CircularIconView: View {
     
-    var foregroundColor: ColorSource = DesignSystem.shared.accent
-    var backgroundColor: ColorSource = DesignSystem.shared.background(.tertiary)
+    var foregroundColor: ColorSource = Style.shared.accent
+    var backgroundColor: ColorSource = Style.shared.background(.tertiary)
     
     var size: CGFloat
 
@@ -46,7 +46,7 @@ struct BackButton: View {
     private var size: CGFloat = 32
     private var backAction: (() -> ())
     
-    init(backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary),
+    init(backgroundColor: ColorSource = Style.shared.background(.quaternary),
          size: CGFloat = 32,
          backAction: @escaping () -> Void) {
         

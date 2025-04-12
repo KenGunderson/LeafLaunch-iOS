@@ -9,10 +9,10 @@ import SwiftUI
 
 struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
 
-    private let verticalPadding: CustomTheme.SpacingKey
-    private let horizontalPadding: CustomTheme.SpacingKey
+    private let verticalPadding: Theme.SpacingKey
+    private let horizontalPadding: Theme.SpacingKey
     private let backgroundColor: ColorSource
-    private let cornerRadius: CustomTheme.RadiusKey
+    private let cornerRadius: Theme.RadiusKey
     private let chevronColor: Color
     private let shouldShowChevron: Bool
     private let collapsedView: CollapsedView
@@ -31,10 +31,10 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
 
     public init(
         isExpanded: Binding<Bool>? = nil,
-        verticalPadding: CustomTheme.SpacingKey = .medium,
-        horizontalPadding: CustomTheme.SpacingKey = .medium,
-        backgroundColor: ColorSource = DesignSystem.shared.background(.secondary),
-        cornerRadius: CustomTheme.RadiusKey = .small2,
+        verticalPadding: Theme.SpacingKey = .medium,
+        horizontalPadding: Theme.SpacingKey = .medium,
+        backgroundColor: ColorSource = Style.shared.background(.secondary),
+        cornerRadius: Theme.RadiusKey = .small2,
         chevronColor: Color = Color(uiColor: .lightGray),
         shouldShowChevron: Bool = true,
         @ViewBuilder collapsedView: () -> CollapsedView,
@@ -88,7 +88,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         }
         .background(self.backgroundColor.source())
         .cornerRadius(self.cornerRadius)
-        .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(self.cornerRadius)))
+        .clipShape(.rect(cornerRadius: Style.shared.radius(self.cornerRadius)))
         .appShadow()
         .asButton {
             self.toggleExpansion()
@@ -116,7 +116,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             Spacer(minLength: 0)
             
         }
-        .foregroundStyle(DesignSystem.shared.accent.source())
+        .foregroundStyle(Style.shared.accent.source())
         
     } expandedView: {
         
@@ -131,7 +131,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
         .frame(maxWidth: .infinity)
         .padding(.bottom, .medium)
         .padding(.horizontal, .medium)
-        .foregroundStyle(DesignSystem.shared.accent.source())
+        .foregroundStyle(Style.shared.accent.source())
         .frame(maxHeight: 100)
         
     }
@@ -153,7 +153,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
                 Spacer(minLength: 0)
                 
             }
-            .foregroundStyle(DesignSystem.shared.accent.source())
+            .foregroundStyle(Style.shared.accent.source())
             
         } expandedView: {
             
@@ -168,7 +168,7 @@ struct CollapsableCardView<CollapsedView: View, ExpandedView: View>: View {
             .frame(maxWidth: .infinity)
             .padding(.bottom, .medium)
             .padding(.horizontal, .medium)
-            .foregroundStyle(DesignSystem.shared.accent.source())
+            .foregroundStyle(Style.shared.accent.source())
             .frame(maxHeight: 100)
             
         }

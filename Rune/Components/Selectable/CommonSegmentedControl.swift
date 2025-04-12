@@ -14,10 +14,10 @@ struct CommonSegmentedControl<S: Selectable>: View {
     var options: [S]
     
     var titleFont: AppFont = .title(.t4)
-    var selectedTextColor: ColorSource = DesignSystem.shared.textColor(.title)
-    var unselectedTextColor: ColorSource = DesignSystem.shared.textColor(.title)
-    var foregroundStyle: ColorSource = DesignSystem.shared.accent
-    var backgroundStyle: ColorSource = DesignSystem.shared.background(.tertiary)
+    var selectedTextColor: ColorSource = Style.shared.textColor(.title)
+    var unselectedTextColor: ColorSource = Style.shared.textColor(.title)
+    var foregroundStyle: ColorSource = Style.shared.accent
+    var backgroundStyle: ColorSource = Style.shared.background(.tertiary)
     
     var body: some View {
         
@@ -48,7 +48,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
                         
                         if isSelected {
                             
-                            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.extraSmall))
+                            RoundedRectangle(cornerRadius: Style.shared.radius(.extraSmall))
                             
                                 .fill(self.foregroundStyle.source())
                                 .padding(.vertical, 6)
@@ -66,7 +66,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(
-            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small))
+            RoundedRectangle(cornerRadius: Style.shared.radius(.small))
                 .fill(self.backgroundStyle.source())
         )
         .appShadow()

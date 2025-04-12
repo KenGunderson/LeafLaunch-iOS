@@ -13,9 +13,9 @@ struct CommonDropDownMenu<S: Selectable>: View {
     
     var buttonHeight: CGFloat = 50
     var maxItemDisplayed: Int = 3
-    var foregroundStyle: ColorSource = DesignSystem.shared.textColor(.title)
-    var backgroundStyle: ColorSource = DesignSystem.shared.background(.tertiary)
-    var cornerRadius: CustomTheme.RadiusKey = .small
+    var foregroundStyle: ColorSource = Style.shared.textColor(.title)
+    var backgroundStyle: ColorSource = Style.shared.background(.tertiary)
+    var cornerRadius: Theme.RadiusKey = .small
     var shouldPushContentDown: Bool = true
 
     @Binding var selectedOption: S?
@@ -53,7 +53,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                         
                         Divider()
                             .frame(minHeight: 2)
-                            .background(DesignSystem.shared.background(.quaternary).source())
+                            .background(Style.shared.background(.quaternary).source())
                             .transition(.blurReplace)
                         
                     }
@@ -84,7 +84,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             .foregroundStyle(self.foregroundStyle.source())
             .background {
                 
-                RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius))
+                RoundedRectangle(cornerRadius: Style.shared.radius(self.cornerRadius))
                     .fill(self.backgroundStyle.source())
                 
             }
@@ -145,7 +145,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
             
         } label: {
             
-            HStack(spacing: DesignSystem.shared.spacing(.medium)) {
+            HStack(spacing: Style.shared.spacing(.medium)) {
                 
                 Text(title)
                     .frame(
@@ -202,7 +202,7 @@ fileprivate struct DropDownMenuDemo: View {
                 maxHeight: .infinity,
                 alignment: .center
             )
-            .foregroundStyle(DesignSystem.shared.textColor(.title).source())
+            .foregroundStyle(Style.shared.textColor(.title).source())
             .onTapGesture {
                 
                 withAnimation(.bouncy) {

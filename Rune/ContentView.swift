@@ -10,16 +10,11 @@ import SwiftUI
 /// TODO: -
 ///     Handle:
 ///         DEPRICATE AppFont.swift
-///         DEPRICATE AppShadow.swift
-///         DEPRICATE AppSpacing.swift
-///         DEPRICATE CornerRadius.swift
-///     Change name of NewAppShadow to AppShadow for file and implementation when moved
-///     Add changes for each theme and make a light mode one too
 /// 1. DraggableView 2. StringSource, 3. SlideButton, 4.ScrollBannerView, 5.Sidebar
 
 struct ContentView: View {
     
-    @Environment(\.designSystem) var themeManager: DesignSystemProviding
+    @Environment(\.style) var style: StyleProtocol
     
     // Picker
     
@@ -96,17 +91,17 @@ struct ContentView: View {
             
             ScrollView {
                 
-                VStack(spacing: DesignSystem.shared.spacing(.large)) {
+                VStack(spacing: Style.shared.spacing(.large)) {
                     
                     Text("Rune")
                         .appFont(with: .billboard(.b1))
-                        .foregroundStyle(self.themeManager.textColor(.title).source())
+                        .foregroundStyle(self.style.textColor(.title).source())
                     
                     Image(systemName: "globe")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 64)
-                        .foregroundStyle(self.themeManager.accent.source())
+                        .foregroundStyle(self.style.accent.source())
                         .padding(.bottom, .small)
                     
                     Group {
@@ -141,12 +136,12 @@ struct ContentView: View {
     
     private func pickers() -> some View {
         
-        VStack(alignment: .leading, spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             CommonSegmentedControl(
                 selectedOption: self.$selectedValue,
                 options: self.values,
-                backgroundStyle: self.themeManager.background(.tertiary)
+                backgroundStyle: self.style.background(.tertiary)
             )
             
             CommonDropDownMenu(
@@ -171,17 +166,17 @@ struct ContentView: View {
     
     private func images() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             CommonImageView(style: .image((.image2)))
                 .scaledToFill()
-                .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(.small)))
+                .clipShape(.rect(cornerRadius: Style.shared.radius(.small)))
                 .frame(maxHeight: 200)
                 .asButton {}
             
             CommonImageView(style: .systemImage("person.fill"))
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(themeManager.accent.source())
+                .foregroundStyle(style.accent.source())
                 .frame(height: 64)
             
         }
@@ -190,21 +185,21 @@ struct ContentView: View {
     
     private func sliders() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.large)) {
+        VStack(spacing: Style.shared.spacing(.large)) {
             
             ProgressSlider(
                 value: self.$sliderValue,
-                trackStyle: self.themeManager.background(.tertiary),
-                fillStyle: self.themeManager.accent,
-                thumbStyle: self.themeManager.background(.quaternary),
-                thumbCircleStyle: self.themeManager.accent,
+                trackStyle: self.style.background(.tertiary),
+                fillStyle: self.style.accent,
+                thumbStyle: self.style.background(.quaternary),
+                thumbCircleStyle: self.style.accent,
                 thumbHeight: 36
             )
             
             ProgressBar(
                 value: .constant(Float(self.sliderValue)),
-                trackColor: self.themeManager.background(.tertiary),
-                fillColor: self.themeManager.accent,
+                trackColor: self.style.background(.tertiary),
+                fillColor: self.style.accent,
                 shouldRound: true
             )
             .frame(height: 16)
@@ -214,8 +209,8 @@ struct ContentView: View {
                 text: "Text Progress Bar",
                 textFont: .title(.t5),
                 textColor: .color(.white),
-                trackColor: self.themeManager.background(.tertiary),
-                fillColor: self.themeManager.accent,
+                trackColor: self.style.background(.tertiary),
+                fillColor: self.style.accent,
                 cornerRadius: .small
             )
             
@@ -225,7 +220,7 @@ struct ContentView: View {
     
     private func textfields() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             CommonTextFieldPreview()
             
@@ -233,7 +228,7 @@ struct ContentView: View {
                 text: $textEditText,
                 placehoderText: "Placeholder...",
                 isFocused: self.isTextEditFocused,
-                titleColor: themeManager.textColor(.title),
+                titleColor: style.textColor(.title),
                 lineLimit: 5...30
             )
             .focused(self.$isTextEditFocused)
@@ -249,12 +244,12 @@ struct ContentView: View {
     
     private func buttons() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             CommonButton(
                 title: "Gold Navy",
                 icon: .systemImage("sun.max.fill"),
-                backgroundStyle: self.themeManager.accent
+                backgroundStyle: self.style.accent
             ) {
                 updateTheme(.GOLD_NAVY)
             }
@@ -262,14 +257,14 @@ struct ContentView: View {
             CommonButton(
                 title: "Emerald Forest",
                 icon: .systemImage("sun.max.fill"),
-                backgroundStyle: self.themeManager.accent
+                backgroundStyle: self.style.accent
             ) {
                 updateTheme(.EMERALD_NOIR)
             }
             
             CommonButton(title: "Massive Change",
                          icon: .systemImage("sun.max.fill"),
-                         backgroundStyle: self.themeManager.accent
+                         backgroundStyle: self.style.accent
             ) {
                 updateTheme(.ALTERNATE)
             }
@@ -277,30 +272,30 @@ struct ContentView: View {
             CommonButton(
                 title: "Gold Light",
                 icon: .systemImage("sun.max.fill"),
-                backgroundStyle: self.themeManager.accent
+                backgroundStyle: self.style.accent
             ) {
                 updateTheme(.GOLD_LIGHT)
             }
             
             CommonButton(title: "Coral Twilight",
                          icon: .systemImage("sun.max.fill"),
-                         backgroundStyle: self.themeManager.accent
+                         backgroundStyle: self.style.accent
             ) {
                 updateTheme(.CORAL_TWILIGHT)
             }
             
             CommonButton(title: "Neon Night",
                          icon: .systemImage("sun.max.fill"),
-                         backgroundStyle: self.themeManager.accent
+                         backgroundStyle: self.style.accent
             ) {
                 updateTheme(.NEON_NIGHT)
             }
             
             CommonButton(
                 title: "Sandstone Dusk",
-                titleColor: themeManager.textColor(.title),
+                titleColor: style.textColor(.title),
                 icon: .systemImage("heart.fill"),
-                backgroundStyle: themeManager.accent
+                backgroundStyle: style.accent
             ) {
                 updateTheme(.SANDSTONE_DUSK)
             }
@@ -310,7 +305,7 @@ struct ContentView: View {
                 Text("Circular Icon View")
                     .appFont(with: .title(.t6))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(themeManager.textColor(.title).source())
+                    .foregroundStyle(style.textColor(.title).source())
                 
                 CircularIconView(
                     size: 48,
@@ -341,7 +336,7 @@ struct ContentView: View {
                 Text("Avatar View")
                     .appFont(with: .title(.t6))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(themeManager.textColor(.title).source())
+                    .foregroundStyle(style.textColor(.title).source())
              
                 AvatarView(style: .initials(name: "Sako Hovaguimian"))
                     .frame(width: 48, height: 48)
@@ -366,16 +361,16 @@ struct ContentView: View {
     
     private func supportingViews() -> some View {
         
-        VStack(alignment: .leading, spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             InfoView(
                 title: "Info View",
-                foregroundStyle: self.themeManager.accent
+                foregroundStyle: self.style.accent
             )
             
             InfoView(
                 title: "Info View Action",
-                foregroundStyle: self.themeManager.accent) {
+                foregroundStyle: self.style.accent) {
                     
                     withAnimation(.spring) {
                         self.dropDownValues = ["Value 1", "Value 2", "Value 3", "Value 4", "Value 5"]
@@ -411,7 +406,7 @@ struct ContentView: View {
     
     private func relativeBarView() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             RelativeBarView(
                 segments: items,
@@ -450,32 +445,32 @@ struct ContentView: View {
     
     private func colorThemeGrid() -> some View {
         
-        VStack(alignment: .leading, spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             colorScrollView(
                 title: "Accent",
                 colors: [
-                    self.themeManager.accent
+                    self.style.accent
                 ]
             )
             
             colorScrollView(
                 title: "Background",
                 colors: [
-                    self.themeManager.background(.primary),
-                    self.themeManager.background(.secondary),
-                    self.themeManager.background(.tertiary),
-                    self.themeManager.background(.quaternary)
+                    self.style.background(.primary),
+                    self.style.background(.secondary),
+                    self.style.background(.tertiary),
+                    self.style.background(.quaternary)
                 ]
             )
             
             colorScrollView(
                 title: "Text",
                 colors: [
-                    self.themeManager.textColor(.title),
-                    self.themeManager.textColor(.titleInverted),
-                    self.themeManager.textColor(.body),
-                    self.themeManager.textColor(.bodyInverted)
+                    self.style.textColor(.title),
+                    self.style.textColor(.titleInverted),
+                    self.style.textColor(.body),
+                    self.style.textColor(.bodyInverted)
                 ]
             )
             
@@ -491,7 +486,7 @@ struct ContentView: View {
             
             Text(title)
                 .appFont(with: .title(.t8))
-                .foregroundStyle(self.themeManager.textColor(.title).source())
+                .foregroundStyle(self.style.textColor(.title).source())
                 .padding(.horizontal, .medium)
             
             ScrollView(.horizontal) {
@@ -506,7 +501,7 @@ struct ContentView: View {
                 
             }
             .frame(maxWidth: .infinity)
-            .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
+            .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
             
         }
         
@@ -514,7 +509,7 @@ struct ContentView: View {
     
     private func colorItem(_ color: ColorSource) -> some View {
         
-        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small))
+        RoundedRectangle(cornerRadius: Style.shared.radius(.small))
             .fill(color.source())
             .frame(width: 120, height: 120)
             .aspectRatio(contentMode: .fit)
@@ -523,18 +518,18 @@ struct ContentView: View {
     
     private func filterView() -> some View {
         
-        VStack(spacing: DesignSystem.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             FiltersViewPreview(
                 filters: self.dropDownValues,
                 selectedFilter: self.$selectedFilterView,
-                backgroundColor: themeManager.background(.quaternary)
+                backgroundColor: style.background(.quaternary)
             )
             
             FiltersViewPreview(
                 filters: self.dropDownValues,
                 selectedFilter: self.$selectedFilterView,
-                backgroundColor: themeManager.background(.quaternary),
+                backgroundColor: style.background(.quaternary),
                 strokeStyle: true
             )
             
@@ -547,11 +542,11 @@ struct ContentView: View {
         
     }
     
-    private func updateTheme(_ theme: CustomTheme) {
+    private func updateTheme(_ theme: Theme) {
         
         withAnimation(.smooth(duration: 1)) {
             
-            self.themeManager
+            self.style
                 .updateTheme(theme)
             
         }
@@ -563,6 +558,6 @@ struct ContentView: View {
 #Preview {
     
     ContentView()
-        .environment(DesignSystem.shared)
+        .environment(Style.shared)
     
 }

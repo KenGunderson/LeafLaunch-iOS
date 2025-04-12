@@ -12,10 +12,10 @@ struct FiltersView: View {
     
     var filters: [String]
     var selectedFilter: String? = nil
-    var selectedFilterColor: ColorSource = DesignSystem.shared.accent
-    var filterTextColor: ColorSource = DesignSystem.shared.textColor(.title)
-    var filterSelectedText: ColorSource = DesignSystem.shared.textColor(.title)
-    var backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary)
+    var selectedFilterColor: ColorSource = Style.shared.accent
+    var filterTextColor: ColorSource = Style.shared.textColor(.title)
+    var filterSelectedText: ColorSource = Style.shared.textColor(.title)
+    var backgroundColor: ColorSource = Style.shared.background(.quaternary)
     var strokeStyle: Bool = false
     var onFilterTapped: (String) -> ()
     var onCloseTapped: () -> ()
@@ -23,7 +23,7 @@ struct FiltersView: View {
     @State private var isUserInteractionEnabled: Bool = true
     
     var foregroundStyle: AnyShapeStyle {
-        return DesignSystem.shared.textColor(.title).source()
+        return Style.shared.textColor(.title).source()
     }
     
     var body: some View {
@@ -87,7 +87,7 @@ struct FiltersView: View {
             .animation(.smooth(duration: 0.5), value: selectedFilter)
             
         }
-        .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
+        .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
         .frame(maxWidth: .infinity, alignment: .leading)
         
     }
@@ -170,10 +170,10 @@ internal struct FiltersViewPreview: View {
     
     init(filters: [String],
          selectedFilter: Binding<String?>,
-         selectedFilterColor: ColorSource = DesignSystem.shared.accent,
-         filterTextColor: ColorSource = DesignSystem.shared.textColor(.title),
-         filterSelectedText: ColorSource = DesignSystem.shared.textColor(.title),
-         backgroundColor: ColorSource = DesignSystem.shared.background(.quaternary),
+         selectedFilterColor: ColorSource = Style.shared.accent,
+         filterTextColor: ColorSource = Style.shared.textColor(.title),
+         filterSelectedText: ColorSource = Style.shared.textColor(.title),
+         backgroundColor: ColorSource = Style.shared.background(.quaternary),
          strokeStyle: Bool = false) {
         
         self.filters = filters

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme {
+extension Theme {
     
-    static let SANDSTONE_DUSK = CustomTheme(
+    static let SANDSTONE_DUSK = Theme(
         id: "SANDSTONE_DUSK",
         accentColor: .color(Color(hex: "#D2B48C")),
         accentColorSecondary: .color(Color(hex: "#7B5E3C")),

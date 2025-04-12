@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme.Spacing {
+extension Theme.Spacing {
     
-    static let `default` = CustomTheme.Spacing(
+    static let `default` = Theme.Spacing(
         extraSmall: 4,
         small: 8,
         small2: 12,
@@ -21,9 +21,9 @@ extension CustomTheme.Spacing {
     
 }
 
-extension CustomTheme.Radius {
+extension Theme.Radius {
     
-    static let `default` = CustomTheme.Radius(
+    static let `default` = Theme.Radius(
         extraSmall: 4,
         small: 8,
         small2: 12,
@@ -35,13 +35,13 @@ extension CustomTheme.Radius {
     
 }
 
-extension CustomTheme.Shadow {
+extension Theme.Shadow {
     
-    static let `default` = CustomTheme.Shadow(
+    static let `default` = Theme.Shadow(
         
         card:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.black.opacity(0.1),
                 radius: 8,
                 x: 0,
@@ -50,7 +50,7 @@ extension CustomTheme.Shadow {
         
         subtle:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.black.opacity(0.05),
                 radius: 4,
                 x: 0,
@@ -59,7 +59,7 @@ extension CustomTheme.Shadow {
         
         offset:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.black.opacity(0.2),
                 radius: 10,
                 x: 10,
@@ -68,7 +68,7 @@ extension CustomTheme.Shadow {
         
         neon:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.blue.opacity(0.7),
                 radius: 20,
                 x: 0,
@@ -77,7 +77,7 @@ extension CustomTheme.Shadow {
         
         hard:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.black.opacity(0.25),
                 radius: 0,
                 x: 0,
@@ -86,7 +86,7 @@ extension CustomTheme.Shadow {
         
         inner:
             
-            CustomTheme.DecodableShadow(
+            Theme.DecodableShadow(
                 color: Color.black.opacity(0.3),
                 radius: 4,
                 x: 0,

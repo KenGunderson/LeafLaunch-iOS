@@ -14,9 +14,9 @@ struct CommonCodeInputView: View {
     @FocusState private var focusedField: Bool
     
     var maxCharacterCount: Int = 6
-    var accentColor: ColorSource = DesignSystem.shared.accent
-    var inputTextColor: ColorSource = DesignSystem.shared.background(.primary)
-    var backgroundColor: ColorSource = DesignSystem.shared.background(.tertiary)
+    var accentColor: ColorSource = Style.shared.accent
+    var inputTextColor: ColorSource = Style.shared.background(.primary)
+    var backgroundColor: ColorSource = Style.shared.background(.tertiary)
     
     var body: some View {
         
@@ -37,7 +37,7 @@ struct CommonCodeInputView: View {
     
     private func content() -> some View {
         
-        HStack(spacing: DesignSystem.shared.spacing(.small)) {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
             ForEach(0..<self.maxCharacterCount, id: \.self) { i in
                 
@@ -88,7 +88,7 @@ struct CommonCodeInputView: View {
     
     private func activeLine(isActiveColor: Bool) -> some View {
         
-        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small2))
+        RoundedRectangle(cornerRadius: Style.shared.radius(.small2))
             .stroke(isActiveColor ? self.accentColor.source() : ColorSource.color(.clear).source(), lineWidth: 2)
             .frame(height: 1)
             .padding(.bottom, .small)
@@ -100,7 +100,7 @@ struct CommonCodeInputView: View {
     
     private func border(isActiveColor: Bool) -> some View {
         
-        RoundedRectangle(cornerRadius: DesignSystem.shared.radius(.small2))
+        RoundedRectangle(cornerRadius: Style.shared.radius(.small2))
             .trim(from: isActiveColor ? 0 : 1, to: 1)
             .stroke(
                 isActiveColor ? self.accentColor.source() : ColorSource.color(.clear).source(),

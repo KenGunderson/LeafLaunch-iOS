@@ -9,15 +9,15 @@ import SwiftUI
 
 struct AppBaseView<Content>: View where Content: View {
     
-    private let horizontalPadding: CustomTheme.SpacingKey
+    private let horizontalPadding: Theme.SpacingKey
     private let content: Content
     private let alignment: Alignment
     private let backgroundStyle: ColorSource
 
     public init(
         alignment: Alignment = .center,
-        horizontalPadding: CustomTheme.SpacingKey = .none,
-        backgroundStyle: ColorSource = DesignSystem.shared.background(.primary),
+        horizontalPadding: Theme.SpacingKey = .none,
+        backgroundStyle: ColorSource = Style.shared.background(.primary),
         @ViewBuilder content: () -> Content) {
             
             self.alignment = alignment

@@ -9,20 +9,20 @@ import SwiftUI
 
 struct AppOutlineCardView<Content>: View where Content: View {
     
-    private let verticalPadding: CustomTheme.SpacingKey
-    private let horizontalPadding: CustomTheme.SpacingKey
+    private let verticalPadding: Theme.SpacingKey
+    private let horizontalPadding: Theme.SpacingKey
     private let backgroundStyle: ColorSource
     private let outlineColor: ColorSource
     private let outlineWidth: CGFloat
-    private let cornerRadius: CustomTheme.RadiusKey
+    private let cornerRadius: Theme.RadiusKey
     private let content: Content
     
-    public init(verticalPadding: CustomTheme.SpacingKey = .medium,
-                horizontalPadding: CustomTheme.SpacingKey = .medium,
+    public init(verticalPadding: Theme.SpacingKey = .medium,
+                horizontalPadding: Theme.SpacingKey = .medium,
                 backgroundStyle: ColorSource = .color(.clear),
-                outlineColor: ColorSource = DesignSystem.shared.background(.tertiary),
+                outlineColor: ColorSource = Style.shared.background(.tertiary),
                 outlineWidth: CGFloat = 2,
-                cornerRadius: CustomTheme.RadiusKey = .small2,
+                cornerRadius: Theme.RadiusKey = .small2,
                 @ViewBuilder content: () -> Content) {
         
         self.verticalPadding = verticalPadding
@@ -52,13 +52,13 @@ struct AppOutlineCardView<Content>: View where Content: View {
         }
         .background {
             
-            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius))
+            RoundedRectangle(cornerRadius: Style.shared.radius(self.cornerRadius))
                 .fill(self.backgroundStyle.source())
             
         }
         .background {
             
-            RoundedRectangle(cornerRadius: DesignSystem.shared.radius(self.cornerRadius))
+            RoundedRectangle(cornerRadius: Style.shared.radius(self.cornerRadius))
                 .stroke(
                     self.outlineColor.source(),
                     lineWidth: self.outlineWidth
@@ -87,7 +87,7 @@ struct AppOutlineCardView<Content>: View where Content: View {
             Image(systemName: "chevron.right")
             
         }
-        .foregroundStyle(DesignSystem.shared.accent.source())
+        .foregroundStyle(Style.shared.accent.source())
         
     }
     .padding(.horizontal, 32)

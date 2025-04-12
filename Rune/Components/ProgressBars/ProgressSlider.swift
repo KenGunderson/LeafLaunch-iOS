@@ -22,8 +22,8 @@ struct ProgressSlider: View {
     init(value: Binding<Double>,
          trackStyle: ColorSource,
          fillStyle: ColorSource,
-         thumbStyle: ColorSource = DesignSystem.shared.background(.primary),
-         thumbCircleStyle: ColorSource = DesignSystem.shared.accent,
+         thumbStyle: ColorSource = Style.shared.background(.primary),
+         thumbCircleStyle: ColorSource = Style.shared.accent,
          thumbHeight: CGFloat = 32) {
         
         self._value = value
@@ -155,7 +155,7 @@ struct ProgressSlider: View {
             Text("\(progress, format: .percent.precision(.fractionLength(2)))")
                 .appFont(with: .header(.h1))
             
-            VStack(spacing: DesignSystem.shared.spacing(.large)) {
+            VStack(spacing: Style.shared.spacing(.large)) {
                 
                 ProgressSlider(
                     value: $progress,

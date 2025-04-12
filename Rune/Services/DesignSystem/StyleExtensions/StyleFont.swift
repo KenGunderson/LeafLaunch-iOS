@@ -1,5 +1,5 @@
 //
-//  DesignSystemFont.swift
+//  StyleFont.swift
 //  Rune
 //
 //  Created by Sako Hovaguimian on 4/11/25.

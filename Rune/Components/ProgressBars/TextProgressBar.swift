@@ -19,7 +19,7 @@ struct TextProgressBar: View {
     var trackColor: ColorSource
     var fillColor: ColorSource
     
-    var cornerRadius: CustomTheme.RadiusKey = .small
+    var cornerRadius: Theme.RadiusKey = .small
     
     var body: some View {
         
@@ -29,7 +29,7 @@ struct TextProgressBar: View {
             .background {
                 progressBar()
             }
-            .clipShape(.rect(cornerRadius: DesignSystem.shared.radius(self.cornerRadius)))
+            .clipShape(.rect(cornerRadius: Style.shared.radius(self.cornerRadius)))
         
         // Lifecycle
         

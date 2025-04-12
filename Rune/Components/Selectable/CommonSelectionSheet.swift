@@ -104,8 +104,8 @@ struct CommonSelectionSheet<S: Selectable>: View {
             }
             
         }
-        .background(DesignSystem.shared.background(.primary).source())
-        .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
+        .background(Style.shared.background(.primary).source())
+        .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
         .scrollBounceBehavior(.basedOnSize)
         .animation(.bouncy, value: self.selectedOptions)
         
@@ -114,7 +114,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
     private func optionView(_ option: S,
                            isSelected: Bool) -> some View {
         
-        AppCardView(horizontalPadding: CustomTheme.SpacingKey.none) {
+        AppCardView(horizontalPadding: Theme.SpacingKey.none) {
             
             HStack {
                 
@@ -143,7 +143,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
                     .appFont(with: .title(.t5))
                 
             }
-            .safeAreaPadding(.horizontal, DesignSystem.shared.spacing(.medium))
+            .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
             
         }
         
@@ -209,7 +209,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
     
     ZStack {
         
-        DesignSystem
+        Style
             .shared
             .background(.primary)
             .view()
@@ -267,7 +267,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
                 assetSingleSelection = selectedAssets
             }
             .presentationDetents([.fraction(0.5)])
-            .presentationCornerRadius(DesignSystem.shared.radius(.large))
+            .presentationCornerRadius(Style.shared.radius(.large))
         
     }
     .sheet(isPresented: $showMultiSelectionSheet) {
@@ -281,7 +281,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
                 debtMultiSelection = selectedDebts
             }
             .presentationDetents([.fraction(0.65)])
-            .presentationCornerRadius(DesignSystem.shared.radius(.large))
+            .presentationCornerRadius(Style.shared.radius(.large))
         
     }
     .onChange(of: assetSingleSelection) { oldValue, newValue in

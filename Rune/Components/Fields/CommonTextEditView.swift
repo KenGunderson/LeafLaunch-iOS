@@ -13,11 +13,11 @@ struct CommonTextEditView: View {
     @Binding var text: String
     var placehoderText: String
     var isFocused: Bool
-    var titleColor: ColorSource = DesignSystem.shared.textColor(.body)
-    var placeholderColor: ColorSource = DesignSystem.shared.textColor(.title)
-    var unselectedBorderColor: ColorSource = DesignSystem.shared.background(.quaternary)
-    var selectedBorderColor: ColorSource = DesignSystem.shared.accent
-    var backgroundStyle: ColorSource = DesignSystem.shared.background(.secondary)
+    var titleColor: ColorSource = Style.shared.textColor(.body)
+    var placeholderColor: ColorSource = Style.shared.textColor(.title)
+    var unselectedBorderColor: ColorSource = Style.shared.background(.quaternary)
+    var selectedBorderColor: ColorSource = Style.shared.accent
+    var backgroundStyle: ColorSource = Style.shared.background(.secondary)
     var lineLimit: ClosedRange<Int> = 5...5
     
     var body: some View {
@@ -58,7 +58,7 @@ struct CommonTextEditView: View {
                 text: $text,
                 placehoderText: "Answer...",
                 isFocused: false,
-                titleColor: DesignSystem.shared.textColor(.title)
+                titleColor: Style.shared.textColor(.title)
             )
             .padding(.horizontal, 32)
             .focused($isFocused)
@@ -67,7 +67,7 @@ struct CommonTextEditView: View {
                 text: $text,
                 placehoderText: "New Answer....",
                 isFocused: false,
-                titleColor: DesignSystem.shared.textColor(.body)
+                titleColor: Style.shared.textColor(.body)
             )
             .padding(.horizontal, 32)
             .focused($isFocused)

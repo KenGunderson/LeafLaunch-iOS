@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme {
+extension Theme {
     
-    static let CORAL_TWILIGHT = CustomTheme(
+    static let CORAL_TWILIGHT = Theme(
         id: "CORAL_TWILIGHT",
         accentColor: .color(Color(hex: "#FF6B6B")),
         accentColorSecondary: .color(Color(hex: "#B23A48")),

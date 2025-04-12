@@ -1,5 +1,5 @@
 //
-//  NewAppShadow.swift
+//  StyleSystemShadow.swift
 //  Rune
 //
 //  Created by Sako Hovaguimian on 4/11/25.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DesignSystemShadow: ViewModifier {
+struct StyleSystemShadow: ViewModifier {
     
-    let style: CustomTheme.ShadowKey
+    let style: Theme.ShadowKey
     
     func body(content: Content) -> some View {
         
-        let shadow = DesignSystem.shared.shadow(style)
+        let shadow = Style.shared.shadow(style)
         
         content
             .shadow(
@@ -30,8 +30,8 @@ struct DesignSystemShadow: ViewModifier {
 extension View {
     
     @ViewBuilder
-    func appShadow(_ shadow: CustomTheme.ShadowKey = .card) -> some View {
-        self.modifier(DesignSystemShadow(style: shadow))
+    func appShadow(_ shadow: Theme.ShadowKey = .card) -> some View {
+        self.modifier(StyleSystemShadow(style: shadow))
     }
     
 }

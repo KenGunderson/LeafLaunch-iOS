@@ -12,8 +12,8 @@ struct PageIndicatorView: View {
     
     var selectedIndex: Int = 0
     var numberOfItems: Int = 5
-    var selectedColor: ColorSource = DesignSystem.shared.accent
-    var unselectedColor: ColorSource = DesignSystem.shared.background(.quaternary)
+    var selectedColor: ColorSource = Style.shared.accent
+    var unselectedColor: ColorSource = Style.shared.background(.quaternary)
     
     func fillColor(isSelected: Bool) -> AnyShapeStyle {
         
@@ -25,7 +25,7 @@ struct PageIndicatorView: View {
     
     var body: some View {
         
-        HStack(spacing: DesignSystem.shared.spacing(.small)) {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
             ForEach(0..<numberOfItems, id: \.self) { index in
                 

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension CustomTheme {
+extension Theme {
     
-    static let EMERALD_NOIR = CustomTheme(
+    static let EMERALD_NOIR = Theme(
         id: "EMERALD_NOIR",
         accentColor: .color(Color(hex: "#2ECC71")),
         accentColorSecondary: .color(Color(hex: "#117A45")),

@@ -19,7 +19,7 @@ struct CustomSafeAreaPadding: ViewModifier {
     
     @StateObject var keyboardManager = KeyboardManager()
     
-    var padding: CGFloat = DesignSystem.shared.spacing(.medium)
+    var padding: CGFloat = Style.shared.spacing(.medium)
     var direction: Direction = .bottom
     var shouldSupportKeyboardOffset: Bool = false
     
@@ -38,7 +38,7 @@ struct CustomSafeAreaPadding: ViewModifier {
         } else {
             
             let isBottomDirection = (self.direction == .bottom)
-            let bottomOffset = self.isKeyboardActive ? DesignSystem.shared.spacing(.medium) : DesignSystem.shared.spacing(.none)
+            let bottomOffset = self.isKeyboardActive ? Style.shared.spacing(.medium) : Style.shared.spacing(.none)
             let finalOffset = isBottomDirection ? bottomOffset : 0
             
             content
@@ -52,7 +52,7 @@ struct CustomSafeAreaPadding: ViewModifier {
 
 extension View {
     
-    func customSafeAreaPadding(padding: CGFloat = DesignSystem.shared.spacing(.medium),
+    func customSafeAreaPadding(padding: CGFloat = Style.shared.spacing(.medium),
                                for direction: CustomSafeAreaPadding.Direction = .bottom,
                                shouldSupportKeyboardOffset: Bool = false) -> some View {
         
