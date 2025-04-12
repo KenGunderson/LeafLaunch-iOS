@@ -21,25 +21,25 @@ fileprivate struct CustomThemePreview: View {
                 .font(theme.font(.title))
                 .foregroundStyle(theme.theme.textColor.title.source())
                 .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.hard))
+                .appShadow(.hard)
             
             Text("Design System Theme")
                 .font(theme.font(.title))
                 .foregroundStyle(theme.theme.textColor.title.source())
                 .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.inner))
+                .appShadow(.inner)
             
             Text("Design System Theme")
                 .font(theme.font(.title))
                 .foregroundStyle(theme.theme.textColor.title.source())
                 .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.neon))
+                .appShadow(.neon)
             
             Text("Design System Theme")
                 .font(theme.font(.title))
                 .foregroundStyle(theme.theme.textColor.title.source())
                 .contentTransition(.interpolate)
-                .newAppShadow(theme.shadow(.offset))
+                .appShadow(.offset)
             
             Button("Toggle Theme") {
                 theme.updateTheme(.EMERALD_NOIR)
@@ -47,7 +47,7 @@ fileprivate struct CustomThemePreview: View {
             .padding(theme.spacing(.small))
             .background(theme.accent.source())
             .clipShape(.rect(cornerRadius: theme.radius(.small2)))
-            .newAppShadow(theme.shadow(.subtle))
+            .appShadow(.subtle)
             .foregroundColor(.white)
             .contentTransition(.interpolate)
             
@@ -55,7 +55,7 @@ fileprivate struct CustomThemePreview: View {
         .padding(theme.spacing(.large))
         .background(theme.background(.primary).source())
         .clipShape(.rect(cornerRadius: theme.radius(.medium2)))
-        .newAppShadow(theme.shadow(.card))
+        .appShadow(.card)
         .compositingGroup()
         .contentTransition(.interpolate)
         .animation(.easeOut(duration: 1.2), value: self.theme.theme.id)

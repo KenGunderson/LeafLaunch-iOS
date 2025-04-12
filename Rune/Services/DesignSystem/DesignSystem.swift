@@ -17,6 +17,9 @@ class DesignSystem: DesignSystemProviding {
     static let shared = DesignSystem()
     
     var theme: any ThemeType = CustomTheme.GOLD_NAVY
+    
+    var accent: ColorSource { self.theme.accentColor }
+    var titleTextColor: ColorSource { self.theme.textColor.title }
 
     func updateTheme(_ theme: CustomTheme) {
         self.theme = theme
@@ -45,8 +48,5 @@ class DesignSystem: DesignSystemProviding {
     func shadow(_ key: CustomTheme.ShadowKey) -> CustomTheme.DecodableShadow {
         self.theme.shadow.value(for: key)
     }
-
-    var accent: ColorSource { self.theme.accentColor }
-    var titleTextColor: ColorSource { self.theme.textColor.title }
     
 }

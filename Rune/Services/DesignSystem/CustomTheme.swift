@@ -125,6 +125,9 @@ struct CustomTheme: Equatable, Identifiable, ThemeType {
         let subtitle: UIFont
         let body: UIFont
         let caption: UIFont
+        
+        /// BODY | 12 | MEDIUM // NEED THIS SOMEWHERE ELSE LIKE KEY LOGIC AREA
+        let BODY_12_MEDIUM: UIFont = .rounded(size: 12, weight: .medium)
 
         func value(for key: FontKey) -> UIFont {
             
