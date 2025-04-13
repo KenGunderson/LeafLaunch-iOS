@@ -56,7 +56,7 @@ struct ContentView: View {
     
     // Loading
     
-    @State var isLoading: Bool = true
+    @State var isLoading: Bool = false
     
     // Side Menu
     
@@ -252,6 +252,19 @@ struct ContentView: View {
                 fillColor: self.style.accent,
                 cornerRadius: .small
             )
+            
+            HalfCircleProgressView(
+                progress: self.sliderValue,
+                lineWidth: 18,
+                title: "\(Int(self.sliderValue * 100))%"
+            )
+            .padding(.horizontal, style.spacing(.large))
+            
+            HalfCircleProgressView(
+                progress: self.sliderValue,
+                fillColor: .linearGradient(.init(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+            )
+            .padding(.horizontal, style.spacing(.large))
             
             DraggableProgressBar(
                 currentValue: self.$draggingSliderValue,
@@ -469,6 +482,7 @@ struct ContentView: View {
                 Text(" left in your checking account")
                 
             }
+            .foregroundStyle(self.style.textColor(.title).source())
             
         }
         
