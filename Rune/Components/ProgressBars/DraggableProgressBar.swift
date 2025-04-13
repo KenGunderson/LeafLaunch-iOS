@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-enum GestureFillStyle {
-    
-    case vertical
-    case horizontal
-    
-}
-
 struct DraggableProgressBar: View {
     
+    enum Direction {
+        
+        case vertical
+        case horizontal
+        
+    }
+    
     @Binding var currentValue: Int
-    var style: GestureFillStyle
+    var direction: Direction
     var foregroundColor: ColorSource
     var backgroundColor: ColorSource
     var clipShape: AnyShape
     
     init(currentValue: Binding<Int>,
-         style: GestureFillStyle,
+         direction: Direction,
          foregroundColor: ColorSource = Style.shared.accent,
          backgroundColor: ColorSource = Style.shared.background(.quaternary),
          clipShape: AnyShape = .init(.rect(cornerRadius: Style.shared.radius(.small2)))) {
         
         self._currentValue = currentValue
-        self.style = style
+        self.direction = direction
         self.foregroundColor = foregroundColor
         self.backgroundColor = backgroundColor
         self.clipShape = clipShape
@@ -40,7 +40,7 @@ struct DraggableProgressBar: View {
         
         GestureFillView(
             currentValue: self.$currentValue,
-            style: self.style,
+            direction: self.direction,
             foregroundColor: self.foregroundColor,
             backgroundColor: self.backgroundColor,
             clipShape: self.clipShape
@@ -57,7 +57,7 @@ fileprivate struct GestureFillView: View {
     @State private var container: CGFloat = 0
     @State private var dragOffset: CGFloat = 0
     
-    var style: GestureFillStyle
+    var direction: DraggableProgressBar.Direction
     var foregroundColor: ColorSource
     var backgroundColor: ColorSource
     var clipShape: AnyShape
@@ -105,7 +105,7 @@ fileprivate struct GestureFillView: View {
     
     private var fillRectangle: some View {
         
-        switch self.style {
+        switch self.direction {
         case .vertical:
             
             return AnyView(Rectangle()
@@ -126,7 +126,7 @@ fileprivate struct GestureFillView: View {
     
     private func alignment() -> Alignment {
         
-        switch self.style {
+        switch self.direction {
         case .vertical: return .bottom
         case .horizontal: return .leading
         }
@@ -135,7 +135,7 @@ fileprivate struct GestureFillView: View {
     
     private func dimension(from geo: GeometryProxy) -> CGFloat {
         
-        switch self.style {
+        switch self.direction {
         case .vertical: return geo.size.height
         case .horizontal: return geo.size.width
         }
@@ -144,7 +144,7 @@ fileprivate struct GestureFillView: View {
     
     private func updateDrag(with value: DragGesture.Value) {
         
-        switch self.style {
+        switch self.direction {
         case .vertical: self.dragOffset = -value.translation.height * 1.2
         case .horizontal: self.dragOffset = value.translation.width * 1.2
         }
@@ -198,7 +198,7 @@ fileprivate struct GestureFillView: View {
             
             DraggableProgressBar(
                 currentValue: $horizontalCurrentValue,
-                style: .horizontal
+                direction: .horizontal
             )
             .frame(
                 width: 350,
@@ -207,7 +207,7 @@ fileprivate struct GestureFillView: View {
             
             DraggableProgressBar(
                 currentValue: $verticalCurrentValue,
-                style: .vertical
+                direction: .vertical
             )
             .frame(
                 width: 100,
