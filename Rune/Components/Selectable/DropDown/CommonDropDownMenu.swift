@@ -153,7 +153,7 @@ struct CommonDropDownMenu<S: Selectable>: View {
                         alignment: .leading
                     )
                     .contentTransition(.numericText())
-                    .appFont(with: .title(.t4))
+                    .appFont(with: .TITLE_T4)
                 
                 Image(systemName: icon)
                     .opacity(isSelected ? 1 : 0)

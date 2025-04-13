@@ -94,7 +94,7 @@ struct ContentView: View {
                 VStack(spacing: Style.shared.spacing(.large)) {
                     
                     Text("Rune")
-                        .appFont(with: .billboard(.b1))
+                        .appFont(with: .BILLBOARD_B1)
                         .foregroundStyle(self.style.textColor(.title).source())
                     
                     Image(systemName: "globe")
@@ -207,7 +207,7 @@ struct ContentView: View {
             TextProgressBar(
                 value: .constant(CGFloat(self.sliderValue)),
                 text: "Text Progress Bar",
-                textFont: .title(.t5),
+                textFont: .TITLE_T5,
                 textColor: .color(.white),
                 trackColor: self.style.background(.tertiary),
                 fillColor: self.style.accent,
@@ -303,7 +303,7 @@ struct ContentView: View {
             HStack {
                 
                 Text("Circular Icon View")
-                    .appFont(with: .title(.t6))
+                    .appFont(with: .TITLE_T6)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(style.textColor(.title).source())
                 
@@ -334,7 +334,7 @@ struct ContentView: View {
             HStack {
                 
                 Text("Avatar View")
-                    .appFont(with: .title(.t6))
+                    .appFont(with: .TITLE_T6)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(style.textColor(.title).source())
              
@@ -485,7 +485,7 @@ struct ContentView: View {
         VStack(alignment: .leading) {
             
             Text(title)
-                .appFont(with: .title(.t8))
+                .appFont(with: .TITLE_T8)
                 .foregroundStyle(self.style.textColor(.title).source())
                 .padding(.horizontal, .medium)
             

@@ -134,7 +134,7 @@ struct RelativeBarView: View {
                 if self.shouldShowTitles, segmentWidth > 20 {
                     
                     Text(segment.title)
-                        .appFont(with: .title(.t2))
+                        .appFont(with: .TITLE_T2)
                         .foregroundStyle(.white)
                         .minimumScaleFactor(0.5)
                     
@@ -207,7 +207,7 @@ fileprivate struct LegendView: View {
                     // Title
                     
                     Text(segment.title)
-                        .appFont(with: .body(.b1))
+                        .appFont(with: .BODY_B1)
                         .foregroundStyle(self.titleColor.source())
                         .lineLimit(1)
                                         
@@ -217,7 +217,7 @@ fileprivate struct LegendView: View {
                     : 0
                     
                     Text("\(Int(percentage))%")
-                        .appFont(with: .body(.b1))
+                        .appFont(with: .BODY_B1)
                         .foregroundStyle(self.titleColor.source())
                     
                 }

@@ -27,12 +27,7 @@ extension Theme {
         ),
         spacing: .default,
         radius: .default,
-        fonts: .init(
-            title: .rounded(size: 28, weight: .bold),
-            subtitle: .rounded(size: 20, weight: .medium),
-            body: .rounded(size: 16, weight: .regular),
-            caption: .rounded(size: 12, weight: .light)
-        ),
+        fonts: .default,
         shadow: .default
     )
     

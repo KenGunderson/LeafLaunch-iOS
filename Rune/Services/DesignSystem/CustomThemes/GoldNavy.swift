@@ -27,12 +27,7 @@ extension Theme {
         ),
         spacing: .default,
         radius: .default,
-        fonts: .init(
-            title: .rounded(size: 28, weight: .bold),
-            subtitle: .rounded(size: 20, weight: .medium),
-            body: .rounded(size: 16, weight: .regular),
-            caption: .rounded(size: 12, weight: .light)
-        ),
+        fonts: .default,
         shadow: .default
     )
     
@@ -75,10 +70,23 @@ extension Theme {
             extraLarge: 0
         ),
         fonts: .init(
-            title: .rounded(size: 28, weight: .bold),
-            subtitle: .rounded(size: 20, weight: .medium),
-            body: .rounded(size: 16, weight: .regular),
-            caption: .rounded(size: 12, weight: .light)
+            BILLBOARD_B1: .serif(size: 64, weight: .heavy),
+            HEADER_H1: .serif(size: 36, weight: .heavy),
+            HEADER_H5: .serif(size: 28, weight: .heavy),
+            HEADER_H6: .serif(size: 22, weight: .heavy),
+            HEADER_H10: .serif(size: 20, weight: .heavy),
+            HEADER_H15: .serif(size: 16, weight: .heavy),
+            TITLE_T1: .serif(size: 12, weight: .medium),
+            TITLE_T2: .serif(size: 12, weight: .bold),
+            TITLE_T4: .serif(size: 14, weight: .bold),
+            TITLE_T5: .serif(size: 16, weight: .bold),
+            TITLE_T6: .serif(size: 18, weight: .semibold),
+            TITLE_T8: .serif(size: 22, weight: .semibold),
+            TITLE_T10: .serif(size: 24, weight: .heavy),
+            BODY_B1: .serif(size: 12, weight: .regular),
+            BODY_B4: .serif(size: 14, weight: .regular),
+            BODY_B5: .serif(size: 16, weight: .regular),
+            BODY_B10: .serif(size: 18, weight: .regular)
         ),
         shadow: .init(
             card: DecodableShadow(color: Color.green.opacity(0.1), radius: 8, x: 0, y: 4),

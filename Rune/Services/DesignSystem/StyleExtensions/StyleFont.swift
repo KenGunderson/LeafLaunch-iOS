@@ -6,50 +6,50 @@
 //
 
 import SwiftUI
-//
-//extension Font {
-//    
-//    static func appFont(_ font: CustomTheme.FontKey) -> Font {
-//        return DesignSystem.shared.font(font)
-//    }
-//    
-//}
-//
-//struct AppFontViewModifier: ViewModifier {
-//    
-//    var font: CustomTheme.FontKey!
-//    
-//    func body(content: Content) -> some View {
-//        content
-//            .font(.appFont(font))
-//    }
-//    
-//}
-//
-//extension View {
-//    
-//    func appFont(with font: CustomTheme.FontKey) -> some View {
-//        modifier(AppFontViewModifier(font: font))
-//    }
-//    
-//}
-//
-//extension Label {
-//    
-//    func appFont(with font: CustomTheme.FontKey) -> some View {
-//        modifier(AppFontViewModifier(font: font))
-//    }
-//    
-//}
-//
-//extension Text {
-//    
-//    func appFont(with font: CustomTheme.FontKey) -> some View {
-//        modifier(AppFontViewModifier(font: font))
-//    }
-//    
-//}
-//
+
+extension Font {
+    
+    static func appFont(_ font: Theme.FontKey) -> Font {
+        return Style.shared.font(font)
+    }
+    
+}
+
+struct AppFontViewModifier: ViewModifier {
+    
+    var font: Theme.FontKey!
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.appFont(font))
+    }
+    
+}
+
+extension View {
+    
+    func appFont(with font: Theme.FontKey) -> some View {
+        modifier(AppFontViewModifier(font: font))
+    }
+    
+}
+
+extension Label {
+    
+    func appFont(with font: Theme.FontKey) -> some View {
+        modifier(AppFontViewModifier(font: font))
+    }
+    
+}
+
+extension Text {
+    
+    func appFont(with font: Theme.FontKey) -> some View {
+        modifier(AppFontViewModifier(font: font))
+    }
+    
+}
+
 extension UIFont {
     
     class func rounded(size: CGFloat, weight: UIFont.Weight) -> UIFont {

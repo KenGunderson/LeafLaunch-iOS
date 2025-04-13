@@ -10,13 +10,13 @@ import SwiftUI
 struct InfoView: View {
     
     private let title: String
-    private let titleFont: AppFont
+    private let titleFont: Theme.FontKey
     private let imageSource: ImageSource?
     private let foregroundStyle: ColorSource
     private let action: (() -> ())?
     
     init(title: String,
-         titleFont: AppFont = AppFont.title(.t5),
+         titleFont: Theme.FontKey = .TITLE_T5,
          imageSource: ImageSource? = nil,
          foregroundStyle: ColorSource,
          action: (() -> ())? = nil) {

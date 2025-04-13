@@ -48,7 +48,7 @@ struct CommonButton: View {
                 
                 Text(self.title)
                     .foregroundStyle(self.titleColor.source())
-                    .appFont(with: .title(.t5))
+                    .appFont(with: .TITLE_T5)
                     .lineLimit(1)
                 
             }

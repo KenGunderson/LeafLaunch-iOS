@@ -163,7 +163,7 @@ struct CommonDropDownMultiSelectMenu<S: Selectable>: View {
                         alignment: .leading
                     )
                     .contentTransition(.numericText())
-                    .appFont(with: .title(.t4))
+                    .appFont(with: .TITLE_T4)
                 
                 if isSelected {
                     

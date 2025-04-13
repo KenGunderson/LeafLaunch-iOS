@@ -25,7 +25,7 @@ extension Sequence {
     }
     
     func concurrentForEach(maxConcurrentTasks: Int = .max,
-                           _ operation: @escaping (Element) async -> Void) async {
+                           _ operation: @Sendable @escaping (Element) async -> Void) async {
         
         await withTaskGroup(of: Void.self) { group in
             
@@ -59,7 +59,7 @@ extension Sequence {
     }
     
     func withThrowingConcurrentForEach(maxConcurrentTasks: Int = .max,
-                           _ operation: @escaping (Element) async throws -> Void) async throws {
+                           _ operation: @Sendable @escaping (Element) async throws -> Void) async throws {
         
         try await withThrowingTaskGroup(of: Void.self) { group in
             

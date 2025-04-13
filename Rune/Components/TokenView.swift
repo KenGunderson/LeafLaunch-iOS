@@ -10,14 +10,14 @@ import SwiftUI
 struct TokenView: View {
     
     private let text: String
-    private let titleFont: AppFont
+    private let titleFont: Theme.FontKey
     private let foregroundStyle: ColorSource
     private let backgroundStyle: ColorSource
     private let horizontalPadding: Theme.SpacingKey
     private let verticalPadding: Theme.SpacingKey
     
     init(text: String,
-         titleFont: AppFont = .title(.t4),
+         titleFont: Theme.FontKey = .TITLE_T4,
          foregroundStyle: ColorSource = .color(.white),
          backgroundStyle: ColorSource = Style.shared.background(.quaternary),
          horizontalPadding: Theme.SpacingKey = .custom(12),

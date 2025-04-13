@@ -32,7 +32,7 @@ struct CommonTextEditView: View {
         .padding(16)
         .background(self.backgroundStyle.source())
         .foregroundStyle(self.titleColor.source())
-        .appFont(with: .title(.t5))
+        .appFont(with: .TITLE_T5)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay {
             RoundedRectangle(cornerRadius: 12)

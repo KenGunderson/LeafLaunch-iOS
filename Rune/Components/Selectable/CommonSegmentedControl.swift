@@ -13,7 +13,7 @@ struct CommonSegmentedControl<S: Selectable>: View {
     @Binding var selectedOption: S?
     var options: [S]
     
-    var titleFont: AppFont = .title(.t4)
+    var titleFont: Theme.FontKey = .TITLE_T4
     var selectedTextColor: ColorSource = Style.shared.textColor(.title)
     var unselectedTextColor: ColorSource = Style.shared.textColor(.title)
     var foregroundStyle: ColorSource = Style.shared.accent

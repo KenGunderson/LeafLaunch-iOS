@@ -71,7 +71,7 @@ struct CommonImageView: View {
             AppCardView {
                 
                 Text("Did Load Correctly!")
-                    .appFont(with: .header(.h5))
+                    .appFont(with: .HEADER_H5)
                 
             }
             .transition(.slide)
@@ -110,7 +110,7 @@ struct CommonImageView: View {
                 
                 Text(error.localizedDescription)
                     .transition(.slide)
-                    .appFont(with: .header(.h5))
+                    .appFont(with: .HEADER_H5)
                 
             }
             .padding(.horizontal, .extraLarge)

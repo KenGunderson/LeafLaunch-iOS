@@ -13,7 +13,7 @@ struct TextProgressBar: View {
     @State private var animatedValue: CGFloat = 0
     
     var text: String
-    var textFont: AppFont = .body(.b5)
+    var textFont: Theme.FontKey = .BODY_B5
     var textColor: ColorSource = .color(.white)
     
     var trackColor: ColorSource
@@ -102,7 +102,7 @@ struct TextProgressBar: View {
     TextProgressBar(
         value: $value,
         text: "Total Progress: \(Int(value * 100))%",
-        textFont: .title(.t4),
+        textFont: .TITLE_T4,
         textColor: .color(.white),
         trackColor: .color(.gray),
         fillColor: .color(.indigo),

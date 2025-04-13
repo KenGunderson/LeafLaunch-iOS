@@ -81,7 +81,7 @@ struct CommonCodeInputView: View {
         Text(character ?? "-")
             .lineLimit(1, reservesSpace: true)
             .fontWeight(.heavy)
-            .appFont(with: .title(.t10))
+            .appFont(with: .TITLE_T10)
             .foregroundStyle(character == nil ? self.inputTextColor.source() : self.accentColor.source())
         
     }

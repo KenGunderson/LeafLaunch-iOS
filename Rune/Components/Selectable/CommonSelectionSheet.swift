@@ -52,12 +52,12 @@ struct CommonSelectionSheet<S: Selectable>: View {
                 VStack(alignment: .leading) {
                     
                     Text(self.headerTitle)
-                        .appFont(with: .header(.h5))
+                        .appFont(with: .HEADER_H5)
                     
                     if let subtitle = self.headerSubtitle {
                         
                         Text(subtitle)
-                            .appFont(with: .body(.b10))
+                            .appFont(with: .BODY_B10)
                             .foregroundStyle(.gray)
                         
                     }
@@ -140,7 +140,7 @@ struct CommonSelectionSheet<S: Selectable>: View {
                 }
                 
                 Text(option.description)
-                    .appFont(with: .title(.t5))
+                    .appFont(with: .TITLE_T5)
                 
             }
             .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
@@ -239,7 +239,7 @@ enum DebtOptions: String, Identifiable, CaseIterable, CustomStringConvertible {
                     ForEach(Array(debtMultiSelection), id: \.self) { text in
                         
                         Text(text.description)
-                            .appFont(with: .title(.t4))
+                            .appFont(with: .TITLE_T4)
                             .foregroundStyle(.black)
                             .padding(.horizontal, .medium)
                             .padding(.vertical, .small)

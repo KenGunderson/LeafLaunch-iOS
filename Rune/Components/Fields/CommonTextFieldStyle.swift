@@ -44,7 +44,7 @@ struct CommonTextFieldStyle: @preconcurrency TextFieldStyle {
             .padding(.horizontal, self.icon == nil ? .medium : .small)
             .background(self.backgroundColor.source())
             .foregroundStyle(foregroundColor)
-            .appFont(with: .title(.t5))
+            .appFont(with: .TITLE_T5)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay {
                 RoundedRectangle(cornerRadius: 12)

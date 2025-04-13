@@ -153,7 +153,7 @@ struct ProgressSlider: View {
         VStack {
             
             Text("\(progress, format: .percent.precision(.fractionLength(2)))")
-                .appFont(with: .header(.h1))
+                .appFont(with: .HEADER_H1)
             
             VStack(spacing: Style.shared.spacing(.large)) {
                 
@@ -219,12 +219,12 @@ struct ProgressSlider: View {
                         HStack {
                             
                             Text("\(progress, format: .percent.precision(.fractionLength(2)))")
-                                .appFont(with: .body(.b4))
+                                .appFont(with: .BODY_B4)
                             
                             Spacer()
                             
                             Text("\(progress, format: .percent.precision(.fractionLength(2)))")
-                                .appFont(with: .body(.b4))
+                                .appFont(with: .BODY_B4)
                             
                         }
                         

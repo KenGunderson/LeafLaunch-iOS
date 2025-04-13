@@ -121,27 +121,52 @@ struct Theme: Equatable, Identifiable, ThemeProtocol {
 
     struct Fonts {
         
-        let title: UIFont
-        let subtitle: UIFont
-        let body: UIFont
-        let caption: UIFont
+        let BILLBOARD_B1: UIFont
         
-        /// BODY | 12 | MEDIUM // NEED THIS SOMEWHERE ELSE LIKE KEY LOGIC AREA
-        let BODY_12_MEDIUM: UIFont = .rounded(size: 12, weight: .medium)
-
+        let HEADER_H1: UIFont
+        let HEADER_H5: UIFont
+        let HEADER_H6: UIFont
+        let HEADER_H10: UIFont
+        let HEADER_H15: UIFont
+        
+        let TITLE_T1: UIFont
+        let TITLE_T2: UIFont
+        let TITLE_T4: UIFont
+        let TITLE_T5: UIFont
+        let TITLE_T6: UIFont
+        let TITLE_T8: UIFont
+        let TITLE_T10: UIFont
+        
+        let BODY_B1: UIFont
+        let BODY_B4: UIFont
+        let BODY_B5: UIFont
+        let BODY_B10: UIFont
+                
         func value(for key: FontKey) -> UIFont {
             
             switch key {
-            case .title: return title
-            case .subtitle: return subtitle
-            case .body: return body
-            case .caption: return caption
+                
+            case .BILLBOARD_B1: return BILLBOARD_B1
+            case .HEADER_H1: return HEADER_H1
+            case .HEADER_H5: return HEADER_H5
+            case .HEADER_H6: return HEADER_H6
+            case .HEADER_H10: return HEADER_H10
+            case .HEADER_H15: return HEADER_H15
+            case .TITLE_T1: return TITLE_T1
+            case .TITLE_T2: return TITLE_T2
+            case .TITLE_T4: return TITLE_T4
+            case .TITLE_T5: return TITLE_T5
+            case .TITLE_T6: return TITLE_T6
+            case .TITLE_T8: return TITLE_T8
+            case .TITLE_T10: return TITLE_T10
+            case .BODY_B1: return BODY_B1
+            case .BODY_B4: return BODY_B4
+            case .BODY_B5: return BODY_B5
+            case .BODY_B10: return BODY_B10
             }
-            
         }
-        
     }
-    
+
     struct DecodableShadow {
         
         var color: Color
@@ -212,11 +237,27 @@ struct Theme: Equatable, Identifiable, ThemeProtocol {
     }
     
     enum FontKey {
+
+        case BILLBOARD_B1
         
-        case title
-        case subtitle
-        case body
-        case caption
+        case HEADER_H1
+        case HEADER_H5
+        case HEADER_H6
+        case HEADER_H10
+        case HEADER_H15
+        
+        case TITLE_T1
+        case TITLE_T2
+        case TITLE_T4
+        case TITLE_T5
+        case TITLE_T6
+        case TITLE_T8
+        case TITLE_T10
+        
+        case BODY_B1
+        case BODY_B4
+        case BODY_B5
+        case BODY_B10
         
     }
     
