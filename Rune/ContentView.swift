@@ -56,7 +56,7 @@ struct ContentView: View {
     
     // Loading
     
-    @State var isLoading: Bool = false
+    @State var isLoading: Bool = true
     
     // Side Menu
     
