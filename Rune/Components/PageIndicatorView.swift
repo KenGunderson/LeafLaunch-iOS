@@ -45,7 +45,7 @@ struct PageIndicatorView: View {
 #Preview {
     
     @Previewable @State var selectedIndex: Int = 0
-    var numberOfItems = 5
+    let numberOfItems = 5
     
     AppBaseView {
         

@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 @Observable
-class Style: StyleProtocol {
+final class Style: StyleProtocol {
     
     static let shared = Style()
     

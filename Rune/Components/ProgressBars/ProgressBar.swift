@@ -13,7 +13,7 @@ struct ProgressBar: View {
     
     var trackColor: ColorSource
     var fillColor: ColorSource
-    var shouldRound: Bool = true
+    var clipShape: AnyShape = .init(.capsule)
     
     var body: some View {
         
@@ -43,9 +43,7 @@ struct ProgressBar: View {
                     .foregroundStyle(self.fillColor.source())
                     .animation(.spring(), value: fillValue)
             }
-            .if(self.shouldRound) { view in
-                view.clipShape(.capsule)
-            }
+            .clipShape(self.clipShape)
             .fixedSize(horizontal: false, vertical: true)
         }
     }

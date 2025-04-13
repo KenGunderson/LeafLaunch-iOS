@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol StyleProtocol: AnyObject {
+protocol StyleProtocol: AnyObject, Sendable {
     
     var theme: any ThemeProtocol { get }
     

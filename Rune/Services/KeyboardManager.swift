@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+@MainActor
 class KeyboardManager: ObservableObject {
     
     @Published var keyboardHeight: CGFloat = 0

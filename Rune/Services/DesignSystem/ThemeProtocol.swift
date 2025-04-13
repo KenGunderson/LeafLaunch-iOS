@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol ThemeProtocol: Identifiable, Equatable {
+protocol ThemeProtocol: Identifiable, Equatable, Sendable {
     
     var id: String { get }
     var accentColor: ColorSource { get }

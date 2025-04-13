@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-final class Haptics {
+@MainActor
+final class Haptics: Sendable {
 
     static let shared = Haptics()
     private init() {}

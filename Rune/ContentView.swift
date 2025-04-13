@@ -199,8 +199,15 @@ struct ContentView: View {
             ProgressBar(
                 value: .constant(Float(self.sliderValue)),
                 trackColor: self.style.background(.tertiary),
+                fillColor: self.style.accent
+            )
+            .frame(height: 16)
+
+            ProgressBar(
+                value: .constant(Float(self.sliderValue)),
+                trackColor: self.style.background(.tertiary),
                 fillColor: self.style.accent,
-                shouldRound: true
+                clipShape: .init(.rect(cornerRadius: self.style.radius(.custom(2))))
             )
             .frame(height: 16)
             
