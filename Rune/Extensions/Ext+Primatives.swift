@@ -54,3 +54,14 @@ extension Double: @retroactive Identifiable {
     }
     
 }
+
+extension CGFloat {
+    
+    func truncate(places: Int) -> Double {
+        
+        let multiplier = pow(10.0, Double(places))
+        return floor(Double(self) * multiplier) / multiplier
+        
+    }
+    
+}

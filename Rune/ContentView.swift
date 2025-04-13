@@ -8,9 +8,7 @@
 import SwiftUI
 
 /// TODO: -
-///     Handle:
-///         DEPRICATE AppFont.swift
-/// 1. DraggableView 2. StringSource, 3. SlideButton, 4.ScrollBannerView, 5.Sidebar
+/// 1. StringSource, 2. SlideButton, 3. ScrollBannerView
 
 struct ContentView: View {
     
@@ -43,6 +41,7 @@ struct ContentView: View {
     // Slider
     
     @State var sliderValue: Double = 0.8
+    @State var draggingSliderValue: CGFloat = 0.5
     
     // Fields
     
@@ -58,6 +57,10 @@ struct ContentView: View {
     // Loading
     
     @State var isLoading: Bool = false
+    
+    // Side Menu
+    
+    @State var isSideMenuVisibile: Bool = false
     
     // RelativeBarSegments
     
@@ -89,48 +92,77 @@ struct ContentView: View {
         
         AppBaseView {
             
-            ScrollView {
+            ZStack {
                 
-                VStack(spacing: Style.shared.spacing(.large)) {
-                    
-                    Text("Rune")
-                        .appFont(with: .BILLBOARD_B1)
-                        .foregroundStyle(self.style.textColor(.title).source())
-                    
-                    Image(systemName: "globe")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 64)
-                        .foregroundStyle(self.style.accent.source())
-                        .padding(.bottom, .small)
-                    
-                    Group {
-                        
-                        pickers()
-                        textfields()
-                        buttons()
-                        images()
-                        supportingViews()
-                        sliders()
-                        
-                    }
-                    .padding(.horizontal, .large)
-                    
-                    filterView()
-                    relativeBarView()
-                    colorThemeGrid()
-                    
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.bottom, .custom(64))
+                content()
+                sideMenu()
                 
             }
-            .shimmer(self.isLoading)
-            .redacted(reason: self.isLoading ? .placeholder : .invalidated)
-            .allowsHitTesting(!self.isLoading)
             
         }
         .scrollDismissesKeyboard(.interactively)
+        
+    }
+    
+    private func content() -> some View {
+        
+        ScrollView {
+            
+            VStack(spacing: Style.shared.spacing(.large)) {
+                
+                Text("Rune")
+                    .appFont(with: .BILLBOARD_B1)
+                    .foregroundStyle(self.style.textColor(.title).source())
+                
+                Image(systemName: "globe")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 64)
+                    .foregroundStyle(self.style.accent.source())
+                    .padding(.bottom, .small)
+                    .asButton {
+                        self.isSideMenuVisibile = true
+                    }
+                
+                Group {
+                    
+                    pickers()
+                    textfields()
+                    buttons()
+                    images()
+                    supportingViews()
+                    sliders()
+                    
+                }
+                .padding(.horizontal, .large)
+                
+                filterView()
+                relativeBarView()
+                colorThemeGrid()
+                
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.bottom, .custom(64))
+            
+        }
+        .shimmer(self.isLoading)
+        .redacted(reason: self.isLoading ? .placeholder : .invalidated)
+        .allowsHitTesting(!self.isLoading)
+        
+    }
+    
+    private func sideMenu() -> some View {
+        
+        AppSideMenu(
+            isSidebarVisible: self.$isSideMenuVisibile) {
+                
+                self.style
+                    .theme
+                    .accentColor
+                    .view()
+                    .frame(width: 275)
+                
+            }
         
     }
     
@@ -219,6 +251,24 @@ struct ContentView: View {
                 trackColor: self.style.background(.tertiary),
                 fillColor: self.style.accent,
                 cornerRadius: .small
+            )
+            
+            DraggableProgressBar(
+                currentValue: self.$draggingSliderValue,
+                direction: .horizontal
+            )
+            .frame(
+                width: 300,
+                height: 100
+            )
+            
+            DraggableProgressBar(
+                currentValue: self.$draggingSliderValue,
+                direction: .vertical
+            )
+            .frame(
+                width: 100,
+                height: 300
             )
             
         }
@@ -404,6 +454,19 @@ struct ContentView: View {
                     
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
+                
+            }
+            
+            AttributedText {
+                
+                Text("You have ")
+                
+                Text("$9000.00")
+                    .foregroundStyle(self.style.theme.accentColor.source())
+                    .fontWeight(.bold)
+                    .underline()
+                
+                Text(" left in your checking account")
                 
             }
             

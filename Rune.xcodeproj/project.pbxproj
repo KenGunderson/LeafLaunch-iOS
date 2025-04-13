@@ -352,7 +352,6 @@
 			children = (
 				75709D232DA750F700DCB134 /* Animations */,
 				755C986A2D9CD3AA00437D5D /* BaseViews */,
-				759F903C2D9CE44F005FD191 /* CommonButton.swift */,
 				75AB34822DA84C4300B51593 /* Image */,
 				75A8547F2D9EED9500B7B4C5 /* Fields */,
 				759F90502D9CE46E005FD191 /* Selectable */,
@@ -365,6 +364,7 @@
 				753BA1AD2DAB55C90095C444 /* AttributedText.swift */,
 				7548497A2DA8B5F800B7E053 /* RelativeBarView.swift */,
 				75AB349B2DA84FD800B51593 /* PageIndicatorView.swift */,
+				759F903C2D9CE44F005FD191 /* CommonButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

@@ -16,13 +16,13 @@ struct DraggableProgressBar: View {
         
     }
     
-    @Binding var currentValue: Int
+    @Binding var currentValue: CGFloat
     var direction: Direction
     var foregroundColor: ColorSource
     var backgroundColor: ColorSource
     var clipShape: AnyShape
     
-    init(currentValue: Binding<Int>,
+    init(currentValue: Binding<CGFloat>,
          direction: Direction,
          foregroundColor: ColorSource = Style.shared.accent,
          backgroundColor: ColorSource = Style.shared.background(.quaternary),
@@ -52,7 +52,7 @@ struct DraggableProgressBar: View {
 
 fileprivate struct GestureFillView: View {
     
-    @Binding var currentValue: Int
+    @Binding var currentValue: CGFloat
     @State private var fill: CGFloat = 0
     @State private var container: CGFloat = 0
     @State private var dragOffset: CGFloat = 0
@@ -89,12 +89,13 @@ fileprivate struct GestureFillView: View {
         .onGeometryChange(for: CGFloat.self) { geo in
             return self.dimension(from: geo)
         } action: { newValue in
-            print(newValue)
             self.container = newValue
         }
         .overlay {
             
-            Text("\(self.currentValue)%")
+            let truncatedAmount = self.currentValue.truncate(places: 0)
+            
+            Text(verbatim: "\(truncatedAmount)%")
                 .font(Style.shared.font(.TITLE_T5))
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .contentTransition(.numericText())
@@ -152,7 +153,7 @@ fileprivate struct GestureFillView: View {
         let newFill = min(self.container, max(0, self.fill + self.dragOffset))
         
         if self.container != 0 {
-            self.currentValue = Int((newFill / self.container) * 100)
+            self.currentValue = CGFloat((newFill / self.container) * 100)
         }
         
     }
@@ -170,8 +171,8 @@ fileprivate struct GestureFillView: View {
 
 #Preview {
     
-    @Previewable @State var verticalCurrentValue: Int = 0
-    @Previewable @State var horizontalCurrentValue: Int = 0
+    @Previewable @State var verticalCurrentValue: CGFloat = 0
+    @Previewable @State var horizontalCurrentValue: CGFloat = 0
     
     AppBaseView {
         
