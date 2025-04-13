@@ -31,7 +31,6 @@
 		755C985A2D9CD34400437D5D /* Ext+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C984F2D9CD34400437D5D /* Ext+Text.swift */; };
 		755C985B2D9CD34400437D5D /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98502D9CD34400437D5D /* Ext+UIApplication.swift */; };
 		755C985C2D9CD34400437D5D /* Ext+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C984A2D9CD34400437D5D /* Ext+Combine.swift */; };
-		755C98632D9CD38700437D5D /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C985D2D9CD38700437D5D /* AppFont.swift */; };
 		755C986B2D9CD3AA00437D5D /* AppOutlineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98672D9CD3AA00437D5D /* AppOutlineCardView.swift */; };
 		755C986C2D9CD3AA00437D5D /* AppCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98662D9CD3AA00437D5D /* AppCardView.swift */; };
 		755C986D2D9CD3AA00437D5D /* AppHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C98682D9CD3AA00437D5D /* AppHeaderScrollView.swift */; };
@@ -130,7 +129,6 @@
 		755C98502D9CD34400437D5D /* Ext+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIApplication.swift"; sourceTree = "<group>"; };
 		755C98512D9CD34400437D5D /* Ext+UImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UImage.swift"; sourceTree = "<group>"; };
 		755C98522D9CD34400437D5D /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
-		755C985D2D9CD38700437D5D /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		755C98652D9CD3AA00437D5D /* AppBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBaseView.swift; sourceTree = "<group>"; };
 		755C98662D9CD3AA00437D5D /* AppCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCardView.swift; sourceTree = "<group>"; };
 		755C98672D9CD3AA00437D5D /* AppOutlineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOutlineCardView.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 		755C98262D9CC8E000437D5D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				755C985D2D9CD38700437D5D /* AppFont.swift */,
 				755C98462D9CD0A900437D5D /* DesignSystem */,
 				759F90652D9CE66D005FD191 /* KeyboardManager.swift */,
 			);
@@ -640,7 +637,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				759F50562DA2378100B071E5 /* CommonMultiSelectDropDown.swift in Sources */,
-				755C98632D9CD38700437D5D /* AppFont.swift in Sources */,
 				7548499C2DA8BB9B00B7E053 /* StyleProtocol.swift in Sources */,
 				759F906E2D9CF7BD005FD191 /* CommonTextFieldStyle.swift in Sources */,
 				7548499E2DA8BBBF00B7E053 /* Style.swift in Sources */,
