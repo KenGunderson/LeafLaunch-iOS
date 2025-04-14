@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-/// TODO: -
-/// 1. StringSource, 2. SlideButton, 3. ScrollBannerView
+/// - TODO: -
+/// 1. StringSource,
+/// 2. SlideButton,
+/// 3. ScrollBannerView
 
 struct ContentView: View {
     
