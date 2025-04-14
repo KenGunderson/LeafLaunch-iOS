@@ -153,16 +153,15 @@ struct ContentView: View {
     
     private func sideMenu() -> some View {
         
-        AppSideMenu(
-            isSidebarVisible: self.$isSideMenuVisibile) {
-                
-                self.style
-                    .theme
-                    .accentColor
-                    .view()
-                    .frame(width: 275)
-                
-            }
+        AppSideMenu(isSidebarVisible: self.$isSideMenuVisibile) {
+            
+            self.style
+                .theme
+                .accentColor
+                .view()
+                .frame(width: 275)
+            
+        }
         
     }
     

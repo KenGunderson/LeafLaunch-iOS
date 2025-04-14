@@ -133,11 +133,10 @@ struct ProgressSlider: View {
     private func circleOffset(x: CGFloat,
                               y: CGFloat) -> (x: CGFloat, y: CGFloat) {
         
-        let thumbRadius: CGFloat = 15
         let circleRadius: CGFloat = 5
         let angle = 2 * CGFloat.pi * CGFloat(value)
-        let x = (thumbRadius - circleRadius) * cos(angle)
-        let y = (thumbRadius - circleRadius) * sin(angle)
+        let x = (self.thumbRadius - circleRadius) * cos(angle)
+        let y = (self.thumbRadius - circleRadius) * sin(angle)
         return (x: x, y: y)
         
     }

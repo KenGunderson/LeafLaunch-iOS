@@ -54,7 +54,7 @@ fileprivate struct GestureFillView: View {
     
     @Binding var currentValue: CGFloat
     @State private var fill: CGFloat = 0
-    @State private var container: CGFloat = 0
+    @State private var containerSize: CGFloat = 0
     @State private var dragOffset: CGFloat = 0
     
     var direction: DraggableProgressBar.Direction
@@ -89,7 +89,7 @@ fileprivate struct GestureFillView: View {
         .onGeometryChange(for: CGFloat.self) { geo in
             return self.dimension(from: geo)
         } action: { newValue in
-            self.container = newValue
+            self.containerSize = newValue
         }
         .overlay {
             
@@ -110,14 +110,14 @@ fileprivate struct GestureFillView: View {
         case .vertical:
             
             return AnyView(Rectangle()
-                .frame(height: min(self.container, max(0, self.fill + self.dragOffset)))
+                .frame(height: min(self.containerSize, max(0, self.fill + self.dragOffset)))
                 .foregroundStyle(self.foregroundColor.source())
             )
             
         case .horizontal:
             
             return AnyView(Rectangle()
-                    .frame(width: min(self.container, max(0, self.fill + self.dragOffset)))
+                    .frame(width: min(self.containerSize, max(0, self.fill + self.dragOffset)))
                     .foregroundStyle(self.foregroundColor.source())
             )
             
@@ -150,17 +150,17 @@ fileprivate struct GestureFillView: View {
         case .horizontal: self.dragOffset = value.translation.width * 1.2
         }
         
-        let newFill = min(self.container, max(0, self.fill + self.dragOffset))
+        let newFill = min(self.containerSize, max(0, self.fill + self.dragOffset))
         
-        if self.container != 0 {
-            self.currentValue = CGFloat((newFill / self.container) * 100)
+        if self.containerSize != 0 {
+            self.currentValue = CGFloat((newFill / self.containerSize) * 100)
         }
         
     }
     
     private func commitDrag() {
         
-        let newFill = min(self.container, max(0, self.fill + self.dragOffset))
+        let newFill = min(self.containerSize, max(0, self.fill + self.dragOffset))
         
         self.fill = newFill
         self.dragOffset = 0
