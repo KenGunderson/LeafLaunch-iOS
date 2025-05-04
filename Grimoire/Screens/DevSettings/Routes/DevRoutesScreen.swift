@@ -126,6 +126,7 @@ struct DevRoutesScreen: View {
             
             Text(title)
                 .appFont(with: .TITLE_T6)
+                .foregroundStyle(Style.shared.textColor(.title).source())
             
         }
         .appOnTapGesture {

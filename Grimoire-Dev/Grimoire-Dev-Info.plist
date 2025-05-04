@@ -8,7 +8,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.sakohovaguimian.rune</string>
+			<string>com.sakohovaguimian.grimoire</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>grimoire</string>
