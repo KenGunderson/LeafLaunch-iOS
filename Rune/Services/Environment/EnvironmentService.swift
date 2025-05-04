@@ -1,6 +1,6 @@
 //
 //  EnvironmentService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -15,7 +15,7 @@ final class EnvironmentService: EnvironmentServiceProtocol {
         return self.$environment.eraseToAnyPublisher()
     }
     
-    private let logger = RuneLogger.service(.environment)
+    private let logger = GrimoireLogger.service(.environment)
     
     init() {
         

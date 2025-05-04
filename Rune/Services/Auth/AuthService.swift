@@ -1,6 +1,6 @@
 //
 //  AuthService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -25,7 +25,7 @@ final class AuthService: AuthServiceProtocol {
     private(set) var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
     private(set) var onError = CurrentValueSubject<Error?, Never>(nil)
     
-    private let logger = RuneLogger.service(.auth)
+    private let logger = GrimoireLogger.service(.auth)
     var cancelBag: CancelBag!
     
     init(firebaseService: FirebaseServiceProtocol,

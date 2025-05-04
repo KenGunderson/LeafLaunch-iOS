@@ -1,6 +1,6 @@
 //
 //  ViewLifecycleService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -15,7 +15,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     private(set) var onDidBecomeActive = CurrentValueSubject<String?, Never>(nil)
     private(set) var onWillEnterForeground = CurrentValueSubject<String?, Never>(nil)
     
-    private let logger = RuneLogger.service(.lifecycle)
+    private let logger = GrimoireLogger.service(.lifecycle)
     
     init() {
         

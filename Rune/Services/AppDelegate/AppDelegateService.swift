@@ -1,6 +1,6 @@
 //
 //  AppDelegateService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -24,7 +24,7 @@ final class AppDelegateService: AppDelegateServiceProtocol {
     private var appDelegate: AppDelegate!
     private var cancelBag: CancelBag!
     
-    private let logger = RuneLogger.service(.appDelegate)
+    private let logger = GrimoireLogger.service(.appDelegate)
     
     init() {
         self.logger.logInit()

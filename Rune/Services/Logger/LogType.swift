@@ -1,6 +1,6 @@
 //
 //  LogType.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/17/24.
 //
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-enum RuneLogger {
+enum GrimoireLogger {
     
     enum ViewModel: String {
         

@@ -1,6 +1,6 @@
 //
 //  PushNotificationPermissionServiceProtocol.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //

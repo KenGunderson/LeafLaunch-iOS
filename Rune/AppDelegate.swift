@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/18/24.
 //
@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     private(set) var pushNotificationTappedPublisher = PassthroughSubject<UNNotification, Never>()
     private(set) var appWillTerminatePublisher = PassthroughSubject<Void, Never>()
     
-    private var logger = RuneLogger.service(.appDelegate)
+    private var logger = GrimoireLogger.service(.appDelegate)
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {

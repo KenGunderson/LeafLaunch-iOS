@@ -1,17 +1,17 @@
 //
 //  DeeplinkService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/15/24.
 //
 
 // Example Deeplink
-/// `gentle-path://{host}/{route}`
+/// `grimoire://{host}/{route}`
 /// We technically don't need host, we have it in case of the navigation tab bar later down the road
 
 // DEEPLINKS
 
-/// TAB: `gentle-path://host/tab?tab=community` { ANY TAB ITEM GOES HERE }
+/// TAB: `grimoire://host/tab?tab=tab1` { ANY TAB ITEM GOES HERE }
 // TODO: - MAKE PATHS HERE FOR EASY REFERENCE
 
 import Foundation
@@ -30,7 +30,7 @@ class DeeplinkService: DeeplinkServiceProtocol {
     private var mainViewModel: MainViewModel?
     private let lifecycleService: ViewLifecycleServiceProtocol
     
-    private let logger = RuneLogger.service(.deeplink)
+    private let logger = GrimoireLogger.service(.deeplink)
     
     init(lifecycleService: ViewLifecycleServiceProtocol) {
         

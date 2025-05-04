@@ -1,6 +1,6 @@
 //
 //  UserDefaultsService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -73,7 +73,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     
-    private let logger = RuneLogger.service(.userDefaults)
+    private let logger = GrimoireLogger.service(.userDefaults)
 
     init() {
         

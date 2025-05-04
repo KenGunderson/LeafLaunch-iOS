@@ -1,6 +1,6 @@
 //
 //  SplashScreenItem.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 9/5/23.
 //
@@ -30,7 +30,7 @@ struct SplashScreenItem: View {
                         endPoint: .trailing
                     ))
                 
-                Text("Rune")
+                Text("Grimoire")
                     .appFont(with: .BILLBOARD_B1)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 

@@ -1,6 +1,6 @@
 //
 //  DevSettingsDeeplinkView.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/25/24.
 //
@@ -13,7 +13,7 @@ struct DevDeeplinksScreen: View {
     @StateObject var viewModel: DevDeeplinksViewModel
     @Environment(NavigationService.self) private var navigationService
     
-    var basePath = "rune://host/"
+    var basePath = "grimoire://host/"
         
     var body: some View {
         

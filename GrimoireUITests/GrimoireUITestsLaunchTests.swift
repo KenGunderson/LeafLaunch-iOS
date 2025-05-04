@@ -1,13 +1,13 @@
 //
-//  RuneUITestsLaunchTests.swift
-//  RuneUITests
+//  GrimoireUITestsLaunchTests.swift
+//  GrimoireUITests
 //
 //  Created by Sako Hovaguimian on 4/1/25.
 //
 
 import XCTest
 
-final class RuneUITestsLaunchTests: XCTestCase {
+final class GrimoireUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

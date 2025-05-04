@@ -1,6 +1,6 @@
 //
 //  RootView.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -31,7 +31,7 @@ struct RootScreen: View {
             splashScreenView()
             
 //            CommonButton(title: "Deeplink") {
-//                viewModel.setDeeplink(url: URL(string: "rune://host/tab?tab=tab\(Int.random(in: 1...4))")!)
+//                viewModel.setDeeplink(url: URL(string: "grimoire://host/tab?tab=tab\(Int.random(in: 1...4))")!)
 //            }
             
 //            CommonButton(title: "Toast") {

@@ -1,6 +1,6 @@
 //
 //  AppOutlineCardView.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 11/19/24.
 //

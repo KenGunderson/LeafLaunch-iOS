@@ -1,6 +1,6 @@
 //
 //  MainViewModel.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/15/24.
 //
@@ -20,7 +20,7 @@ final class MainViewModel: ViewModel {
     private let permissionsService: PermissionsServiceProtocol
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
-    private let logger: RuneLogger = .viewModel(.main)
+    private let logger: GrimoireLogger = .viewModel(.main)
     private var cancelBag: CancelBag!
     
     @Published private(set) var shouldShowTabBarScreen: Bool = false

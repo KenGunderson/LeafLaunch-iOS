@@ -1,6 +1,6 @@
 //
 //  ImpersonateService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 11/5/24.
 //
@@ -47,7 +47,7 @@ final class ImpersonateService: ImpersonateServiceProtocol {
     
     var isImpersonating: Bool = false
     
-    private let logger = RuneLogger.service(.impersonate)
+    private let logger = GrimoireLogger.service(.impersonate)
     var cancelBag: CancelBag!
     
     init(firebaseService: FirebaseServiceProtocol,

@@ -1,6 +1,6 @@
 //
 //  APIService+Device.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 10/8/23.
 //

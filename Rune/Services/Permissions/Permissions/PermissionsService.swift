@@ -1,6 +1,6 @@
 //
 //  PermissionsService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -50,7 +50,7 @@ class PermissionsService: PermissionsServiceProtocol {
     }
     
     private var cancelBag: CancelBag!
-    private let logger = RuneLogger.service(.permissions)
+    private let logger = GrimoireLogger.service(.permissions)
     
     init(cameraPermissionService: CameraPermissionServiceProtocol,
          mediaPermissionService: MediaPermissionServiceProtocol,

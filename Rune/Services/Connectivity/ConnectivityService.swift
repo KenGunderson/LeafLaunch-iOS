@@ -1,6 +1,6 @@
 //
 //  ConnectivityService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -14,7 +14,7 @@ final class ConnectivityService: ConnectivityServiceProtocol {
     private let networkMonitor = NWPathMonitor()
     private(set) var onHasNetworkConnection = CurrentValueSubject<Bool, Never>(true)
     
-    private let logger = RuneLogger.service(.connectivity)
+    private let logger = GrimoireLogger.service(.connectivity)
     
     init() {
         

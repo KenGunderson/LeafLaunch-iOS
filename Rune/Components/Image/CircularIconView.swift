@@ -1,6 +1,6 @@
 //
 //  CircularIconView.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 8/4/23.
 //

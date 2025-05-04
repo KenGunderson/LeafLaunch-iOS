@@ -1,6 +1,6 @@
 //
 //  TabBar4ViewModel.swift
-//  Rune2
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/23/25.
 //
@@ -11,7 +11,7 @@ final class Tab4ViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
-    private let logger: RuneLogger = .viewModel(.tab4)
+    private let logger: GrimoireLogger = .viewModel(.tab4)
     private var cancelBag: CancelBag!
     
     init(authService: AuthServiceProtocol,

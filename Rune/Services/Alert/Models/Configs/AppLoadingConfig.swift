@@ -1,6 +1,6 @@
 //
 //  AlertLoadingConfig.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 8/7/24.
 //

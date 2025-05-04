@@ -1,6 +1,6 @@
 //
 //  RootViewModel.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -76,7 +76,7 @@ final class RootViewModel: ViewModel {
         
     }
     
-    private let logger = RuneLogger.viewModel(.root)
+    private let logger = GrimoireLogger.viewModel(.root)
     private var cancelBag: CancelBag!
     
     // MARK: - PUBLIC

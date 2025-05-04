@@ -1,6 +1,6 @@
 //
 //  APIService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -21,7 +21,7 @@ final class APIService: APIServiceProtocol {
     
     private var cancelBag: CancelBag!
     
-    internal let logger = RuneLogger.service(.API)
+    internal let logger = GrimoireLogger.service(.API)
     
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)

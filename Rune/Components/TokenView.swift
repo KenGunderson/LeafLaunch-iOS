@@ -1,6 +1,6 @@
 //
 //  TokenView.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 11/13/24.
 //

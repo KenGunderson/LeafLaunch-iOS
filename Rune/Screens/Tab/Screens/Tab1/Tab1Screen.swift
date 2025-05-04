@@ -1,6 +1,6 @@
 //
 //  TabBar1Screen.swift
-//  Rune2
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/23/25.
 //

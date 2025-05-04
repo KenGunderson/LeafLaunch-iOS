@@ -1,6 +1,6 @@
 //
 //  EventType.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 10/01/23.
 //

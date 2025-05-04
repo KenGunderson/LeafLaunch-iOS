@@ -1,6 +1,6 @@
 //
 //  AlertService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 8/5/24.
 //
@@ -24,7 +24,7 @@ class AlertService: AlertServiceProtocol, ObservableObject {
         return self.$requestedToDeleteAlert.eraseToAnyPublisher()
     }
     
-    private let logger = RuneLogger.service(.alert)
+    private let logger = GrimoireLogger.service(.alert)
     
     init() {
         

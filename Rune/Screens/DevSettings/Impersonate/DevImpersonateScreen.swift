@@ -1,6 +1,6 @@
 //
 //  DevImpersonateScreen.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 11/4/24.
 //

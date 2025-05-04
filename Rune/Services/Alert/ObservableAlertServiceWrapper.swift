@@ -1,6 +1,6 @@
 //
 //  ObservableAlertServiceWrapper.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 9/2/24.
 //

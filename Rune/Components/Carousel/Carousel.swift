@@ -1,6 +1,6 @@
 //
 //  Carousel.swift.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 10/29/24.
 //

@@ -1,6 +1,6 @@
 //
 //  FirebaseService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -58,7 +58,7 @@ final class FirebaseService: FirebaseServiceProtocol {
         return self.$currentAccessToken.eraseToAnyPublisher()
     }
     
-    private let logger = RuneLogger.service(.firebase)
+    private let logger = GrimoireLogger.service(.firebase)
     
     init() {
         

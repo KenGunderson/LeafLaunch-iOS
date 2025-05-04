@@ -1,6 +1,6 @@
 //
 //  TabBar1ViewModel.swift
-//  Rune2
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/23/25.
 //
@@ -14,7 +14,7 @@ final class Tab1ViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
-    private let logger: RuneLogger = .viewModel(.tab1)
+    private let logger: GrimoireLogger = .viewModel(.tab1)
     private var cancelBag: CancelBag!
     
     init(authService: AuthServiceProtocol,

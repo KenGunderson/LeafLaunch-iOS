@@ -1,6 +1,6 @@
 //
 //  LaunchService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -17,7 +17,7 @@ final class LaunchScreenService: LaunchScreenServiceProtocol {
     }
 
     private(set) var onLaunchStateChanged = CurrentValueSubject<LaunchScreenService.State, Never>(.loading)
-    private let logger = RuneLogger.service(.launch)
+    private let logger = GrimoireLogger.service(.launch)
     
     init() {
         self.logger.logInit()

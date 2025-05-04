@@ -1,6 +1,6 @@
 //
 //  AnalyticsService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -32,7 +32,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     private var currentIdfa: String = "00000000-0000-0000-0000-000000000000"
     private var cancelBag: CancelBag!
     
-    private let logger = RuneLogger.service(.analytics)
+    private let logger = GrimoireLogger.service(.analytics)
     
     init(environmentService: EnvironmentServiceProtocol,
          permissionService: PermissionsServiceProtocol,

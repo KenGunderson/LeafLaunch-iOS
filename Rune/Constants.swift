@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  Rune2
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/22/25.
 //

@@ -1,6 +1,6 @@
 //
 //  PushNotificationService.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -14,7 +14,7 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     private var tabBarNavigationService: TabBarNavigationService?
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
-    private let logger = RuneLogger.service(.pushNotification)
+    private let logger = GrimoireLogger.service(.pushNotification)
     
     init(viewLifecycleService: ViewLifecycleServiceProtocol) {
         

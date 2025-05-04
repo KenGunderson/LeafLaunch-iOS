@@ -1,6 +1,6 @@
 //
 //  JSONPreviewView.swift
-//  Rune2
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 5/3/25.
 //

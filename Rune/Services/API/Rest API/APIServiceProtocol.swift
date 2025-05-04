@@ -1,6 +1,6 @@
 //
 //  APIServiceProtocl.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,7 +11,7 @@ protocol APIProtocol: AnyObject {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var logger: RuneLogger { get }
+    var logger: GrimoireLogger { get }
     var accessToken: String? { get }
     
 }
@@ -22,7 +22,7 @@ protocol APIServiceProtocol: APIProtocol {
     var deviceToken: String? { get }
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var logger: RuneLogger { get }
+    var logger: GrimoireLogger { get }
     
     // Health
     

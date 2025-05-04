@@ -1,6 +1,6 @@
 //
 //  MockViewModelAssembly.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/23/24.
 //

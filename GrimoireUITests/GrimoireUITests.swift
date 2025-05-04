@@ -1,13 +1,13 @@
 //
-//  RuneUITests.swift
-//  RuneUITests
+//  GrimoireUITests.swift
+//  GrimoireUITests
 //
 //  Created by Sako Hovaguimian on 4/1/25.
 //
 
 import XCTest
 
-final class RuneUITests: XCTestCase {
+final class GrimoireUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

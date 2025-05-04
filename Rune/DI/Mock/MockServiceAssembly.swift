@@ -1,6 +1,6 @@
 //
 //  MockServiceAssembly.swift
-//  GentlePath
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/23/24.
 //
@@ -90,7 +90,7 @@ class MockAPIService: APIServiceProtocol {
     var accessToken: String? = nil
     var deviceToken: String? = nil
     var environment: AppEnvironment? = nil
-    var logger: RuneLogger = .service(.mockAPI)
+    var logger: GrimoireLogger = .service(.mockAPI)
     
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)

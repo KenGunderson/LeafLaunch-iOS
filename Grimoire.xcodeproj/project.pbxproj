@@ -146,7 +146,7 @@
 		753EC2052DB8C5B800265B2A /* ToastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1FE2DB8C5B800265B2A /* ToastListView.swift */; };
 		753EC2062DB8C5B800265B2A /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1FF2DB8C5B800265B2A /* ToastManager.swift */; };
 		753EC2072DB8C5B800265B2A /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2002DB8C5B800265B2A /* ToastView.swift */; };
-		753EC2092DB8CBBB00265B2A /* RuneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* RuneApp.swift */; };
+		753EC2092DB8CBBB00265B2A /* GrimoireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* GrimoireApp.swift */; };
 		753EC2132DB8CF2F00265B2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 753EC2122DB8CF2F00265B2A /* GoogleService-Info.plist */; };
 		7548497B2DA8B5F800B7E053 /* RelativeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548497A2DA8B5F800B7E053 /* RelativeBarView.swift */; };
 		754849962DA8BAFA00B7E053 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754849952DA8BAFA00B7E053 /* ThemeProtocol.swift */; };
@@ -382,7 +382,7 @@
 		753EC1FF2DB8C5B800265B2A /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		753EC2002DB8C5B800265B2A /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		753EC2012DB8C5B800265B2A /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
-		753EC2082DB8CBBB00265B2A /* RuneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuneApp.swift; sourceTree = "<group>"; };
+		753EC2082DB8CBBB00265B2A /* GrimoireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireApp.swift; sourceTree = "<group>"; };
 		753EC2102DB8CEED00265B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		753EC2122DB8CF2F00265B2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7548497A2DA8B5F800B7E053 /* RelativeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeBarView.swift; sourceTree = "<group>"; };
@@ -470,14 +470,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		755C97FC2D9CC86A00437D5D /* RuneTests */ = {
+		755C97FC2D9CC86A00437D5D /* GrimoireTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RuneTests;
+			path = GrimoireTests;
 			sourceTree = "<group>";
 		};
-		755C98062D9CC86A00437D5D /* RuneUITests */ = {
+		755C98062D9CC86A00437D5D /* GrimoireUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RuneUITests;
+			path = GrimoireUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -1067,8 +1067,8 @@
 			isa = PBXGroup;
 			children = (
 				755C981F2D9CC89000437D5D /* Rune */,
-				755C97FC2D9CC86A00437D5D /* RuneTests */,
-				755C98062D9CC86A00437D5D /* RuneUITests */,
+				755C97FC2D9CC86A00437D5D /* GrimoireTests */,
+				755C98062D9CC86A00437D5D /* GrimoireUITests */,
 				753EC1BD2DB8BE6700265B2A /* Frameworks */,
 				755C97EA2D9CC86900437D5D /* Products */,
 			);
@@ -1087,7 +1087,7 @@
 		755C981F2D9CC89000437D5D /* Rune */ = {
 			isa = PBXGroup;
 			children = (
-				753EC2082DB8CBBB00265B2A /* RuneApp.swift */,
+				753EC2082DB8CBBB00265B2A /* GrimoireApp.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
 				753EC1B12DB8BD3900265B2A /* Constants.swift */,
 				753EC1B32DB8BD4A00265B2A /* Globals.swift */,
@@ -1438,7 +1438,7 @@
 				755C97FB2D9CC86A00437D5D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				755C97FC2D9CC86A00437D5D /* RuneTests */,
+				755C97FC2D9CC86A00437D5D /* GrimoireTests */,
 			);
 			name = RuneTests;
 			packageProductDependencies = (
@@ -1461,7 +1461,7 @@
 				755C98052D9CC86A00437D5D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				755C98062D9CC86A00437D5D /* RuneUITests */,
+				755C98062D9CC86A00437D5D /* GrimoireUITests */,
 			);
 			name = RuneUITests;
 			packageProductDependencies = (
@@ -1493,7 +1493,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 755C97E42D9CC86900437D5D /* Build configuration list for PBXProject "Rune2" */;
+			buildConfigurationList = 755C97E42D9CC86900437D5D /* Build configuration list for PBXProject "Grimoire" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1637,7 +1637,7 @@
 				753EC15A2DB8BB9000265B2A /* StyleConverter.swift in Sources */,
 				753EC15F2DB8BB9000265B2A /* ATTStatus.swift in Sources */,
 				753EC1602DB8BB9000265B2A /* LogType.swift in Sources */,
-				753EC2092DB8CBBB00265B2A /* RuneApp.swift in Sources */,
+				753EC2092DB8CBBB00265B2A /* GrimoireApp.swift in Sources */,
 				753EC1612DB8BB9000265B2A /* EnvironmentServiceProtocol.swift in Sources */,
 				75C643762DB926C60033D68E /* ThemeRegistry.swift in Sources */,
 				753EC1622DB8BB9000265B2A /* APIService+Health.swift in Sources */,
@@ -2060,7 +2060,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		755C97E42D9CC86900437D5D /* Build configuration list for PBXProject "Rune2" */ = {
+		755C97E42D9CC86900437D5D /* Build configuration list for PBXProject "Grimoire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				755C980B2D9CC86B00437D5D /* Debug */,
