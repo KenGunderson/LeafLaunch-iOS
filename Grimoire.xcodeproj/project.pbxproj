@@ -447,6 +447,9 @@
 		75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		75D66DC12DC713C300E51CFC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 753EC2122DB8CF2F00265B2A /* GoogleService-Info.plist */; };
+		75D66DCF2DC7179600E51CFC /* GrimoireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCC2DC7179600E51CFC /* GrimoireUITests.swift */; };
+		75D66DD02DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCD2DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift */; };
+		75D66DD32DC7179600E51CFC /* GrimoireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD12DC7179600E51CFC /* GrimoireTests.swift */; };
 		75DD3D162DA9B12300D4425C /* StyleCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DD3D152DA9B11700D4425C /* StyleCornerRadius.swift */; };
 		75DD3D182DA9BC2A00D4425C /* StyleFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DD3D172DA9BC2300D4425C /* StyleFont.swift */; };
 /* End PBXBuildFile section */
@@ -689,22 +692,12 @@
 		75D66DC52DC713C300E51CFC /* Grimoire Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grimoire Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DC72DC7141A00E51CFC /* Grimoire Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Grimoire Dev.entitlements"; sourceTree = "<group>"; };
 		75D66DCB2DC716DF00E51CFC /* Grimoire-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Grimoire-Dev-Info.plist"; path = "Grimoire-Dev/Grimoire-Dev-Info.plist"; sourceTree = SOURCE_ROOT; };
+		75D66DCC2DC7179600E51CFC /* GrimoireUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireUITests.swift; sourceTree = "<group>"; };
+		75D66DCD2DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		75D66DD12DC7179600E51CFC /* GrimoireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireTests.swift; sourceTree = "<group>"; };
 		75DD3D152DA9B11700D4425C /* StyleCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCornerRadius.swift; sourceTree = "<group>"; };
 		75DD3D172DA9BC2300D4425C /* StyleFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleFont.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		755C97FC2D9CC86A00437D5D /* GrimoireTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = GrimoireTests;
-			sourceTree = "<group>";
-		};
-		755C98062D9CC86A00437D5D /* GrimoireUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = GrimoireUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		755C97E62D9CC86900437D5D /* Frameworks */ = {
@@ -1304,9 +1297,9 @@
 			isa = PBXGroup;
 			children = (
 				755C981F2D9CC89000437D5D /* Grimoire */,
-				755C97FC2D9CC86A00437D5D /* GrimoireTests */,
-				755C98062D9CC86A00437D5D /* GrimoireUITests */,
 				75D66DC92DC7141A00E51CFC /* Grimoire-Dev */,
+				75D66DD22DC7179600E51CFC /* GrimoireTests */,
+				75D66DCE2DC7179600E51CFC /* GrimoireUITests */,
 				753EC1BD2DB8BE6700265B2A /* Frameworks */,
 				755C97EA2D9CC86900437D5D /* Products */,
 			);
@@ -1644,6 +1637,23 @@
 			path = "Grimoire-Dev";
 			sourceTree = "<group>";
 		};
+		75D66DCE2DC7179600E51CFC /* GrimoireUITests */ = {
+			isa = PBXGroup;
+			children = (
+				75D66DCC2DC7179600E51CFC /* GrimoireUITests.swift */,
+				75D66DCD2DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift */,
+			);
+			path = GrimoireUITests;
+			sourceTree = "<group>";
+		};
+		75D66DD22DC7179600E51CFC /* GrimoireTests */ = {
+			isa = PBXGroup;
+			children = (
+				75D66DD12DC7179600E51CFC /* GrimoireTests.swift */,
+			);
+			path = GrimoireTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1685,9 +1695,6 @@
 			dependencies = (
 				755C97FB2D9CC86A00437D5D /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				755C97FC2D9CC86A00437D5D /* GrimoireTests */,
-			);
 			name = GrimoireTests;
 			packageProductDependencies = (
 			);
@@ -1707,9 +1714,6 @@
 			);
 			dependencies = (
 				755C98052D9CC86A00437D5D /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				755C98062D9CC86A00437D5D /* GrimoireUITests */,
 			);
 			name = GrimoireUITests;
 			packageProductDependencies = (
@@ -2056,6 +2060,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D66DD32DC7179600E51CFC /* GrimoireTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2063,6 +2068,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D66DCF2DC7179600E51CFC /* GrimoireUITests.swift in Sources */,
+				75D66DD02DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
