@@ -1,2 +1,3 @@
-# Rune
-![rune_app_icon-2](https://github.com/user-attachments/assets/b4bde772-1018-493c-87c1-ea69e1eedc75)
+# Grimoire
+
+![GrimoireAppIcon](https://github.com/user-attachments/assets/d082c8fc-36c5-49bb-9010-b77cbc2dd254)
