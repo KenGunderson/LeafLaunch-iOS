@@ -154,12 +154,15 @@ extension View {
             switch sheet {
             case .whatsNew:
                 
-                Color.pink.ignoresSafeArea()
+                let viewModel = globalResolver.resolve(WhatsNewViewModel.self)!
+                    .setup(whatsNewItem: Constants.WhatsNewItems.items.last!)
                 
-//                let viewModel = globalResolver.resolve(WhatsNewViewModel.self)!
-//                    .setup(whatsNewItem: Constants.WhatsNewItems.items.last!)
-//                
-//                WhatsNewScreen(viewModel: viewModel)
+                WhatsNewScreen(viewModel: viewModel)
+                
+            case .permissions:
+                
+                Color.indigo
+                
             }
             
         }
@@ -176,6 +179,9 @@ extension View {
                 let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
                 DevSettingsScreen(viewModel: viewModel)
                 
+            case .onboarding:
+                
+                Color.orange
             }
             
         }

@@ -450,6 +450,10 @@
 		75D66DCF2DC7179600E51CFC /* GrimoireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCC2DC7179600E51CFC /* GrimoireUITests.swift */; };
 		75D66DD02DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCD2DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift */; };
 		75D66DD32DC7179600E51CFC /* GrimoireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD12DC7179600E51CFC /* GrimoireTests.swift */; };
+		75D66DD72DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */; };
+		75D66DD82DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */; };
+		75D66DD92DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */; };
+		75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */; };
 		75DD3D162DA9B12300D4425C /* StyleCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DD3D152DA9B11700D4425C /* StyleCornerRadius.swift */; };
 		75DD3D182DA9BC2A00D4425C /* StyleFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DD3D172DA9BC2300D4425C /* StyleFont.swift */; };
 /* End PBXBuildFile section */
@@ -695,6 +699,8 @@
 		75D66DCC2DC7179600E51CFC /* GrimoireUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireUITests.swift; sourceTree = "<group>"; };
 		75D66DCD2DC7179600E51CFC /* GrimoireUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		75D66DD12DC7179600E51CFC /* GrimoireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireTests.swift; sourceTree = "<group>"; };
+		75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewModel.swift; sourceTree = "<group>"; };
+		75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		75DD3D152DA9B11700D4425C /* StyleCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCornerRadius.swift; sourceTree = "<group>"; };
 		75DD3D172DA9BC2300D4425C /* StyleFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleFont.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1373,6 +1379,7 @@
 			children = (
 				753EC1F62DB8C58100265B2A /* Root */,
 				75C643C32DB929340033D68E /* Tab */,
+				75D66DD62DC717DF00E51CFC /* WhatsNew */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
 			);
 			path = Screens;
@@ -1652,6 +1659,15 @@
 				75D66DD12DC7179600E51CFC /* GrimoireTests.swift */,
 			);
 			path = GrimoireTests;
+			sourceTree = "<group>";
+		};
+		75D66DD62DC717DF00E51CFC /* WhatsNew */ = {
+			isa = PBXGroup;
+			children = (
+				75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */,
+				75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */,
+			);
+			path = WhatsNew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1968,6 +1984,8 @@
 				7502E1132DB9F56600B08E3A /* AppAlertView.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
+				75D66DD92DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */,
+				75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				7502E1142DB9F56600B08E3A /* EnvironmentAlertView.swift in Sources */,
 				7502E1152DB9F56600B08E3A /* MultiAlertView.swift in Sources */,
 				7502E1162DB9F56600B08E3A /* AppLoadingConfig.swift in Sources */,
@@ -2204,6 +2222,8 @@
 				75D66D5F2DC713C300E51CFC /* AppAlertView.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
 				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
+				75D66DD72DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */,
+				75D66DD82DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				75D66D622DC713C300E51CFC /* EnvironmentAlertView.swift in Sources */,
 				75D66D632DC713C300E51CFC /* MultiAlertView.swift in Sources */,
 				75D66D642DC713C300E51CFC /* AppLoadingConfig.swift in Sources */,

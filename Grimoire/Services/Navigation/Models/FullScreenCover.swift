@@ -8,6 +8,7 @@
 enum FullScreenCover: Identifiable, Hashable, Equatable {
 
     case devSettings
+    case onboarding
 
     var id: String {
         return String(self.hashValue)
@@ -20,7 +21,8 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     func hash(into hasher: inout Hasher) {
         
         switch self {
-        case .devSettings: return hasher.combine(1)
+        case .devSettings: return hasher.combine(0)
+        case .onboarding: return hasher.combine(1)
         }
         
     }

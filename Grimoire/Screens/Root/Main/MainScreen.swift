@@ -27,7 +27,7 @@ struct MainScreen: View {
                 
 //                WelcomeScreen(viewModel: self.viewModel.welcomeViewModel)
 //                    .transition(.opacity)
-//                ContentView()
+            
             tabScreen
                 .transition(.opacity)
                 

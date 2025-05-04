@@ -49,6 +49,16 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // What's New ViewModel
+        
+        container
+            .register(WhatsNewViewModel.self) { r in
+                WhatsNewViewModel(
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Tab 1 ViewModel
         
         container

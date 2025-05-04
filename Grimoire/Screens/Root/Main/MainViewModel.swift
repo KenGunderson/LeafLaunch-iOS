@@ -97,7 +97,7 @@ final class MainViewModel: ViewModel {
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
                 if !isUserMissing && !isFirebaseUserMissing {
-//                    self?.showOnboardingOrPermissionsIfNeeded()
+                    self?.showOnboardingOrPermissionsIfNeeded()
                 }
                 
             }
@@ -141,69 +141,69 @@ final class MainViewModel: ViewModel {
             .sink { [weak self] didCompleteOnboarding in
                 
                 guard didCompleteOnboarding else { return }
-//                self?.shouldShowPermissionViewIfNeeded()
+                self?.shouldShowPermissionViewIfNeeded()
                 
             }
             .store(in: &self.cancelBag)
         
     }
     
-//    private func showOnboardingOrPermissionsIfNeeded() {
-//                
-//       self.tabBarNavigationService?.resetPathItems()
-//        
-//        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
-//        let shouldShowPermissions = !self.userDefaultsService.didShowPermissionScreen
-//        
-//        if shouldShowOnboarding {
-//            
-//            self.logger.debugMessage("Attemping to show onboarding modal")
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                
-//                self?.tabBarNavigationService?
-//                    .currentNavigationService()
-//                    .modal(fullScreenCover: .onboarding)
-//                
-//            })
-//                        
-//        }
-//        else if shouldShowPermissions {
-//            
-//            guard !self.userDefaultsService.didShowPermissionScreen else { return }
-//            
-//            self.logger.debugMessage("Skipping onboarding modal")
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                self?.shouldShowPermissionViewIfNeeded()
-//            })
-//            
-//        }
-//        else {
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                self?.shouldShowWhatsNewIfNeeded()
-//            })
-//                                          
-//        }
-//        
-//    }
+    private func showOnboardingOrPermissionsIfNeeded() {
+                
+       self.tabBarNavigationService?.resetPathItems()
+        
+        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
+        let shouldShowPermissions = !self.userDefaultsService.didShowPermissionScreen
+        
+        if shouldShowOnboarding {
+            
+            self.logger.debugMessage("Attemping to show onboarding modal")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+                
+                self?.tabBarNavigationService?
+                    .currentNavigationService()
+                    .modal(fullScreenCover: .onboarding)
+                
+            })
+                        
+        }
+        else if shouldShowPermissions {
+            
+            guard !self.userDefaultsService.didShowPermissionScreen else { return }
+            
+            self.logger.debugMessage("Skipping onboarding modal")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+                self?.shouldShowPermissionViewIfNeeded()
+            })
+            
+        }
+        else {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+                self?.shouldShowWhatsNewIfNeeded()
+            })
+                                          
+        }
+        
+    }
     
-//    private func shouldShowPermissionViewIfNeeded() {
-//        
-//        guard !self.userDefaultsService.didShowPermissionScreen,
-//        self.permissionsService.shouldShowPermissionView else { return }
-//        
-//        self.logger.debugMessage("Presenting Permissions View")
-//        
-//        self.tabBarNavigationService?
-//            .currentNavigationService()
-//            .modal(sheet: .permission)
-//        
-//        self.userDefaultsService
-//            .set(didShowPermissionScreen: true)
-//        
-//    }
+    private func shouldShowPermissionViewIfNeeded() {
+        
+        guard !self.userDefaultsService.didShowPermissionScreen,
+        self.permissionsService.shouldShowPermissionView else { return }
+        
+        self.logger.debugMessage("Presenting Permissions View")
+        
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .modal(sheet: .permissions)
+        
+        self.userDefaultsService
+            .set(didShowPermissionScreen: true)
+        
+    }
     
     private func shouldShowWhatsNewIfNeeded() {
         
