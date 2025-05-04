@@ -14,17 +14,20 @@ struct CommonButton: View {
     var icon: ImageSource?
     var backgroundStyle: ColorSource = Style.shared.accent
     var action: () -> Void
+    var isEnabled: Bool
     
     init(title: String,
          titleColor: ColorSource = Style.shared.textColor(.title),
          icon: ImageSource? = nil,
          backgroundStyle: ColorSource = Style.shared.accent,
+         isEnabled: Bool = true,
          action: @escaping () -> Void) {
         
         self.title = title
         self.titleColor = titleColor
         self.icon = icon
         self.backgroundStyle = backgroundStyle
+        self.isEnabled = isEnabled
         self.action = action
         
     }
@@ -59,6 +62,7 @@ struct CommonButton: View {
             verticalPadding: .custom(12),
             horizontalPadding: .large
         ))
+        .disabled(!self.isEnabled)
         
     }
     

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDGdOX6Gd_NDV25BcnLaJFP9NDuyoVTNXE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>412709676198</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sakohovaguimian.gentlepath</string>
+	<key>PROJECT_ID</key>
+	<string>gentlepath-2e428</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gentlepath-2e428.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:412709676198:ios:1f52d5e79679d51f9ec067</string>
+</dict>
+</plist>

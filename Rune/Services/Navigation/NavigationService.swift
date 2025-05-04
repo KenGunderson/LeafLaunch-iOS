@@ -1,0 +1,185 @@
+//
+//  NavigationService.swift
+//  GentlePath
+//
+//  Created by Sako Hovaguimian on 7/15/24.
+//
+
+import SwiftUI
+import Combine
+
+@Observable
+class NavigationService: NavigationServiceProtocol {
+    
+    public var routes: [Route] = []
+    public var sheet: Sheet?
+    public var fullScreenCover: FullScreenCover?
+    
+    func push(_ route: Route) {
+        self.routes.append(route)
+    }
+    
+    func push(_ routes: [Route]) {
+        self.routes.append(contentsOf: routes)
+    }
+    
+    func pop() {
+        
+        guard !self.routes.isEmpty else { return }
+        self.routes.removeLast()
+        
+    }
+    
+    func popToRoot() {
+        self.routes = []
+    }
+    
+    func swap(_ route: Route) {
+        
+        self.routes.removeLast()
+        self.routes.append(route)
+        
+    }
+    
+    func replaceStack(_ route: Route) {
+        
+        self.routes.removeAll()
+        
+        Task { @MainActor in
+            //The time delay may be device/app specific.
+            try? await Task.sleep(nanoseconds: 400_000_000)
+            await MainActor.run { [weak self] in
+                self?.push(route)
+            }
+            
+        }
+        
+    }
+    
+    // Sheets
+    
+    func modal(sheet: Sheet) {
+        self.sheet = sheet
+    }
+    
+    func dismissSheet() {
+        self.sheet = nil
+    }
+    
+    // FullScreenCover
+    
+    func modal(fullScreenCover: FullScreenCover) {
+        self.fullScreenCover = fullScreenCover
+    }
+    
+    func dismissFullScreenCover() {
+        self.fullScreenCover = nil
+    }
+    
+}
+
+extension View {
+    
+    /// Optional Param for more control? `navigationService: NavigationService? = nil`
+    func withNavigationDestination() -> some View {
+        
+        return navigationDestination(for: Route.self) { route in
+            
+            switch route {
+            case .test: Text("Test")
+            case .devSetting(let devRoute):
+                
+                switch devRoute {
+                case .components:
+                    
+                    Text("Components")
+//
+//                    let viewModel = globalResolver.resolve(DevComponentsViewModel.self)!
+//                    
+//                    DevComponentsScreen(viewModel: viewModel)
+//                        .navigationBarBackButtonHidden()
+                    
+                case .userDefaults:
+                    
+                    let viewModel = globalResolver.resolve(DevUserDefaultsViewModel.self)!
+                    
+                    DevUserDefaultsScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                    
+                case .routes:
+                                        
+                    let viewModel = globalResolver.resolve(DevRoutesViewModel.self)!
+                    
+                    DevRoutesScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                    
+                case .deeplinks:
+                    
+                    let viewModel = globalResolver.resolve(DevDeeplinksViewModel.self)!
+                    
+                    DevDeeplinksScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                    
+                case .analytics:
+                                        
+                    let viewModel = globalResolver.resolve(DevAnalyticsViewModel.self)!
+                    
+                    DevAnalyticsScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+
+                case .impersonate:
+                    
+                    let viewModel = globalResolver.resolve(DevImpersonateViewModel.self)!
+                    
+                    DevImpersonateScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+
+                }
+            }
+            
+        }
+        
+    }
+    
+    func withSheetDestination(_ customSheet: Binding<Sheet?>) -> some View {
+        
+        // We do this for SE Phones
+//        let halfSheet = 0.60
+//        let iphoneSESheet = 0.70
+//
+//        let isModernDevice: Bool = UIDevice.isModernDevice
+        
+        return sheet(item: customSheet) { sheet in
+            
+            switch sheet {
+            case .whatsNew:
+                
+                Color.pink.ignoresSafeArea()
+                
+//                let viewModel = globalResolver.resolve(WhatsNewViewModel.self)!
+//                    .setup(whatsNewItem: Constants.WhatsNewItems.items.last!)
+//                
+//                WhatsNewScreen(viewModel: viewModel)
+            }
+            
+        }
+        
+    }
+    
+    func withFullScreenCover(_ customFullScreenCover: Binding<FullScreenCover?>) -> some View {
+        
+        return fullScreenCover(item: customFullScreenCover) { fullScreenCover in
+            
+            switch fullScreenCover {
+            case .devSettings:
+                
+                let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
+                DevSettingsScreen(viewModel: viewModel)
+                
+            }
+            
+        }
+        
+    }
+    
+}

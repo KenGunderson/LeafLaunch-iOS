@@ -13,6 +13,13 @@ enum ColorSource: Hashable {
     case material(MaterialWrapper)
     case linearGradient(GradientWrapper)
     
+    var asColor: Color? {
+        
+        guard case .color(let wrapper) = self else { return nil }
+        return wrapper.color
+        
+    }
+    
     func source() -> AnyShapeStyle {
         
         switch self {
