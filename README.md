@@ -1,8 +1,10 @@
-# Grimoire
-
-![GrimoireAppIcon](https://github.com/user-attachments/assets/d082c8fc-36c5-49bb-9010-b77cbc2dd254)
-
 # Grimoire Template 🚀
+
+<img 
+  src="https://github.com/user-attachments/assets/d082c8fc-36c5-49bb-9010-b77cbc2dd254" 
+  width="600" 
+  alt="Grimoire App Icon" 
+/>
 
 Welcome to **Grimoire**—your magical starting point for SwiftUI apps! Before you unleash your own spellbook of features, work through this quick‑start checklist to replace all placeholders and get up and running in no time.
 
