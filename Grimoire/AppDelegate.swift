@@ -31,7 +31,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 
                 self?.logger.error(
                     title: "App Delegate App Badge Error",
-                    message: error.localizedDescription
+                    message: error.getMessageForError()
                 )
                 
             }
@@ -58,7 +58,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         self.logger.error(
             title: "Did Fail To Register For Remote Notifications",
-            message: error.localizedDescription
+            message: error.getMessageForError()
         )
         
     }
@@ -99,7 +99,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 
                 self?.logger.error(
                     title: "App Delegate App Badge Error",
-                    message: error.localizedDescription
+                    message: error.getMessageForError()
                 )
                 
             }

@@ -21,6 +21,18 @@ struct WhatsNewItem: Identifiable, Equatable {
         let icon: String
         let foregroundStyle: ColorSource
         
+        init(title: String,
+             message: String,
+             icon: String,
+             foregroundStyle: ColorSource = Style.shared.accent) {
+            
+            self.title = title
+            self.message = message
+            self.icon = icon
+            self.foregroundStyle = foregroundStyle
+            
+        }
+        
     }
     
     let id: String = UUID().uuidString

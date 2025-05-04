@@ -175,6 +175,7 @@ struct DevSettingsScreen: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, Style.shared.spacing(.small))
                         .padding(.vertical, Style.shared.spacing(.medium))
+                        .background(.backgroundTappable)
                         .background {
                             
                             RoundedRectangle(cornerRadius: Style.shared.radius(.small))

@@ -88,33 +88,34 @@ struct Constants {
     
     struct WhatsNewItems {
         
-        static let items: [WhatsNewItem] = [
+        static var items: [WhatsNewItem] {
             
-            WhatsNewItem(
-                version: SemanticVersion("1.0.0"),
-                items: [
-                    .init(
-                        title: "Welcome to the latest version!",
-                        message: "Thanks for downloading the latest version! We hope you enjoy it.",
-                        icon: "heart.fill",
-                        foregroundStyle: Style.shared.accent
-                    ),
-                    .init(
-                        title: "New Features!",
-                        message: "We found a way to make your life easier!",
-                        icon: "lightbulb.fill",
-                        foregroundStyle: Style.shared.accent
-                    ),
-                    .init(
-                        title: "Everything else...",
-                        message: "Consolidated all the features into one place!. Check it out!",
-                        icon: "house.fill",
-                        foregroundStyle: Style.shared.accent
-                    )
-                ]
-            )
+            return [
+                
+                WhatsNewItem(
+                    version: SemanticVersion("1.0.0"),
+                    items: [
+                        .init(
+                            title: "Welcome to the latest version!",
+                            message: "Thanks for downloading the latest version! We hope you enjoy it.",
+                            icon: "heart.fill"
+                        ),
+                        .init(
+                            title: "New Features!",
+                            message: "We found a way to make your life easier!",
+                            icon: "lightbulb.fill"
+                        ),
+                        .init(
+                            title: "Everything else...",
+                            message: "Consolidated all the features into one place!. Check it out!",
+                            icon: "house.fill"
+                        )
+                    ]
+                )
+                
+            ]
             
-        ]
+        }
         
     }
     

@@ -143,6 +143,8 @@ extension View {
     
     func withSheetDestination(_ customSheet: Binding<Sheet?>) -> some View {
         
+        /// DEV-NOTE: Add `presentationBackground` modifier to presenting view to avoid flickering; Apple bug
+        
         // We do this for SE Phones
 //        let halfSheet = 0.60
 //        let iphoneSESheet = 0.70
@@ -161,7 +163,7 @@ extension View {
                 
             case .permissions:
                 
-                Color.indigo
+                Color.indigo.ignoresSafeArea()
                 
             }
             

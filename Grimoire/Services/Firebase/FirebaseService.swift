@@ -40,7 +40,7 @@ final class FirebaseService: FirebaseServiceProtocol {
         
         var message: String {
             switch self {
-            case .generic(let error): return error.localizedDescription
+            case .generic(let error): return error.getMessageForError()
             case .notFound: return "Not found"
             case .emailAlreadyInUse: return "Email already in use"
             }
@@ -97,7 +97,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Sign Up Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             if let code = AuthErrorCode(rawValue: error._code) {
@@ -131,7 +131,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Login Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             if let code = AuthErrorCode(rawValue: error._code) {
@@ -160,7 +160,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Login Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             if let code = AuthErrorCode(rawValue: error._code) {
@@ -199,7 +199,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Apple Login Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw FirebaseError.generic(error)
@@ -223,7 +223,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Access Token Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw FirebaseError.generic(error)
@@ -240,7 +240,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Reset Password Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw FirebaseError.generic(error)
@@ -259,7 +259,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Update Email Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw FirebaseError.generic(error)
@@ -281,7 +281,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.logger.error(
                 title: "Logout Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw FirebaseError.generic(error)

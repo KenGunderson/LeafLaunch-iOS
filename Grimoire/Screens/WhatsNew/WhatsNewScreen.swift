@@ -29,6 +29,7 @@ struct WhatsNewScreen: GPView {
         }
         .frame(maxWidth: .infinity)
         .animation(.bouncy, value: self.viewModel.whatsNewItem)
+        .presentationBackground(Style.shared.background(.primary).source())
         
         // Done Button
         

@@ -81,7 +81,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Sign Up Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -108,7 +108,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Login Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -129,7 +129,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Update Email Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -160,7 +160,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "User Info Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -184,7 +184,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Reload User Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -208,7 +208,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Logout Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -238,7 +238,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Delete User Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -333,7 +333,7 @@ final class AuthService: AuthServiceProtocol {
             
             self.logger.error(
                 title: "Reset Password Error",
-                message: error.localizedDescription
+                message: error.getMessageForError()
             )
             
             throw error
@@ -380,7 +380,7 @@ final class AuthService: AuthServiceProtocol {
                 
                 self.logger.error(
                     title: "Load Initial User Error",
-                    message: error.localizedDescription
+                    message: error.getMessageForError()
                 )
                 
                 // TODO: - This causes two errors because the throw goes to LoginViewModel / SignupViewModel

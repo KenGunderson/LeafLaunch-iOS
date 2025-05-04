@@ -153,7 +153,7 @@ extension APIProtocol {
             
             self.logger.error(
                 title: "Decoding Error",
-                message: "Unknown error: \(error.localizedDescription)"
+                message: "Unknown error: \(error.getMessageForError())"
             )
             
         }
@@ -171,6 +171,7 @@ extension APIProtocol {
         
         let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
         let errorMessage = errorJson?["error"] as? String
+        let errorDescription = errorJson?["message"] as? String
         
         if let httpResponse = response as? HTTPURLResponse {
             let statusCode = httpResponse.statusCode
@@ -179,15 +180,17 @@ extension APIProtocol {
             
             if badStatusCodes.contains(statusCode) {
                 
+                let message = errorMessage ?? errorDescription
+                
                 self.logger
                     .error(
                         title: "API Service Error",
-                        message: errorMessage ?? "Unknown Error"
+                        message: message ?? "We don't know what went wrong, but it did!"
                     )
                 
                 return APIError.serverError(
                     statusCode: statusCode,
-                    errorMessage: errorMessage ?? "We don't know what went wrong, but it did!"
+                    errorMessage: message ?? "We don't know what went wrong, but it did!"
                 )
                 
             }

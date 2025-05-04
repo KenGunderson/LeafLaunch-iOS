@@ -147,7 +147,7 @@ final class DevImpersonateViewModel: ViewModel {
                 .init(
                     .appAlert(
                         .error(
-                            message: error.localizedDescription,
+                            message: error.getMessageForError(),
                             action: {}
                         )
                     )

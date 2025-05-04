@@ -108,7 +108,7 @@ struct CommonImageView: View {
             
             AppCardView {
                 
-                Text(error.localizedDescription)
+                Text(error.getMessageForError())
                     .transition(.slide)
                     .appFont(with: .HEADER_H5)
                 

@@ -66,6 +66,11 @@ struct DevRoutesScreen: View {
                 sheet: .whatsNew(Constants.WhatsNewItems.items.first!)
             )
             
+            route(
+                title: "Permissions",
+                sheet: .permissions
+            )
+            
             // Full Screen Covers
             
             section(title: "Full Screen")

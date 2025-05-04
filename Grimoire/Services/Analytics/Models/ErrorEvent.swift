@@ -36,7 +36,7 @@ enum ErrorEvent: AnalyticsEvent {
 
             properties["name"] = "generic"
             properties["message"] = message
-            properties["error"] = error?.localizedDescription
+            properties["error"] = error?.getMessageForError()
 
         case .auth(_, let message):
 
@@ -65,7 +65,7 @@ enum ErrorEvent: AnalyticsEvent {
 
             properties["domain"] = nsError.domain
             properties["code"] = nsError.code
-            properties["description"] = nsError.localizedDescription
+            properties["description"] = nsError.getMessageForError()
 
         }
         

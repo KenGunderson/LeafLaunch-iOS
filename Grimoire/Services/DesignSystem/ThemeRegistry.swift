@@ -21,7 +21,7 @@ enum AvailableTheme: String, CaseIterable {
         case .emaraldNoir: return Theme.EMERALD_NOIR
         case .coralTwilight: return Theme.CORAL_TWILIGHT
         case .neonNight: return Theme.NEON_NIGHT
-        default: return Theme.GOLD_NAVY
+        case .sandstomeDusk: return Theme.SANDSTONE_DUSK
         }
     }
     
