@@ -250,6 +250,7 @@ struct MultiAlertView<Content: View>: View {
         
     }
     
+    @ViewBuilder
     private func appAlertLoadingView(alert: Alert,
                                      config: AppLoadingConfig) -> some View {
         
@@ -262,7 +263,7 @@ struct MultiAlertView<Content: View>: View {
             
             if title == "Linear Loading" {
                 
-                return ProgressView(value: 0.8)
+                ProgressView(value: 0.8)
                     .foregroundStyle(Style.shared.accent.source())
                     .transition(transition)
                     .padding(Style.shared.spacing(.extraLarge))
@@ -273,7 +274,7 @@ struct MultiAlertView<Content: View>: View {
                 
             } else {
                 
-                return ProgressView(title)
+                ProgressView(title)
                     .foregroundStyle(Style.shared.accent.source())
                     .transition(transition)
                     .padding(Style.shared.spacing(.extraLarge))

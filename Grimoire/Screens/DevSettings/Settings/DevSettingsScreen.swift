@@ -135,6 +135,8 @@ struct DevSettingsScreen: View {
                     if case .custom = self.viewModel.selectedEnviornment {
                         
                         TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
+                            .appFont(with: .TITLE_T4)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
                             .padding(8)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 10)
