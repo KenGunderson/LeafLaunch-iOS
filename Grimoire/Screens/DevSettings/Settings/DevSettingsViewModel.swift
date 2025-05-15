@@ -79,6 +79,7 @@ final class DevSettingsViewModel: ViewModel {
         
     }
     
+    @MainActor
     func copyAuthTokenToNotepad() {
             
         UIPasteboard.general.string = self.firebaseService.currentAccessToken ?? ""

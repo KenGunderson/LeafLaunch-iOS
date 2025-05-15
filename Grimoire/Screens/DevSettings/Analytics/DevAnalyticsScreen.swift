@@ -219,8 +219,8 @@ struct DevAnalyticsScreen: View {
                         CircularIconView(
                             foregroundColor: .color(logEvent.level.color()),
                             backgroundColor: .color(logEvent.level.color().opacity(0.1)),
-                            size: 32,
-                            imageSource: .systemImage(logEvent.level.systemImage())
+                            imageSource: .systemImage(logEvent.level.systemImage()),
+                            size: 32
                         )
                         
                         Text(logEvent.level.displayName())

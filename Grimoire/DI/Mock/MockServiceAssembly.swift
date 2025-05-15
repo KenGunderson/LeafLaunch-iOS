@@ -38,9 +38,9 @@ class MockAnalyticsService: AnalyticsServiceProtocol {
 
 class MockAlertService: AlertServiceProtocol, ObservableObject {
     
-    @Published var alerts: [Alert] = []
+    @Published var alerts: [RuneAlert] = []
     
-    var alertsPublisher: AnyPublisher<[Alert], Never> {
+    var alertsPublisher: AnyPublisher<[RuneAlert], Never> {
         return self.$alerts.eraseToAnyPublisher()
     }
     
@@ -49,11 +49,11 @@ class MockAlertService: AlertServiceProtocol, ObservableObject {
         return self.$requestedToDeleteAlert.eraseToAnyPublisher()
     }
     
-    func showAlert(_ alert: Alert) {
+    func showAlert(_ alert: RuneAlert) {
         self.alerts.append(alert)
     }
     
-    func dismissAlert(_ alert: Alert) {
+    func dismissAlert(_ alert: RuneAlert) {
         alerts.removeAll { alert.id == $0.id }
     }
     

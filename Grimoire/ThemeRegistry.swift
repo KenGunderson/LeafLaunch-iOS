@@ -5,6 +5,8 @@
 //  Created by Sako Hovaguimian on 4/23/25.
 //
 
+import Foundation
+
 enum AvailableTheme: String, CaseIterable {
     
     case goldNavy

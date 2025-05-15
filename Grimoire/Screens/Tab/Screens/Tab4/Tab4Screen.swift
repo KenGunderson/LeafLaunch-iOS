@@ -46,7 +46,7 @@ struct TabBar4Screen: View {
     }
     
     private func content() -> some View {
-        ContentView()
+        DemoView()
     }
     
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "bd33a09286861394abf71227570e0d7d843c22dd5339734fb5a1a846cb7dcb9e",
+  "originHash" : "c5b44ff8b69b501e93dfb196dc9649c3a505f7a893af8c17706cd0822296c42d",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleUtilities.git",
       "state" : {
-        "revision" : "53156c7ec267db846e6b64c9f4c4e31ba4cf75eb",
-        "version" : "8.0.2"
+        "revision" : "60da361632d0de02786f709bdc0c4df340f7613e",
+        "version" : "8.1.0"
       }
     },
     {
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "4d70340d55d7d07cc2fdf8e8125c4c126c1d5f35",
-        "version" : "4.4.0"
+        "revision" : "c756a29784521063b6a1202907e2cc47f41b667c",
+        "version" : "4.5.0"
       }
     },
     {
@@ -103,10 +103,10 @@
     {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "4c6b067f96953ee19526e49e4189403a2be21fb3",
-        "version" : "8.3.1"
+        "revision" : "2ef543ee21d63734e1c004ad6c870255e8716c50",
+        "version" : "7.12.0"
       }
     },
     {
@@ -134,6 +134,15 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "rune",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SakoHovaguimian/Rune",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5ada472bf335283c598391dc0709d461f6b62544"
       }
     },
     {
