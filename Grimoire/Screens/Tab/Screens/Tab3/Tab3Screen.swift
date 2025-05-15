@@ -42,6 +42,7 @@ struct TabBar3Screen: View {
             }
             
         }
+        .tag(self.tab)
         
     }
     

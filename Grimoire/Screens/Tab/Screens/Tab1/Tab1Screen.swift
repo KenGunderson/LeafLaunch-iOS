@@ -21,7 +21,6 @@ struct TabBar1Screen: View {
         NavigationStack(path: (nav.routes)) {
             
             content()
-                .tag(self.tab)
             
             // Navigation
             
@@ -42,6 +41,7 @@ struct TabBar1Screen: View {
                 }
             
         }
+        .tag(self.tab)
         
     }
     

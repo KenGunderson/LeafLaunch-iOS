@@ -92,12 +92,7 @@ extension View {
                 switch devRoute {
                 case .components:
                     
-                    Text("Components")
-//
-//                    let viewModel = globalResolver.resolve(DevComponentsViewModel.self)!
-//                    
-//                    DevComponentsScreen(viewModel: viewModel)
-//                        .navigationBarBackButtonHidden()
+                    DemoView()
                     
                 case .userDefaults:
                     

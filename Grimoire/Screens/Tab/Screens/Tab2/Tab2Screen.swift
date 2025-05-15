@@ -21,7 +21,6 @@ struct TabBar2Screen: View {
         NavigationStack(path: (nav.routes)) {
             
             content()
-                .tag(self.tab)
             
             // Navigation
             
@@ -42,11 +41,12 @@ struct TabBar2Screen: View {
             }
             
         }
+        .tag(self.tab)
         
     }
     
     private func content() -> some View {
-        DemoView()
+        ScrollBannerView(items: BannerItem.FAKE_MESSAGE_ITEMS())
     }
     
 }
