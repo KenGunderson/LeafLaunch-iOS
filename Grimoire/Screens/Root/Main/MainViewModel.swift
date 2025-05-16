@@ -97,7 +97,7 @@ final class MainViewModel: ViewModel {
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
                 if !isUserMissing && !isFirebaseUserMissing {
-                    self?.showOnboardingOrPermissionsIfNeeded()
+                    self?.presentModalsIfNeeded()
                 }
                 
             }
@@ -146,18 +146,33 @@ final class MainViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
+        self.userDefaultsService
+            .didCompletePermissionPublisher
+            .receiveOnMain()
+            .sink { [weak self] didCompleteOnboarding in
+                
+                guard didCompleteOnboarding else { return }
+                self?.shouldShowWhatsNewIfNeeded()
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
-    private func showOnboardingOrPermissionsIfNeeded() {
+    private func presentModalsIfNeeded() {
                 
        self.tabBarNavigationService?.resetPathItems()
         
         let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
-        let shouldShowPermissions = !self.userDefaultsService.didShowPermissionScreen
+        let shouldShowPermissions = !self.userDefaultsService.didCompletePermission
         
         if shouldShowOnboarding {
             
             self.logger.debugMessage("Attemping to show onboarding modal")
+            
+            // TODO: - POTENTIALLY REMOVE THIS TOO
+            self.userDefaultsService
+                .set(didCompleteOnboarding: true)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
                 
@@ -166,11 +181,10 @@ final class MainViewModel: ViewModel {
                     .modal(fullScreenCover: .onboarding)
                 
             })
-                        
-        }
-        else if shouldShowPermissions {
             
-            guard !self.userDefaultsService.didShowPermissionScreen else { return }
+        }
+        else if shouldShowPermissions,
+                self.userDefaultsService.didCompletePermission {
             
             self.logger.debugMessage("Skipping onboarding modal")
             
@@ -184,14 +198,14 @@ final class MainViewModel: ViewModel {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
                 self?.shouldShowWhatsNewIfNeeded()
             })
-                                          
+            
         }
         
     }
     
     private func shouldShowPermissionViewIfNeeded() {
         
-        guard !self.userDefaultsService.didShowPermissionScreen,
+        guard !self.userDefaultsService.didCompletePermission,
         self.permissionsService.shouldShowPermissionView else { return }
         
         self.logger.debugMessage("Presenting Permissions View")
@@ -201,7 +215,7 @@ final class MainViewModel: ViewModel {
             .modal(sheet: .permissions)
         
         self.userDefaultsService
-            .set(didShowPermissionScreen: true)
+            .set(didCompletePermission: true)
         
     }
     

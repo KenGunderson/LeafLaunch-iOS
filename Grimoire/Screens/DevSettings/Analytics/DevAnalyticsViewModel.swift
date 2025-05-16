@@ -15,6 +15,7 @@ final class DevAnalyticsViewModel: ViewModel {
         
         case logs
         case analytics
+        case api
         
     }
     
@@ -49,6 +50,10 @@ final class DevAnalyticsViewModel: ViewModel {
     
     var allOSLogOptions: [String] {
         return OSLogType.allOptions()
+    }
+    
+    var allAPILogResponses: [APILogResponse] {
+        return apiLogResponses
     }
     
     init(analyticsService: AnalyticsServiceProtocol,

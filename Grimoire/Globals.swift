@@ -16,3 +16,6 @@ public var globalTabBarNavigationService: TabBarNavigationService!
 
 /// For fun; not actually keeping
 public var loggedEvents: [LogEvent] = []
+
+/// For fun; not actually keeping
+public var apiLogResponses: [APILogResponse] = []

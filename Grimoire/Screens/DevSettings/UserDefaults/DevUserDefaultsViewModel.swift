@@ -24,6 +24,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     @Published var theme: AvailableTheme!
     @Published var didCompleteOnboarding: Bool!
     @Published var didShowPermissionScreen: Bool!
+    @Published var didCompletePermission: Bool!
     @Published var didRateMyAppAlertShow: Bool!
 
     @Published var shouldShowNoNetworkError: Bool = false
@@ -55,7 +56,7 @@ final class DevUserDefaultsViewModel: ViewModel {
         
         self.theme = userDefaultsService.theme
         self.didCompleteOnboarding = userDefaultsService.didCompleteOnboarding
-        self.didShowPermissionScreen = userDefaultsService.didShowPermissionScreen
+        self.didCompletePermission = userDefaultsService.didCompletePermission
         self.didRateMyAppAlertShow = userDefaultsService.didRateMyAppAlertShow
         self.impersonatedUserData = userDefaultsService.impersonatingUserData
         self.lastViewedWhatsNewVersion = userDefaultsService.lastViewedWhatsNewVersion
@@ -111,13 +112,13 @@ final class DevUserDefaultsViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
-        self.$didShowPermissionScreen
+        self.$didCompletePermission
             .dropFirst()
             .receiveOnMain()
-            .sink { [weak self] didShowPermissionScreen in
+            .sink { [weak self] didCompletePermission in
                 
-                guard let didShowPermissionScreen else { return }
-                self?.userDefaultsService.set(didShowPermissionScreen: didShowPermissionScreen)
+                guard let didCompletePermission else { return }
+                self?.userDefaultsService.set(didCompletePermission: didCompletePermission)
                 
             }
             .store(in: &self.cancelBag)

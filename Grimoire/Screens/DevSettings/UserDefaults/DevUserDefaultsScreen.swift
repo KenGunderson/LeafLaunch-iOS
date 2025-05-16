@@ -133,7 +133,7 @@ struct DevUserDefaultsScreen: View {
         Group {
             
             Toggle("didCompleteOnboarding", isOn: self.$viewModel.didCompleteOnboarding)
-            Toggle("didShowPermissionScreen", isOn: self.$viewModel.didShowPermissionScreen)
+            Toggle("didCompletePermission", isOn: self.$viewModel.didCompletePermission)
             Toggle("didRateMyAppAlertShow", isOn: self.$viewModel.didRateMyAppAlertShow)
             
         }

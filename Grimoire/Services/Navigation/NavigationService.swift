@@ -179,6 +179,9 @@ extension View {
             case .onboarding:
                 
                 Color.orange
+                    .onTapGesture {
+                        customFullScreenCover.wrappedValue = nil
+                    }
             }
             
         }

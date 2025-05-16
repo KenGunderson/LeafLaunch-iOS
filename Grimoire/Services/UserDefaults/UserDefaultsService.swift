@@ -21,7 +21,7 @@ enum Setting: String, CaseIterable {
     
     case theme
     case didCompleteOnboarding
-    case didShowPermissionScreen
+    case didCompletePermission
     case lastViewedWhatsNewVersion
     case didRateMyAppAlertShow
     case impersonatedUser
@@ -42,9 +42,9 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
-    @AppStorage(Setting.didShowPermissionScreen.rawValue) private(set) var didShowPermissionScreen: Bool = false {
+    @AppStorage(Setting.didCompletePermission.rawValue) private(set) var didCompletePermission: Bool = false {
         didSet {
-            self.didShowPermissionScreenPublisher.send(self.didShowPermissionScreen)
+            self.didCompletePermissionPublisher.send(self.didCompletePermission)
         }
     }
     
@@ -68,6 +68,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
+    var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
     var didShowPermissionScreenPublisher = PassthroughSubject<Bool, Never>()
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
@@ -82,7 +83,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
         self.themePublisher.send(self.theme)
         self.didCompleteOnboardingPublisher.send(self.didCompleteOnboarding)
-        self.didShowPermissionScreenPublisher.send(self.didShowPermissionScreen)
+        self.didCompletePermissionPublisher.send(self.didCompletePermission)
         self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
@@ -106,9 +107,9 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     func set(didCompleteOnboarding: Bool) {
         self.didCompleteOnboarding = didCompleteOnboarding
     }
-    
-    func set(didShowPermissionScreen: Bool) {
-        self.didShowPermissionScreen = didShowPermissionScreen
+
+    func set(didCompletePermission: Bool) {
+        self.didCompletePermission = didCompletePermission
     }
     
     func set(lastViewedWhatsNewVersion: String?) {
@@ -152,7 +153,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             // Manually Reset
             
             self.set(didCompleteOnboarding: false)
-            self.set(didShowPermissionScreen: false)
+            self.set(didCompletePermission: false)
             self.set(impersonatedUser: nil)
             self.set(lastViewedWhatsNewVersion: nil)
             

@@ -59,6 +59,7 @@ struct DevAnalyticsScreen: View {
             switch self.viewModel.selectedDisplayType {
             case .logs: logFilterHeaderView()
             case .analytics: EmptyView()
+            case .api: EmptyView()
             }
             
         }
@@ -109,6 +110,15 @@ struct DevAnalyticsScreen: View {
             case .analytics:
                 
                 analyticsList()
+                    .transition(
+                        .opacity
+                            .combined(with: .blurReplace)
+                            .combined(with: .move(edge: .bottom))
+                    )
+                
+            case .api:
+                
+                apiList()
                     .transition(
                         .opacity
                             .combined(with: .blurReplace)
@@ -172,6 +182,20 @@ struct DevAnalyticsScreen: View {
         
     }
     
+    private func apiList() -> some View {
+                
+        return LazyVStack(spacing: Style.shared.spacing(.medium)) {
+            
+            section(title: "API Logs")
+            
+            ForEach(viewModel.allAPILogResponses, id: \.date) { apiLogResponse in
+                apiView(apiLogResponse)
+            }
+            
+        }
+        
+    }
+    
     private func analyticsView(_ eventData: EventData) -> some View {
         
         AppCardView {
@@ -192,6 +216,110 @@ struct DevAnalyticsScreen: View {
                 )
                 .appFont(with: .BODY_B1)
                 .foregroundStyle(Style.shared.textColor(.body).source())
+                
+            }
+            
+        }
+        
+    }
+    
+    private func apiView(_ apiLogResponse: APILogResponse) -> some View {
+        
+        return AppCardView {
+            
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+                
+                Text("Method: \(apiLogResponse.method)")
+                    .appFont(with: .TITLE_T4)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+                Text("Status Code: \(apiLogResponse.statusCode)")
+                    .appFont(with: .TITLE_T4)
+                    .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
+                
+                Text("Path: \(apiLogResponse.path)")
+                    .appFont(with: .BODY_B1)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+                VStack(alignment: .leading) {
+                    
+                    let headerParameters = apiLogResponse.headers
+                    if !headerParameters.isEmpty {
+                        
+                        buildJSONPreviewView(
+                            title: "Header Parameters:",
+                            json: headerParameters
+                        )
+                        
+                    }
+                    
+                    let queryParameters = apiLogResponse.queryParameters
+                    if !queryParameters.isEmpty {
+                        
+                        buildJSONPreviewView(
+                            title: "Query Parameters:",
+                            json: queryParameters
+                        )
+                        
+                    }
+                    
+                    let bodyParameters = apiLogResponse.body
+                    if !bodyParameters.isEmpty {
+                        
+                        buildJSONPreviewView(
+                            title: "Body Parameters:",
+                            json: bodyParameters
+                        )
+                        
+                    }
+                    
+                    if let jsonResponse = apiLogResponse.responseJSON {
+                        
+                        buildJSONPreviewView(
+                            title: "Response:",
+                            json: jsonResponse
+                        )
+                        
+                    }
+                    
+                    if let error = apiLogResponse.error {
+                        
+                        buildJSONPreviewView(
+                            title: "Error:",
+                            json: ["message": error.getMessageForError()]
+                        )
+                        
+                    }
+                    
+                }
+                
+                Text(
+                    apiLogResponse.date,
+                    format: .dateTime.day().month().year().hour().minute().second()
+                )
+                .appFont(with: .BODY_B1)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                
+            }
+            
+        }
+        
+        func buildJSONPreviewView(title: String,
+                                  json: [String: Any]) -> some View {
+            
+            VStack(alignment: .leading) {
+                
+                Text(title)
+                    .appFont(with: .TITLE_T6)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+                JSONPreviewView(
+                    jsonData: json,
+                    titleFont: .TITLE_T2,
+                    subtitleFont: .TITLE_T2,
+                    bodyFont: .TITLE_T2,
+                    maxHeight: 120
+                )
                 
             }
             

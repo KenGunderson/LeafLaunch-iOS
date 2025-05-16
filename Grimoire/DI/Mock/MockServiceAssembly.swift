@@ -334,14 +334,14 @@ class MockUserDefaultsService: UserDefaultsServiceProtocol {
     
     var theme: AvailableTheme = .goldNavy
     var didCompleteOnboarding: Bool = false
-    var didShowPermissionScreen: Bool = false
+    var didCompletePermission: Bool = false
     var lastViewedWhatsNewVersion: String?
     var didRateMyAppAlertShow: Bool = false
     var impersonatingUserData: Data?
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
-    var didShowPermissionScreenPublisher = PassthroughSubject<Bool, Never>()
+    var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
@@ -349,7 +349,7 @@ class MockUserDefaultsService: UserDefaultsServiceProtocol {
     
     func set(theme: AvailableTheme) {}
     func set(didCompleteOnboarding: Bool) {}
-    func set(didShowPermissionScreen: Bool) {}
+    func set(didCompletePermission: Bool) {}
     func set(lastViewedWhatsNewVersion: String?) {}
     func set(didRateMyAppAlertShow: Bool) {}
     func set(impersonatedUser: ImpersonatingUser?) {}
