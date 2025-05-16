@@ -229,17 +229,25 @@ struct DevAnalyticsScreen: View {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
                 
-                Text("Method: \(apiLogResponse.method)")
-                    .appFont(with: .TITLE_T4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                
-                Text("Status Code: \(apiLogResponse.statusCode)")
-                    .appFont(with: .TITLE_T4)
-                    .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
-                
-                Text("Path: \(apiLogResponse.path)")
-                    .appFont(with: .BODY_B1)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                Group {
+                    
+                    VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                        
+                        Text("Method: \(apiLogResponse.method)")
+                            .appFont(with: .TITLE_T4)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                        
+                        Text("Status Code: \(apiLogResponse.statusCode)")
+                            .appFont(with: .TITLE_T4)
+                            .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
+                        
+                        Text("Path: \(apiLogResponse.path)")
+                            .appFont(with: .BODY_B1)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                    }
+                    
+                }
                 
                 VStack(alignment: .leading) {
                     

@@ -141,7 +141,7 @@ final class MainViewModel: ViewModel {
             .sink { [weak self] didCompleteOnboarding in
                 
                 guard didCompleteOnboarding else { return }
-                self?.shouldShowPermissionViewIfNeeded()
+                self?.presentModalsIfNeeded()
                 
             }
             .store(in: &self.cancelBag)
@@ -152,7 +152,7 @@ final class MainViewModel: ViewModel {
             .sink { [weak self] didCompleteOnboarding in
                 
                 guard didCompleteOnboarding else { return }
-                self?.shouldShowWhatsNewIfNeeded()
+                self?.presentModalsIfNeeded()
                 
             }
             .store(in: &self.cancelBag)
@@ -170,23 +170,26 @@ final class MainViewModel: ViewModel {
             
             self.logger.debugMessage("Attemping to show onboarding modal")
             
-            // TODO: - POTENTIALLY REMOVE THIS TOO
-            self.userDefaultsService
-                .set(didCompleteOnboarding: true)
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
                 
                 self?.tabBarNavigationService?
                     .currentNavigationService()
                     .modal(fullScreenCover: .onboarding)
                 
+                // TODO: - POTENTIALLY REMOVE THIS TOO
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    
+                    self?.userDefaultsService
+                        .set(didCompleteOnboarding: true)
+                    
+                })
+                
             })
             
         }
-        else if shouldShowPermissions,
-                self.userDefaultsService.didCompletePermission {
+        else if shouldShowPermissions {
             
-            self.logger.debugMessage("Skipping onboarding modal")
+            self.logger.debugMessage("Attemping to show permissions modal")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
                 self?.shouldShowPermissionViewIfNeeded()
@@ -194,6 +197,8 @@ final class MainViewModel: ViewModel {
             
         }
         else {
+            
+            self.logger.debugMessage("Attemping to show what's new modal")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
                 self?.shouldShowWhatsNewIfNeeded()
