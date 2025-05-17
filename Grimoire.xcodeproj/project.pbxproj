@@ -903,6 +903,16 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		75573AB92DD82B4A00C7CA6E /* Globals + Constants */ = {
+			isa = PBXGroup;
+			children = (
+				753EC1B12DB8BD3900265B2A /* Constants.swift */,
+				753EC1B32DB8BD4A00265B2A /* Globals.swift */,
+				7548D23D2DD561EE008AE243 /* GlobalImports.swift */,
+			);
+			path = "Globals + Constants";
+			sourceTree = "<group>";
+		};
 		755C97E02D9CC86900437D5D = {
 			isa = PBXGroup;
 			children = (
@@ -931,11 +941,8 @@
 			children = (
 				753EC2082DB8CBBB00265B2A /* GrimoireApp.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
-				753EC1B12DB8BD3900265B2A /* Constants.swift */,
-				75C643752DB926C30033D68E /* ThemeRegistry.swift */,
-				753EC1B32DB8BD4A00265B2A /* Globals.swift */,
-				7548D23D2DD561EE008AE243 /* GlobalImports.swift */,
 				753EC1E62DB8C4E800265B2A /* DI */,
+				75573AB92DD82B4A00C7CA6E /* Globals + Constants */,
 				755C98262D9CC8E000437D5D /* Services */,
 				753EC1922DB8BC0B00265B2A /* Models */,
 				755C98252D9CC8D300437D5D /* Screens */,
@@ -958,6 +965,7 @@
 		755C98262D9CC8E000437D5D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				75C643752DB926C30033D68E /* ThemeRegistry.swift */,
 				753EC13F2DB8BB9000265B2A /* DateTimeService.swift */,
 				753EC0E02DB8BB9000265B2A /* Analytics */,
 				753EC0F82DB8BB9000265B2A /* API */,

@@ -19,12 +19,13 @@ struct GPUser: Codable,
                Mockable {
     
     let id: String
-    var name: String
-    var email: String
-    var externalId: String
+    let name: String
+    let email: String
+    let externalId: String
+    let gender: Gender?
+    let imageURL: URL?
+    
     private var _birthday: String?
-    var gender: Gender?
-    var imageURL: URL?
     
     var birthday: Date? {
 

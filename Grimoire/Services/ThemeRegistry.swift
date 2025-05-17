@@ -17,6 +17,7 @@ enum AvailableTheme: String, CaseIterable {
     case sandstomeDusk
     
     func theme() -> Theme {
+        
         switch self {
         case .goldNavy: return Theme.GOLD_NAVY
         case .goldLight: return Theme.GOLD_LIGHT
@@ -25,6 +26,7 @@ enum AvailableTheme: String, CaseIterable {
         case .neonNight: return Theme.NEON_NIGHT
         case .sandstomeDusk: return Theme.SANDSTONE_DUSK
         }
+        
     }
     
 }

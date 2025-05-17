@@ -143,7 +143,6 @@ struct WhatsNewScreen: GPView {
                         .foregroundStyle(Style.shared.textColor(.body).source())
                         .appFont(with: .BODY_B5)
                     
-                    
                 }
                 
             }
