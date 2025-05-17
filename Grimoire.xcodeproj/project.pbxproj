@@ -121,6 +121,18 @@
 		7548D23C2DD56138008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D23B2DD56138008AE243 /* Rune */; };
 		7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
 		7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
+		75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
+		75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
+		75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
+		75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
+		75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */; };
+		75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */; };
+		75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
+		75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
+		75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
+		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
+		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
+		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75715ACE2DB9365500E7994E /* Tab1Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* Tab1Screen.swift */; };
 		75715AD02DB9365F00E7994E /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* Tab1ViewModel.swift */; };
 		75715AD52DB9366E00E7994E /* Tab2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD22DB9366E00E7994E /* Tab2ViewModel.swift */; };
@@ -388,6 +400,12 @@
 		753EC2102DB8CEED00265B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		753EC2122DB8CF2F00265B2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
+		75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		75573AC62DD82E6300C7CA6E /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* Grimoire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grimoire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GrimoireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GrimoireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -913,6 +931,43 @@
 			path = "Globals + Constants";
 			sourceTree = "<group>";
 		};
+		75573ABA2DD82CD200C7CA6E /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */,
+				75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		75573AC12DD82E0500C7CA6E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				75573ABA2DD82CD200C7CA6E /* Welcome */,
+				75573AC92DD83BF300C7CA6E /* Signup */,
+				75573AC22DD82E0A00C7CA6E /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		75573AC22DD82E0A00C7CA6E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */,
+				75573AC62DD82E6300C7CA6E /* LoginScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		75573AC92DD83BF300C7CA6E /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */,
+				75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
 		755C97E02D9CC86900437D5D = {
 			isa = PBXGroup;
 			children = (
@@ -954,6 +1009,7 @@
 		755C98252D9CC8D300437D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				75573AC12DD82E0500C7CA6E /* Auth */,
 				753EC1F62DB8C58100265B2A /* Root */,
 				75C643C32DB929340033D68E /* Tab */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
@@ -1336,6 +1392,7 @@
 				750DFBCE2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift in Sources */,
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
+				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				753EC1662DB8BB9000265B2A /* APIServiceProtocol.swift in Sources */,
 				753EC1672DB8BB9000265B2A /* LaunchScreenServiceProtocol.swift in Sources */,
@@ -1344,12 +1401,14 @@
 				753EC16A2DB8BB9000265B2A /* AppDelegateServiceProtocol.swift in Sources */,
 				753EC16B2DB8BB9000265B2A /* FirebaseService.swift in Sources */,
 				753EC16D2DB8BB9000265B2A /* AnalyticsEvent.swift in Sources */,
+				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				753EC16E2DB8BB9000265B2A /* APIService.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
 				753EC16F2DB8BB9000265B2A /* DateTimeService.swift in Sources */,
 				753EC1702DB8BB9000265B2A /* FirebaseServiceProtocol.swift in Sources */,
 				753EC1722DB8BB9000265B2A /* NavigationServiceProtocol.swift in Sources */,
 				753EC1752DB8BB9000265B2A /* TabBarNavigationService.swift in Sources */,
+				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				753EC1772DB8BB9000265B2A /* CameraPermissionServiceProtocol.swift in Sources */,
 				753EC1782DB8BB9000265B2A /* DeeplinkService.swift in Sources */,
@@ -1357,6 +1416,7 @@
 				753EC17B2DB8BB9000265B2A /* AnalyticsService.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
+				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
@@ -1366,6 +1426,7 @@
 				75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */,
 				75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */,
 				753EC17D2DB8BB9000265B2A /* ViewLifecycleService.swift in Sources */,
+				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				753EC17E2DB8BB9000265B2A /* PermissionsServiceProtocol.swift in Sources */,
 				753EC1802DB8BB9000265B2A /* MediaPermissionService.swift in Sources */,
 				753EC1812DB8BB9000265B2A /* LoggerService.swift in Sources */,
@@ -1379,6 +1440,7 @@
 				75715ACE2DB9365500E7994E /* Tab1Screen.swift in Sources */,
 				753EC18B2DB8BB9000265B2A /* ScreenEvent.swift in Sources */,
 				753EC18D2DB8BB9000265B2A /* ConnectivityService.swift in Sources */,
+				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				753EC18E2DB8BB9000265B2A /* AppTrackingPermissionService.swift in Sources */,
 				753EC18F2DB8BB9000265B2A /* UserDefaultsService.swift in Sources */,
 				753EC1902DB8BB9000265B2A /* ImpersonateServiceProtocol.swift in Sources */,
@@ -1477,6 +1539,7 @@
 				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
+				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
 				75D66D462DC713C300E51CFC /* APIServiceProtocol.swift in Sources */,
 				75D66D472DC713C300E51CFC /* LaunchScreenServiceProtocol.swift in Sources */,
@@ -1485,12 +1548,14 @@
 				75D66D4A2DC713C300E51CFC /* AppDelegateServiceProtocol.swift in Sources */,
 				75D66D4B2DC713C300E51CFC /* FirebaseService.swift in Sources */,
 				75D66D4C2DC713C300E51CFC /* AnalyticsEvent.swift in Sources */,
+				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4D2DC713C300E51CFC /* APIService.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
 				75D66D4F2DC713C300E51CFC /* DateTimeService.swift in Sources */,
 				75D66D502DC713C300E51CFC /* FirebaseServiceProtocol.swift in Sources */,
 				75D66D512DC713C300E51CFC /* NavigationServiceProtocol.swift in Sources */,
 				75D66D522DC713C300E51CFC /* TabBarNavigationService.swift in Sources */,
+				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
 				75D66D542DC713C300E51CFC /* CameraPermissionServiceProtocol.swift in Sources */,
 				75D66D552DC713C300E51CFC /* DeeplinkService.swift in Sources */,
@@ -1498,6 +1563,7 @@
 				75D66D572DC713C300E51CFC /* AnalyticsService.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
+				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
 				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
@@ -1507,6 +1573,7 @@
 				75D66D6C2DC713C300E51CFC /* StandardTabBarView.swift in Sources */,
 				75D66D6D2DC713C300E51CFC /* CustomTabBarView.swift in Sources */,
 				75D66D6E2DC713C300E51CFC /* ViewLifecycleService.swift in Sources */,
+				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				75D66D6F2DC713C300E51CFC /* PermissionsServiceProtocol.swift in Sources */,
 				75D66D712DC713C300E51CFC /* MediaPermissionService.swift in Sources */,
 				75D66D722DC713C300E51CFC /* LoggerService.swift in Sources */,
@@ -1520,6 +1587,7 @@
 				75D66D7A2DC713C300E51CFC /* Tab1Screen.swift in Sources */,
 				75D66D7B2DC713C300E51CFC /* ScreenEvent.swift in Sources */,
 				75D66D7C2DC713C300E51CFC /* ConnectivityService.swift in Sources */,
+				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				75D66D7D2DC713C300E51CFC /* AppTrackingPermissionService.swift in Sources */,
 				75D66D7E2DC713C300E51CFC /* UserDefaultsService.swift in Sources */,
 				75D66D7F2DC713C300E51CFC /* ImpersonateServiceProtocol.swift in Sources */,

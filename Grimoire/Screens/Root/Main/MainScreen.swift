@@ -18,20 +18,19 @@ struct MainScreen: View {
             
             backgroundView
             
-//            if self.viewModel.shouldShowTabBarScreen {
-////                tabScreen
-//                Color.indigo
-//            }
-            
-//            if self.viewModel.shouldShowWelcomeScreen {
+            if self.viewModel.shouldShowTabBarScreen {
                 
-//                WelcomeScreen(viewModel: self.viewModel.welcomeViewModel)
-//                    .transition(.opacity)
-            
-            tabScreen
-                .transition(.opacity)
+                tabScreen
+                    .transition(.opacity)
                 
-//            }
+            }
+            
+            if self.viewModel.shouldShowWelcomeScreen {
+                
+                WelcomeScreen(viewModel: self.viewModel.welcomeViewModel)
+                    .transition(.opacity)
+                
+            }
             
         }
         .frame(

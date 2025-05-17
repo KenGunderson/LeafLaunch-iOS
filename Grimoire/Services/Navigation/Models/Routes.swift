@@ -13,6 +13,14 @@ protocol Navigation {
 
 enum Route: Navigation, Hashable, Sendable {
     
+    enum Auth {
+        
+        case welcome
+        case login
+        case signup
+        
+    }
+    
     enum DevSetting: String, CaseIterable {
         
         case components
@@ -58,6 +66,6 @@ enum Route: Navigation, Hashable, Sendable {
     }
     
     case devSetting(DevSetting)
-    case test
+    case auth(Auth)
     
 }

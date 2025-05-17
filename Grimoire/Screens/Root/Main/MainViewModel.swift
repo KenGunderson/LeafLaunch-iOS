@@ -28,7 +28,7 @@ final class MainViewModel: ViewModel {
         
     // ViewModels
     
-//    private(set) var welcomeViewModel = globalResolver.resolve(WelcomeViewModel.self)!
+    private(set) var welcomeViewModel = globalResolver.resolve(WelcomeViewModel.self)!
     private(set) var tab1ViewModel = globalResolver.resolve(Tab1ViewModel.self)!
     private(set) var tab2ViewModel = globalResolver.resolve(Tab2ViewModel.self)!
     private(set) var tab3ViewModel = globalResolver.resolve(Tab3ViewModel.self)!

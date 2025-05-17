@@ -86,13 +86,38 @@ extension View {
         return navigationDestination(for: Route.self) { route in
             
             switch route {
-            case .test: Text("Test")
+            case .auth(let authRoute):
+                
+                switch authRoute {
+                case .welcome:
+                    
+                    let viewModel = globalResolver.resolve(WelcomeViewModel.self)!
+                    
+                    WelcomeScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                    
+                case .login:
+                    
+                    let viewModel = globalResolver.resolve(LoginViewModel.self)!
+                    
+                    LoginScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                    
+                case .signup:
+                    
+                    let viewModel = globalResolver.resolve(SignUpViewModel.self)!
+                    
+                    SignUpScreen(viewModel: viewModel)
+                        .navigationBarBackButtonHidden()
+                }
+                
             case .devSetting(let devRoute):
                 
                 switch devRoute {
                 case .components:
                     
                     DemoView()
+                        .navigationBarBackButtonHidden()
                     
                 case .userDefaults:
                     
