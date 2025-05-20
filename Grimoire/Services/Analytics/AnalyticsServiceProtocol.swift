@@ -10,7 +10,7 @@ import Observation
 import Amplitude
 import AdSupport
 
-protocol AnalyticsServiceProtocol: AnyObject {
+protocol AnalyticsServiceProtocol: AnyObject, Sendable {
         
     var currentUserId: CurrentValueSubject<String?, Never> { get }
     

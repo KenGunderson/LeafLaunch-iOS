@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol APIProtocol: AnyObject {
+protocol APIProtocol: AnyObject, Sendable {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }

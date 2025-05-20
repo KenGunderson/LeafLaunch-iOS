@@ -11,7 +11,7 @@ import FirebaseStorage
 import AuthenticationServices
 import Combine
 
-protocol FirebaseServiceProtocol: AnyObject {
+protocol FirebaseServiceProtocol: AnyObject, Sendable {
     
     var user: FirebaseAuth.User? { get }
     var userPublisher: AnyPublisher<FirebaseAuth.User?, Never> { get }

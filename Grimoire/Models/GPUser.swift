@@ -16,6 +16,7 @@ protocol Mockable {
 struct GPUser: Codable,
                Equatable,
                Hashable,
+               Sendable,
                Mockable {
     
     let id: String

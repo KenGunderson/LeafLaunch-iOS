@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-protocol UserDefaultsServiceProtocol: AnyObject {
+protocol UserDefaultsServiceProtocol: AnyObject, Sendable {
     
     var theme: AvailableTheme { get }
     var didCompleteOnboarding: Bool { get }

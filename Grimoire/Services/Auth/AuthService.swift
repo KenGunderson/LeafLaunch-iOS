@@ -12,10 +12,10 @@ import FirebaseAuth
 
 final class AuthService: AuthServiceProtocol {
     
-    private var firebaseService: FirebaseServiceProtocol
-    private var apiService: APIServiceProtocol
-    private var analyticsService: AnalyticsServiceProtocol
-    private var userDefaultsService: UserDefaultsServiceProtocol
+    private let firebaseService: FirebaseServiceProtocol
+    private let apiService: APIServiceProtocol
+    private let analyticsService: AnalyticsServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var currentUser: GPUser?
     var currentUserPublisher: AnyPublisher<GPUser?, Never> {

@@ -114,7 +114,7 @@ final class RootViewModel: ViewModel {
     
     func revertImpersonatingUser() {
         
-        Task { [weak self] in
+        Task { @MainActor [weak self] in
             try await self?.impersonateService.revert()
         }
         
@@ -277,7 +277,7 @@ final class RootViewModel: ViewModel {
         guard let user = self.authService.currentUser,
               self.firebaseService.user != nil else { return }
                 
-        Task {
+        Task { @MainActor in
             
             try await self.apiService.registerDevice(
                 token: token,
@@ -294,7 +294,7 @@ final class RootViewModel: ViewModel {
             return
         }
         
-        Task {
+        Task { @MainActor in
             
             do {
                 try await self.apiService.getHealth()
