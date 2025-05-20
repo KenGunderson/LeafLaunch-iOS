@@ -57,7 +57,7 @@ struct FloatingTransitionTabBar: View {
                     
                     if self.selectedTab == tab {
                         
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 16)
                             .fill(Style.shared.accent.source().opacity(0.1))
                             .padding(.vertical, -4)
                             .padding(.horizontal, 8)
@@ -85,16 +85,28 @@ struct FloatingTransitionTabBar: View {
     
     @Previewable @State var selectedTab: Tab = .tab1
     
-    VStack {
-        
-        Spacer()
-        
-        TabBarView(
-            selectedTab: $selectedTab,
-            style: .custom(FloatingTransitionTabBar(selectedTab: $selectedTab).asAnyView())
-        )
+    AppBaseView(backgroundStyle: Style.shared.background(.quaternary)) {
+    
+        VStack(spacing: 24) {
+            
+            TabBarView(
+                selectedTab: $selectedTab,
+                style: .standard
+            )
+            .padding(.horizontal, .extraLarge)
+            
+            TabBarView(
+                selectedTab: $selectedTab,
+                style: .custom(FloatingTabBar(selectedTab: $selectedTab).asAnyView())
+            )
+            
+            TabBarView(
+                selectedTab: $selectedTab,
+                style: .custom(FloatingTransitionTabBar(selectedTab: $selectedTab).asAnyView())
+            )
+            
+        }
         
     }
-    .ignoresSafeArea(.keyboard)
     
 }

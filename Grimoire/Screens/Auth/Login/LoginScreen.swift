@@ -173,7 +173,7 @@ struct LoginScreen: GPView {
         Text("Forgot your password?") {
             
             $0.font = Style.shared.font(.BODY_B5)
-            $0.foregroundColor = .black
+            $0.foregroundColor = Style.shared.textColor(.title).asColor
             
         }
         
