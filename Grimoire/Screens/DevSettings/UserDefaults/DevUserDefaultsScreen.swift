@@ -290,7 +290,13 @@ struct DevUserDefaultsScreen: View {
                     .appFont(with: .TITLE_T4)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
-                Text(selectedTheme?.rawValue.uppercased() ?? "")
+                let titleConversion = selectedTheme?.rawValue.convertNamingStyle(
+                    from: .camelCase,
+                    to: .sentenceCase
+                )
+                .capitalized
+                
+                Text(titleConversion ?? "N/A")
                     .appFont(with: .TITLE_T4)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
@@ -333,9 +339,15 @@ struct DevUserDefaultsScreen: View {
     
     func themeChoiceView(_ themeChoice: AvailableTheme) -> some View {
         
-        VStack {
+        let titleConversion = themeChoice.rawValue.convertNamingStyle(
+            from: .camelCase,
+            to: .sentenceCase
+        )
+        .capitalized
+        
+        return VStack {
             
-            Text(themeChoice.rawValue.uppercased())
+            Text(titleConversion)
                 .appFont(with: .TITLE_T6)
                 .fontWeight(.heavy)
             

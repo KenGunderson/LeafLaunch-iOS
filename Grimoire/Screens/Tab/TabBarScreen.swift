@@ -10,7 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     enum TabBarStyle<Content: View> {
-        case custom(Content)
+        case custom(Content) // FloatingTabBar -> FloatingTransitionTabBar
         case standard
     }
     
