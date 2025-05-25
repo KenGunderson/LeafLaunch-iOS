@@ -50,7 +50,6 @@ struct RootScreen: View {
         .withAlertService(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
         .environmentObject(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
         .environment(self.tabBarNavigationService)
-        .preferredColorScheme(.light)
         .withToastOverlay()
         
         // Lifecycle
