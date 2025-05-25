@@ -108,6 +108,7 @@ struct RootScreen: View {
     private func mainView() -> some View {
         
         GeometryReader { _ in
+            
             VStack(spacing: Style.shared.spacing(.none)) {
                                         
                 if self.viewModel.isImpersonatingUser {
