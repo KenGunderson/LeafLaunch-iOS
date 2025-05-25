@@ -85,7 +85,6 @@ final class DevSettingsViewModel: ViewModel {
         UIPasteboard.general.string = self.firebaseService.currentAccessToken ?? ""
         
         ToastManager.shared.present(toastItem: .init(
-            style: .standard,
             title: "Auth Token Copied",
             titleColor: Style.shared.textColor(.title),
             message: "Your auth token is now saved on your clipboard",
