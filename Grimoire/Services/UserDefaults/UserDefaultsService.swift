@@ -30,7 +30,7 @@ enum Setting: String, CaseIterable {
 
 final class UserDefaultsService: UserDefaultsServiceProtocol {
     
-    @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .goldNavy {
+    @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .lightCyan {
         didSet {
             self.themePublisher.send(self.theme)
         }

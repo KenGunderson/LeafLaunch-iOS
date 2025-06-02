@@ -301,7 +301,7 @@ struct DevUserDefaultsScreen: View {
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
                 Circle()
-                    .fill(selectedTheme?.theme().accentColor.source() ?? AnyShapeStyle(Color.red))
+                    .fill(selectedTheme?.theme().foreground.primary.source() ?? AnyShapeStyle(Color.red))
                     .frame(width: 32, height: 32)
                     .padding(.horizontal, .small)
                 
@@ -352,7 +352,7 @@ struct DevUserDefaultsScreen: View {
                 .fontWeight(.heavy)
             
             Circle()
-                .fill(themeChoice.theme().accentColor.source())
+                .fill(themeChoice.theme().foreground.primary.source())
                 .frame(width: 64, height: 64)
             
         }

@@ -11,6 +11,7 @@ enum AvailableTheme: String, CaseIterable {
     
     case goldNavy
     case goldLight
+    case lightCyan
     case coralTwilight
     case neonNight
     case emaraldNoir
@@ -21,6 +22,7 @@ enum AvailableTheme: String, CaseIterable {
         switch self {
         case .goldNavy: return Theme.GOLD_NAVY
         case .goldLight: return Theme.GOLD_LIGHT
+        case .lightCyan: return Theme.TEAL_CYAN_LIGHT
         case .emaraldNoir: return Theme.EMERALD_NOIR
         case .coralTwilight: return Theme.CORAL_TWILIGHT
         case .neonNight: return Theme.NEON_NIGHT
