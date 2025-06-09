@@ -1,6 +1,6 @@
 //
 //  AppDelegateService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -10,6 +10,9 @@ import UserNotifications
 import UIKit
 
 final class AppDelegateService: AppDelegateServiceProtocol {
+    
+    internal let loggerName: String = "APP_DELEGATE_SERVICE"
+    internal let loggerEmoji: String = "📱"
     
     @Published private(set) var deviceToken: String?
     var deviceTokenPublisher: AnyPublisher<String?, Never> {
@@ -23,18 +26,13 @@ final class AppDelegateService: AppDelegateServiceProtocol {
     
     private var appDelegate: AppDelegate!
     private var cancelBag: CancelBag!
-    
-    private let logger = GPLogger.service(.appDelegate)
-    
+        
     init() {
-        self.logger.logInit()
+        self.logInit()
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(appDelegate: AppDelegate) {

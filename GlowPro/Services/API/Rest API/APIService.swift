@@ -1,6 +1,6 @@
 //
 //  APIService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -9,6 +9,9 @@ import UIKit
 import Combine
 
 final class APIService: APIServiceProtocol {
+    
+    internal let loggerName: String = "API_SERVICE"
+    internal let loggerEmoji: String = "🌐"
     
     private let analyticsService: AnalyticsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
@@ -20,9 +23,7 @@ final class APIService: APIServiceProtocol {
     internal var environment: AppEnvironment?
     
     private var cancelBag: CancelBag!
-    
-    internal let logger = GPLogger.service(.API)
-    
+        
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)
     }
@@ -37,15 +38,14 @@ final class APIService: APIServiceProtocol {
         self.appDelegateService = appDelegateService
         self.firebaseService = firebaseService
         
-        self.logger.logInit()
+        self.logInit()
         bindSubscribers()
         
     }
     
     deinit {
         
-        self.logger
-            .logDeinit()
+        self.logDeinit()
         
     }
     
@@ -58,7 +58,7 @@ final class APIService: APIServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] deviceToken in
                 
-                self?.logger.debugMessage("Device token: \(deviceToken ?? "NIL")")
+                self?.log(message: "Device token: \(deviceToken ?? "NIL")")
                 self?.deviceToken = deviceToken
                 
             }
@@ -69,7 +69,7 @@ final class APIService: APIServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] environment in
                 
-                self?.logger.debugMessage("Environment: \(environment?.displayName ?? "NIL")")
+                self?.log(message: "Environment: \(environment?.displayName ?? "NIL")")
                 self?.environment = environment
                 
             }
@@ -80,7 +80,7 @@ final class APIService: APIServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] firebaseAccessToken in
                 
-                self?.logger.debugMessage("Firebase token: \(firebaseAccessToken ?? "NIL")")
+                self?.log(message: "Firebase token: \(firebaseAccessToken ?? "NIL")")
                 self?.accessToken = firebaseAccessToken
                 
             }

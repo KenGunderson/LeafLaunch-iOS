@@ -1,6 +1,6 @@
 //
 //  CameraPermissionService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -10,6 +10,9 @@ import AVFoundation
 import UIKit
 
 class CameraPermissionService: CameraPermissionServiceProtocol {
+    
+    internal let loggerName: String = "CAMERA_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     @Published private(set) var permissionGranted: Bool = false
     var permissionGrantedPublisher: AnyPublisher<Bool, Never> {
@@ -22,7 +25,14 @@ class CameraPermissionService: CameraPermissionServiceProtocol {
     }
     
     init() {
+        
+        self.logInit()
         checkAuthorizationStatus()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func requestPermissionIfNeeded() {

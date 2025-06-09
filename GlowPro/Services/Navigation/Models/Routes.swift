@@ -1,6 +1,6 @@
 //
 //  Routes.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/16/24.
 //

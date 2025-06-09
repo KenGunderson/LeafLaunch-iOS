@@ -1,6 +1,6 @@
 //
 //  FirebaseService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -13,6 +13,9 @@ import AuthenticationServices
 import Combine
 
 final class FirebaseService: FirebaseServiceProtocol {
+    
+    internal let loggerName: String = "FIREBASE_SERVICE"
+    internal let loggerEmoji: String = "🔥"
     
     enum AppleAuthorizationError: Error, AppCustomError {
         
@@ -57,23 +60,18 @@ final class FirebaseService: FirebaseServiceProtocol {
     var currentAccessTokenPublisher: AnyPublisher<String?, Never> {
         return self.$currentAccessToken.eraseToAnyPublisher()
     }
-    
-    private let logger = GPLogger.service(.firebase)
-    
+        
     init() {
         
         FirebaseApp.configure()
         
         self.user = Auth.auth().currentUser
-        self.logger.logInit()
+        self.logInit()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     @discardableResult
@@ -95,7 +93,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Sign Up Error",
                 message: error.getMessageForError()
             )
@@ -129,7 +127,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()
             )
@@ -158,7 +156,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()
             )
@@ -197,7 +195,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Apple Login Error",
                 message: error.getMessageForError()
             )
@@ -217,11 +215,11 @@ final class FirebaseService: FirebaseServiceProtocol {
             let result = try await user.getIDTokenResult(forcingRefresh: true)
             self.currentAccessToken = result.token
             
-            self.logger.debugMessage("Firebase User Token \(result.token)")
+            self.log(message: "Firebase User Token \(result.token)")
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Access Token Error",
                 message: error.getMessageForError()
             )
@@ -238,7 +236,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             try await Auth.auth().sendPasswordReset(withEmail: email)
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Reset Password Error",
                 message: error.getMessageForError()
             )
@@ -257,7 +255,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             try await user.sendEmailVerification(beforeUpdatingEmail: newEmail)
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Update Email Error",
                 message: error.getMessageForError()
             )
@@ -279,7 +277,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
-            self.logger.error(
+            self.logError(
                 title: "Logout Error",
                 message: error.getMessageForError()
             )
@@ -300,7 +298,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             guard let nonce = currentNonce else {
                 
-                self.logger.error(
+                self.logError(
                     title: "Apple Sign Up Error",
                     message: "Invalid state: A login callback was received, but no login request was sent."
                 )
@@ -311,7 +309,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             guard let appleIDToken = appleIDCredential.identityToken else {
                 
-                self.logger.error(
+                self.logError(
                     title: "Apple Sign Up Error",
                     message: "Invalid state: A login callback was received, but no login request was sent."
                 )
@@ -322,7 +320,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
                 
-                self.logger.error(
+                self.logError(
                     title: "Apple Sign Up Error",
                     message: "Unable to serialize token string from data: \(appleIDToken.debugDescription)"
                 )
@@ -336,7 +334,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             // We must make a call to backend and see if email is registerd
             // If name is available type = "Sign_up" from backend perspective
             
-            self.logger.debugMessage("\(appleIDCredential.fullName?.familyName ?? "")")
+            self.log(message: "\(appleIDCredential.fullName?.familyName ?? "")")
             
             let fullName = "\(appleIDCredential.fullName?.givenName ?? "") \(appleIDCredential.fullName?.familyName ?? "")"
             let email = appleIDCredential.email
@@ -345,7 +343,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                
         default:
             
-            self.logger.debugMessage("\(AppleAuthorizationError.authenticationFailed.message)")
+            self.log(message: "\(AppleAuthorizationError.authenticationFailed.message)")
             return completion(nil, nil, "", "", AppleAuthorizationError.authenticationFailed)
             
         }

@@ -10,15 +10,16 @@ import UIKit
 import UserNotificationsUI
 import Combine
 
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, Loggable {
+    
+    internal let loggerName: String = "APP_DELEGATE"
+    internal let loggerEmoji: String = "🪈"
     
     private(set) var deviceTokenPublisher = PassthroughSubject<String, Never>()
     private(set) var pushNotificationPublisher = PassthroughSubject<UNNotification, Never>()
     private(set) var pushNotificationTappedPublisher = PassthroughSubject<UNNotification, Never>()
     private(set) var appWillTerminatePublisher = PassthroughSubject<Void, Never>()
     
-    private var logger = GPLogger.service(.appDelegate)
-
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
@@ -29,7 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             
             if let error = error {
                 
-                self?.logger.error(
+                self?.logError(
                     title: "App Delegate App Badge Error",
                     message: error.getMessageForError()
                 )
@@ -49,14 +50,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let token = tokenParts.joined()
         
         self.deviceTokenPublisher.send(token)
-        self.logger.prettyDebugMessage("DEVICE TOKEN: \(token)")
+        self.log(message: "DEVICE TOKEN: \(token)")
         
     }
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         
-        self.logger.error(
+        self.logError(
             title: "Did Fail To Register For Remote Notifications",
             message: error.getMessageForError()
         )
@@ -67,9 +68,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        self.logger.debugMessage(
+        self.log(
             level: .info,
-            "Will Present Notification: \(notification.request.content)"
+            message: "Will Present Notification: \(notification.request.content)"
         )
         
         pushNotificationPublisher.send(notification)
@@ -81,9 +82,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        self.logger.debugMessage(
+        self.log(
             level: .info,
-            "Did Receive Notification: \(response.notification.request.content)"
+            message: "Did Receive Notification: \(response.notification.request.content)"
         )
         
         pushNotificationTappedPublisher.send(response.notification)
@@ -97,7 +98,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             
             if let error = error {
                 
-                self?.logger.error(
+                self?.logError(
                     title: "App Delegate App Badge Error",
                     message: error.getMessageForError()
                 )
@@ -110,9 +111,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func applicationWillTerminate(_ application: UIApplication) {
         
-        self.logger.debugMessage(
+        self.log(
             level: .info,
-            "App Will Terminate"
+            message: "App Will Terminate"
         )
         
         appWillTerminatePublisher.send()
@@ -120,4 +121,3 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
 }
-

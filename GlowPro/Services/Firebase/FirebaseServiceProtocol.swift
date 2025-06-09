@@ -1,6 +1,6 @@
 //
 //  FirebaseServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,7 +11,7 @@ import FirebaseStorage
 import AuthenticationServices
 import Combine
 
-protocol FirebaseServiceProtocol: AnyObject, Sendable {
+protocol FirebaseServiceProtocol: AnyObject, Sendable, Loggable {
     
     var user: FirebaseAuth.User? { get }
     var userPublisher: AnyPublisher<FirebaseAuth.User?, Never> { get }

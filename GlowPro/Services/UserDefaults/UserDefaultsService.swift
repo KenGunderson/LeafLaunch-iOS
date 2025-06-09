@@ -1,6 +1,6 @@
 //
 //  UserDefaultsService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,7 +11,7 @@ import Combine
 // NOTES: -
 /// If we want to use the app group we have set up to pass data to other extensions.
 /// we can use this; notice the store being passed into the group
-//@AppStorage(Setting.SomeSetting.rawValue, store: UserDefaults(suiteName: "group.com.glowpro.app")) private(set) var someSettings: String? {
+//@AppStorage(Setting.SomeSetting.rawValue, store: UserDefaults(suiteName: "group.com.gentlepath.app")) private(set) var someSettings: String? {
 //    didSet {
 //        WidgetCenter.shared.reloadAllTimelines()
 //    }
@@ -29,6 +29,9 @@ enum Setting: String, CaseIterable {
 }
 
 final class UserDefaultsService: UserDefaultsServiceProtocol {
+    
+    internal let loggerName: String = "USER_DEFAULTS_SERVICE"
+    internal let loggerEmoji: String = "🔐"
     
     @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .lightCyan {
         didSet {
@@ -74,11 +77,9 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     
-    private let logger = GPLogger.service(.userDefaults)
-
     init() {
         
-        self.logger.logInit()
+        self.logInit()
         Style.shared.updateTheme(self.theme.theme())
         
         self.themePublisher.send(self.theme)
@@ -91,10 +92,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func set(theme: AvailableTheme) {

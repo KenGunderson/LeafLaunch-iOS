@@ -1,6 +1,6 @@
 //
 //  APIService+Health.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 4/19/24.
 //

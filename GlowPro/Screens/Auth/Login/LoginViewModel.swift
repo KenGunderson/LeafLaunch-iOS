@@ -11,6 +11,9 @@ import AuthenticationServices
 
 final class LoginViewModel: ViewModel {
     
+    internal let loggerName: String = "LOGIN_VIEW_MODEL"
+    internal let loggerEmoji: String = "👤"
+    
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -18,7 +21,6 @@ final class LoginViewModel: ViewModel {
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
-    private let logger = GPLogger.viewModel(.login)
     
     @Published var email: String = ""
     @Published var password: String = ""
@@ -47,17 +49,14 @@ final class LoginViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
         
-        self.logger.logInit()
+        self.logInit()
         
         bindSubscribers()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func set(nonce: String) {

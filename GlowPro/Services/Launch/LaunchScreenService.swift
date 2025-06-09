@@ -1,6 +1,6 @@
 //
 //  LaunchService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -8,6 +8,9 @@
 import Combine
 
 final class LaunchScreenService: LaunchScreenServiceProtocol {
+    
+    internal let loggerName: String = "LAUNCH_SERVICE"
+    internal let loggerEmoji: String = "🚀"
     
     enum State {
         
@@ -17,17 +20,13 @@ final class LaunchScreenService: LaunchScreenServiceProtocol {
     }
 
     private(set) var onLaunchStateChanged = CurrentValueSubject<LaunchScreenService.State, Never>(.loading)
-    private let logger = GPLogger.service(.launch)
     
     init() {
-        self.logger.logInit()
+        self.logInit()
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setState(_ state: LaunchScreenService.State) {

@@ -1,6 +1,6 @@
 //
 //  AnalyticsService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,6 +11,9 @@ import Amplitude
 import AdSupport
 
 final class AnalyticsService: AnalyticsServiceProtocol {
+    
+    internal let loggerName: String = "ANALYTICS_SERVICE"
+    internal let loggerEmoji: String = "📀"
     
     private var amplitude: Amplitude?
     
@@ -31,9 +34,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     private var currentIdfa: String = "00000000-0000-0000-0000-000000000000"
     private var cancelBag: CancelBag!
-    
-    private let logger = GPLogger.service(.analytics)
-    
+        
     init(environmentService: EnvironmentServiceProtocol,
          permissionService: PermissionsServiceProtocol,
          impersonateService: ImpersonateServiceProtocol?) {
@@ -42,7 +43,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         self.permissionService = permissionService
         self.impersonateService = impersonateService
         
-        self.logger.logInit()
+        self.logInit()
         self.sessionEvents = []
         
         bindSubscribers()
@@ -50,10 +51,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func set(impersonateService: ImpersonateServiceProtocol) {
@@ -78,7 +76,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] env in
                 
-                self?.logger.debugMessage("Environment: \(env?.displayName ?? "NIL")")
+                self?.log(message: "Environment: \(env?.displayName ?? "NIL")")
                 
                 guard env == .production else { return }
                 self?.setupAmplitude()
@@ -110,7 +108,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         
         guard !self.isImpersonating else { return }
                 
-        self.logger.debugMessage("identify: \(userId ?? "nil")")
+        self.log(message: "identify: \(userId ?? "nil")")
 
         self.currentUserId.send(userId)
         
@@ -120,7 +118,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         
         // Logging
         
-        self.logger.debugMessage("USER_ID: \(userId ?? "NIL")")
+        self.log(message: "USER_ID: \(userId ?? "NIL")")
         
         let loggingEvent = EventData(
             name: "identify",
@@ -136,8 +134,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         
         guard !self.isImpersonating else { return }
         
-        self.logger
-            .prettyDebugMessage("user_property: [\(key): \(value)]")
+        self.log(message: "user_property: [\(key): \(value)]")
         
         // Amplitude
 
@@ -147,8 +144,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
 
         // Logging
         
-        self.logger
-            .prettyDebugMessage("User property: \(key)\n METADATA:\nkey: \(key),\nvalue: \(value)")
+        self.log(message: "User property: \(key)\n METADATA:\nkey: \(key),\nvalue: \(value)")
     
         let loggingEvent = EventData(
             name: "user_property",
@@ -209,8 +205,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             
         }
 
-        self.logger
-            .prettyDebugMessage("\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
+        self.log(message: "\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
         
         guard !self.isImpersonating else { return }
         
@@ -238,7 +233,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     func logout() {
         
-        self.logger.debugMessage("logout")
+        self.log(message: "logout")
         self.currentUserId.send(nil)
         identifyUser(nil)
         

@@ -9,12 +9,14 @@ import Foundation
 
 final class Tab1ViewModel: ViewModel {
     
+    internal let loggerName: String = "TAB_1_VIEW_MODEL"
+    internal let loggerEmoji: String = "🔹"
+    
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
-    private let logger: GPLogger = .viewModel(.tab1)
     private var cancelBag: CancelBag!
     
     init(authService: AuthServiceProtocol,
@@ -25,15 +27,12 @@ final class Tab1ViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
         
-        self.logger.logInit()
+        self.logInit()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {

@@ -10,6 +10,9 @@ import Combine
 
 final class DevUserDefaultsViewModel: ViewModel {
     
+    internal let loggerName: String = "DEV"
+    internal let loggerEmoji: String = "🔧"
+    
     private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol

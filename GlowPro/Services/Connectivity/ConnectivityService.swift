@@ -1,6 +1,6 @@
 //
 //  ConnectivityService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,14 +11,15 @@ import SwiftUI
 
 final class ConnectivityService: ConnectivityServiceProtocol {
     
+    internal let loggerName: String = "CONNECTIVITY_SERVICE"
+    internal let loggerEmoji: String = "📡"
+    
     private let networkMonitor = NWPathMonitor()
     private(set) var onHasNetworkConnection = CurrentValueSubject<Bool, Never>(true)
-    
-    private let logger = GPLogger.service(.connectivity)
-    
+        
     init() {
         
-        self.logger.logInit()
+        self.logInit()
         
         self.networkMonitor.pathUpdateHandler = { [weak self] path in
             
@@ -33,8 +34,7 @@ final class ConnectivityService: ConnectivityServiceProtocol {
     
     deinit {
         
-        self.logger
-            .logDeinit()
+        self.logDeinit()
         
     }
     

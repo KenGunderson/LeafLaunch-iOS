@@ -10,6 +10,9 @@ import SwiftUI
 
 final class RootViewModel: ViewModel {
     
+    internal let loggerName: String = "ROOT_VIEW_MODEL"
+    internal let loggerEmoji: String = "🪾"
+    
     private(set) var alertService: AlertServiceProtocol
     private let launchService: LaunchScreenServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
@@ -63,7 +66,7 @@ final class RootViewModel: ViewModel {
         self.pushNotificationService = pushNotificationService
         self.deeplinkService = deeplinkService
         
-        self.logger.logInit()
+        self.logInit()
         bindSubscribers()
         
         UITabBar.appearance().isHidden = true
@@ -71,13 +74,9 @@ final class RootViewModel: ViewModel {
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
-    private let logger = GPLogger.viewModel(.root)
     private var cancelBag: CancelBag!
     
     // MARK: - PUBLIC
@@ -215,11 +214,7 @@ final class RootViewModel: ViewModel {
                 guard let strongSelf = self else { return }
                 guard let error else { return }
                 
-                self?.logger.debugMessage(
-                    level: .error,
-                    "\(error.getMessageForError())"
-                )
-                
+                self?.logError(message: error.getMessageForError())
                 strongSelf.showAuthError(error)
                 
             }

@@ -1,6 +1,6 @@
 //
 //  MediaPermissionService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -10,6 +10,9 @@ import PhotosUI
 import UIKit
 
 class MediaPermissionService: MediaPermissionServiceProtocol {
+    
+    internal let loggerName: String = "MEDIA_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     @Published private(set) var permissionGranted: Bool = false
     var permissionGrantedPublisher: AnyPublisher<Bool, Never> {
@@ -22,7 +25,14 @@ class MediaPermissionService: MediaPermissionServiceProtocol {
     }
     
     init() {
+        
+        self.logInit()
         checkAuthorizationStatus()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func requestPermissionIfNeeded() {

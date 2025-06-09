@@ -1,13 +1,13 @@
 //
 //  PermissionsServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
 
 import Combine
 
-protocol PermissionsServiceProtocol: AnyObject {
+protocol PermissionsServiceProtocol: AnyObject, Loggable {
     
     var shouldShowPermissionView: Bool { get }
     var shouldShowPermissionViewPublisher: AnyPublisher<Bool, Never> { get }

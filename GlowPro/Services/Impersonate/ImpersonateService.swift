@@ -1,6 +1,6 @@
 //
 //  ImpersonateService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 11/5/24.
 //
@@ -28,6 +28,9 @@ class ImpersonatingUser: Codable {
 
 final class ImpersonateService: ImpersonateServiceProtocol {
     
+    internal let loggerName: String = "IMPERSONATE_SERVICE"
+    internal let loggerEmoji: String = "🥷🏻"
+    
     internal var apiService: APIServiceProtocol
     internal var authService: AuthServiceProtocol
     internal var userDefaultsService: UserDefaultsServiceProtocol
@@ -47,7 +50,6 @@ final class ImpersonateService: ImpersonateServiceProtocol {
     
     var isImpersonating: Bool = false
     
-    private let logger = GPLogger.service(.impersonate)
     var cancelBag: CancelBag!
     
     init(firebaseService: FirebaseServiceProtocol,
@@ -62,7 +64,7 @@ final class ImpersonateService: ImpersonateServiceProtocol {
         
         bindSubscribers()
         
-        self.logger.logInit()
+        self.logInit()
         
         let persistedUserData = self.userDefaultsService.impersonatingUserData
         self.setUserDataFromData(persistedUserData)
@@ -70,10 +72,7 @@ final class ImpersonateService: ImpersonateServiceProtocol {
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func impersonateUser(email: String) async throws {

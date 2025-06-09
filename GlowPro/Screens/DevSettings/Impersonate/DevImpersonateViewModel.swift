@@ -9,6 +9,9 @@ import SwiftUI
 
 final class DevImpersonateViewModel: ViewModel {
     
+    internal let loggerName: String = "DEV"
+    internal let loggerEmoji: String = "🔧"
+    
     private(set) var analyticsService: AnalyticsServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol
     private let alertService: AlertServiceProtocol

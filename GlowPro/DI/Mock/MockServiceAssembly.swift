@@ -17,6 +17,9 @@ import Swinject
 // MARK: - AnalyticsServiceProtocol
 
 class MockAnalyticsService: AnalyticsServiceProtocol {
+    
+    internal let loggerName: String = "ANALYTICS_SERVICE"
+    internal let loggerEmoji: String = "📀"
         
     var currentUserId = CurrentValueSubject<String?, Never>(nil)
     
@@ -87,10 +90,12 @@ class MockAlertService: AlertServiceProtocol, ObservableObject {
 
 class MockAPIService: APIServiceProtocol {
     
+    internal let loggerName: String = "API_SERVICE"
+    internal let loggerEmoji: String = "🌐"
+    
     var accessToken: String? = nil
     var deviceToken: String? = nil
     var environment: AppEnvironment? = nil
-    var logger: GPLogger = .service(.mockAPI)
     
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)
@@ -119,6 +124,9 @@ class MockAPIService: APIServiceProtocol {
 
 class MockAppDelegateService: AppDelegateServiceProtocol {
     
+    internal let loggerName: String = "APP_DELEGATE_SERVICE"
+    internal let loggerEmoji: String = "📱"
+    
     var deviceToken: String? = nil
     var deviceTokenPublisher = CurrentValueSubject<String?, Never>(nil).eraseToAnyPublisher()
     var onNotificationPublisher = PassthroughSubject<UNNotification?, Never>()
@@ -133,6 +141,9 @@ class MockAppDelegateService: AppDelegateServiceProtocol {
 // MARK: - AppTrackingPermissionServiceProtocol
 
 class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
+    
+    internal let loggerName: String = "APP_TRACKING_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     var permissionGranted: Bool? = nil
     var permissionGrantedPublisher = CurrentValueSubject<Bool?, Never>(nil).eraseToAnyPublisher()
@@ -149,6 +160,9 @@ class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
 // MARK: - AuthServiceProtocol
 
 class MockAuthService: AuthServiceProtocol {
+    
+    internal let loggerName: String = "AUTH_SERVICE"
+    internal let loggerEmoji: String = "🪪"
     
     var currentUser: GPUser? = .DUMMY_DATA()
     var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
@@ -177,6 +191,9 @@ class MockAuthService: AuthServiceProtocol {
 
 class MockImpersonateService: ImpersonateServiceProtocol {
     
+    internal let loggerName: String = "IMPERSONATE_SERVICE"
+    internal let loggerEmoji: String = "🥷🏻"
+    
     internal var apiService: APIServiceProtocol = MockAPIService()
     internal var authService: AuthServiceProtocol = MockAuthService()
     internal var firebaseService: FirebaseServiceProtocol = MockFirebaseService()
@@ -200,6 +217,9 @@ class MockImpersonateService: ImpersonateServiceProtocol {
 
 class MockCameraPermissionService: CameraPermissionServiceProtocol {
     
+    internal let loggerName: String = "CAMERA_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
+    
     var permissionGranted: Bool = false
     var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
     var shouldPromptForPermissions: Bool = false
@@ -214,6 +234,9 @@ class MockCameraPermissionService: CameraPermissionServiceProtocol {
 
 class MockConnectivityService: ConnectivityServiceProtocol {
     
+    internal let loggerName: String = "CONNECTIVITY_SERVICE"
+    internal let loggerEmoji: String = "📡"
+    
     var onHasNetworkConnection = CurrentValueSubject<Bool, Never>(true)
     func setNetworkConnection(connection: Bool) {
         
@@ -225,6 +248,9 @@ class MockConnectivityService: ConnectivityServiceProtocol {
 
 class MockDeeplinkService: DeeplinkServiceProtocol {
     
+    internal let loggerName: String = "DEEPLINK_SERVICE"
+    internal let loggerEmoji: String = "🔗"
+    
     func handle(url: URL) {}
     func setup(mainViewModel: MainViewModel?, tabBarNavigationService: TabBarNavigationService) {}
     
@@ -233,6 +259,9 @@ class MockDeeplinkService: DeeplinkServiceProtocol {
 // MARK: - EnvironmentServiceProtocol
 
 class MockEnvironmentService: EnvironmentServiceProtocol {
+    
+    internal let loggerName: String = "ENVIRONMENT_SERVICE"
+    internal let loggerEmoji: String = "♻️"
     
     var environment: AppEnvironment? = .development
     var environmentPublisher = CurrentValueSubject<AppEnvironment?, Never>(nil).eraseToAnyPublisher()
@@ -244,6 +273,9 @@ class MockEnvironmentService: EnvironmentServiceProtocol {
 // MARK: - FirebaseServiceProtocol
 
 class MockFirebaseService: FirebaseServiceProtocol {
+    
+    internal let loggerName: String = "FIREBASE_SERVICE"
+    internal let loggerEmoji: String = "🔥"
     
     var user: FirebaseAuth.User? = nil
     var userPublisher = CurrentValueSubject<FirebaseAuth.User?, Never>(nil).eraseToAnyPublisher()
@@ -269,6 +301,9 @@ class MockFirebaseService: FirebaseServiceProtocol {
 
 class MockLaunchScreenService: LaunchScreenServiceProtocol {
     
+    internal let loggerName: String = "LAUNCH_SERVICE"
+    internal let loggerEmoji: String = "🚀"
+    
     var onLaunchStateChanged = CurrentValueSubject<LaunchScreenService.State, Never>(.loading)
     func setState(_ state: LaunchScreenService.State) {}
     
@@ -277,6 +312,9 @@ class MockLaunchScreenService: LaunchScreenServiceProtocol {
 // MARK: - MediaPermissionServiceProtocol
 
 class MockMediaPermissionService: MediaPermissionServiceProtocol {
+    
+    internal let loggerName: String = "MEDIA_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     var permissionGranted: Bool = false
     var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
@@ -291,6 +329,9 @@ class MockMediaPermissionService: MediaPermissionServiceProtocol {
 // MARK: - PermissionsServiceProtocol
 
 class MockPermissionsService: PermissionsServiceProtocol {
+    
+    internal let loggerName: String = "PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     var shouldShowPermissionView: Bool = false
     var shouldShowPermissionViewPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
@@ -309,6 +350,9 @@ class MockPermissionsService: PermissionsServiceProtocol {
 
 class MockPushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
     
+    internal let loggerName: String = "PUSH_NOTIFICATION_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
+    
     var permissionGranted: Bool = false
     var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
     var shouldPromptForPermissions: Bool = false
@@ -323,6 +367,9 @@ class MockPushNotificationPermissionService: PushNotificationPermissionServicePr
 
 class MockPushNotificationService: PushNotificationServiceProtocol {
     
+    internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
+    internal let loggerEmoji: String = "🔔"
+    
     func parsePushNotification(_ pushNotification: UNNotification?, isTapped: Bool) {}
     func setup(tabBarNavigationService: TabBarNavigationService) {}
     
@@ -332,7 +379,10 @@ class MockPushNotificationService: PushNotificationServiceProtocol {
 
 class MockUserDefaultsService: UserDefaultsServiceProtocol {
     
-    var theme: AvailableTheme = .lightCyan
+    internal let loggerName: String = "USER_DEFAULTS_SERVICE"
+    internal let loggerEmoji: String = "🔐"
+    
+    var theme: AvailableTheme = .goldNavy
     var didCompleteOnboarding: Bool = false
     var didCompletePermission: Bool = false
     var lastViewedWhatsNewVersion: String?
@@ -360,6 +410,9 @@ class MockUserDefaultsService: UserDefaultsServiceProtocol {
 // MARK: - ViewLifecycleServiceProtocol
 
 class MockViewLifecycleService: ViewLifecycleServiceProtocol {
+    
+    internal let loggerName: String = "VIEW_LIFECYCLE_SERVICE"
+    internal let loggerEmoji: String = "🔁"
     
     var onShouldReloadView = CurrentValueSubject<Int, Never>(0)
     var onDidEnterBackground = CurrentValueSubject<String?, Never>(nil)

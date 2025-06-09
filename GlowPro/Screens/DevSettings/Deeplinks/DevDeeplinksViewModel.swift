@@ -10,6 +10,9 @@ import Combine
 
 final class DevDeeplinksViewModel: ViewModel {
     
+    internal let loggerName: String = "DEV"
+    internal let loggerEmoji: String = "🔧"
+    
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol

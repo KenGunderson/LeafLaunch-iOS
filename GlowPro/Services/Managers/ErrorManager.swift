@@ -1,6 +1,6 @@
 //
 //  ErrorManager.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/9/24.
 //

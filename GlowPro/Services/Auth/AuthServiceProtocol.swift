@@ -8,7 +8,7 @@
 import AuthenticationServices
 import Combine
 
-protocol AuthServiceProtocol: AnyObject, Sendable {
+protocol AuthServiceProtocol: AnyObject, Sendable, Loggable {
     
     var currentUser: GPUser? { get }
     var currentUserPublisher: AnyPublisher<GPUser?, Never> { get }

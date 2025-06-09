@@ -110,7 +110,8 @@ class MockViewModelAssembly: Assembly {
             .register(Tab2ViewModel.self) { r in
                 Tab2ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
         
@@ -120,7 +121,8 @@ class MockViewModelAssembly: Assembly {
             .register(Tab3ViewModel.self) { r in
                 Tab3ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
         
@@ -130,7 +132,8 @@ class MockViewModelAssembly: Assembly {
             .register(Tab4ViewModel.self) { r in
                 Tab4ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
         

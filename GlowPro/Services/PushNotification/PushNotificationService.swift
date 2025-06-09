@@ -1,6 +1,6 @@
 //
 //  PushNotificationService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -10,19 +10,24 @@ import UserNotifications
 import UIKit
 
 final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate, PushNotificationServiceProtocol {
+
+    internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
+    internal let loggerEmoji: String = "🔔"
     
     private var tabBarNavigationService: TabBarNavigationService?
     private let viewLifecycleService: ViewLifecycleServiceProtocol
-    
-    private let logger = GPLogger.service(.pushNotification)
-    
+        
     init(viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.viewLifecycleService = viewLifecycleService
         super.init()
         
-        self.logger.logInit()
+        self.logInit()
         
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {
@@ -34,13 +39,11 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
         
         guard let pushNotification else { return }
         
-        self.logger
-            .debugMessage("Parsing Push Notification: \(pushNotification.request.content)")
+        self.log(message: "Parsing Push Notification: \(pushNotification.request.content)")
         
         guard let push = self.notification(from: pushNotification.request.content.userInfo) else { return }
         
-        self.logger
-            .debugMessage("Did Parse Push Notification \(push)")
+        self.log(message: "Did Parse Push Notification \(push)")
         
         if isTapped {
             handleTestNotificationTapped(push)
@@ -92,7 +95,7 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     
     private func handleNotificationReceived(_ notification: PushNotification) {
 
-        self.logger.debugMessage("push received: \(notification.type.rawValue)")
+        self.log(message: "push received: \(notification.type.rawValue)")
 
         switch notification.type {
         case .test:
@@ -127,7 +130,7 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     
     private func handleTestNotificationTapped(_ notification: PushNotification) {
 
-        self.logger.debugMessage("push tapped: \(notification.type.rawValue)")
+        self.log(message: "push tapped: \(notification.type.rawValue)")
 
         // TODO: - Handle Deeplink Navigation
         // MARK: - THIS IS HOW WE PARSE

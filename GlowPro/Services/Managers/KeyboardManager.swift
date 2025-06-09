@@ -1,6 +1,6 @@
 //
 //  KeyboardManager.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 8/11/23.
 //

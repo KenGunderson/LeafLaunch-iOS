@@ -1,6 +1,6 @@
 //
 //  ThemeRegistry.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 4/23/25.
 //

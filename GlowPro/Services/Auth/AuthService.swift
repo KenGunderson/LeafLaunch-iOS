@@ -1,6 +1,6 @@
 //
 //  AuthService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -11,6 +11,9 @@ import Combine
 import FirebaseAuth
 
 final class AuthService: AuthServiceProtocol {
+    
+    internal let loggerName: String = "AUTH_SERVICE"
+    internal let loggerEmoji: String = "🪪"
     
     private let firebaseService: FirebaseServiceProtocol
     private let apiService: APIServiceProtocol
@@ -25,7 +28,6 @@ final class AuthService: AuthServiceProtocol {
     private(set) var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
     private(set) var onError = CurrentValueSubject<Error?, Never>(nil)
     
-    private let logger = GPLogger.service(.auth)
     var cancelBag: CancelBag!
     
     init(firebaseService: FirebaseServiceProtocol,
@@ -40,15 +42,12 @@ final class AuthService: AuthServiceProtocol {
         
         bindSubscribers()
         
-        self.logger.logInit()
+        self.logInit()
 
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     @MainActor
@@ -79,7 +78,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Sign Up Error",
                 message: error.getMessageForError()
             )
@@ -106,7 +105,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()
             )
@@ -127,7 +126,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Update Email Error",
                 message: error.getMessageForError()
             )
@@ -158,7 +157,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "User Info Error",
                 message: error.getMessageForError()
             )
@@ -182,7 +181,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Reload User Error",
                 message: error.getMessageForError()
             )
@@ -206,7 +205,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Logout Error",
                 message: error.getMessageForError()
             )
@@ -236,7 +235,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Delete User Error",
                 message: error.getMessageForError()
             )
@@ -331,7 +330,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch(let error) {
             
-            self.logger.error(
+            self.logError(
                 title: "Reset Password Error",
                 message: error.getMessageForError()
             )
@@ -378,7 +377,7 @@ final class AuthService: AuthServiceProtocol {
             }
             catch {
                 
-                self.logger.error(
+                self.logError(
                     title: "Load Initial User Error",
                     message: error.getMessageForError()
                 )

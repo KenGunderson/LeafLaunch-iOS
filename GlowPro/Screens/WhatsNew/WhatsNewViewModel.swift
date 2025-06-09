@@ -10,10 +10,12 @@ import Combine
 
 final class WhatsNewViewModel: ViewModel {
     
+    internal let loggerName: String = "WHATS_NEW_VIEW_MODEL"
+    internal let loggerEmoji: String = "🔁"
+    
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    private let logger = GPLogger.viewModel(.whatsNew)
     private var cancelBag: CancelBag!
         
     @Published private(set) var whatsNewItem: WhatsNewItem?
@@ -24,15 +26,12 @@ final class WhatsNewViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
         
-        self.logger.logInit()
+        self.logInit()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     @discardableResult

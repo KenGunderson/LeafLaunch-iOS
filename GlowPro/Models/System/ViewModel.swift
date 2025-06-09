@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ViewModelDefinition = (AnyObject & Identifiable & Hashable & Trackable)
+typealias ViewModelDefinition = (AnyObject & Identifiable & Hashable & Trackable & Loggable)
 
 protocol ViewModel: ViewModelDefinition, ObservableObject {}
 

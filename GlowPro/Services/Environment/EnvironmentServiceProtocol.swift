@@ -1,6 +1,6 @@
 //
 //  EnvironmentServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol EnvironmentServiceProtocol: AnyObject {
+protocol EnvironmentServiceProtocol: AnyObject, Loggable {
     
     var environment: AppEnvironment? { get }
     var environmentPublisher: AnyPublisher<AppEnvironment?, Never> { get }

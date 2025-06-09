@@ -10,6 +10,9 @@ import Combine
 
 final class MainViewModel: ViewModel {
     
+    internal let loggerName: String = "MAIN_VIEW_MODEL"
+    internal let loggerEmoji: String = "🫚"
+    
     private let appDelegateService: AppDelegateServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
@@ -20,7 +23,6 @@ final class MainViewModel: ViewModel {
     private let permissionsService: PermissionsServiceProtocol
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
-    private let logger: GPLogger = .viewModel(.main)
     private var cancelBag: CancelBag!
     
     @Published private(set) var shouldShowTabBarScreen: Bool = false
@@ -54,16 +56,13 @@ final class MainViewModel: ViewModel {
         self.pushNotificationsService = pushNotificationsService
         self.permissionsService = permissionsService
         
-        self.logger.logInit()
+        self.logInit()
         bindSubscribers()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {

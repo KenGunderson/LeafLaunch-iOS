@@ -1,6 +1,6 @@
 //
 //  LogEvent.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 10/20/24.
 //

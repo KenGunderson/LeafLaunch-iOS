@@ -1,6 +1,6 @@
 //
 //  EnvironmentService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -10,25 +10,23 @@ import Foundation
 
 final class EnvironmentService: EnvironmentServiceProtocol {
     
+    internal let loggerName: String = "ENVIRONMENT_SERVICE"
+    internal let loggerEmoji: String = "♻️"
+    
     @Published private(set) var environment: AppEnvironment?
     var environmentPublisher: AnyPublisher<AppEnvironment?, Never> {
         return self.$environment.eraseToAnyPublisher()
     }
-    
-    private let logger = GPLogger.service(.environment)
-    
+        
     init() {
         
-        self.logger.logInit()
+        self.logInit()
         setup()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setEnvironment(_ environment: AppEnvironment) {

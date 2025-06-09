@@ -1,6 +1,6 @@
 //
 //  PermissionsService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -39,6 +39,9 @@ enum Permission: String, CaseIterable {
 
 class PermissionsService: PermissionsServiceProtocol {
     
+    internal let loggerName: String = "PERMISSIONS_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
+    
     private(set) var cameraPermissionService: CameraPermissionServiceProtocol
     private(set) var mediaPermissionService: MediaPermissionServiceProtocol
     private(set) var pushNotificationPermissionService: PushNotificationPermissionServiceProtocol
@@ -50,7 +53,6 @@ class PermissionsService: PermissionsServiceProtocol {
     }
     
     private var cancelBag: CancelBag!
-    private let logger = GPLogger.service(.permissions)
     
     init(cameraPermissionService: CameraPermissionServiceProtocol,
          mediaPermissionService: MediaPermissionServiceProtocol,
@@ -62,7 +64,7 @@ class PermissionsService: PermissionsServiceProtocol {
         self.pushNotificationPermissionService = pushNotificationPermissionService
         self.appTrackingPermissionService = appTrackingPermissionService
         
-        self.logger.logInit()
+        self.logInit()
         
         bindSubscribers()
         validatePermissions()
@@ -70,10 +72,7 @@ class PermissionsService: PermissionsServiceProtocol {
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     private func bindSubscribers() {

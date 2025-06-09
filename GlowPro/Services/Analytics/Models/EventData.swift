@@ -1,6 +1,6 @@
 //
 //  EventData.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 10/01/23.
 //

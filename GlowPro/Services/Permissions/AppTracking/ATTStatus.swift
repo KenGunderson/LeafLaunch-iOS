@@ -1,6 +1,6 @@
 //
 //  ATTStatus.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/17/24.
 //

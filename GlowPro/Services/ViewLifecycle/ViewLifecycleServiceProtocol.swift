@@ -1,13 +1,13 @@
 //
 //  ViewLifecycleServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
 
 import Combine
 
-protocol ViewLifecycleServiceProtocol: AnyObject {
+protocol ViewLifecycleServiceProtocol: AnyObject, Loggable {
     
     var onShouldReloadView: CurrentValueSubject<Int, Never> { get }
     var onDidEnterBackground: CurrentValueSubject<String?, Never> { get }

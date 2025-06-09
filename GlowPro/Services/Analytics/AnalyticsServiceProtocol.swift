@@ -1,6 +1,6 @@
 //
 //  AnalyticsServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -10,7 +10,7 @@ import Observation
 import Amplitude
 import AdSupport
 
-protocol AnalyticsServiceProtocol: AnyObject, Sendable {
+protocol AnalyticsServiceProtocol: AnyObject, Sendable, Loggable {
         
     var currentUserId: CurrentValueSubject<String?, Never> { get }
     

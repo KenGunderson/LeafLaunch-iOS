@@ -1,6 +1,6 @@
 //
 //  DeeplinkService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/15/24.
 //
@@ -26,24 +26,22 @@ enum DeeplinkRoutes: String, CaseIterable {
 
 class DeeplinkService: DeeplinkServiceProtocol {
     
+    internal let loggerName: String = "DEEPLINK_SERVICE"
+    internal let loggerEmoji: String = "🔗"
+    
     private var tabBarNavigationService: TabBarNavigationService?
     private var mainViewModel: MainViewModel?
     private let lifecycleService: ViewLifecycleServiceProtocol
-    
-    private let logger = GPLogger.service(.deeplink)
-    
+        
     init(lifecycleService: ViewLifecycleServiceProtocol) {
         
         self.lifecycleService = lifecycleService
-        self.logger.logInit()
+        self.logInit()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(mainViewModel: MainViewModel?,
@@ -56,7 +54,7 @@ class DeeplinkService: DeeplinkServiceProtocol {
     
     func handle(url: URL) {
         
-        self.logger.debugMessage("Handle URL \(url)")
+        self.log(message: "Handle URL \(url)")
         
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
         
@@ -67,8 +65,7 @@ class DeeplinkService: DeeplinkServiceProtocol {
             
             guard let deepLink = DeeplinkRoutes(rawValue: paths.first ?? "") else { return }
             
-            self.logger
-                .prettyDebugMessage("\(deepLink.rawValue)")
+            self.log(message: "\(deepLink.rawValue)")
             
             switch deepLink {
             case .tab:
@@ -91,8 +88,7 @@ class DeeplinkService: DeeplinkServiceProtocol {
         if let tab = queryParameters?.first(where: { $0.name == "tab" }),
            let tabString = tab.value {
             
-            self.logger
-                .debugMessage("\(tab.value ?? "")")
+            self.log(message: "\(tab.value ?? "")")
             
             guard let selectedTab = Tab(rawValue: tabString) else { return }
                         

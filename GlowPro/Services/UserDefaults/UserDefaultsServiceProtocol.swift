@@ -1,6 +1,6 @@
 //
 //  UserDefaultsServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-protocol UserDefaultsServiceProtocol: AnyObject, Sendable {
+protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     
     var theme: AvailableTheme { get }
     var didCompleteOnboarding: Bool { get }

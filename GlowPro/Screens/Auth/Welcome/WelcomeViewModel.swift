@@ -11,6 +11,9 @@ import Combine
 
 final class WelcomeViewModel: ViewModel {
     
+    internal let loggerName: String = "WELCOME_VIEW_MODEL"
+    internal let loggerEmoji: String = "👤"
+    
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -18,7 +21,6 @@ final class WelcomeViewModel: ViewModel {
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
-    private let logger = GPLogger.viewModel(.welcome)
             
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
@@ -30,17 +32,14 @@ final class WelcomeViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
         
-        self.logger.logInit()
+        self.logInit()
         
         bindSubscribers()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(navigationService: NavigationService) {

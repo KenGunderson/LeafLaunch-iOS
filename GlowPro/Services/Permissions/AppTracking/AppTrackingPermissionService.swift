@@ -1,6 +1,6 @@
 //
 //  AppTrackingPermissionService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -10,6 +10,9 @@ import UIKit
 import AppTrackingTransparency
 
 class AppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
+    
+    internal let loggerName: String = "APP_TRACKING_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     @Published private(set) var permissionGranted: Bool? = false
     var permissionGrantedPublisher: AnyPublisher<Bool?, Never> {
@@ -27,13 +30,22 @@ class AppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
     }
     
     init() {
+        
+        self.logInit()
         checkAuthorizationStatus()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func requestPermissionIfNeeded() {
+        
         if self.shouldPromptForPermissions {
             requestPermission()
         }
+        
     }
     
     func requestPermission() {

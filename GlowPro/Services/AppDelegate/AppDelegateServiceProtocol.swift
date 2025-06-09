@@ -1,6 +1,6 @@
 //
 //  AppDelegateServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -9,7 +9,7 @@ import Combine
 import UserNotifications
 import UIKit
 
-protocol AppDelegateServiceProtocol: AnyObject {
+protocol AppDelegateServiceProtocol: AnyObject, Loggable {
     
     var deviceToken: String? { get }
     var deviceTokenPublisher: AnyPublisher<String?, Never> { get }

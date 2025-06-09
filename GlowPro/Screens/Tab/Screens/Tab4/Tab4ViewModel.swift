@@ -7,28 +7,30 @@
 
 final class Tab4ViewModel: ViewModel {
     
+    internal let loggerName: String = "TAB_4_VIEW_MODEL"
+    internal let loggerEmoji: String = "🔹"
+    
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
-    private let logger: GPLogger = .viewModel(.tab4)
     private var cancelBag: CancelBag!
     
     init(authService: AuthServiceProtocol,
-         analyticsService: AnalyticsServiceProtocol) {
+         analyticsService: AnalyticsServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
         self.analyticsService = analyticsService
+        self.userDefaultsService = userDefaultsService
         
-        self.logger.logInit()
+        self.logInit()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {

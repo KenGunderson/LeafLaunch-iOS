@@ -1,6 +1,6 @@
 //
 //  ImpersonateServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 11/5/24.
 //
@@ -8,7 +8,7 @@
 import AuthenticationServices
 import Combine
 
-protocol ImpersonateServiceProtocol: AnyObject {
+protocol ImpersonateServiceProtocol: AnyObject, Loggable {
     
     var apiService: APIServiceProtocol { get }
     var firebaseService: FirebaseServiceProtocol { get }

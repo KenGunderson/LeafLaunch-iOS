@@ -1,6 +1,6 @@
 //
 //  ViewLifecycleService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
@@ -10,25 +10,23 @@ import Combine
 
 final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     
+    internal let loggerName: String = "VIEW_LIFECYCLE_SERVICE"
+    internal let loggerEmoji: String = "🔁"
+    
     private(set) var onShouldReloadView = CurrentValueSubject<Int, Never>(0)
     private(set) var onDidEnterBackground = CurrentValueSubject<String?, Never>(nil)
     private(set) var onDidBecomeActive = CurrentValueSubject<String?, Never>(nil)
     private(set) var onWillEnterForeground = CurrentValueSubject<String?, Never>(nil)
-    
-    private let logger = GPLogger.service(.lifecycle)
-    
+        
     init() {
         
-        self.logger.logInit()
+        self.logInit()
         setupNotifications()
         
     }
     
     deinit {
-        
-        self.logger
-            .logDeinit()
-        
+        self.logDeinit()
     }
     
     func triggerReload() {
@@ -45,7 +43,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
             
             DispatchQueue.main.async {
                 
-                self?.logger.debugMessage("will enter foreground")
+                self?.log(message: "will enter foreground")
                 self?.onWillEnterForeground.send("\(notification.name.rawValue): \(UUID().uuidString)")
                 
             }
@@ -60,7 +58,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
             
             DispatchQueue.main.async {
                 
-                self?.logger.debugMessage("did become active")
+                self?.log(message:"did become active")
                 self?.onDidBecomeActive.send("\(notification.name.rawValue): \(UUID().uuidString)")
                 
             }
@@ -75,7 +73,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
             
             DispatchQueue.main.async {
                 
-                self?.logger.debugMessage("did enter background")
+                self?.log(message:"did enter background")
                 self?.onDidEnterBackground.send("\(notification.name.rawValue): \(UUID().uuidString)")
                 
             }

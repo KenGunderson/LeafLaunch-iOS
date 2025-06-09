@@ -11,6 +11,9 @@ import Combine
 
 final class DevAnalyticsViewModel: ViewModel {
     
+    internal let loggerName: String = "DEV"
+    internal let loggerEmoji: String = "🔧"
+    
     enum DisplayType: String, CaseIterable {
         
         case logs

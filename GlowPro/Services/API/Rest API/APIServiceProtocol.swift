@@ -1,17 +1,16 @@
 //
 //  APIServiceProtocl.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
 //
 
 import Foundation
 
-protocol APIProtocol: AnyObject, Sendable {
+protocol APIProtocol: AnyObject, Sendable, Loggable {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var logger: GPLogger { get }
     var accessToken: String? { get }
     
 }
@@ -22,7 +21,6 @@ protocol APIServiceProtocol: APIProtocol {
     var deviceToken: String? { get }
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var logger: GPLogger { get }
     
     // Health
     
@@ -99,7 +97,7 @@ extension APIProtocol {
                 customLog.append("\nPARAMETERS: \(parameters)")
             }
             
-            self.logger.prettyDebugMessage(customLog)
+            self.log(message: customLog)
             
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -170,11 +168,11 @@ extension APIProtocol {
                 detailedMessage = "Unknown decoding error occurred."
             }
             
-            self.logger.error(title: "Decoding Error", message: detailedMessage)
+            self.logError(title: detailedMessage, message: "Decoding Error")
             
         } catch {
             
-            self.logger.error(
+            self.logError(
                 title: "Decoding Error",
                 message: "Unknown error: \(error.getMessageForError())"
             )
@@ -205,8 +203,7 @@ extension APIProtocol {
                 
                 let message = errorMessage ?? errorDescription
                 
-                self.logger
-                    .error(
+                self.logError(
                         title: "API Service Error",
                         message: message ?? "We don't know what went wrong, but it did!"
                     )

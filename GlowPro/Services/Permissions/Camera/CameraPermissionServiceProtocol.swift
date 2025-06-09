@@ -1,13 +1,13 @@
 //
 //  CameraPermissionServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
 
 import Combine
 
-protocol CameraPermissionServiceProtocol: AnyObject {
+protocol CameraPermissionServiceProtocol: AnyObject, Loggable {
     
     var permissionGranted: Bool { get }
     var permissionGrantedPublisher: AnyPublisher<Bool, Never> { get }

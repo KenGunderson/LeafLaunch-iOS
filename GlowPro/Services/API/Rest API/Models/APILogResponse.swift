@@ -1,6 +1,6 @@
 //
 //  APILogResponse.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 5/15/25.
 //

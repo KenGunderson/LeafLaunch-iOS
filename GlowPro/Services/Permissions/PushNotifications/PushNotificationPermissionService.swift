@@ -1,6 +1,6 @@
 //
 //  PushNotificationPermissionService.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -10,6 +10,9 @@ import UserNotifications
 import UIKit
 
 class PushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
+    
+    internal let loggerName: String = "PUSH_NOTIFICATIONS_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🤚🏻"
     
     @Published private(set) var permissionGranted: Bool = false
     var permissionGrantedPublisher: AnyPublisher<Bool, Never> {
@@ -23,10 +26,17 @@ class PushNotificationPermissionService: PushNotificationPermissionServiceProtoc
     
     init() {
         
+        self.logInit()
+        
         Task {
             await checkAuthorizationStatus()
         }
         
+    }
+    
+    
+    deinit {
+        self.logDeinit()
     }
     
     func requestPermissionIfNeeded() {

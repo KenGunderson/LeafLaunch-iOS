@@ -1,6 +1,6 @@
 //
 //  AppTrackingPermissionServiceProtocol.swift
-//  GlowPro 
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -9,7 +9,7 @@ import Combine
 import UIKit
 import AppTrackingTransparency
 
-protocol AppTrackingPermissionServiceProtocol: AnyObject {
+protocol AppTrackingPermissionServiceProtocol: AnyObject, Loggable {
     
     var permissionGranted: Bool? { get }
     var permissionGrantedPublisher: AnyPublisher<Bool?, Never> { get }
