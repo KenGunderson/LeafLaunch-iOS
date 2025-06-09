@@ -35,18 +35,16 @@ public extension Loggable {
                                      line: UInt) -> String {
         
         let icons = String(repeating: loggerEmoji, count: 5)
-        let header = "\(icons) \(loggerName.uppercased())"
+        let header = "\(icons) [\(loggerName.uppercased())]"
         
         let fileURLPath = URL(fileURLWithPath: "\(file)").pathComponents
-        let formattedFile = fileURLPath.suffix(4).joined(separator: "/")
+        let formattedFile = fileURLPath.suffix(3).joined(separator: "/")
                 
         let formattedString = """
         \(header)
-        [Title]: \(title)
-        [Message]: \(message)
-        [File]: \(formattedFile)
-        [Function]: \(function)
-        [Line]: \(line)
+        \(title)
+        \(message)
+        [File]: \(formattedFile) [Function]: \(function) [Line]: \(line)
         """
         
         return formattedString
@@ -58,7 +56,7 @@ public extension Loggable {
                  line: UInt = #line) {
         
         let formattedString = formattedString(
-            message: "INIT",
+            message: "Init",
             level: .info,
             file: file,
             function: function,
@@ -77,7 +75,7 @@ public extension Loggable {
                    line: UInt = #line) {
         
         let formattedString = formattedString(
-            message: "DE-INIT",
+            message: "Deinit",
             level: .info,
             file: file,
             function: function,

@@ -78,7 +78,6 @@
 		7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E42DF661EA0031D9CF /* EnvironmentServiceProtocol.swift */; };
 		7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */; };
 		7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D22DF661EA0031D9CF /* APILogResponse.swift */; };
-		7537F4522DF661EA0031D9CF /* DateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C22DF661EA0031D9CF /* DateTimeService.swift */; };
 		7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4052DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift */; };
 		7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C72DF661EA0031D9CF /* ErrorEvent.swift */; };
 		7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
@@ -141,7 +140,6 @@
 		7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E42DF661EA0031D9CF /* EnvironmentServiceProtocol.swift */; };
 		7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */; };
 		7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D22DF661EA0031D9CF /* APILogResponse.swift */; };
-		7537F4912DF661EA0031D9CF /* DateTimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C22DF661EA0031D9CF /* DateTimeService.swift */; };
 		7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4052DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift */; };
 		7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C72DF661EA0031D9CF /* ErrorEvent.swift */; };
 		7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
@@ -311,7 +309,6 @@
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
-		7537F3C22DF661EA0031D9CF /* DateTimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeService.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3C42DF661EA0031D9CF /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
@@ -1023,7 +1020,6 @@
 			children = (
 				7537F3C02DF661EA0031D9CF /* Loggable.swift */,
 				7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */,
-				7537F3C22DF661EA0031D9CF /* DateTimeService.swift */,
 				7537F3CC2DF661EA0031D9CF /* Analytics */,
 				7537F3D72DF661EA0031D9CF /* API */,
 				7537F3DA2DF661EA0031D9CF /* AppDelegate */,
@@ -1420,7 +1416,6 @@
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
-				7537F4912DF661EA0031D9CF /* DateTimeService.swift in Sources */,
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
@@ -1567,7 +1562,6 @@
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
-				7537F4522DF661EA0031D9CF /* DateTimeService.swift in Sources */,
 				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
