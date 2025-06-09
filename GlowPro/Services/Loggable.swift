@@ -36,12 +36,15 @@ public extension Loggable {
         
         let icons = String(repeating: loggerEmoji, count: 5)
         let header = "\(icons) \(loggerName.uppercased())"
+        
+        let fileURLPath = URL(fileURLWithPath: "\(file)").pathComponents
+        let formattedFile = fileURLPath.suffix(4).joined(separator: "/")
                 
         let formattedString = """
         \(header)
         [Title]: \(title)
         [Message]: \(message)
-        [File]: \(file)
+        [File]: \(formattedFile)
         [Function]: \(function)
         [Line]: \(line)
         """
