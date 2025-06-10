@@ -23,7 +23,6 @@
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
-		7537F41B2DF661EA0031D9CF /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F52DF661EA0031D9CF /* KeyboardManager.swift */; };
 		7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
 		7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4032DF661EA0031D9CF /* PushNotificationPermissionService.swift */; };
 		7537F41E2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */; };
@@ -44,7 +43,6 @@
 		7537F42D2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F92DF661EA0031D9CF /* TabBarNavigationService.swift */; };
 		7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C62DF661EA0031D9CF /* AppEvent.swift */; };
 		7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F82DF661EA0031D9CF /* NavigationService.swift */; };
-		7537F4302DF661EA0031D9CF /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F02DF661EA0031D9CF /* StyleConverter.swift */; };
 		7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FB2DF661EA0031D9CF /* Sheet.swift */; };
 		7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E12DF661EA0031D9CF /* DeeplinkServiceProtocol.swift */; };
 		7537F4332DF661EA0031D9CF /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CA2DF661EA0031D9CF /* EventData.swift */; };
@@ -59,7 +57,6 @@
 		7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E52DF661EA0031D9CF /* EnvironmentService.swift */; };
 		7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */; };
 		7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DC2DF661EA0031D9CF /* AuthService.swift */; };
-		7537F43F2DF661EA0031D9CF /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F42DF661EA0031D9CF /* ErrorManager.swift */; };
 		7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */; };
 		7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4082DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift */; };
 		7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */; };
@@ -85,7 +82,6 @@
 		7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
 		7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F4592DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
-		7537F45A2DF661EA0031D9CF /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F52DF661EA0031D9CF /* KeyboardManager.swift */; };
 		7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
 		7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4032DF661EA0031D9CF /* PushNotificationPermissionService.swift */; };
 		7537F45D2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */; };
@@ -106,7 +102,6 @@
 		7537F46C2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F92DF661EA0031D9CF /* TabBarNavigationService.swift */; };
 		7537F46D2DF661EA0031D9CF /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C62DF661EA0031D9CF /* AppEvent.swift */; };
 		7537F46E2DF661EA0031D9CF /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F82DF661EA0031D9CF /* NavigationService.swift */; };
-		7537F46F2DF661EA0031D9CF /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F02DF661EA0031D9CF /* StyleConverter.swift */; };
 		7537F4702DF661EA0031D9CF /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FB2DF661EA0031D9CF /* Sheet.swift */; };
 		7537F4712DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E12DF661EA0031D9CF /* DeeplinkServiceProtocol.swift */; };
 		7537F4722DF661EA0031D9CF /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CA2DF661EA0031D9CF /* EventData.swift */; };
@@ -121,7 +116,6 @@
 		7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E52DF661EA0031D9CF /* EnvironmentService.swift */; };
 		7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */; };
 		7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DC2DF661EA0031D9CF /* AuthService.swift */; };
-		7537F47E2DF661EA0031D9CF /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F42DF661EA0031D9CF /* ErrorManager.swift */; };
 		7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */; };
 		7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4082DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift */; };
 		7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */; };
@@ -273,6 +267,8 @@
 		75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */; };
 		75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
 		75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
+		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
+		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -341,11 +337,8 @@
 		7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpersonateService.swift; sourceTree = "<group>"; };
 		7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenService.swift; sourceTree = "<group>"; };
-		7537F3F02DF661EA0031D9CF /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+OSLogType.swift"; sourceTree = "<group>"; };
 		7537F3F22DF661EA0031D9CF /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
-		7537F3F42DF661EA0031D9CF /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
-		7537F3F52DF661EA0031D9CF /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		7537F3F72DF661EA0031D9CF /* NavigationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3F82DF661EA0031D9CF /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		7537F3F92DF661EA0031D9CF /* TabBarNavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationService.swift; sourceTree = "<group>"; };
@@ -428,6 +421,7 @@
 		75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		75D8EDEE2DF600D6004D1E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -689,20 +683,12 @@
 		7537F3F32DF661EA0031D9CF /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				7537F3F02DF661EA0031D9CF /* StyleConverter.swift */,
-				7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */,
+				7537F3C02DF661EA0031D9CF /* Loggable.swift */,
 				7537F3F22DF661EA0031D9CF /* LogEvent.swift */,
+				75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */,
+				7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */,
 			);
 			path = Logger;
-			sourceTree = "<group>";
-		};
-		7537F3F62DF661EA0031D9CF /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				7537F3F42DF661EA0031D9CF /* ErrorManager.swift */,
-				7537F3F52DF661EA0031D9CF /* KeyboardManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		7537F3FD2DF661EA0031D9CF /* Models */ = {
@@ -1018,7 +1004,6 @@
 		755C98262D9CC8E000437D5D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				7537F3C02DF661EA0031D9CF /* Loggable.swift */,
 				7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */,
 				7537F3CC2DF661EA0031D9CF /* Analytics */,
 				7537F3D72DF661EA0031D9CF /* API */,
@@ -1031,7 +1016,6 @@
 				7537F3EC2DF661EA0031D9CF /* Impersonate */,
 				7537F3EF2DF661EA0031D9CF /* Launch */,
 				7537F3F32DF661EA0031D9CF /* Logger */,
-				7537F3F62DF661EA0031D9CF /* Managers */,
 				7537F3FE2DF661EA0031D9CF /* Navigation */,
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
@@ -1361,7 +1345,6 @@
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F4592DF661EA0031D9CF /* Routes.swift in Sources */,
-				7537F45A2DF661EA0031D9CF /* KeyboardManager.swift in Sources */,
 				7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
 				7537F45D2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
@@ -1382,7 +1365,6 @@
 				7537F46C2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
 				7537F46D2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F46E2DF661EA0031D9CF /* NavigationService.swift in Sources */,
-				7537F46F2DF661EA0031D9CF /* StyleConverter.swift in Sources */,
 				7537F4702DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4712DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				7537F4722DF661EA0031D9CF /* EventData.swift in Sources */,
@@ -1397,7 +1379,6 @@
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
-				7537F47E2DF661EA0031D9CF /* ErrorManager.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
@@ -1418,6 +1399,7 @@
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
+				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -1507,7 +1489,6 @@
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */,
-				7537F41B2DF661EA0031D9CF /* KeyboardManager.swift in Sources */,
 				7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
 				7537F41E2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
@@ -1528,7 +1509,6 @@
 				7537F42D2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
 				7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */,
-				7537F4302DF661EA0031D9CF /* StyleConverter.swift in Sources */,
 				7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				7537F4332DF661EA0031D9CF /* EventData.swift in Sources */,
@@ -1543,7 +1523,6 @@
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
-				7537F43F2DF661EA0031D9CF /* ErrorManager.swift in Sources */,
 				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
@@ -1564,6 +1543,7 @@
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
+				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
