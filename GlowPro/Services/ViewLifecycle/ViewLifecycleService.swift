@@ -8,31 +8,80 @@
 import SwiftUI
 import Combine
 
+enum ViewLifecycleKey: String, Hashable {
+    
+    case home
+    case devSettings
+    
+}
+
 final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     
-    internal let loggerName: String = "VIEW_LIFECYCLE_SERVICE"
+    internal let loggerName = "VIEW_LIFECYCLE"
     internal let loggerEmoji: String = "🔁"
     
-    private(set) var onShouldReloadView = CurrentValueSubject<Int, Never>(0)
+    private var subjectMap: [ViewLifecycleKey: PassthroughSubject<Void, Never>] = [:]
+    
     private(set) var onDidEnterBackground = CurrentValueSubject<String?, Never>(nil)
     private(set) var onDidBecomeActive = CurrentValueSubject<String?, Never>(nil)
     private(set) var onWillEnterForeground = CurrentValueSubject<String?, Never>(nil)
-        
+    
     init() {
         
-        self.logInit()
+        logInit()
         setupNotifications()
         
     }
     
     deinit {
-        self.logDeinit()
+        logDeinit()
     }
     
-    func triggerReload() {
-        onShouldReloadView.send(onShouldReloadView.value + 1)
+    func reload(for key: ViewLifecycleKey) {
+        
+        self.log(message: "Reloading Key: \(key.rawValue.convertNamingStyle(from: .camelCase, to: .screamingSnakeCase))")
+        
+        if let subject = self.subjectMap[key] {
+            subject.send(())
+        } else {
+            
+            let newSubject = PassthroughSubject<Void, Never>()
+            self.subjectMap[key] = newSubject
+            newSubject.send(())
+            
+        }
+        
     }
     
+    func reloadAll() {
+        
+        let subjects = self.subjectMap.values
+        
+        self.log(message: "Reloading all \(subjects.count) keys")
+        
+        for subject in subjects {
+            subject.send(())
+        }
+        
+    }
+    
+    func publisher(for key: ViewLifecycleKey) -> AnyPublisher<Void, Never> {
+        
+        var subject: PassthroughSubject<Void, Never>
+        
+        if let subjectMapSubject = self.subjectMap[key] {
+            subject = subjectMapSubject
+        } else {
+            
+            subject = PassthroughSubject<Void, Never>()
+            self.subjectMap[key] = subject
+            
+        }
+        
+        return subject.eraseToAnyPublisher()
+        
+    }
+
     private func setupNotifications() {
         
         NotificationCenter

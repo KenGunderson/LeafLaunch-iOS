@@ -9,11 +9,12 @@ import Combine
 
 protocol ViewLifecycleServiceProtocol: AnyObject, Loggable {
     
-    var onShouldReloadView: CurrentValueSubject<Int, Never> { get }
+    func reload(for key: ViewLifecycleKey)
+    func reloadAll()
+    func publisher(for key: ViewLifecycleKey) -> AnyPublisher<Void, Never>
+    
     var onDidEnterBackground: CurrentValueSubject<String?, Never> { get }
     var onDidBecomeActive: CurrentValueSubject<String?, Never> { get }
     var onWillEnterForeground: CurrentValueSubject<String?, Never> { get }
-    
-    func triggerReload()
     
 }

@@ -66,7 +66,7 @@ final class DevSettingsViewModel: ViewModel {
     func dismiss() {
         
         self.viewLifecycleService
-            .triggerReload()
+            .reload(for: .devSettings)
         
         self.dismissAction?()
         
