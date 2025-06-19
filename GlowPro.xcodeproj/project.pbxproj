@@ -196,6 +196,12 @@
 		75715ADB2DB9366E00E7994E /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD72DB9366E00E7994E /* Tab3ViewModel.swift */; };
 		75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */; };
 		75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADD2DB9368100E7994E /* Tab4Screen.swift */; };
+		759B64792E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
+		759B647A2E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
+		759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
+		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
+		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437D2DB929340033D68E /* TabBarScreen.swift */; };
 		75C643D72DB929340033D68E /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437E2DB929340033D68E /* TabItemView.swift */; };
 		75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C643802DB929340033D68E /* StandardTabBarView.swift */; };
@@ -408,6 +414,9 @@
 		75715AD82DB9366E00E7994E /* Tab3Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab3Screen.swift; sourceTree = "<group>"; };
 		75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4ViewModel.swift; sourceTree = "<group>"; };
 		75715ADD2DB9368100E7994E /* Tab4Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4Screen.swift; sourceTree = "<group>"; };
+		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
+		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
 		75C6437D2DB929340033D68E /* TabBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarScreen.swift; sourceTree = "<group>"; };
 		75C6437E2DB929340033D68E /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		75C6437F2DB929340033D68E /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
@@ -802,6 +811,7 @@
 			children = (
 				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
+				759B64782E04A75E006F4995 /* Client.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
 			);
@@ -992,6 +1002,7 @@
 		755C98252D9CC8D300437D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				759B64762E04A751006F4995 /* Client */,
 				75573AC12DD82E0500C7CA6E /* Auth */,
 				753EC1F62DB8C58100265B2A /* Root */,
 				75C643C32DB929340033D68E /* Tab */,
@@ -1070,6 +1081,23 @@
 				75715ADD2DB9368100E7994E /* Tab4Screen.swift */,
 			);
 			path = Tab4;
+			sourceTree = "<group>";
+		};
+		759B64762E04A751006F4995 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				759B647B2E04A8E6006F4995 /* List */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		759B647B2E04A8E6006F4995 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */,
+				759B647F2E04A8F1006F4995 /* ClientListScreen.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		75C643812DB929340033D68E /* TabViews */ = {
@@ -1319,6 +1347,7 @@
 				753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */,
 				75715AD02DB9365F00E7994E /* Tab1ViewModel.swift in Sources */,
 				75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */,
+				759B64792E04A75F006F4995 /* Client.swift in Sources */,
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
 				753EC1F82DB8C58100265B2A /* SplashScreenItem.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
@@ -1347,6 +1376,7 @@
 				7537F4592DF661EA0031D9CF /* Routes.swift in Sources */,
 				7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
+				759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */,
 				7537F45D2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
 				7537F45E2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
 				7537F45F2DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
@@ -1359,6 +1389,7 @@
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
+				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F46B2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
@@ -1463,6 +1494,7 @@
 				75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */,
 				75D66D102DC713C300E51CFC /* Tab1ViewModel.swift in Sources */,
 				75D66D112DC713C300E51CFC /* Tab4ViewModel.swift in Sources */,
+				759B647A2E04A75F006F4995 /* Client.swift in Sources */,
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
 				75D66D152DC713C300E51CFC /* SplashScreenItem.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
@@ -1491,6 +1523,7 @@
 				7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */,
 				7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
+				759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */,
 				7537F41E2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
 				7537F41F2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
 				7537F4202DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
@@ -1503,6 +1536,7 @@
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
+				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,

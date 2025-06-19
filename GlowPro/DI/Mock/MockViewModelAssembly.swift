@@ -137,6 +137,17 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // ClientList
+        
+        container
+            .register(ClientListViewModel.self) { r in
+                ClientListViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // DevSettings
         
         container

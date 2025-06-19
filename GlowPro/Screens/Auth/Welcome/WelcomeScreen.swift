@@ -31,7 +31,6 @@ struct WelcomeScreen: GPView {
                 VStack(spacing: Style.shared.spacing(.custom(64))) {
                     
                     content
-                    
                     Spacer(minLength: 0)
                     
                 }

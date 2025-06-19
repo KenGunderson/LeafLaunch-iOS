@@ -39,13 +39,6 @@ final class Tab1ViewModel: ViewModel {
         self.tabBarNavigationService = tabBarNavigationService
     }
     
-    func setRandomTheme() {
-        
-        self.userDefaultsService
-            .set(theme: AvailableTheme.allCases.randomElement()!)
-        
-    }
-    
 }
 
 extension Tab1ViewModel {

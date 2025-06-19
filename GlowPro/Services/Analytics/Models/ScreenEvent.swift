@@ -83,117 +83,30 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
-    enum ResourceScreen {
+    enum ClientScreen {
         
-        case resources
-        case categoryList
-        case subcategoryList(categoryId: String)
-        case detail(itemId: String)
-        
-        case milestones
-        case milestoneDetails(milestoneId: String)
+        case clientList
+        case clientDetails(clientId: String)
         
         var screenName: String {
             
             var name: String
             
             switch self {
-            case .resources: name = "resources"
-            case .categoryList: name = "category_list"
-            case .subcategoryList: name = "subcategory_list"
-            case .detail: name = "detail"
-            case .milestones: name = "milestones"
-            case .milestoneDetails: name = "milestone_details"
+            case .clientList: name = "client_list"
+            case .clientDetails: name = "client_details"
             }
             
-            return "resource.\(name)"
+            return "profile.\(name)"
             
         }
         
         var properties: [String: Any]? {
             
             switch self {
-            case .resources: return [:]
-            case .categoryList: return [:]
-            case .subcategoryList(let categoryId):
-                
-                return [
-                    "category_id": categoryId
-                ]
-            case .detail(let itemId): return ["item_id": itemId]
-            case .milestones: return [:]
-            case .milestoneDetails(let milestoneId): return ["milestone_id": milestoneId]
+            case .clientList: return nil
+            case .clientDetails(let clientId): return ["client_id": clientId]
             }
-            
-        }
-        
-    }
-    
-    enum CommunityScreen {
-        
-        case posts
-        case createPost
-        case updatePost(postId: String)
-        case postDetails(postId: String)
-        
-        case polls
-        case createPoll
-        case pollDetails(pollId: String)
-        
-        case blogs
-        case blogDetails(blogId: String)
-        
-        var screenName: String {
-            
-            var name: String
-            
-            switch self {
-            case .posts: name = "posts"
-            case .createPost: name = "post_create"
-            case .updatePost: name = "post_update"
-            case .postDetails: name = "post_details"
-            case .polls: name = "polls"
-            case .createPoll: name = "poll_create"
-            case .pollDetails: name = "poll_details"
-            case .blogs: name = "blogs"
-            case .blogDetails: name = "blog_details"
-            }
-            
-            return "community.\(name)"
-            
-        }
-        
-        var properties: [String: Any]? {
-            
-            switch self {
-            case .posts: return [:]
-            case .createPost: return [:]
-            case .updatePost(let postId): return ["post_id": postId]
-            case .postDetails(let postId): return ["post_id": postId]
-            case .polls: return [:]
-            case .createPoll: return [:]
-            case .pollDetails(let pollId): return ["poll_id": pollId]
-            case .blogs: return [:]
-            case .blogDetails(let blogId): return ["blog_id": blogId]
-            }
-            
-        }
-        
-    }
-    
-    enum JournalScreen {
-        
-        case createJournalEntry
-        
-        var screenName: String {
-            
-            var name: String
-            
-            switch self {
-            case .createJournalEntry: name = "create_journal_entry"
-            }
-            
-            return "journal.\(name)"
             
         }
         
@@ -272,12 +185,8 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case main
     case onboarding(OnboardingScreen)
     case tab(Tab)
+    case client(ClientScreen)
     case profile(ProfileScreen)
-    case resources(ResourceScreen)
-    case community(CommunityScreen)
-    case journal(JournalScreen)
-    case search
-    case favorites
     case whatsNew
     case settings(Settings)
     case devSettings(DevSettings)
@@ -297,20 +206,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case .main: screenName = "main"
         case .onboarding(let screen): screenName = screen.screenName
         case .tab(let screen): screenName = screen.screenName
-        case .resources(let screen):
+        case .client(let screen):
             
             screenName = screen.screenName
             properties = screen.properties
             
-        case .community(let screen):
-            
-            screenName = screen.screenName
-            properties = screen.properties
-            
-        case .journal(let screen): screenName = screen.screenName
         case .devSettings(let screen): screenName = screen.screenName
-        case .search: screenName = "search"
-        case .favorites: screenName = "favorites"
         case .settings(let screen): screenName = screen.screenName
         case .whatsNew: screenName = "whats_new"
         case .profile(let screen):
