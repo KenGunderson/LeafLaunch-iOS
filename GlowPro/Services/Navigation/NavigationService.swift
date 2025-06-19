@@ -86,75 +86,84 @@ extension View {
         return navigationDestination(for: Route.self) { route in
             
             switch route {
-            case .auth(let authRoute):
+            case .auth(let authRoute): auth(route: authRoute)
+            case .devSetting(let devRoute): devSettings(route: devRoute)
+            }
+            
+        }
+        
+        @ViewBuilder
+        func auth(route: Route.Auth) -> some View {
+            
+            switch route {
+            case .welcome:
                 
-                switch authRoute {
-                case .welcome:
-                    
-                    let viewModel = globalResolver.resolve(WelcomeViewModel.self)!
-                    
-                    WelcomeScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                    
-                case .login:
-                    
-                    let viewModel = globalResolver.resolve(LoginViewModel.self)!
-                    
-                    LoginScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                    
-                case .signup:
-                    
-                    let viewModel = globalResolver.resolve(SignUpViewModel.self)!
-                    
-                    SignUpScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                }
+                let viewModel = globalResolver.resolve(WelcomeViewModel.self)!
                 
-            case .devSetting(let devRoute):
+                WelcomeScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
                 
-                switch devRoute {
-                case .components:
-                    
-                    DemoView()
-                        .navigationBarBackButtonHidden()
-                    
-                case .userDefaults:
-                    
-                    let viewModel = globalResolver.resolve(DevUserDefaultsViewModel.self)!
-                    
-                    DevUserDefaultsScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                    
-                case .routes:
-                                        
-                    let viewModel = globalResolver.resolve(DevRoutesViewModel.self)!
-                    
-                    DevRoutesScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                    
-                case .deeplinks:
-                    
-                    let viewModel = globalResolver.resolve(DevDeeplinksViewModel.self)!
-                    
-                    DevDeeplinksScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
-                    
-                case .analytics:
-                                        
-                    let viewModel = globalResolver.resolve(DevAnalyticsViewModel.self)!
-                    
-                    DevAnalyticsScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
+            case .login:
+                
+                let viewModel = globalResolver.resolve(LoginViewModel.self)!
+                
+                LoginScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .signup:
+                
+                let viewModel = globalResolver.resolve(SignUpViewModel.self)!
+                
+                SignUpScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func devSettings(route: Route.DevSetting) -> some View {
+            
+            switch route {
+            case .components:
+                
+                DemoView()
+                    .navigationBarBackButtonHidden()
+                
+            case .userDefaults:
+                
+                let viewModel = globalResolver.resolve(DevUserDefaultsViewModel.self)!
+                
+                DevUserDefaultsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .routes:
+                                    
+                let viewModel = globalResolver.resolve(DevRoutesViewModel.self)!
+                
+                DevRoutesScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .deeplinks:
+                
+                let viewModel = globalResolver.resolve(DevDeeplinksViewModel.self)!
+                
+                DevDeeplinksScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .analytics:
+                                    
+                let viewModel = globalResolver.resolve(DevAnalyticsViewModel.self)!
+                
+                DevAnalyticsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
 
-                case .impersonate:
-                    
-                    let viewModel = globalResolver.resolve(DevImpersonateViewModel.self)!
-                    
-                    DevImpersonateScreen(viewModel: viewModel)
-                        .navigationBarBackButtonHidden()
+            case .impersonate:
+                
+                let viewModel = globalResolver.resolve(DevImpersonateViewModel.self)!
+                
+                DevImpersonateScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
 
-                }
             }
             
         }

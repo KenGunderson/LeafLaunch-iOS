@@ -77,7 +77,7 @@ struct ClientListScreen: View {
     private func section(title: String,
                          clients: [Client]) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text(title)
                 .appFont(with: .HEADER_H6)
@@ -95,7 +95,7 @@ struct ClientListScreen: View {
         
         AppCardView {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
                 
                 Text(client.fullName)
                     .appFont(with: .TITLE_T6)

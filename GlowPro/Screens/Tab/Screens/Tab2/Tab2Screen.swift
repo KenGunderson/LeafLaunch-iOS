@@ -50,3 +50,12 @@ struct TabBar2Screen: View {
     }
     
 }
+
+#Preview {
+    
+    let viewModel = mockResolve(Tab2ViewModel.self)
+    
+    TabBar2Screen(viewModel: viewModel, tab: .tab2)
+        .withMockServices()
+    
+}

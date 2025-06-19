@@ -50,3 +50,12 @@ struct TabBar1Screen: View {
     }
     
 }
+
+#Preview {
+    
+    let viewModel = mockResolve(Tab1ViewModel.self)
+    
+    TabBar1Screen(viewModel: viewModel, tab: .tab1)
+        .withMockServices()
+    
+}
