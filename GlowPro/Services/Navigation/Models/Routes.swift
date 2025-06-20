@@ -67,5 +67,6 @@ enum Route: Navigation, Hashable, Sendable {
     
     case devSetting(DevSetting)
     case auth(Auth)
+    case clientList
     
 }

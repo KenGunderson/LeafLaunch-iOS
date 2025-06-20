@@ -54,7 +54,7 @@ struct DevRoutesScreen: View {
     }
     
     private func content() -> some View {
-     
+        
         VStack(spacing: Style.shared.spacing(.medium)) {
             
             // Sheets
@@ -78,6 +78,11 @@ struct DevRoutesScreen: View {
             route(
                 title: "Dev Settings",
                 fullScreenCover: .devSettings
+            )
+            
+            route(
+                title: "Client Details",
+                fullScreenCover: .clientDetails(clientId: Client.DUMMY_DATA().id)
             )
             
         }

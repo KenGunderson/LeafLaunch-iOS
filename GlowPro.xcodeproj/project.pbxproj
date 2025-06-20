@@ -196,6 +196,14 @@
 		75715ADB2DB9366E00E7994E /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD72DB9366E00E7994E /* Tab3ViewModel.swift */; };
 		75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */; };
 		75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADD2DB9368100E7994E /* Tab4Screen.swift */; };
+		758DAE852E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
+		758DAE862E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
+		758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */; };
+		758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */; };
+		758DAEC32E0514FE00311C7C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivityView.swift */; };
+		758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivityView.swift */; };
+		758DAEC62E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
+		758DAEC72E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
 		759B64792E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647A2E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
@@ -414,6 +422,10 @@
 		75715AD82DB9366E00E7994E /* Tab3Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab3Screen.swift; sourceTree = "<group>"; };
 		75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4ViewModel.swift; sourceTree = "<group>"; };
 		75715ADD2DB9368100E7994E /* Tab4Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4Screen.swift; sourceTree = "<group>"; };
+		758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsScreen.swift; sourceTree = "<group>"; };
+		758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsViewModel.swift; sourceTree = "<group>"; };
+		758DAEC22E0514FA00311C7C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
@@ -809,6 +821,7 @@
 		753EC1922DB8BC0B00265B2A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				758DAEC52E05152000311C7C /* Activity.swift */,
 				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
 				759B64782E04A75E006F4995 /* Client.swift */,
@@ -992,6 +1005,7 @@
 				75573AB92DD82B4A00C7CA6E /* Globals + Constants */,
 				753EC1E62DB8C4E800265B2A /* DI */,
 				755C98262D9CC8E000437D5D /* Services */,
+				758DAEA12E0514F100311C7C /* Components */,
 				753EC1922DB8BC0B00265B2A /* Models */,
 				755C98252D9CC8D300437D5D /* Screens */,
 				7510A3C82D9D8AAF000A93CA /* Resources */,
@@ -1083,10 +1097,28 @@
 			path = Tab4;
 			sourceTree = "<group>";
 		};
+		758DAE832E050DB500311C7C /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */,
+				758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		758DAEA12E0514F100311C7C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		759B64762E04A751006F4995 /* Client */ = {
 			isa = PBXGroup;
 			children = (
 				759B647B2E04A8E6006F4995 /* List */,
+				758DAE832E050DB500311C7C /* Details */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -1352,6 +1384,7 @@
 				753EC1F82DB8C58100265B2A /* SplashScreenItem.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
+				758DAE852E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
 				753EC1FC2DB8C58100265B2A /* MainScreen.swift in Sources */,
 				750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */,
@@ -1368,6 +1401,7 @@
 				753EC2092DB8CBBB00265B2A /* App.swift in Sources */,
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
+				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
 				750DFBCE2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift in Sources */,
@@ -1415,6 +1449,7 @@
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
@@ -1436,6 +1471,7 @@
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				758DAEC32E0514FE00311C7C /* ActivityView.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
@@ -1499,6 +1535,7 @@
 				75D66D152DC713C300E51CFC /* SplashScreenItem.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
+				758DAE862E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
 				75D66D192DC713C300E51CFC /* MainScreen.swift in Sources */,
 				75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */,
@@ -1515,6 +1552,7 @@
 				75D66D372DC713C300E51CFC /* App.swift in Sources */,
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
+				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
 				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
@@ -1562,6 +1600,7 @@
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
@@ -1583,6 +1622,7 @@
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,

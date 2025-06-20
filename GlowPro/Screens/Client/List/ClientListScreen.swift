@@ -27,6 +27,12 @@ struct ClientListScreen: View {
                     .setup(tabBarNavigationService: self.tabBarNavigationService)
                 
             }
+            .onAppear {
+                
+                self.tabBarNavigationService
+                    .shouldShowTabBar(false)
+                
+            }
             .task {
                 
                 self.viewModel
@@ -59,18 +65,24 @@ struct ClientListScreen: View {
         
     }
     
+    @ViewBuilder
     private func clientList() -> some View {
         
         let dict = self.viewModel.groupedClientsDict
         
-        return ForEach(dict.keys.sorted(), id: \.self) { letter in
+        VStack {
             
-            section(
-                title: "\(letter)",
-                clients: dict[letter] ?? []
-            )
+            ForEach(dict.keys.sorted(), id: \.self) { letter in
+                
+                section(
+                    title: "\(letter)",
+                    clients: dict[letter] ?? []
+                )
+                
+            }
             
         }
+        .padding(.bottom, .custom(86))
         
     }
     
@@ -139,6 +151,12 @@ struct ClientListScreen: View {
                 }
                 
             }
+            
+        }
+        .asButton {
+            
+            self.viewModel
+                .selectClient(client)
             
         }
         

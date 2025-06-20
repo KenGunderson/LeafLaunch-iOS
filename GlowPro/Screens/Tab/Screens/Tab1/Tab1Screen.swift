@@ -40,13 +40,30 @@ struct TabBar1Screen: View {
                     
                 }
             
+                .onAppear {
+                    
+                    self.tabBarNavigationService
+                        .shouldShowTabBar(true)
+                    
+                }
+            
         }
         .tag(self.tab)
         
     }
     
     private func content() -> some View {
-        EmptyView()
+        
+        CommonButton(title: "Client List",
+                     titleColor: Style.shared.textColor(.titleInverted)) {
+            
+            self.tabBarNavigationService
+                .currentNavigationService()
+                .push(.clientList)
+            
+        }
+        .padding(.horizontal, .large)
+        
     }
     
 }

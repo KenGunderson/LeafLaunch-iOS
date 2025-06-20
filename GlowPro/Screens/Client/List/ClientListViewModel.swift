@@ -62,6 +62,14 @@ final class ClientListViewModel: ViewModel {
         
     }
     
+    func selectClient(_ client: Client) {
+        
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .modal(fullScreenCover: .clientDetails(clientId: client.id))
+        
+    }
+    
     func dismiss() {
         
         self.tabBarNavigationService?

@@ -88,6 +88,13 @@ extension View {
             switch route {
             case .auth(let authRoute): auth(route: authRoute)
             case .devSetting(let devRoute): devSettings(route: devRoute)
+            case .clientList:
+                
+                let viewModel = globalResolver.resolve(ClientListViewModel.self)!
+                
+                ClientListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }
@@ -216,6 +223,14 @@ extension View {
                     .onTapGesture {
                         customFullScreenCover.wrappedValue = nil
                     }
+            
+            case .clientDetails(let clientId):
+                
+                let viewModel = globalResolver.resolve(ClientDetailsViewModel.self)!
+                    .setup(clientId: clientId)
+                
+                ClientDetailsScreen(viewModel: viewModel)
+                
             }
             
         }
