@@ -9,13 +9,10 @@ import SwiftUI
 
 struct ActivitiesView: View {
     
-    private let activities: [Activity]
     private let activityDict: [Date: [Activity]]
     
     init(activities: [Activity]) {
-        
-        self.activities = activities
-        
+                
         self.activityDict = Dictionary(
             grouping: activities,
             by: \.createdAtNoTimestamp
@@ -25,7 +22,7 @@ struct ActivitiesView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             ForEach(activityDict.keys.sorted(), id: \.date) { key in
                 
@@ -44,7 +41,8 @@ struct ActivitiesView: View {
         
     }
     
-    private func section(date: String, activities: [Activity]) -> some View {
+    private func section(date: String,
+                         activities: [Activity]) -> some View {
         
         VStack(alignment: .leading, spacing: 0) {
             
@@ -78,7 +76,7 @@ struct ActivitiesView: View {
                     
                     Rectangle()
                         .fill(Style.shared.background(.quaternary).source())
-                        .frame(width: 2, height: 18)
+                        .frame(width: 2, height: 16)
                         .padding(.leading, 3.5)
                     
                 }
