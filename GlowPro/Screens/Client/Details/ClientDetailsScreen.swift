@@ -18,12 +18,10 @@ struct ClientDetailsScreen: View {
         
         NavigationStack(path: self.$navigationService.routes) {
             
-            AppHeaderScrollView {
+            AppHeaderScrollView(horizontalPadding: .none) {
                 // N/A
             } scrollViewContent: {
-                
                 content()
-                
             }
             .withNavigationDestination()
             .withSheetDestination(self.$navigationService.sheet)
@@ -74,20 +72,143 @@ struct ClientDetailsScreen: View {
                     Text(client.fullName)
                         .appFont(with: .HEADER_H10)
                         .foregroundStyle(Style.shared.textColor(.title).source())
-                        .asButton {
-                            
-                            dismiss()
-                            
-                        }
                     
                 }
+                .asButton {
+                    dismiss()
+                }
+                .padding(.horizontal, .large)
                 .transition(.move(edge: .bottom))
+                
+                actionItems()
+                activityFilters()
+                activities()
                 
             }
             
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .animation(.smooth(duration: 0.4), value: self.viewModel.client)
+        
+    }
+    
+    @ViewBuilder
+    private func actionItems() -> some View {
+        
+        WStack {
+            
+            actionItem(title: "Notes", icon: "pencil", gradientColors: [.purple, .indigo]) {}
+            actionItem(title: "Forms", icon: "text.document.fill", gradientColors: [.green, .mint]) {}
+            actionItem(title: "Folders", icon: "folder.fill", gradientColors: [.cyan, .blue]) {}
+            actionItem(title: "Forms", icon: "document.fill", gradientColors: [.orange, .red]) {}
+            actionItem(title: "Some", icon: "person.fill", gradientColors: [.red, .pink]) {}
+            actionItem(title: "Other", icon: "house.fill", gradientColors: [.green, .mint]) {}
+            actionItem(title: "Thing", icon: "grid", gradientColors: [.cyan, .blue]) {}
+            actionItem(title: "Test", icon: "magnifyingglass", gradientColors: [.purple, .indigo]) {}
+            
+        }
+        .padding(.horizontal, .large)
+        
+    }
+    
+    @ViewBuilder
+    private func activityFilters() -> some View {
+        
+        FiltersViewPreview(
+            filters: [
+                "Some",
+                "Filters",
+                "To",
+                "Test",
+                "With"
+            ],
+            selectedFilter: .constant(nil)
+        )
+        
+    }
+    
+    @ViewBuilder
+    private func activities() -> some View {
+        
+        ActivitiesView(
+            activities: [
+                .init(
+                    id: "1",
+                    title: "Called Client",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().addingTimeInterval(-73497493).toISO()
+                ),
+                .init(
+                    id: "2",
+                    title: "Intake Form Filled",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().addingTimeInterval(-4379743).toISO()
+                ),
+                .init(
+                    id: "3",
+                    title: "Ate At Outback",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().addingTimeInterval(-4379743).toISO()
+                ),
+                .init(
+                    id: "4",
+                    title: "Did Something Else",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().toISO()
+                ),
+                .init(
+                    id: "5",
+                    title: "Built Legos",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().toISO()
+                ),
+                .init(
+                    id: "6",
+                    title: "Ate Some Soup",
+                    clientId: "",
+                    employeeId: "",
+                    createdAt: Date().toISO()
+                ),
+            ]
+        )
+        .padding(.horizontal, .large)
+        
+    }
+    
+    private func actionItem(title: String,
+                            icon: String,
+                            gradientColors: [Color],
+                            action: @escaping () -> Void) -> some View {
+        
+        VStack {
+            
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
+            
+            Text(title)
+                .appFont(with: .TITLE_T4)
+            
+        }
+        .foregroundStyle(Style.shared.textColor(.titleInverted).source())
+        .frame(width: 72, height: 72)
+        .background(
+            LinearGradient(
+                colors: gradientColors,
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .clipShape(.rect(cornerRadius: Style.shared.radius(.medium)))
+        .asButton {
+            action()
+        }
         
     }
     
@@ -95,9 +216,10 @@ struct ClientDetailsScreen: View {
 
 #Preview {
     
-    let viewModel = mockResolve(Tab1ViewModel.self)
+    let viewModel = mockResolve(ClientDetailsViewModel.self)
+        .setup(clientId: "123")
     
-    TabBar1Screen(viewModel: viewModel, tab: .tab1)
+    ClientDetailsScreen(viewModel: viewModel)
         .withMockServices()
     
 }

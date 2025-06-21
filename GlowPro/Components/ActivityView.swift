@@ -49,6 +49,7 @@ struct ActivitiesView: View {
             Text(date)
                 .appFont(with: .TITLE_T5)
                 .padding(.bottom, .small)
+                .foregroundStyle(Style.shared.textColor(.title).source())
             
             activityList(activities: activities)
             
@@ -91,7 +92,7 @@ struct ActivitiesView: View {
         
         Text(activity.title)
             .appFont(with: .TITLE_T4)
-            .foregroundStyle(Style.shared.textColor(.title).source())
+            .foregroundStyle(Style.shared.textColor(.body).source())
         
     }
     
