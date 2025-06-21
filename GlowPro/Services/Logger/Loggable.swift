@@ -27,7 +27,7 @@ public extension Loggable {
         
     }
     
-    fileprivate func formattedString(title: String = "Log",
+    fileprivate func formattedString(title: String? = nil,
                                      message: String,
                                      level: OSLogType,
                                      file: StaticString,
@@ -39,15 +39,16 @@ public extension Loggable {
         
         let fileURLPath = URL(fileURLWithPath: "\(file)").pathComponents
         let formattedFile = fileURLPath.suffix(3).joined(separator: "/")
-                
-        let formattedString = """
-        \(header)
-        \(title)
-        \(message)
-        [File]: \(formattedFile) [Function]: \(function) [Line]: \(line)
-        """
         
-        return formattedString
+        var components = [header]
+        
+        if let title = title {
+            components.append("[Title]: \(title)")
+        }
+        components.append("[Message]: \(message)")
+        components.append("[File]: \(formattedFile) [Function]: \(function) [Line]: \(line)")
+        
+        return components.joined(separator: "\n")
         
     }
 
@@ -118,7 +119,7 @@ public extension Loggable {
                   line: UInt = #line) {
         
         let formattedString = formattedString(
-            title: title ?? "Log",
+            title: title,
             message: message,
             level: .error,
             file: file,

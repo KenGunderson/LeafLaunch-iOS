@@ -107,45 +107,29 @@ struct ClientListScreen: View {
         
         AppCardView {
             
-            LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            HStack(spacing: Style.shared.spacing(.small)) {
                 
                 Text(client.fullName)
                     .appFont(with: .TITLE_T6)
                     .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 if client.hasEmailPhoneOrBirthday {
                     
-                    VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                    HStack(spacing: Style.shared.spacing(.small)) {
                         
-                        if let email = client.email {
-                            
-                            extraInformationItem(
-                                text: email,
-                                icon: "envelope.fill"
-                            )
-                            
+                        if client.email != nil {
+                            extraInformationItem(icon: "envelope.fill")
                         }
                         
-                        if let phone = client.phone {
-                            
-                            extraInformationItem(
-                                text: phone,
-                                icon: "phone.fill"
-                            )
-                            
+                        if client.phone != nil {
+                            extraInformationItem(icon: "phone.fill")
                         }
                         
-                        if let birthDate = client.birthDate {
-                            
-                            let formattedDate = birthDate.formatted(date: .abbreviated, time: .omitted)
-                            
-                            extraInformationItem(
-                                text: formattedDate,
-                                icon: "birthday.cake.fill"
-                            )
-                            
+                        if client.birthDate != nil {
+                            extraInformationItem(icon: "birthday.cake.fill")
                         }
-                        
+                            
                     }
                     
                 }
@@ -162,21 +146,13 @@ struct ClientListScreen: View {
         
     }
     
-    private func extraInformationItem(text: String,
-                                      icon: String) -> some View {
+    private func extraInformationItem(icon: String) -> some View {
         
-        HStack {
-            
-            Image(systemName: icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 16, height: 16)
-            
-            Text(text)
-                .appFont(with: .BODY_B5)
-            
-        }
-        .foregroundStyle(Style.shared.textColor(.body).source())
+        Image(systemName: icon)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 16, height: 16)
+            .foregroundStyle(Style.shared.textColor(.body).source())
         
     }
     

@@ -18,7 +18,7 @@ struct TabBar1Screen: View {
         
         let nav = Bindable(self.tabBarNavigationService.tab1NavigationService)
         
-        NavigationStack(path: (nav.routes)) {
+        NavigationStack(path: nav.routes) {
             
             content()
             
