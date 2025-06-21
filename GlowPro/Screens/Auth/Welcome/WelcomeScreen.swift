@@ -14,40 +14,19 @@ struct WelcomeScreen: GPView {
         
     var body: some View {
         
-        NavigationStack(path: self.$navigationService.routes) {
+        AppRootView(
+            navigationService: self.$navigationService,
+            alertService: self.viewModel.alertService
+        ) {
             
             ZStack(alignment: .center) {
                 
-                LinearGradient(
-                    colors: [
-                        Style.shared.accent.asColor ?? .clear,
-                        Style.shared.accentSecondary.asColor ?? .clear,
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                backgroundView
+                content
                 
-                VStack(spacing: Style.shared.spacing(.custom(64))) {
-                    
-                    content
-                    Spacer(minLength: 0)
-                    
-                }
-                .padding(.top, .extraLarge)
-                                
             }
             .safeAreaInset(edge: .bottom) {
-                
-                VStack(spacing: 16) {
-                    
-                    signUpButton
-                    loginButton
-                    
-                }
-                .padding(.horizontal, 32)
-                .customSafeAreaPadding()
-                
+                footer
             }
             
             .onFirstAppear {
@@ -60,26 +39,55 @@ struct WelcomeScreen: GPView {
                 
             }
             
-            .withNavigationDestination()
-            .withSheetDestination(self.$navigationService.sheet)
-            .withFullScreenCover(self.$navigationService.fullScreenCover)
-
         }
-        .environment(self.navigationService)
+        
+    }
+    
+    var backgroundView: some View {
+        
+        LinearGradient(
+            colors: [
+                Style.shared.accent.asColor ?? .clear,
+                Style.shared.accentSecondary.asColor ?? .clear,
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
         
     }
     
     var content: some View {
         
-        VStack {
+        VStack(spacing: Style.shared.spacing(.custom(64))) {
             
-            Text("Welcome To\nGlowPro")
-                .appFont(with: .HEADER_H1)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.white)
+            VStack {
+                
+                Text("Welcome To\nGlowPro")
+                    .appFont(with: .HEADER_H1)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.white)
+                
+            }
+            .frame(maxWidth: .infinity)
+            
+            Spacer(minLength: 0)
             
         }
-        .frame(maxWidth: .infinity)
+        .padding(.top, .extraLarge)
+        
+    }
+    
+    var footer: some View {
+        
+        VStack(spacing: 16) {
+            
+            signUpButton
+            loginButton
+            
+        }
+        .padding(.horizontal, 32)
+        .customSafeAreaPadding()
         
     }
     

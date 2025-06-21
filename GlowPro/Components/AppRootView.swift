@@ -1,0 +1,52 @@
+//
+//  AppRootView.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 6/21/25.
+//
+
+import SwiftUI
+
+struct AppRootView<Content: View>: View {
+    
+    @Binding var navigationService: NavigationService
+    private let alertService: AlertServiceProtocol
+    private let content: Content
+    
+    init(navigationService: Binding<NavigationService>,
+         alertService: AlertServiceProtocol,
+         @ViewBuilder content: () -> Content) {
+        
+        self._navigationService = navigationService
+        self.alertService = alertService
+        self.content = content()
+        
+    }
+    
+    public var body: some View {
+     
+        NavigationStack(path: self.$navigationService.routes) {
+            
+            content
+                .withNavigationDestination()
+                .withSheetDestination(self.$navigationService.sheet)
+                .withFullScreenCover(self.$navigationService.fullScreenCover)
+            
+        }
+        
+        // Alert
+        
+        .withAlertService(ObservableAlertServiceWrapper(alertService: self.alertService))
+        
+        // Toast
+        
+        .withToastOverlay()
+        
+        // Env
+        
+        .environment(self.navigationService)
+        .environmentObject(ObservableAlertServiceWrapper(alertService: self.alertService))
+        
+    }
+    
+}

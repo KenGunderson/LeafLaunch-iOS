@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
 		750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
@@ -303,6 +305,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsViewModel.swift; sourceTree = "<group>"; };
 		750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsScreen.swift; sourceTree = "<group>"; };
 		750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDeeplinksViewModel.swift; sourceTree = "<group>"; };
@@ -1109,6 +1112,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
 				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
 			);
 			path = Components;
@@ -1451,6 +1455,7 @@
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
+				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
@@ -1602,6 +1607,7 @@
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
+				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,

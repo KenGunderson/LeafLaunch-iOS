@@ -22,8 +22,11 @@ struct DevSettingsScreen: View {
     
     var body: some View {
         
-        NavigationStack(path: self.$navigationService.routes) {
-            
+        AppRootView(
+            navigationService: self.$navigationService,
+            alertService: self.viewModel.alertService
+        ) {
+           
             AppHeaderScrollView {
                 
                 navBarView()
@@ -33,10 +36,6 @@ struct DevSettingsScreen: View {
                 content()
                 
             }
-            .withNavigationDestination()
-            .withSheetDestination(self.$navigationService.sheet)
-            .withFullScreenCover(self.$navigationService.fullScreenCover)
-            
             // Lifecycle
             
             .onFirstAppear {
@@ -60,13 +59,6 @@ struct DevSettingsScreen: View {
             }
             
         }
-        .withAlertService(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
-        .withToastOverlay()
-        
-        // Env
-        
-        .environment(self.navigationService)
-        .environmentObject(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
         
     }
     

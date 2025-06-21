@@ -16,6 +16,7 @@ final class WelcomeViewModel: ViewModel {
     
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
+    private(set) var alertService: AlertServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     
@@ -24,11 +25,13 @@ final class WelcomeViewModel: ViewModel {
             
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
+         alertService: AlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
         
         self.analyticsService = analyticsService
         self.authService = authService
+        self.alertService = alertService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
         
