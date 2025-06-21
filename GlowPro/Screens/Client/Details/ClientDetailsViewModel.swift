@@ -18,6 +18,7 @@ final class ClientDetailsViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var client: Client?
+    @Published var selectedActivitiesFilter: String?
     
     private var clientId: String!
 

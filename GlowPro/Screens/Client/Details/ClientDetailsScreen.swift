@@ -114,69 +114,70 @@ struct ClientDetailsScreen: View {
     @ViewBuilder
     private func activityFilters() -> some View {
         
-        FiltersViewPreview(
-            filters: [
-                "Some",
-                "Filters",
-                "To",
-                "Test",
-                "With"
-            ],
-            selectedFilter: .constant(nil)
+        TokenView(
+            text: "Test",
+            foregroundStyle: .color(.white),
+            backgroundStyle: .color(.green)
         )
+        .asButton {
+            self.viewModel.selectedActivitiesFilter = (self.viewModel.selectedActivitiesFilter == nil) ? "1" : nil
+        }
         
     }
     
     @ViewBuilder
     private func activities() -> some View {
         
+        let activities: [Activity] = [
+            .init(
+                id: "1",
+                title: "Called Client",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().addingTimeInterval(-73497493).toISO()
+            ),
+            .init(
+                id: "2",
+                title: "Intake Form Filled",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().addingTimeInterval(-4379743).toISO()
+            ),
+            .init(
+                id: "3",
+                title: "Ate At Outback",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().addingTimeInterval(-4379743).toISO()
+            ),
+            .init(
+                id: "4",
+                title: "Did Something Else",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().toISO()
+            ),
+            .init(
+                id: "5",
+                title: "Built Legos",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().toISO()
+            ),
+            .init(
+                id: "6",
+                title: "Ate Some Soup",
+                clientId: "",
+                employeeId: "",
+                createdAt: Date().toISO()
+            ),
+        ]
+        
         ActivitiesView(
-            activities: [
-                .init(
-                    id: "1",
-                    title: "Called Client",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().addingTimeInterval(-73497493).toISO()
-                ),
-                .init(
-                    id: "2",
-                    title: "Intake Form Filled",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().addingTimeInterval(-4379743).toISO()
-                ),
-                .init(
-                    id: "3",
-                    title: "Ate At Outback",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().addingTimeInterval(-4379743).toISO()
-                ),
-                .init(
-                    id: "4",
-                    title: "Did Something Else",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().toISO()
-                ),
-                .init(
-                    id: "5",
-                    title: "Built Legos",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().toISO()
-                ),
-                .init(
-                    id: "6",
-                    title: "Ate Some Soup",
-                    clientId: "",
-                    employeeId: "",
-                    createdAt: Date().toISO()
-                ),
-            ]
+            activities: self.viewModel.selectedActivitiesFilter == nil ? activities : activities.suffix(3)
         )
         .padding(.horizontal, .large)
+        .animation(.spring, value: self.viewModel.selectedActivitiesFilter)
         
     }
     
