@@ -132,8 +132,13 @@ extension View {
         func settings(route: Route.Setting) -> some View {
             
             switch route {
+            case .profile: EmptyView()
+            case .subscription: EmptyView()
+            case .aboutUs: EmptyView()
             case .privacyPolicy: EmptyView()
             case .termsOfService: EmptyView()
+            case .contactSupport: EmptyView()
+            case .sendFeedback: EmptyView()
             }
             
         }

@@ -81,7 +81,19 @@ struct SettingsScreen: View {
     @ViewBuilder
     private func content() -> some View {
         
-        StaggeredView(config: .init(delay: 0.1, maxDelay: 0, blurRadius: 0, offset: .init(width: 0, height: 100))) {
+        let config = StaggeredConfig.init(
+            delay: 0.05,
+            maxDelay: 0.05,
+            blurRadius: 0.5,
+            offset: .init(width: 0, height: 100),
+            scale: 1,
+            scaleAnchor: .center,
+            animation: .smooth,
+            disappearInSameDirection: true,
+            noDisappearAnimation: false
+        )
+        
+        StaggeredView(config: config) {
             
             if self.onAppearAnimation {
                 
@@ -103,6 +115,7 @@ struct SettingsScreen: View {
                 
                 Image(systemName: item.icon)
                     .appFont(with: .TITLE_T5)
+                    .foregroundStyle(Style.shared.accent.source())
                 
                 Text(item.displayName)
                     .appFont(with: .TITLE_T5)
