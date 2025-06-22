@@ -7,6 +7,7 @@
 
 enum FullScreenCover: Identifiable, Hashable, Equatable {
 
+    case settings
     case devSettings
     case onboarding
     case clientDetails(clientId: String)
@@ -24,6 +25,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         switch self {
         case .devSettings: return hasher.combine(0)
         case .onboarding: return hasher.combine(1)
+        case .settings: return hasher.combine(2)
         case .clientDetails(let clientId): return hasher.combine(clientId)
         }
         

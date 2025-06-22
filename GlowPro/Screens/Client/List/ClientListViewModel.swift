@@ -52,6 +52,8 @@ final class ClientListViewModel: ViewModel {
             .init(id: "6", firstName: "Mitch", lastName: "Treece", email: nil, phone: nil),
             .init(id: "7", firstName: "Dan", lastName: "Winkle", email: nil, phone: nil),
             .init(id: "8", firstName: "Sean", lastName: "Wing", email: nil, phone: nil),
+            .init(id: "9", firstName: "Bobby", lastName: "Hill", email: nil, phone: nil),
+            .init(id: "10", firstName: "Anakin", lastName: "Skywalker", email: nil, phone: nil),
         ]
         
         let usersByFirstLetter = Dictionary(grouping: clients) { (client: Client) -> Character in

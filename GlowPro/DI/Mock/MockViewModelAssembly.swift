@@ -161,6 +161,18 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Settings
+        
+        container
+            .register(SettingsViewModel.self) { r in
+                SettingsViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // DevSettings
         
         container

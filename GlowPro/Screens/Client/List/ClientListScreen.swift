@@ -44,7 +44,7 @@ struct ClientListScreen: View {
     
     private func content() -> some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(backgroundStyle: Style.shared.background(.primary)) {
             navBar()
         } scrollViewContent: {
             clientList()
@@ -54,13 +54,26 @@ struct ClientListScreen: View {
     
     private func navBar() -> some View {
         
-        NavBarView(
+        let backButton = BackButton(backgroundColor: .color(.clear)) {
+            self.viewModel.dismiss()
+        }
+        .asAnyView()
+        
+        let plusButton = CircularIconView(
+            foregroundColor: .color(.black),
+            backgroundColor: .color(.clear),
+            imageSource: .systemImage("plus"),
+            size: 32
+        )
+        .asButton {
+            print("ADD NEW CLIENT")
+        }
+        .asAnyView()
+        
+        return NavBarView(
             title: "Client List",
-            leftButtonView: (
-                BackButton {
-                    self.viewModel.dismiss()
-                }
-            ).asAnyView()
+            leftButtonView: backButton,
+            rightButtonView: plusButton
         )
         
     }
@@ -105,7 +118,7 @@ struct ClientListScreen: View {
     
     private func clientItem(_ client: Client) -> some View {
         
-        AppCardView {
+        AppCardView(shadow: .subtle) {
             
             HStack(spacing: Style.shared.spacing(.small)) {
                 
@@ -133,6 +146,9 @@ struct ClientListScreen: View {
                     }
                     
                 }
+                
+                Image(systemName: "chevron.right")
+                    .opacity(0.5)
                 
             }
             

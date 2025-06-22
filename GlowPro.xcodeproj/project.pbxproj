@@ -178,6 +178,10 @@
 		7548D23C2DD56138008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D23B2DD56138008AE243 /* Rune */; };
 		7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
 		7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
+		754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29342E07B5C60065E242 /* SettingsViewModel.swift */; };
+		754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29342E07B5C60065E242 /* SettingsViewModel.swift */; };
+		754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29372E07B5CC0065E242 /* SettingsScreen.swift */; };
+		754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29372E07B5CC0065E242 /* SettingsScreen.swift */; };
 		75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
 		75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
 		75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
@@ -408,6 +412,8 @@
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Dev-Info.plist"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
+		754D29342E07B5C60065E242 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		754D29372E07B5CC0065E242 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -930,6 +936,31 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		754D29312E07B1260065E242 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		754D29322E07B5AE0065E242 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				754D29332E07B5BB0065E242 /* Settings */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		754D29332E07B5BB0065E242 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				754D29342E07B5C60065E242 /* SettingsViewModel.swift */,
+				754D29372E07B5CC0065E242 /* SettingsScreen.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		75573AB92DD82B4A00C7CA6E /* Globals + Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,6 +1055,7 @@
 				75C643C32DB929340033D68E /* Tab */,
 				759B64762E04A751006F4995 /* Client */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
+				754D29322E07B5AE0065E242 /* Settings */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
 			);
 			path = Screens;
@@ -1112,7 +1144,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
+				754D29312E07B1260065E242 /* Base */,
 				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
 			);
 			path = Components;
@@ -1477,9 +1509,11 @@
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivityView.swift in Sources */,
+				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
+				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
@@ -1629,9 +1663,11 @@
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */,
+				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
+				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,

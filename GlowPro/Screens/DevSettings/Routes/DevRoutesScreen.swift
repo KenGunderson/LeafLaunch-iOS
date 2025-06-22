@@ -81,6 +81,11 @@ struct DevRoutesScreen: View {
             )
             
             route(
+                title: "Settings",
+                fullScreenCover: .settings
+            )
+            
+            route(
                 title: "Client Details",
                 fullScreenCover: .clientDetails(clientId: Client.DUMMY_DATA().id)
             )

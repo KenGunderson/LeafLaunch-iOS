@@ -86,8 +86,9 @@ extension View {
         return navigationDestination(for: Route.self) { route in
             
             switch route {
-            case .auth(let authRoute): auth(route: authRoute)
-            case .devSetting(let devRoute): devSettings(route: devRoute)
+            case .auth(let route): auth(route: route)
+            case .setting(let route): settings(route: route)
+            case .devSetting(let route): devSettings(route: route)
             case .clientList:
                 
                 let viewModel = globalResolver.resolve(ClientListViewModel.self)!
@@ -123,6 +124,16 @@ extension View {
                 
                 SignUpScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func settings(route: Route.Setting) -> some View {
+            
+            switch route {
+            case .privacyPolicy: EmptyView()
+            case .termsOfService: EmptyView()
             }
             
         }
@@ -224,6 +235,11 @@ extension View {
                         customFullScreenCover.wrappedValue = nil
                     }
             
+            case .settings:
+                
+                let viewModel = globalResolver.resolve(SettingsViewModel.self)!
+                SettingsScreen(viewModel: viewModel)
+                
             case .clientDetails(let clientId):
                 
                 let viewModel = globalResolver.resolve(ClientDetailsViewModel.self)!

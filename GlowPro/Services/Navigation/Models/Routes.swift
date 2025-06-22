@@ -21,6 +21,28 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum Setting: String, CaseIterable {
+        
+        case privacyPolicy
+        case termsOfService
+        
+        
+        var displayName: String {
+            switch self {
+            case .privacyPolicy: return "Privacy Policy"
+            case .termsOfService: return "Terms of Service"
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .privacyPolicy: return "lock.shield.fill"
+            case .termsOfService: return "clipboard.fill"
+            }
+        }
+        
+    }
+    
     enum DevSetting: String, CaseIterable {
         
         case components
@@ -67,6 +89,7 @@ enum Route: Navigation, Hashable, Sendable {
     
     case devSetting(DevSetting)
     case auth(Auth)
+    case setting(Setting)
     case clientList
     
 }
