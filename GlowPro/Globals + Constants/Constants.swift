@@ -125,7 +125,7 @@ extension Constants {
         
         .init(
             title: "API Down 🙃",
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.title),
             message: "We seem to be experiences technical difficulties. Please try again later.",
             messageColor: Style.shared.textColor(.body),
             image: Image(systemName: "stethoscope.circle.fill"),
@@ -143,7 +143,7 @@ extension Constants {
         
         .init(
             title: "No Network",
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.title),
             message: "You seem to me be missing your internet connection.",
             messageColor: Style.shared.textColor(.body),
             image: Image(systemName: "wifi.slash"),
@@ -161,7 +161,7 @@ extension Constants {
         
         .init(
             title: "Old App Version",
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.title),
             message: "Your app version is too old. Please go to the store and download the latest build.",
             messageColor: Style.shared.textColor(.body),
             image: Image(systemName: "building.2.crop.circle.fill"),
