@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum AppEnvironment: Equatable, Hashable {
+enum AppEnvironment: Selectable {
+    
+    var id: String {
+        return description
+    }
         
     case custom(address: String)
     case localhost
@@ -23,9 +27,9 @@ enum AppEnvironment: Equatable, Hashable {
         }
     }
     
-    var abbreviatedDisplayName: String {
+    var description: String {
         switch self {
-        case .custom(_): return "Custom"
+        case .custom: return "Custom"
         case .localhost: return "Local"
         case .development: return "Dev"
         case .production: return "Prod"

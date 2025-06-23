@@ -54,7 +54,7 @@ struct DevSettingsScreen: View {
             
             // OnChange
             
-            .onChange(of: self.viewModel.selectedEnviornment) { oldValue, newValue in
+            .onChange(of: self.viewModel.selectedEnviornment!) { oldValue, newValue in
                 self.viewModel.set(environment: newValue)
             }
             
@@ -111,17 +111,11 @@ struct DevSettingsScreen: View {
                 
                 VStack(spacing: Style.shared.spacing(.small)) {
                     
-                    Picker("Enviornment", selection: self.$viewModel.selectedEnviornment) {
-                        
-                        ForEach(self.viewModel.getAppEnviornments(), id: \.displayName) { env in
-                            Text(env.abbreviatedDisplayName.capitalized)
-                                .appFont(with: .BODY_B5)
-                                .foregroundStyle(Style.shared.textColor(.title).source())
-                                .tag(env)
-                        }
-                        
-                    }
-                    .pickerStyle(.segmented)
+                    CommonSegmentedControl(
+                        selectedOption: self.$viewModel.selectedEnviornment,
+                        options: self.viewModel.getAppEnviornments(),
+                        selectedTextColor: Style.shared.textColor(.titleInverted)
+                    )
                     .padding(.bottom, .small)
                     
                     if case .custom = self.viewModel.selectedEnviornment {
@@ -149,7 +143,7 @@ struct DevSettingsScreen: View {
                     
                     lineItemView(
                         title: "Host",
-                        subtitle: Constants.URLs.urlForEnvironment(self.viewModel.selectedEnviornment)
+                        subtitle: Constants.URLs.urlForEnvironment(self.viewModel.selectedEnviornment!)
                     )
                     .padding(.bottom, .medium)
                     

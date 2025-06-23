@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 struct Constants {
     
@@ -113,6 +114,64 @@ struct Constants {
             ]
             
         }
+        
+    }
+    
+}
+
+extension Constants {
+    
+    static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+        
+        .init(
+            title: "API Down 🙃",
+            titleColor: Style.shared.textColor(.titleInverted),
+            message: "We seem to be experiences technical difficulties. Please try again later.",
+            messageColor: Style.shared.textColor(.body),
+            image: Image(systemName: "stethoscope.circle.fill"),
+            imageColor: Style.shared.background(.error),
+            buttonTitle: "Try Again",
+            buttonColor: Style.shared.background(.error),
+            action: {
+                action()
+            }
+        )
+        
+    }
+    
+    static func NO_NETWORK_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+        
+        .init(
+            title: "No Network",
+            titleColor: Style.shared.textColor(.titleInverted),
+            message: "You seem to me be missing your internet connection.",
+            messageColor: Style.shared.textColor(.body),
+            image: Image(systemName: "wifi.slash"),
+            imageColor: Style.shared.accent,
+            buttonTitle: "Try Again",
+            buttonColor: Style.shared.accent,
+            action: {
+                action()
+            }
+        )
+        
+    }
+    
+    static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+        
+        .init(
+            title: "Old App Version",
+            titleColor: Style.shared.textColor(.titleInverted),
+            message: "Your app version is too old. Please go to the store and download the latest build.",
+            messageColor: Style.shared.textColor(.body),
+            image: Image(systemName: "building.2.crop.circle.fill"),
+            imageColor: .color(.blue),
+            buttonTitle: "Update Now",
+            buttonColor: .color(.blue),
+            action: {
+                action()
+            }
+        )
         
     }
     

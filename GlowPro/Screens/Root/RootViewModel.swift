@@ -152,28 +152,28 @@ final class RootViewModel: ViewModel {
     func presentHealthCheckAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(style: .healthCheck({
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.HEALTH_CHECK_ENV_ALERT {
                 // TODO: - RETRY
-            })))))
+            }))))
         
     }
     
     func presentNoNetworkAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(style: .noNetwork({
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.NO_NETWORK_ENV_ALERT {
                 // TODO: - RETRY
-            })))))
+            }))))
         
     }
     
     func presentForceUpdateAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(style: .forceUpdate({
-                // TODO: - RETRY + Navigate To App Store
-            })))))
-        
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.FORCE_UPDATE_ENV_ALERT {
+                // TODO: - RETRY
+            }))))
+
     }
     
     // MARK: - PRIVATE

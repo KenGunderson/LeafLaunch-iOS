@@ -26,7 +26,7 @@ final class DevSettingsViewModel: ViewModel {
             
     @Published private(set) var user: GPUser?
     @Published private(set) var isCustomEnvSelected: Bool = false
-    @Published var selectedEnviornment: AppEnvironment = .development
+    @Published var selectedEnviornment: AppEnvironment? = .development
     @Published var customAPIEnviornmentPath: String = Constants.URLs.defaultCustomEnvironmentAddress
     
     init(analyticsService: AnalyticsServiceProtocol,
@@ -140,8 +140,8 @@ final class DevSettingsViewModel: ViewModel {
                 
                 guard let environment else { return }
                 
-                let selectedEnvName = environment.abbreviatedDisplayName
-                let defaultEnvName = AppEnvironment.custom(address: "").abbreviatedDisplayName
+                let selectedEnvName = environment.description
+                let defaultEnvName = AppEnvironment.custom(address: "").description
                 
                 self?.isCustomEnvSelected = selectedEnvName == defaultEnvName
                 self?.selectedEnviornment = environment

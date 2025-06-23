@@ -188,11 +188,11 @@ final class DevUserDefaultsViewModel: ViewModel {
         withAnimation {
             
             self.alertService
-                .showAlert(.init(.enviornmentAlert(.init(style: .noNetwork({ [weak self] in
+                .showAlert(.init(.enviornmentAlert(.init(config: Constants.NO_NETWORK_ENV_ALERT { [weak self] in
                     
                     self?.shouldShowNoNetworkError = false
                     
-                })))))
+                }))))
             
         }
         
@@ -203,11 +203,11 @@ final class DevUserDefaultsViewModel: ViewModel {
         withAnimation {
             
             self.alertService
-                .showAlert(.init(.enviornmentAlert(.init(style: .forceUpdate({ [weak self] in
+                .showAlert(.init(.enviornmentAlert(.init(config: Constants.FORCE_UPDATE_ENV_ALERT { [weak self] in
                     
                     self?.shouldShowForceUpdateError = false
                     
-                })))))
+                }))))
             
         }
         
@@ -218,11 +218,11 @@ final class DevUserDefaultsViewModel: ViewModel {
         withAnimation {
             
             self.alertService
-                .showAlert(.init(.enviornmentAlert(.init(style: .healthCheck({ [weak self] in
+                .showAlert(.init(.enviornmentAlert(.init(config: Constants.HEALTH_CHECK_ENV_ALERT { [weak self] in
                     
                     self?.shouldShowHealthCheckError = false
                     
-                })))))
+                }))))
             
         }
         
