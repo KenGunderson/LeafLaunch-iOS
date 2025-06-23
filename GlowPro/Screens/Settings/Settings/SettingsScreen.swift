@@ -122,6 +122,7 @@ struct SettingsScreen: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.right")
+                    .foregroundStyle(Style.shared.textColor(.title).source())
                     .opacity(0.5)
                 
             }

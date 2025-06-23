@@ -54,15 +54,19 @@ struct TabBar1Screen: View {
     
     private func content() -> some View {
         
-        CommonButton(title: "Client List",
-                     titleColor: Style.shared.textColor(.titleInverted)) {
+        AppBaseView {
             
-            self.tabBarNavigationService
-                .currentNavigationService()
-                .push(.clientList)
+            CommonButton(title: "Client List",
+                         titleColor: Style.shared.textColor(.titleInverted)) {
+                
+                self.tabBarNavigationService
+                    .currentNavigationService()
+                    .push(.clientList)
+                
+            }
+                         .padding(.horizontal, .large)
             
         }
-        .padding(.horizontal, .large)
         
     }
     

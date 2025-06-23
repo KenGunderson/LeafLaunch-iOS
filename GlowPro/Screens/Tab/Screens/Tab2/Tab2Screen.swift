@@ -46,7 +46,7 @@ struct TabBar2Screen: View {
     }
     
     private func content() -> some View {
-        EmptyView()
+        AppBaseView {}
     }
     
 }

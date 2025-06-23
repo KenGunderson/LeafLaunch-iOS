@@ -135,10 +135,11 @@ extension View {
             case .profile: EmptyView()
             case .subscription: EmptyView()
             case .aboutUs: EmptyView()
-            case .privacyPolicy: EmptyView()
-            case .termsOfService: EmptyView()
+            case .frequentlyAskedQuestions: EmptyView()
             case .contactSupport: EmptyView()
             case .sendFeedback: EmptyView()
+            case .privacyPolicy: EmptyView()
+            case .termsOfService: EmptyView()
             }
             
         }
