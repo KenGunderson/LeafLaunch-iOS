@@ -147,7 +147,7 @@ struct DevImpersonateScreen: View {
         
         return CommonButton(
             title: title,
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.button),
             isEnabled: isEnabled
         ) {
             self.viewModel.impersonateOrRevert()

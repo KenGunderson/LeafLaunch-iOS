@@ -95,7 +95,7 @@ struct WelcomeScreen: GPView {
         
         CommonButton(
             title: "Sign Up",
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.button),
             action: {
                 self.viewModel.navigateToSignUp()
             })
@@ -106,7 +106,7 @@ struct WelcomeScreen: GPView {
         
         CommonButton(
             title: "Login",
-            titleColor: Style.shared.textColor(.titleInverted),
+            titleColor: Style.shared.textColor(.button),
             action: {
                 self.viewModel.navigateToLogin()
             })

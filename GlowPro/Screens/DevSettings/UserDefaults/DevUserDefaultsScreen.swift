@@ -194,7 +194,7 @@ struct DevUserDefaultsScreen: View {
                 
                 TokenView(
                     text: "Set To Latest",
-                    foregroundStyle: Style.shared.textColor(.titleInverted),
+                    foregroundStyle: Style.shared.textColor(.button),
                     backgroundStyle: Style.shared.accent
                 )
                 .asButton {

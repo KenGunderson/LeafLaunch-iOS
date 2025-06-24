@@ -36,7 +36,7 @@ struct WhatsNewScreen: GPView {
         .safeAreaInset(edge: .bottom) {
             
             CommonButton(title: "Done",
-                         titleColor: Style.shared.textColor(.titleInverted)) {
+                         titleColor: Style.shared.textColor(.button)) {
                 
                 dismiss()
                 

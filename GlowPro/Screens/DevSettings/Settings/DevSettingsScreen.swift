@@ -14,10 +14,7 @@ struct DevSettingsScreen: View {
     @State private var navigationService = NavigationService()
             
     init(viewModel: DevSettingsViewModel) {
-        
         self._viewModel = .init(wrappedValue: viewModel)
-        setupPickerStyle()
-        
     }
     
     var body: some View {
@@ -278,15 +275,6 @@ struct DevSettingsScreen: View {
             .foregroundStyle(colorOverride.source())
             
         }
-        
-    }
-    
-    private func setupPickerStyle() {
-        
-        UISegmentedControl.appearance().backgroundColor = UIColor(Style.shared.background(.secondary).asColor!)
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Style.shared.accent.asColor!)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Style.shared.textColor(.titleInverted).asColor!)], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Style.shared.textColor(.title).asColor!)], for: .normal)
         
     }
     

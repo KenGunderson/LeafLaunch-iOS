@@ -131,7 +131,7 @@ extension Constants {
             image: Image(systemName: "stethoscope.circle.fill"),
             imageColor: Style.shared.background(.error),
             buttonTitle: "Try Again",
-            buttonTitleColor: Style.shared.textColor(.titleInverted),
+            buttonTitleColor: Style.shared.textColor(.button),
             buttonColor: Style.shared.background(.error),
             action: {
                 action()
@@ -150,7 +150,7 @@ extension Constants {
             image: Image(systemName: "wifi.slash"),
             imageColor: Style.shared.accent,
             buttonTitle: "Try Again",
-            buttonTitleColor: Style.shared.textColor(.titleInverted),
+            buttonTitleColor: Style.shared.textColor(.button),
             buttonColor: Style.shared.accent,
             action: {
                 action()
@@ -169,7 +169,7 @@ extension Constants {
             image: Image(systemName: "building.2.crop.circle.fill"),
             imageColor: .color(.blue),
             buttonTitle: "Update Now",
-            buttonTitleColor: Style.shared.textColor(.titleInverted),
+            buttonTitleColor: Style.shared.textColor(.button),
             buttonColor: .color(.blue),
             action: {
                 action()

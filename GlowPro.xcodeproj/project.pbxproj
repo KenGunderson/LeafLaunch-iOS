@@ -202,6 +202,10 @@
 		75715ADB2DB9366E00E7994E /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD72DB9366E00E7994E /* Tab3ViewModel.swift */; };
 		75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */; };
 		75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADD2DB9368100E7994E /* Tab4Screen.swift */; };
+		75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B762E0A1FB700EF8627 /* FAQViewModel.swift */; };
+		75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B772E0A1FB700EF8627 /* FAQScreen.swift */; };
+		75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B762E0A1FB700EF8627 /* FAQViewModel.swift */; };
+		75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B772E0A1FB700EF8627 /* FAQScreen.swift */; };
 		758DAE852E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
 		758DAE862E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
 		758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */; };
@@ -431,6 +435,8 @@
 		75715AD82DB9366E00E7994E /* Tab3Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab3Screen.swift; sourceTree = "<group>"; };
 		75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4ViewModel.swift; sourceTree = "<group>"; };
 		75715ADD2DB9368100E7994E /* Tab4Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4Screen.swift; sourceTree = "<group>"; };
+		75740B762E0A1FB700EF8627 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
+		75740B772E0A1FB700EF8627 /* FAQScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQScreen.swift; sourceTree = "<group>"; };
 		758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsScreen.swift; sourceTree = "<group>"; };
 		758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsViewModel.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -948,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
+				75740B752E0A1FA900EF8627 /* FAQ */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1130,6 +1137,15 @@
 				75715ADD2DB9368100E7994E /* Tab4Screen.swift */,
 			);
 			path = Tab4;
+			sourceTree = "<group>";
+		};
+		75740B752E0A1FA900EF8627 /* FAQ */ = {
+			isa = PBXGroup;
+			children = (
+				75740B762E0A1FB700EF8627 /* FAQViewModel.swift */,
+				75740B772E0A1FB700EF8627 /* FAQScreen.swift */,
+			);
+			path = FAQ;
 			sourceTree = "<group>";
 		};
 		758DAE832E050DB500311C7C /* Details */ = {
@@ -1517,6 +1533,8 @@
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
+				75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
+				75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
@@ -1671,6 +1689,8 @@
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,
+				75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
+				75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,

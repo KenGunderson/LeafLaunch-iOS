@@ -111,7 +111,7 @@ struct LoginScreen: GPView {
             
             CommonButton(
                 title: "Login",
-                titleColor: Style.shared.textColor(.titleInverted),
+                titleColor: Style.shared.textColor(.button),
                 isEnabled: self.viewModel.isButtonEnabled) {
                     self.viewModel.handleLogin()
                 }

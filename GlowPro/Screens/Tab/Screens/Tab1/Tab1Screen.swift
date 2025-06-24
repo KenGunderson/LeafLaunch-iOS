@@ -57,7 +57,7 @@ struct TabBar1Screen: View {
         AppBaseView {
             
             CommonButton(title: "Client List",
-                         titleColor: Style.shared.textColor(.titleInverted)) {
+                         titleColor: Style.shared.textColor(.button)) {
                 
                 self.tabBarNavigationService
                     .currentNavigationService()

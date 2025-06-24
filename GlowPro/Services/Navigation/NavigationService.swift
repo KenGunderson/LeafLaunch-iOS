@@ -135,7 +135,13 @@ extension View {
             case .profile: EmptyView()
             case .subscription: EmptyView()
             case .aboutUs: EmptyView()
-            case .frequentlyAskedQuestions: EmptyView()
+            case .frequentlyAskedQuestions:
+                
+                let viewModel = globalResolver.resolve(FAQViewModel.self)!
+                
+                FAQScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .contactSupport: EmptyView()
             case .sendFeedback: EmptyView()
             case .privacyPolicy: EmptyView()

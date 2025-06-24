@@ -173,6 +173,18 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Settings - FAQ
+        
+        container
+            .register(FAQViewModel.self) { r in
+                FAQViewModel(
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }
+        
         // DevSettings
         
         container

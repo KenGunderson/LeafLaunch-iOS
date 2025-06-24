@@ -92,7 +92,7 @@ struct SignUpScreen: GPView {
             
             CommonButton(
                 title: "Create Account",
-                titleColor: Style.shared.textColor(.titleInverted),
+                titleColor: Style.shared.textColor(.button),
                 isEnabled: self.viewModel.isButtonEnabled) {
                     self.viewModel.handleSignUp()
                 }
