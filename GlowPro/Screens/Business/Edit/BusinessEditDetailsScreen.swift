@@ -70,6 +70,12 @@ struct BusinessEditDetailsScreen: GPView {
                 
             }
         
+        // Tap
+        
+            .onTapGesture {
+                self.focusedField = nil
+            }
+        
     }
     
     private func content() -> some View {
@@ -256,6 +262,7 @@ struct BusinessEditDetailsScreen: GPView {
             .textContentType(textContentType)
             .submitLabel(.done)
             .textInputAutocapitalization(.words)
+            .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
         }
