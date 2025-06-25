@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabBar1Screen: View {
+struct TabBar1Screen: GPView {
     
     @StateObject var viewModel: Tab1ViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
@@ -64,7 +64,17 @@ struct TabBar1Screen: View {
                     .push(.clientList)
                 
             }
-                         .padding(.horizontal, .large)
+            .padding(.horizontal, .large)
+            
+            CommonButton(title: "Business Details",
+                         titleColor: Style.shared.textColor(.button)) {
+                
+                self.tabBarNavigationService
+                    .currentNavigationService()
+                    .push(.businessEditDetail(id: "123"))
+                
+            }
+            .padding(.horizontal, .large)
             
         }
         

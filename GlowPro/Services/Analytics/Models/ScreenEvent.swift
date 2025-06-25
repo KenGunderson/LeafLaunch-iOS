@@ -83,6 +83,38 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum BusinessScreen {
+        
+        case businessList
+        case businessDetails(businessId: String)
+        case businessEditDetails(businessId: String)
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .businessList: name = "business_list"
+            case .businessDetails: name = "business_details"
+            case .businessEditDetails: name = "business_edit_details"
+            }
+            
+            return "business.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .businessList: return nil
+            case .businessDetails(let businessId): return ["business_id": businessId]
+            case .businessEditDetails(let businessId): return ["business_id": businessId]
+            }
+            
+        }
+        
+    }
+    
     enum ClientScreen {
         
         case clientList
@@ -97,7 +129,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .clientDetails: name = "client_details"
             }
             
-            return "profile.\(name)"
+            return "client.\(name)"
             
         }
         
@@ -185,6 +217,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case main
     case onboarding(OnboardingScreen)
     case tab(Tab)
+    case business(BusinessScreen)
     case client(ClientScreen)
     case profile(ProfileScreen)
     case whatsNew
@@ -206,6 +239,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case .main: screenName = "main"
         case .onboarding(let screen): screenName = screen.screenName
         case .tab(let screen): screenName = screen.screenName
+        case .business(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
         case .client(let screen):
             
             screenName = screen.screenName

@@ -107,6 +107,7 @@ enum Route: Navigation, Hashable, Sendable {
     case devSetting(DevSetting)
     case auth(Auth)
     case setting(Setting)
+    case businessEditDetail(id: String)
     case clientList
     
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ClientListScreen: View {
+struct ClientListScreen: GPView {
     
     @StateObject var viewModel: ClientListViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService

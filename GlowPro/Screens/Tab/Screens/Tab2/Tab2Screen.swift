@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabBar2Screen: View {
+struct TabBar2Screen: GPView {
     
     @StateObject var viewModel: Tab2ViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService

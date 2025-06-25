@@ -89,6 +89,14 @@ extension View {
             case .auth(let route): auth(route: route)
             case .setting(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
+            case .businessEditDetail(let id):
+                
+                let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!
+                    .setup(businessId: id)
+                
+                BusinessEditDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .clientList:
                 
                 let viewModel = globalResolver.resolve(ClientListViewModel.self)!

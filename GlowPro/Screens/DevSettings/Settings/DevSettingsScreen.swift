@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DevSettingsScreen: View {
+struct DevSettingsScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DevSettingsViewModel

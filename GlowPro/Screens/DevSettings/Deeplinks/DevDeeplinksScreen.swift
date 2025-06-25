@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct DevDeeplinksScreen: View {
+struct DevDeeplinksScreen: GPView {
     
     @StateObject var viewModel: DevDeeplinksViewModel
     @Environment(NavigationService.self) private var navigationService

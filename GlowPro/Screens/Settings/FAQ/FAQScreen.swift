@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct FAQScreen: View {
+struct FAQScreen: GPView {
     
     @StateObject var viewModel: FAQViewModel
     @Environment(NavigationService.self) private var navigationService

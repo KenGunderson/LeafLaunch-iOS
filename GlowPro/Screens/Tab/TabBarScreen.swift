@@ -26,7 +26,7 @@ struct TabBarView: View {
     
 }
 
-struct TabBarScreen: View {
+struct TabBarScreen: GPView {
 
     @Binding var selectedTab: Tab
     @Binding var isTabBarVisible: Bool

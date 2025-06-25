@@ -138,7 +138,19 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
-        // ClientList
+        // Business Details
+        
+        container
+            .register(BusinessEditDetailsViewModel.self) { r in
+                BusinessEditDetailsViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
+        // Client List
         
         container
             .register(ClientListViewModel.self) { r in
@@ -149,7 +161,7 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
-        // ClientDetails
+        // Client Details
         
         container
             .register(ClientDetailsViewModel.self) { r in

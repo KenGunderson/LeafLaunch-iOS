@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DevRoutesScreen: View {
+struct DevRoutesScreen: GPView {
     
     @StateObject var viewModel: DevRoutesViewModel
     @Environment(NavigationService.self) private var navigationService

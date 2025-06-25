@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct DevAnalyticsScreen: View {
+struct DevAnalyticsScreen: GPView {
     
     @StateObject var viewModel: DevAnalyticsViewModel
     @Environment(NavigationService.self) private var navigationService

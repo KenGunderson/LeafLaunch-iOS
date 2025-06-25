@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsScreen: View {
+struct SettingsScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
     

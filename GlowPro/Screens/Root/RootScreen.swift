@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RootScreen: View {
+struct RootScreen: GPView {
     
     @StateObject var viewModel: RootViewModel
     @State private var tabBarNavigationService = TabBarNavigationService()
