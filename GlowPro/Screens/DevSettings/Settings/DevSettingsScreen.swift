@@ -69,7 +69,10 @@ struct DevSettingsScreen: GPView {
             size: 32
         )
         .asButton {
-            print("ADD NEW CLIENT")
+            
+            self.viewModel
+                .dismiss()
+            
         }
         
         NavBarView(

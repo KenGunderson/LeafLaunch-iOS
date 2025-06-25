@@ -166,7 +166,7 @@ struct SignUpScreen: GPView {
         .titleUnderlineTextFieldStyle(
             text: text.wrappedValue,
             title: placeholder,
-            style: .border(),
+            style: .border(cornerRadius: .custom(6)),
             isFocused: isFocused
         )
         .focused(self.$focusedField, equals: fieldToFocus)

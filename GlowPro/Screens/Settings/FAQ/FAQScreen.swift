@@ -53,7 +53,7 @@ struct FAQScreen: GPView {
         NavBarView(
             title: "Frequently Asked Questions",
             leftButtonView: (
-                BackButton {
+                BackButton(backgroundColor: .color(.clear)) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()

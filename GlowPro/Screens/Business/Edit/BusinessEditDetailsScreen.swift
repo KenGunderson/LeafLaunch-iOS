@@ -265,7 +265,7 @@ struct BusinessEditDetailsScreen: GPView {
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
-        }
+            }
         
     }
     
@@ -277,11 +277,13 @@ struct BusinessEditDetailsScreen: GPView {
             CommonButton(title: "Save") {
                 
             }
+            .padding(.top, .small)
             .padding(.horizontal, .large)
             .transition(.move(edge: .bottom)
                 .combined(with: .opacity)
-                .animation(.smooth(duration: 0.2))
+                .animation(.smooth(duration: 0.3))
             )
+            .background(Style.shared.background(.primary).source())
             
         }
         
