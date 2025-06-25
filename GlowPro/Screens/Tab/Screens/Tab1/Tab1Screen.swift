@@ -56,22 +56,25 @@ struct TabBar1Screen: GPView {
         
         AppBaseView {
             
-            CommonButton(title: "Client List",
-                         titleColor: Style.shared.textColor(.button)) {
+            VStack(spacing: Style.shared.spacing(.medium2)) {
                 
-                self.tabBarNavigationService
-                    .currentNavigationService()
-                    .push(.clientList)
+                CommonButton(title: "Client List",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.clientList)
+                    
+                }
                 
-            }
-            .padding(.horizontal, .large)
-            
-            CommonButton(title: "Business Details",
-                         titleColor: Style.shared.textColor(.button)) {
-                
-                self.tabBarNavigationService
-                    .currentNavigationService()
-                    .push(.businessEditDetail(id: "123"))
+                CommonButton(title: "Business Edit Details",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.businessEditDetail(id: "123"))
+                    
+                }
                 
             }
             .padding(.horizontal, .large)
