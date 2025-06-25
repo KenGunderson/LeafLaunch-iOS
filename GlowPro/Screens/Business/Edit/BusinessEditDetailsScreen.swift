@@ -74,10 +74,13 @@ struct BusinessEditDetailsScreen: GPView {
     
     private func content() -> some View {
         
-        AppHeaderScrollView(backgroundStyle: Style.shared.background(.primary)) {
+        AppHeaderScrollView(horizontalPadding: .none) {
             navBar()
         } scrollViewContent: {
-            textFields()
+            contentCards()
+        }
+        .safeAreaInset(edge: .bottom) {
+            bottomBar()
         }
         
     }
@@ -87,41 +90,70 @@ struct BusinessEditDetailsScreen: GPView {
         let backButton = BackButton(backgroundColor: .color(.clear)) {
             self.dismiss()
         }
-            .asAnyView()
+        .asAnyView()
         
         return NavBarView(
-            title: "Your Business",
+            title: "Edit Business",
             leftButtonView: backButton
         )
         
     }
     
-    private func textFields() -> some View {
+    
+    private func contentCards() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraLarge)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.large)) {
             
-            VStack(spacing: Style.shared.spacing(.small)) {
+            businessGeneralInformation()
+            businessAddress()
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func businessGeneralInformation() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            sectionTitle("General Information")
+            
+            AppCardView {
                 
-                sectionTitle("General Information")
-                
-                textField(fieldToFocus: .businessName)
-                textField(fieldToFocus: .email)
-                textField(fieldToFocus: .phone)
+                VStack(spacing: Style.shared.spacing(.small)) {
+                    
+                    textField(fieldToFocus: .businessName)
+                    textField(fieldToFocus: .email)
+                    textField(fieldToFocus: .phone)
+                    
+                }
                 
             }
             
-            VStack(spacing: Style.shared.spacing(.small)) {
+        }
+        
+    }
+    
+    private func businessAddress() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            sectionTitle("Business Address")
+            
+            AppCardView {
                 
-                sectionTitle("Business Address")
-                
-                textField(fieldToFocus: .street)
-                textField(fieldToFocus: .street2)
-                textField(fieldToFocus: .city)
-                
-                HStack {
+                VStack(spacing: Style.shared.spacing(.small)) {
                     
-                    textField(fieldToFocus: .state)
-                    textField(fieldToFocus: .zip)
+                    textField(fieldToFocus: .street)
+                    textField(fieldToFocus: .street2)
+                    textField(fieldToFocus: .city)
+                    
+                    HStack {
+                        
+                        textField(fieldToFocus: .state)
+                        textField(fieldToFocus: .zip)
+                        
+                    }
                     
                 }
                 
@@ -141,15 +173,6 @@ struct BusinessEditDetailsScreen: GPView {
                 maxWidth: .infinity,
                 alignment: .leading
             )
-            .padding(.bottom, .small)
-            .overlay(alignment: .bottom) {
-                
-                Divider()
-                    .background(Style.shared.background(.border).source())
-                    .padding(.bottom, 0)
-                
-            }
-            .padding(.bottom, .small)
         
     }
     
@@ -224,7 +247,7 @@ struct BusinessEditDetailsScreen: GPView {
             .titleUnderlineTextFieldStyle(
                 text: text.wrappedValue,
                 title: placeholder,
-                style: .border(),
+                style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title)
             )
@@ -235,6 +258,24 @@ struct BusinessEditDetailsScreen: GPView {
             .textInputAutocapitalization(.words)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func bottomBar() -> some View {
+        
+        if self.focusedField == nil {
+            
+            CommonButton(title: "Save") {
+                
+            }
+            .padding(.horizontal, .large)
+            .transition(.move(edge: .bottom)
+                .combined(with: .opacity)
+                .animation(.smooth(duration: 0.2))
+            )
+            
         }
         
     }
