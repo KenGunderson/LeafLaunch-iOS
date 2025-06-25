@@ -56,7 +56,7 @@ struct TabBar1Screen: GPView {
         
         AppBaseView {
             
-            VStack(spacing: Style.shared.spacing(.medium2)) {
+            VStack(spacing: Style.shared.spacing(.medium)) {
                 
                 CommonButton(title: "Client List",
                              titleColor: Style.shared.textColor(.button)) {
