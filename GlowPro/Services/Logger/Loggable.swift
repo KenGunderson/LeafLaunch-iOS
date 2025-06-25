@@ -64,6 +64,14 @@ public extension Loggable {
             line: line
         )
         
+        loggedEvents.append(.init(
+            title: "Init",
+            message: formattedString,
+            source: loggerName,
+            level: .info,
+            emoji: loggerEmoji
+        ))
+        
         logger.log(
             level: .info,
             "\(formattedString)"
@@ -82,6 +90,14 @@ public extension Loggable {
             function: function,
             line: line
         )
+        
+        loggedEvents.append(.init(
+            title: "Deinit",
+            message: formattedString,
+            source: loggerName,
+            level: .info,
+            emoji: loggerEmoji
+        ))
         
         logger.log(
             level: .info,
@@ -105,6 +121,14 @@ public extension Loggable {
                 line: line
             )
             
+            loggedEvents.append(.init(
+                title: "Log",
+                message: formattedString,
+                source: loggerName,
+                level: level,
+                emoji: loggerEmoji
+            ))
+            
             logger.log(
                 level: level,
                 "\(formattedString)"
@@ -126,6 +150,14 @@ public extension Loggable {
             function: function,
             line: line
         )
+        
+        loggedEvents.append(.init(
+            title: "Error",
+            message: formattedString,
+            source: loggerName,
+            level: .error,
+            emoji: loggerEmoji
+        ))
         
         logger.log(
             level: .error,
