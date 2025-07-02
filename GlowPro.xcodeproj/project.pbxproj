@@ -212,6 +212,14 @@
 		75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B772E0A1FB700EF8627 /* FAQScreen.swift */; };
 		75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B762E0A1FB700EF8627 /* FAQViewModel.swift */; };
 		75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B772E0A1FB700EF8627 /* FAQScreen.swift */; };
+		758C3CDE2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift */; };
+		758C3CDF2E14AF8100BC1A43 /* BusinessLocationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDD2E14AF8100BC1A43 /* BusinessLocationsScreen.swift */; };
+		758C3CE02E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift */; };
+		758C3CE12E14AF8100BC1A43 /* BusinessLocationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDD2E14AF8100BC1A43 /* BusinessLocationsScreen.swift */; };
+		758C3CE52E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */; };
+		758C3CE62E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */; };
+		758C3CE72E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */; };
+		758C3CE82E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */; };
 		758DAE852E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
 		758DAE862E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */; };
 		758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */; };
@@ -446,6 +454,10 @@
 		75715ADD2DB9368100E7994E /* Tab4Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab4Screen.swift; sourceTree = "<group>"; };
 		75740B762E0A1FB700EF8627 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
 		75740B772E0A1FB700EF8627 /* FAQScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQScreen.swift; sourceTree = "<group>"; };
+		758C3CDC2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationsViewModel.swift; sourceTree = "<group>"; };
+		758C3CDD2E14AF8100BC1A43 /* BusinessLocationsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationsScreen.swift; sourceTree = "<group>"; };
+		758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeesViewModel.swift; sourceTree = "<group>"; };
+		758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeesScreen.swift; sourceTree = "<group>"; };
 		758DAE842E050DD800311C7C /* ClientDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsScreen.swift; sourceTree = "<group>"; };
 		758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsViewModel.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -602,18 +614,20 @@
 		751F953E2E0B7E92001CAF72 /* Business */ = {
 			isa = PBXGroup;
 			children = (
-				751F95452E0B951A001CAF72 /* Edit */,
+				758C3CE22E14B0C700BC1A43 /* Employees */,
+				758C3CDB2E14AF7900BC1A43 /* Locations */,
+				751F95452E0B951A001CAF72 /* Edit Details */,
 			);
 			path = Business;
 			sourceTree = "<group>";
 		};
-		751F95452E0B951A001CAF72 /* Edit */ = {
+		751F95452E0B951A001CAF72 /* Edit Details */ = {
 			isa = PBXGroup;
 			children = (
 				751F95422E0B7EB8001CAF72 /* BusinessEditDetailsViewModel.swift */,
 				751F953F2E0B7EA4001CAF72 /* BusinessEditDetailsScreen.swift */,
 			);
-			path = Edit;
+			path = "Edit Details";
 			sourceTree = "<group>";
 		};
 		7537F3CB2DF661EA0031D9CF /* Models */ = {
@@ -1176,6 +1190,24 @@
 			path = FAQ;
 			sourceTree = "<group>";
 		};
+		758C3CDB2E14AF7900BC1A43 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				758C3CDC2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift */,
+				758C3CDD2E14AF8100BC1A43 /* BusinessLocationsScreen.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		758C3CE22E14B0C700BC1A43 /* Employees */ = {
+			isa = PBXGroup;
+			children = (
+				758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */,
+				758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */,
+			);
+			path = Employees;
+			sourceTree = "<group>";
+		};
 		758DAE832E050DB500311C7C /* Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -1486,6 +1518,8 @@
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
+				758C3CE02E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */,
+				758C3CE12E14AF8100BC1A43 /* BusinessLocationsScreen.swift in Sources */,
 				750DFBCE2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift in Sources */,
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */,
@@ -1585,6 +1619,8 @@
 				753EC1AA2DB8BC6400265B2A /* Gender.swift in Sources */,
 				75715ADA2DB9366E00E7994E /* Tab3Screen.swift in Sources */,
 				75715ADB2DB9366E00E7994E /* Tab3ViewModel.swift in Sources */,
+				758C3CE72E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */,
+				758C3CE82E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */,
 				750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */,
 				7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */,
@@ -1645,6 +1681,8 @@
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
+				758C3CDE2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */,
+				758C3CDF2E14AF8100BC1A43 /* BusinessLocationsScreen.swift in Sources */,
 				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */,
@@ -1744,6 +1782,8 @@
 				75D66D852DC713C300E51CFC /* Gender.swift in Sources */,
 				75D66D962DC713C300E51CFC /* Tab3Screen.swift in Sources */,
 				75D66D972DC713C300E51CFC /* Tab3ViewModel.swift in Sources */,
+				758C3CE52E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */,
+				758C3CE62E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */,
 				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
 				7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */,

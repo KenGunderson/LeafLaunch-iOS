@@ -85,18 +85,20 @@ indirect enum ScreenEvent: AnalyticsEvent {
     
     enum BusinessScreen {
         
-        case businessList
         case businessDetails(businessId: String)
         case businessEditDetails(businessId: String)
+        case businessLocations(businessId: String)
+        case businessEmployees(businessId: String)
         
         var screenName: String {
             
             var name: String
             
             switch self {
-            case .businessList: name = "business_list"
             case .businessDetails: name = "business_details"
             case .businessEditDetails: name = "business_edit_details"
+            case .businessLocations: name = "business_locations"
+            case .businessEmployees: name = "business_employees"
             }
             
             return "business.\(name)"
@@ -106,9 +108,10 @@ indirect enum ScreenEvent: AnalyticsEvent {
         var properties: [String: Any]? {
             
             switch self {
-            case .businessList: return nil
             case .businessDetails(let businessId): return ["business_id": businessId]
             case .businessEditDetails(let businessId): return ["business_id": businessId]
+            case .businessLocations(let businessId): return ["business_id": businessId]
+            case .businessEmployees(let businessId): return ["business_id": businessId]
             }
             
         }

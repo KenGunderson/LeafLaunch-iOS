@@ -21,6 +21,15 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum Business: Hashable {
+        
+        case businessDetails(businessId: String)
+        case businessEditDetails(businessId: String)
+        case businessLocations(businessId: String)
+        case businessEmployees(businessId: String)
+        
+    }
+    
     enum Setting: String, CaseIterable {
         
         case profile
@@ -107,7 +116,7 @@ enum Route: Navigation, Hashable, Sendable {
     case devSetting(DevSetting)
     case auth(Auth)
     case setting(Setting)
-    case businessEditDetail(id: String)
+    case business(Business)
     case clientList
     
 }

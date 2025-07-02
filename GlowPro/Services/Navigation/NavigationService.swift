@@ -89,13 +89,7 @@ extension View {
             case .auth(let route): auth(route: route)
             case .setting(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
-            case .businessEditDetail(let id):
-                
-                let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!
-                    .setup(businessId: id)
-                
-                BusinessEditDetailsScreen(viewModel: viewModel)
-                    .navigationBarBackButtonHidden()
+            case .business(let route): business(route: route)
                 
             case .clientList:
                 
@@ -154,6 +148,39 @@ extension View {
             case .sendFeedback: EmptyView()
             case .privacyPolicy: EmptyView()
             case .termsOfService: EmptyView()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func business(route: Route.Business) -> some View {
+            
+            switch route {
+            case .businessDetails(let businessId): EmptyView()
+            case .businessEmployees(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessEmployeesViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessEmployeesScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .businessLocations(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessLocationsViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessLocationsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .businessEditDetails(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessEditDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }

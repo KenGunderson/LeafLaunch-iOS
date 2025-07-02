@@ -36,7 +36,7 @@ extension OSLogType {
     func color() -> Color {
         
         switch self {
-        case .default: return .primary
+        case .default: return .black
         case .info: return .blue
         case .debug: return .green
         case .error: return .red

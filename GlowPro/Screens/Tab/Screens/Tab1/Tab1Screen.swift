@@ -72,7 +72,25 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.businessEditDetail(id: "123"))
+                        .push(.business(.businessEditDetails(businessId: "123")))
+                    
+                }
+                
+                CommonButton(title: "Business Locations",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.business(.businessLocations(businessId: "123")))
+                    
+                }
+                
+                CommonButton(title: "Business Employees",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.business(.businessEmployees(businessId: "123")))
                     
                 }
                 
