@@ -7,18 +7,11 @@
 
 import Foundation
 
-struct Business: Codable, Mockable {
+struct Business: Identifiable,
+                 Codable,
+                 Mockable {
     
-    struct Address: Codable {
-        
-        let street: String
-        let street2: String?
-        let city: String
-        let state: String
-        let zip: String
-        
-    }
-    
+    let id: String
     let name: String
     let email: String?
     let phoneNumber: String?
@@ -32,16 +25,11 @@ extension Business {
     static func DUMMY_DATA() -> Self {
         
         return .init(
+            id: UUID().uuidString,
             name: "The Hallal Guys",
             email: "hallalguy@gmail.com",
             phoneNumber: "818-522-5755",
-            address: .init(
-                street: "502 East Oceanfront",
-                street2: nil,
-                city: "Newport Beach",
-                state: "CA",
-                zip: "92661"
-            ),
+            address: .DUMMY_DATA(),
             owner: .DUMMY_DATA()
         )
         

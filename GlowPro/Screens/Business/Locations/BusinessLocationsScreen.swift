@@ -73,11 +73,11 @@ struct BusinessLocationsScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            ForEach(self.viewModel.locations, id: \.self) { location in
+            ForEach(self.viewModel.locations, id: \.id) { location in
                 
                 AppCardView {
                     
-                    Text(location)
+                    Text(location.name)
                         .appFont(with: .TITLE_T6)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     

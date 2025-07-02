@@ -18,7 +18,7 @@ final class BusinessLocationsViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var business: Business?
-    @Published private(set) var locations: [String] = []
+    @Published private(set) var locations: [Location] = []
     
     private var businessId: String!
 
@@ -66,7 +66,7 @@ final class BusinessLocationsViewModel: ViewModel {
     func loadData() {
         
         self.business = .DUMMY_DATA()
-        self.locations.append(contentsOf: ["123 Main St", "456 Elm St"])
+        self.locations.append(contentsOf: [.DUMMY_DATA(), .DUMMY_DATA()])
         
     }
     

@@ -73,11 +73,11 @@ struct BusinessEmployeesScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            ForEach(self.viewModel.employees, id: \.self) { employee in
+            ForEach(self.viewModel.employees, id: \.id) { employee in
                 
                 AppCardView {
                     
-                    Text(employee)
+                    Text(employee.name)
                         .appFont(with: .TITLE_T6)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     

@@ -37,7 +37,12 @@ final class DevImpersonateViewModel: ViewModel {
         self.environmentService = environmentService
         
         bindSubscribers()
-                
+        self.logInit()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func setup(navigationService: NavigationService) {

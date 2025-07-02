@@ -80,7 +80,6 @@ class NavigationService: NavigationServiceProtocol {
 
 extension View {
     
-    /// Optional Param for more control? `navigationService: NavigationService? = nil`
     func withNavigationDestination() -> some View {
         
         return navigationDestination(for: Route.self) { route in

@@ -234,6 +234,12 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		75B731F32E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
+		75B731F42E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
+		75B731F62E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
+		75B731F72E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
+		75B731F92E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
+		75B731FA2E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
 		75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437D2DB929340033D68E /* TabBarScreen.swift */; };
 		75C643D72DB929340033D68E /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437E2DB929340033D68E /* TabItemView.swift */; };
 		75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C643802DB929340033D68E /* StandardTabBarView.swift */; };
@@ -465,6 +471,9 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
+		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		75C6437D2DB929340033D68E /* TabBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarScreen.swift; sourceTree = "<group>"; };
 		75C6437E2DB929340033D68E /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		75C6437F2DB929340033D68E /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
@@ -877,6 +886,9 @@
 			isa = PBXGroup;
 			children = (
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
+				75B731F22E14E52900038AD6 /* Location.swift */,
+				75B731F82E14E62200038AD6 /* Employee.swift */,
+				75B731F52E14E58800038AD6 /* Address.swift */,
 				758DAEC52E05152000311C7C /* Activity.swift */,
 				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
@@ -1535,6 +1547,7 @@
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
+				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -1549,6 +1562,7 @@
 				7537F46E2DF661EA0031D9CF /* NavigationService.swift in Sources */,
 				7537F4702DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4712DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
+				75B731F42E14E52A00038AD6 /* Location.swift in Sources */,
 				7537F4722DF661EA0031D9CF /* EventData.swift in Sources */,
 				7537F4732DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4742DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
@@ -1610,6 +1624,7 @@
 				75C643D72DB929340033D68E /* TabItemView.swift in Sources */,
 				75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */,
 				75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */,
+				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				753EC1C52DB8BF5A00265B2A /* AppDelegate.swift in Sources */,
 				75715ACE2DB9365500E7994E /* Tab1Screen.swift in Sources */,
@@ -1698,6 +1713,7 @@
 				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
+				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -1712,6 +1728,7 @@
 				7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */,
 				7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
+				75B731F32E14E52A00038AD6 /* Location.swift in Sources */,
 				7537F4332DF661EA0031D9CF /* EventData.swift in Sources */,
 				7537F4342DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
@@ -1773,6 +1790,7 @@
 				75D66D6B2DC713C300E51CFC /* TabItemView.swift in Sources */,
 				75D66D6C2DC713C300E51CFC /* StandardTabBarView.swift in Sources */,
 				75D66D6D2DC713C300E51CFC /* CustomTabBarView.swift in Sources */,
+				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				75D66D752DC713C300E51CFC /* AppDelegate.swift in Sources */,
 				75D66D7A2DC713C300E51CFC /* Tab1Screen.swift in Sources */,

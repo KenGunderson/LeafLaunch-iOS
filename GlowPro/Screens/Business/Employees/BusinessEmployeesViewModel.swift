@@ -18,7 +18,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var business: Business?
-    @Published private(set) var employees: [String] = []
+    @Published private(set) var employees: [Employee] = []
     
     private var businessId: String!
 
@@ -66,7 +66,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     func loadData() {
         
         self.business = .DUMMY_DATA()
-        self.employees.append(contentsOf: ["Sako Hovaguimian", "KC Gunderson", "John Sharpe", "Robert Sharpe"])
+        self.employees.append(contentsOf: [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()])
         
     }
     

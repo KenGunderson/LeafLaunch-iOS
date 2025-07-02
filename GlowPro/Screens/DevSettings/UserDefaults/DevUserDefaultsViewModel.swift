@@ -65,7 +65,12 @@ final class DevUserDefaultsViewModel: ViewModel {
         self.lastViewedWhatsNewVersion = userDefaultsService.lastViewedWhatsNewVersion
         
         bindSubscribers()
+        self.logInit()
         
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func setup(navigationService: NavigationService) {

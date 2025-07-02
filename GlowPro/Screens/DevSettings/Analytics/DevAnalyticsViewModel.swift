@@ -70,9 +70,14 @@ final class DevAnalyticsViewModel: ViewModel {
         self.environmentService = environmentService
         
         bindSubscribers()
+        self.logInit()
         
         self.selectedDisplayTypeString = self.selectedDisplayType.rawValue.capitalized
         
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func setup(navigationService: NavigationService) {

@@ -32,7 +32,12 @@ final class DevDeeplinksViewModel: ViewModel {
         self.environmentService = environmentService
         
         bindSubscribers()
+        self.logInit()
         
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     func setup(navigationService: NavigationService) {
