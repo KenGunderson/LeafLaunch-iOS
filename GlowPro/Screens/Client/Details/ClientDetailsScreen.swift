@@ -87,7 +87,7 @@ struct ClientDetailsScreen: GPView {
     @ViewBuilder
     private func actionItems() -> some View {
         
-        WStack {
+        LazyVGrid(columns: [.init(.adaptive(minimum: 80, maximum: 80), spacing: 8, alignment: .center)], spacing: 4) {
             
             actionItem(title: "Notes", icon: "pencil", gradientColors: [.purple, .indigo]) {}
             actionItem(title: "Forms", icon: "text.document.fill", gradientColors: [.green, .mint]) {}
@@ -190,7 +190,7 @@ struct ClientDetailsScreen: GPView {
             
         }
         .foregroundStyle(Style.shared.textColor(.titleInverted).source())
-        .frame(width: 72, height: 72)
+        .frame(width: 80, height: 80)
         .background(
             LinearGradient(
                 colors: gradientColors,
