@@ -134,111 +134,28 @@ final class MainViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
-//        self.userDefaultsService
-//            .didCompleteOnboardingPublisher
-//            .receiveOnMain()
-//            .sink { [weak self] didCompleteOnboarding in
-//                
-//                guard didCompleteOnboarding else { return }
-//                self?.presentModalsIfNeeded()
-//                
-//            }
-//            .store(in: &self.cancelBag)
-//        
-//        self.userDefaultsService
-//            .didCompletePermissionPublisher
-//            .receiveOnMain()
-//            .sink { [weak self] didCompleteOnboarding in
-//                
-//                guard didCompleteOnboarding else { return }
-//                self?.presentModalsIfNeeded()
-//                
-//            }
-//            .store(in: &self.cancelBag)
-        
     }
     
     private func presentModalsIfNeeded() {
                 
-//       self.tabBarNavigationService?.resetPathItems()
-//        
-//        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
-//        let shouldShowPermissions = !self.userDefaultsService.didCompletePermission
-//        
-//        if shouldShowOnboarding {
-//            
-//            self.logger.debugMessage("Attemping to show onboarding modal")
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                
-//                self?.tabBarNavigationService?
-//                    .currentNavigationService()
-//                    .modal(fullScreenCover: .onboarding)
-//                
-//                // TODO: - POTENTIALLY REMOVE THIS TOO
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-//                    
-//                    self?.userDefaultsService
-//                        .set(didCompleteOnboarding: true)
-//                    
-//                })
-//                
-//            })
-//            
-//        }
-//        else if shouldShowPermissions {
-//            
-//            self.logger.debugMessage("Attemping to show permissions modal")
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                self?.shouldShowPermissionViewIfNeeded()
-//            })
-//            
-//        }
-//        else {
-//            
-//            self.logger.debugMessage("Attemping to show what's new modal")
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-//                self?.shouldShowWhatsNewIfNeeded()
-//            })
-//            
-//        }
+       self.tabBarNavigationService?.resetPathItems()
+        
+        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
+        
+        if shouldShowOnboarding {
+            
+            self.logger.debug("Attemping to show onboarding modal")
+            
+            self.tabBarNavigationService?
+                .currentNavigationService()
+                .modal(fullScreenCover: .onboarding)
+            
+//            self.userDefaultsService
+//                .set(didCompleteOnboarding: true)
+            
+        }
         
     }
-    
-//    private func shouldShowPermissionViewIfNeeded() {
-        
-//        guard !self.userDefaultsService.didCompletePermission,
-//        self.permissionsService.shouldShowPermissionView else { return }
-//        
-//        self.logger.debugMessage("Presenting Permissions View")
-//        
-//        self.tabBarNavigationService?
-//            .currentNavigationService()
-//            .modal(sheet: .permissions)
-//        
-//        self.userDefaultsService
-//            .set(didCompletePermission: true)
-        
-//    }
-    
-//    private func shouldShowWhatsNewIfNeeded() {
-//        
-//        let lastViewedVersion = self.userDefaultsService.lastViewedWhatsNewVersion
-//        let whatsNewItems = Constants.WhatsNewItems.items
-//        let shouldShowNewItem = whatsNewItems.filter { $0.version > SemanticVersion(lastViewedVersion ?? "") }.count > 0
-//        
-//        if shouldShowNewItem,
-//           let latestItem = whatsNewItems.last {
-//            
-//            self.tabBarNavigationService?
-//                .currentNavigationService()
-//                .modal(sheet: .whatsNew(latestItem))
-//            
-//        }
-//        
-//    }
     
 }
 

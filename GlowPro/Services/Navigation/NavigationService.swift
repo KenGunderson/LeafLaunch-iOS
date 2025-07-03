@@ -276,10 +276,14 @@ extension View {
                 
             case .onboarding:
                 
-                Color.orange
-                    .onTapGesture {
-                        customFullScreenCover.wrappedValue = nil
-                    }
+                let viewModel = globalResolver.resolve(OnboardingViewModel.self)!
+                    .setup(pages: [
+                        .welcome,
+                        .features,
+                        .permission
+                    ])
+                
+                OnboardingScreen(viewModel: viewModel)
             
             case .settings:
                 

@@ -17,5 +17,11 @@
 	</array>
 	<key>Environment</key>
 	<string>PRODUCTION</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This information helps us debug potential problems within the app and associate features that are working.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This allows you to take photos from your devce to upload to the app.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This allows you to select photos from your camera roll to upload to the app.</string>
 </dict>
 </plist>

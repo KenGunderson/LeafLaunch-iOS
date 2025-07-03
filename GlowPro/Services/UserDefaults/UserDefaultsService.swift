@@ -150,8 +150,6 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             
             // Manually Reset
             
-            self.set(didCompleteOnboarding: false)
-            self.set(didCompletePermission: false)
             self.set(impersonatedUser: nil)
             self.set(lastViewedWhatsNewVersion: nil)
             
