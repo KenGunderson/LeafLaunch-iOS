@@ -75,7 +75,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
             
             AppCardView {
                 
-                VStack {
+                VStack(alignment: .leading) {
                     
                     Text(self.viewModel.employee?.id ?? "")
                         .appFont(with: .TITLE_T2)

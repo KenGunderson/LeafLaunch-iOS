@@ -75,7 +75,7 @@ struct BusinessLocationDetailsScreen: GPView {
             
             AppCardView {
                 
-                VStack {
+                VStack(alignment: .leading) {
                     
                     Text(self.viewModel.location?.name ?? "")
                         .appFont(with: .TITLE_T6)
