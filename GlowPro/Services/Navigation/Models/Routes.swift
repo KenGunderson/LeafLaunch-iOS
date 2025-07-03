@@ -21,6 +21,14 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum Onboarding {
+        
+        case welcome
+        case feature
+        case permission
+        
+    }
+    
     enum Business: Hashable {
         
         case businessDetails(businessId: String)
@@ -115,6 +123,7 @@ enum Route: Navigation, Hashable, Sendable {
     
     case devSetting(DevSetting)
     case auth(Auth)
+    case onboarding(Onboarding)
     case setting(Setting)
     case business(Business)
     case clientList

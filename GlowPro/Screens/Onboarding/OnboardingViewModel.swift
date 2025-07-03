@@ -13,15 +13,18 @@ final class OnboardingViewModel: ViewModel {
     internal let loggerName: String = "ONBOARDING_VIEW_MODEL"
     internal let loggerEmoji: String = "🛹"
     
+    private var navigationService: NavigationService?
+    
     private let analyticsService: AnalyticsServiceProtocol
     private(set) var permissionService: PermissionsServiceProtocol
+    private(set) var alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published var currentPageIndex: Int = 0
     
     var pages: [OnboardingPage] = []
     
-    @Published var currentPage: OnboardingPage = .welcome
+    @Published var currentPage: OnboardingPage!
     
     var didAcknowledgePermissions: Bool {
         return !self.permissionService.shouldShowPermissionView
@@ -51,10 +54,12 @@ final class OnboardingViewModel: ViewModel {
     
     init(analyticsService: AnalyticsServiceProtocol,
          permissionService: PermissionsServiceProtocol,
+         alertService: AlertServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.alertService = alertService
         self.permissionService = permissionService
         
         self.logInit()
@@ -72,28 +77,72 @@ final class OnboardingViewModel: ViewModel {
     func setup(pages: [OnboardingPage]) -> Self {
         
         self.pages = pages
+        self.currentPage = pages.first ?? .welcome
+        
         return self
         
     }
     
-    func nextPage() {
-        
-        guard !self.isLastPage else { return }
-        
-        self.currentPageIndex += 1
-        
-        self.logger.debug("Next Page")
-        
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func previousPage() {
-        
-        guard !self.isFirstPage else { return }
-        
         self.currentPageIndex -= 1
+    }
+    
+    func nextPage() {
         
-        self.logger.debug("Previous Page")
-
+        if self.pages.indices.contains(self.currentPageIndex + 1) {
+            
+            let nextPage = self.pages[self.currentPageIndex + 1]
+            self.currentPageIndex += 1
+            
+            switch nextPage {
+            case .welcome: self.navigationService?.push(.onboarding(.welcome))
+            case .features: self.navigationService?.push(.onboarding(.feature))
+            case .permission: self.navigationService?.push(.onboarding(.permission))
+            }
+            
+        }
+                    
+    }
+    
+    func findNavigationRouteIndex(routes: [Route]) {
+                
+        if routes == [] {
+            
+            self.currentPage = .welcome
+            self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
+            return
+            
+        }
+        
+        guard let latestRoute = routes.last else { return }
+                
+        switch latestRoute {
+        case .onboarding(let route):
+            
+            switch route {
+            case .welcome:
+                
+                self.currentPage = .welcome
+                self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
+                
+            case .feature:
+                
+                self.currentPage = .features
+                self.currentPageIndex = self.pages.firstIndex(of: .features) ?? 0
+                
+            case .permission:
+                
+                self.currentPage = .permission
+                self.currentPageIndex = self.pages.firstIndex(of: .permission) ?? 0
+            }
+            
+        default: return
+        }
+        
     }
     
     func finish() {
@@ -104,9 +153,6 @@ final class OnboardingViewModel: ViewModel {
             .set(didCompleteOnboarding: true)
         
     }
-    
-    func onPageAppear(_ page: OnboardingPage) {}
-    func onPageDisappear(_ page: OnboardingPage) {}
     
     private func formatProgress() -> String {
         

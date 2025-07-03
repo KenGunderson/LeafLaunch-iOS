@@ -101,6 +101,7 @@ class MockViewModelAssembly: Assembly {
                 OnboardingViewModel(
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     permissionService: r.resolve(PermissionsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

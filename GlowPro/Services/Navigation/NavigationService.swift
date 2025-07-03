@@ -86,6 +86,7 @@ extension View {
             
             switch route {
             case .auth(let route): auth(route: route)
+            case .onboarding(let route): onboarding(route: route)
             case .setting(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
             case .business(let route): business(route: route)
@@ -125,6 +126,28 @@ extension View {
                 
                 SignUpScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func onboarding(route: Route.Onboarding) -> some View {
+            
+            switch route {
+            case .welcome:
+                
+                OnboardingWelcomeScreen()
+                    .navigationBarBackButtonHidden()
+                
+            case .feature:
+                
+                OnboardingFeaturesScreen()
+                    .navigationBarBackButtonHidden()
+                
+            case .permission:
+                
+                OnboardingPermissionsScreen(permissionService: globalResolver.resolve(PermissionsServiceProtocol.self)!)
+                .navigationBarBackButtonHidden()
             }
             
         }

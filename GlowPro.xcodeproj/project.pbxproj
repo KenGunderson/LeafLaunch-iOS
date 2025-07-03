@@ -311,22 +311,20 @@
 		75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD42DC717DF00E51CFC /* WhatsNewViewModel.swift */; };
 		75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
 		75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
-		75E0CA7A2E1604090081A02A /* OnboardingPageViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA742E1604090081A02A /* OnboardingPageViewProtocol.swift */; };
 		75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
 		75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
 		75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75E0CA7E2E1604090081A02A /* OnboardingWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomePage.swift */; };
-		75E0CA7F2E1604090081A02A /* OnboardingPageViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA742E1604090081A02A /* OnboardingPageViewProtocol.swift */; };
+		75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */; };
 		75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
 		75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
 		75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75E0CA832E1604090081A02A /* OnboardingWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomePage.swift */; };
-		75E0CA862E16102B0081A02A /* OnboardingPermissionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsPage.swift */; };
-		75E0CA872E16102B0081A02A /* OnboardingPermissionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsPage.swift */; };
+		75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */; };
+		75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
+		75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
 		75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
 		75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
-		75E0CA8C2E1631670081A02A /* OnboardingFeaturesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesPage.swift */; };
-		75E0CA8D2E1631670081A02A /* OnboardingFeaturesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesPage.swift */; };
+		75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
+		75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 /* End PBXBuildFile section */
@@ -503,14 +501,13 @@
 		75D66DD52DC717DF00E51CFC /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
 		75D8EDEE2DF600D6004D1E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		75E0CA742E1604090081A02A /* OnboardingPageViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewProtocol.swift; sourceTree = "<group>"; };
 		75E0CA752E1604090081A02A /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		75E0CA762E1604090081A02A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		75E0CA772E1604090081A02A /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
-		75E0CA782E1604090081A02A /* OnboardingWelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomePage.swift; sourceTree = "<group>"; };
-		75E0CA852E1610280081A02A /* OnboardingPermissionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsPage.swift; sourceTree = "<group>"; };
+		75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeScreen.swift; sourceTree = "<group>"; };
+		75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsScreen.swift; sourceTree = "<group>"; };
 		75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		75E0CA8B2E1631620081A02A /* OnboardingFeaturesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesPage.swift; sourceTree = "<group>"; };
+		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1351,9 +1348,9 @@
 		75E0CA792E1604090081A02A /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				75E0CA782E1604090081A02A /* OnboardingWelcomePage.swift */,
-				75E0CA8B2E1631620081A02A /* OnboardingFeaturesPage.swift */,
-				75E0CA852E1610280081A02A /* OnboardingPermissionsPage.swift */,
+				75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */,
+				75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */,
+				75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -1361,7 +1358,6 @@
 		75E0CA842E1606630081A02A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				75E0CA742E1604090081A02A /* OnboardingPageViewProtocol.swift */,
 				75E0CA752E1604090081A02A /* OnboardingPage.swift */,
 			);
 			path = Models;
@@ -1586,7 +1582,7 @@
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
-				75E0CA872E16102B0081A02A /* OnboardingPermissionsPage.swift in Sources */,
+				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
 				758C3CE02E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */,
@@ -1609,7 +1605,7 @@
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
-				75E0CA8D2E1631670081A02A /* OnboardingFeaturesPage.swift in Sources */,
+				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
@@ -1658,11 +1654,10 @@
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
-				75E0CA7F2E1604090081A02A /* OnboardingPageViewProtocol.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
-				75E0CA832E1604090081A02A /* OnboardingWelcomePage.swift in Sources */,
+				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -1759,7 +1754,7 @@
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
-				75E0CA862E16102B0081A02A /* OnboardingPermissionsPage.swift in Sources */,
+				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
 				758C3CDE2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift in Sources */,
@@ -1782,7 +1777,7 @@
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
-				75E0CA8C2E1631670081A02A /* OnboardingFeaturesPage.swift in Sources */,
+				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
@@ -1831,11 +1826,10 @@
 				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
-				75E0CA7A2E1604090081A02A /* OnboardingPageViewProtocol.swift in Sources */,
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
-				75E0CA7E2E1604090081A02A /* OnboardingWelcomePage.swift in Sources */,
+				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,

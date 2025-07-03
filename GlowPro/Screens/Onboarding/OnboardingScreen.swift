@@ -11,8 +11,13 @@ import Foundation
 struct OnboardingScreen: View {
     
     @Environment(\.dismiss) private var dismiss
+    
     @StateObject private var viewModel: OnboardingViewModel
+    
+    @State private var navigationService = NavigationService()
     @State private var headerSize: CGSize = .zero
+    
+    static let headerHeight = 46.6
     
     init(viewModel: OnboardingViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
@@ -20,23 +25,18 @@ struct OnboardingScreen: View {
     
     var body: some View {
         
-        AppBaseView(
-            alignment: .top,
-            horizontalPadding: .none
-        ) {
+        ZStack(alignment: .top) {
             
-            ZStack(alignment: .top) {
-                
-                Color.clear
-                    .ignoresSafeArea()
-                
-                headerView()
-                tabView()
-                
+            AppRootView(
+                navigationService: self.$navigationService,
+                alertService: self.viewModel.alertService
+            ) {
+                OnboardingWelcomeScreen()
             }
             
+            headerView()
+            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) {
             
             self.bottomButtonView
@@ -48,37 +48,19 @@ struct OnboardingScreen: View {
             self.viewModel
                 .track()
             
+            self.viewModel
+                .setup(navigationService: self.navigationService)
+            
         }
-        
-    }
-    
-    @ViewBuilder
-    private func pageView(for page: OnboardingPage) -> some View {
-        
-        switch page {
-        case .welcome:
+        .onChange(of: self.navigationService.routes) { oldValue, newValue in
             
-            OnboardingWelcomePage(
-                onAppear: { self.viewModel.onPageAppear(page) },
-                onDisappear: { self.viewModel.onPageDisappear(page)}
-            )
+            guard !oldValue.isEmpty else { return }
+            self.viewModel.findNavigationRouteIndex(routes: newValue)
             
-        case .features:
-            
-            OnboardingFeaturesPage(
-                onAppear: { self.viewModel.onPageAppear(page) },
-                onDisappear: { self.viewModel.onPageDisappear(page)}
-            )
-            
-        case .permission:
-            
-            OnboardingPermissionsPage(
-                permissionService: self.viewModel.permissionService,
-                onAppear: { self.viewModel.onPageAppear(page) },
-                onDisappear: { self.viewModel.onPageDisappear(page)}
-            )
         }
-
+        .animation(.smooth(duration: 0.6), value: self.viewModel.currentPage)
+        .animation(.smooth(duration: 0.6), value: self.viewModel.currentPageIndex)
+        
     }
     
     private func headerView() -> some View {
@@ -98,27 +80,6 @@ struct OnboardingScreen: View {
         } action: { headerSize in
             self.headerSize = headerSize
         }
-        
-    }
-    
-    private func tabView() -> some View {
-        
-        TabView(selection: self.$viewModel.currentPageIndex) {
-            
-            ForEach(Array(self.viewModel.pages.enumerated()), id: \.element) { index, page in
-                
-                self.pageView(for: page)
-                    .id(index)
-                    .tag(index)
-                    .simultaneousGesture(DragGesture(minimumDistance: 0))
-                
-            }
-            
-        }
-        .padding(.top, self.headerSize.height + 16)
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .animation(.smooth(duration: 0.6), value: self.viewModel.currentPage)
-        .animation(.smooth(duration: 0.6), value: self.viewModel.currentPageIndex)
         
     }
     
