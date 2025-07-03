@@ -146,7 +146,7 @@ extension View {
                 
             case .permission:
                 
-                let viewModel = globalResolver.resolve(OnboardingPermissionViewModel.self)!
+                let viewModel = globalResolver.resolve(OnboardingPermissionsViewModel.self)!
                 
                 OnboardingPermissionsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

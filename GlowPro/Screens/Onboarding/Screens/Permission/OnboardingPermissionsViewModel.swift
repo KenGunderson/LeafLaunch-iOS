@@ -1,12 +1,12 @@
 //
-//  OnboardingPermissionViewModel.swift
+//  OnboardingPermissionsViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/3/25.
 //
 
 import Combine
-final class OnboardingPermissionViewModel: ViewModel {
+final class OnboardingPermissionsViewModel: ViewModel {
     
     internal let loggerName: String = "ONBOARDING_PERMISSION_VIEW_MODEL"
     internal let loggerEmoji: String = "🛹"
@@ -99,7 +99,7 @@ final class OnboardingPermissionViewModel: ViewModel {
     
 }
 
-extension OnboardingPermissionViewModel {
+extension OnboardingPermissionsViewModel {
     
     func track() {
         self.analyticsService.track(screen: .onboarding(.permission))

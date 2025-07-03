@@ -111,8 +111,8 @@ class ViewModelAssembly: Assembly {
         // Onboarding Permission ViewModel
         
         container
-            .register(OnboardingPermissionViewModel.self) { r in
-                OnboardingPermissionViewModel(
+            .register(OnboardingPermissionsViewModel.self) { r in
+                OnboardingPermissionsViewModel(
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     permissionService: r.resolve(PermissionsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

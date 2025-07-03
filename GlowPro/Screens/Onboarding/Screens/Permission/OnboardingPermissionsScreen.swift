@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingPermissionsScreen: GPView {
     
-    @StateObject var viewModel: OnboardingPermissionViewModel
+    @StateObject var viewModel: OnboardingPermissionsViewModel
     @State private var shouldAnimate: Bool = false
         
     var body: some View {
@@ -153,7 +153,7 @@ struct OnboardingPermissionsScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(OnboardingPermissionViewModel.self)
+    let viewModel = mockResolve(OnboardingPermissionsViewModel.self)
     
     OnboardingPermissionsScreen(viewModel: viewModel)
         .withMockServices()
