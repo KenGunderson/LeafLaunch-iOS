@@ -106,6 +106,18 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Onboarding Permission ViewModel
+        
+        container
+            .register(OnboardingPermissionViewModel.self) { r in
+                OnboardingPermissionViewModel(
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    permissionService: r.resolve(PermissionsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Tab 1 ViewModel
         
         container

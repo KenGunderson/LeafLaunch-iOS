@@ -64,14 +64,51 @@ struct OnboardingScreen: View {
     }
     
     private func headerView() -> some View {
-     
-        ProgressView(
-            value: self.viewModel.progress,
-            label: { Text(self.viewModel.formattedProgress) },
-            currentValueLabel: { Text(self.viewModel.formattedProgressPercentage) }
-        )
-        .tint(Style.shared.accent.source())
-        .contentTransition(.numericText())
+        
+        HStack(spacing: Style.shared.spacing(.medium)) {
+            
+            Text("Back")
+                .appFont(with: .TITLE_T4)
+                .foregroundStyle(Style.shared.accent.source())
+                .frame(height: self.headerSize.height)
+                .disabled(self.navigationService.routes.isEmpty)
+                .opacity(self.navigationService.routes.isEmpty ? 0.6 : 1)
+                .allowsHitTesting(!self.navigationService.routes.isEmpty)
+                .asButton {
+                    self.navigationService.routes.removeLast()
+                }
+            
+            ProgressView(
+                value: self.viewModel.progress,
+                label: { Text("") },
+                currentValueLabel: { Text(self.viewModel.formattedProgressPercentage) }
+            )
+            .tint(Style.shared.accent.source())
+            .contentTransition(.numericText())
+            
+            let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
+            
+            Text("Next")
+                .appFont(with: .TITLE_T4)
+                .foregroundStyle(Style.shared.accent.source())
+                .frame(height: self.headerSize.height)
+                .disabled(!isButtonEnabled)
+                .opacity(isButtonEnabled ? 1 : 0.6)
+                .allowsHitTesting(isButtonEnabled)
+                .asButton {
+                    
+                    if self.viewModel.isLastPage {
+                        
+                        self.viewModel.finish()
+                        dismiss()
+                        
+                    } else {
+                        self.viewModel.nextPage()
+                    }
+                    
+                }
+            
+        }
         .padding(.horizontal, .large)
         .animation(.easeInOut, value: self.viewModel.progress)
         .background(.clear)

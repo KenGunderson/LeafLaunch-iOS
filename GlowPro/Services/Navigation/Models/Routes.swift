@@ -21,7 +21,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Onboarding {
+    enum Onboarding: Hashable {
         
         case welcome
         case feature

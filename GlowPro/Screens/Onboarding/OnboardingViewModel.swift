@@ -87,10 +87,6 @@ final class OnboardingViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func previousPage() {
-        self.currentPageIndex -= 1
-    }
-    
     func nextPage() {
         
         if self.pages.indices.contains(self.currentPageIndex + 1) {
@@ -172,7 +168,7 @@ final class OnboardingViewModel: ViewModel {
 extension OnboardingViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .onboarding(.appOverview))
+        self.analyticsService.track(screen: .onboarding(.onboarding))
     }
     
 }

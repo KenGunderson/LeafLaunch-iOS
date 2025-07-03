@@ -9,10 +9,9 @@ import SwiftUI
 
 struct OnboardingPermissionsScreen: GPView {
     
+    @StateObject var viewModel: OnboardingPermissionViewModel
     @State private var shouldAnimate: Bool = false
-    
-    let permissionService: PermissionsServiceProtocol
-    
+        
     var body: some View {
                 
         VStack(alignment: .leading) {
@@ -30,16 +29,11 @@ struct OnboardingPermissionsScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
-                let cameraPermssion = self.permissionService.cameraPermissionService
-                let mediaPermission = self.permissionService.mediaPermissionService
-                let pushNotificationPermission = self.permissionService.pushNotificationPermissionService
-                let appTrackingPermission = self.permissionService.appTrackingPermissionService
-                
                 permissionView(
                     title: "Camera",
                     icon: "camera.fill",
-                    isEnabled: cameraPermssion.shouldPromptForPermissions ? nil : cameraPermssion.permissionGranted) {
-                        self.permissionService.cameraPermissionService.requestPermissionIfNeeded()
+                    isEnabled: self.viewModel.cameraPermission.shouldPromptForPermissions ? nil : self.viewModel.cameraPermission.permissionGranted) {
+                        self.viewModel.permissionService.cameraPermissionService.requestPermissionIfNeeded()
                     }
                 
                 // Media
@@ -47,8 +41,8 @@ struct OnboardingPermissionsScreen: GPView {
                 permissionView(
                     title: "Photos",
                     icon: "photo.fill",
-                    isEnabled: mediaPermission.shouldPromptForPermissions ? nil : mediaPermission.permissionGranted) {
-                        self.permissionService.mediaPermissionService.requestPermissionIfNeeded()
+                    isEnabled: self.viewModel.mediaPermission.shouldPromptForPermissions ? nil : self.viewModel.mediaPermission.permissionGranted) {
+                        self.viewModel.permissionService.mediaPermissionService.requestPermissionIfNeeded()
                     }
                 
                 // Push Notifications
@@ -56,8 +50,8 @@ struct OnboardingPermissionsScreen: GPView {
                 permissionView(
                     title: "Push Notifications",
                     icon: "message.fill",
-                    isEnabled: pushNotificationPermission.shouldPromptForPermissions ? nil : pushNotificationPermission.permissionGranted) {
-                        self.permissionService.pushNotificationPermissionService.requestPermissionIfNeeded()
+                    isEnabled: self.viewModel.pushNotificationPermission.shouldPromptForPermissions ? nil : self.viewModel.pushNotificationPermission.permissionGranted) {
+                        self.viewModel.permissionService.pushNotificationPermissionService.requestPermissionIfNeeded()
                     }
                 
                 // Tracking
@@ -65,8 +59,8 @@ struct OnboardingPermissionsScreen: GPView {
                 permissionView(
                     title: "Analytics",
                     icon: "lock.fill",
-                    isEnabled: appTrackingPermission.shouldPromptForPermissions ? nil : appTrackingPermission.permissionGranted) {
-                        self.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
+                    isEnabled: self.viewModel.trackingPermission.shouldPromptForPermissions ? nil : self.viewModel.trackingPermission.permissionGranted) {
+                        self.viewModel.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
                     }
                 
             }
@@ -92,6 +86,14 @@ struct OnboardingPermissionsScreen: GPView {
         .opacity(self.shouldAnimate ? 1 : 0)
         .offset(y: self.shouldAnimate ? 0 : 200)
         .padding(.top, OnboardingScreen.headerHeight)
+        .overlay {
+            
+            // We do this so the count updates the viewModel to redraw for permissions
+            
+            Text("\(viewModel.count)")
+                .opacity(0)
+            
+        }
         
     }
     
@@ -151,9 +153,9 @@ struct OnboardingPermissionsScreen: GPView {
 
 #Preview {
     
-    let permissionsService = mockResolve(PermissionsServiceProtocol.self)
+    let viewModel = mockResolve(OnboardingPermissionViewModel.self)
     
-    OnboardingPermissionsScreen(permissionService: permissionsService)
+    OnboardingPermissionsScreen(viewModel: viewModel)
         .withMockServices()
     
 }

@@ -14,7 +14,8 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case start
         case login
         case signUp
-        case appOverview
+        case onboarding
+        case permission
         
         var screenName: String {
             
@@ -24,7 +25,8 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .start: name = "start"
             case .login: name = "login"
             case .signUp: name = "sign_up"
-            case .appOverview: name = "app_overview"
+            case .onboarding: name = "onboarding"
+            case .permission: name = "permission"
             }
             
             return "onboarding.\(name)"
