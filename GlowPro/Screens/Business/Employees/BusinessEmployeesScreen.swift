@@ -82,6 +82,12 @@ struct BusinessEmployeesScreen: GPView {
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
+                .asButton {
+                    
+                    self.viewModel
+                        .selectEmployee(employee)
+                    
+                }
                 
             }
             

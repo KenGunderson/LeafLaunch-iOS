@@ -82,6 +82,12 @@ struct BusinessLocationsScreen: GPView {
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
+                .asButton {
+                    
+                    self.viewModel
+                        .selectLocation(location)
+                    
+                }
                 
             }
             

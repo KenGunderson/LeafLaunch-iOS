@@ -181,12 +181,31 @@ extension View {
             
             switch route {
             case .businessDetails(let businessId): EmptyView()
+            case .businessEditDetails(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessEditDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .businessEmployees(let businessId):
                 
                 let viewModel = globalResolver.resolve(BusinessEmployeesViewModel.self)!
                     .setup(businessId: businessId)
                 
                 BusinessEmployeesScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .businessEmployeeDetails(let businessId, let employeeId):
+                
+                let viewModel = globalResolver.resolve(BusinessEmployeeDetailsViewModel.self)!
+                    .setup(
+                        businessId: businessId,
+                        employeeId: employeeId
+                    )
+                
+                BusinessEmployeeDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .businessLocations(let businessId):
@@ -197,14 +216,16 @@ extension View {
                 BusinessLocationsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessEditDetails(let businessId):
+            case .businessLocationDetails(let businessId, let locationId):
                 
-                let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!
-                    .setup(businessId: businessId)
+                let viewModel = globalResolver.resolve(BusinessLocationDetailsViewModel.self)!
+                    .setup(
+                        businessId: businessId,
+                        locationId: locationId
+                    )
                 
-                BusinessEditDetailsScreen(viewModel: viewModel)
+                BusinessLocationDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
-                
             }
             
         }

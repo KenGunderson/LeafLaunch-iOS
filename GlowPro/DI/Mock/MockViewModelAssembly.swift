@@ -186,11 +186,35 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Business Locations Details
+        
+        container
+            .register(BusinessLocationDetailsViewModel.self) { r in
+                BusinessLocationDetailsViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Business Employees
         
         container
             .register(BusinessEmployeesViewModel.self) { r in
                 BusinessEmployeesViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
+        // Business Employee Details
+        
+        container
+            .register(BusinessEmployeeDetailsViewModel.self) { r in
+                BusinessEmployeeDetailsViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,

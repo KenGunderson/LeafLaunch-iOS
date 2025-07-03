@@ -51,11 +51,12 @@ final class BusinessEmployeesViewModel: ViewModel {
         
     }
     
-    func navigate(to route: Route) {
+    func selectEmployee(_ employee: Employee) {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
-            .push(route)
+        navigate(to: .business(.businessEmployeeDetails(
+            businessId: self.businessId,
+            employeeId: employee.id)
+        ))
         
     }
     
@@ -67,6 +68,14 @@ final class BusinessEmployeesViewModel: ViewModel {
         
         self.business = .DUMMY_DATA()
         self.employees.append(contentsOf: [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()])
+        
+    }
+    
+    private func navigate(to route: Route) {
+        
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .push(route)
         
     }
     

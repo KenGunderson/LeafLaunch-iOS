@@ -51,11 +51,12 @@ final class BusinessLocationsViewModel: ViewModel {
         
     }
     
-    func navigate(to route: Route) {
+    func selectLocation(_ location: Location) {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
-            .push(route)
+        navigate(to: .business(.businessLocationDetails(
+            businessId: self.businessId,
+            locationId: location.id)
+        ))
         
     }
     
@@ -67,6 +68,14 @@ final class BusinessLocationsViewModel: ViewModel {
         
         self.business = .DUMMY_DATA()
         self.locations.append(contentsOf: [.DUMMY_DATA(), .DUMMY_DATA()])
+        
+    }
+    
+    private func navigate(to route: Route) {
+        
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .push(route)
         
     }
     

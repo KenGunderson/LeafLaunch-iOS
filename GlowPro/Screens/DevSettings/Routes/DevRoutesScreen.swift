@@ -86,6 +86,11 @@ struct DevRoutesScreen: GPView {
             )
             
             route(
+                title: "Onboarding",
+                fullScreenCover: .onboarding
+            )
+            
+            route(
                 title: "Client Details",
                 fullScreenCover: .clientDetails(clientId: Client.DUMMY_DATA().id)
             )

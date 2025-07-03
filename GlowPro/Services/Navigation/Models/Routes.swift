@@ -33,8 +33,12 @@ enum Route: Navigation, Hashable, Sendable {
         
         case businessDetails(businessId: String)
         case businessEditDetails(businessId: String)
+        
         case businessLocations(businessId: String)
+        case businessLocationDetails(businessId: String, locationId: String)
+        
         case businessEmployees(businessId: String)
+        case businessEmployeeDetails(businessId: String, employeeId: String)
         
     }
     
