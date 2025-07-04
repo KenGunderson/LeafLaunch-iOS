@@ -12,6 +12,7 @@ final class BusinessLocationsViewModel: ViewModel {
     internal let loggerName: String = "BUSINESS_LOCATIONS_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
+    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
@@ -25,11 +26,13 @@ final class BusinessLocationsViewModel: ViewModel {
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
-    init(authService: AuthServiceProtocol,
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
@@ -66,8 +69,40 @@ final class BusinessLocationsViewModel: ViewModel {
     
     func loadData() {
         
-        self.business = .DUMMY_DATA()
-        self.locations.append(contentsOf: [.DUMMY_DATA(), .DUMMY_DATA()])
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let locations = try await self.apiService
+                    .getLocations(businessId: self.businessId)
+                
+                await MainActor.run { [weak self] in
+
+                    self?.business = .DUMMY_DATA()
+                    self?.locations = locations
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your locations. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     

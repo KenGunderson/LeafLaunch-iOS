@@ -337,6 +337,14 @@
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */; };
+		75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */; };
+		75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA32E18293100E24BD3 /* APIService+Locations.swift */; };
+		75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA32E18293100E24BD3 /* APIService+Locations.swift */; };
+		75F79DA72E18299C00E24BD3 /* APIService+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */; };
+		75F79DA82E18299C00E24BD3 /* APIService+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */; };
+		75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
+		75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -524,6 +532,10 @@
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Businesses.swift"; sourceTree = "<group>"; };
+		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
+		75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Employees.swift"; sourceTree = "<group>"; };
+		75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Clients.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -716,9 +728,7 @@
 			children = (
 				7537F3CD2DF661EA0031D9CF /* APIServiceProtocol.swift */,
 				7537F3CE2DF661EA0031D9CF /* APIService.swift */,
-				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
-				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
-				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
+				75F79DA22E18291B00E24BD3 /* Endpoints */,
 				7537F3D52DF661EA0031D9CF /* Models */,
 			);
 			path = "Rest API";
@@ -1399,6 +1409,20 @@
 			path = Permission;
 			sourceTree = "<group>";
 		};
+		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
+				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
+				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
+				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
+				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
+				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
+				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1656,6 +1680,7 @@
 				7537F4712DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				75B731F42E14E52A00038AD6 /* Location.swift in Sources */,
 				7537F4722DF661EA0031D9CF /* EventData.swift in Sources */,
+				75F79DA72E18299C00E24BD3 /* APIService+Employees.swift in Sources */,
 				7537F4732DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4742DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4752DF661EA0031D9CF /* EventType.swift in Sources */,
@@ -1665,10 +1690,12 @@
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
+				75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				75795D2F2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D302E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
+				75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
@@ -1698,6 +1725,7 @@
 				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
@@ -1833,6 +1861,7 @@
 				7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				75B731F32E14E52A00038AD6 /* Location.swift in Sources */,
 				7537F4332DF661EA0031D9CF /* EventData.swift in Sources */,
+				75F79DA82E18299C00E24BD3 /* APIService+Employees.swift in Sources */,
 				7537F4342DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4362DF661EA0031D9CF /* EventType.swift in Sources */,
@@ -1842,10 +1871,12 @@
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
+				75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				75795D312E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D322E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
+				75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
@@ -1875,6 +1906,7 @@
 				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,

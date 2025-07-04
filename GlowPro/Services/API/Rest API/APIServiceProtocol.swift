@@ -39,6 +39,35 @@ protocol APIServiceProtocol: APIProtocol {
     func createUser(user: GPUser) async throws -> GPUser
     func deleteUser(user: GPUser) async throws
     
+    // Business
+    
+    func getBusinesses() async throws -> [Business]
+    func getBusiness(id: String) async throws -> Business
+    func deleteBusiness(id: String) async throws
+    
+    // Locations
+    
+    func getLocations(businessId: String) async throws -> [Location]
+    func getLocation(id: String) async throws -> Location
+    func deleteLocation(id: String) async throws
+    
+
+    // Employees
+    
+    func getEmployees(businessId: String) async throws -> [Employee]
+    func getEmployees(locationId: String) async throws -> [Employee]
+    func getEmployee(id: String) async throws -> Employee
+    func deleteEmployee(id: String) async throws
+    
+
+    // Clients
+    
+    func getClients(businessId: String) async throws -> [Client]
+    func getClients(locationId: String) async throws -> [Client]
+    func getClients(employeeId: String) async throws -> [Client]
+    func getClient(id: String) async throws -> Client
+    func deleteClient(id: String) async throws
+    
 }
 
 extension APIProtocol {

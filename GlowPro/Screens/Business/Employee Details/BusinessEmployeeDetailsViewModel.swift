@@ -12,6 +12,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     internal let loggerName: String = "BUSINESS_EMPLOYEE_DETAILS_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
+    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
@@ -26,11 +27,13 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
-    init(authService: AuthServiceProtocol,
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
@@ -68,8 +71,40 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     
     func loadData() {
         
-        self.business = .DUMMY_DATA()
-        self.employee = .DUMMY_DATA()
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let employee = try await self.apiService
+                    .getEmployee(id: self.employeeId)
+                
+                await MainActor.run { [weak self] in
+
+                    self?.business = .DUMMY_DATA()
+                    self?.employee = employee
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your employee. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     

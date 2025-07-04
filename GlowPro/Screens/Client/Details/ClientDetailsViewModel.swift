@@ -12,6 +12,7 @@ final class ClientDetailsViewModel: ViewModel {
     internal let loggerName: String = "CLIENT_DETAILS_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
     
+    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
@@ -26,11 +27,13 @@ final class ClientDetailsViewModel: ViewModel {
     private var dismissAction: (() -> ())?
     private var cancelBag: CancelBag!
     
-    init(authService: AuthServiceProtocol,
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
@@ -65,7 +68,39 @@ final class ClientDetailsViewModel: ViewModel {
     }
     
     func loadData() {
-        self.client = .DUMMY_DATA()
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let client = try await self.apiService
+                    .getClient(id: self.clientId)
+                
+                await MainActor.run { [weak self] in
+                    self?.client = client
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your client. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
     }
     
     private func bindSubscribers() {

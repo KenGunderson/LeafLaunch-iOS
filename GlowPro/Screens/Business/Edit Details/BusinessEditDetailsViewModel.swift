@@ -12,6 +12,7 @@ final class BusinessEditDetailsViewModel: ViewModel {
     internal let loggerName: String = "BUSINESS_EDIT_DETAILS_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
+    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
@@ -33,11 +34,13 @@ final class BusinessEditDetailsViewModel: ViewModel {
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
-    init(authService: AuthServiceProtocol,
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
@@ -73,17 +76,47 @@ final class BusinessEditDetailsViewModel: ViewModel {
     
     func loadData() {
         
-        self.business = .DUMMY_DATA()
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
         
-        guard let business else { return }
-        self.name = business.name
-        self.email = business.email ?? ""
-        self.phone = business.phoneNumber ?? ""
-        self.street = business.address?.street ?? ""
-        self.street2 = business.address?.street2 ?? ""
-        self.city = business.address?.city ?? ""
-        self.state = business.address?.state ?? ""
-        self.zip = business.address?.zip ?? ""
+        Task {
+            
+            do {
+                
+                let business = try await self.apiService
+                    .getBusiness(id: self.businessId)
+                
+                await MainActor.run { [weak self] in
+                    
+                    self?.business = business
+                    self?.name = business.name
+                    self?.email = business.email ?? ""
+                    self?.phone = business.phoneNumber ?? ""
+                    self?.street = business.address?.street ?? ""
+                    self?.street2 = business.address?.street2 ?? ""
+                    self?.city = business.address?.city ?? ""
+                    self?.state = business.address?.state ?? ""
+                    self?.zip = business.address?.zip ?? ""
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your business details. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     

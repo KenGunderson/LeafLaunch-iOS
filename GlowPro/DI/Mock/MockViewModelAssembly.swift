@@ -167,6 +167,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(BusinessEditDetailsViewModel.self) { r in
                 BusinessEditDetailsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
@@ -179,6 +180,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(BusinessLocationsViewModel.self) { r in
                 BusinessLocationsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
@@ -191,6 +193,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(BusinessLocationDetailsViewModel.self) { r in
                 BusinessLocationDetailsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
@@ -203,6 +206,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(BusinessEmployeesViewModel.self) { r in
                 BusinessEmployeesViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
@@ -215,6 +219,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(BusinessEmployeeDetailsViewModel.self) { r in
                 BusinessEmployeeDetailsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
@@ -227,6 +232,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(ClientListViewModel.self) { r in
                 ClientListViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
@@ -238,6 +244,7 @@ class MockViewModelAssembly: Assembly {
         container
             .register(ClientDetailsViewModel.self) { r in
                 ClientDetailsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,

@@ -12,6 +12,7 @@ final class ClientListViewModel: ViewModel {
     internal let loggerName: String = "CLIENT_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
     
+    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -21,10 +22,12 @@ final class ClientListViewModel: ViewModel {
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
     
-    init(authService: AuthServiceProtocol,
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.apiService = apiService
         self.authService = authService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService

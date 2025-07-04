@@ -58,14 +58,7 @@ struct TabBar1Screen: GPView {
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
-                CommonButton(title: "Client List",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.tabBarNavigationService
-                        .currentNavigationService()
-                        .push(.clientList)
-                    
-                }
+                // Business
                 
                 CommonButton(title: "Business Edit Details",
                              titleColor: Style.shared.textColor(.button)) {
@@ -91,6 +84,41 @@ struct TabBar1Screen: GPView {
                     self.tabBarNavigationService
                         .currentNavigationService()
                         .push(.business(.businessEmployees(businessId: "123")))
+                    
+                }
+                
+                // Client
+                
+                CommonButton(title: "Client List",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.clientList)
+                    
+                }
+                
+                // Settings
+                
+                CommonButton(style: .outline(lineWidth: 5),
+                             title: "Settings",
+                             titleColor: Style.shared.accent) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .modal(fullScreenCover: .settings)
+                    
+                }
+                
+                // Onboarding
+                
+                CommonButton(style: .outline(lineWidth: 5),
+                             title: "Onboarding",
+                             titleColor: Style.shared.accent) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .modal(fullScreenCover: .onboarding)
                     
                 }
                 

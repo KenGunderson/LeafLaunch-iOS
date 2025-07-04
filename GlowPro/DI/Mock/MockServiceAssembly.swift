@@ -117,6 +117,66 @@ class MockAPIService: APIServiceProtocol {
     // Device
     
     func registerDevice(token: String, userId: String) async throws {}
+    
+    // Business
+    
+    func getBusinesses() async throws -> [Business] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getBusiness(id: String) async throws -> Business {
+        return .DUMMY_DATA()
+    }
+    
+    func deleteBusiness(id: String) async throws {}
+    
+    // Locations
+    
+    func getLocations(businessId: String) async throws -> [Location] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getLocation(id: String) async throws -> Location {
+        return .DUMMY_DATA()
+    }
+    
+    func deleteLocation(id: String) async throws {}
+    
+    // Employees
+    
+    func getEmployees(businessId: String) async throws -> [Employee] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getEmployees(locationId: String) async throws -> [Employee] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getEmployee(id: String) async throws -> Employee {
+        return .DUMMY_DATA()
+    }
+    
+    func deleteEmployee(id: String) async throws {}
+    
+    // Clients
+    
+    func getClients(businessId: String) async throws -> [Client] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getClients(locationId: String) async throws -> [Client] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getClients(employeeId: String) async throws -> [Client] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
+    
+    func getClient(id: String) async throws -> Client {
+        return .DUMMY_DATA()
+    }
+    
+    func deleteClient(id: String) async throws {}
 
 }
 

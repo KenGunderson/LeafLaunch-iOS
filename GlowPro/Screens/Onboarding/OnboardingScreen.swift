@@ -109,7 +109,7 @@ struct OnboardingScreen: View {
                 }
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         .animation(.easeInOut, value: self.viewModel.progress)
         .background(.clear)
         .onGeometryChange(for: CGSize.self) { geo in
