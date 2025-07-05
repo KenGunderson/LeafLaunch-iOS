@@ -672,11 +672,9 @@
 		751F953E2E0B7E92001CAF72 /* Business */ = {
 			isa = PBXGroup;
 			children = (
-				758C3CE22E14B0C700BC1A43 /* Employees */,
-				75795D252E173176008BD44A /* Employee Details */,
-				758C3CDB2E14AF7900BC1A43 /* Locations */,
-				75795D262E17318C008BD44A /* Location Details */,
-				751F95452E0B951A001CAF72 /* Edit Details */,
+				75ACAA3C2E18C7A100401EC8 /* Business */,
+				75ACAA3B2E18C79000401EC8 /* Location */,
+				75ACAA3A2E18C78800401EC8 /* Employee */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -1322,6 +1320,32 @@
 				759B647F2E04A8F1006F4995 /* ClientListScreen.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		75ACAA3A2E18C78800401EC8 /* Employee */ = {
+			isa = PBXGroup;
+			children = (
+				758C3CE22E14B0C700BC1A43 /* Employees */,
+				75795D252E173176008BD44A /* Employee Details */,
+			);
+			path = Employee;
+			sourceTree = "<group>";
+		};
+		75ACAA3B2E18C79000401EC8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				758C3CDB2E14AF7900BC1A43 /* Locations */,
+				75795D262E17318C008BD44A /* Location Details */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		75ACAA3C2E18C7A100401EC8 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				751F95452E0B951A001CAF72 /* Edit Details */,
+			);
+			path = Business;
 			sourceTree = "<group>";
 		};
 		75C643812DB929340033D68E /* TabViews */ = {
