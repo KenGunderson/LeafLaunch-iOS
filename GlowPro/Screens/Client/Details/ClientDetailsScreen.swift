@@ -7,6 +7,36 @@
 
 import SwiftUI
 
+enum ClientActionItem: String, CaseIterable {
+    
+    case notes
+    case forms
+    case folders
+    case some
+    case other
+    case things
+    case test
+    case grid
+    
+    var displayName: String {
+        self.rawValue.capitalized
+    }
+    
+    var systemIcon: String {
+        switch self {
+        case .notes: return "pencil"
+        case .forms: return "text.document.fill"
+        case .folders: return "folder.fill"
+        case .some: return "document.fill"
+        case .other: return "person.fill"
+        case .things: return "house.fill"
+        case .test: return "magnifyingglass"
+        case .grid: return "grid"
+        }
+    }
+    
+}
+
 struct ClientDetailsScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
@@ -89,14 +119,15 @@ struct ClientDetailsScreen: GPView {
         
         LazyVGrid(columns: [.init(.adaptive(minimum: 80, maximum: 80), spacing: 8, alignment: .center)], spacing: 4) {
             
-            actionItem(title: "Notes", icon: "pencil", gradientColors: [.purple, .indigo]) {}
-            actionItem(title: "Forms", icon: "text.document.fill", gradientColors: [.green, .mint]) {}
-            actionItem(title: "Folders", icon: "folder.fill", gradientColors: [.cyan, .blue]) {}
-            actionItem(title: "Forms", icon: "document.fill", gradientColors: [.orange, .red]) {}
-            actionItem(title: "Some", icon: "person.fill", gradientColors: [.red, .pink]) {}
-            actionItem(title: "Other", icon: "house.fill", gradientColors: [.green, .mint]) {}
-            actionItem(title: "Thing", icon: "grid", gradientColors: [.cyan, .blue]) {}
-            actionItem(title: "Test", icon: "magnifyingglass", gradientColors: [.purple, .indigo]) {}
+            ForEach(ClientActionItem.allCases, id: \.self) { action in
+                
+                actionItem(
+                    title: action.displayName,
+                    icon: action.systemIcon,
+                    action: {}
+                )
+                
+            }
             
         }
         .padding(.horizontal, .large)
@@ -107,9 +138,9 @@ struct ClientDetailsScreen: GPView {
     private func activityFilters() -> some View {
         
         TokenView(
-            text: "Test",
-            foregroundStyle: .color(.white),
-            backgroundStyle: .color(.green)
+            text: "Toggle Activity",
+            foregroundStyle: Style.shared.textColor(.button),
+            backgroundStyle: Style.shared.accent
         )
         .asButton {
             self.viewModel.selectedActivitiesFilter = (self.viewModel.selectedActivitiesFilter == nil) ? "1" : nil
@@ -175,7 +206,6 @@ struct ClientDetailsScreen: GPView {
     
     private func actionItem(title: String,
                             icon: String,
-                            gradientColors: [Color],
                             action: @escaping () -> Void) -> some View {
         
         VStack {
@@ -191,13 +221,7 @@ struct ClientDetailsScreen: GPView {
         }
         .foregroundStyle(Style.shared.textColor(.titleInverted).source())
         .frame(width: 80, height: 80)
-        .background(
-            LinearGradient(
-                colors: gradientColors,
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        .background(Style.shared.accent.asColor!.gradient)
         .clipShape(.rect(cornerRadius: Style.shared.radius(.medium)))
         .asButton {
             action()
