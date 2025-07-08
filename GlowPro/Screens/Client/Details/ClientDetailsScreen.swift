@@ -12,11 +12,11 @@ enum ClientActionItem: String, CaseIterable {
     case notes
     case forms
     case folders
-    case some
-    case other
-    case things
-    case test
-    case grid
+    case proposals
+    case media
+    case collages
+    case activity
+    case edit
     
     var displayName: String {
         self.rawValue.capitalized
@@ -27,11 +27,11 @@ enum ClientActionItem: String, CaseIterable {
         case .notes: return "pencil"
         case .forms: return "text.document.fill"
         case .folders: return "folder.fill"
-        case .some: return "document.fill"
-        case .other: return "person.fill"
-        case .things: return "house.fill"
-        case .test: return "magnifyingglass"
-        case .grid: return "grid"
+        case .proposals: return "dollarsign.circle.fill"
+        case .media: return "photo.on.rectangle.fill"
+        case .collages: return "grid"
+        case .activity: return "magnifyingglass"
+        case .edit: return "square.and.pencil"
         }
     }
     
@@ -51,9 +51,7 @@ struct ClientDetailsScreen: GPView {
             alertService: self.viewModel.alertService
         ) {
                 
-            AppHeaderScrollView(horizontalPadding: .none) {
-                // N/A
-            } scrollViewContent: {
+            ScrollView {
                 content()
             }
             // Lifecycle
