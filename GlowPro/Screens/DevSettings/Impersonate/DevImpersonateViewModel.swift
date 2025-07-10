@@ -73,7 +73,7 @@ final class DevImpersonateViewModel: ViewModel {
         guard !self.userToImpersonateEmail.isEmpty else { return }
         
         let loadingAlert = RuneAlert(.loadingIndicator(
-            .init(loadStyle: .progressView(title: "Impersonating"))
+            .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
         Task {
@@ -105,7 +105,7 @@ final class DevImpersonateViewModel: ViewModel {
     private func revert() {
         
         let loadingAlert = RuneAlert(.loadingIndicator(
-            .init(loadStyle: .progressView(title: "Impersonating"))
+            .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
         Task {

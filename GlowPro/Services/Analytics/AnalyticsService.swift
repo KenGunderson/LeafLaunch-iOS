@@ -80,7 +80,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
                 
                 guard env == .production else { return }
                 self?.setupAmplitude()
-                
             }
             .store(in: &self.cancelBag)
         

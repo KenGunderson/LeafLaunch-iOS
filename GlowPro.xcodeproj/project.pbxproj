@@ -242,6 +242,10 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */; };
+		75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */; };
+		75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */; };
+		75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */; };
 		75B731F32E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
 		75B731F42E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
 		75B731F62E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
@@ -507,6 +511,8 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
+		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeCreateViewModel.swift; sourceTree = "<group>"; };
+		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeCreateScreen.swift; sourceTree = "<group>"; };
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -1326,6 +1332,7 @@
 			isa = PBXGroup;
 			children = (
 				758C3CE22E14B0C700BC1A43 /* Employees */,
+				75AFB1302E1EF89700A9FD0E /* Employee Create */,
 				75795D252E173176008BD44A /* Employee Details */,
 			);
 			path = Employee;
@@ -1346,6 +1353,15 @@
 				751F95452E0B951A001CAF72 /* Edit Details */,
 			);
 			path = Business;
+			sourceTree = "<group>";
+		};
+		75AFB1302E1EF89700A9FD0E /* Employee Create */ = {
+			isa = PBXGroup;
+			children = (
+				75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */,
+				75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */,
+			);
+			path = "Employee Create";
 			sourceTree = "<group>";
 		};
 		75C643812DB929340033D68E /* TabViews */ = {
@@ -1695,6 +1711,7 @@
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F46B2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F46C2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
@@ -1759,6 +1776,7 @@
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
 				75795D292E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
+				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */,
 				75795D2A2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
@@ -1876,6 +1894,7 @@
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F42D2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
@@ -1940,6 +1959,7 @@
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
 				75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
+				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */,
 				75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
