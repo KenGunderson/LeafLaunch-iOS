@@ -224,6 +224,14 @@ extension View {
                 BusinessLocationsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            case .businessLocationCreate(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessLocationCreateViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessLocationCreateScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .businessLocationDetails(let businessId, let locationId):
                 
                 let viewModel = globalResolver.resolve(BusinessLocationDetailsViewModel.self)!
@@ -311,6 +319,13 @@ extension View {
             case .permissions:
                 
                 Color.indigo.ignoresSafeArea()
+                
+            case .businessEntry:
+                
+                let viewModel = globalResolver.resolve(BusinessEntryViewModel.self)!
+                BusinessEntryScreen(viewModel: viewModel)
+                    .presentationDragIndicator(.hidden)
+                    .interactiveDismissDisabled()
                 
             }
             

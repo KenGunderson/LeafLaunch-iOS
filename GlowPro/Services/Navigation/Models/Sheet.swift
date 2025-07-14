@@ -11,6 +11,7 @@ enum Sheet: Identifiable, Hashable, Equatable {
     
     case whatsNew(WhatsNewItem)
     case permissions
+    case businessEntry
     
     var id: String {
         return String(self.hashValue)
@@ -25,6 +26,7 @@ enum Sheet: Identifiable, Hashable, Equatable {
         switch self {
         case .whatsNew: return hasher.combine(0)
         case .permissions: return hasher.combine(1)
+        case .businessEntry: return hasher.combine(2)
         }
         
     }

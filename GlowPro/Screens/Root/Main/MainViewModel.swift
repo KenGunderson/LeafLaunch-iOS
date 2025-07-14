@@ -150,9 +150,6 @@ final class MainViewModel: ViewModel {
                 .currentNavigationService()
                 .modal(fullScreenCover: .onboarding)
             
-//            self.userDefaultsService
-//                .set(didCompleteOnboarding: true)
-            
         }
         
     }

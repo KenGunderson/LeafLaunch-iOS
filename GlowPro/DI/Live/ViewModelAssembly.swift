@@ -164,6 +164,19 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
+        // Business Entry
+        
+        container
+            .register(BusinessEntryViewModel.self) { r in
+                BusinessEntryViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Business Details
         
         container
@@ -182,6 +195,19 @@ class ViewModelAssembly: Assembly {
         container
             .register(BusinessLocationsViewModel.self) { r in
                 BusinessLocationsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
+        // Business Location Create
+        
+        container
+            .register(BusinessLocationCreateViewModel.self) { r in
+                BusinessLocationCreateViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

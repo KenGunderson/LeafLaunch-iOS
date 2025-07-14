@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-enum Role: String,
-           CaseIterable,
-           Selectable {
-    
-    var id: String {
-        return self.rawValue
-    }
-    
-    case employee
-    case frontDesk
-    case manager
-    case owner
-    
-    var description: String {
-        switch self {
-        case .employee: return "Employee"
-        case .frontDesk: return "Front Desk"
-        case .manager: return "Manager"
-        case .owner: return "Owner"
-        }
-    }
-    
-}
-
 struct BusinessEmployeeCreateScreen: GPView {
     
     enum FocusedField: Hashable {
@@ -115,7 +91,7 @@ struct BusinessEmployeeCreateScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "Create Employee",
+            title: "Invite Employee",
             leftButtonView: backButton
         )
         
@@ -136,8 +112,6 @@ struct BusinessEmployeeCreateScreen: GPView {
     private func businessGeneralInformation() -> some View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
-            
-            sectionTitle("Invite")
             
             Text("You can invite an employee to join your business. They will be able to download the app with the invite code attached to their email.")
                 .multilineTextAlignment(.leading)
@@ -252,7 +226,7 @@ struct BusinessEmployeeCreateScreen: GPView {
         
         if self.focusedField == nil {
             
-            CommonButton(title: "Create",
+            CommonButton(title: "Invite",
                          isEnabled: self.viewModel.isSaveButtonEnabled) {
                 
                 self.viewModel

@@ -60,6 +60,15 @@ struct TabBar1Screen: GPView {
                 
                 // Business
                 
+                CommonButton(title: "Business Entry",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .modal(sheet: .businessEntry)
+                    
+                }
+                
                 CommonButton(title: "Business Edit Details",
                              titleColor: Style.shared.textColor(.button)) {
                     
@@ -75,6 +84,15 @@ struct TabBar1Screen: GPView {
                     self.tabBarNavigationService
                         .currentNavigationService()
                         .push(.business(.businessLocations(businessId: "123")))
+                    
+                }
+                
+                CommonButton(title: "Business Create Locations",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.business(.businessLocationCreate(businessId: "123")))
                     
                 }
                 

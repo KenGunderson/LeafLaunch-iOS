@@ -87,9 +87,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
     
     enum BusinessScreen {
         
+        case businessEntry
         case businessDetails(businessId: String)
         case businessEditDetails(businessId: String)
         case businessLocations(businessId: String)
+        case businessLocationCreate(businessId: String)
         case businessLocationDetails(businessId: String, locationId: String)
         case businessEmployees(businessId: String)
         case businessEmployeeCreate(businessId: String)
@@ -100,10 +102,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
             var name: String
             
             switch self {
+            case .businessEntry: name = "business_entry"
             case .businessDetails: name = "business_details"
             case .businessEditDetails: name = "business_edit_details"
             case .businessLocations: name = "business_locations"
-            case .businessLocationDetails: name = "business_locations_details"
+            case .businessLocationCreate: name = "business_location_create"
+            case .businessLocationDetails: name = "business_location_details"
             case .businessEmployees: name = "business_employees"
             case .businessEmployeeCreate: name = "business_employee_create"
             case .businessEmployeeDetails: name = "business_employee_details"
@@ -116,10 +120,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
         var properties: [String: Any]? {
             
             switch self {
+            case .businessEntry: return nil
             case .businessDetails(let businessId): return ["business_id": businessId]
             case .businessEditDetails(let businessId): return ["business_id": businessId]
             case .businessLocations(let businessId): return ["business_id": businessId]
-                
+            case .businessLocationCreate(let businessId): return ["business_id": businessId]
             case .businessLocationDetails(let businessId, let locationId):
                 
                 return [

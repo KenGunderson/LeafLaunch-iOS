@@ -236,6 +236,10 @@
 		758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivityView.swift */; };
 		758DAEC62E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
 		758DAEC72E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
+		759B51382E244FC6000983AC /* BusinessEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B51372E244FC2000983AC /* BusinessEntryViewModel.swift */; };
+		759B51392E244FC6000983AC /* BusinessEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B51372E244FC2000983AC /* BusinessEntryViewModel.swift */; };
+		759B513B2E244FCC000983AC /* BusinessEntryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B513A2E244FC9000983AC /* BusinessEntryScreen.swift */; };
+		759B513C2E244FCC000983AC /* BusinessEntryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B513A2E244FC9000983AC /* BusinessEntryScreen.swift */; };
 		759B64792E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647A2E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
@@ -256,6 +260,12 @@
 		75C643D72DB929340033D68E /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437E2DB929340033D68E /* TabItemView.swift */; };
 		75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C643802DB929340033D68E /* StandardTabBarView.swift */; };
 		75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437F2DB929340033D68E /* CustomTabBarView.swift */; };
+		75CD6B672E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
+		75CD6B682E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */; };
+		75CD6B692E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
+		75CD6B6A2E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */; };
+		75CD6B6C2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
+		75CD6B6D2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
 		75D66CF42DC713C300E51CFC /* Tab2Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD32DB9366E00E7994E /* Tab2Screen.swift */; };
 		75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		75D66D102DC713C300E51CFC /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* Tab1ViewModel.swift */; };
@@ -508,6 +518,8 @@
 		758DAE872E050DE100311C7C /* ClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsViewModel.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		759B51372E244FC2000983AC /* BusinessEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEntryViewModel.swift; sourceTree = "<group>"; };
+		759B513A2E244FC9000983AC /* BusinessEntryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEntryScreen.swift; sourceTree = "<group>"; };
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
@@ -520,6 +532,9 @@
 		75C6437E2DB929340033D68E /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		75C6437F2DB929340033D68E /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		75C643802DB929340033D68E /* StandardTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTabBarView.swift; sourceTree = "<group>"; };
+		75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateViewModel.swift; sourceTree = "<group>"; };
+		75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateScreen.swift; sourceTree = "<group>"; };
+		75CD6B6B2E20C582004A1720 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DC72DC7141A00E51CFC /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
@@ -678,6 +693,7 @@
 		751F953E2E0B7E92001CAF72 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				759B51362E244FA7000983AC /* Entry */,
 				75ACAA3C2E18C7A100401EC8 /* Business */,
 				75ACAA3B2E18C79000401EC8 /* Location */,
 				75ACAA3A2E18C78800401EC8 /* Employee */,
@@ -940,6 +956,7 @@
 			children = (
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
 				75B731F22E14E52900038AD6 /* Location.swift */,
+				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				75B731F82E14E62200038AD6 /* Employee.swift */,
 				75B731F52E14E58800038AD6 /* Address.swift */,
 				758DAEC52E05152000311C7C /* Activity.swift */,
@@ -1310,6 +1327,15 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		759B51362E244FA7000983AC /* Entry */ = {
+			isa = PBXGroup;
+			children = (
+				759B51372E244FC2000983AC /* BusinessEntryViewModel.swift */,
+				759B513A2E244FC9000983AC /* BusinessEntryScreen.swift */,
+			);
+			path = Entry;
+			sourceTree = "<group>";
+		};
 		759B64762E04A751006F4995 /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -1342,6 +1368,7 @@
 			isa = PBXGroup;
 			children = (
 				758C3CDB2E14AF7900BC1A43 /* Locations */,
+				75CD6B642E20C0F7004A1720 /* Location Create */,
 				75795D262E17318C008BD44A /* Location Details */,
 			);
 			path = Location;
@@ -1382,6 +1409,15 @@
 				75C6437D2DB929340033D68E /* TabBarScreen.swift */,
 			);
 			path = Tab;
+			sourceTree = "<group>";
+		};
+		75CD6B642E20C0F7004A1720 /* Location Create */ = {
+			isa = PBXGroup;
+			children = (
+				75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */,
+				75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */,
+			);
+			path = "Location Create";
 			sourceTree = "<group>";
 		};
 		75D66DC92DC7141A00E51CFC /* GlowPro-Dev */ = {
@@ -1655,6 +1691,7 @@
 			files = (
 				75715AD62DB9366E00E7994E /* Tab2Screen.swift in Sources */,
 				753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */,
+				759B51392E244FC6000983AC /* BusinessEntryViewModel.swift in Sources */,
 				751F95402E0B7EB5001CAF72 /* BusinessEditDetailsScreen.swift in Sources */,
 				75715AD02DB9365F00E7994E /* Tab1ViewModel.swift in Sources */,
 				75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */,
@@ -1682,6 +1719,8 @@
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
+				75CD6B672E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */,
+				75CD6B682E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */,
 				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
@@ -1744,6 +1783,7 @@
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
+				759B513B2E244FCC000983AC /* BusinessEntryScreen.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
@@ -1782,6 +1822,7 @@
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
+				75CD6B6D2E20C583004A1720 /* Role.swift in Sources */,
 				75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
@@ -1838,6 +1879,7 @@
 			files = (
 				75D66CF42DC713C300E51CFC /* Tab2Screen.swift in Sources */,
 				75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */,
+				759B51382E244FC6000983AC /* BusinessEntryViewModel.swift in Sources */,
 				751F95412E0B7EB5001CAF72 /* BusinessEditDetailsScreen.swift in Sources */,
 				75D66D102DC713C300E51CFC /* Tab1ViewModel.swift in Sources */,
 				75D66D112DC713C300E51CFC /* Tab4ViewModel.swift in Sources */,
@@ -1865,6 +1907,8 @@
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
+				75CD6B692E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */,
+				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */,
 				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
@@ -1927,6 +1971,7 @@
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
+				759B513C2E244FCC000983AC /* BusinessEntryScreen.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
@@ -1965,6 +2010,7 @@
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,
+				75CD6B6C2E20C583004A1720 /* Role.swift in Sources */,
 				75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,

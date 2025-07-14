@@ -47,6 +47,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Locations
     
+    func getLocations() async throws -> [Location]
     func getLocations(businessId: String) async throws -> [Location]
     func getLocation(id: String) async throws -> Location
     func deleteLocation(id: String) async throws

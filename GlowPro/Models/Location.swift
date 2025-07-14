@@ -26,7 +26,7 @@ extension Location {
         return .init(
             id: UUID().uuidString,
             businessId: "123",
-            name: "My First Business",
+            name: "My First Location",
             address: .DUMMY_DATA(),
             employees: [.DUMMY_DATA()],
             clients: [.DUMMY_DATA()]

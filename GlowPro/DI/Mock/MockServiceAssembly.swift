@@ -16,7 +16,7 @@ import Swinject
 
 // MARK: - AnalyticsServiceProtocol
 
-class MockAnalyticsService: AnalyticsServiceProtocol {
+final class MockAnalyticsService: AnalyticsServiceProtocol {
     
     internal let loggerName: String = "ANALYTICS_SERVICE"
     internal let loggerEmoji: String = "📀"
@@ -88,7 +88,7 @@ class MockAlertService: AlertServiceProtocol, ObservableObject {
 
 // MARK: - APIServiceProtocol
 
-class MockAPIService: APIServiceProtocol {
+final class MockAPIService: APIServiceProtocol {
     
     internal let loggerName: String = "API_SERVICE"
     internal let loggerEmoji: String = "🌐"
@@ -100,6 +100,11 @@ class MockAPIService: APIServiceProtocol {
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)
     }
+    
+    private var currentUser: GPUser?
+    private var businesses: [Business] = []
+    private var locations: [Location] = []
+    private var employees: [Employee] = []
     
     // Health
     
@@ -131,6 +136,10 @@ class MockAPIService: APIServiceProtocol {
     func deleteBusiness(id: String) async throws {}
     
     // Locations
+    
+    func getLocations() async throws -> [Location] {
+        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+    }
     
     func getLocations(businessId: String) async throws -> [Location] {
         return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
@@ -219,7 +228,7 @@ class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
 
 // MARK: - AuthServiceProtocol
 
-class MockAuthService: AuthServiceProtocol {
+final class MockAuthService: AuthServiceProtocol {
     
     internal let loggerName: String = "AUTH_SERVICE"
     internal let loggerEmoji: String = "🪪"
@@ -332,7 +341,7 @@ class MockEnvironmentService: EnvironmentServiceProtocol {
 
 // MARK: - FirebaseServiceProtocol
 
-class MockFirebaseService: FirebaseServiceProtocol {
+final class MockFirebaseService: FirebaseServiceProtocol {
     
     internal let loggerName: String = "FIREBASE_SERVICE"
     internal let loggerEmoji: String = "🔥"
@@ -437,7 +446,7 @@ class MockPushNotificationService: PushNotificationServiceProtocol {
 
 // MARK: - UserDefaultsServiceProtocol
 
-class MockUserDefaultsService: UserDefaultsServiceProtocol {
+final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"

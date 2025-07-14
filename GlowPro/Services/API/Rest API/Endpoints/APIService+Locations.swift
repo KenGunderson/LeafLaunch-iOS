@@ -12,6 +12,25 @@ extension APIService {
     
     // MARK: - LOCATIONS
     
+    func getLocations() async throws -> [Location] {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .location(""))
+            )
+            
+            let result: [Location] = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func getLocations(businessId: String) async throws -> [Location] {
         
         do {

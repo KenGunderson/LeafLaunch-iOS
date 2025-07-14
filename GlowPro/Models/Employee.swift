@@ -12,7 +12,11 @@ struct Employee: Identifiable,
                  Mockable {
     
     let id: String
+    let businessId: String
     let name: String
+    let email: String
+    let phone: String
+    let role: Role
     
 }
 
@@ -22,7 +26,11 @@ extension Employee {
         
         return .init(
             id: UUID().uuidString,
-            name: "Juan Employee"
+            businessId: "123",
+            name: "Juan Employee",
+            email: "juan@me.com",
+            phone: "8185225755",
+            role: .employee
         )
         
     }

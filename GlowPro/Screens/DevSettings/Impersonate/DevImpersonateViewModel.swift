@@ -76,26 +76,26 @@ final class DevImpersonateViewModel: ViewModel {
             .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
-        Task {
+        Task { [weak self] in
             
-            self.alertService
+            self?.alertService
                 .showAlert(loadingAlert)
             
             defer {
                 
-                self.alertService
+                self?.alertService
                     .dismissAlert(loadingAlert)
                 
             }
             
             do {
                 
-                try await self.impersonateService
+                try await self?.impersonateService
                     .impersonateUser(email: userToImpersonateEmail)
                 
             }
             catch {
-                presentError(error)
+                self?.presentError(error)
             }
             
         }
@@ -108,23 +108,23 @@ final class DevImpersonateViewModel: ViewModel {
             .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
-        Task {
+        Task { [weak self] in
             
-            self.alertService
+            self?.alertService
                 .showAlert(loadingAlert)
             
             defer {
                 
-                self.alertService
+                self?.alertService
                     .dismissAlert(loadingAlert)
                 
             }
             
             do {
-                try await self.impersonateService.revert()
+                try await self?.impersonateService.revert()
             }
             catch {
-                presentError(error)
+                self?.presentError(error)
             }
             
         }
