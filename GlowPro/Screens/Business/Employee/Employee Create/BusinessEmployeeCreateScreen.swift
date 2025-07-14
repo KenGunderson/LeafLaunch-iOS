@@ -114,6 +114,7 @@ struct BusinessEmployeeCreateScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text("You can invite an employee to join your business. They will be able to download the app with the invite code attached to their email.")
+                .foregroundStyle(Style.shared.textColor(.title).source())
                 .multilineTextAlignment(.leading)
                 .appFont(with: .BODY_B4)
                 .padding(.bottom, .small)
