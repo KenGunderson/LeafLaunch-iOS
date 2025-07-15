@@ -8,6 +8,8 @@
 import Foundation
 
 struct Address: Codable,
+                Equatable,
+                Hashable,
                 Mockable {
     
     let street: String

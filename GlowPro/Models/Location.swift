@@ -8,6 +8,8 @@
 import Foundation
 
 struct Location: Identifiable,
+                 Equatable,
+                 Hashable,
                  Codable,
                  Mockable {
     
@@ -25,11 +27,11 @@ extension Location {
     static func DUMMY_DATA() -> Location {
         return .init(
             id: UUID().uuidString,
-            businessId: "123",
+            businessId: Bool.random() ? "123" : "234",
             name: "My First Location",
             address: .DUMMY_DATA(),
-            employees: [.DUMMY_DATA()],
-            clients: [.DUMMY_DATA()]
+            employees: [],
+            clients: []
         )
     }
     

@@ -8,6 +8,8 @@
 import Foundation
  
 struct Employee: Identifiable,
+                 Equatable,
+                 Hashable,
                  Codable,
                  Mockable {
     

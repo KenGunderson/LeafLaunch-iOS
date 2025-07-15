@@ -17,7 +17,7 @@ final class MainViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
     private let authService: AuthServiceProtocol
-    private let activeDestination: ActiveDestinationServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
@@ -28,7 +28,6 @@ final class MainViewModel: ViewModel {
     
     @Published private(set) var shouldShowTabBarScreen: Bool = false
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
-    @Published private(set) var shouldShowActiveDestinationSelectionSheet: Bool = false
         
     // ViewModels
     
@@ -44,7 +43,7 @@ final class MainViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          authService: AuthServiceProtocol,
-         activeDestination: ActiveDestinationServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
@@ -53,7 +52,7 @@ final class MainViewModel: ViewModel {
         self.appDelegateService = appDelegateService
         self.analyticsService = analyticsService
         self.firebaseService = firebaseService
-        self.activeDestination = activeDestination
+        self.activeDestinationService = activeDestinationService
         self.authService = authService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
@@ -99,15 +98,11 @@ final class MainViewModel: ViewModel {
                 self?.shouldShowTabBarScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
-                // TODO: -
-                /// CHECK IF BUSINESS COUNT || LOCATION COUNT > 1 to then show selection
-                /// If they have 0 || 1 set the active location to active or nil
-                /// Make computed property to check for locations + businesses
-                /// Make computed property to check for singleActiveId
-                /// `self?.shouldShowActiveDestinationSelectionSheet = {ETC})`
-                
-                if !isUserMissing && !isFirebaseUserMissing {
-                    self?.presentModalsIfNeeded()
+                if let user = authServiceCurrentUser,
+                   !isFirebaseUserMissing {
+                    
+                    self?.presentModalsIfNeeded(user: user)
+                    
                 }
                 
             }
@@ -145,9 +140,22 @@ final class MainViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
+        self.userDefaultsService
+            .didCompleteOnboardingPublisher
+            .receiveOnMain()
+            .sink { [weak self] didCompleteOnboarding in
+                
+                guard didCompleteOnboarding else { return }
+                
+                guard let user = self?.authService.currentUser else { return }
+                self?.presentDesintationSelectionIfNeeded(user: user)
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
-    private func presentModalsIfNeeded() {
+    private func presentModalsIfNeeded(user: GPUser) {
                 
        self.tabBarNavigationService?.resetPathItems()
         
@@ -160,6 +168,32 @@ final class MainViewModel: ViewModel {
             self.tabBarNavigationService?
                 .currentNavigationService()
                 .modal(fullScreenCover: .onboarding)
+            
+        } else {
+            presentDesintationSelectionIfNeeded(user: user)
+        }
+        
+    }
+    
+    private func presentDesintationSelectionIfNeeded(user: GPUser) {
+                
+        let allLocationsFromAllBusinessesCount = user.businesses.flatMap(\.locations).count
+        
+        if allLocationsFromAllBusinessesCount == 0 {
+            return
+        }
+        
+        if allLocationsFromAllBusinessesCount > 1 {
+            
+            self.tabBarNavigationService?
+                .currentNavigationService()
+                .modal(sheet: .businessActiveDestinationSelectionScreen)
+            
+        } else {
+            
+            if let location = user.businesses.first?.locations.first {
+                self.activeDestinationService.setActiveDestination(.location(locationId: location.id))
+            }
             
         }
         

@@ -7,6 +7,8 @@
 
 import Combine
 
+// TODO: - Replace the active destination with a strong deeper object instead of just the enum
+
 final class ActiveDestinationService: ActiveDestinationServiceProtocol {    
     
     internal let loggerName: String = "ACTIVE_DESTINATION_SERVICE"

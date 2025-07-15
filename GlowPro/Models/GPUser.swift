@@ -25,6 +25,7 @@ struct GPUser: Codable,
     let externalId: String
     let gender: Gender?
     let imageURL: URL?
+    var businesses: [Business]
     
     private var _birthday: String?
     
@@ -54,7 +55,8 @@ struct GPUser: Codable,
          externalId: String,
          birthday: String? = nil,
          gender: Gender? = nil,
-         imageURL: URL? = nil) {
+         imageURL: URL? = nil,
+         businesses: [Business] = []) {
         
         self.id = id
         self.name = name
@@ -63,6 +65,7 @@ struct GPUser: Codable,
         self._birthday = birthday
         self.gender = gender
         self.imageURL = imageURL
+        self.businesses = businesses
         
     }
     
@@ -79,6 +82,7 @@ struct GPUser: Codable,
         case _birthday = "birthday"
         case gender
         case imageURL = "image_url"
+        case businesses = "businesses"
         
     }
     
@@ -95,7 +99,8 @@ extension GPUser {
             externalId: "1",
             birthday: nil,
             gender: .male,
-            imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA")
+            imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA"),
+            businesses: []
         )
         
     }

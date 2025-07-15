@@ -40,7 +40,7 @@ class MockViewModelAssembly: Assembly {
                 analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                 firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
                 authService: r.resolve(AuthServiceProtocol.self)!,
-                activeDestination: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                 userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                 viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                 pushNotificationsService: r.resolve(PushNotificationServiceProtocol.self)!,
@@ -126,6 +126,7 @@ class MockViewModelAssembly: Assembly {
                 Tab1ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

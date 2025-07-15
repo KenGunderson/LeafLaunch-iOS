@@ -105,6 +105,83 @@ final class MockAPIService: APIServiceProtocol {
     private var businesses: [Business] = []
     private var locations: [Location] = []
     private var employees: [Employee] = []
+    private var clients: [Client] = []
+    
+    init() {
+        
+        self.clients = [
+            .init(id: "123", firstName: "Client", lastName: "1", email: "c@me.com", phone: "8185225755"),
+            .init(id: "234", firstName: "Client", lastName: "2", email: "c@me.com", phone: "8185225755"),
+            .init(id: "345", firstName: "Client", lastName: "3", email: "c@me.com", phone: "8185225755"),
+            .init(id: "456", firstName: "Client", lastName: "4", email: "c@me.com", phone: "8185225755"),
+            .init(id: "567", firstName: "Client", lastName: "5", email: "c@me.com", phone: "8185225755"),
+        ]
+        
+        self.employees = [
+            .init(id: "123", businessId: "123", name: "Employee 1", email: "e@me.com", phone: "8185225755", role: .employee),
+            .init(id: "234", businessId: "123", name: "Employee 2", email: "e@me.com", phone: "8185225755", role: .employee),
+            .init(id: "345", businessId: "123", name: "Employee 3", email: "e@me.com", phone: "8185225755", role: .employee),
+            .init(id: "456", businessId: "234", name: "Employee 4", email: "e@me.com", phone: "8185225755", role: .employee),
+            .init(id: "567", businessId: "234", name: "Employee 5", email: "e@me.com", phone: "8185225755", role: .employee)
+        ]
+        
+        self.locations = [
+            .init(
+                id: "123",
+                businessId: "123",
+                name: "First Dank Location",
+                address: .DUMMY_DATA(),
+                employees: self.employees.filter { $0.businessId == "123" },
+                clients: []
+            ),
+            .init(
+                id: "234",
+                businessId: "123",
+                name: "Second Swimming Location",
+                address: .DUMMY_DATA(),
+                employees: self.employees.filter { $0.businessId == "234" },
+                clients: []
+            ),
+            .init(
+                id: "345",
+                businessId: "234",
+                name: "First Dank Location",
+                address: .DUMMY_DATA(),
+                employees: self.employees.filter { $0.businessId == "123" },
+                clients: []
+            ),
+            .init(
+                id: "456",
+                businessId: "234",
+                name: "Second Flying Location",
+                address: .DUMMY_DATA(),
+                employees: self.employees.filter { $0.businessId == "234" },
+                clients: []
+            ),
+        ]
+        
+        self.businesses = [
+            .init(
+                id: "123",
+                name: "Business 1",
+                email: "business1@example.com",
+                phoneNumber: "123-456-7890",
+                address: .DUMMY_DATA(),
+                locations: self.locations.filter { $0.businessId == "123" },
+                owner: currentUser ?? .DUMMY_DATA()
+            ),
+            .init(
+                id: "234",
+                name: "Business 2",
+                email: "business2@example.com",
+                phoneNumber: "123-456-7890",
+                address: .DUMMY_DATA(),
+                locations: self.locations.filter { $0.businessId == "234" },
+                owner: currentUser ?? .DUMMY_DATA()
+            ),
+        ]
+        
+    }
     
     // Health
     
@@ -113,7 +190,16 @@ final class MockAPIService: APIServiceProtocol {
     // Users
     
     func getUser(id: String) async throws -> GPUser { .DUMMY_DATA() }
-    func getUserProfile() async throws -> GPUser { .DUMMY_DATA() }
+    
+    func getUserProfile() async throws -> GPUser {
+        
+        var user = GPUser.DUMMY_DATA()
+        user.businesses = self.businesses
+        
+        return user
+        
+    }
+    
     func getFirebaseTokenForUser(email: String) async throws -> String { return "" }
     func updateUser(user: GPUser) async throws {}
     func createUser(user: GPUser) async throws -> GPUser { user }
@@ -126,35 +212,39 @@ final class MockAPIService: APIServiceProtocol {
     // Business
     
     func getBusinesses() async throws -> [Business] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.businesses
     }
     
     func getBusiness(id: String) async throws -> Business {
-        return .DUMMY_DATA()
+        return self.businesses.filter { $0.id == id }.first ?? .DUMMY_DATA()
     }
     
-    func deleteBusiness(id: String) async throws {}
+    func deleteBusiness(id: String) async throws {
+        return self.businesses.removeAll(where: { $0.id == id })
+    }
     
     // Locations
     
     func getLocations() async throws -> [Location] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.locations
     }
     
     func getLocations(businessId: String) async throws -> [Location] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.locations.filter { $0.businessId == businessId }
     }
     
     func getLocation(id: String) async throws -> Location {
-        return .DUMMY_DATA()
+        return self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
     }
     
-    func deleteLocation(id: String) async throws {}
+    func deleteLocation(id: String) async throws {
+        return self.locations.removeAll(where: { $0.id == id })
+    }
     
     // Employees
     
     func getEmployees(businessId: String) async throws -> [Employee] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.employees.filter { $0.businessId == businessId }
     }
     
     func getEmployees(locationId: String) async throws -> [Employee] {
@@ -233,6 +323,8 @@ final class MockAuthService: AuthServiceProtocol {
     internal let loggerName: String = "AUTH_SERVICE"
     internal let loggerEmoji: String = "🪪"
     
+    private let apiService: APIServiceProtocol = MockAPIService()
+    
     var currentUser: GPUser? = .DUMMY_DATA()
     var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
     var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
@@ -243,7 +335,13 @@ final class MockAuthService: AuthServiceProtocol {
     }
     
     func login(email: String, password: String) async throws {
-        self.currentUser = .DUMMY_DATA()
+        
+        let businesses = try await apiService.getBusinesses()
+        var currentUser = GPUser.DUMMY_DATA()
+        currentUser.businesses = businesses
+        
+        self.currentUser = currentUser
+        
     }
     
     func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, isLogin: Bool) async throws {}

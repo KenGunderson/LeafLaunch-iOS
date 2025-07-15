@@ -68,8 +68,9 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "Select A Business Or Location",
-            rightButtonView: closeButton
+            title: "",
+            rightButtonView: closeButton,
+            divider: .init(shouldShow: false)
         )
         .padding(.top, Style.shared.spacing(.medium))
         
@@ -82,15 +83,8 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
             
             // Businesses
             
-            sectionTitle("Businesses")
+            sectionTitle("Businesses & Locations")
             businessList()
-            
-            // Locations
-            
-            sectionTitle("Locations")
-                .padding(.top, .medium2)
-            
-            locationList()
             
         }
         .padding(.horizontal, .medium)
@@ -101,17 +95,12 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
         
         ForEach(self.viewModel.businesses, id: \.id) { business in
             
-            AppCardView {
+            VStack(alignment: .leading,
+                   spacing: Style.shared.spacing(.small)) {
                 
-                Text(business.name)
-                    .appFont(with: .TITLE_T6)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                
-            }
-            .asButton {
-                
-                self.viewModel
-                    .selectBusiness(business)
+                businessHeader(business)
+                Divider()
+                locationList(locations: business.locations)
                 
             }
             
@@ -119,21 +108,57 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
         
     }
     
-    private func locationList() -> some View {
+    private func businessHeader(_ business: Business) -> some View {
         
-        ForEach(self.viewModel.locations, id: \.id) { location in
+        HStack {
             
-            AppCardView {
+            Text(business.name)
+                .appFont(with: .TITLE_T6)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            if business.isOwner {
                 
-                Text(location.name)
-                    .appFont(with: .TITLE_T6)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                CircularIconView(
+                    foregroundColor: Style.shared.textColor(.title),
+                    backgroundColor: Style.shared.background(.quaternary),
+                    imageSource: .systemImage("arrow.right"),
+                    size: 24
+                )
                 
             }
-            .asButton {
+            
+        }
+        .appOnTapGesture {
+            
+            guard business.isOwner else { return }
+            
+            self.viewModel
+                .selectBusiness(business)
+            
+        }
+        
+    }
+    
+    private func locationList(locations: [Location]) -> some View {
+        
+        VStack {
+            
+            ForEach(locations, id: \.id) { location in
                 
-                self.viewModel
-                    .selectLocation(location)
+                AppCardView {
+                    
+                    Text(location.name)
+                        .appFont(with: .TITLE_T6)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    
+                }
+                .asButton {
+                    
+                    self.viewModel
+                        .selectLocation(location)
+                    
+                }
                 
             }
             

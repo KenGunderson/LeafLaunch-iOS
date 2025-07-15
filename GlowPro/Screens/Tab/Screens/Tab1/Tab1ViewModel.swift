@@ -14,6 +14,7 @@ final class Tab1ViewModel: ViewModel {
     
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
@@ -21,13 +22,16 @@ final class Tab1ViewModel: ViewModel {
     
     init(authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
+        bindSubsribers()
         
     }
     
@@ -37,6 +41,23 @@ final class Tab1ViewModel: ViewModel {
     
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
+    }
+    
+    func bindSubsribers() {
+        
+        self.cancelBag = CancelBag()
+        
+        self.activeDestinationService
+            .activeDestinationPublisher
+            .receiveOnMain()
+            .sink { [weak self] activeDestination in
+                
+                guard let activeDestination else { return }
+                self?.log(level: .info, message: "UPDATED THE ACTIVE DESTINATION TO: \(activeDestination)")
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
 }

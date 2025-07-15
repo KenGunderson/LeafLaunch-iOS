@@ -20,7 +20,6 @@ final class BusinessActiveDestinationSelectionViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var businesses: [Business] = []
-    @Published private(set) var locations: [Location] = []
 
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
@@ -52,12 +51,20 @@ final class BusinessActiveDestinationSelectionViewModel: ViewModel {
         self.activeDestinationService
             .setActiveDestination(.business(businessId: business.id))
         
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .dismissSheet()
+        
     }
     
     func selectLocation(_ location: Location) {
         
         self.activeDestinationService
             .setActiveDestination(.location(locationId: location.id))
+        
+        self.tabBarNavigationService?
+            .currentNavigationService()
+            .dismissSheet()
         
     }
     
@@ -75,13 +82,9 @@ final class BusinessActiveDestinationSelectionViewModel: ViewModel {
             do {
                 
                 let businesses = try await self.apiService.getBusinesses()
-                let locations = try await self.apiService.getLocations()
                 
                 await MainActor.run { [weak self] in
-
                     self?.businesses = businesses
-                    self?.locations = locations
-                    
                 }
                 
             }
