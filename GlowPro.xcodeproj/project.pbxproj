@@ -29,6 +29,10 @@
 		751F95412E0B7EB5001CAF72 /* BusinessEditDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F953F2E0B7EA4001CAF72 /* BusinessEditDetailsScreen.swift */; };
 		751F95432E0B7EBD001CAF72 /* BusinessEditDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessEditDetailsViewModel.swift */; };
 		751F95442E0B7EBD001CAF72 /* BusinessEditDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessEditDetailsViewModel.swift */; };
+		7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
+		7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
+		7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
+		7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
 		7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -246,10 +250,10 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
-		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */; };
-		75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */; };
-		75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */; };
-		75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */; };
+		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
+		75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
+		75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */; };
+		75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */; };
 		75B731F32E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
 		75B731F42E14E52A00038AD6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F22E14E52900038AD6 /* Location.swift */; };
 		75B731F62E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
@@ -397,6 +401,8 @@
 		751F953B2E0B7D26001CAF72 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		751F953F2E0B7EA4001CAF72 /* BusinessEditDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEditDetailsScreen.swift; sourceTree = "<group>"; };
 		751F95422E0B7EB8001CAF72 /* BusinessEditDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEditDetailsViewModel.swift; sourceTree = "<group>"; };
+		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
+		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -523,8 +529,8 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
-		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeCreateViewModel.swift; sourceTree = "<group>"; };
-		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeCreateScreen.swift; sourceTree = "<group>"; };
+		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
+		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateScreen.swift; sourceTree = "<group>"; };
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -701,13 +707,22 @@
 			path = Business;
 			sourceTree = "<group>";
 		};
-		751F95452E0B951A001CAF72 /* Edit Details */ = {
+		751F95452E0B951A001CAF72 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
 				751F95422E0B7EB8001CAF72 /* BusinessEditDetailsViewModel.swift */,
 				751F953F2E0B7EA4001CAF72 /* BusinessEditDetailsScreen.swift */,
 			);
-			path = "Edit Details";
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		7527E1902E26925E00FBC9AF /* Invite */ = {
+			isa = PBXGroup;
+			children = (
+				7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */,
+				7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */,
+			);
+			path = Invite;
 			sourceTree = "<group>";
 		};
 		7537F3CB2DF661EA0031D9CF /* Models */ = {
@@ -1273,40 +1288,40 @@
 			path = FAQ;
 			sourceTree = "<group>";
 		};
-		75795D252E173176008BD44A /* Employee Details */ = {
+		75795D252E173176008BD44A /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				75795D272E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift */,
 				75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */,
 			);
-			path = "Employee Details";
+			path = Details;
 			sourceTree = "<group>";
 		};
-		75795D262E17318C008BD44A /* Location Details */ = {
+		75795D262E17318C008BD44A /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				75795D2D2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift */,
 				75795D2E2E1732BD008BD44A /* BusinessLocationDetailsScreen.swift */,
 			);
-			path = "Location Details";
+			path = Details;
 			sourceTree = "<group>";
 		};
-		758C3CDB2E14AF7900BC1A43 /* Locations */ = {
+		758C3CDB2E14AF7900BC1A43 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				758C3CDC2E14AF8100BC1A43 /* BusinessLocationsViewModel.swift */,
 				758C3CDD2E14AF8100BC1A43 /* BusinessLocationsScreen.swift */,
 			);
-			path = Locations;
+			path = List;
 			sourceTree = "<group>";
 		};
-		758C3CE22E14B0C700BC1A43 /* Employees */ = {
+		758C3CE22E14B0C700BC1A43 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */,
 				758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */,
 			);
-			path = Employees;
+			path = List;
 			sourceTree = "<group>";
 		};
 		758DAE832E050DB500311C7C /* Details */ = {
@@ -1357,9 +1372,10 @@
 		75ACAA3A2E18C78800401EC8 /* Employee */ = {
 			isa = PBXGroup;
 			children = (
-				758C3CE22E14B0C700BC1A43 /* Employees */,
-				75AFB1302E1EF89700A9FD0E /* Employee Create */,
-				75795D252E173176008BD44A /* Employee Details */,
+				758C3CE22E14B0C700BC1A43 /* List */,
+				7527E1902E26925E00FBC9AF /* Invite */,
+				75AFB1302E1EF89700A9FD0E /* Update */,
+				75795D252E173176008BD44A /* Details */,
 			);
 			path = Employee;
 			sourceTree = "<group>";
@@ -1367,9 +1383,9 @@
 		75ACAA3B2E18C79000401EC8 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				758C3CDB2E14AF7900BC1A43 /* Locations */,
-				75CD6B642E20C0F7004A1720 /* Location Create */,
-				75795D262E17318C008BD44A /* Location Details */,
+				758C3CDB2E14AF7900BC1A43 /* List */,
+				75CD6B642E20C0F7004A1720 /* Create */,
+				75795D262E17318C008BD44A /* Details */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -1377,18 +1393,18 @@
 		75ACAA3C2E18C7A100401EC8 /* Business */ = {
 			isa = PBXGroup;
 			children = (
-				751F95452E0B951A001CAF72 /* Edit Details */,
+				751F95452E0B951A001CAF72 /* Edit */,
 			);
 			path = Business;
 			sourceTree = "<group>";
 		};
-		75AFB1302E1EF89700A9FD0E /* Employee Create */ = {
+		75AFB1302E1EF89700A9FD0E /* Update */ = {
 			isa = PBXGroup;
 			children = (
-				75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeCreateViewModel.swift */,
-				75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeCreateScreen.swift */,
+				75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */,
+				75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */,
 			);
-			path = "Employee Create";
+			path = Update;
 			sourceTree = "<group>";
 		};
 		75C643812DB929340033D68E /* TabViews */ = {
@@ -1411,13 +1427,13 @@
 			path = Tab;
 			sourceTree = "<group>";
 		};
-		75CD6B642E20C0F7004A1720 /* Location Create */ = {
+		75CD6B642E20C0F7004A1720 /* Create */ = {
 			isa = PBXGroup;
 			children = (
 				75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */,
 				75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */,
 			);
-			path = "Location Create";
+			path = Create;
 			sourceTree = "<group>";
 		};
 		75D66DC92DC7141A00E51CFC /* GlowPro-Dev */ = {
@@ -1750,7 +1766,7 @@
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
-				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */,
+				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F46B2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F46C2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
@@ -1816,7 +1832,7 @@
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
 				75795D292E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
-				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */,
+				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
 				75795D2A2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
@@ -1837,6 +1853,8 @@
 				75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */,
 				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
+				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
+				7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
 				753EC1C52DB8BF5A00265B2A /* AppDelegate.swift in Sources */,
 				75715ACE2DB9365500E7994E /* Tab1Screen.swift in Sources */,
 				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
@@ -1938,7 +1956,7 @@
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
-				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeCreateViewModel.swift in Sources */,
+				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F42D2DF661EA0031D9CF /* TabBarNavigationService.swift in Sources */,
@@ -2004,7 +2022,7 @@
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
 				75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
-				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeCreateScreen.swift in Sources */,
+				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
 				75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
@@ -2025,6 +2043,8 @@
 				75D66D6D2DC713C300E51CFC /* CustomTabBarView.swift in Sources */,
 				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
+				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
+				7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
 				75D66D752DC713C300E51CFC /* AppDelegate.swift in Sources */,
 				75D66D7A2DC713C300E51CFC /* Tab1Screen.swift in Sources */,
 				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,

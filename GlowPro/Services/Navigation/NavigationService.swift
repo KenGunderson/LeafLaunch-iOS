@@ -197,12 +197,20 @@ extension View {
                 BusinessEmployeesScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
               
-            case .businessEmployeesCreate(let businessId):
+            case .businessEmployeesInvite(businessId: (let businessId)):
                 
-                let viewModel = globalResolver.resolve(BusinessEmployeeCreateViewModel.self)!
+                let viewModel = globalResolver.resolve(BusinessEmployeeInviteViewModel.self)!
                     .setup(businessId: businessId)
                 
-                BusinessEmployeeCreateScreen(viewModel: viewModel)
+                BusinessEmployeeInviteScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .businessEmployeesUpdate(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessEmployeeUpdateViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessEmployeeUpdateScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .businessEmployeeDetails(let businessId, let employeeId):

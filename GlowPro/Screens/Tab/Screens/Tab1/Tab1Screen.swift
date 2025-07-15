@@ -105,12 +105,21 @@ struct TabBar1Screen: GPView {
                     
                 }
                 
-                CommonButton(title: "Business Create Employees",
+                CommonButton(title: "Business Invite Employees",
                              titleColor: Style.shared.textColor(.button)) {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessEmployeesCreate(businessId: "123")))
+                        .push(.business(.businessEmployeesInvite(businessId: "123")))
+                    
+                }
+                
+                CommonButton(title: "Business Update Employees",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .push(.business(.businessEmployeesUpdate(businessId: "123")))
                     
                 }
                 

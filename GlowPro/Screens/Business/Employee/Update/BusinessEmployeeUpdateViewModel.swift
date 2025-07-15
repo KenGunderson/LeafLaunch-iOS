@@ -1,5 +1,5 @@
 //
-//  BusinessEmployeeCreateViewModel.swift
+//  BusinessEmployeeUpdateViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/9/25.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class BusinessEmployeeCreateViewModel: ViewModel {
+final class BusinessEmployeeUpdateViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_EMPLOYEE_CREATE_VIEW_MODEL"
+    internal let loggerName: String = "BUSINESS_EMPLOYEE_UPDATE_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
     private let apiService: APIServiceProtocol
@@ -20,9 +20,9 @@ final class BusinessEmployeeCreateViewModel: ViewModel {
     
     @Published private(set) var business: Business?
     
-    @Published var name: String = ""
-    @Published var phone: String = ""
-    @Published var email: String = ""
+    @Published var name: String = "123"
+    @Published var phone: String = "123"
+    @Published var email: String = "213"
     @Published var selectedRole: Role? = .employee
     
     var isSaveButtonEnabled: Bool {
@@ -117,12 +117,12 @@ final class BusinessEmployeeCreateViewModel: ViewModel {
         
     }
     
-    func createEmployee() {
+    func updateEmployee() {
         
         self.alertService
-            .showAlert(.init(.appAlert(.success(message: "Perfect! We've sent an email to your employee to verify their account.", action: {
+            .showAlert(.init(.appAlert(.success(message: "Updated successfully! Your changes have been saved.", action: {
                 
-                print("Completed")
+                print("Updated")
                 
                 self.tabBarNavigationService?
                     .currentNavigationService()
@@ -138,11 +138,11 @@ final class BusinessEmployeeCreateViewModel: ViewModel {
     
 }
 
-extension BusinessEmployeeCreateViewModel {
+extension BusinessEmployeeUpdateViewModel {
     
     func track() {
         
-        self.analyticsService.track(screen: .business(.businessEmployeeCreate(
+        self.analyticsService.track(screen: .business(.businessEmployeeUpdate(
             businessId: self.businessId
         )))
         

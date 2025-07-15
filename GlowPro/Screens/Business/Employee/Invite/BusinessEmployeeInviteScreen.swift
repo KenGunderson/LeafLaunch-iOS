@@ -1,5 +1,5 @@
 //
-//  BusinessEmployeeCreateScreen.swift
+//  BusinessEmployeeInviteScreen.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/9/25.
@@ -7,19 +7,17 @@
 
 import SwiftUI
 
-struct BusinessEmployeeCreateScreen: GPView {
+struct BusinessEmployeeInviteScreen: GPView {
     
     enum FocusedField: Hashable {
         
         case name
         case email
-        case phone
         
         var displayName: String {
             switch self {
             case .name: return "Name"
             case .email: return "Email"
-            case .phone: return "Phone"
             }
         }
         
@@ -28,7 +26,7 @@ struct BusinessEmployeeCreateScreen: GPView {
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel: BusinessEmployeeCreateViewModel
+    @StateObject var viewModel: BusinessEmployeeInviteViewModel
     
     @FocusState private var focusedField: FocusedField?
     
@@ -123,7 +121,6 @@ struct BusinessEmployeeCreateScreen: GPView {
                 
                 textField(fieldToFocus: .name)
                 textField(fieldToFocus: .email)
-                textField(fieldToFocus: .phone)
                 rolePicker()
                 
             }
@@ -193,13 +190,6 @@ struct BusinessEmployeeCreateScreen: GPView {
             isFocused = self.focusedField == .email
             keyboardType = .emailAddress
             textContentType = .emailAddress
-            
-        case .phone:
-            
-            text = self.$viewModel.phone
-            isFocused = self.focusedField == .phone
-            keyboardType = .phonePad
-            textContentType = .telephoneNumber
         }
         
         return TextField("", text: text)
@@ -231,7 +221,7 @@ struct BusinessEmployeeCreateScreen: GPView {
                          isEnabled: self.viewModel.isSaveButtonEnabled) {
                 
                 self.viewModel
-                    .createEmployee()
+                    .inviteEmployee()
                 
             }
             .padding(.top, .small)
@@ -250,10 +240,10 @@ struct BusinessEmployeeCreateScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(BusinessEmployeeCreateViewModel.self)
+    let viewModel = mockResolve(BusinessEmployeeInviteViewModel.self)
         .setup(businessId: "123")
     
-    BusinessEmployeeCreateScreen(viewModel: viewModel)
+    BusinessEmployeeInviteScreen(viewModel: viewModel)
         .withMockServices()
     
 }

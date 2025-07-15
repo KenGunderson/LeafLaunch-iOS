@@ -242,11 +242,24 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
-        // Business Employee Create
+        // Business Employee Invite
         
         container
-            .register(BusinessEmployeeCreateViewModel.self) { r in
-                BusinessEmployeeCreateViewModel(
+            .register(BusinessEmployeeInviteViewModel.self) { r in
+                BusinessEmployeeInviteViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
+        // Business Employee Update
+        
+        container
+            .register(BusinessEmployeeUpdateViewModel.self) { r in
+                BusinessEmployeeUpdateViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
