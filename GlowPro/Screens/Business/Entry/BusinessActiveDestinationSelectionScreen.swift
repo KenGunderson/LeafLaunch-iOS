@@ -68,9 +68,8 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "",
-            rightButtonView: closeButton,
-            divider: .init(shouldShow: false)
+            title: "Choose One:",
+            rightButtonView: closeButton
         )
         .padding(.top, Style.shared.spacing(.medium))
         
