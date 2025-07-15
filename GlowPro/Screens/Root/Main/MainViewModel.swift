@@ -17,6 +17,7 @@ final class MainViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
     private let authService: AuthServiceProtocol
+    private let activeDestination: ActiveDestinationServiceProtocol
     private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
@@ -27,6 +28,7 @@ final class MainViewModel: ViewModel {
     
     @Published private(set) var shouldShowTabBarScreen: Bool = false
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
+    @Published private(set) var shouldShowActiveDestinationSelectionSheet: Bool = false
         
     // ViewModels
     
@@ -42,6 +44,7 @@ final class MainViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          authService: AuthServiceProtocol,
+         activeDestination: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
@@ -50,6 +53,7 @@ final class MainViewModel: ViewModel {
         self.appDelegateService = appDelegateService
         self.analyticsService = analyticsService
         self.firebaseService = firebaseService
+        self.activeDestination = activeDestination
         self.authService = authService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
@@ -95,6 +99,13 @@ final class MainViewModel: ViewModel {
                 self?.shouldShowTabBarScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
+                // TODO: -
+                /// CHECK IF BUSINESS COUNT || LOCATION COUNT > 1 to then show selection
+                /// If they have 0 || 1 set the active location to active or nil
+                /// Make computed property to check for locations + businesses
+                /// Make computed property to check for singleActiveId
+                /// `self?.shouldShowActiveDestinationSelectionSheet = {ETC})`
+                
                 if !isUserMissing && !isFirebaseUserMissing {
                     self?.presentModalsIfNeeded()
                 }
@@ -121,7 +132,7 @@ final class MainViewModel: ViewModel {
         self.appDelegateService
             .onTappedNotificationPublisher
             .receiveOnMain()
-            .sink {[weak self]  notification in
+            .sink {[weak self] notification in
                 
                 guard let notification else { return }
                 

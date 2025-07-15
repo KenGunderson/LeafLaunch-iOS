@@ -154,30 +154,41 @@ class ServiceAssembly: Assembly {
 //                )
             }.inObjectScope(.container)
         
-         // AUTH
+        // AUTH
         
         container
             .register(AuthServiceProtocol.self) { r in
                 AuthService(
                     firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
                     apiService: r.resolve(APIServiceProtocol.self)!,
+                    activeDestination: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }.inObjectScope(.container)
         
         // IMPERSONATE
-       
-       container
+        
+        container
             .register(ImpersonateServiceProtocol.self) { r in
                 ImpersonateService(
-                   firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
-                   apiService: r.resolve(APIServiceProtocol.self)!,
-                   authService: r.resolve(AuthServiceProtocol.self)!,
-                   userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-               )
-           }.inObjectScope(.container)
-
+                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }.inObjectScope(.container)
+        
+        // ACTIVE DESTINATION
+        
+        container
+            .register(ActiveDestinationServiceProtocol.self) { r in
+                ActiveDestinationService(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
+                )
+            }.inObjectScope(.container)
+        
     }
     
 }

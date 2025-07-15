@@ -1,5 +1,5 @@
 //
-//  BusinessEntryScreen.swift
+//  BusinessActiveDestinationSelectionScreen.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct BusinessEntryScreen: GPView {
+struct BusinessActiveDestinationSelectionScreen: GPView {
     
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel: BusinessEntryViewModel
+    @StateObject var viewModel: BusinessActiveDestinationSelectionViewModel
     
     var body: some View {
         
@@ -158,9 +158,9 @@ struct BusinessEntryScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(BusinessEntryViewModel.self)
+    let viewModel = mockResolve(BusinessActiveDestinationSelectionViewModel.self)
     
-    BusinessEntryScreen(viewModel: viewModel)
+    BusinessActiveDestinationSelectionScreen(viewModel: viewModel)
         .withMockServices()
     
 }

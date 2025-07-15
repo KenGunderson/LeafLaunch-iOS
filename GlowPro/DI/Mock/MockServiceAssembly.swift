@@ -256,6 +256,33 @@ final class MockAuthService: AuthServiceProtocol {
     
 }
 
+final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
+    
+    internal let loggerName: String = "ACTIVE_DESTINATION_SERVICE"
+    internal let loggerEmoji: String = "🛩️"
+    
+    private let apiService: APIServiceProtocol = MockAPIService()
+    private let analyticsService: AnalyticsServiceProtocol = MockAnalyticsService()
+    
+    @Published private(set) var activeDestination: ActiveDestination?
+    var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {
+        return self.$activeDestination.eraseToAnyPublisher()
+    }
+    
+    func setActiveDestination(_ destination: ActiveDestination) {
+        self.activeDestination = destination
+    }
+    
+    func removeActiveDestination() {
+        self.activeDestination = nil
+    }
+    
+    func logout() {
+        self.activeDestination = nil
+    }
+    
+}
+
 // MARK: IMPERSONATE
 
 class MockImpersonateService: ImpersonateServiceProtocol {
@@ -499,6 +526,7 @@ class MockViewLifecycleService: ViewLifecycleServiceProtocol {
 final class MockServiceAssembly: Assembly {
     
     func assemble(container: Container) {
+        
         container.register(EnvironmentServiceProtocol.self) { _ in MockEnvironmentService() }.inObjectScope(.container)
         container.register(AlertServiceProtocol.self) { _ in MockAlertService() }.inObjectScope(.container)
         container.register(AnalyticsServiceProtocol.self) { _ in MockAnalyticsService() }.inObjectScope(.container)
@@ -518,6 +546,7 @@ final class MockServiceAssembly: Assembly {
         container.register(APIServiceProtocol.self) { _ in MockAPIService() }.inObjectScope(.container)
         container.register(AuthServiceProtocol.self) { _ in MockAuthService() }.inObjectScope(.container)
         container.register(ImpersonateServiceProtocol.self.self) { _ in MockImpersonateService() }.inObjectScope(.container)
+        container.register(ActiveDestinationServiceProtocol.self.self) { _ in MockActiveDestinationService() }.inObjectScope(.container)
         
     }
     

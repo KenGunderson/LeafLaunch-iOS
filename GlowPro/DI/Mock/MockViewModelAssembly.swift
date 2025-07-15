@@ -40,6 +40,7 @@ class MockViewModelAssembly: Assembly {
                 analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                 firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
                 authService: r.resolve(AuthServiceProtocol.self)!,
+                activeDestination: r.resolve(ActiveDestinationServiceProtocol.self)!,
                 userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                 viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                 pushNotificationsService: r.resolve(PushNotificationServiceProtocol.self)!,
@@ -162,13 +163,14 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
-        // Business Entry
+        // Business Active Destination Selection
         
         container
-            .register(BusinessEntryViewModel.self) { r in
-                BusinessEntryViewModel(
+            .register(BusinessActiveDestinationSelectionViewModel.self) { r in
+                BusinessActiveDestinationSelectionViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!

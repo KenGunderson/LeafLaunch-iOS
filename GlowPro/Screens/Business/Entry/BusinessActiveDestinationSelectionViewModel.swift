@@ -1,5 +1,5 @@
 //
-//  BusinessEntryViewModel.swift
+//  BusinessActiveDestinationSelectionViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/25.
@@ -7,13 +7,14 @@
 
 import Foundation
 
-final class BusinessEntryViewModel: ViewModel {
+final class BusinessActiveDestinationSelectionViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_ENTRY_VIEW_MODEL"
+    internal let loggerName: String = "BUSINESS_ACTIVE_DESTINATION_SELECTION_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -26,12 +27,14 @@ final class BusinessEntryViewModel: ViewModel {
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
+        self.activeDestinationService = activeDestinationService
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
@@ -44,18 +47,18 @@ final class BusinessEntryViewModel: ViewModel {
         self.logDeinit()
     }
     
-    // TODO: - DO NOT NAVIGATE. SET THE SERVICES LOCATION PROPERLY
     func selectBusiness(_ business: Business) {
-        navigate(to: .business(.businessDetails(businessId: business.id)))
+        
+        self.activeDestinationService
+            .setActiveDestination(.business(businessId: business.id))
+        
     }
     
     func selectLocation(_ location: Location) {
         
-        navigate(to: .business(.businessLocationDetails(
-            businessId: location.id,
-            locationId: location.businessId
-        )))
-
+        self.activeDestinationService
+            .setActiveDestination(.location(locationId: location.id))
+        
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {
@@ -115,10 +118,10 @@ final class BusinessEntryViewModel: ViewModel {
     
 }
 
-extension BusinessEntryViewModel {
+extension BusinessActiveDestinationSelectionViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .business(.businessEntry))
+        self.analyticsService.track(screen: .business(.businessActiveDestinationSelection))
     }
     
 }

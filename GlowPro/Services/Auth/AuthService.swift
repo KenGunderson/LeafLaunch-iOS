@@ -17,6 +17,7 @@ final class AuthService: AuthServiceProtocol {
     
     private let firebaseService: FirebaseServiceProtocol
     private let apiService: APIServiceProtocol
+    private let activeDestination: ActiveDestinationServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
@@ -32,16 +33,17 @@ final class AuthService: AuthServiceProtocol {
     
     init(firebaseService: FirebaseServiceProtocol,
          apiService: APIServiceProtocol,
+         activeDestination: ActiveDestinationServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.firebaseService = firebaseService
         self.apiService = apiService
+        self.activeDestination = activeDestination
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
         
         bindSubscribers()
-        
         self.logInit()
 
     }
@@ -200,6 +202,7 @@ final class AuthService: AuthServiceProtocol {
             try self.firebaseService.logout()
             await self.userDefaultsService.logout()
             self.analyticsService.logout()
+            self.activeDestination.logout()
             self.currentUser = nil
             
         }
