@@ -119,7 +119,10 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessEmployeesUpdate(businessId: "123")))
+                        .push(.business(.businessEmployeesUpdate(
+                            businessId: "123",
+                            employeeId: "123"
+                        )))
                     
                 }
                 

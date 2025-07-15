@@ -253,7 +253,10 @@ struct BusinessEmployeeUpdateScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessEmployeeUpdateViewModel.self)
-        .setup(businessId: "123")
+        .setup(
+            businessId: "123",
+            employeeId: "123"
+        )
     
     BusinessEmployeeUpdateScreen(viewModel: viewModel)
         .withMockServices()

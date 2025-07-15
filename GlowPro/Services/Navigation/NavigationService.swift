@@ -205,10 +205,13 @@ extension View {
                 BusinessEmployeeInviteScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessEmployeesUpdate(let businessId):
+            case .businessEmployeesUpdate(let businessId, let employeeId):
                 
                 let viewModel = globalResolver.resolve(BusinessEmployeeUpdateViewModel.self)!
-                    .setup(businessId: businessId)
+                    .setup(
+                        businessId: "123",
+                        employeeId: "123"
+                    )
                 
                 BusinessEmployeeUpdateScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

@@ -40,7 +40,7 @@ enum Route: Navigation, Hashable, Sendable {
         
         case businessEmployees(businessId: String)
         case businessEmployeesInvite(businessId: String)
-        case businessEmployeesUpdate(businessId: String)
+        case businessEmployeesUpdate(businessId: String, employeeId: String)
         case businessEmployeeDetails(businessId: String, employeeId: String)
         
     }

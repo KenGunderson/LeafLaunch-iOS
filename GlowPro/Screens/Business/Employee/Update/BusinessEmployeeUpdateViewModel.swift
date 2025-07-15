@@ -19,24 +19,19 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var business: Business?
+    @Published private(set) var employee: Employee?
     
-    @Published var name: String = "123"
-    @Published var phone: String = "123"
-    @Published var email: String = "213"
+    @Published var name: String = ""
+    @Published var phone: String = ""
+    @Published var email: String = ""
     @Published var selectedRole: Role? = .employee
     
     var isSaveButtonEnabled: Bool {
-        
-        return (
-            !self.name.isEmpty &&
-            !self.phone.isEmpty &&
-            !self.email.isEmpty &&
-            self.selectedRole != nil
-        )
-        
+        return (self.selectedRole != nil)
     }
     
     private var businessId: String!
+    private var employeeId: String!
 
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
@@ -62,9 +57,11 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(businessId: String,
+               employeeId: String) -> Self {
         
         self.businessId = businessId
+        self.employeeId = employeeId
         return self
         
     }
@@ -93,8 +90,14 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
                 let business = try await self.apiService
                     .getBusiness(id: self.businessId)
                 
+                let employee = try await self.apiService
+                    .getEmployee(id: self.employeeId)
+                
                 await MainActor.run { [weak self] in
+                    
                     self?.business = business
+                    self?.employee = employee
+                    
                 }
                 
             }
@@ -143,7 +146,8 @@ extension BusinessEmployeeUpdateViewModel {
     func track() {
         
         self.analyticsService.track(screen: .business(.businessEmployeeUpdate(
-            businessId: self.businessId
+            businessId: self.businessId,
+            employeeId: self.employeeId
         )))
         
     }

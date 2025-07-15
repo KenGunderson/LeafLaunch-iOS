@@ -95,7 +95,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case businessLocationDetails(businessId: String, locationId: String)
         case businessEmployees(businessId: String)
         case businessEmployeeInvite(businessId: String)
-        case businessEmployeeUpdate(businessId: String)
+        case businessEmployeeUpdate(businessId: String, employeeId: String)
         case businessEmployeeDetails(businessId: String, employeeId: String)
         
         var screenName: String {
@@ -136,7 +136,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
                 
             case .businessEmployees(let businessId): return ["business_id": businessId]
             case .businessEmployeeInvite(let businessId): return ["business_id": businessId]
-            case .businessEmployeeUpdate(let businessId): return ["business_id": businessId]
+            case .businessEmployeeUpdate(let businessId, let employeeId):
+                
+                return [
+                    "business_id": businessId,
+                    "employee_id": employeeId
+                ]
                 
             case .businessEmployeeDetails(let businessId, let employeeId):
                 
