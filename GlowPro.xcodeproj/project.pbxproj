@@ -1122,14 +1122,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		7550767F2E26C30D0041021C /* Active Entity */ = {
+		7550767F2E26C30D0041021C /* ActiveDestination */ = {
 			isa = PBXGroup;
 			children = (
 				755076862E26C40C0041021C /* ActiveDestination.swift */,
 				755076802E26C3F10041021C /* ActiveDestinationServiceProtocol.swift */,
 				755076832E26C3F90041021C /* ActiveDestinationService.swift */,
 			);
-			path = "Active Entity";
+			path = ActiveDestination;
 			sourceTree = "<group>";
 		};
 		75573AB92DD82B4A00C7CA6E /* Globals + Constants */ = {
@@ -1245,7 +1245,7 @@
 				7537F3DD2DF661EA0031D9CF /* Auth */,
 				7537F3E02DF661EA0031D9CF /* Connectivity */,
 				7537F3E32DF661EA0031D9CF /* Deeplink */,
-				7550767F2E26C30D0041021C /* Active Entity */,
+				7550767F2E26C30D0041021C /* ActiveDestination */,
 				7537F3E62DF661EA0031D9CF /* Environment */,
 				7537F3E92DF661EA0031D9CF /* Firebase */,
 				7537F3EC2DF661EA0031D9CF /* Impersonate */,
