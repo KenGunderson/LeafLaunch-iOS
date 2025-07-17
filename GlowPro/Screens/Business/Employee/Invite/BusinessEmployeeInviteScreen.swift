@@ -241,7 +241,7 @@ struct BusinessEmployeeInviteScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessEmployeeInviteViewModel.self)
-        .setup(businessId: "123")
+        .setup(businessId: MockModels.ID.business1)
     
     BusinessEmployeeInviteScreen(viewModel: viewModel)
         .withMockServices()

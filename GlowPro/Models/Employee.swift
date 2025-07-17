@@ -15,10 +15,23 @@ struct Employee: Identifiable,
     
     let id: String
     let businessId: String
+    let locationId: String
     let name: String
     let email: String
     let phone: String
     let role: Role
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case id
+        case businessId = "business_id"
+        case locationId = "location_id"
+        case name
+        case email
+        case phone
+        case role
+        
+    }
     
 }
 
@@ -28,7 +41,8 @@ extension Employee {
         
         return .init(
             id: UUID().uuidString,
-            businessId: "123",
+            businessId: MockModels.ID.business1,
+            locationId: MockModels.ID.location1,
             name: "Juan Employee",
             email: "juan@me.com",
             phone: "8185225755",

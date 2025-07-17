@@ -210,6 +210,10 @@
 		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
+		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
+		7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
+		7560ACDC2E283D1F00A30E55 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACDB2E283D1D00A30E55 /* TODO.swift */; };
+		7560ACDD2E283D1F00A30E55 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACDB2E283D1D00A30E55 /* TODO.swift */; };
 		75715ACE2DB9365500E7994E /* Tab1Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* Tab1Screen.swift */; };
 		75715AD02DB9365F00E7994E /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* Tab1ViewModel.swift */; };
 		75715AD52DB9366E00E7994E /* Tab2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD22DB9366E00E7994E /* Tab2ViewModel.swift */; };
@@ -511,6 +515,8 @@
 		755C97E92D9CC86900437D5D /* GlowPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GlowProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GlowProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7560ACD82E2835ED00A30E55 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
+		7560ACDB2E283D1D00A30E55 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* Tab1Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1Screen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* Tab1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1ViewModel.swift; sourceTree = "<group>"; };
 		75715AD22DB9366E00E7994E /* Tab2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2ViewModel.swift; sourceTree = "<group>"; };
@@ -1036,6 +1042,7 @@
 		753EC1E52DB8C4E800265B2A /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				7560ACD82E2835ED00A30E55 /* MockModels.swift */,
 				753EC1E22DB8C4E800265B2A /* MockAssembler.swift */,
 				753EC1E32DB8C4E800265B2A /* MockServiceAssembly.swift */,
 				753EC1E42DB8C4E800265B2A /* MockViewModelAssembly.swift */,
@@ -1198,6 +1205,7 @@
 		755C981F2D9CC89000437D5D /* GlowPro */ = {
 			isa = PBXGroup;
 			children = (
+				7560ACDB2E283D1D00A30E55 /* TODO.swift */,
 				753EC2082DB8CBBB00265B2A /* App.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
 				75573AB92DD82B4A00C7CA6E /* Globals + Constants */,
@@ -1818,7 +1826,9 @@
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
+				7560ACDC2E283D1F00A30E55 /* TODO.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				759B513B2E244FCC000983AC /* BusinessActiveDestinationSelectionScreen.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
@@ -2011,7 +2021,9 @@
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
 				758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
+				7560ACDD2E283D1F00A30E55 /* TODO.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				759B513C2E244FCC000983AC /* BusinessActiveDestinationSelectionScreen.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,

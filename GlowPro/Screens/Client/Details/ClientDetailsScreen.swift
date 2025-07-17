@@ -232,7 +232,7 @@ struct ClientDetailsScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(ClientDetailsViewModel.self)
-        .setup(clientId: "123")
+        .setup(clientId: MockModels.ID.client1)
     
     ClientDetailsScreen(viewModel: viewModel)
         .withMockServices()

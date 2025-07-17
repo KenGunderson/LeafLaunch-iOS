@@ -209,8 +209,8 @@ extension View {
                 
                 let viewModel = globalResolver.resolve(BusinessEmployeeUpdateViewModel.self)!
                     .setup(
-                        businessId: "123",
-                        employeeId: "123"
+                        businessId: businessId,
+                        employeeId: employeeId
                     )
                 
                 BusinessEmployeeUpdateScreen(viewModel: viewModel)

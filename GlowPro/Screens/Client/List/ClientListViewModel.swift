@@ -15,6 +15,7 @@ final class ClientListViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
@@ -25,11 +26,13 @@ final class ClientListViewModel: ViewModel {
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         alertService: AlertServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.analyticsService = analyticsService
+        self.alertService = alertService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -46,24 +49,39 @@ final class ClientListViewModel: ViewModel {
     
     func loadData() {
         
-        let clients: [Client] = [
-            .init(id: "1", firstName: "Sako", lastName: "Hovaguimian", email: "sako@me.com", phone: "818-522-5755", birthDate: Date().ISO8601Format()),
-            .init(id: "2", firstName: "Leon", lastName: "Hovaguimian", email: "leon@me.com", phone: "818-522-5755", birthDate: Date().ISO8601Format()),
-            .init(id: "3", firstName: "KC", lastName: "Gunderson", email: "kc@me.com", phone: nil),
-            .init(id: "4", firstName: "John", lastName: "Sharpe", email: nil, phone: nil),
-            .init(id: "5", firstName: "Robert", lastName: "Sharpe", email: nil, phone: nil),
-            .init(id: "6", firstName: "Mitch", lastName: "Treece", email: nil, phone: nil),
-            .init(id: "7", firstName: "Dan", lastName: "Winkle", email: nil, phone: nil),
-            .init(id: "8", firstName: "Sean", lastName: "Wing", email: nil, phone: nil),
-            .init(id: "9", firstName: "Bobby", lastName: "Hill", email: nil, phone: nil),
-            .init(id: "10", firstName: "Anakin", lastName: "Skywalker", email: nil, phone: nil),
-        ]
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
         
-        let usersByFirstLetter = Dictionary(grouping: clients) { (client: Client) -> Character in
-            return client.firstName.first ?? "?"
+        Task {
+            
+            do {
+                
+                let clients = try await self.apiService.getClients(businessId: MockModels.ID.business1)
+                let usersByFirstLetter = Dictionary(grouping: clients) { (client: Client) -> Character in
+                    return client.firstName.first ?? "?"
+                }
+                
+                await MainActor.run { [weak self] in
+                    self?.groupedClientsDict = usersByFirstLetter
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your clients. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
         }
-        
-        self.groupedClientsDict = usersByFirstLetter
         
     }
     

@@ -21,7 +21,6 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     @Published private(set) var business: Business?
     
     @Published var name: String = ""
-    @Published var phone: String = ""
     @Published var email: String = ""
     @Published var selectedRole: Role? = .employee
     
@@ -29,7 +28,6 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         
         return (
             !self.name.isEmpty &&
-            !self.phone.isEmpty &&
             !self.email.isEmpty &&
             self.selectedRole != nil
         )

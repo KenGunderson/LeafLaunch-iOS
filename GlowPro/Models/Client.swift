@@ -19,6 +19,7 @@ struct Client: Codable,
     let email: String?
     let phone: String?
     let imageURL: URL?
+    let employee: Employee
     
     private var _birthDate: String?
     
@@ -44,7 +45,8 @@ struct Client: Codable,
          email: String?,
          phone: String?,
          birthDate: String? = nil,
-         imageURL: URL? = nil) {
+         imageURL: URL? = nil,
+         employee: Employee) {
         
         self.id = id
         self.firstName = firstName
@@ -53,6 +55,7 @@ struct Client: Codable,
         self.phone = phone
         self._birthDate = birthDate
         self.imageURL = imageURL
+        self.employee = employee
         
     }
     
@@ -69,6 +72,7 @@ struct Client: Codable,
         case phone
         case _birthDate = "birth_date"
         case imageURL = "image_url"
+        case employee
         
     }
     
@@ -85,7 +89,8 @@ extension Client {
             email: "sako@me.com",
             phone: "8185225755",
             birthDate: nil,
-            imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA")
+            imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA"),
+            employee: .DUMMY_DATA()
         )
         
     }

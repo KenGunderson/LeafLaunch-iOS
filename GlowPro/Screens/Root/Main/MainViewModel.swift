@@ -184,17 +184,21 @@ final class MainViewModel: ViewModel {
         }
         
         if allLocationsFromAllBusinessesCount > 1 {
-            
-            self.tabBarNavigationService?
-                .currentNavigationService()
-                .modal(sheet: .businessActiveDestinationSelectionScreen)
+                        
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                
+                self?.tabBarNavigationService?
+                    .currentNavigationService()
+                    .modal(sheet: .businessActiveDestinationSelectionScreen)
+                
+            }
             
         } else {
             
             if let location = user.businesses.first?.locations.first {
                 self.activeDestinationService.setActiveDestination(.location(locationId: location.id))
             }
-            
+                        
         }
         
     }

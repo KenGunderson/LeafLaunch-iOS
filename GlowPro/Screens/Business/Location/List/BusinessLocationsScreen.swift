@@ -114,7 +114,7 @@ struct BusinessLocationsScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessLocationsViewModel.self)
-        .setup(businessId: "123")
+        .setup(businessId: MockModels.ID.business1)
     
     BusinessLocationsScreen(viewModel: viewModel)
         .withMockServices()

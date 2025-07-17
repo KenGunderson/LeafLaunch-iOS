@@ -74,7 +74,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessEditDetails(businessId: "123")))
+                        .push(.business(.businessEditDetails(businessId: MockModels.ID.business1)))
                     
                 }
                 
@@ -83,7 +83,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessLocations(businessId: "123")))
+                        .push(.business(.businessLocations(businessId: MockModels.ID.business1)))
                     
                 }
                 
@@ -92,7 +92,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessLocationCreate(businessId: "123")))
+                        .push(.business(.businessLocationCreate(businessId: MockModels.ID.business1)))
                     
                 }
                 
@@ -101,7 +101,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessEmployees(businessId: "123")))
+                        .push(.business(.businessEmployees(businessId: MockModels.ID.business1)))
                     
                 }
                 
@@ -110,7 +110,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .push(.business(.businessEmployeesInvite(businessId: "123")))
+                        .push(.business(.businessEmployeesInvite(businessId: MockModels.ID.business1)))
                     
                 }
                 
@@ -120,8 +120,8 @@ struct TabBar1Screen: GPView {
                     self.tabBarNavigationService
                         .currentNavigationService()
                         .push(.business(.businessEmployeesUpdate(
-                            businessId: "123",
-                            employeeId: "123"
+                            businessId: MockModels.ID.business1,
+                            employeeId: MockModels.ID.employee1
                         )))
                     
                 }

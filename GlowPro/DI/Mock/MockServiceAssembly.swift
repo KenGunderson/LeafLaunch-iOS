@@ -101,85 +101,18 @@ final class MockAPIService: APIServiceProtocol {
         return Constants.URLs.urlForEnvironment(.localhost)
     }
     
-    private var currentUser: GPUser?
-    private var businesses: [Business] = []
-    private var locations: [Location] = []
-    private var employees: [Employee] = []
-    private var clients: [Client] = []
+    private var currentUser: GPUser
+    private var businesses: [Business] = MockModels.allBusinesses
+    private var locations: [Location] = MockModels.allLocations
+    private var employees: [Employee] = MockModels.allEmployees
+    private var clients: [Client] = MockModels.allClients
     
     init() {
         
-        self.clients = [
-            .init(id: "123", firstName: "Client", lastName: "1", email: "c@me.com", phone: "8185225755"),
-            .init(id: "234", firstName: "Client", lastName: "2", email: "c@me.com", phone: "8185225755"),
-            .init(id: "345", firstName: "Client", lastName: "3", email: "c@me.com", phone: "8185225755"),
-            .init(id: "456", firstName: "Client", lastName: "4", email: "c@me.com", phone: "8185225755"),
-            .init(id: "567", firstName: "Client", lastName: "5", email: "c@me.com", phone: "8185225755"),
-        ]
+        var user = MockModels.MockUser.user1
+        user.businesses = self.businesses
         
-        self.employees = [
-            .init(id: "123", businessId: "123", name: "Employee 1", email: "e@me.com", phone: "8185225755", role: .employee),
-            .init(id: "234", businessId: "123", name: "Employee 2", email: "e@me.com", phone: "8185225755", role: .employee),
-            .init(id: "345", businessId: "123", name: "Employee 3", email: "e@me.com", phone: "8185225755", role: .employee),
-            .init(id: "456", businessId: "234", name: "Employee 4", email: "e@me.com", phone: "8185225755", role: .employee),
-            .init(id: "567", businessId: "234", name: "Employee 5", email: "e@me.com", phone: "8185225755", role: .employee)
-        ]
-        
-        self.locations = [
-            .init(
-                id: "123",
-                businessId: "123",
-                name: "First Dank Location",
-                address: .DUMMY_DATA(),
-                employees: self.employees.filter { $0.businessId == "123" },
-                clients: []
-            ),
-            .init(
-                id: "234",
-                businessId: "123",
-                name: "Second Swimming Location",
-                address: .DUMMY_DATA(),
-                employees: self.employees.filter { $0.businessId == "234" },
-                clients: []
-            ),
-            .init(
-                id: "345",
-                businessId: "234",
-                name: "First Dank Location",
-                address: .DUMMY_DATA(),
-                employees: self.employees.filter { $0.businessId == "123" },
-                clients: []
-            ),
-            .init(
-                id: "456",
-                businessId: "234",
-                name: "Second Flying Location",
-                address: .DUMMY_DATA(),
-                employees: self.employees.filter { $0.businessId == "234" },
-                clients: []
-            ),
-        ]
-        
-        self.businesses = [
-            .init(
-                id: "123",
-                name: "Business 1",
-                email: "business1@example.com",
-                phoneNumber: "123-456-7890",
-                address: .DUMMY_DATA(),
-                locations: self.locations.filter { $0.businessId == "123" },
-                owner: currentUser ?? .DUMMY_DATA()
-            ),
-            .init(
-                id: "234",
-                name: "Business 2",
-                email: "business2@example.com",
-                phoneNumber: "123-456-7890",
-                address: .DUMMY_DATA(),
-                locations: self.locations.filter { $0.businessId == "234" },
-                owner: currentUser ?? .DUMMY_DATA()
-            ),
-        ]
+        self.currentUser = user
         
     }
     
@@ -189,18 +122,25 @@ final class MockAPIService: APIServiceProtocol {
     
     // Users
     
-    func getUser(id: String) async throws -> GPUser { .DUMMY_DATA() }
-    
-    func getUserProfile() async throws -> GPUser {
+    func getUser(id: String) async throws -> GPUser {
         
-        var user = GPUser.DUMMY_DATA()
+        var user = MockModels.MockUser.user1
         user.businesses = self.businesses
         
         return user
         
     }
     
-    func getFirebaseTokenForUser(email: String) async throws -> String { return "" }
+    func getUserProfile() async throws -> GPUser {
+        
+        var user = MockModels.MockUser.user1
+        user.businesses = self.businesses
+        
+        return user
+        
+    }
+    
+    func getFirebaseTokenForUser(email: String) async throws -> String { return "MOCK_TOKEN" }
     func updateUser(user: GPUser) async throws {}
     func createUser(user: GPUser) async throws -> GPUser { user }
     func deleteUser(user: GPUser) async throws {}
@@ -220,7 +160,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func deleteBusiness(id: String) async throws {
-        return self.businesses.removeAll(where: { $0.id == id })
+        return self.businesses.removeAll { $0.id == id }
     }
     
     // Locations
@@ -238,7 +178,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func deleteLocation(id: String) async throws {
-        return self.locations.removeAll(where: { $0.id == id })
+        return self.locations.removeAll { $0.id == id }
     }
     
     // Employees
@@ -248,34 +188,38 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getEmployees(locationId: String) async throws -> [Employee] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.employees
     }
     
     func getEmployee(id: String) async throws -> Employee {
-        return .DUMMY_DATA()
+        return self.employees.first ?? .DUMMY_DATA()
     }
     
-    func deleteEmployee(id: String) async throws {}
+    func deleteEmployee(id: String) async throws {
+        self.employees.removeAll { $0.id  == id }
+    }
     
     // Clients
     
     func getClients(businessId: String) async throws -> [Client] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.clients.filter { $0.employee.businessId == businessId }
     }
     
     func getClients(locationId: String) async throws -> [Client] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.clients.filter { $0.employee.locationId == locationId }
     }
     
     func getClients(employeeId: String) async throws -> [Client] {
-        return [.DUMMY_DATA(), .DUMMY_DATA(), .DUMMY_DATA()]
+        return self.clients.filter { $0.employee.id == employeeId}
     }
     
     func getClient(id: String) async throws -> Client {
-        return .DUMMY_DATA()
+        return self.clients.filter { $0.id == id }.first ?? .DUMMY_DATA()
     }
     
-    func deleteClient(id: String) async throws {}
+    func deleteClient(id: String) async throws {
+        self.clients.removeAll { $0.id == id }
+    }
 
 }
 

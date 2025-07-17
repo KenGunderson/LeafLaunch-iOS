@@ -27,7 +27,7 @@ extension Location {
     static func DUMMY_DATA() -> Location {
         return .init(
             id: UUID().uuidString,
-            businessId: Bool.random() ? "123" : "234",
+            businessId: Bool.random() ? MockModels.ID.business1 : MockModels.ID.business2,
             name: "My First Location",
             address: .DUMMY_DATA(),
             employees: [],
