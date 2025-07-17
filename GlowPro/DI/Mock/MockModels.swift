@@ -72,7 +72,7 @@ struct MockModels {
     struct MockUser {
         
         static var user1 = GPUser(
-            id: ID.user2,
+            id: ID.user1,
             name: "Sako Hovaguimian",
             email: "sako@me.com",
             externalId: "1",
@@ -154,7 +154,8 @@ struct MockModels {
             phoneNumber: "818-522-5755",
             address: .DUMMY_DATA(),
             locations: [
-                MockLocation.location1
+                MockLocation.location1,
+                MockLocation.location2,
             ],
             owner: MockUser.user1
         )

@@ -21,10 +21,6 @@ struct Business: Identifiable,
     let locations: [Location]
     let owner: GPUser
     
-    var isOwner: Bool {
-        return self.id == self.owner.id
-    }
-    
 }
 
 extension Business {

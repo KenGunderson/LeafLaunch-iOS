@@ -109,14 +109,16 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
     
     private func businessHeader(_ business: Business) -> some View {
         
-        HStack {
+        let isOwner = (business.owner.id == self.viewModel.currentUserId)
+        
+        return HStack {
             
             Text(business.name)
                 .appFont(with: .TITLE_T6)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            if business.isOwner {
+            if isOwner {
                 
                 CircularIconView(
                     foregroundColor: Style.shared.textColor(.title),
@@ -130,7 +132,7 @@ struct BusinessActiveDestinationSelectionScreen: GPView {
         }
         .appOnTapGesture {
             
-            guard business.isOwner else { return }
+            guard isOwner else { return }
             
             self.viewModel
                 .selectBusiness(business)

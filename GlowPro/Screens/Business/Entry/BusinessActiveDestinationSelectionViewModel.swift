@@ -20,6 +20,10 @@ final class BusinessActiveDestinationSelectionViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var businesses: [Business] = []
+    
+    var currentUserId: String? {
+        return self.authService.currentUser?.id
+    }
 
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
