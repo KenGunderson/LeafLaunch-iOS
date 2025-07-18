@@ -9,7 +9,7 @@ import Combine
 import PhotosUI
 import UIKit
 
-class MediaPermissionService: MediaPermissionServiceProtocol {
+final class MediaPermissionService: MediaPermissionServiceProtocol {
     
     internal let loggerName: String = "MEDIA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"

@@ -90,7 +90,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                          object: nil,
                          queue: .main) { [weak self] notification in
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 
                 self?.log(message: "will enter foreground")
                 self?.onWillEnterForeground.send("\(notification.name.rawValue): \(UUID().uuidString)")
@@ -105,7 +105,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                          object: nil,
                          queue: .main) { [weak self] notification in
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 
                 self?.log(message:"did become active")
                 self?.onDidBecomeActive.send("\(notification.name.rawValue): \(UUID().uuidString)")
@@ -120,7 +120,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                          object: nil,
                          queue: .main) { [weak self] notification in
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 
                 self?.log(message:"did enter background")
                 self?.onDidEnterBackground.send("\(notification.name.rawValue): \(UUID().uuidString)")

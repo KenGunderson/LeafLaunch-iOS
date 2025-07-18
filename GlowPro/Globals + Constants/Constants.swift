@@ -18,9 +18,10 @@ struct Constants {
         
     }
     
+    @MainActor
     struct Device {
         
-        let deviceId: String = UIDevice.current.identifierForVendor?.uuidString ?? "unknown_device_id"
+        static let deviceId: String = UIDevice.current.identifierForVendor?.uuidString ?? "unknown_device_id"
         
     }
     

@@ -102,12 +102,17 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     private var currentUser: GPUser
-    private var businesses: [Business] = MockModels.allBusinesses
-    private var locations: [Location] = MockModels.allLocations
-    private var employees: [Employee] = MockModels.allEmployees
-    private var clients: [Client] = MockModels.allClients
+    private var businesses: [Business]
+    private var locations: [Location]
+    private var employees: [Employee]
+    private var clients: [Client]
     
     init() {
+        
+        self.businesses = MockModels.allBusinesses
+        self.locations = MockModels.allLocations
+        self.employees = MockModels.allEmployees
+        self.clients = MockModels.allClients
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -520,7 +525,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
     
-    var theme: AvailableTheme = .goldNavy
+    var theme: AvailableTheme = .lightCyan
     var didCompleteOnboarding: Bool = false
     var didCompletePermission: Bool = false
     var lastViewedWhatsNewVersion: String?

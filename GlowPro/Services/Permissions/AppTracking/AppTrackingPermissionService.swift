@@ -9,7 +9,7 @@ import Combine
 import UIKit
 import AppTrackingTransparency
 
-class AppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
+final class AppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
     
     internal let loggerName: String = "APP_TRACKING_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"

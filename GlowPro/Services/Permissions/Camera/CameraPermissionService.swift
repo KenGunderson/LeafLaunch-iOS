@@ -9,7 +9,7 @@ import Combine
 import AVFoundation
 import UIKit
 
-class CameraPermissionService: CameraPermissionServiceProtocol {
+final class CameraPermissionService: CameraPermissionServiceProtocol {
     
     internal let loggerName: String = "CAMERA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"

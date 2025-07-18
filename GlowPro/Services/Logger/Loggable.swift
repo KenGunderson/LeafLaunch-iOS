@@ -8,7 +8,7 @@
 import SwiftUI
 import OSLog
 
-public protocol Loggable {
+public protocol Loggable: Sendable {
     
     var loggerName: String { get }
     var loggerEmoji: String { get }

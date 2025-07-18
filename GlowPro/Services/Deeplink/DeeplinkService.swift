@@ -24,7 +24,7 @@ enum DeeplinkRoutes: String, CaseIterable {
     
 }
 
-class DeeplinkService: DeeplinkServiceProtocol {
+final class DeeplinkService: DeeplinkServiceProtocol {
     
     internal let loggerName: String = "DEEPLINK_SERVICE"
     internal let loggerEmoji: String = "🔗"

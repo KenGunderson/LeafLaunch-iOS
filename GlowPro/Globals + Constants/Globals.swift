@@ -9,13 +9,13 @@ import Swinject
 import SwiftUI
 
 /// For fun; not actually keeping
-public var globalResolver: Resolver!
+nonisolated(unsafe) public var globalResolver: Resolver!
 
 /// For fun; not actually keeping
-public var globalTabBarNavigationService: TabBarNavigationService!
+nonisolated(unsafe) public var globalTabBarNavigationService: TabBarNavigationService!
 
 /// For fun; not actually keeping
-public var loggedEvents: [LogEvent] = []
+nonisolated(unsafe) public var loggedEvents: [LogEvent] = []
 
 /// For fun; not actually keeping
-public var apiLogResponses: [APILogResponse] = []
+nonisolated(unsafe) public var apiLogResponses: [APILogResponse] = []

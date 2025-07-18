@@ -69,7 +69,13 @@ final class RootViewModel: ViewModel {
         self.logInit()
         bindSubscribers()
         
-        UITabBar.appearance().isHidden = true
+        Task {
+            
+            await MainActor.run {
+                UITabBar.appearance().isHidden = true
+            }
+            
+        }
         
     }
     

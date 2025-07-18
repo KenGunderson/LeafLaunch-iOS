@@ -10,7 +10,7 @@ import UIKit
 import UserNotificationsUI
 import Combine
 
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, Loggable {
+class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate, Loggable {
     
     internal let loggerName: String = "APP_DELEGATE"
     internal let loggerEmoji: String = "🪈"

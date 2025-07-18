@@ -23,6 +23,8 @@ class MockAppAssembler {
             MockViewModelAssembly()
         ])
         
+        globalResolver = self.resolver
+        
     }
     
 }
@@ -38,9 +40,6 @@ private struct PreviewWrapper<Content: View>: View {
     var body: some View {
         
         content()
-            .onAppear {
-                globalResolver = MockAppAssembler.shared.resolver
-            }
             .withAlertService(ObservableAlertServiceWrapper(alertService: mockResolve(AlertServiceProtocol.self)))
         
     }

@@ -9,7 +9,7 @@ import Combine
 import UserNotifications
 import UIKit
 
-class PushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
+final class PushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
     
     internal let loggerName: String = "PUSH_NOTIFICATIONS_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"

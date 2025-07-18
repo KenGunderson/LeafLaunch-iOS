@@ -37,7 +37,7 @@ enum Permission: String, CaseIterable {
     
 }
 
-class PermissionsService: PermissionsServiceProtocol {
+final class PermissionsService: PermissionsServiceProtocol {
     
     internal let loggerName: String = "PERMISSIONS_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"

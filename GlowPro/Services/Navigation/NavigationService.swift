@@ -180,7 +180,7 @@ extension View {
         func business(route: Route.Business) -> some View {
             
             switch route {
-            case .businessDetails(let businessId): EmptyView()
+            case .businessDetails(let businessId): Text(businessId)
             case .businessEditDetails(let businessId):
                 
                 let viewModel = globalResolver.resolve(BusinessEditDetailsViewModel.self)!

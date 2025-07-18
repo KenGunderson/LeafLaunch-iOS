@@ -71,6 +71,7 @@ struct MockModels {
     
     struct MockUser {
         
+        nonisolated(unsafe)
         static var user1 = GPUser(
             id: ID.user1,
             name: "Sako Hovaguimian",
@@ -84,6 +85,7 @@ struct MockModels {
             ]
         )
         
+        nonisolated(unsafe)
         static var user2 = GPUser(
             id: ID.user2,
             name: "KC Gunserson",
@@ -101,6 +103,7 @@ struct MockModels {
     
     struct MockEmployee {
         
+        nonisolated(unsafe)
         static var employee1 = Employee(
             id: ID.employee1,
             businessId: ID.business1,
@@ -111,6 +114,7 @@ struct MockModels {
             role: .employee
         )
         
+        nonisolated(unsafe)
         static var employee2 = Employee(
             id: ID.employee2,
             businessId: ID.business1,
@@ -125,6 +129,7 @@ struct MockModels {
     
     struct MockLocation {
      
+        nonisolated(unsafe)
         static var location1 = Location(
             id: ID.location1,
             businessId: ID.business1,
@@ -134,6 +139,7 @@ struct MockModels {
             clients: []
         )
         
+        nonisolated(unsafe)
         static var location2 = Location(
             id: ID.location2,
             businessId: ID.business2,
@@ -147,6 +153,7 @@ struct MockModels {
     
     struct MockBusiness {
         
+        nonisolated(unsafe)
         static var business1 = Business(
             id: ID.business1,
             name: "My First Business",
@@ -160,6 +167,7 @@ struct MockModels {
             owner: MockUser.user1
         )
         
+        nonisolated(unsafe)
         static var business2 = Business(
             id: ID.business2,
             name: "My Second Business",
@@ -176,6 +184,7 @@ struct MockModels {
     
     struct MockClient {
      
+        nonisolated(unsafe)
         static var client1 = Client(
             id: ID.client1,
             firstName: "Joe",
@@ -187,6 +196,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client2 = Client(
             id: ID.client2,
             firstName: "Mary",
@@ -198,6 +208,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client3 = Client(
             id: ID.client3,
             firstName: "Justin",
@@ -209,6 +220,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client4 = Client(
             id: ID.client4,
             firstName: "Wanda",
@@ -220,6 +232,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client5 = Client(
             id: ID.client5,
             firstName: "John",
@@ -231,6 +244,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client6 = Client(
             id: ID.client6,
             firstName: "Robert",
@@ -242,6 +256,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client7 = Client(
             id: ID.client7,
             firstName: "Leon",
@@ -253,6 +268,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client8 = Client(
             id: ID.client8,
             firstName: "Dan",
@@ -264,6 +280,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client9 = Client(
             id: ID.client9,
             firstName: "Evan",
@@ -275,6 +292,7 @@ struct MockModels {
             employee: MockEmployee.employee1
         )
         
+        nonisolated(unsafe)
         static var client10 = Client(
             id: ID.client10,
             firstName: "Mr.",
