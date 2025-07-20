@@ -42,6 +42,10 @@ struct BusinessEmployeeJoinScreen: GPView {
                 
             }
         
+        // Tap
+        
+            .hideKeyboard()
+        
     }
     
     private func content() -> some View {
@@ -54,6 +58,7 @@ struct BusinessEmployeeJoinScreen: GPView {
         .safeAreaInset(edge: .bottom) {
             bottomBar()
         }
+        .scrollBounceBehavior(.basedOnSize)
         
     }
     
@@ -91,9 +96,16 @@ struct BusinessEmployeeJoinScreen: GPView {
                 codeInput: self.$viewModel.codeText,
                 maxCharacterCount: 5,
             )
-            .padding(.horizontal, .medium)
+            .containerRelativeFrame(.vertical, { dimension, axis in
+                return dimension / 2
+            })
+            .padding(.horizontal, .large)
             
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity
+        )
         .padding(.horizontal, .medium)
         
     }
@@ -131,7 +143,7 @@ struct BusinessEmployeeJoinScreen: GPView {
             
             Text("Use the 5 digit code provided to your business to join their account. You can find this code in your inbox.")
                 .foregroundStyle(Style.shared.textColor(.body).source())
-                .appFont(with: .BODY_B4)
+                .appFont(with: .BODY_B10)
                 .frame(
                     maxWidth: .infinity,
                     alignment: .leading
