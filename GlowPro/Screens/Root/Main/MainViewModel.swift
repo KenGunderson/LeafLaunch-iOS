@@ -189,7 +189,7 @@ final class MainViewModel: ViewModel {
                 
                 self?.tabBarNavigationService?
                     .currentNavigationService()
-                    .modal(sheet: .businessActiveDestinationSelectionScreen)
+                    .modal(sheet: .businessActiveDestinationSelection)
                 
             }
             

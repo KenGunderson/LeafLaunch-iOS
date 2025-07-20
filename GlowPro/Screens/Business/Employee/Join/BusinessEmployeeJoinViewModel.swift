@@ -20,6 +20,7 @@ final class BusinessEmployeeJoinViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var businesses: [Business] = []
+    @Published var codeText: String = ""
     
     var isSaveButtonEnabled: Bool {
         return true

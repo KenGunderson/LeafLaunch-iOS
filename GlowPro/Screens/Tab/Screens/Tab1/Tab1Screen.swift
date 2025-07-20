@@ -65,7 +65,7 @@ struct TabBar1Screen: GPView {
                     
                     self.tabBarNavigationService
                         .currentNavigationService()
-                        .modal(sheet: .businessActiveDestinationSelectionScreen)
+                        .modal(sheet: .businessActiveDestinationSelection)
                     
                 }
                 
@@ -123,6 +123,15 @@ struct TabBar1Screen: GPView {
                             businessId: MockModels.ID.business1,
                             employeeId: MockModels.ID.employee1
                         )))
+                    
+                }
+                
+                CommonButton(title: "Business Employee Join",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.tabBarNavigationService
+                        .currentNavigationService()
+                        .modal(sheet: .businessEmployeeJoin)
                     
                 }
                 

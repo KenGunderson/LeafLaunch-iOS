@@ -331,11 +331,19 @@ extension View {
                 
                 Color.indigo.ignoresSafeArea()
                 
-            case .businessActiveDestinationSelectionScreen:
+            case .businessActiveDestinationSelection:
                 
                 let viewModel = globalResolver.resolve(BusinessActiveDestinationSelectionViewModel.self)!
                 
                 BusinessActiveDestinationSelectionScreen(viewModel: viewModel)
+                    .presentationDragIndicator(.hidden)
+                    .interactiveDismissDisabled()
+                
+            case .businessEmployeeJoin:
+                
+                let viewModel = globalResolver.resolve(BusinessEmployeeJoinViewModel.self)!
+                
+                BusinessEmployeeJoinScreen(viewModel: viewModel)
                     .presentationDragIndicator(.hidden)
                     .interactiveDismissDisabled()
                 
