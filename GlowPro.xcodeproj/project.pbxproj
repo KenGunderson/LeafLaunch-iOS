@@ -260,6 +260,10 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		75A69EF92E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
+		75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
+		75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
+		75A69EFC2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
 		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
 		75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
 		75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */; };
@@ -544,6 +548,8 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
+		75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinViewModel.swift; sourceTree = "<group>"; };
+		75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinScreen.swift; sourceTree = "<group>"; };
 		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
 		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateScreen.swift; sourceTree = "<group>"; };
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -1397,11 +1403,21 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		75A69EF62E2C8FB6000E5595 /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */,
+				75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */,
+			);
+			path = Join;
+			sourceTree = "<group>";
+		};
 		75ACAA3A2E18C78800401EC8 /* Employee */ = {
 			isa = PBXGroup;
 			children = (
 				758C3CE22E14B0C700BC1A43 /* List */,
 				7527E1902E26925E00FBC9AF /* Invite */,
+				75A69EF62E2C8FB6000E5595 /* Join */,
 				75AFB1302E1EF89700A9FD0E /* Update */,
 				75795D252E173176008BD44A /* Details */,
 			);
@@ -1858,6 +1874,8 @@
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */,
+				75A69EFC2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivityView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -2053,6 +2071,8 @@
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				75A69EF92E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */,
+				75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
