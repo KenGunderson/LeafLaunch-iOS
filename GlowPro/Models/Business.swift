@@ -21,6 +21,8 @@ struct Business: Identifiable,
     let locations: [Location]
     let owner: GPUser
     
+    // Add employees
+    
 }
 
 extension Business {
