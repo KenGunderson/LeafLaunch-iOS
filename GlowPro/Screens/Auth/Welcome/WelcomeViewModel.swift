@@ -22,6 +22,10 @@ final class WelcomeViewModel: ViewModel {
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var isNotProduction: Bool {
+        self.environmentService.environment != .production
+    }
             
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
