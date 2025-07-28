@@ -42,6 +42,7 @@ internal enum AppRoute {
     case location(String)
     case employee(String)
     case client(String)
+    case system(String)
     
     var category: String {
         switch self {
@@ -53,6 +54,7 @@ internal enum AppRoute {
         case .location: return "locations"
         case .employee: return "employees"
         case .client: return "clients"
+        case .system: return "glowpro"
         }
     }
     
@@ -66,6 +68,7 @@ internal enum AppRoute {
         case .location(let path): return "\(self.category)\(path)"
         case .employee(let path): return "\(self.category)\(path)"
         case .client(let path): return "\(self.category)\(path)"
+        case .system(let path): return "\(self.category)\(path)"
         }
     }
     

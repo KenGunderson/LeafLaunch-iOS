@@ -225,6 +225,36 @@ final class MockAPIService: APIServiceProtocol {
     func deleteClient(id: String) async throws {
         self.clients.removeAll { $0.id == id }
     }
+    
+    // System
+    
+    func getLegalInformation(context: String) -> [LegalItem] {
+        
+        return [
+            
+            .init(
+                title: "General Information",
+                sections: [
+                    "This is the first section",
+                    "This is the secone section",
+                    "This is the third section",
+                    "This is the fourth section"
+                ]
+            ),
+            
+                .init(
+                    title: "General Information",
+                    sections: [
+                        "This is the first section",
+                        "This is the secone section",
+                        "This is the third section",
+                        "This is the fourth section"
+                    ]
+                )
+            
+        ]
+        
+    }
 
 }
 

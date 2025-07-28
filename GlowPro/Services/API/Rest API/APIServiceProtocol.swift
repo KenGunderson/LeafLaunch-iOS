@@ -69,6 +69,10 @@ protocol APIServiceProtocol: APIProtocol {
     func getClient(id: String) async throws -> Client
     func deleteClient(id: String) async throws
     
+    // System
+    
+    func getLegalInformation(context: String) async throws -> [LegalItem]
+    
 }
 
 extension APIProtocol {

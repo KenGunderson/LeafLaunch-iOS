@@ -348,6 +348,20 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
+        // Settings - Legal
+        
+        container
+            .register(LegalViewModel.self) { r in
+                LegalViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }
+        
         // DevSettings
         
         container

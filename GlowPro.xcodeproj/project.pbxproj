@@ -258,6 +258,14 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046492E37BCDE00D5EFCD /* LegalScreen.swift */; };
+		75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */; };
+		75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046492E37BCDE00D5EFCD /* LegalScreen.swift */; };
+		75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */; };
+		75A046502E37BD8A00D5EFCD /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */; };
+		75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */; };
+		75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046522E37BE7300D5EFCD /* APIService+System.swift */; };
+		75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046522E37BE7300D5EFCD /* APIService+System.swift */; };
 		75A69EF92E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
 		75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
 		75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
@@ -563,6 +571,10 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
+		75A046492E37BCDE00D5EFCD /* LegalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalScreen.swift; sourceTree = "<group>"; };
+		75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewModel.swift; sourceTree = "<group>"; };
+		75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalItem.swift; sourceTree = "<group>"; };
+		75A046522E37BE7300D5EFCD /* APIService+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+System.swift"; sourceTree = "<group>"; };
 		75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinViewModel.swift; sourceTree = "<group>"; };
 		75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinScreen.swift; sourceTree = "<group>"; };
 		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
@@ -1025,13 +1037,14 @@
 			children = (
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
 				75B731F22E14E52900038AD6 /* Location.swift */,
-				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				75B731F82E14E62200038AD6 /* Employee.swift */,
+				759B64782E04A75E006F4995 /* Client.swift */,
+				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				75B731F52E14E58800038AD6 /* Address.swift */,
 				758DAEC52E05152000311C7C /* Activity.swift */,
 				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
-				759B64782E04A75E006F4995 /* Client.swift */,
+				75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
 			);
@@ -1148,6 +1161,7 @@
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
 				75740B752E0A1FA900EF8627 /* FAQ */,
+				75A046482E37BCC700D5EFCD /* Legal */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1435,6 +1449,15 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		75A046482E37BCC700D5EFCD /* Legal */ = {
+			isa = PBXGroup;
+			children = (
+				75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */,
+				75A046492E37BCDE00D5EFCD /* LegalScreen.swift */,
+			);
+			path = Legal;
+			sourceTree = "<group>";
+		};
 		75A69EF62E2C8FB6000E5595 /* Join */ = {
 			isa = PBXGroup;
 			children = (
@@ -1580,13 +1603,14 @@
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
-				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
-				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
-				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
-				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
+				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
+				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
+				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
+				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
+				75A046522E37BE7300D5EFCD /* APIService+System.swift */,
+				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -1813,6 +1837,7 @@
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
 				758DAE852E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
+				75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				753EC1FC2DB8C58100265B2A /* MainScreen.swift in Sources */,
 				750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */,
 				750DFBCA2DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift in Sources */,
@@ -1895,6 +1920,7 @@
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				758DAE892E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
+				75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				759B513B2E244FCC000983AC /* BusinessActiveDestinationSelectionScreen.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
@@ -1919,6 +1945,8 @@
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
+				75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
+				75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -2009,6 +2037,7 @@
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
 				758DAE862E050DDF00311C7C /* ClientDetailsScreen.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
+				75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				75D66D192DC713C300E51CFC /* MainScreen.swift in Sources */,
 				75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */,
 				75D66D1B2DC713C300E51CFC /* DevDeeplinksViewModel.swift in Sources */,
@@ -2091,6 +2120,7 @@
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
 				758DAE882E050DE500311C7C /* ClientDetailsViewModel.swift in Sources */,
+				75A046502E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				759B513C2E244FCC000983AC /* BusinessActiveDestinationSelectionScreen.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
@@ -2115,6 +2145,8 @@
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
+				75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
+				75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
