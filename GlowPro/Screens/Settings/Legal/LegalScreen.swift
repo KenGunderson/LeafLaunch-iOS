@@ -44,7 +44,7 @@ struct LegalScreen: View {
         NavBarView(
             title: self.viewModel.context.displayName,
             leftButtonView: (
-                BackButton {
+                BackButton(backgroundColor: .color(.clear)) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()
