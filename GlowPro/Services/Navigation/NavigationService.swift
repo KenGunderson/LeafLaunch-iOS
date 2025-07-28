@@ -170,8 +170,22 @@ extension View {
                 
             case .contactSupport: EmptyView()
             case .sendFeedback: EmptyView()
-            case .privacyPolicy: EmptyView()
-            case .termsOfService: EmptyView()
+            case .privacyPolicy:
+                
+                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                    .setup(context: .privacyPolicy)
+                
+                LegalScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .termsOfService:
+                
+                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                    .setup(context: .termsAndConditions)
+                
+                LegalScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }
