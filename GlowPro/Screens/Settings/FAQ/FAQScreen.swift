@@ -72,6 +72,7 @@ struct FAQScreen: GPView {
             scale: 1,
             scaleAnchor: .center,
             animation: .smooth,
+            interitemSpacing: 16,
             disappearInSameDirection: true,
             noDisappearAnimation: false
         )
@@ -80,11 +81,31 @@ struct FAQScreen: GPView {
             
             if self.onAppearAnimation {
                 
-                ForEach(self.viewModel.faqItems, id: \.self) { item in
+                ForEach(self.viewModel.faqItems, id: \.title) { item in
+                    section(item: item)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    private func section(item: FAQViewModel.FAQItemSection) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+            
+            Text(item.title)
+                .appFont(with: .TITLE_T8)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                ForEach(item.sections, id: \.question) { section in
                     
-                    faqItem(
-                        title: item.title,
-                        description: item.description
+                    cardView(
+                        title: section.question,
+                        description: section.answer
                     )
                     
                 }
@@ -95,8 +116,8 @@ struct FAQScreen: GPView {
         
     }
     
-    private func faqItem(title: String,
-                         description: String) -> some View {
+    private func cardView(title: String,
+                          description: String) -> some View {
         
         CollapsableCardView(animation: .smooth) {
             

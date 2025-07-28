@@ -35,4 +35,23 @@ extension APIService {
         
     }
     
+    func getFrequentlyAskedQuestions() async throws -> [FAQViewModel.FAQItemSection] {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .system("faq"))
+            )
+            
+            let result: [FAQViewModel.FAQItemSection] = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }

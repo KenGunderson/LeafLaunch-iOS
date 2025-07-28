@@ -255,6 +255,67 @@ final class MockAPIService: APIServiceProtocol {
         ]
         
     }
+    
+    func getFrequentlyAskedQuestions() async throws -> [FAQViewModel.FAQItemSection] {
+        return [
+
+            .init(
+                title: "General Questions",
+                sections: [
+                    .init(
+                        question: "What is this app?",
+                        answer: "This app helps beauty professionals manage their business, employees, clients, and media content all in one place."
+                    ),
+                    .init(
+                        question: "Is there a free trial?",
+                        answer: "Yes, new users can enjoy a 14-day free trial with access to all premium features."
+                    ),
+                    .init(
+                        question: "Which platforms is the app available on?",
+                        answer: "The app is available on iOS and Android devices, with a web version coming soon."
+                    )
+                ]
+            ),
+
+            .init(
+                title: "Managing Your Business",
+                sections: [
+                    .init(
+                        question: "How do I add a new employee?",
+                        answer: "Go to the 'Employees' tab, tap the '+' icon, and fill in the employee’s details to send them an invite."
+                    ),
+                    .init(
+                        question: "Can I assign roles to employees?",
+                        answer: "Yes, each employee can be assigned a role such as Admin, Front Desk, or Stylist, each with different permissions."
+                    ),
+                    .init(
+                        question: "What if my business has multiple locations?",
+                        answer: "You can manage multiple locations from a single account and switch between them seamlessly."
+                    )
+                ]
+            ),
+
+            .init(
+                title: "Media & Client Engagement",
+                sections: [
+                    .init(
+                        question: "Can I edit photos within the app?",
+                        answer: "Yes, our built-in editor includes filters, cropping, retouching, and watermarking tools."
+                    ),
+                    .init(
+                        question: "How does media sharing to Instagram work?",
+                        answer: "You can schedule posts and share directly to Instagram through our integrated social sharing feature."
+                    ),
+                    .init(
+                        question: "Can clients favorite media?",
+                        answer: "Yes, clients can favorite media, and you’ll be able to see which styles are most popular."
+                    )
+                ]
+            )
+
+        ]
+    }
+
 
 }
 

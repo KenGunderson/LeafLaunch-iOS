@@ -72,6 +72,7 @@ protocol APIServiceProtocol: APIProtocol {
     // System
     
     func getLegalInformation(context: String) async throws -> [LegalItem]
+    func getFrequentlyAskedQuestions() async throws -> [FAQViewModel.FAQItemSection]
     
 }
 

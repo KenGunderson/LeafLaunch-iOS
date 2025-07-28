@@ -339,8 +339,10 @@ class MockViewModelAssembly: Assembly {
         container
             .register(FAQViewModel.self) { r in
                 FAQViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
