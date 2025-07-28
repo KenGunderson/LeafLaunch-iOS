@@ -58,20 +58,36 @@ struct LegalScreen: View {
         
         return VStack(alignment: .leading) {
             
-            if !items.isEmpty {
+            let config = StaggeredConfig.init(
+                delay: 0.05,
+                maxDelay: 0.05,
+                blurRadius: 0.5,
+                offset: .init(width: 0, height: 100),
+                scale: 1,
+                scaleAnchor: .center,
+                animation: .smooth.delay(0.3),
+                interitemSpacing: 16,
+                disappearInSameDirection: true,
+                noDisappearAnimation: false
+            )
+            
+            StaggeredView(config: config) {
                 
-                VStack(alignment: .leading,
-                       spacing: Style.shared.spacing(.medium)) {
+                if !items.isEmpty {
                     
-                    ForEach(items, id: \.id) {
+                    VStack(alignment: .leading,
+                           spacing: Style.shared.spacing(.medium)) {
                         
-                        self.section(legalItem: $0)
+                        ForEach(items, id: \.id) {
+                            
+                            self.section(legalItem: $0)
+                            
+                        }
                         
                     }
+                    .frame(maxWidth: .infinity)
                     
                 }
-                .frame(maxWidth: .infinity)
-                .transition(.offset(y: 200).combined(with: .opacity))
                 
             }
             

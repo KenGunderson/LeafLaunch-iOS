@@ -71,7 +71,7 @@ struct FAQScreen: GPView {
             offset: .init(width: 0, height: 100),
             scale: 1,
             scaleAnchor: .center,
-            animation: .smooth,
+            animation: .smooth.delay(0.3),
             interitemSpacing: 16,
             disappearInSameDirection: true,
             noDisappearAnimation: false
@@ -79,7 +79,7 @@ struct FAQScreen: GPView {
         
         StaggeredView(config: config) {
             
-            if self.onAppearAnimation {
+            if !self.viewModel.faqItems.isEmpty {
                 
                 ForEach(self.viewModel.faqItems, id: \.title) { item in
                     section(item: item)
