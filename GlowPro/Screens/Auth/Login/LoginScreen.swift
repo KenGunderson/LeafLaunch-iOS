@@ -123,7 +123,7 @@ struct LoginScreen: GPView {
     private var forgotPassword: some View {
         
         Text("Forgot Password?")
-            .appFont(with: .BODY_B5)
+            .appFont(with: .TITLE_T4)
             .foregroundStyle(Style.shared.accent.source())
             .asButton {
                 self.viewModel.handleForgotPassword()
@@ -161,7 +161,7 @@ struct LoginScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.body).source())
+                    prompt: Text(placeholder).foregroundStyle(.gray)
                 )
 
                 
@@ -170,7 +170,7 @@ struct LoginScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.body).source())
+                    prompt: Text(placeholder).foregroundStyle(.gray)
                 )
                 
             }

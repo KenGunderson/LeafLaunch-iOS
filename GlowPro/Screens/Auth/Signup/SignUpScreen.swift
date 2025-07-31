@@ -194,7 +194,7 @@ struct SignUpScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.body).source())
+                    prompt: Text(placeholder).foregroundStyle(.gray)
                 )
                 
             } else {
@@ -202,7 +202,7 @@ struct SignUpScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.body).source())
+                    prompt: Text(placeholder).foregroundStyle(.gray)
                 )
                 
             }
@@ -212,7 +212,8 @@ struct SignUpScreen: GPView {
             text: text.wrappedValue,
             title: placeholder,
             style: .border(cornerRadius: .custom(6)),
-            isFocused: isFocused
+            isFocused: isFocused,
+            textFieldFont: .TITLE_T5,
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(keyboardType)
