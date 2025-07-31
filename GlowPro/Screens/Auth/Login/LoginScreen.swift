@@ -214,15 +214,16 @@ struct LoginScreen: GPView {
         if isSecureEntry {
             
             Image(systemName: self.showPassword ? "eye.slash" : "eye")
-                .resizable()
                 .scaledToFit()
-                .foregroundStyle(Style.shared.textColor(.body).source())
-                .frame(width: 24, height: 24)
+                .frame(maxWidth: 24, maxHeight: 24)
                 .asButton {
-                    withAnimation(.spring) {
+                    
+                    withAnimation(.smooth) {
                         self.showPassword.toggle()
                     }
+                    
                 }
+                .foregroundStyle(Style.shared.textColor(.body).source())
                 .padding(.trailing, .medium)
                 .padding(.bottom, .custom(10))
                 .contentTransition(.symbolEffect(.replace))
