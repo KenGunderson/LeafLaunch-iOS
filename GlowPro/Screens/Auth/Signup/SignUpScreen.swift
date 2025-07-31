@@ -68,13 +68,17 @@ struct SignUpScreen: GPView {
                 self.navigationService.pop()
             }
             
-            Text("Join GlowPro")
-                .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                .foregroundStyle(Style.shared.textColor(.title).source())
-            
-            Text("Enter your details below to create an account.")
-                .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
-                .foregroundStyle(Style.shared.textColor(.body).source())
+            VStack(alignment: .leading, spacing: 0) {
+                
+                Text("Join GlowPro")
+                    .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+                Text("Enter your details below to create an account.")
+                    .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+            }
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,7 +102,6 @@ struct SignUpScreen: GPView {
             }
             
         }
-        .padding(.top, .medium)
         
     }
     

@@ -80,13 +80,17 @@ struct LoginScreen: GPView {
                 self.navigationService.pop()
             }
             
-            Text("Welcome Back")
-                .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                .foregroundStyle(Style.shared.textColor(.title).source())
-            
-            Text("Sign in to your GlowPro account to continue capturing beautiful results")
-                .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
-                .foregroundStyle(Style.shared.textColor(.body).source())
+            VStack(alignment: .leading, spacing: 0) {
+                
+                Text("Welcome Back")
+                    .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+                Text("Sign in to your GlowPro account to continue capturing beautiful results")
+                    .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+            }
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -116,7 +120,6 @@ struct LoginScreen: GPView {
             forgotPassword
             
         }
-        .padding(.top, .medium)
         
     }
     
