@@ -1,5 +1,5 @@
 {
-  "originHash" : "b902a1de3979b42d6e62946646ccd382e94bd0cfbe2a13f23ddac6ce37ba4ccd",
+  "originHash" : "8224427b3493f59db1e4e3730a99a04d78954b5abc2a179790a2d6485231da70",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/amplitude/Amplitude-iOS",
       "state" : {
         "branch" : "main",
-        "revision" : "e3d264011dd69f2f4cfae776026e88956c2ce672"
+        "revision" : "7ec0f8971b68c1cb859028655fbff1bcde8170dd"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/google-ads-on-device-conversion-ios-sdk",
       "state" : {
-        "revision" : "428d8bb138e00f9a3f4f61cc6cd8863607524f65",
-        "version" : "2.1.0"
+        "revision" : "e15f979c3eaf477d24e5bfec9d87f1d76fbac297",
+        "version" : "2.2.0"
       }
     },
     {
@@ -151,7 +151,7 @@
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
         "branch" : "main",
-        "revision" : "7c93688bcdb9a3df9bba7136c02673288a0f1967"
+        "revision" : "c16f57ccf1f3b528b85dda4e6a0b5829e7b3852a"
       }
     },
     {
@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stripe/stripe-ios-spm",
       "state" : {
-        "revision" : "6dbaa65cfc9d3f7dafe698ca95d0c982685287c4",
-        "version" : "24.17.0"
+        "revision" : "2c900411a6bb9b754a2fd256b4ccd8d2c0830cb2",
+        "version" : "24.18.1"
       }
     },
     {

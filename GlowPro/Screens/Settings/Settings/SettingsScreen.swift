@@ -115,7 +115,7 @@ struct SettingsScreen: GPView {
                 
                 Image(systemName: item.icon)
                     .appFont(with: .TITLE_T5)
-                    .foregroundStyle(Style.shared.accent.source())
+                    .foregroundStyle(item.tintColor.source())
                 
                 Text(item.displayName)
                     .appFont(with: .TITLE_T5)
@@ -131,8 +131,12 @@ struct SettingsScreen: GPView {
         }
         .asButton {
             
-            self.viewModel
-                .navigate(to: item)
+            withAnimation(.smooth) {
+                
+                self.viewModel
+                    .selectSetting(item)
+                
+            }
             
         }
         

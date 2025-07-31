@@ -55,6 +55,7 @@ enum Route: Navigation, Hashable, Sendable {
         case sendFeedback
         case privacyPolicy
         case termsOfService
+        case logout
         
         var displayName: String {
             switch self {
@@ -66,6 +67,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .sendFeedback: return "Send Feedback"
             case .privacyPolicy: return "Privacy Policy"
             case .termsOfService: return "Terms of Service"
+            case .logout: return "Logout"
             }
         }
         
@@ -79,6 +81,14 @@ enum Route: Navigation, Hashable, Sendable {
             case .sendFeedback: return "message.fill"
             case .privacyPolicy: return "lock.shield.fill"
             case .termsOfService: return "clipboard.fill"
+            case .logout: return "xmark.circle.fill"
+            }
+        }
+        
+        var tintColor: ColorSource {
+            switch self {
+            case .logout: Style.shared.background(.error)
+            default: Style.shared.accent
             }
         }
         

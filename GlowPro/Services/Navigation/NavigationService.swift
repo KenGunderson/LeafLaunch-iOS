@@ -186,6 +186,7 @@ extension View {
                 LegalScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            case .logout: EmptyView()
             }
             
         }

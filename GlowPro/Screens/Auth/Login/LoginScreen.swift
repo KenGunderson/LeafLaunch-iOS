@@ -161,7 +161,7 @@ struct LoginScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.gray)
+                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
                 )
 
                 
@@ -170,7 +170,7 @@ struct LoginScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.gray)
+                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
                 )
                 
             }

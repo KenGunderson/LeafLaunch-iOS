@@ -39,8 +39,18 @@ final class SettingsViewModel: ViewModel {
         self.logDeinit()
     }
     
-    func navigate(to route: Route.Setting) {
-        self.navigationService?.push(.setting(route))
+    func selectSetting(_ setting: Route.Setting) {
+        
+        switch setting {
+        case .logout:
+            
+            Task {
+                try await self.authService.logout()
+            }
+            
+        default: self.navigationService?.push(.setting(setting))
+        }
+        
     }
     
     func setup(navigationService: NavigationService,

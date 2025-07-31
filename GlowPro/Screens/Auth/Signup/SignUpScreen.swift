@@ -194,7 +194,7 @@ struct SignUpScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.gray)
+                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
                 )
                 
             } else {
@@ -202,7 +202,7 @@ struct SignUpScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.gray)
+                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
                 )
                 
             }
