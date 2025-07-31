@@ -27,17 +27,13 @@ struct LoginScreen: GPView {
     var body: some View {
         
         AppHeaderScrollView {
-            
-            navBarView
-            
+            headerView
         } scrollViewContent: {
-            
             contentView
-            
         }
         .scrollBounceBehavior(.basedOnSize)
         .safeAreaInset(edge: .bottom) {
-            forgotPasswordButton
+            bottomButton()
         }
         
         .onSubmit {
@@ -76,27 +72,35 @@ struct LoginScreen: GPView {
         
     }
     
-    private var navBarView: some View {
+    private var headerView: some View {
         
-        let backButton = BackButton {
-            self.viewModel.dismiss()
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            
+            BackButton {
+                self.navigationService.pop()
+            }
+            
+            Text("Welcome Back")
+                .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            Text("Sign in to your GlowPro account to continue capturing beautiful results")
+                .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
         }
-        
-       return NavBarView(
-            title: "Login to your account",
-            subtitle: "Enter your credentials below",
-            leftButtonView: backButton.asAnyView()
-        )
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, .large)
         
     }
     
     private var contentView: some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(alignment: .trailing, spacing: Style.shared.spacing(.small)) {
             
             // Textfields
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: Style.shared.spacing(.large)) {
                 
                 textField(fieldToFocus: .email)
                 
@@ -107,48 +111,36 @@ struct LoginScreen: GPView {
                 
             }
             
-            // LoginButton
+            // Forgot Password
             
-            CommonButton(
-                title: "Login",
-                titleColor: Style.shared.textColor(.button),
-                isEnabled: self.viewModel.isButtonEnabled) {
-                    self.viewModel.handleLogin()
-                }
-                .padding(.top, .small)
+            forgotPassword
             
         }
+        .padding(.top, .medium)
         
     }
     
     private var forgotPassword: some View {
         
-        Text("Forgot your password?") {
-            
-            $0.font = Style.shared.font(.BODY_B5)
-            $0.foregroundColor = Style.shared.textColor(.title).asColor
-            
-        }
-        
-        +
-        
-        Text(" Click here")  {
-            
-            $0.font = Style.shared.font(.TITLE_T5)
-            $0.foregroundColor = Style.shared.accent.asColor
-            
-        }
+        Text("Forgot Password?")
+            .appFont(with: .BODY_B5)
+            .foregroundStyle(Style.shared.accent.source())
+            .asButton {
+                self.viewModel.handleForgotPassword()
+            }
         
     }
     
-    private var forgotPasswordButton: some View {
-        
-        Button(action: {
-            self.viewModel.handleForgotPassword()
-        }, label: {
-            forgotPassword
-        })
-        .customSafeAreaPadding()
+    private func bottomButton() -> some View {
+                
+        CommonButton(
+            title: "Login",
+            titleColor: Style.shared.textColor(.button),
+            isEnabled: self.viewModel.isButtonEnabled) {
+                self.viewModel.handleLogin()
+            }
+            .padding(.vertical, .small)
+            .padding(.horizontal, .large)
         
     }
     

@@ -370,7 +370,7 @@ final class MockAuthService: AuthServiceProtocol {
     var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
     var onError = CurrentValueSubject<Error?, Never>(nil)
     
-    func signup(name: String, email: String, password: String) async throws {
+    func signup(firstName: String, lastName: String, email: String, password: String) async throws {
         self.currentUser = .DUMMY_DATA()
     }
     

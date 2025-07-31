@@ -16,7 +16,8 @@ protocol AuthServiceProtocol: AnyObject, Sendable, Loggable {
     var onInitialLoadCompleted: CurrentValueSubject<Bool, Never> { get }
     var onError: CurrentValueSubject<Error?, Never> { get }
             
-    func signup(name: String,
+    func signup(firstName: String,
+                lastName: String,
                 email: String,
                 password: String) async throws
     

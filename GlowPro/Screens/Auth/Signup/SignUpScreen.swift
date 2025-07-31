@@ -12,7 +12,8 @@ struct SignUpScreen: GPView {
     
     enum FocusedField: Hashable {
         
-        case name
+        case firstName
+        case lastName
         case email
         case password
         
@@ -28,13 +29,12 @@ struct SignUpScreen: GPView {
     var body: some View {
         
         AppHeaderScrollView {
-            
-            navBarView
-            
+            headerView
         } scrollViewContent: {
-            
             contentView
-            
+        }
+        .safeAreaInset(edge: .bottom) {
+            bottomBar()
         }
         .scrollBounceBehavior(.basedOnSize)
         .errorHandler(
@@ -60,17 +60,25 @@ struct SignUpScreen: GPView {
         
     }
     
-    private var navBarView: some View {
+    private var headerView: some View {
         
-        let backButton = BackButton {
-            self.viewModel.dismiss()
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            
+            BackButton {
+                self.navigationService.pop()
+            }
+            
+            Text("Join GlowPro")
+                .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            Text("Enter your details below to create an account.")
+                .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
         }
-        
-       return NavBarView(
-            title: "Create Your Account",
-            subtitle: "Enter your credentials below",
-            leftButtonView: backButton.asAnyView()
-        )
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, .large)
         
     }
     
@@ -82,12 +90,37 @@ struct SignUpScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
-                textField(fieldToFocus: .name)
+                textField(fieldToFocus: .firstName)
+                textField(fieldToFocus: .lastName)
                 textField(fieldToFocus: .email)
                 textField(fieldToFocus: .password)
                 
             }
             
+        }
+        .padding(.top, .medium)
+        
+    }
+    
+    private func bottomBar() -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            // Checkbox
+            
+            Toggle(
+                "By signing up, you agree to our Terms of Service",
+                isOn: self.$viewModel.agreedToTerms
+            )
+            .toggleStyle(.checkmark(
+                height: 24,
+                unselectedColor: Style.shared.background(.border),
+                horizontalSpacing: .small,
+                cornerRadius: .extraSmall
+            ))
+            .foregroundStyle(Style.shared.textColor(.body).source())
+            .appFont(with: .BODY_B4)
+                        
             // LoginButton
             
             CommonButton(
@@ -96,9 +129,10 @@ struct SignUpScreen: GPView {
                 isEnabled: self.viewModel.isButtonEnabled) {
                     self.viewModel.handleSignUp()
                 }
-                .padding(.top, .small)
+                .padding(.vertical, .small)
             
         }
+        .padding(.horizontal, .large)
         
     }
 
@@ -111,12 +145,23 @@ struct SignUpScreen: GPView {
         var textContentType: UITextContentType = .emailAddress
         var submitLabel: SubmitLabel = .next
         
+        let isNameFields: Bool = (fieldToFocus == .firstName) || (fieldToFocus == .lastName)
+        
         switch fieldToFocus {
-        case .name:
+        case .firstName:
 
-            text = self.$viewModel.name
-            placeholder = "Name"
-            isFocused = self.focusedField == .name
+            text = self.$viewModel.firstName
+            placeholder = "First Name"
+            isFocused = self.focusedField == .firstName
+            keyboardType = .default
+            textContentType = .name
+            submitLabel = .next
+            
+        case .lastName:
+
+            text = self.$viewModel.lastName
+            placeholder = "Last Name"
+            isFocused = self.focusedField == .lastName
             keyboardType = .default
             textContentType = .name
             submitLabel = .next
@@ -173,7 +218,7 @@ struct SignUpScreen: GPView {
         .keyboardType(keyboardType)
         .textContentType(textContentType)
         .submitLabel(submitLabel)
-        .textInputAutocapitalization(fieldToFocus == .name ? .words : .never)
+        .textInputAutocapitalization(isNameFields ? .words : .never)
         .overlay(alignment: .bottomTrailing) {
             passwordEyeOverlay(fieldToFocus: fieldToFocus)
         }
@@ -186,7 +231,8 @@ struct SignUpScreen: GPView {
     private func handleOnSubmit() {
         
         switch self.focusedField {
-        case .name: return self.focusedField = .email
+        case .firstName: return self.focusedField = .lastName
+        case .lastName: return self.focusedField = .email
         case .email: return self.focusedField = .password
         case .password: return self.focusedField = nil
         default: return self.focusedField = nil

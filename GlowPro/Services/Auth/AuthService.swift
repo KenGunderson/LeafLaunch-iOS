@@ -53,7 +53,8 @@ final class AuthService: AuthServiceProtocol {
     }
     
     @MainActor
-    func signup(name: String,
+    func signup(firstName: String,
+                lastName: String,
                 email: String,
                 password: String) async throws {
         
@@ -67,7 +68,7 @@ final class AuthService: AuthServiceProtocol {
             let _ = try await self.apiService
                 .createUser(user: .init(
                     id: "",
-                    name: name.capitalized,
+                    name: firstName.capitalized,
                     email: email,
                     externalId: self.firebaseService.user?.uid ?? "",
                     birthday: nil,

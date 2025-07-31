@@ -22,9 +22,11 @@ final class SignUpViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    @Published var name: String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var agreedToTerms: Bool = false
     
     @Published private var currentNonce: String?
     @Published var error: Error?
@@ -34,7 +36,9 @@ final class SignUpViewModel: ViewModel {
         return (
             self.email.count > 3 &&
             self.password.count >= 6 &&
-            self.name.count >= 3
+            self.firstName.count >= 2 &&
+            self.lastName.count >= 2 &&
+            self.agreedToTerms
         )
         
     }
@@ -89,7 +93,8 @@ final class SignUpViewModel: ViewModel {
             do {
                 
                 try await self.authService.signup(
-                    name: self.name.capitalized,
+                    firstName: self.firstName.capitalized,
+                    lastName: self.lastName.capitalized,
                     email: self.email,
                     password: self.password
                 )
