@@ -35,12 +35,8 @@ struct SettingsScreen: GPView {
                 self.viewModel
                     .track()
                 
-                self.viewModel.setup(
-                    navigationService: self.navigationService,
-                    dismissAction: {
-                        dismiss()
-                    }
-                )
+                self.viewModel
+                    .setup(navigationService: self.navigationService)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.onAppearAnimation = true
@@ -132,6 +128,10 @@ struct SettingsScreen: GPView {
         .asButton {
             
             withAnimation(.smooth) {
+                
+                if item == .logout {
+                    dismiss()
+                }
                 
                 self.viewModel
                     .selectSetting(item)

@@ -18,7 +18,6 @@ final class SettingsViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
 
     private var navigationService: NavigationService?
-    private var dismissAction: (() -> ())?
     private var cancelBag: CancelBag!
     
     init(authService: AuthServiceProtocol,
@@ -44,9 +43,9 @@ final class SettingsViewModel: ViewModel {
         switch setting {
         case .logout:
             
-            Task {
+            Task { [weak self] in
                 
-                self.dismissAction?()
+                guard let self else { return }          
                 try await self.authService.logout()
                 
             }
@@ -56,12 +55,8 @@ final class SettingsViewModel: ViewModel {
         
     }
     
-    func setup(navigationService: NavigationService,
-               dismissAction: @escaping (() -> ())) {
-        
+    func setup(navigationService: NavigationService){
         self.navigationService = navigationService
-        self.dismissAction = dismissAction
-        
     }
     
     func loadData() {

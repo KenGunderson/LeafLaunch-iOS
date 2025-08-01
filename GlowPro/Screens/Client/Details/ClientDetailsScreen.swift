@@ -61,12 +61,8 @@ struct ClientDetailsScreen: GPView {
                 self.viewModel
                     .track()
                 
-                self.viewModel.setup(
-                    navigationService: self.navigationService,
-                    dismissAction: {
-                        dismiss()
-                    }
-                )
+                self.viewModel
+                    .setup(navigationService: self.navigationService)
                 
             }
             .task {

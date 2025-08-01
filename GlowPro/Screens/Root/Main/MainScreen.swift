@@ -17,15 +17,11 @@ struct MainScreen: GPView {
         ZStack(alignment: .top) {
             
             backgroundView
-            
-            // TODO: - rename this too
+
             if self.viewModel.showShouldHomeScreen {
                 
-//                tabScreen
-//                    .transition(.opacity)
-                
-                homeScreen
-                    .transition(.opacity)
+                HomeScreen(viewModel: self.viewModel.homeViewModel)
+                    .transition(.opacity.combined(with: .blurReplace))
                 
             }
             
@@ -85,13 +81,6 @@ struct MainScreen: GPView {
             .background(.primary)
             .view()
             .ignoresSafeArea()
-        
-    }
-    
-    private var homeScreen: some View {
-        
-        HomeScreen(viewModel: self.viewModel.homeViewModel)
-            .transition(.opacity.combined(with: .blurReplace))
         
     }
     

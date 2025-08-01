@@ -24,7 +24,6 @@ final class ClientDetailsViewModel: ViewModel {
     private var clientId: String!
 
     private var navigationService: NavigationService?
-    private var dismissAction: (() -> ())?
     private var cancelBag: CancelBag!
     
     init(apiService: APIServiceProtocol,
@@ -59,12 +58,8 @@ final class ClientDetailsViewModel: ViewModel {
         self.navigationService?.push(route)
     }
     
-    func setup(navigationService: NavigationService,
-               dismissAction: @escaping (() -> ())) {
-        
+    func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
-        self.dismissAction = dismissAction
-        
     }
     
     func loadData() {

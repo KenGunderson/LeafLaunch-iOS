@@ -19,9 +19,12 @@ struct HomeScreen: GPView {
     }
     
     var body: some View {
-        
+                
         AppRootView(
-            navigationService: .constant(navigationService),
+            navigationService: Binding<NavigationService>(
+                get: { navigationService },
+                set: { _ in /* no-op because the environment value isn’t replaceable */ }
+            ),
             alertService: self.viewModel.alertService) {
              
                 AppHeaderScrollView {
