@@ -44,20 +44,7 @@ final class Tab1ViewModel: ViewModel {
     }
     
     func bindSubsribers() {
-        
         self.cancelBag = CancelBag()
-        
-        self.activeDestinationService
-            .activeDestinationPublisher
-            .receiveOnMain()
-            .sink { [weak self] activeDestination in
-                
-                guard let activeDestination else { return }
-                self?.log(level: .info, message: "UPDATED THE ACTIVE DESTINATION TO: \(activeDestination)")
-                
-            }
-            .store(in: &self.cancelBag)
-        
     }
     
 }
