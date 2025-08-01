@@ -23,7 +23,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     
     private var businessId: String!
 
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     init(apiService: APIServiceProtocol,
@@ -63,8 +63,8 @@ final class BusinessEmployeesViewModel: ViewModel {
         
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func loadData() {
@@ -112,8 +112,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     
     private func navigate(to route: Route) {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
+        self.navigationService?
             .push(route)
         
     }

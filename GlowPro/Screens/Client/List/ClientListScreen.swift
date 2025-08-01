@@ -10,7 +10,7 @@ import SwiftUI
 struct ClientListScreen: GPView {
     
     @StateObject var viewModel: ClientListViewModel
-    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
+    @Environment(NavigationService.self) private var navigationService
         
     var body: some View {
         
@@ -24,13 +24,7 @@ struct ClientListScreen: GPView {
                     .track()
                 
                 self.viewModel
-                    .setup(tabBarNavigationService: self.tabBarNavigationService)
-                
-            }
-            .onAppear {
-                
-                self.tabBarNavigationService
-                    .shouldShowTabBar(false)
+                    .setup(navigationService: self.navigationService)
                 
             }
             .task {

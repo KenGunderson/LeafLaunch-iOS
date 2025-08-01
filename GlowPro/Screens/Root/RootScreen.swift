@@ -10,7 +10,7 @@ import SwiftUI
 struct RootScreen: GPView {
     
     @StateObject var viewModel: RootViewModel
-    @State private var tabBarNavigationService = TabBarNavigationService()
+    @State private var navigationService = NavigationService()
     
     @State private var shouldShowHealthCheckView: Bool = false
     
@@ -33,7 +33,7 @@ struct RootScreen: GPView {
         }
         .withAlertService(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
         .environmentObject(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
-        .environment(self.tabBarNavigationService)
+        .environment(self.navigationService)
         .withToastOverlay()
         
         // Lifecycle
@@ -48,9 +48,9 @@ struct RootScreen: GPView {
         .onAppear {
             
             self.viewModel
-                .setNavigationService(self.tabBarNavigationService)
+                .setNavigationService(self.navigationService)
             
-            globalTabBarNavigationService = self.tabBarNavigationService
+            globalNavigationService = self.navigationService
             
         }
         

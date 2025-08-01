@@ -486,7 +486,7 @@ class MockDeeplinkService: DeeplinkServiceProtocol {
     internal let loggerEmoji: String = "🔗"
     
     func handle(url: URL) {}
-    func setup(mainViewModel: MainViewModel?, tabBarNavigationService: TabBarNavigationService) {}
+    func setup(mainViewModel: MainViewModel?, navigationService: NavigationService) {}
     
 }
 
@@ -605,7 +605,7 @@ class MockPushNotificationService: PushNotificationServiceProtocol {
     internal let loggerEmoji: String = "🔔"
     
     func parsePushNotification(_ pushNotification: UNNotification?, isTapped: Bool) {}
-    func setup(tabBarNavigationService: TabBarNavigationService) {}
+    func setup(navigationService: NavigationService) {}
     
 }
 

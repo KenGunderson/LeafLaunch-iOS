@@ -11,9 +11,9 @@ import Combine
 @Observable
 class NavigationService: NavigationServiceProtocol {
     
-    public var routes: [Route] = []
-    public var sheet: Sheet?
-    public var fullScreenCover: FullScreenCover?
+    var routes: [Route] = []
+    var sheet: Sheet?
+    var fullScreenCover: FullScreenCover?
     
     func push(_ route: Route) {
         self.routes.append(route)
@@ -345,14 +345,6 @@ extension View {
             case .permissions:
                 
                 Color.indigo.ignoresSafeArea()
-                
-            case .businessActiveDestinationSelection:
-                
-                let viewModel = globalResolver.resolve(BusinessActiveDestinationSelectionViewModel.self)!
-                
-                BusinessActiveDestinationSelectionScreen(viewModel: viewModel)
-                    .presentationDragIndicator(.hidden)
-                    .interactiveDismissDisabled()
                 
             case .businessEmployeeJoin:
                 

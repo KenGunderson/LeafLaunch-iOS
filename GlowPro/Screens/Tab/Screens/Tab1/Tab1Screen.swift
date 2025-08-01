@@ -60,15 +60,6 @@ struct TabBar1Screen: GPView {
                 
                 // Business
                 
-                CommonButton(title: "Business Active Destination Selection",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.tabBarNavigationService
-                        .currentNavigationService()
-                        .modal(sheet: .businessActiveDestinationSelection)
-                    
-                }
-                
                 CommonButton(title: "Business Edit Details",
                              titleColor: Style.shared.textColor(.button)) {
                     

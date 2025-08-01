@@ -58,8 +58,7 @@ final class DevDeeplinksViewModel: ViewModel {
     @MainActor
     func handleDeeplink(url: URL) {
         
-        globalTabBarNavigationService
-            .currentNavigationService()
+        globalNavigationService
             .dismissFullScreenCover()
         
         UIApplication.shared.open(url)

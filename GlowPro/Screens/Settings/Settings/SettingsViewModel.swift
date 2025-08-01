@@ -45,7 +45,10 @@ final class SettingsViewModel: ViewModel {
         case .logout:
             
             Task {
+                
+                self.dismissAction?()
                 try await self.authService.logout()
+                
             }
             
         default: self.navigationService?.push(.setting(setting))

@@ -14,6 +14,6 @@ protocol PushNotificationServiceProtocol: AnyObject, Loggable {
     func parsePushNotification(_ pushNotification: UNNotification?,
                                isTapped: Bool)
     
-    func setup(tabBarNavigationService: TabBarNavigationService)
+    func setup(navigationService: NavigationService)
     
 }

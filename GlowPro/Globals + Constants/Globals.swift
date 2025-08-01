@@ -12,7 +12,7 @@ import SwiftUI
 nonisolated(unsafe) public var globalResolver: Resolver!
 
 /// For fun; not actually keeping
-nonisolated(unsafe) public var globalTabBarNavigationService: TabBarNavigationService!
+nonisolated(unsafe) var globalNavigationService: NavigationService!
 
 /// For fun; not actually keeping
 nonisolated(unsafe) public var loggedEvents: [LogEvent] = []

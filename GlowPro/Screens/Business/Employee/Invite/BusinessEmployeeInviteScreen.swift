@@ -23,7 +23,7 @@ struct BusinessEmployeeInviteScreen: GPView {
         
     }
     
-    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
+    @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel: BusinessEmployeeInviteViewModel
@@ -44,13 +44,7 @@ struct BusinessEmployeeInviteScreen: GPView {
                     .track()
                 
                 self.viewModel
-                    .setup(tabBarNavigationService: self.tabBarNavigationService)
-                
-            }
-            .onAppear {
-                
-                self.tabBarNavigationService
-                    .shouldShowTabBar(false)
+                    .setup(navigationService: self.navigationService)
                 
             }
             .task {

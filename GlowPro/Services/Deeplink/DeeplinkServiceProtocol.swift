@@ -12,6 +12,6 @@ protocol DeeplinkServiceProtocol: AnyObject, Loggable {
     func handle(url: URL)
     
     func setup(mainViewModel: MainViewModel?,
-               tabBarNavigationService: TabBarNavigationService)
+               navigationService: NavigationService)
     
 }

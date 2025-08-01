@@ -23,19 +23,16 @@ final class MainViewModel: ViewModel {
     private let pushNotificationsService: PushNotificationServiceProtocol
     private let permissionsService: PermissionsServiceProtocol
 
-    private(set) var tabBarNavigationService: TabBarNavigationService?
+    private(set) var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    @Published private(set) var shouldShowTabBarScreen: Bool = false
+    @Published private(set) var showShouldHomeScreen: Bool = false
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
         
     // ViewModels
     
     private(set) var welcomeViewModel = globalResolver.resolve(WelcomeViewModel.self)!
-    private(set) var tab1ViewModel = globalResolver.resolve(Tab1ViewModel.self)!
-    private(set) var tab2ViewModel = globalResolver.resolve(Tab2ViewModel.self)!
-    private(set) var tab3ViewModel = globalResolver.resolve(Tab3ViewModel.self)!
-    private(set) var tab4ViewModel = globalResolver.resolve(Tab4ViewModel.self)!
+    private(set) var homeViewModel = globalResolver.resolve(HomeViewModel.self)!
     
     // Tab Bar Properties
     
@@ -68,8 +65,8 @@ final class MainViewModel: ViewModel {
         self.logDeinit()
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func track(tab: Tab) {
@@ -95,7 +92,7 @@ final class MainViewModel: ViewModel {
                 let isFirebaseUserMissing = firebaseUser == nil
                 let shouldShowWelcomeScreen = isUserMissing && isFirebaseUserMissing
                 
-                self?.shouldShowTabBarScreen = !isUserMissing
+                self?.showShouldHomeScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
                 if let user = authServiceCurrentUser,
@@ -140,24 +137,11 @@ final class MainViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
-        self.userDefaultsService
-            .didCompleteOnboardingPublisher
-            .receiveOnMain()
-            .sink { [weak self] didCompleteOnboarding in
-                
-                guard didCompleteOnboarding else { return }
-                
-                guard let user = self?.authService.currentUser else { return }
-                self?.presentDesintationSelectionIfNeeded(user: user)
-                
-            }
-            .store(in: &self.cancelBag)
-        
     }
     
     private func presentModalsIfNeeded(user: GPUser) {
                 
-       self.tabBarNavigationService?.resetPathItems()
+        self.navigationService?.popToRoot()
         
         let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
         
@@ -165,44 +149,13 @@ final class MainViewModel: ViewModel {
             
             self.logger.debug("Attemping to show onboarding modal")
             
-            self.tabBarNavigationService?
-                .currentNavigationService()
+            self.navigationService?
                 .modal(fullScreenCover: .onboarding)
             
-        } else {
-            presentDesintationSelectionIfNeeded(user: user)
         }
         
     }
-    
-    private func presentDesintationSelectionIfNeeded(user: GPUser) {
-                
-        let allLocationsFromAllBusinessesCount = user.businesses.flatMap(\.locations).count
-        
-        if allLocationsFromAllBusinessesCount == 0 {
-            return
-        }
-        
-        if allLocationsFromAllBusinessesCount > 1 {
-                        
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                
-                self?.tabBarNavigationService?
-                    .currentNavigationService()
-                    .modal(sheet: .businessActiveDestinationSelection)
-                
-            }
-            
-        } else {
-            
-            if let location = user.businesses.first?.locations.first {
-                self.activeDestinationService.setActiveDestination(.location(locationId: location.id))
-            }
-                        
-        }
-        
-    }
-    
+
 }
 
 extension MainViewModel {

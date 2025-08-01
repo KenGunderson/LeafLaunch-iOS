@@ -18,7 +18,7 @@ final class ClientListViewModel: ViewModel {
     private let alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
@@ -43,8 +43,8 @@ final class ClientListViewModel: ViewModel {
         self.logDeinit()
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func loadData() {
@@ -87,16 +87,14 @@ final class ClientListViewModel: ViewModel {
     
     func selectClient(_ client: Client) {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
+        self.navigationService?
             .modal(fullScreenCover: .clientDetails(clientId: client.id))
         
     }
     
     func dismiss() {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
+        self.navigationService?
             .pop()
         
     }

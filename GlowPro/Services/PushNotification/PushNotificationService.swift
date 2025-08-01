@@ -14,7 +14,7 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
     internal let loggerEmoji: String = "🔔"
     
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private let viewLifecycleService: ViewLifecycleServiceProtocol
         
     init(viewLifecycleService: ViewLifecycleServiceProtocol) {
@@ -30,8 +30,8 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
         self.logDeinit()
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func parsePushNotification(_ pushNotification: UNNotification?,

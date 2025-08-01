@@ -119,6 +119,19 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Home
+        
+        container
+            .register(HomeViewModel.self) { r in
+                HomeViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Tab 1 ViewModel
         
         container
@@ -159,20 +172,6 @@ class MockViewModelAssembly: Assembly {
             .register(Tab4ViewModel.self) { r in
                 Tab4ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
-        // Business Active Destination Selection
-        
-        container
-            .register(BusinessActiveDestinationSelectionViewModel.self) { r in
-                BusinessActiveDestinationSelectionViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )

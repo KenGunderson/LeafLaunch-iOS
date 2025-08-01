@@ -10,7 +10,7 @@ import SwiftUI
 struct MainScreen: GPView {
     
     @StateObject var viewModel: MainViewModel
-    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
+    @Environment(NavigationService.self) private var navigationService
     
     var body: some View {
         
@@ -18,9 +18,13 @@ struct MainScreen: GPView {
             
             backgroundView
             
-            if self.viewModel.shouldShowTabBarScreen {
+            // TODO: - rename this too
+            if self.viewModel.showShouldHomeScreen {
                 
-                tabScreen
+//                tabScreen
+//                    .transition(.opacity)
+                
+                homeScreen
                     .transition(.opacity)
                 
             }
@@ -46,7 +50,7 @@ struct MainScreen: GPView {
                 .track()
             
             self.viewModel
-                .setup(tabBarNavigationService: self.tabBarNavigationService)
+                .setup(navigationService: self.navigationService)
             
         }
         
@@ -65,7 +69,7 @@ struct MainScreen: GPView {
         )
         .animation(
             .easeInOut(duration: 1),
-            value: self.viewModel.shouldShowTabBarScreen
+            value: self.viewModel.showShouldHomeScreen
         )
         .animation(
             .smooth(duration: 1),
@@ -84,27 +88,34 @@ struct MainScreen: GPView {
         
     }
     
-    private var tabScreen: some View {
+    private var homeScreen: some View {
         
-        let nav = Bindable(self.tabBarNavigationService)
-        
-        return TabBarScreen(
-            selectedTab: nav.selectedTab,
-            isTabBarVisibile: nav.isTabBarVisible,
-            tab1ViewModel: self.viewModel.tab1ViewModel,
-            tab2ViewModel: self.viewModel.tab2ViewModel,
-            tab3ViewModel: self.viewModel.tab3ViewModel,
-            tab4ViewModel: self.viewModel.tab4ViewModel
-        )
-        .transition(.opacity.combined(with: .blurReplace))
-        .onChange(of: self.tabBarNavigationService.selectedTab) { oldValue, newValue in
-            
-            self.viewModel
-                .track(tab: newValue)
-            
-        }
+        HomeScreen(viewModel: self.viewModel.homeViewModel)
+            .transition(.opacity.combined(with: .blurReplace))
         
     }
+    
+//    private var tabScreen: some View {
+//        
+//        let nav = Bindable(self.tabBarNavigationService)
+//        
+//        return TabBarScreen(
+//            selectedTab: nav.selectedTab,
+//            isTabBarVisibile: nav.isTabBarVisible,
+//            tab1ViewModel: self.viewModel.tab1ViewModel,
+//            tab2ViewModel: self.viewModel.tab2ViewModel,
+//            tab3ViewModel: self.viewModel.tab3ViewModel,
+//            tab4ViewModel: self.viewModel.tab4ViewModel
+//        )
+//        .transition(.opacity.combined(with: .blurReplace))
+//        .onChange(of: self.tabBarNavigationService.selectedTab) { oldValue, newValue in
+//            
+//            self.viewModel
+//                .track(tab: newValue)
+//            
+//        }
+//        
+//    }
     
 }
 

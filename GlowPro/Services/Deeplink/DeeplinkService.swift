@@ -29,7 +29,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
     internal let loggerName: String = "DEEPLINK_SERVICE"
     internal let loggerEmoji: String = "🔗"
     
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private var mainViewModel: MainViewModel?
     private let lifecycleService: ViewLifecycleServiceProtocol
         
@@ -45,10 +45,10 @@ final class DeeplinkService: DeeplinkServiceProtocol {
     }
     
     func setup(mainViewModel: MainViewModel?,
-               tabBarNavigationService: TabBarNavigationService) {
+               navigationService: NavigationService) {
         
         self.mainViewModel = mainViewModel
-        self.tabBarNavigationService = tabBarNavigationService
+        self.navigationService = navigationService
         
     }
     
@@ -70,7 +70,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
             switch deepLink {
             case .tab:
                 
-                handleTabDeeplink(from: queryParameters)
+//                handleTabDeeplink(from: queryParameters)
                 return
                 
             }
@@ -79,26 +79,26 @@ final class DeeplinkService: DeeplinkServiceProtocol {
         
     }
     
-    // *****************************
-    // MARK: - TAB -
-    // *****************************
-    
-    private func handleTabDeeplink(from queryParameters: [URLQueryItem]?) {
-        
-        if let tab = queryParameters?.first(where: { $0.name == "tab" }),
-           let tabString = tab.value {
-            
-            self.log(message: "\(tab.value ?? "")")
-            
-            guard let selectedTab = Tab(rawValue: tabString) else { return }
-                        
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                self?.tabBarNavigationService?.select(selectedTab)
-            }
-            
-        }
-        
-    }
+//    // *****************************
+//    // MARK: - TAB -
+//    // *****************************
+//    
+//    private func handleTabDeeplink(from queryParameters: [URLQueryItem]?) {
+//        
+//        if let tab = queryParameters?.first(where: { $0.name == "tab" }),
+//           let tabString = tab.value {
+//            
+//            self.log(message: "\(tab.value ?? "")")
+//            
+//            guard let selectedTab = Tab(rawValue: tabString) else { return }
+//                        
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+//                self?.tabBarNavigationService?.select(selectedTab)
+//            }
+//            
+//        }
+//        
+//    }
 //    
 //    // *****************************
 //    // MARK: - SEARCH -

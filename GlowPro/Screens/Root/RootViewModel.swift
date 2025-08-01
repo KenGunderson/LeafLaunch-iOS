@@ -126,16 +126,16 @@ final class RootViewModel: ViewModel {
         
     }
     
-    func setNavigationService(_ tabBarNavigationService: TabBarNavigationService) {
+    func setNavigationService(_ navigationService: NavigationService) {
         
         self.deeplinkService
             .setup(
                 mainViewModel: self.mainViewModel,
-                tabBarNavigationService: tabBarNavigationService
+                navigationService: navigationService
             )
         
         self.pushNotificationService
-            .setup(tabBarNavigationService: tabBarNavigationService)
+            .setup(navigationService: navigationService)
         
     }
     
@@ -147,8 +147,7 @@ final class RootViewModel: ViewModel {
         else {
             
             self.mainViewModel
-                .tabBarNavigationService?
-                .currentNavigationService()
+                .navigationService?
                 .modal(fullScreenCover: .devSettings)
             
         }

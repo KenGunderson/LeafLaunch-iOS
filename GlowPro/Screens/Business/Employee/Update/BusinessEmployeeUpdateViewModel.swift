@@ -33,7 +33,7 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
     private var businessId: String!
     private var employeeId: String!
 
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     init(apiService: APIServiceProtocol,
@@ -68,14 +68,13 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
     
     func navigate(to route: Route) {
         
-        self.tabBarNavigationService?
-            .currentNavigationService()
+        self.navigationService?
             .push(route)
         
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func loadData() {
@@ -127,8 +126,7 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
                 
                 print("Updated")
                 
-                self.tabBarNavigationService?
-                    .currentNavigationService()
+                self.navigationService?
                     .pop()
                 
             }))))
