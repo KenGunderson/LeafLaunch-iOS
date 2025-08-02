@@ -10,6 +10,8 @@ import SwiftUI
 struct TabBar2Screen: GPView {
     
     @StateObject var viewModel: Tab2ViewModel
+    
+    @Environment(\.dismiss) private var dismiss
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
     
     let tab: Tab
@@ -42,7 +44,16 @@ struct TabBar2Screen: GPView {
     }
     
     private func content() -> some View {
-        AppBaseView {}
+        
+        AppBaseView {
+            
+            Text("Tab 2")
+                .asButton {
+                    dismiss()
+                }
+            
+        }
+        
     }
     
 }

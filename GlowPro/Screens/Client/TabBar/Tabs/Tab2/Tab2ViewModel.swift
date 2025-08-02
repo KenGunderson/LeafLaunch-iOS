@@ -31,6 +31,7 @@ final class Tab2ViewModel: ViewModel {
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
+        bindSubsribers()
         
     }
     
@@ -41,6 +42,10 @@ final class Tab2ViewModel: ViewModel {
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
     }
+    
+    func bindSubsribers() {
+        self.cancelBag = CancelBag()
+    }   
     
 }
 

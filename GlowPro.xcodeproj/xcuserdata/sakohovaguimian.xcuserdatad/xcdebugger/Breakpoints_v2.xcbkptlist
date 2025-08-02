@@ -28,8 +28,8 @@
             filePath = "GlowPro/Screens/Client/TabBar/Tabs/Tab2/Tab2ViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "deinit"
             landmarkType = "7">
          </BreakpointContent>
