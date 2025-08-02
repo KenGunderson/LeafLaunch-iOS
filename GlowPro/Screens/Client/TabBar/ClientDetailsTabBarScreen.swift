@@ -33,3 +33,22 @@ struct ClientDetailsTabBarScreen: GPView {
     }
     
 }
+
+#Preview {
+    
+    let clientDetailsViewModel = mockResolve(ClientDetailsViewModel.self)
+        .setup(clientId: MockModels.ID.client1)
+    
+    let tab2ViewModel = mockResolve(Tab2ViewModel.self)
+    let tab3ViewModel = mockResolve(Tab3ViewModel.self)
+    let tab4ViewModel = mockResolve(Tab4ViewModel.self)
+    
+    ClientDetailsTabBarScreen(
+        clientDetailsViewModel: clientDetailsViewModel,
+        tab2ViewModel: tab2ViewModel,
+        tab3ViewModel: tab3ViewModel,
+        tab4ViewModel: tab4ViewModel
+    )
+    .withMockServices()
+    
+}
