@@ -1,8 +1,8 @@
 //
-//  ClientDetailsScreen.swift
-//  GlowPro
+//  TabBar1Screen.swift
+//  GlowPro 
 //
-//  Created by Sako Hovaguimian on 6/19/25.
+//  Created by Sako Hovaguimian on 4/23/25.
 //
 
 import SwiftUI
@@ -42,37 +42,54 @@ struct ClientDetailsScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel: ClientDetailsViewModel
-    @State private var navigationService = NavigationService()
-        
+    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
+    
+    let tab: Tab
+    
     var body: some View {
         
+        let nav = Bindable(self.tabBarNavigationService)
+        
         AppRootView(
-            navigationService: self.$navigationService,
-            alertService: self.viewModel.alertService
-        ) {
+            navigationService: nav.tab1NavigationService,
+            alertService: self.viewModel.alertService) {
                 
-            ScrollView {
                 content()
+                
+                // Lifecycle
+                
+                    .onFirstAppear {
+                        
+                        self.viewModel
+                            .track()
+                        
+                        self.viewModel
+                            .setup(tabBarNavigationService: self.tabBarNavigationService)
+                        
+                    }
+                
+                    .onAppear {
+                        
+                        self.tabBarNavigationService
+                            .shouldShowTabBar(true)
+                        
+                    }
+                    .task {
+                        
+                        self.viewModel
+                            .loadData()
+                        
+                    }
+                
             }
-            // Lifecycle
+            .tag(self.tab)
             
-            .onFirstAppear {
+            .onChange(of: self.tabBarNavigationService.selectedTab) { oldValue, newValue in
                 
                 self.viewModel
-                    .track()
-                
-                self.viewModel
-                    .setup(navigationService: self.navigationService)
+                    .track(tab: newValue)
                 
             }
-            .task {
-                
-                self.viewModel
-                    .loadData()
-                
-            }
-            
-        }
         
     }
     
@@ -103,7 +120,11 @@ struct ClientDetailsScreen: GPView {
             }
             
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
         .animation(.smooth(duration: 0.4), value: self.viewModel.client)
         
     }
@@ -230,7 +251,10 @@ struct ClientDetailsScreen: GPView {
     let viewModel = mockResolve(ClientDetailsViewModel.self)
         .setup(clientId: MockModels.ID.client1)
     
-    ClientDetailsScreen(viewModel: viewModel)
-        .withMockServices()
+    ClientDetailsScreen(
+        viewModel: viewModel,
+        tab: .clientDetails
+    )
+    .withMockServices()
     
 }

@@ -8,9 +8,9 @@
 import SwiftUI
 
 @Observable
-public class TabBarNavigationService {
+final public class TabBarNavigationService: Sendable {
     
-    var selectedTab: Tab = .tab1
+    var selectedTab: Tab = .clientDetails
     var isTabBarVisible: Bool = true
     
     var tab1NavigationService = NavigationService()
@@ -46,7 +46,7 @@ public class TabBarNavigationService {
     func currentNavigationService() -> NavigationService {
         
         switch self.selectedTab {
-        case .tab1: return self.tab1NavigationService
+        case .clientDetails: return self.tab1NavigationService
         case .tab2: return self.tab2NavigationService
         case .tab3: return self.tab3NavigationService
         case .tab4: return self.tab4NavigationService

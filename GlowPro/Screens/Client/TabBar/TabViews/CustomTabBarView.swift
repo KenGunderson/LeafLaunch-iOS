@@ -181,7 +181,7 @@ struct FloatingNameTransitionTabBar: View {
 
 #Preview {
     
-    @Previewable @State var selectedTab: Tab = .tab1
+    @Previewable @State var selectedTab: Tab = .clientDetails
     
     AppBaseView(backgroundStyle: Style.shared.background(.quaternary)) {
     

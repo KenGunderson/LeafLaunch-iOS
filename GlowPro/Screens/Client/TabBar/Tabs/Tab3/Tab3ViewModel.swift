@@ -1,5 +1,5 @@
 //
-//  TabBar2ViewModel.swift
+//  TabBar3ViewModel.swift
 //  GlowPro 
 //
 //  Created by Sako Hovaguimian on 4/23/25.
@@ -7,13 +7,14 @@
 
 import Foundation
 
-final class Tab2ViewModel: ViewModel {
+final class Tab3ViewModel: ViewModel {
     
-    internal let loggerName: String = "TAB_2_VIEW_MODEL"
+    internal let loggerName: String = "TAB_3_VIEW_MODEL"
     internal let loggerEmoji: String = "🔹"
     
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private(set) var alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
@@ -21,10 +22,12 @@ final class Tab2ViewModel: ViewModel {
     
     init(authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         alertService: AlertServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
         self.analyticsService = analyticsService
+        self.alertService = alertService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -41,10 +44,10 @@ final class Tab2ViewModel: ViewModel {
     
 }
 
-extension Tab2ViewModel {
+extension Tab3ViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .tab(.tab2))
+        self.analyticsService.track(screen: .tab(.tab3))
     }
     
 }

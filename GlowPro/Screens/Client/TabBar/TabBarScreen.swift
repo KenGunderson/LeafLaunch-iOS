@@ -31,14 +31,14 @@ struct TabBarScreen: GPView {
     @Binding var selectedTab: Tab
     @Binding var isTabBarVisible: Bool
     
-    private let tab1ViewModel: Tab1ViewModel!
+    private let clientDetailsViewModel: ClientDetailsViewModel!
     private let tab2ViewModel: Tab2ViewModel!
     private let tab3ViewModel: Tab3ViewModel!
     private let tab4ViewModel: Tab4ViewModel!
         
     init(selectedTab: Binding<Tab>,
          isTabBarVisibile: Binding<Bool>,
-         tab1ViewModel: Tab1ViewModel,
+         clientDetailsViewModel: ClientDetailsViewModel,
          tab2ViewModel: Tab2ViewModel,
          tab3ViewModel: Tab3ViewModel,
          tab4ViewModel: Tab4ViewModel) {
@@ -46,7 +46,7 @@ struct TabBarScreen: GPView {
         self._selectedTab = selectedTab
         self._isTabBarVisible = isTabBarVisibile
         
-        self.tab1ViewModel = tab1ViewModel
+        self.clientDetailsViewModel = clientDetailsViewModel
         self.tab2ViewModel = tab2ViewModel
         self.tab3ViewModel = tab3ViewModel
         self.tab4ViewModel = tab4ViewModel
@@ -95,10 +95,10 @@ struct TabBarScreen: GPView {
             ForEach(Tab.allCases, id: \.rawValue) { tab in
                 
                 switch tab {
-                case .tab1:
+                case .clientDetails:
                                         
-                    TabBar1Screen(
-                        viewModel: self.tab1ViewModel,
+                    ClientDetailsScreen(
+                        viewModel: self.clientDetailsViewModel,
                         tab: tab
                     )
                     
@@ -134,13 +134,13 @@ struct TabBarScreen: GPView {
 
 #Preview {
     
-    @Previewable @State var selectedTab: Tab = .tab1
+    @Previewable @State var selectedTab: Tab = .clientDetails
     @Previewable @State var isTabBarVisible: Bool = true
     
     TabBarScreen(
         selectedTab: $selectedTab,
         isTabBarVisibile: $isTabBarVisible,
-        tab1ViewModel: mockResolve(Tab1ViewModel.self),
+        clientDetailsViewModel: mockResolve(ClientDetailsViewModel.self).setup(clientId: MockModels.ID.client1),
         tab2ViewModel: mockResolve(Tab2ViewModel.self),
         tab3ViewModel: mockResolve(Tab3ViewModel.self),
         tab4ViewModel: mockResolve(Tab4ViewModel.self)

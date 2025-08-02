@@ -69,13 +69,6 @@ final class MainViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func track(tab: Tab) {
-        
-        self.analyticsService
-            .track(.main(.tabIntent(tab: tab)))
-        
-    }
-    
     private func bindSubscribers() {
         
         self.cancelBag = CancelBag()

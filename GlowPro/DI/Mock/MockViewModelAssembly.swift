@@ -132,18 +132,6 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
-        // Tab 1 ViewModel
-        
-        container
-            .register(Tab1ViewModel.self) { r in
-                Tab1ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
         // Tab 2 ViewModel
         
         container
@@ -151,6 +139,7 @@ class MockViewModelAssembly: Assembly {
                 Tab2ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
@@ -162,6 +151,7 @@ class MockViewModelAssembly: Assembly {
                 Tab3ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
@@ -173,6 +163,7 @@ class MockViewModelAssembly: Assembly {
                 Tab4ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

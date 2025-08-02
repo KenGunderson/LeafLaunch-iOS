@@ -47,6 +47,15 @@ struct AppRootView<Content: View>: View {
         .environment(self.navigationService)
         .environmentObject(ObservableAlertServiceWrapper(alertService: self.alertService))
         
+        // Dev Settings
+        
+        .simultaneousGesture(LongPressGesture(minimumDuration: 2.5).onEnded { _ in
+            
+            self.navigationService
+                .modal(fullScreenCover: .devSettings)
+            
+        })
+        
     }
     
 }

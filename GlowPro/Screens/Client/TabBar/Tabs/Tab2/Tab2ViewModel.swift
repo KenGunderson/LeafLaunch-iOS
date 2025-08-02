@@ -1,17 +1,20 @@
 //
-//  TabBar4ViewModel.swift
+//  TabBar2ViewModel.swift
 //  GlowPro 
 //
 //  Created by Sako Hovaguimian on 4/23/25.
 //
 
-final class Tab4ViewModel: ViewModel {
+import Foundation
+
+final class Tab2ViewModel: ViewModel {
     
-    internal let loggerName: String = "TAB_4_VIEW_MODEL"
+    internal let loggerName: String = "TAB_2_VIEW_MODEL"
     internal let loggerEmoji: String = "🔹"
     
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private(set) var alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
@@ -19,10 +22,12 @@ final class Tab4ViewModel: ViewModel {
     
     init(authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         alertService: AlertServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
         self.analyticsService = analyticsService
+        self.alertService = alertService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -39,10 +44,10 @@ final class Tab4ViewModel: ViewModel {
     
 }
 
-extension Tab4ViewModel {
+extension Tab2ViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .tab(.tab4))
+        self.analyticsService.track(screen: .tab(.tab2))
     }
     
 }

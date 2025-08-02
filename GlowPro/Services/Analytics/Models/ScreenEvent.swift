@@ -37,7 +37,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     
     enum Tab {
         
-        case tab1
+        case clientDetails
         case tab2
         case tab3
         case tab4
@@ -47,7 +47,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             var name: String
             
             switch self {
-            case .tab1: name = "Tab 1"
+            case .clientDetails: name = "client_details"
             case .tab2: name = "Tab 2"
             case .tab3: name = "Tab 3"
             case .tab4: name = "Tab 4"

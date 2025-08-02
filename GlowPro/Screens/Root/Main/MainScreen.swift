@@ -84,28 +84,6 @@ struct MainScreen: GPView {
         
     }
     
-//    private var tabScreen: some View {
-//        
-//        let nav = Bindable(self.tabBarNavigationService)
-//        
-//        return TabBarScreen(
-//            selectedTab: nav.selectedTab,
-//            isTabBarVisibile: nav.isTabBarVisible,
-//            tab1ViewModel: self.viewModel.tab1ViewModel,
-//            tab2ViewModel: self.viewModel.tab2ViewModel,
-//            tab3ViewModel: self.viewModel.tab3ViewModel,
-//            tab4ViewModel: self.viewModel.tab4ViewModel
-//        )
-//        .transition(.opacity.combined(with: .blurReplace))
-//        .onChange(of: self.tabBarNavigationService.selectedTab) { oldValue, newValue in
-//            
-//            self.viewModel
-//                .track(tab: newValue)
-//            
-//        }
-//        
-//    }
-    
 }
 
 #Preview {

@@ -1,8 +1,8 @@
 //
-//  ClientDetailsViewModel.swift
-//  GlowPro
+//  TabBar1ViewModel.swift
+//  GlowPro 
 //
-//  Created by Sako Hovaguimian on 6/19/25.
+//  Created by Sako Hovaguimian on 4/23/25.
 //
 
 import Foundation
@@ -22,8 +22,8 @@ final class ClientDetailsViewModel: ViewModel {
     @Published var selectedActivitiesFilter: String?
     
     private var clientId: String!
-
-    private var navigationService: NavigationService?
+    
+    private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
     init(apiService: APIServiceProtocol,
@@ -39,6 +39,7 @@ final class ClientDetailsViewModel: ViewModel {
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
+        bindSubsribers()
         
     }
     
@@ -54,12 +55,12 @@ final class ClientDetailsViewModel: ViewModel {
         
     }
     
-    func navigate(to route: Route) {
-        self.navigationService?.push(route)
+    func setup(tabBarNavigationService: TabBarNavigationService) {
+        self.tabBarNavigationService = tabBarNavigationService
     }
     
-    func setup(navigationService: NavigationService) {
-        self.navigationService = navigationService
+    func bindSubsribers() {
+        self.cancelBag = CancelBag()
     }
     
     func loadData() {
@@ -98,8 +99,11 @@ final class ClientDetailsViewModel: ViewModel {
         
     }
     
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
+    func track(tab: Tab) {
+        
+        self.analyticsService
+            .track(.main(.tabIntent(tab: tab)))
+        
     }
     
 }

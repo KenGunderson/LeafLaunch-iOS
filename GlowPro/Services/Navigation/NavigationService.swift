@@ -388,10 +388,19 @@ extension View {
                 
             case .clientDetails(let clientId):
                 
-                let viewModel = globalResolver.resolve(ClientDetailsViewModel.self)!
+                let clientDetailsViewModel = globalResolver.resolve(ClientDetailsViewModel.self)!
                     .setup(clientId: clientId)
                 
-                ClientDetailsScreen(viewModel: viewModel)
+                let tab2ViewModel = globalResolver.resolve(Tab2ViewModel.self)!
+                let tab3ViewModel = globalResolver.resolve(Tab3ViewModel.self)!
+                let tab4ViewModel = globalResolver.resolve(Tab4ViewModel.self)!
+                
+                ClientDetailsTabBarScreen(
+                    clientDetailsViewModel: clientDetailsViewModel,
+                    tab2ViewModel: tab2ViewModel,
+                    tab3ViewModel: tab3ViewModel,
+                    tab4ViewModel: tab4ViewModel
+                )
                 
             }
             

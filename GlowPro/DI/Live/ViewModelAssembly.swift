@@ -134,18 +134,6 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
-        // Tab 1 ViewModel
-        
-        container
-            .register(Tab1ViewModel.self) { r in
-                Tab1ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
         // Tab 2 ViewModel
         
         container
@@ -153,6 +141,7 @@ class ViewModelAssembly: Assembly {
                 Tab2ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
@@ -164,6 +153,7 @@ class ViewModelAssembly: Assembly {
                 Tab3ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
@@ -175,6 +165,7 @@ class ViewModelAssembly: Assembly {
                 Tab4ViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

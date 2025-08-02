@@ -12,18 +12,21 @@ enum Tab: String, CaseIterable, Selectable {
     var id: String { self.rawValue }
     var description: String { self.title }
     
-    case tab1
+    case clientDetails = "client_details"
     case tab2
     case tab3
     case tab4
     
     var title: String {
-        return self.rawValue.capitalized
+        switch self {
+        case .clientDetails: return "Client"
+        default: return self.rawValue.capitalized
+        }
     }
     
     var unselectedIcon: String {
         switch self {
-        case .tab1: return "house"
+        case .clientDetails: return "house"
         case .tab2: return "list.bullet.clipboard"
         case .tab3: return "person.3"
         case .tab4: return "person.circle"
@@ -32,7 +35,7 @@ enum Tab: String, CaseIterable, Selectable {
     
     var selectedIcon: String {
         switch self {
-        case .tab1: return "house.fill"
+        case .clientDetails: return "house.fill"
         case .tab2: return "list.clipboard.fill"
         case .tab3: return "person.3.fill"
         case .tab4: return "person.circle.fill"
