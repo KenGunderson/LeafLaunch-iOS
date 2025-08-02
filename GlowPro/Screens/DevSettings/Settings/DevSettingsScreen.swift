@@ -102,7 +102,7 @@ struct DevSettingsScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Information")
-                .appFont(with: .TITLE_T5)
+                .appFont(with: .TITLE_4)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             AppCardView {
@@ -119,7 +119,7 @@ struct DevSettingsScreen: GPView {
                     if case .custom = self.viewModel.selectedEnviornment {
                         
                         TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
-                            .appFont(with: .TITLE_T4)
+                            .appFont(with: .TITLE_3)
                             .foregroundStyle(Style.shared.textColor(.title).source())
                             .padding(8)
                             .overlay {
@@ -156,7 +156,7 @@ struct DevSettingsScreen: GPView {
                     )
                     
                     Text("Copy Auth Token")
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, Style.shared.spacing(.small))
@@ -191,7 +191,7 @@ struct DevSettingsScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Sections")
-                .appFont(with: .TITLE_T5)
+                .appFont(with: .TITLE_4)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             VStack {
@@ -241,12 +241,12 @@ struct DevSettingsScreen: GPView {
         HStack {
             
             Text(title + ": ")
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
             
             Spacer(minLength: 0)
             
             Text(subtitle)
-                .appFont(with: .BODY_B4)
+                .appFont(with: .BODY_2)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             
         }

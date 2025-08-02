@@ -110,11 +110,11 @@ struct SettingsScreen: GPView {
             HStack(spacing: Style.shared.spacing(.small)) {
                 
                 Image(systemName: item.icon)
-                    .appFont(with: .TITLE_T5)
+                    .appFont(with: .TITLE_4)
                     .foregroundStyle(item.tintColor.source())
                 
                 Text(item.displayName)
-                    .appFont(with: .TITLE_T5)
+                    .appFont(with: .TITLE_4)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.right")

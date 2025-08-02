@@ -16,11 +16,11 @@ struct OnboardingFeaturesScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Features")
-                .appFont(with: .BILLBOARD_B1)
+                .appFont(with: .BILLBOARD_1)
                 .padding(.horizontal, .large)
             
             Text("Here is the home page where you can start looking for the help you might need")
-                .appFont(with: .TITLE_T6)
+                .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .padding(.horizontal, .large)
                 .multilineTextAlignment(.leading)
@@ -41,7 +41,7 @@ struct OnboardingFeaturesScreen: GPView {
             """
             
             Text(text)
-                .appFont(with: .HEADER_H10)
+                .appFont(with: .HEADER_2)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, .custom(60))

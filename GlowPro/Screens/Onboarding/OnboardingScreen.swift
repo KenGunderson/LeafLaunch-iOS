@@ -68,7 +68,7 @@ struct OnboardingScreen: View {
         HStack(spacing: Style.shared.spacing(.medium)) {
             
             Text("Back")
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.accent.source())
                 .frame(height: self.headerSize.height)
                 .disabled(self.navigationService.routes.isEmpty)
@@ -89,7 +89,7 @@ struct OnboardingScreen: View {
             let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
             
             Text("Next")
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.accent.source())
                 .frame(height: self.headerSize.height)
                 .disabled(!isButtonEnabled)

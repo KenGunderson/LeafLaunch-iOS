@@ -64,7 +64,7 @@ struct WelcomeScreen: GPView {
             VStack {
                 
                 Text("Welcome To\nGlowPro")
-                    .appFont(with: .HEADER_H1)
+                    .appFont(with: .HEADER_5)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.white)
                 

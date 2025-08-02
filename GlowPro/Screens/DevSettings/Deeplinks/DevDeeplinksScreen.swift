@@ -94,7 +94,7 @@ struct DevDeeplinksScreen: GPView {
             VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                 
                 Text(title)
-                    .appFont(with: .HEADER_H5)
+                    .appFont(with: .HEADER_4)
                 
                 Divider()
                 
@@ -115,10 +115,10 @@ struct DevDeeplinksScreen: GPView {
             ) {
              
                 Text(title)
-                    .appFont(with: .TITLE_T6)
+                    .appFont(with: .TITLE_5)
                 
                 Text(deeplink)
-                    .appFont(with: .TITLE_T4)
+                    .appFont(with: .TITLE_3)
                     .fontDesign(.monospaced)
                 
             }

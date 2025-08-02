@@ -149,11 +149,11 @@ struct RootScreen: GPView {
             VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                 
                 Text("Impersonating \(self.viewModel.impersonatingUserEmail)")
-                    .appFont(with: .TITLE_T6)
+                    .appFont(with: .TITLE_5)
                     .multilineTextAlignment(.center)
                 
                 Text("Revert")
-                    .appFont(with: .TITLE_T4)
+                    .appFont(with: .TITLE_3)
                     .padding(.vertical, Style.shared.spacing(.extraSmall))
                     .padding(.horizontal, Style.shared.spacing(.medium))
                     .background(darkColor)

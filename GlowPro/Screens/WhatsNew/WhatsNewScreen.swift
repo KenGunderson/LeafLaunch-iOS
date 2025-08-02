@@ -97,12 +97,12 @@ struct WhatsNewScreen: GPView {
                 
                 Text("What's New")
                     .foregroundStyle(Style.shared.textColor(.title).source())
-                    .appFont(with: .HEADER_H1)
+                    .appFont(with: .HEADER_5)
                     .multilineTextAlignment(.center)
                 
                 Text("Version: \(whatsNewItem.version.description)")
                     .foregroundStyle(Style.shared.textColor(.body).source())
-                    .appFont(with: .BODY_B1)
+                    .appFont(with: .BODY_1)
                     .multilineTextAlignment(.center)
                 
             }
@@ -140,11 +140,11 @@ struct WhatsNewScreen: GPView {
                     
                     Text(item.title)
                         .foregroundStyle(Style.shared.textColor(.title).source())
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                     
                     Text(item.message)
                         .foregroundStyle(Style.shared.textColor(.body).source())
-                        .appFont(with: .BODY_B5)
+                        .appFont(with: .BODY_3)
                     
                 }
                 

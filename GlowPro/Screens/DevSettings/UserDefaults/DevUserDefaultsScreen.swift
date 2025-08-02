@@ -79,7 +79,7 @@ struct DevUserDefaultsScreen: GPView {
             )
             
         }
-        .appFont(with: .BODY_B10)
+        .appFont(with: .BODY_4)
         .onTapGesture {
             self.dismissKeyboard()
         }
@@ -230,7 +230,7 @@ struct DevUserDefaultsScreen: GPView {
             VStack(alignment: .leading) {
                 
                 Text(title)
-                    .appFont(with: .TITLE_T6)
+                    .appFont(with: .TITLE_5)
                     .fontWeight(.heavy)
                 
                 contentView
@@ -253,7 +253,7 @@ struct DevUserDefaultsScreen: GPView {
                 VStack(alignment: .leading) {
                     
                     Text(title)
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                         .fontWeight(.heavy)
                         .padding(.horizontal, Style.shared.spacing(.medium))
                     
@@ -287,7 +287,7 @@ struct DevUserDefaultsScreen: GPView {
             HStack(spacing: Style.shared.spacing(.none)) {
                 
                 Text("Selected Theme: ")
-                    .appFont(with: .TITLE_T4)
+                    .appFont(with: .TITLE_3)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
                 let titleConversion = selectedTheme?.rawValue.convertNamingStyle(
@@ -297,7 +297,7 @@ struct DevUserDefaultsScreen: GPView {
                 .capitalized
                 
                 Text(titleConversion ?? "N/A")
-                    .appFont(with: .TITLE_T4)
+                    .appFont(with: .TITLE_3)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
                 Circle()
@@ -348,7 +348,7 @@ struct DevUserDefaultsScreen: GPView {
         return VStack {
             
             Text(titleConversion)
-                .appFont(with: .TITLE_T6)
+                .appFont(with: .TITLE_5)
                 .fontWeight(.heavy)
             
             Circle()

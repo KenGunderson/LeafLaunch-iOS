@@ -94,7 +94,7 @@ struct DevImpersonateScreen: GPView {
             2. Your device information is excluded from their account data in the database.\n
             3. All analytics events are blocked during impersonation.\n
             """)
-            .appFont(with: .BODY_B5)
+            .appFont(with: .BODY_3)
             .foregroundStyle(Style.shared.textColor(.body).source())
             
         }

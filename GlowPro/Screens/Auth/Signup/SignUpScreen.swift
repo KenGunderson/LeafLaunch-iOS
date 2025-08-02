@@ -122,7 +122,7 @@ struct SignUpScreen: GPView {
                 cornerRadius: .extraSmall
             ))
             .foregroundStyle(Style.shared.textColor(.body).source())
-            .appFont(with: .BODY_B4)
+            .appFont(with: .BODY_2)
                         
             // LoginButton
             
@@ -216,7 +216,7 @@ struct SignUpScreen: GPView {
             title: placeholder,
             style: .border(cornerRadius: .custom(6)),
             isFocused: isFocused,
-            textFieldFont: .TITLE_T5,
+            textFieldFont: .TITLE_4,
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(keyboardType)

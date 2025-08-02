@@ -170,7 +170,7 @@ struct BusinessLocationCreateScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading

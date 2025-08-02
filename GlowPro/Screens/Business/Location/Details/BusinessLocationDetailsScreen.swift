@@ -72,11 +72,11 @@ struct BusinessLocationDetailsScreen: GPView {
                 VStack(alignment: .leading) {
                     
                     Text(self.viewModel.location?.name ?? "")
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                     Text(self.viewModel.location?.address.street ?? "")
-                        .appFont(with: .TITLE_T4)
+                        .appFont(with: .TITLE_3)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
@@ -93,7 +93,7 @@ struct BusinessLocationDetailsScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading

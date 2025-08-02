@@ -106,7 +106,7 @@ struct DevRoutesScreen: GPView {
             VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                 
                 Text(title)
-                    .appFont(with: .HEADER_H5)
+                    .appFont(with: .HEADER_4)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 Divider()
@@ -125,7 +125,7 @@ struct DevRoutesScreen: GPView {
         AppCardView {
             
             Text(title)
-                .appFont(with: .TITLE_T6)
+                .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
         }
@@ -145,7 +145,7 @@ struct DevRoutesScreen: GPView {
         AppCardView {
             
             Text(title)
-                .appFont(with: .TITLE_T6)
+                .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
         }

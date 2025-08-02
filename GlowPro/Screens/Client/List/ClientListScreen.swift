@@ -99,7 +99,7 @@ struct ClientListScreen: GPView {
         LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text(title)
-                .appFont(with: .HEADER_H6)
+                .appFont(with: .HEADER_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             ForEach(clients, id: \.id) { client in
@@ -117,7 +117,7 @@ struct ClientListScreen: GPView {
             HStack(spacing: Style.shared.spacing(.small)) {
                 
                 Text(client.fullName)
-                    .appFont(with: .TITLE_T6)
+                    .appFont(with: .TITLE_5)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

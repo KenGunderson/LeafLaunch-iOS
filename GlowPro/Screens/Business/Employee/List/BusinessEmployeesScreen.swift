@@ -72,7 +72,7 @@ struct BusinessEmployeesScreen: GPView {
                 AppCardView {
                     
                     Text(employee.name)
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
@@ -95,7 +95,7 @@ struct BusinessEmployeesScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading

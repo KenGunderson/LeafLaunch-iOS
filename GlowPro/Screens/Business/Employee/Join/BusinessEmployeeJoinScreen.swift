@@ -129,7 +129,7 @@ struct BusinessEmployeeJoinScreen: GPView {
             
             Text("Enter Your Pin & Join a Business")
                 .foregroundStyle(Style.shared.textColor(.title).source())
-                .appFont(with: .TITLE_T8)
+                .appFont(with: .TITLE_6)
                 .frame(
                     maxWidth: .infinity,
                     alignment: .leading
@@ -137,7 +137,7 @@ struct BusinessEmployeeJoinScreen: GPView {
             
             Text("Use the 5 digit code provided to your business to join their account. You can find this code in your inbox.")
                 .foregroundStyle(Style.shared.textColor(.body).source())
-                .appFont(with: .BODY_B10)
+                .appFont(with: .BODY_4)
                 .frame(
                     maxWidth: .infinity,
                     alignment: .leading

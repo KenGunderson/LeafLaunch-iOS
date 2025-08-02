@@ -126,7 +126,7 @@ struct LoginScreen: GPView {
     private var forgotPassword: some View {
         
         Text("Forgot Password?")
-            .appFont(with: .TITLE_T4)
+            .appFont(with: .TITLE_3)
             .foregroundStyle(Style.shared.accent.source())
             .asButton {
                 self.viewModel.handleForgotPassword()

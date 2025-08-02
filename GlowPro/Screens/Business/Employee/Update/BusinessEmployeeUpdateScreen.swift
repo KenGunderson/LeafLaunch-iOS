@@ -110,7 +110,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
             Text("Edit the role of an employee in your business account by filling out the form below.")
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .multilineTextAlignment(.leading)
-                .appFont(with: .BODY_B4)
+                .appFont(with: .BODY_2)
                 .padding(.bottom, .small)
                     
             VStack(spacing: Style.shared.spacing(.small)) {
@@ -131,7 +131,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading
@@ -145,7 +145,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
         VStack(spacing: Style.shared.spacing(.custom(6))) {
             
             Text("Role")
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .frame(maxWidth: .infinity, alignment: .leading)
             

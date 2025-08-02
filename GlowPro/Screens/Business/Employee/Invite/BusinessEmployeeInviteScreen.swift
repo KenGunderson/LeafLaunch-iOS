@@ -108,7 +108,7 @@ struct BusinessEmployeeInviteScreen: GPView {
             Text("You can invite an employee to join your business. They will be able to download the app with the invite code attached to their email.")
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .multilineTextAlignment(.leading)
-                .appFont(with: .BODY_B4)
+                .appFont(with: .BODY_2)
                 .padding(.bottom, .small)
                     
             VStack(spacing: Style.shared.spacing(.small)) {
@@ -128,7 +128,7 @@ struct BusinessEmployeeInviteScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading
@@ -142,7 +142,7 @@ struct BusinessEmployeeInviteScreen: GPView {
         VStack(spacing: Style.shared.spacing(.custom(6))) {
             
             Text("Role")
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .frame(maxWidth: .infinity, alignment: .leading)
             

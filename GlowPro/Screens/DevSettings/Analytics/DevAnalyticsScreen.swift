@@ -140,7 +140,7 @@ struct DevAnalyticsScreen: GPView {
             LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                 
                 Text(title)
-                    .appFont(with: .HEADER_H5)
+                    .appFont(with: .HEADER_4)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 Divider()
@@ -205,7 +205,7 @@ struct DevAnalyticsScreen: GPView {
             VStack(alignment: .leading) {
                 
                 Text(eventData.name)
-                    .appFont(with: .TITLE_T4)
+                    .appFont(with: .TITLE_3)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 if let properties = eventData.properties {
@@ -216,7 +216,7 @@ struct DevAnalyticsScreen: GPView {
                     eventData.createdAt,
                     format: .dateTime.day().month().year().hour().minute().second()
                 )
-                .appFont(with: .BODY_B1)
+                .appFont(with: .BODY_1)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
@@ -236,15 +236,15 @@ struct DevAnalyticsScreen: GPView {
                     VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                         
                         Text("Method: \(apiLogResponse.method)")
-                            .appFont(with: .TITLE_T4)
+                            .appFont(with: .TITLE_3)
                             .foregroundStyle(Style.shared.textColor(.title).source())
                         
                         Text("Status Code: \(apiLogResponse.statusCode)")
-                            .appFont(with: .TITLE_T4)
+                            .appFont(with: .TITLE_3)
                             .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
                         
                         Text("Path: \(apiLogResponse.path)")
-                            .appFont(with: .BODY_B1)
+                            .appFont(with: .BODY_1)
                             .foregroundStyle(Style.shared.textColor(.body).source())
                         
                     }
@@ -307,7 +307,7 @@ struct DevAnalyticsScreen: GPView {
                     apiLogResponse.date,
                     format: .dateTime.day().month().year().hour().minute().second()
                 )
-                .appFont(with: .BODY_B1)
+                .appFont(with: .BODY_1)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
@@ -320,14 +320,14 @@ struct DevAnalyticsScreen: GPView {
             VStack(alignment: .leading) {
                 
                 Text(title)
-                    .appFont(with: .TITLE_T6)
+                    .appFont(with: .TITLE_5)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 JSONPreviewView(
                     jsonData: json,
-                    titleFont: .TITLE_T2,
-                    subtitleFont: .TITLE_T2,
-                    bodyFont: .TITLE_T2,
+                    titleFont: .TITLE_2,
+                    subtitleFont: .TITLE_2,
+                    bodyFont: .TITLE_2,
                     maxHeight: 120
                 )
                 
@@ -362,17 +362,17 @@ struct DevAnalyticsScreen: GPView {
                         )
                         
                         Text(logEvent.level.displayName())
-                            .appFont(with: .TITLE_T4)
+                            .appFont(with: .TITLE_3)
                             .foregroundStyle(logEvent.level.color())
                         
                     }
                     
                     Text(logEvent.title)
-                        .appFont(with: .TITLE_T4)
+                        .appFont(with: .TITLE_3)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                     Text(logEvent.message)
-                        .appFont(with: .BODY_B5)
+                        .appFont(with: .BODY_3)
                         .foregroundStyle(Style.shared.textColor(.body).source())
                         .padding(.top, .custom(2))
                     
@@ -383,13 +383,13 @@ struct DevAnalyticsScreen: GPView {
                             if let emoji = logEvent.emoji {
                                 
                                 Text(emoji)
-                                    .appFont(with: .TITLE_T4)
+                                    .appFont(with: .TITLE_3)
                                     .foregroundStyle(Style.shared.textColor(.title).source())
                                 
                             }
                             
                             Text(logEvent.source)
-                                .appFont(with: .BODY_B4)
+                                .appFont(with: .BODY_2)
                             
                         }
                         
@@ -397,7 +397,7 @@ struct DevAnalyticsScreen: GPView {
                             logEvent.createdAt,
                             format: .dateTime.day().month().year().hour().minute().second()
                         )
-                        .appFont(with: .BODY_B1)
+                        .appFont(with: .BODY_1)
                         
                     }
                     .padding(.top, .medium)

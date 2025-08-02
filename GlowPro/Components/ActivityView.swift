@@ -47,7 +47,7 @@ struct ActivitiesView: View {
         VStack(alignment: .leading, spacing: 0) {
             
             Text(date)
-                .appFont(with: .TITLE_T5)
+                .appFont(with: .TITLE_4)
                 .padding(.bottom, .small)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
@@ -91,7 +91,7 @@ struct ActivitiesView: View {
     private func activityItem(_ activity: Activity) -> some View {
         
         Text(activity.title)
-            .appFont(with: .TITLE_T4)
+            .appFont(with: .TITLE_3)
             .foregroundStyle(Style.shared.textColor(.body).source())
         
     }

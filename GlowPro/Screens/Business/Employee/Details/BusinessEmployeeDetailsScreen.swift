@@ -72,11 +72,11 @@ struct BusinessEmployeeDetailsScreen: GPView {
                 VStack(alignment: .leading) {
                     
                     Text(self.viewModel.employee?.id ?? "")
-                        .appFont(with: .TITLE_T2)
+                        .appFont(with: .TITLE_2)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                     Text(self.viewModel.employee?.name ?? "")
-                        .appFont(with: .TITLE_T6)
+                        .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
@@ -93,7 +93,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         Text(title)
             .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_T8)
+            .appFont(with: .TITLE_6)
             .frame(
                 maxWidth: .infinity,
                 alignment: .leading

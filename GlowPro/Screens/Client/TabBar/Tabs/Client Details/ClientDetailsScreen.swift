@@ -103,7 +103,7 @@ struct ClientDetailsScreen: GPView {
                 AppCardView {
                     
                     Text(client.fullName)
-                        .appFont(with: .HEADER_H10)
+                        .appFont(with: .HEADER_2)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
                 }
@@ -231,7 +231,7 @@ struct ClientDetailsScreen: GPView {
                 .frame(width: 24, height: 24)
             
             Text(title)
-                .appFont(with: .TITLE_T4)
+                .appFont(with: .TITLE_3)
             
         }
         .foregroundStyle(Style.shared.textColor(.titleInverted).source())

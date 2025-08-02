@@ -142,7 +142,7 @@ struct FloatingNameTransitionTabBar: View {
                 
                 Text(tab.title)
                     .foregroundStyle(foregroundColor.source())
-                    .appFont(with: .TITLE_T2)
+                    .appFont(with: .TITLE_2)
                     .fontWeight(.semibold)
                     .transition(.asymmetric(
                         insertion: .move(edge: .bottom).animation(.spring(duration: 1).delay(1)),

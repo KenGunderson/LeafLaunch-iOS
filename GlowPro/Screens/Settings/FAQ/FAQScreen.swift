@@ -96,7 +96,7 @@ struct FAQScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             Text(item.title)
-                .appFont(with: .TITLE_T8)
+                .appFont(with: .TITLE_6)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             VStack(spacing: Style.shared.spacing(.small)) {
@@ -122,13 +122,13 @@ struct FAQScreen: GPView {
         CollapsableCardView(animation: .smooth) {
             
             Text(title)
-                .appFont(with: .TITLE_T6)
+                .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
         } expandedView: {
             
             Text(description)
-                .appFont(with: .BODY_B5)
+                .appFont(with: .BODY_3)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .padding([.horizontal, .bottom], .medium)
             

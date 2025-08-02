@@ -103,7 +103,7 @@ struct LegalScreen: View {
                spacing: Style.shared.spacing(.small)) {
             
             Text(legalItem.title)
-                .appFont(with: .HEADER_H6)
+                .appFont(with: .HEADER_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
@@ -111,7 +111,7 @@ struct LegalScreen: View {
                 ForEach(legalItem.sections, id: \.self) { message in
                     
                     Text(message)
-                        .appFont(with: .BODY_B4)
+                        .appFont(with: .BODY_2)
                         .foregroundStyle(Style.shared.textColor(.body).source())
                     
                 }
