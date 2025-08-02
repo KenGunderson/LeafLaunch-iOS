@@ -16,7 +16,7 @@ struct SplashScreenItem: View {
         AppBaseView(backgroundStyle: Style.shared.accent) {
             
             Text("GlowPro")
-                .appFont(with: .BILLBOARD_1)
+                .appFont(with: .BILLBOARD_3)
                 .foregroundStyle(Style.shared.textColor(.titleInverted).source())
             
         }

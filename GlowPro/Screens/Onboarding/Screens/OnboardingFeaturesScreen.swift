@@ -16,7 +16,7 @@ struct OnboardingFeaturesScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Features")
-                .appFont(with: .BILLBOARD_1)
+                .appFont(with: .BILLBOARD_3)
                 .padding(.horizontal, .large)
             
             Text("Here is the home page where you can start looking for the help you might need")

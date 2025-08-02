@@ -17,7 +17,7 @@ struct OnboardingPermissionsScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Access")
-                .appFont(with: .BILLBOARD_1)
+                .appFont(with: .BILLBOARD_3)
                 .minimumScaleFactor(0.50)
                 .padding(.horizontal, .large)
             
