@@ -10,11 +10,11 @@ import SwiftUI
 struct AppRootView<Content: View>: View {
     
     @Binding var navigationService: NavigationService
-    private let alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol?
     private let content: Content
     
     init(navigationService: Binding<NavigationService>,
-         alertService: AlertServiceProtocol,
+         alertService: AlertServiceProtocol? = nil,
          @ViewBuilder content: () -> Content) {
         
         self._navigationService = navigationService
@@ -36,7 +36,9 @@ struct AppRootView<Content: View>: View {
         
         // Alert
         
-        .withAlertService(ObservableAlertServiceWrapper(alertService: self.alertService))
+        .if(self.alertService != nil) { view in
+            view.withAlertService(ObservableAlertServiceWrapper(alertService: self.alertService!))
+        }
         
         // Toast
         
@@ -45,7 +47,10 @@ struct AppRootView<Content: View>: View {
         // Env
         
         .environment(self.navigationService)
-        .environmentObject(ObservableAlertServiceWrapper(alertService: self.alertService))
+        
+        .if(self.alertService != nil) { view in
+            view.environmentObject(ObservableAlertServiceWrapper(alertService: self.alertService!))
+        }
         
         // Dev Settings
         

@@ -25,7 +25,7 @@ struct HomeScreen: GPView {
                 get: { navigationService },
                 set: { _ in /* no-op because the environment value isn’t replaceable */ }
             ),
-            alertService: self.viewModel.alertService) {
+            alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
              
                 AppHeaderScrollView {
                     
