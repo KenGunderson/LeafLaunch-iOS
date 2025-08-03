@@ -20,7 +20,7 @@ struct TabBar4Screen: GPView {
         
         AppRootView(
             navigationService: nav.tab4NavigationService,
-            alertService: self.viewModel.alertService) {
+            alertService: nil) {
                 
                 content()
                     .tag(self.tab)

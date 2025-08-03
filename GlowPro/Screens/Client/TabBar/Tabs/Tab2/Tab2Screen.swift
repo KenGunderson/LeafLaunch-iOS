@@ -22,7 +22,7 @@ struct TabBar2Screen: GPView {
         
         AppRootView(
             navigationService: nav.tab2NavigationService,
-            alertService: self.viewModel.alertService) {
+            alertService: nil) {
                 
                 content()
                 

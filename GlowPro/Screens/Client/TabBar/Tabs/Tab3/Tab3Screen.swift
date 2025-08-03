@@ -20,7 +20,7 @@ struct TabBar3Screen: GPView {
         
         AppRootView(
             navigationService: nav.tab3NavigationService,
-            alertService: self.viewModel.alertService) {
+            alertService: nil) {
                 
                 content()
                 
