@@ -157,6 +157,8 @@
 		7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
 		7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
 		7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
+		753CC0AF2E40FDD30024C776 /* EmployeeInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */; };
+		753CC0B02E40FDD30024C776 /* EmployeeInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */; };
 		753EC19E2DB8BC5E00265B2A /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1952DB8BC5E00265B2A /* Query.swift */; };
 		753EC19F2DB8BC5E00265B2A /* AppNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1982DB8BC5E00265B2A /* AppNumberFormatter.swift */; };
 		753EC1A02DB8BC5E00265B2A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC19B2DB8BC5E00265B2A /* ViewModel.swift */; };
@@ -501,6 +503,7 @@
 		7537F4142DF661EA0031D9CF /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleService.swift; sourceTree = "<group>"; };
+		753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInvite.swift; sourceTree = "<group>"; };
 		753EC1932DB8BC5E00265B2A /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		753EC1942DB8BC5E00265B2A /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		753EC1952DB8BC5E00265B2A /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
@@ -1043,6 +1046,7 @@
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
 				75B731F22E14E52900038AD6 /* Location.swift */,
 				75B731F82E14E62200038AD6 /* Employee.swift */,
+				753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */,
 				759B64782E04A75E006F4995 /* Client.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				75B731F52E14E58800038AD6 /* Address.swift */,
@@ -1938,6 +1942,7 @@
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */,
+				753CC0B02E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
 				75A69EFC2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivityView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
@@ -2137,6 +2142,7 @@
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				75A69EF92E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */,
+				753CC0AF2E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
 				75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivityView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,

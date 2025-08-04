@@ -7,15 +7,6 @@
 
 import Foundation
 
-struct EmployeeInvite: Identifiable,
-                       Equatable,
-                       Hashable,
-                       Codable {
-    
-    let id: String
-    let email: String
-    
-}
 
 struct Business: Identifiable,
                  Equatable,
