@@ -160,11 +160,11 @@ struct MockModels {
             email: "business@me.com",
             phoneNumber: "818-522-5755",
             address: .DUMMY_DATA(),
+            owner: MockUser.user1,
             locations: [
                 MockLocation.location1,
                 MockLocation.location2,
-            ],
-            owner: MockUser.user1
+            ]
         )
         
         nonisolated(unsafe)
@@ -174,10 +174,10 @@ struct MockModels {
             email: "business2@me.com",
             phoneNumber: "818-522-5755",
             address: .DUMMY_DATA(),
+            owner: MockUser.user1,
             locations: [
                 MockLocation.location2
-            ],
-            owner: MockUser.user1
+            ]
         )
         
     }

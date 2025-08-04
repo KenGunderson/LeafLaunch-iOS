@@ -249,7 +249,8 @@ struct BusinessEditDetailsScreen: GPView {
                 title: placeholder,
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
-                foregroundColor: Style.shared.textColor(.title)
+                foregroundColor: Style.shared.textColor(.title),
+                textFieldFont: .TITLE_4
             )
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)

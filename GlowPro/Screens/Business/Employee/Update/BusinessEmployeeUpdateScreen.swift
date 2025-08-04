@@ -151,13 +151,13 @@ struct BusinessEmployeeUpdateScreen: GPView {
             
             CommonDropDownMenu(
                 options: Role.allCases,
-                backgroundStyle: Style.shared.background(.primary),
+                backgroundStyle: .color(.clear),
                 shadow: .none,
                 textHorizontalPadding: .small,
                 selectedOption: self.$viewModel.selectedRole,
                 showDropDown: self.$isDropdownPresented
             )
-            .appBorder(cornerRadius: .small, lineWidth: 2.5)
+            .appBorder(cornerRadius: .small, lineWidth: 1.5)
             
         }
         .padding(.top, .small)
@@ -203,7 +203,8 @@ struct BusinessEmployeeUpdateScreen: GPView {
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
-                backgroundColor: Style.shared.background(.tertiary)
+                backgroundColor: Style.shared.background(.tertiary),
+                textFieldFont: .TITLE_4
             )
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)

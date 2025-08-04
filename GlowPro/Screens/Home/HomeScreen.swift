@@ -59,7 +59,7 @@ struct HomeScreen: GPView {
             foregroundColor: .color(.black),
             backgroundColor: .color(.clear),
             imageSource: .systemImage("gear"),
-            size: 32
+            size: 36
         )
         .asButton {
             
@@ -83,10 +83,10 @@ struct HomeScreen: GPView {
             
             if let currentUser = self.viewModel.currentUser {
                 
-                Group {
+                VStack(spacing: 8) {
                     
-                    Text(currentUser.email + " ( Logged in)")
-                    Text(currentUser.name + "( Joined App)")
+                    Text(currentUser.email + " (Logged in)")
+                    Text(currentUser.name + " (Joined App)")
                     
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity).combined(with: .scale))
@@ -178,7 +178,6 @@ struct HomeScreen: GPView {
                 }
                 
             }
-            .padding(.horizontal, .large)
             
         }
         .frame(maxWidth: .infinity)

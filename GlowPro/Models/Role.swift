@@ -14,17 +14,19 @@ enum Role: String,
         return self.rawValue
     }
     
-    case employee
-    case frontDesk
-    case manager
+    case admin
     case owner
+    case manager
+    case employee
+    case receptionist
     
     var description: String {
         switch self {
-        case .employee: return "Employee"
-        case .frontDesk: return "Front Desk"
-        case .manager: return "Manager"
+        case .admin: return "Admin"
         case .owner: return "Owner"
+        case .manager: return "Manager"
+        case .employee: return "Employee"
+        case .receptionist: return "Receptionist"
         }
     }
     
