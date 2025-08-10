@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		750B85EC2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */; };
+		750B85ED2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */; };
+		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
+		750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
+		750B85F42E48E13000417BA5 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 750B85F32E48E12A00417BA5 /* TODO */; };
+		750B85F52E48E13000417BA5 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 750B85F32E48E12A00417BA5 /* TODO */; };
+		750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */; };
+		750B85FA2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */; };
+		750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */; };
+		750B85FC2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */; };
+		750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
+		750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
 		750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
@@ -424,6 +436,12 @@
 
 /* Begin PBXFileReference section */
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationStackView.swift; sourceTree = "<group>"; };
+		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
+		750B85F32E48E12A00417BA5 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListViewModel.swift; sourceTree = "<group>"; };
+		750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListScreen.swift; sourceTree = "<group>"; };
+		750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+EmployeeInvites.swift"; sourceTree = "<group>"; };
 		750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsViewModel.swift; sourceTree = "<group>"; };
 		750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsScreen.swift; sourceTree = "<group>"; };
 		750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDeeplinksViewModel.swift; sourceTree = "<group>"; };
@@ -678,6 +696,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		750B85F22E48DD9400417BA5 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				750B85EE2E48DD5100417BA5 /* GPColor.swift */,
+				7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		750B85F62E493FDC00417BA5 /* InviteList */ = {
+			isa = PBXGroup;
+			children = (
+				750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */,
+				750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */,
+			);
+			path = InviteList;
+			sourceTree = "<group>";
+		};
 		750DFBC02DC6CDAE00A2AB74 /* DevSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1270,6 +1306,7 @@
 		755C981F2D9CC89000437D5D /* GlowPro */ = {
 			isa = PBXGroup;
 			children = (
+				750B85F32E48E12A00417BA5 /* TODO */,
 				753EC2082DB8CBBB00265B2A /* App.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
 				75573AB92DD82B4A00C7CA6E /* Globals + Constants */,
@@ -1302,7 +1339,7 @@
 		755C98262D9CC8E000437D5D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */,
+				750B85F22E48DD9400417BA5 /* DesignSystem */,
 				7537F3CC2DF661EA0031D9CF /* Analytics */,
 				7537F3D72DF661EA0031D9CF /* API */,
 				7537F3DA2DF661EA0031D9CF /* AppDelegate */,
@@ -1430,6 +1467,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
 				754D29312E07B1260065E242 /* Base */,
 				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
@@ -1478,6 +1516,7 @@
 			children = (
 				758C3CE22E14B0C700BC1A43 /* List */,
 				7527E1902E26925E00FBC9AF /* Invite */,
+				750B85F62E493FDC00417BA5 /* InviteList */,
 				75A69EF62E2C8FB6000E5595 /* Join */,
 				75AFB1302E1EF89700A9FD0E /* Update */,
 				75795D252E173176008BD44A /* Details */,
@@ -1599,6 +1638,7 @@
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
@@ -1781,6 +1821,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
+				750B85F42E48E13000417BA5 /* TODO in Resources */,
 				7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */,
 				75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */,
@@ -1805,6 +1846,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750B85F52E48E13000417BA5 /* TODO in Resources */,
 				75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */,
 				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
 				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
@@ -1839,6 +1881,8 @@
 				753EC19E2DB8BC5E00265B2A /* Query.swift in Sources */,
 				753EC19F2DB8BC5E00265B2A /* AppNumberFormatter.swift in Sources */,
 				753EC1A02DB8BC5E00265B2A /* ViewModel.swift in Sources */,
+				750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
+				750B85FC2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
 				753EC1A12DB8BC5E00265B2A /* Tab.swift in Sources */,
 				753EC1A22DB8BC5E00265B2A /* PushNotification.swift in Sources */,
 				753EC1A32DB8BC5E00265B2A /* Trackable.swift in Sources */,
@@ -1928,6 +1972,7 @@
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
+				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -1940,8 +1985,10 @@
 				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
+				750B85EC2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
 				75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
@@ -2040,6 +2087,8 @@
 				75D66D2B2DC713C300E51CFC /* Query.swift in Sources */,
 				75D66D2C2DC713C300E51CFC /* AppNumberFormatter.swift in Sources */,
 				75D66D2D2DC713C300E51CFC /* ViewModel.swift in Sources */,
+				750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
+				750B85FA2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
 				75D66D2E2DC713C300E51CFC /* Tab.swift in Sources */,
 				75D66D2F2DC713C300E51CFC /* PushNotification.swift in Sources */,
 				75D66D302DC713C300E51CFC /* Trackable.swift in Sources */,
@@ -2129,6 +2178,7 @@
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
+				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -2141,8 +2191,10 @@
 				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
+				750B85ED2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
 				75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,

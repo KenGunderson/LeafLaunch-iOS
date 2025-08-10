@@ -60,6 +60,10 @@ protocol APIServiceProtocol: APIProtocol {
     func getEmployee(id: String) async throws -> Employee
     func deleteEmployee(id: String) async throws
     
+    // Employee Invites
+    
+    func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite]
+    
 
     // Clients
     

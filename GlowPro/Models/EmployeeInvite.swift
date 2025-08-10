@@ -13,19 +13,25 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
     let name: String
     let email: String
     let businessName: String
-    let location: Location
     
     init(id: String,
          name: String,
          email: String,
-         businessName: String,
-         location: Location) {
+         businessName: String) {
         
         self.id = id
         self.name = name
         self.email = email
         self.businessName = businessName
-        self.location = location
+        
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case id
+        case name
+        case email
+        case businessName = "business_name"
         
     }
     
@@ -39,8 +45,7 @@ extension EmployeeInvite {
             id: UUID().uuidString,
             name: "Sako Hovaguimian",
             email: "sako@hovaguimian.com",
-            businessName: "My Awesome Business",
-            location: .DUMMY_DATA()
+            businessName: "My Awesome Business"
         )
         
     }

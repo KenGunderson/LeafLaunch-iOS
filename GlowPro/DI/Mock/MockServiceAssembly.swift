@@ -204,6 +204,18 @@ final class MockAPIService: APIServiceProtocol {
         self.employees.removeAll { $0.id  == id }
     }
     
+    // Employee Invites
+    
+    func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite] {
+        
+        if let business = self.businesses.first(where: { $0.id == businessId }) {
+            return business.employeeInvites
+        }
+        
+        return []
+        
+    }
+    
     // Clients
     
     func getClients(businessId: String) async throws -> [Client] {

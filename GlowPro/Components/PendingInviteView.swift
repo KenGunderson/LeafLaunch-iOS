@@ -36,7 +36,8 @@ struct PendingInviteView: View {
     
     private func informationView() -> some View {
         
-        HStack(spacing: Style.shared.spacing(.small)) {
+        HStack(alignment: .center,
+               spacing: Style.shared.spacing(.small)) {
             
             AvatarView(
                 style: .initials(name: employeeInvitation.name),
@@ -48,17 +49,17 @@ struct PendingInviteView: View {
                 height: 40
             )
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            VStack(alignment: .leading,
+                   spacing: Style.shared.spacing(.extraSmall)) {
                 
-                Text(self.employeeInvitation.location.name)
+                Text(self.employeeInvitation.businessName)
                     .foregroundStyle(Style.shared.textColor(.title).source())
-                    .font(.caption)
-                    .bold()
+                    .font(Style.shared.font(.TITLE_2))
                 + Text(" invited you to join")
-                    .font(.caption)
+                    .font(Style.shared.font(.BODY_1))
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
-                Text(employeeInvitation.businessName)
+                Text("Please select an option below")
                     .appFont(with: .BODY_1)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .lineLimit(1)

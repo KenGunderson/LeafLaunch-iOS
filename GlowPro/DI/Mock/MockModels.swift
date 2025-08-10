@@ -25,6 +25,10 @@ struct MockModels {
         return [MockEmployee.employee1, MockEmployee.employee2]
     }
     
+    static var allEmployeeInvites: [EmployeeInvite] {
+        return [MockEmployeeInvite.employeeInvite1, MockEmployeeInvite.employeeInvite2]
+    }
+    
     static var allClients: [Client] {
         
         return [
@@ -55,6 +59,9 @@ struct MockModels {
         
         static let employee1: String = UUID().uuidString
         static let employee2: String = UUID().uuidString
+        
+        static let employeeInvite1: String = UUID().uuidString
+        static let employeeInvite2: String = UUID().uuidString
         
         static let client1: String = UUID().uuidString
         static let client2: String = UUID().uuidString
@@ -164,6 +171,10 @@ struct MockModels {
             locations: [
                 MockLocation.location1,
                 MockLocation.location2,
+            ],
+            employeeInvites: [
+                MockEmployeeInvite.employeeInvite1,
+                MockEmployeeInvite.employeeInvite2,
             ]
         )
         
@@ -178,6 +189,26 @@ struct MockModels {
             locations: [
                 MockLocation.location2
             ]
+        )
+        
+    }
+    
+    struct MockEmployeeInvite {
+        
+        nonisolated(unsafe)
+        static var employeeInvite1 = EmployeeInvite(
+            id: ID.employeeInvite1,
+            name: "Naruto Uzamaki",
+            email: "naruto@me.com",
+            businessName: "Mock Business 1"
+        )
+        
+        nonisolated(unsafe)
+        static var employeeInvite2 = EmployeeInvite(
+            id: ID.employeeInvite2,
+            name: "Monkey D. Luffy",
+            email: "monkey@me.com",
+            businessName: "Mock Business 2"
         )
         
     }

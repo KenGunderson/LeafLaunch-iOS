@@ -20,6 +20,20 @@ struct Location: Identifiable,
     let employees: [Employee]
     let clients: [Client]
     
+    var formattedAddress: String {
+        
+        var string = ""
+        string += "\(address.street)"
+        
+        if let street = address.street2 {
+            string += " \(street)"
+        }
+        
+        string += ", \(address.city), \(address.state)"
+        return string
+        
+    }
+    
 }
 
 extension Location {

@@ -137,6 +137,14 @@ struct HomeScreen: GPView {
                     
                 }
                 
+                CommonButton(title: "Business Invited List",
+                             titleColor: Style.shared.textColor(.button)) {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeeInviteList(businessId: MockModels.ID.business1)))
+                    
+                }
+                
                 CommonButton(title: "Business Update Employees",
                              titleColor: Style.shared.textColor(.button)) {
                     

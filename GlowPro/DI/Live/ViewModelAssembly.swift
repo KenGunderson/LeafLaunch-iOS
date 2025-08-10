@@ -248,6 +248,19 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
+        // Business Employee Invite List
+        
+        container
+            .register(BusinessEmployeeInviteListViewModel.self) { r in
+                BusinessEmployeeInviteListViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Business Employee Join
         
         container
