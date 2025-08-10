@@ -115,7 +115,6 @@ struct BusinessEmployeeInviteScreen: GPView {
                 
                 textField(fieldToFocus: .name)
                 textField(fieldToFocus: .email)
-                rolePicker()
                 
             }
             
@@ -133,31 +132,6 @@ struct BusinessEmployeeInviteScreen: GPView {
                 maxWidth: .infinity,
                 alignment: .leading
             )
-        
-    }
-    
-    @ViewBuilder
-    private func rolePicker() -> some View {
-        
-        VStack(spacing: Style.shared.spacing(.custom(6))) {
-            
-            Text("Role")
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            CommonDropDownMenu(
-                options: Role.allCases,
-                backgroundStyle: .color(.clear),
-                shadow: .none,
-                textHorizontalPadding: .small,
-                selectedOption: self.$viewModel.selectedRole,
-                showDropDown: self.$isDropdownPresented
-            )
-            .appBorder(cornerRadius: .small, lineWidth: 1.5)
-            
-        }
-        .padding(.top, .small)
         
     }
     

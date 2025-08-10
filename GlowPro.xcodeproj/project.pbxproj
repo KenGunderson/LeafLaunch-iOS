@@ -21,6 +21,8 @@
 		750B85FC2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */; };
 		750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
 		750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
+		750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B86032E49485800417BA5 /* QuickActionTileView.swift */; };
+		750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B86032E49485800417BA5 /* QuickActionTileView.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
 		750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
@@ -442,6 +444,7 @@
 		750B85F72E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListViewModel.swift; sourceTree = "<group>"; };
 		750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListScreen.swift; sourceTree = "<group>"; };
 		750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+EmployeeInvites.swift"; sourceTree = "<group>"; };
+		750B86032E49485800417BA5 /* QuickActionTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionTileView.swift; sourceTree = "<group>"; };
 		750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsViewModel.swift; sourceTree = "<group>"; };
 		750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsScreen.swift; sourceTree = "<group>"; };
 		750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDeeplinksViewModel.swift; sourceTree = "<group>"; };
@@ -1467,6 +1470,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
 				754D29312E07B1260065E242 /* Base */,
@@ -1885,6 +1889,7 @@
 				750B85FC2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
 				753EC1A12DB8BC5E00265B2A /* Tab.swift in Sources */,
 				753EC1A22DB8BC5E00265B2A /* PushNotification.swift in Sources */,
+				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				753EC1A32DB8BC5E00265B2A /* Trackable.swift in Sources */,
 				753EC1A42DB8BC5E00265B2A /* AppError.swift in Sources */,
 				753EC1A52DB8BC5E00265B2A /* WhatsNew.swift in Sources */,
@@ -2091,6 +2096,7 @@
 				750B85FA2E493FFA00417BA5 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
 				75D66D2E2DC713C300E51CFC /* Tab.swift in Sources */,
 				75D66D2F2DC713C300E51CFC /* PushNotification.swift in Sources */,
+				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				75D66D302DC713C300E51CFC /* Trackable.swift in Sources */,
 				75D66D312DC713C300E51CFC /* AppError.swift in Sources */,
 				75D66D322DC713C300E51CFC /* WhatsNew.swift in Sources */,

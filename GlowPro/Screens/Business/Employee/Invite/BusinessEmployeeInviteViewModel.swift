@@ -22,14 +22,12 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     
     @Published var name: String = ""
     @Published var email: String = ""
-    @Published var selectedRole: Role? = .employee
     
     var isSaveButtonEnabled: Bool {
         
         return (
             !self.name.isEmpty &&
-            !self.email.isEmpty &&
-            self.selectedRole != nil
+            !self.email.isEmpty
         )
         
     }
