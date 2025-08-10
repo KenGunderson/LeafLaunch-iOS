@@ -61,7 +61,7 @@ struct ActivitiesView: View {
         
         ForEach(activities, id: \.id) { activity in
             
-            let hideLine = activity.id == activities.last?.id
+            let hideLine = (activity.id == activities.last?.id)
             
             VStack(alignment: .leading, spacing: 0) {
                 
