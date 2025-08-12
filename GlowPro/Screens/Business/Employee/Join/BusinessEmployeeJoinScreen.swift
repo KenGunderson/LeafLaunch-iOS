@@ -58,13 +58,7 @@ struct BusinessEmployeeJoinScreen: GPView {
     
     private func navBar() -> some View {
         
-        let closeButton = CircularIconView(
-            foregroundColor: .color(.black),
-            backgroundColor: .color(.clear),
-            imageSource: .systemImage("xmark"),
-            size: 32
-        )
-        .asButton {
+        let closeButton = NavBarButton(style: .close) {
             dismiss()
         }
         .asAnyView()

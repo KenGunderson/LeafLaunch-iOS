@@ -157,7 +157,9 @@ struct OnboardingScreen: View {
         viewModel: mockResolve(OnboardingViewModel.self)
             .setup(pages: [
                 .welcome,
-                .features,
+                .captureProgress,
+                .compareResults,
+                .shareGrow,
                 .permission
             ])
     )

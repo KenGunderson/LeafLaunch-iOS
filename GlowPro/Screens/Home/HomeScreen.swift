@@ -55,14 +55,8 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let settingsButton = CircularIconView(
-            foregroundColor: .color(.black),
-            backgroundColor: .color(.clear),
-            imageSource: .systemImage("gear"),
-            size: 36
-        )
-        .asButton {
-            
+        let settingsButton = NavBarButton(style: .settings) {
+         
             self.navigationService
                 .modal(fullScreenCover: .settings)
             

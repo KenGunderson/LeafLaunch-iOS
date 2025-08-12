@@ -62,22 +62,14 @@ struct DevSettingsScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let closeButton = CircularIconView(
-            foregroundColor: .color(.black),
-            backgroundColor: .color(.clear),
-            imageSource: .systemImage("xmark"),
-            size: 32
-        )
-        .asButton {
-            
-            self.viewModel
-                .dismiss()
-            
+        let closeButton = NavBarButton(style: .close) {
+            self.viewModel.dismiss()
         }
+        .asAnyView()
         
         NavBarView(
             title: "Dev Settings",
-            rightButtonView: closeButton.asAnyView()
+            rightButtonView: closeButton
         )
         
     }

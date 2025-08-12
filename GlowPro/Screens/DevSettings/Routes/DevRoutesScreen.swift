@@ -45,7 +45,7 @@ struct DevRoutesScreen: GPView {
             title: "Routes",
             subtitle: "Warp To Anywhere In The App!",
             leftButtonView: (
-                BackButton {
+                NavBarButton(style: .back) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()

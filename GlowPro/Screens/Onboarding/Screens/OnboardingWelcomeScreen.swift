@@ -16,7 +16,7 @@ struct OnboardingWelcomeScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Welcome")
-                .appFont(with: .BILLBOARD_3)
+                .appFont(with: .BILLBOARD_1)
                 .padding(.horizontal, .large)
             
             Text("Here is the home page where you can start looking for the help you might need")
@@ -25,12 +25,12 @@ struct OnboardingWelcomeScreen: GPView {
                 .padding(.horizontal, .large)
                 .multilineTextAlignment(.leading)
             
-            Rectangle()
+            RoundedRectangle(cornerRadius: 16)
                 .fill(Style.shared.accent.source())
                 .frame(height: 250)
-                .clipShape(.circle)
                 .padding(.top, .large)
                 .zIndex(-1)
+                .padding(.horizontal, .large)
             
             let text = """
             • Bananas are berries, botanically.

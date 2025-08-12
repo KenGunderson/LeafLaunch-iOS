@@ -55,7 +55,7 @@ struct DevImpersonateScreen: GPView {
             title: "Impersonate",
             subtitle: "Morph into a different user",
             leftButtonView: (
-                BackButton {
+                NavBarButton(style: .back) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()

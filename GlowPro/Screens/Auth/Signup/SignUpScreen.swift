@@ -64,7 +64,7 @@ struct SignUpScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            BackButton {
+            NavBarButton(style: .back) {
                 self.navigationService.pop()
             }
             
@@ -75,7 +75,7 @@ struct SignUpScreen: GPView {
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 Text("Enter your details below to create an account.")
-                    .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                    .appFont(with: .BODY_3)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
@@ -216,7 +216,8 @@ struct SignUpScreen: GPView {
             title: placeholder,
             style: .border(cornerRadius: .custom(6)),
             isFocused: isFocused,
-            textFieldFont: .TITLE_4,
+            textFieldFont: .BODY_3,
+            titleFont: .BODY_2
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(keyboardType)
@@ -252,7 +253,7 @@ struct SignUpScreen: GPView {
             Image(systemName: self.showPassword ? "eye.slash" : "eye")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(Style.shared.textColor(.placeholder).source())
                 .frame(width: 24, height: 24)
                 .asButton {
                     withAnimation(.spring) {

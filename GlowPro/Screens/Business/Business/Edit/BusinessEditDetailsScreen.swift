@@ -87,7 +87,7 @@ struct BusinessEditDetailsScreen: GPView {
     
     private func navBar() -> some View {
         
-        let backButton = BackButton(backgroundColor: .color(.clear)) {
+        let backButton = NavBarButton(style: .back) {
             self.dismiss()
         }
         .asAnyView()

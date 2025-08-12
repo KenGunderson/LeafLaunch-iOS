@@ -45,7 +45,7 @@ struct DevUserDefaultsScreen: GPView {
         NavBarView(
             title: "User Defaults",
             leftButtonView: (
-                BackButton {
+                NavBarButton(style: .back) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()

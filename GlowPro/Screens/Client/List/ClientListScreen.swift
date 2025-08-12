@@ -48,18 +48,12 @@ struct ClientListScreen: GPView {
     
     private func navBar() -> some View {
         
-        let backButton = BackButton(backgroundColor: .color(.clear)) {
+        let backButton = NavBarButton(style: .back) {
             self.viewModel.dismiss()
         }
         .asAnyView()
         
-        let plusButton = CircularIconView(
-            foregroundColor: .color(.black),
-            backgroundColor: .color(.clear),
-            imageSource: .systemImage("plus"),
-            size: 32
-        )
-        .asButton {
+        let plusButton = NavBarButton(style: .plus) {
             print("ADD NEW CLIENT")
         }
         .asAnyView()

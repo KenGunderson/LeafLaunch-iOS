@@ -76,7 +76,7 @@ struct LoginScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            BackButton {
+            NavBarButton(style: .back) {
                 self.navigationService.pop()
             }
             
@@ -87,7 +87,7 @@ struct LoginScreen: GPView {
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 Text("Sign in to your GlowPro account to continue capturing beautiful results")
-                    .appFont(with: .custom(.rounded(size: 16, weight: .regular)))
+                    .appFont(with: .BODY_3)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
@@ -104,7 +104,7 @@ struct LoginScreen: GPView {
             
             // Textfields
             
-            VStack(spacing: Style.shared.spacing(.large)) {
+            VStack(spacing: Style.shared.spacing(.medium)) {
                 
                 textField(fieldToFocus: .email)
                 
@@ -183,7 +183,9 @@ struct LoginScreen: GPView {
             text: text.wrappedValue,
             title: placeholder,
             style: .border(cornerRadius: .custom(6)),
-            isFocused: isFocused
+            isFocused: isFocused,
+            textFieldFont: .BODY_3,
+            titleFont: .BODY_2
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(fieldToFocus == .email ? .emailAddress : .default)

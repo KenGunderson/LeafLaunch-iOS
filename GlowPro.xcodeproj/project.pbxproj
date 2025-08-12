@@ -300,6 +300,8 @@
 		75C643D72DB929340033D68E /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437E2DB929340033D68E /* TabItemView.swift */; };
 		75C643E12DB929340033D68E /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C643802DB929340033D68E /* StandardTabBarView.swift */; };
 		75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C6437F2DB929340033D68E /* CustomTabBarView.swift */; };
+		75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
+		75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
 		75CD6B672E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
 		75CD6B682E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */; };
 		75CD6B692E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
@@ -610,6 +612,7 @@
 		75C6437E2DB929340033D68E /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		75C6437F2DB929340033D68E /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		75C643802DB929340033D68E /* StandardTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTabBarView.swift; sourceTree = "<group>"; };
+		75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateViewModel.swift; sourceTree = "<group>"; };
 		75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateScreen.swift; sourceTree = "<group>"; };
 		75CD6B6B2E20C582004A1720 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
@@ -1470,6 +1473,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
@@ -2005,6 +2009,7 @@
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
+				75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
 				75795D292E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
@@ -2212,6 +2217,7 @@
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
+				75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
 				75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,

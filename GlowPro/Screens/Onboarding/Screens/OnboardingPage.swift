@@ -12,7 +12,9 @@ enum OnboardingPage: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
     
     case welcome
-    case features
+    case captureProgress
+    case compareResults
+    case shareGrow
     case permission
     
 }

@@ -96,7 +96,9 @@ final class OnboardingViewModel: ViewModel {
             
             switch nextPage {
             case .welcome: self.navigationService?.push(.onboarding(.welcome))
-            case .features: self.navigationService?.push(.onboarding(.feature))
+            case .captureProgress: self.navigationService?.push(.onboarding(.captureProgress))
+            case .compareResults: self.navigationService?.push(.onboarding(.compareResults))
+            case .shareGrow: self.navigationService?.push(.onboarding(.shareGrow))
             case .permission: self.navigationService?.push(.onboarding(.permission))
             }
             
@@ -106,7 +108,7 @@ final class OnboardingViewModel: ViewModel {
     
     func findNavigationRouteIndex(routes: [Route]) {
                 
-        if routes == [] {
+        if routes.isEmpty {
             
             self.currentPage = .welcome
             self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
@@ -125,10 +127,20 @@ final class OnboardingViewModel: ViewModel {
                 self.currentPage = .welcome
                 self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
                 
-            case .feature:
+            case .captureProgress:
                 
-                self.currentPage = .features
-                self.currentPageIndex = self.pages.firstIndex(of: .features) ?? 0
+                self.currentPage = .captureProgress
+                self.currentPageIndex = self.pages.firstIndex(of: .captureProgress) ?? 0
+                
+            case .compareResults:
+                
+                self.currentPage = .compareResults
+                self.currentPageIndex = self.pages.firstIndex(of: .compareResults) ?? 0
+                
+            case .shareGrow:
+                
+                self.currentPage = .shareGrow
+                self.currentPageIndex = self.pages.firstIndex(of: .shareGrow) ?? 0
                 
             case .permission:
                 

@@ -48,7 +48,7 @@ struct DevAnalyticsScreen: GPView {
             NavBarView(
                 title: "Analytics",
                 leftButtonView: (
-                    BackButton {
+                    NavBarButton(style: .back) {
                         self.viewModel.dismiss()
                     }
                 ).asAnyView()

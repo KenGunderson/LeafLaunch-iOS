@@ -47,7 +47,7 @@ struct DevDeeplinksScreen: GPView {
         NavBarView(
             title: "Deeplink",
             leftButtonView: (
-                BackButton {
+                NavBarButton(style: .back) {
                     self.viewModel.dismiss()
                 }
             ).asAnyView()

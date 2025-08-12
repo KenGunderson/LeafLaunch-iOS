@@ -139,10 +139,29 @@ extension View {
                 OnboardingWelcomeScreen()
                     .navigationBarBackButtonHidden()
                 
-            case .feature:
+            case .captureProgress:
                 
-                OnboardingFeaturesScreen()
-                    .navigationBarBackButtonHidden()
+                OnboardingFeaturesScreen(
+                    title: "Capture Progress",
+                    message: "Use our built-in camera to take before and after photos right in the treatment room"
+                )
+                .navigationBarBackButtonHidden()
+                
+            case .compareResults:
+                
+                OnboardingFeaturesScreen(
+                    title: "Compare Results",
+                    message: "Show clients their amazing transformation with beautiful before and after comparisons"
+                )
+                .navigationBarBackButtonHidden()
+                
+            case .shareGrow:
+                
+                OnboardingFeaturesScreen(
+                    title: "Share & Grow",
+                    message: "Create stunning galleries and collages that wow your clients and attract new ones"
+                )
+                .navigationBarBackButtonHidden()
                 
             case .permission:
                 
@@ -383,7 +402,9 @@ extension View {
                 let viewModel = globalResolver.resolve(OnboardingViewModel.self)!
                     .setup(pages: [
                         .welcome,
-                        .features,
+                        .captureProgress,
+                        .compareResults,
+                        .shareGrow,
                         .permission
                     ])
                 

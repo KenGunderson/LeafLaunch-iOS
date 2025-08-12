@@ -24,7 +24,9 @@ enum Route: Navigation, Hashable, Sendable {
     enum Onboarding: Hashable {
         
         case welcome
-        case feature
+        case captureProgress
+        case compareResults
+        case shareGrow
         case permission
         
     }

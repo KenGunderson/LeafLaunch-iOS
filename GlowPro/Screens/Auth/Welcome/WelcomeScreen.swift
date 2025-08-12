@@ -19,62 +19,51 @@ struct WelcomeScreen: GPView {
             alertService: self.viewModel.alertService
         ) {
             
-            ZStack(alignment: .center) {
-                
-                backgroundView
-                content
-                
-            }
-            .safeAreaInset(edge: .bottom) {
-                footer
-            }
+            content
+                .safeAreaInset(edge: .bottom) {
+                    footer
+                }
             
-            .onFirstAppear {
-                
-                self.viewModel
-                    .track()
-                
-                self.viewModel
-                    .setup(navigationService: self.navigationService)
-                
-            }
+                .onFirstAppear {
+                    
+                    self.viewModel
+                        .track()
+                    
+                    self.viewModel
+                        .setup(navigationService: self.navigationService)
+                    
+                }
             
         }
-        
-    }
-    
-    var backgroundView: some View {
-        
-        LinearGradient(
-            colors: [
-                Style.shared.accent.asColor ?? .clear,
-                Style.shared.accentSecondary.asColor ?? .clear,
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .ignoresSafeArea()
         
     }
     
     var content: some View {
         
-        VStack(spacing: Style.shared.spacing(.custom(64))) {
+        VStack(spacing: Style.shared.spacing(.extraLarge)) {
             
-            VStack {
+            RoundedRectangle(cornerRadius: Style.shared.radius(.large))
+                .fill(.gray.opacity(0.15))
+                .frame(height: 360)
+            
+            VStack(spacing: Style.shared.spacing(.large)) {
                 
-                Text("Welcome To\nGlowPro")
-                    .appFont(with: .HEADER_5)
+                Text("GlowPro")
+                    .appFont(with: .BILLBOARD_1)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+                Text("Capture your clients' transformations beautifully and professionally.")
+                    .appFont(with: .BODY_4)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
-            .frame(maxWidth: .infinity)
-            
-            Spacer(minLength: 0)
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.top, .extraLarge)
+        .padding(.horizontal, .large)
         
     }
     
@@ -105,8 +94,9 @@ struct WelcomeScreen: GPView {
     var loginButton: some View {
         
         CommonButton(
+            style: .outline(lineWidth: 3),
             title: "Login",
-            titleColor: Style.shared.textColor(.button),
+            titleColor: Style.shared.accent,
             action: {
                 self.viewModel.navigateToLogin()
             })
