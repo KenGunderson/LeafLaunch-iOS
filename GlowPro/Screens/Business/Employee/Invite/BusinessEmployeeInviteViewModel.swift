@@ -22,6 +22,8 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     
     @Published var name: String = ""
     @Published var email: String = ""
+    @Published var selectedRole: Role? = .employee
+    @Published var selectedLocations: [Location] = []
     
     var isSaveButtonEnabled: Bool {
         
@@ -107,6 +109,21 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
             
             self.alertService
                 .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func updateSelectedLocations(_ locationNames: [String]) {
+        
+        let businessLocations = self.business?.locations ?? []
+        
+        self.selectedLocations = []
+        locationNames.forEach { locationName in
+            
+            if let location = businessLocations.first(where: { $0.name == locationName }) {
+                self.selectedLocations.append(location)
+            }
             
         }
         

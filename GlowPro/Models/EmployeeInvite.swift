@@ -13,6 +13,8 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
     let name: String
     let email: String
     let businessName: String
+    let locations: [Location] = []
+    let role: Role?
     
     init(id: String,
          name: String,
@@ -23,6 +25,7 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
         self.name = name
         self.email = email
         self.businessName = businessName
+        self.role = nil
         
     }
     
@@ -32,6 +35,8 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
         case name
         case email
         case businessName = "business_name"
+        case locations
+        case role
         
     }
     

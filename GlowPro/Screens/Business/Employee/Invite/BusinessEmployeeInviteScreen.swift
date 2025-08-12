@@ -30,7 +30,9 @@ struct BusinessEmployeeInviteScreen: GPView {
     
     @FocusState private var focusedField: FocusedField?
     
-    @State private var isDropdownPresented: Bool = false
+    @State private var isRoleDropdownPresented: Bool = false
+    @State private var isLocationDropdownPresented: Bool = false
+    @State private var selectedLocations: Set<String> = []
     
     var body: some View {
         
@@ -52,6 +54,9 @@ struct BusinessEmployeeInviteScreen: GPView {
                 self.viewModel
                     .loadData()
                 
+            }
+            .onChange(of: self.selectedLocations) { _, newValue in
+                self.viewModel.updateSelectedLocations(Array(newValue))
             }
         
         // Tap
@@ -115,7 +120,8 @@ struct BusinessEmployeeInviteScreen: GPView {
                 
                 textField(fieldToFocus: .name)
                 textField(fieldToFocus: .email)
-                
+                locationPicker()
+                rolePicker()
             }
             
         }
@@ -178,6 +184,63 @@ struct BusinessEmployeeInviteScreen: GPView {
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+        
+    }
+    
+    @ViewBuilder
+    private func locationPicker() -> some View {
+        
+        let locations = self.viewModel.business?.locations ?? []
+        let locationNames = locations.map(\.name)
+        
+        if !locations.isEmpty {
+            
+            VStack(spacing: Style.shared.spacing(.custom(6))) {
+                
+                Text("Eligable Locations (Optional)")
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                CommonDropDownMultiSelectMenu(
+                    options: locationNames,
+                    backgroundStyle: .color(.clear),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    selectedOptions: self.$selectedLocations,
+                    showDropDown: self.$isLocationDropdownPresented
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                
+            }
+            .padding(.top, .small)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func rolePicker() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.custom(6))) {
+            
+            Text("Role (Optional)")
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            CommonDropDownMenu(
+                options: Role.allCases,
+                backgroundStyle: .color(.clear),
+                shadow: .none,
+                textHorizontalPadding: .small,
+                selectedOption: self.$viewModel.selectedRole,
+                showDropDown: self.$isRoleDropdownPresented
+            )
+            .appBorder(cornerRadius: .small, lineWidth: 1.5)
+            
+        }
+        .padding(.top, .small)
         
     }
     
