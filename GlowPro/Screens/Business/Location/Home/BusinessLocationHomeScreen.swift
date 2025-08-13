@@ -53,18 +53,25 @@ struct BusinessLocationHomeScreen: GPView {
         NavHeader(
             title: self.viewModel.location?.name ?? "",
             subtitle: self.viewModel.location?.formattedAddress ?? "",
-            avatar: .initials(name: self.viewModel.location?.name ?? ""),
-            trailingNavButtons: [.settings]
-        ) { navItem in
-            
-            switch navItem {
-            case .settings: self.navigationService.modal(fullScreenCover: .settings)
-            default: fatalError("Not Implemented")
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { navItem in
+                
+                switch navItem {
+                case .back: self.dismiss()
+                default: fatalError("Not Implemented")
+                }
+                
+            },
+            trailingNavButtons: [.settings]) { navItem in
+                
+                switch navItem {
+                case .settings: self.navigationService.modal(fullScreenCover: .settings)
+                default: fatalError("Not Implemented")
+                }
+                
             }
-            
-        }
-        .padding(.bottom, .custom(4))
-        .padding(.horizontal, .medium)
+            .padding(.bottom, .custom(4))
+            .padding(.horizontal, .medium)
         
     }
     

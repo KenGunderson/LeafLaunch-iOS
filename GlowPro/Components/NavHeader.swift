@@ -12,18 +12,24 @@ struct NavHeader: View {
     private let title: String
     private let subtitle: String
     private let avatar: AvatarView.AvatarStyle?
+    private let leadingNavButtons: [NavBarButton.Style]
+    private let leadingNavButtonsAction: ((NavBarButton.Style) -> ())?
     private let trailingNavButtons: [NavBarButton.Style]
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> ())?
     
     init(title: String,
          subtitle: String,
          avatar: AvatarView.AvatarStyle? = nil,
+         leadingNavButtons: [NavBarButton.Style] = [],
+         leadingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
          trailingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil) {
         
         self.title = title
         self.subtitle = subtitle
         self.avatar = avatar
+        self.leadingNavButtons = leadingNavButtons
+        self.leadingNavButtonsAction = leadingNavButtonsAction
         self.trailingNavButtons = trailingNavButtons
         self.trailingNavButtonsAction = trailingNavButtonsAction
         
@@ -33,9 +39,29 @@ struct NavHeader: View {
         
         HStack(spacing: Style.shared.spacing(.custom(10))) {
             
-            avatarView()
+            if !self.leadingNavButtons.isEmpty {
+                
+                navButtons(
+                    self.leadingNavButtons,
+                    action: self.leadingNavButtonsAction
+                )
+                
+            }
+            
+            if let avatar {
+                avatarView(avatar)
+            }
+            
             titleSubtitleView()
-            trailingNavButtonsView()
+            
+            if !self.trailingNavButtons.isEmpty {
+                
+                navButtons(
+                    self.trailingNavButtons,
+                    action: self.trailingNavButtonsAction
+                )
+                
+            }
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -43,17 +69,13 @@ struct NavHeader: View {
     }
     
     @ViewBuilder
-    private func avatarView() -> some View {
+    private func avatarView(_ avatar: AvatarView.AvatarStyle) -> some View {
         
-        if let avatar {
-            
-            AvatarView(
-                style: avatar,
-                backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.25))
-            )
-            .frame(width: 40, height: 40)
-            
-        }
+        AvatarView(
+            style: avatar,
+            backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.25))
+        )
+        .frame(width: 40, height: 40)
         
     }
     
@@ -76,14 +98,14 @@ struct NavHeader: View {
     }
     
     @ViewBuilder
-    private func trailingNavButtonsView() -> some View {
+    private func navButtons(_ buttons: [NavBarButton.Style], action: ((NavBarButton.Style) -> ())? = nil) -> some View {
         
         HStack {
             
-            ForEach(self.trailingNavButtons, id: \.self) { navStyle in
+            ForEach(buttons, id: \.self) { navStyle in
                 
                 NavBarButton(style: navStyle) {
-                    self.trailingNavButtonsAction?(navStyle)
+                    action?(navStyle)
                 }
                 
             }
@@ -111,6 +133,13 @@ struct NavHeader: View {
             ) { navItem in
                 print(navItem)
             }
+            
+            NavHeader(
+                title: "Good Morning, Sako",
+                subtitle: "Select where you're working today",
+                leadingNavButtons: [.back],
+                leadingNavButtonsAction: { _ in }
+            )
             
             NavHeader(
                 title: "Good Morning, Sako",
