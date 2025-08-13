@@ -17,12 +17,12 @@ struct OnboardingWelcomeScreen: GPView {
             
             Text("Welcome")
                 .appFont(with: .BILLBOARD_1)
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
             
             Text("Here is the home page where you can start looking for the help you might need")
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.body).source())
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
                 .multilineTextAlignment(.leading)
             
             RoundedRectangle(cornerRadius: 16)
@@ -30,7 +30,7 @@ struct OnboardingWelcomeScreen: GPView {
                 .frame(height: 250)
                 .padding(.top, .large)
                 .zIndex(-1)
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
             
             let text = """
             • Bananas are berries, botanically.
@@ -44,7 +44,7 @@ struct OnboardingWelcomeScreen: GPView {
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, .custom(60))
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
                 .multilineTextAlignment(.leading)
             
         }

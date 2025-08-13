@@ -15,7 +15,7 @@ struct DevUserDefaultsScreen: GPView {
     
     var body: some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             
             headerView()
             

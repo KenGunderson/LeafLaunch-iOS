@@ -24,7 +24,7 @@ struct DevSettingsScreen: GPView {
             alertService: self.viewModel.alertService
         ) {
            
-            AppHeaderScrollView {
+            AppHeaderScrollView(horizontalPadding: .medium) {
                 
                 navBarView()
                 

@@ -45,7 +45,7 @@ struct OnboardingFeaturesScreen: GPView {
 
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         .onAppear {
             
             withAnimation(.smooth(duration: 0.6, extraBounce: 0.2).delay(0.3)) {

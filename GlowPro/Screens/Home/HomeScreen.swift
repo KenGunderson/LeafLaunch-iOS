@@ -27,7 +27,7 @@ struct HomeScreen: GPView {
             ),
             alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
              
-                AppHeaderScrollView {
+                AppHeaderScrollView(horizontalPadding: .medium) {
                     
                     navBarView()
                     
@@ -75,7 +75,8 @@ struct HomeScreen: GPView {
             }
             
         }
-        .padding(.horizontal, .large)
+        .padding(.bottom, .custom(4))
+        .padding(.horizontal, .medium)
         
     }
     
@@ -97,6 +98,7 @@ struct HomeScreen: GPView {
             workspacesList()
             
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     

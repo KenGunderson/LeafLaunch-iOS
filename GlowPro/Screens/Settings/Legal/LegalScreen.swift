@@ -15,7 +15,7 @@ struct LegalScreen: View {
             
     var body: some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             headerView()
         } scrollViewContent: {
             content()

@@ -15,7 +15,7 @@ struct DevAnalyticsScreen: GPView {
     
     var body: some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             
             headerView()
                 .padding(.bottom, .extraSmall)

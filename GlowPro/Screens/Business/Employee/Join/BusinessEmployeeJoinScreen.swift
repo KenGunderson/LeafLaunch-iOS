@@ -88,7 +88,7 @@ struct BusinessEmployeeJoinScreen: GPView {
             .containerRelativeFrame(.vertical, { dimension, axis in
                 return dimension / 2
             })
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             
         }
         .frame(
@@ -113,7 +113,7 @@ struct BusinessEmployeeJoinScreen: GPView {
         ) {
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     

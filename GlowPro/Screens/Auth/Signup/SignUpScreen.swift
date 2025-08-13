@@ -28,7 +28,7 @@ struct SignUpScreen: GPView {
     
     var body: some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             headerView
         } scrollViewContent: {
             contentView
@@ -82,7 +82,7 @@ struct SignUpScreen: GPView {
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
@@ -135,7 +135,7 @@ struct SignUpScreen: GPView {
                 .padding(.vertical, .small)
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
 

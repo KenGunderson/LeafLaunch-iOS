@@ -99,7 +99,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
             businessGeneralInformation()
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
@@ -232,7 +232,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
                 
             }
             .padding(.top, .small)
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             .transition(.move(edge: .bottom)
                 .combined(with: .opacity)
                 .animation(.smooth(duration: 0.3))

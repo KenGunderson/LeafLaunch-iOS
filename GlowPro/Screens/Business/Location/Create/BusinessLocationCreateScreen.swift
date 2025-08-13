@@ -110,7 +110,7 @@ struct BusinessLocationCreateScreen: GPView {
             businessAddress()
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
@@ -279,7 +279,7 @@ struct BusinessLocationCreateScreen: GPView {
                 
             }
             .padding(.top, .small)
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             .transition(.move(edge: .bottom)
                 .combined(with: .opacity)
                 .animation(.smooth(duration: 0.3))

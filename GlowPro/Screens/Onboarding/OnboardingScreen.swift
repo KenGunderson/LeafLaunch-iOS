@@ -40,7 +40,7 @@ struct OnboardingScreen: View {
         .safeAreaInset(edge: .bottom) {
             
             self.bottomButtonView
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
             
         }
         .onFirstAppear {

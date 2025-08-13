@@ -19,13 +19,13 @@ struct OnboardingPermissionsScreen: GPView {
             Text("Access")
                 .appFont(with: .BILLBOARD_1)
                 .minimumScaleFactor(0.50)
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
             
             Text("This allows us to give you a better experience.")
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .multilineTextAlignment(.leading)
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
@@ -65,7 +65,7 @@ struct OnboardingPermissionsScreen: GPView {
                 
             }
             .padding(.top, .extraLarge)
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             
         }
         .frame(maxHeight: .infinity, alignment: .top)

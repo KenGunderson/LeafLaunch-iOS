@@ -117,7 +117,7 @@ struct PendingInviteView: View {
             }
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     

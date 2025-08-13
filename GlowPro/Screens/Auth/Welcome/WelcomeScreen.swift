@@ -63,7 +63,7 @@ struct WelcomeScreen: GPView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.top, .extraLarge)
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     

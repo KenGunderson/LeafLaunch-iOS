@@ -146,7 +146,7 @@ struct BusinessLocationStackView: View {
                 print(location)
                 
             }
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             
             BusinessLocationStackView(
                 businessName: business2.name,
@@ -157,7 +157,7 @@ struct BusinessLocationStackView: View {
                 print(location)
                 
             }
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             
         }
         

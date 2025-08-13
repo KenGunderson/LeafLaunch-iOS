@@ -166,8 +166,8 @@ struct RootScreen: GPView {
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, Style.shared.spacing(.large))
-        .padding(.bottom, Style.shared.spacing(.medium))
+        .padding(.horizontal, .medium)
+        .padding(.bottom, .medium)
         .foregroundStyle(.white)
         .transition(.move(edge: .top))
         

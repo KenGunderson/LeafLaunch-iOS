@@ -102,7 +102,7 @@ struct BusinessEmployeeInviteScreen: GPView {
             businessGeneralInformation()
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
@@ -257,7 +257,7 @@ struct BusinessEmployeeInviteScreen: GPView {
                 
             }
             .padding(.top, .small)
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             .transition(.move(edge: .bottom)
                 .combined(with: .opacity)
                 .animation(.smooth(duration: 0.3))

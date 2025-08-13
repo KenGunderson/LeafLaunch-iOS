@@ -110,7 +110,7 @@ struct ClientDetailsScreen: GPView {
                 .asButton {
                     dismiss()
                 }
-                .padding(.horizontal, .large)
+                .padding(.horizontal, .medium)
                 .transition(.move(edge: .bottom))
                 
                 actionItems()
@@ -145,7 +145,7 @@ struct ClientDetailsScreen: GPView {
             }
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
@@ -214,7 +214,7 @@ struct ClientDetailsScreen: GPView {
         ActivitiesView(
             activities: self.viewModel.selectedActivitiesFilter == nil ? activities : activities.suffix(3)
         )
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         .animation(.spring, value: self.viewModel.selectedActivitiesFilter)
         
     }

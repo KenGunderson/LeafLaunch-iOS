@@ -41,7 +41,7 @@ struct WhatsNewScreen: GPView {
                 dismiss()
                 
             }
-            .padding(.horizontal, .large)
+            .padding(.horizontal, .medium)
             
         }
         
@@ -120,7 +120,7 @@ struct WhatsNewScreen: GPView {
             }
             
         }
-        .padding(.horizontal, .large)
+        .padding(.horizontal, .medium)
         
     }
     
