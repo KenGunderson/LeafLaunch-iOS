@@ -9,13 +9,13 @@ import SwiftUI
 
 struct NavBarButton: View {
     
-    enum Style {
+    enum Style: Hashable {
         
         case back
         case close
         case settings
         case plus
-        case bell
+        case bell(notificationCount: Int = 0)
         
         var systemName: String {
             switch self {
@@ -49,6 +49,25 @@ struct NavBarButton: View {
             .asButton {
                 action()
             }
+            .overlay(alignment: .topTrailing) {
+                
+                switch self.style {
+                case .bell(let notificationCount):
+                    
+                    Text("\(notificationCount)")
+                        .appFont(with: .custom(.rounded(size: 8, weight: .semibold)))
+                        .frame(minWidth: 14, minHeight: 14, alignment: .center)
+                        .foregroundStyle(.white)
+                        .background(Rune.Style.shared.accent.source())
+                        .clipShape(.circle)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .offset(x: 4, y: -8)
+                        
+                    
+                default: EmptyView()
+                }
+                
+            }
         
     }
     
@@ -62,6 +81,7 @@ struct NavBarButton: View {
         NavBarButton(style: .close, action: {})
         NavBarButton(style: .settings, action: {})
         NavBarButton(style: .plus, action: {})
+        NavBarButton(style: .bell(notificationCount: 2), action: {})
         
     }
     

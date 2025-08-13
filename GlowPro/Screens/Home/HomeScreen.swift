@@ -58,26 +58,24 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let rightButtons = HStack {
+        NavHeader(
+            title: "Good Morning, Sako",
+            subtitle: "Select where you're working today",
+            avatar: .initials(name: "Sako Hovaguimian"),
+            trailingNavButtons: [
+                .bell(notificationCount: 2),
+                .settings
+            ]
+        ) { navItem in
             
-            NavBarButton(style: .bell) {
-            }
-            
-            NavBarButton(style: .settings) {
-                
-                self.navigationService
-                    .modal(fullScreenCover: .settings)
-                
+            switch navItem {
+            case .bell: print("Alert Tapped")
+            case .settings: self.navigationService.modal(fullScreenCover: .settings)
+            default: fatalError("Not Implemented")
             }
             
         }
-        .padding(.trailing, .small)
-        .asAnyView()
-        
-        NavBarView(
-            title: "GlowPro",
-            rightButtonView: rightButtons
-        )
+        .padding(.horizontal, .large)
         
     }
     

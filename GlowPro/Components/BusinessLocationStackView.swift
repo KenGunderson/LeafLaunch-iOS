@@ -49,7 +49,7 @@ struct BusinessLocationStackView: View {
                 .stroke(self.backgroundColor, lineWidth: 1)
             
         }
-        .asButton(scale: 0.99) {
+        .asButton {
             self.selectedLocationAction(self.businessLocation)
         }
         

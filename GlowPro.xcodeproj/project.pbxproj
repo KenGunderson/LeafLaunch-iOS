@@ -282,6 +282,8 @@
 		75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */; };
 		75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046522E37BE7300D5EFCD /* APIService+System.swift */; };
 		75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046522E37BE7300D5EFCD /* APIService+System.swift */; };
+		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
+		75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
 		75A69EF92E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
 		75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
 		75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
@@ -603,6 +605,7 @@
 		75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewModel.swift; sourceTree = "<group>"; };
 		75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalItem.swift; sourceTree = "<group>"; };
 		75A046522E37BE7300D5EFCD /* APIService+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+System.swift"; sourceTree = "<group>"; };
+		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinViewModel.swift; sourceTree = "<group>"; };
 		75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinScreen.swift; sourceTree = "<group>"; };
 		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
@@ -1477,6 +1480,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75A1092F2E4CE12400C25BE2 /* NavHeader.swift */,
 				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */,
@@ -1968,6 +1972,7 @@
 				7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				751970142E3D021D007FB142 /* HomeScreen.swift in Sources */,
+				75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
@@ -2177,6 +2182,7 @@
 				7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				751970152E3D021D007FB142 /* HomeScreen.swift in Sources */,
+				75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
