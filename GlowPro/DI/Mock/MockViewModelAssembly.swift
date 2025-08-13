@@ -169,6 +169,20 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Business Home
+        
+        container
+            .register(BusinessHomeViewModel.self) { r in
+                BusinessHomeViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Business Details
         
         container
@@ -204,6 +218,20 @@ class MockViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
+        // Business Location Home
+        
+        container
+            .register(BusinessLocationHomeViewModel.self) { r in
+                BusinessLocationHomeViewModel(
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

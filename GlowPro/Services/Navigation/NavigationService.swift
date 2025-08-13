@@ -214,6 +214,14 @@ extension View {
         func business(route: Route.Business) -> some View {
             
             switch route {
+            case .businessHome(let businessId):
+                
+                let viewModel = globalResolver.resolve(BusinessHomeViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                BusinessHomeScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .businessDetails(let businessId): Text(businessId)
             case .businessEditDetails(let businessId):
                 
@@ -267,6 +275,14 @@ extension View {
                     )
                 
                 BusinessEmployeeDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .businessLocationHome(let locationId):
+                
+                let viewModel = globalResolver.resolve(BusinessLocationHomeViewModel.self)!
+                    .setup(locationId: locationId)
+                
+                BusinessLocationHomeScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .businessLocations(let businessId):

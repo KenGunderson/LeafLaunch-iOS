@@ -2,9 +2,6 @@
 - Update TabBar Icons to Figma Ones
 - Add Other Colors In Figma To GPColor
 
-[NavBar]
-- Make new NavBar component for project use only
-
 [Invitation]
 - Add endpoint call to submit
 - Update copy on success to reflect figma
@@ -12,17 +9,12 @@
 
 [Home]
 - Add Pending Invites
-- NavBar Component
 
 [Location Home]
-- Create
 - Make Endpoint
-- NavBar Component
 
 [Business Home]
-- Create
 - Make Endpoint
-- NavBar Component
 - Add new location
 - Add employees
 - Pending Invites

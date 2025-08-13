@@ -234,6 +234,14 @@
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
+		7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */; };
+		7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */; };
+		7560F8A42E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */; };
+		7560F8A52E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */; };
+		7560F8A82E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */; };
+		7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
+		7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */; };
+		7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
 		75715ACE2DB9365500E7994E /* ClientDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* ClientDetailsScreen.swift */; };
 		75715AD02DB9365F00E7994E /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientDetailsViewModel.swift */; };
 		75715AD52DB9366E00E7994E /* Tab2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD22DB9366E00E7994E /* Tab2ViewModel.swift */; };
@@ -577,6 +585,10 @@
 		755C97F92D9CC86A00437D5D /* GlowProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GlowProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7560ACD82E2835ED00A30E55 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
+		7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeViewModel.swift; sourceTree = "<group>"; };
+		7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeScreen.swift; sourceTree = "<group>"; };
+		7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeViewModel.swift; sourceTree = "<group>"; };
+		7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeScreen.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* ClientDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsScreen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* ClientDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsViewModel.swift; sourceTree = "<group>"; };
 		75715AD22DB9366E00E7994E /* Tab2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2ViewModel.swift; sourceTree = "<group>"; };
@@ -1374,6 +1386,24 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		7560F89D2E4D38E1002BA9D6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */,
+				7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7560F89E2E4D38E5002BA9D6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */,
+				7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		75715ACC2DB9364800E7994E /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1543,6 +1573,7 @@
 		75ACAA3B2E18C79000401EC8 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				7560F89E2E4D38E5002BA9D6 /* Home */,
 				758C3CDB2E14AF7900BC1A43 /* List */,
 				75CD6B642E20C0F7004A1720 /* Create */,
 				75795D262E17318C008BD44A /* Details */,
@@ -1553,6 +1584,7 @@
 		75ACAA3C2E18C7A100401EC8 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				7560F89D2E4D38E1002BA9D6 /* Home */,
 				751F95452E0B951A001CAF72 /* Edit */,
 			);
 			path = Business;
@@ -1994,9 +2026,12 @@
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */,
+				7560F8A42E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */,
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
+				7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
+				7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
@@ -2006,6 +2041,7 @@
 				750B85EC2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
 				75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -2204,9 +2240,12 @@
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */,
+				7560F8A52E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */,
 				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
+				7560F8A82E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
+				7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
@@ -2216,6 +2255,7 @@
 				750B85ED2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
 				75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
+				7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,

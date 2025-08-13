@@ -87,10 +87,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
     
     enum BusinessScreen {
         
+        case businessHome(businessId: String)
         case businessDetails(businessId: String)
         case businessEditDetails(businessId: String)
         case businessLocations(businessId: String)
         case businessLocationCreate(businessId: String)
+        case businessLocationHome(locationId: String)
         case businessLocationDetails(businessId: String, locationId: String)
         case businessEmployees(businessId: String)
         case businessEmployeeInvite(businessId: String)
@@ -104,10 +106,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
             var name: String
             
             switch self {
+            case .businessHome: name = "business_home"
             case .businessDetails: name = "business_details"
             case .businessEditDetails: name = "business_edit_details"
             case .businessLocations: name = "business_locations"
             case .businessLocationCreate: name = "business_location_create"
+            case .businessLocationHome: name = "business_location_home"
             case .businessLocationDetails: name = "business_location_details"
             case .businessEmployees: name = "business_employees"
             case .businessEmployeeInvite: name = "business_employee_invite"
@@ -124,10 +128,12 @@ indirect enum ScreenEvent: AnalyticsEvent {
         var properties: [String: Any]? {
             
             switch self {
+            case .businessHome(let businessId): return ["business_id": businessId]
             case .businessDetails(let businessId): return ["business_id": businessId]
             case .businessEditDetails(let businessId): return ["business_id": businessId]
             case .businessLocations(let businessId): return ["business_id": businessId]
             case .businessLocationCreate(let businessId): return ["business_id": businessId]
+            case .businessLocationHome(let locationId): return ["location_id": locationId]
             case .businessLocationDetails(let businessId, let locationId):
                 
                 return [

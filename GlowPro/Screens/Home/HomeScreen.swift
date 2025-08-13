@@ -94,6 +94,24 @@ struct HomeScreen: GPView {
                 
             }
             
+            InfoView(
+                title: "Business Home",
+                titleFont: .TITLE_4,
+                imageSource: .systemImage("bell.fill"),
+                foregroundStyle: .color(.indigo)
+            ) {
+                self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
+            }
+            
+            InfoView(
+                title: "Location Home",
+                titleFont: .TITLE_4,
+                imageSource: .systemImage("bell.fill"),
+                foregroundStyle: .color(.orange)
+            ) {
+                self.navigationService.push(.business(.businessLocationHome(locationId: MockModels.ID.location1)))
+            }
+            
             section(title: "Choose Your Workspace")
             workspacesList()
             
