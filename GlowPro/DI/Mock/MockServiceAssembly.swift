@@ -106,6 +106,7 @@ final class MockAPIService: APIServiceProtocol {
     private var locations: [Location]
     private var employees: [Employee]
     private var clients: [Client]
+    private var workspaces: [Workspace] = []
     
     init() {
         
@@ -113,6 +114,7 @@ final class MockAPIService: APIServiceProtocol {
         self.locations = MockModels.allLocations
         self.employees = MockModels.allEmployees
         self.clients = MockModels.allClients
+        self.workspaces = MockModels.allWorkspaces
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -186,6 +188,12 @@ final class MockAPIService: APIServiceProtocol {
         return self.locations.removeAll { $0.id == id }
     }
     
+    // Workspaces
+    
+    func getWorkspaces() async throws -> [Workspace] {
+        return self.workspaces
+    }
+    
     // Employees
     
     func getEmployees(businessId: String) async throws -> [Employee] {
@@ -213,6 +221,13 @@ final class MockAPIService: APIServiceProtocol {
         }
         
         return []
+        
+    }
+    
+    func getPendingInvitesForUser() async throws -> [EmployeeInvite] {
+        
+        let allEmployeeInvites: [EmployeeInvite] = self.businesses.flatMap(\.employeeInvites)
+        return allEmployeeInvites.filter { $0.name == currentUser.name }
         
     }
     

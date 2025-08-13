@@ -125,6 +125,7 @@ class MockViewModelAssembly: Assembly {
             .register(HomeViewModel.self) { r in
                 HomeViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,

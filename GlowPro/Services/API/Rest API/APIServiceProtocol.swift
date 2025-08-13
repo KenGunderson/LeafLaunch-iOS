@@ -52,6 +52,9 @@ protocol APIServiceProtocol: APIProtocol {
     func getLocation(id: String) async throws -> Location
     func deleteLocation(id: String) async throws
     
+    // Workspaces
+    
+    func getWorkspaces() async throws -> [Workspace]
 
     // Employees
     
@@ -63,7 +66,7 @@ protocol APIServiceProtocol: APIProtocol {
     // Employee Invites
     
     func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite]
-    
+    func getPendingInvitesForUser() async throws -> [EmployeeInvite]
 
     // Clients
     

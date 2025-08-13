@@ -46,6 +46,9 @@ struct HomeScreen: GPView {
                     self.viewModel
                         .setup(navigationService: self.navigationService)
                     
+                    self.viewModel
+                        .loadData()
+                    
                 }
                 
             }
@@ -55,17 +58,25 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let settingsButton = NavBarButton(style: .settings) {
-         
-            self.navigationService
-                .modal(fullScreenCover: .settings)
+        let rightButtons = HStack {
+            
+            NavBarButton(style: .bell) {
+            }
+            
+            NavBarButton(style: .settings) {
+                
+                self.navigationService
+                    .modal(fullScreenCover: .settings)
+                
+            }
             
         }
+        .padding(.trailing, .small)
         .asAnyView()
         
         NavBarView(
             title: "GlowPro",
-            rightButtonView: settingsButton
+            rightButtonView: rightButtons
         )
         
     }
@@ -73,118 +84,178 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: 24) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
-            if let currentUser = self.viewModel.currentUser {
-                
-                VStack(spacing: 8) {
-                    
-                    Text(currentUser.email + " (Logged in)")
-                    Text(currentUser.name + " (Joined App)")
-                    
-                }
-                .transition(.move(edge: .bottom).combined(with: .opacity).combined(with: .scale))
+            InfoView(
+                title: "You Have Pending Invites",
+                titleFont: .TITLE_4,
+                imageSource: .systemImage("bell.fill"),
+                foregroundStyle: Style.shared.accent
+            ) {
                 
             }
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            section(title: "Choose Your Workspace")
+            workspacesList()
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func section(title: String) -> some View {
+     
+        VStack(alignment: .leading) {
+            
+            Text(title)
+                .appFont(with: .TITLE_5)
+            
+            Divider()
+                .background(Style.shared.background(.border).source())
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func workspacesList() -> some View {
+        
+        ForEach(self.viewModel.workspaces, id: \.id) { workspace in
+            
+            ForEach(workspace.locations, id: \.id) { location in
                 
-                // Business
-                
-                CommonButton(title: "Business Edit Details",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessEditDetails(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Locations",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessLocations(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Create Locations",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessLocationCreate(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Employees",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessEmployees(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Invite Employees",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessEmployeesInvite(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Invited List",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessEmployeeInviteList(businessId: MockModels.ID.business1)))
-                    
-                }
-                
-                CommonButton(title: "Business Update Employees",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.business(.businessEmployeesUpdate(
-                            businessId: MockModels.ID.business1,
-                            employeeId: MockModels.ID.employee1
-                        )))
-                    
-                }
-                
-                CommonButton(title: "Business Employee Join",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .modal(sheet: .businessEmployeeJoin)
-                    
-                }
-                
-                // Client
-                
-                CommonButton(title: "Client List",
-                             titleColor: Style.shared.textColor(.button)) {
-                    
-                    self.navigationService
-                        .push(.clientList)
-                    
-                }
-                
-                // Onboarding
-                
-                CommonButton(style: .outline(lineWidth: 5),
-                             title: "Onboarding",
-                             titleColor: Style.shared.accent) {
-                    
-                    self.navigationService
-                        .modal(fullScreenCover: .onboarding)
-                    
+                BusinessLocationStackView(
+                    businessName: workspace.name,
+                    businessLocation: location,
+                    isOwner: workspace.isOwner
+                ) { selectedLocation in
+                    print(selectedLocation)
                 }
                 
             }
             
         }
-        .frame(maxWidth: .infinity)
-        .animation(.smooth(duration: 0.4), value: self.viewModel.currentUser)
         
     }
     
 }
+
+#Preview {
+    
+    let viewModel = mockResolve(HomeViewModel.self)
+    
+    HomeScreen(viewModel: viewModel)
+        .withMockServices()
+    
+}
+
+
+//if let currentUser = self.viewModel.currentUser {
+//    
+//    VStack(spacing: 8) {
+//        
+//        Text(currentUser.email + " (Logged in)")
+//        Text(currentUser.name + " (Joined App)")
+//        
+//    }
+//    .transition(.move(edge: .bottom).combined(with: .opacity).combined(with: .scale))
+//    
+//}
+//
+//VStack(spacing: Style.shared.spacing(.medium)) {
+//    
+//    // Business
+//    
+//    CommonButton(title: "Business Edit Details",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessEditDetails(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Locations",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessLocations(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Create Locations",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessLocationCreate(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Employees",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessEmployees(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Invite Employees",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessEmployeesInvite(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Invited List",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessEmployeeInviteList(businessId: MockModels.ID.business1)))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Update Employees",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.business(.businessEmployeesUpdate(
+//                businessId: MockModels.ID.business1,
+//                employeeId: MockModels.ID.employee1
+//            )))
+//        
+//    }
+//    
+//    CommonButton(title: "Business Employee Join",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .modal(sheet: .businessEmployeeJoin)
+//        
+//    }
+//    
+//    // Client
+//    
+//    CommonButton(title: "Client List",
+//                 titleColor: Style.shared.textColor(.button)) {
+//        
+//        self.navigationService
+//            .push(.clientList)
+//        
+//    }
+//    
+//    // Onboarding
+//    
+//    CommonButton(style: .outline(lineWidth: 5),
+//                 title: "Onboarding",
+//                 titleColor: Style.shared.accent) {
+//        
+//        self.navigationService
+//            .modal(fullScreenCover: .onboarding)
+//        
+//    }
+//    
+//}
+//
+//}
+//.frame(maxWidth: .infinity)
+//.animation(.smooth(duration: 0.4), value: self.viewModel.currentUser)

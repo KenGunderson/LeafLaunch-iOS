@@ -13,6 +13,7 @@ final class HomeViewModel: ViewModel {
     internal let loggerEmoji: String = "🏡"
     
     private let authService: AuthServiceProtocol
+    private let apiService: APIServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private(set) var alertService: AlertServiceProtocol
@@ -22,14 +23,18 @@ final class HomeViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published private(set) var currentUser: GPUser?
+    @Published private(set) var pendingInvites: [EmployeeInvite] = []
+    @Published private(set) var workspaces: [Workspace] = []
     
     init(authService: AuthServiceProtocol,
+         apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
+        self.apiService = apiService
         self.analyticsService = analyticsService
         self.alertService = alertService
         self.activeDestinationService = activeDestinationService
@@ -59,6 +64,45 @@ final class HomeViewModel: ViewModel {
                 self?.currentUser = user
             }
             .store(in: &self.cancelBag)
+        
+    }
+    
+    func loadData() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let workspaces = try await self.apiService.getWorkspaces()
+                let pendingInvites = try await self.apiService.getPendingInvitesForUser()
+                
+                await MainActor.run { [weak self] in
+
+                    self?.workspaces = workspaces
+                    self?.pendingInvites = pendingInvites
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your information. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     

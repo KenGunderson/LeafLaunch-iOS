@@ -29,6 +29,10 @@ struct MockModels {
         return [MockEmployeeInvite.employeeInvite1, MockEmployeeInvite.employeeInvite2]
     }
     
+    static var allWorkspaces: [Workspace] {
+        return [MockWorkspace.workspace1, MockWorkspace.workspace2]
+    }
+    
     static var allClients: [Client] {
         
         return [
@@ -334,6 +338,30 @@ struct MockModels {
             imageURL: nil,
             employee: MockEmployee.employee1
         )
+        
+    }
+    
+    struct MockWorkspace {
+        
+        nonisolated(unsafe)
+        static var workspace1: Workspace {
+            Workspace(
+                id: ID.business1,
+                name: MockModels.MockBusiness.business1.name,
+                isOwner: MockModels.MockBusiness.business1.owner.id == ID.user1,
+                locations: MockModels.MockBusiness.business1.locations
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var workspace2: Workspace {
+            Workspace(
+                id: ID.business2,
+                name: MockModels.MockBusiness.business2.name,
+                isOwner: MockModels.MockBusiness.business2.owner.id == ID.user1,
+                locations: MockModels.MockBusiness.business2.locations
+            )
+        }
         
     }
     

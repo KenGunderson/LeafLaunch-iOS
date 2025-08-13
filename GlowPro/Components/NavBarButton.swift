@@ -15,6 +15,7 @@ struct NavBarButton: View {
         case close
         case settings
         case plus
+        case bell
         
         var systemName: String {
             switch self {
@@ -22,6 +23,7 @@ struct NavBarButton: View {
             case .close: return "xmark"
             case .settings: return "gear"
             case .plus: return "plus"
+            case .bell: return "bell"
             }
         }
         
@@ -40,15 +42,26 @@ struct NavBarButton: View {
     
     var body: some View {
         
-        CircularIconView(
-            foregroundColor: .color(.black),
-            backgroundColor: .color(.clear),
-            imageSource: .systemImage(self.style.systemName),
-            size: 32
-        )
-        .asButton {
-            action()
-        }
+        Image(systemName: self.style.systemName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 18, height: 18)
+            .asButton {
+                action()
+            }
+        
+    }
+    
+}
+
+#Preview {
+    
+    VStack {
+        
+        NavBarButton(style: .back, action: {})
+        NavBarButton(style: .close, action: {})
+        NavBarButton(style: .settings, action: {})
+        NavBarButton(style: .plus, action: {})
         
     }
     

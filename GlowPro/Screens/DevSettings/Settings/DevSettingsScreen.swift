@@ -65,6 +65,7 @@ struct DevSettingsScreen: GPView {
         let closeButton = NavBarButton(style: .close) {
             self.viewModel.dismiss()
         }
+        .padding(.trailing, .small)
         .asAnyView()
         
         NavBarView(

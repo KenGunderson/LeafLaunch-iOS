@@ -9,7 +9,8 @@ import SwiftUI
 
 struct BusinessLocationStackView: View {
     
-    private let business: Business
+    private let businessName: String
+    private let businessLocation: Location
     private let isOwner: Bool
     private let selectedLocationAction: (Location) -> ()
     
@@ -19,11 +20,13 @@ struct BusinessLocationStackView: View {
         return self.isOwner ? GPColor.lightOrange : GPColor.lightPurple
     }
     
-    init(business: Business,
+    init(businessName: String,
+         businessLocation: Location,
          isOwner: Bool,
          selectedLocationAction: @escaping (Location) -> ()) {
         
-        self.business = business
+        self.businessName = businessName
+        self.businessLocation = businessLocation
         self.isOwner = isOwner
         self.selectedLocationAction = selectedLocationAction
         
@@ -46,6 +49,9 @@ struct BusinessLocationStackView: View {
                 .stroke(self.backgroundColor, lineWidth: 1)
             
         }
+        .asButton(scale: 0.99) {
+            self.selectedLocationAction(self.businessLocation)
+        }
         
     }
     
@@ -57,7 +63,7 @@ struct BusinessLocationStackView: View {
         
         return HStack {
             
-            Text(self.business.name)
+            Text(self.businessName)
                 .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
@@ -86,9 +92,7 @@ struct BusinessLocationStackView: View {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            ForEach(self.business.locations, id: \.id) { location in
-                locationLineItem(location)
-            }
+            locationLineItem(self.businessLocation)
             
         }
         .padding(.medium)
@@ -119,9 +123,6 @@ struct BusinessLocationStackView: View {
             
         }
         .foregroundStyle(Style.shared.textColor(.body).source())
-        .asButton(scale: 0.99) {
-            self.selectedLocationAction(location)
-        }
         
     }
     
@@ -137,7 +138,8 @@ struct BusinessLocationStackView: View {
         VStack(spacing: Style.shared.spacing(.extraLarge)) {
             
             BusinessLocationStackView(
-                business: business,
+                businessName: business.name,
+                businessLocation: business.locations.first!,
                 isOwner: true
             ) { location in
                 
@@ -147,7 +149,8 @@ struct BusinessLocationStackView: View {
             .padding(.horizontal, .large)
             
             BusinessLocationStackView(
-                business: business2,
+                businessName: business2.name,
+                businessLocation: business2.locations.first!,
                 isOwner: false
             ) { location in
                 

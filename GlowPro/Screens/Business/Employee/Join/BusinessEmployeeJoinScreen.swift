@@ -61,6 +61,7 @@ struct BusinessEmployeeJoinScreen: GPView {
         let closeButton = NavBarButton(style: .close) {
             dismiss()
         }
+        .padding(.trailing, .small)
         .asAnyView()
         
         return NavBarView(

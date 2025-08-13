@@ -26,4 +26,23 @@ extension APIService {
         
     }
     
+    func getPendingInvitesForUser() async throws -> [EmployeeInvite] {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .employee(""))
+            )
+            
+            let result: [EmployeeInvite] = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }
