@@ -63,13 +63,13 @@ struct HomeScreen: GPView {
             subtitle: "Select where you're working today",
             avatar: .initials(name: "Sako Hovaguimian"),
             trailingNavButtons: [
-                .bell(notificationCount: 2),
+                .bell(notificationCount: self.viewModel.pendingInvites.count),
                 .settings
             ]
         ) { navItem in
             
             switch navItem {
-            case .bell: print("Alert Tapped")
+            case .bell: self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
             case .settings: self.navigationService.modal(fullScreenCover: .settings)
             default: fatalError("Not Implemented")
             }
@@ -91,7 +91,7 @@ struct HomeScreen: GPView {
                 imageSource: .systemImage("bell.fill"),
                 foregroundStyle: Style.shared.accent
             ) {
-                
+                self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
             }
             
             InfoView(

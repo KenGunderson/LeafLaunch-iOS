@@ -202,7 +202,7 @@ struct MockModels {
         nonisolated(unsafe)
         static var employeeInvite1 = EmployeeInvite(
             id: ID.employeeInvite1,
-            name: "Naruto Uzamaki",
+            name: "Sako Hovaguimian",
             email: "naruto@me.com",
             businessName: "Mock Business 1"
         )

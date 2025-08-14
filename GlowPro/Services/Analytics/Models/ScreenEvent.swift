@@ -96,7 +96,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case businessLocationDetails(businessId: String, locationId: String)
         case businessEmployees(businessId: String)
         case businessEmployeeInvite(businessId: String)
-        case businessEmployeeInviteList(businessId: String)
+        case businessEmployeeInviteList(context: BusinessEmployeeInviteListViewModel.Context)
         case businessEmployeeJoin
         case businessEmployeeUpdate(businessId: String, employeeId: String)
         case businessEmployeeDetails(businessId: String, employeeId: String)

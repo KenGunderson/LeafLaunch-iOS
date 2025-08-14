@@ -9,7 +9,14 @@ import Foundation
 
 final class BusinessEmployeeInviteListViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_EMPLOYEES_INVITE_LIST_VIEW_MODEL"
+    enum Context: Hashable {
+
+        case personal
+        case business(businessId: String)
+        
+    }
+    
+    internal let loggerName: String = "EMPLOYEE_INVITE_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
     private let apiService: APIServiceProtocol
@@ -20,7 +27,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     
     @Published private(set) var employeeInvites: [EmployeeInvite] = []
     
-    private var businessId: String!
+    private var context: Context!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -46,19 +53,10 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(context: Context) -> Self {
         
-        self.businessId = businessId
+        self.context = context
         return self
-        
-    }
-    
-    func selectEmployee(_ employee: Employee) {
-        
-        navigate(to: .business(.businessEmployeeDetails(
-            businessId: self.businessId,
-            employeeId: employee.id)
-        ))
         
     }
     
@@ -75,11 +73,24 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
             
             do {
                 
-                let employeeInvites = try await self.apiService
-                    .getEmployeeInvites(businessId: self.businessId)
+                var employeeInvites: [EmployeeInvite] = []
                 
-                await MainActor.run { [weak self] in
-                    self?.employeeInvites = employeeInvites
+                switch context {
+                case .personal:
+                    
+                    employeeInvites = try await self.apiService
+                        .getPendingInvitesForUser()
+                    
+                case .business(let businessId):
+                    
+                    employeeInvites = try await self.apiService
+                        .getEmployeeInvites(businessId: businessId)
+                
+                default: break
+                }
+                
+                await MainActor.run { [employeeInvites] in
+                    self.employeeInvites = employeeInvites
                 }
                 
             }
@@ -126,7 +137,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
 extension BusinessEmployeeInviteListViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .business(.businessEmployeeInviteList(businessId: self.businessId)))
+        self.analyticsService.track(screen: .business(.businessEmployeeInviteList(context: self.context)))
     }
     
 }

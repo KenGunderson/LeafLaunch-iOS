@@ -54,20 +54,42 @@ struct NavBarButton: View {
                 switch self.style {
                 case .bell(let notificationCount):
                     
-                    Text("\(notificationCount)")
-                        .appFont(with: .custom(.rounded(size: 8, weight: .semibold)))
-                        .frame(minWidth: 14, minHeight: 14, alignment: .center)
-                        .foregroundStyle(.white)
-                        .background(Rune.Style.shared.accent.source())
-                        .clipShape(.circle)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .offset(x: 4, y: -8)
-                        
+                    if notificationCount > 0 {
+                        badge(count: notificationCount)
+                    }
                     
                 default: EmptyView()
                 }
                 
             }
+        
+    }
+    
+    private func badge(count: Int) -> some View {
+        
+        let digitCount = max(1, String(count).count)
+        
+        return Text("\(count)")
+            .appFont(with: .custom(.rounded(size: 8, weight: .semibold)))
+            .padding(.horizontal, horizontalPadding(for: digitCount))
+            .padding(.vertical, 2)
+            .foregroundStyle(.white)
+            .lineLimit(1)
+            .background(Rune.Style.shared.accent.source())
+            .clipShape(.capsule)
+            .offset(x: 4, y: -6)
+            .fixedSize(horizontal: true, vertical: false)
+        
+    }
+    
+    private func horizontalPadding(for digits: Int) -> CGFloat {
+        
+        // 1 digit ≈ circle, extra digits add more width
+        switch digits {
+        case 1: return 4
+        case 2: return 4
+        default: return CGFloat(4 + (digits - 2) * 2)
+        }
         
     }
     
