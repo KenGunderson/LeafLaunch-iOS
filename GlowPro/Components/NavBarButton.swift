@@ -42,10 +42,14 @@ struct NavBarButton: View {
     
     var body: some View {
         
+        let isClose = (self.style == .close)
+        let frame: CGFloat = isClose ? 16 : 20
+        
         Image(systemName: self.style.systemName)
             .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 24, height: 24)
+            .scaledToFit()
+            .frame(width: frame, height: frame)
+            .padding(4)
             .foregroundStyle(Rune.Style.shared.textColor(.title).source())
             .asButton {
                 action()
@@ -71,14 +75,14 @@ struct NavBarButton: View {
         let digitCount = max(1, String(count).count)
         
         return Text("\(count)")
-            .appFont(with: .custom(.rounded(size: 8, weight: .semibold)))
+            .appFont(with: .custom(.rounded(size: 10, weight: .semibold)))
             .padding(.horizontal, horizontalPadding(for: digitCount))
-            .padding(.vertical, 2)
+            .padding(.vertical, 1.3)
             .foregroundStyle(.white)
             .lineLimit(1)
             .background(Rune.Style.shared.accent.source())
-            .clipShape(.capsule)
-            .offset(x: 4, y: -6)
+            .cornerRadius(.custom(99))
+            .offset(x: 0, y: -3.5)
             .fixedSize(horizontal: true, vertical: false)
         
     }
@@ -104,7 +108,8 @@ struct NavBarButton: View {
         NavBarButton(style: .close, action: {})
         NavBarButton(style: .settings, action: {})
         NavBarButton(style: .plus, action: {})
-        NavBarButton(style: .bell(notificationCount: 2), action: {})
+        NavBarButton(style: .bell(notificationCount: 6), action: {})
+        NavBarButton(style: .bell(notificationCount: 65), action: {})
         
     }
     

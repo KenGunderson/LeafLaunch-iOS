@@ -100,7 +100,7 @@ struct NavHeader: View {
     @ViewBuilder
     private func navButtons(_ buttons: [NavBarButton.Style], action: ((NavBarButton.Style) -> ())? = nil) -> some View {
         
-        HStack {
+        HStack(spacing: Style.shared.spacing(.extraSmall)) {
             
             ForEach(buttons, id: \.self) { navStyle in
                 

@@ -43,7 +43,7 @@ public struct FAQItemView: View {
             HStack {
                 
                 Text(self.question)
-                    .appFont(with: .TITLE_3)
+                    .appFont(with: .TITLE_5)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
                 Spacer(minLength: 0)
@@ -92,7 +92,7 @@ public struct FAQItemView: View {
     
     AppBaseView {
         
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             
             FAQItemView(question: question, answer: answer)
             FAQItemView(question: question, answer: answer)
