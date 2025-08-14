@@ -97,7 +97,7 @@ struct FAQScreen: GPView {
             
             Text(item.title)
                 .appFont(with: .TITLE_6)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(Style.shared.accent.source())
             
             VStack(spacing: Style.shared.spacing(.small)) {
                 
@@ -119,20 +119,10 @@ struct FAQScreen: GPView {
     private func cardView(title: String,
                           description: String) -> some View {
         
-        CollapsableCardView(animation: .smooth) {
-            
-            Text(title)
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-            
-        } expandedView: {
-            
-            Text(description)
-                .appFont(with: .BODY_3)
-                .foregroundStyle(Style.shared.textColor(.body).source())
-                .padding([.horizontal, .bottom], .medium)
-            
-        }
+        FAQItemView(
+            question: title,
+            answer: description,
+        )
         
     }
     

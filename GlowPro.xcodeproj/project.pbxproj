@@ -282,6 +282,8 @@
 		759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
 		759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
 		759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647F2E04A8F1006F4995 /* ClientListScreen.swift */; };
+		75A0357A2E4D6AD600F29417 /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A035792E4D6AD200F29417 /* FAQItemView.swift */; };
+		75A0357B2E4D6AD600F29417 /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A035792E4D6AD200F29417 /* FAQItemView.swift */; };
 		75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046492E37BCDE00D5EFCD /* LegalScreen.swift */; };
 		75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */; };
 		75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A046492E37BCDE00D5EFCD /* LegalScreen.swift */; };
@@ -613,6 +615,7 @@
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
+		75A035792E4D6AD200F29417 /* FAQItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQItemView.swift; sourceTree = "<group>"; };
 		75A046492E37BCDE00D5EFCD /* LegalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalScreen.swift; sourceTree = "<group>"; };
 		75A0464A2E37BCDE00D5EFCD /* LegalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewModel.swift; sourceTree = "<group>"; };
 		75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalItem.swift; sourceTree = "<group>"; };
@@ -1456,6 +1459,7 @@
 			children = (
 				75740B762E0A1FB700EF8627 /* FAQViewModel.swift */,
 				75740B772E0A1FB700EF8627 /* FAQScreen.swift */,
+				75A035782E4D6ACC00F29417 /* Views */,
 			);
 			path = FAQ;
 			sourceTree = "<group>";
@@ -1537,6 +1541,14 @@
 				759B647F2E04A8F1006F4995 /* ClientListScreen.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		75A035782E4D6ACC00F29417 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				75A035792E4D6AD200F29417 /* FAQItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		75A046482E37BCC700D5EFCD /* Legal */ = {
@@ -2084,6 +2096,7 @@
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
 				753EC1C52DB8BF5A00265B2A /* AppDelegate.swift in Sources */,
+				75A0357A2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75715ACE2DB9365500E7994E /* ClientDetailsScreen.swift in Sources */,
 				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				75715AD52DB9366E00E7994E /* Tab2ViewModel.swift in Sources */,
@@ -2298,6 +2311,7 @@
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
 				75D66D752DC713C300E51CFC /* AppDelegate.swift in Sources */,
+				75A0357B2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75D66D7A2DC713C300E51CFC /* ClientDetailsScreen.swift in Sources */,
 				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				75D66D802DC713C300E51CFC /* Tab2ViewModel.swift in Sources */,
