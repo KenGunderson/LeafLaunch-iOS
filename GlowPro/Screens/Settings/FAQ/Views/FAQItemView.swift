@@ -72,7 +72,7 @@ public struct FAQItemView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 8)
-        .padding(.bottom, 8)
+        .padding(.bottom, 4)
         .compositingGroup()
         
     }
