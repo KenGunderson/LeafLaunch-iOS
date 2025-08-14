@@ -70,8 +70,8 @@ struct BusinessEmployeeInviteListScreen: GPView {
                 
                 PendingInviteView(
                     employeeInvitation: pendingInvite,
-                    declineAction: { self.viewModel.acceptInvite(pendingInvite) },
-                    acceptAction: { self.viewModel.denyInvite(pendingInvite) }
+                    declineAction: { self.viewModel.denyInvite(pendingInvite) },
+                    acceptAction: { self.viewModel.acceptInvite(pendingInvite) }
                 )
                 
             }

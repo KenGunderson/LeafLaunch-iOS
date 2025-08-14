@@ -45,4 +45,36 @@ extension APIService {
         
     }
     
+    func acceptEmployeeInvite(invite: EmployeeInvite) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .employee(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func declineEmployeeInvite(invite: EmployeeInvite) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .delete,
+                apiPath: .init(path: .employee(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }

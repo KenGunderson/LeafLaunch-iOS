@@ -67,10 +67,14 @@ final class HomeViewModel: ViewModel {
         
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -99,8 +103,12 @@ final class HomeViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         

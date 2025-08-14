@@ -67,7 +67,9 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite]
     func getPendingInvitesForUser() async throws -> [EmployeeInvite]
-
+    func acceptEmployeeInvite(invite: EmployeeInvite) async throws
+    func declineEmployeeInvite(invite: EmployeeInvite) async throws
+    
     // Clients
     
     func getClients(businessId: String) async throws -> [Client]

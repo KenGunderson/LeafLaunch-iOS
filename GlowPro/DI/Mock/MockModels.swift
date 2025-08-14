@@ -204,7 +204,7 @@ struct MockModels {
             id: ID.employeeInvite1,
             name: "Sako Hovaguimian",
             email: "naruto@me.com",
-            businessName: "Mock Business 1"
+            businessName: "My First Business"
         )
         
         nonisolated(unsafe)
@@ -212,7 +212,7 @@ struct MockModels {
             id: ID.employeeInvite2,
             name: "Monkey D. Luffy",
             email: "monkey@me.com",
-            businessName: "Mock Business 2"
+            businessName: "My First Business"
         )
         
     }

@@ -43,6 +43,9 @@ public struct FAQItemView: View {
             HStack {
                 
                 Text(self.question)
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
                 Spacer(minLength: 0)
                 Image(systemName: "plus")
                     .rotationEffect(.degrees(isExpanded ? 45 : 0))
@@ -50,6 +53,7 @@ public struct FAQItemView: View {
             }
             
             Divider()
+                .background(Style.shared.background(.border).source())
                 .frame(maxWidth: .infinity)
                 .frame(height: 1)
             
@@ -65,7 +69,7 @@ public struct FAQItemView: View {
         VStack(alignment: .leading, spacing: 8) {
             
             Text(self.answer)
-                .font(.body)
+                .appFont(with: .BODY_2)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .fixedSize(horizontal: false, vertical: true)
             

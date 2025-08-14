@@ -45,7 +45,8 @@ struct NavBarButton: View {
         Image(systemName: self.style.systemName)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 18, height: 18)
+            .frame(width: 24, height: 24)
+            .foregroundStyle(Rune.Style.shared.textColor(.title).source())
             .asButton {
                 action()
             }

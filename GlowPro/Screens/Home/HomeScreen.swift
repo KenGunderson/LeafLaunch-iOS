@@ -12,6 +12,7 @@ struct HomeScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     @Environment(NavigationService.self) private var navigationService
     
+    @State private var isFirstAppear: Bool = true
     @StateObject private var viewModel: HomeViewModel
     
     public init(viewModel: HomeViewModel) {
@@ -48,6 +49,18 @@ struct HomeScreen: GPView {
                     
                     self.viewModel
                         .loadData()
+                    
+                    self.isFirstAppear = false
+                    
+                }
+                .onAppear {
+                    
+                    if !self.isFirstAppear {
+                        
+                        self.viewModel
+                            .loadData(showHud: false)
+                        
+                    }
                     
                 }
                 
@@ -127,6 +140,7 @@ struct HomeScreen: GPView {
             
             Text(title)
                 .appFont(with: .TITLE_5)
+                .foregroundStyle(Rune.Style.shared.textColor(.title).source())
             
             Divider()
                 .background(Style.shared.background(.border).source())

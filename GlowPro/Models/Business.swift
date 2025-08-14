@@ -23,7 +23,7 @@ struct Business: Identifiable,
     let owner: GPUser
     let employees: [Employee]
     let locations: [Location]
-    let employeeInvites: [EmployeeInvite]
+    var employeeInvites: [EmployeeInvite]
     
     init(id: String,
          name: String,

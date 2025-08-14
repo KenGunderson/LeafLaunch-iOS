@@ -231,6 +231,29 @@ final class MockAPIService: APIServiceProtocol {
         
     }
     
+    func acceptEmployeeInvite(invite: EmployeeInvite) async throws {
+        
+        if let businessIndex = self.businesses.firstIndex(where: { $0.name == invite.businessName }),
+           let employeeInviteIndex = self.businesses[businessIndex].employeeInvites.firstIndex(of: invite) {
+            
+            self.businesses[businessIndex].employeeInvites.remove(at: employeeInviteIndex)
+            self.currentUser.businesses.append(self.businesses[businessIndex])
+            
+        }
+        
+    }
+    
+    func declineEmployeeInvite(invite: EmployeeInvite) async throws {
+        
+        if let businessIndex = self.businesses.firstIndex(where: { $0.name == invite.businessName }),
+           let employeeInviteIndex = self.businesses[businessIndex].employeeInvites.firstIndex(of: invite) {
+            
+            self.businesses[businessIndex].employeeInvites.remove(at: employeeInviteIndex)
+                
+        }
+        
+    }
+    
     // Clients
     
     func getClients(businessId: String) async throws -> [Client] {

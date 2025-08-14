@@ -114,11 +114,71 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     }
     
     func acceptInvite(_ invite: EmployeeInvite) {
-        print("Accept Invite")
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .acceptEmployeeInvite(invite: invite)
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while accepting your invite. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            loadData()
+            
+        }
+        
     }
     
     func denyInvite(_ invite: EmployeeInvite) {
-        print("Deny Invite")
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+     
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .declineEmployeeInvite(invite: invite)
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while declining your invite. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            loadData()
+            
+        }
+        
     }
     
     private func navigate(to route: Route) {
