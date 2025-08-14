@@ -13,9 +13,9 @@ struct GPColor {
     static let lightPurple = Color(hex: "#DCDCE5")
     static let fadedPurple = Color(hex: "#F8F5FE")
     
-    static let orange = Color(hex: "#F1D793")
+    static let orange = Color(hex: "#f5be43")
     static let lightOrange = Color(hex: "#f8ebcc")
-    static let fadedOrange = Color(hex: "#fef3df")
+    static let fadedOrange = Color(hex: "#F8FDF5")
     
     static let gray = Color(hex: "#dee2e6")
     static let lightGray = Color(hex: "#f4f6f7")

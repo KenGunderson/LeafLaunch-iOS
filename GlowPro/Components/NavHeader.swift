@@ -100,7 +100,7 @@ struct NavHeader: View {
     @ViewBuilder
     private func navButtons(_ buttons: [NavBarButton.Style], action: ((NavBarButton.Style) -> ())? = nil) -> some View {
         
-        HStack(spacing: Style.shared.spacing(.extraSmall)) {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
             ForEach(buttons, id: \.self) { navStyle in
                 
@@ -127,7 +127,7 @@ struct NavHeader: View {
                 subtitle: "Select where you're working today",
                 avatar: .initials(name: "Sako Hovaguimian"),
                 trailingNavButtons: [
-                    .bell(),
+                    .bell(notificationCount: 1),
                     .settings
                 ]
             ) { navItem in

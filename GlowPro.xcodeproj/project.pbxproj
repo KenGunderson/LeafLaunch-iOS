@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
-		750B85EC2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */; };
-		750B85ED2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */; };
+		750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
+		750B85ED2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
 		750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
 		750B85F42E48E13000417BA5 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 750B85F32E48E12A00417BA5 /* TODO */; };
@@ -454,7 +454,7 @@
 
 /* Begin PBXFileReference section */
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
-		750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationStackView.swift; sourceTree = "<group>"; };
+		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
 		750B85F32E48E12A00417BA5 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListScreen.swift; sourceTree = "<group>"; };
@@ -1517,7 +1517,7 @@
 				75A1092F2E4CE12400C25BE2 /* NavHeader.swift */,
 				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
-				750B85EB2E48376C00417BA5 /* BusinessLocationStackView.swift */,
+				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
 				754D29312E07B1260065E242 /* Base */,
 				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
@@ -2050,7 +2050,7 @@
 				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
-				750B85EC2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
+				750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */,
 				75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
@@ -2265,7 +2265,7 @@
 				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
-				750B85ED2E48377000417BA5 /* BusinessLocationStackView.swift in Sources */,
+				750B85ED2E48377000417BA5 /* LocationCardView.swift in Sources */,
 				75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,

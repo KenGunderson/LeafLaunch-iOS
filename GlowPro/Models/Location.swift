@@ -23,13 +23,13 @@ struct Location: Identifiable,
     var formattedAddress: String {
         
         var string = ""
-        string += "\(address.street)"
+        string += "\(address.street),"
         
         if let street = address.street2 {
-            string += " \(street)"
+            string += " \(street),"
         }
         
-        string += ", \(address.city), \(address.state)"
+        string += "\n\(address.city), \(address.zip) \(address.state)"
         return string
         
     }

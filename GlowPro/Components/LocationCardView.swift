@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct BusinessLocationStackView: View {
+struct LocationCardView: View {
     
     private let businessName: String
     private let businessLocation: Location
     private let isOwner: Bool
-    private let selectedLocationAction: (Location) -> ()
     
     let cornerRadius: CGFloat = Style.shared.radius(.small2)
     
@@ -22,13 +21,11 @@ struct BusinessLocationStackView: View {
     
     init(businessName: String,
          businessLocation: Location,
-         isOwner: Bool,
-         selectedLocationAction: @escaping (Location) -> ()) {
+         isOwner: Bool) {
         
         self.businessName = businessName
         self.businessLocation = businessLocation
         self.isOwner = isOwner
-        self.selectedLocationAction = selectedLocationAction
         
     }
     
@@ -49,9 +46,6 @@ struct BusinessLocationStackView: View {
                 .stroke(self.backgroundColor, lineWidth: 1)
             
         }
-        .asButton {
-            self.selectedLocationAction(self.businessLocation)
-        }
         
     }
     
@@ -66,6 +60,7 @@ struct BusinessLocationStackView: View {
             Text(self.businessName)
                 .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             TokenView(
                 text: tokenText,
@@ -81,7 +76,7 @@ struct BusinessLocationStackView: View {
             }
             
         }
-        .padding(.leading, .medium)
+        .padding(.horizontal, .medium)
         .padding(.vertical, .small)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(self.backgroundColor)
@@ -105,16 +100,19 @@ struct BusinessLocationStackView: View {
         
         HStack(spacing: Style.shared.spacing(.small)) {
             
-            Image(systemName: "mappin.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 16, height: 16)
-            
-            Text(location.formattedAddress)
-                .appFont(with: .BODY_2)
-                .lineLimit(1)
-                .truncationMode(.middle)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                Text(location.name)
+                    .appFont(with: .TITLE_3)
+                    .truncationMode(.middle)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(location.formattedAddress)
+                    .appFont(with: .BODY_2)
+                    .truncationMode(.middle)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
             
             Image(systemName: "chevron.right")
                 .resizable()
@@ -135,28 +133,20 @@ struct BusinessLocationStackView: View {
     
     AppBaseView {
         
-        VStack(spacing: Style.shared.spacing(.extraLarge)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
-            BusinessLocationStackView(
+            LocationCardView(
                 businessName: business.name,
                 businessLocation: business.locations.first!,
                 isOwner: true
-            ) { location in
-                
-                print(location)
-                
-            }
+            )
             .padding(.horizontal, .medium)
             
-            BusinessLocationStackView(
+            LocationCardView(
                 businessName: business2.name,
                 businessLocation: business2.locations.first!,
                 isOwner: false
-            ) { location in
-                
-                print(location)
-                
-            }
+            )
             .padding(.horizontal, .medium)
             
         }
