@@ -9,6 +9,13 @@ import Foundation
 
 final class ClientListViewModel: ViewModel {
     
+    enum Context: Hashable {
+        
+        case business(businessId: String)
+        case location(locationId: String)
+        
+    }
+    
     internal let loggerName: String = "CLIENT_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
     
@@ -22,6 +29,8 @@ final class ClientListViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
+    
+    private var context: Context!
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -43,6 +52,14 @@ final class ClientListViewModel: ViewModel {
         self.logDeinit()
     }
     
+    @discardableResult
+    func setup(context: Context) -> Self {
+        
+        self.context = context
+        return self
+        
+    }
+    
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
     }
@@ -56,7 +73,21 @@ final class ClientListViewModel: ViewModel {
             
             do {
                 
-                let clients = try await self.apiService.getClients(businessId: MockModels.ID.business1)
+                var clients: [Client] = []
+                
+                switch context {
+                case .business(let businessId):
+                    
+                    clients = try await self.apiService.getClients(businessId: businessId)
+                    
+                case .location(let locationId):
+                    
+                    clients = try await self.apiService.getClients(locationId: locationId)
+                    
+                default: break
+                }
+                
+                
                 let usersByFirstLetter = Dictionary(grouping: clients) { (client: Client) -> Character in
                     return client.firstName.first ?? "?"
                 }

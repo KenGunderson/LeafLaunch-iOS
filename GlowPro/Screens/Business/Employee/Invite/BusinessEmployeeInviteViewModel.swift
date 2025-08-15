@@ -132,6 +132,52 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     func inviteEmployee() {
         
         self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let invite = EmployeeInvite(
+                    id: UUID().uuidString,
+                    name: self.name,
+                    email: self.email,
+                    businessName: self.business?.name ?? "",
+                    locations: self.selectedLocations,
+                    role: self.selectedRole
+                )
+                
+                try await self.apiService.createEmployeeInvite(invite: invite)
+                
+                presentSuccessAlert()
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while creating your invite. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    private func bindSubscribers() {
+        self.cancelBag = CancelBag()
+    }
+    
+    private func presentSuccessAlert() {
+        
+        self.alertService
             .showAlert(.init(.appAlert(.success(message: "Perfect! We've sent an email to your employee to verify their account.", action: {
                 
                 print("Completed")
@@ -141,10 +187,6 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 
             }))))
         
-    }
-    
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
     }
     
 }

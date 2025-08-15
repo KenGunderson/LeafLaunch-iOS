@@ -3,14 +3,15 @@
 - Add Other Colors In Figma To GPColor
 
 [Invitation]
-- Add endpoint call to submit
 - Update copy on success to reflect figma
+- Have Pedning invite view have a few permuations based on the info supplied
+    - Locations, Role, Etc.
 
 [Location Home]
 - Make Endpoint
 
 [Business Home]
 - Make Endpoint
-- Add new location
-- Add employees
 - Pending Invites
+- Use Real Count Values
+- View All Pedning should push to screen

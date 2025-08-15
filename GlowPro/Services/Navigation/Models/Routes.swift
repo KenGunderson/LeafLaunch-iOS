@@ -148,6 +148,6 @@ enum Route: Navigation, Hashable, Sendable {
     case onboarding(Onboarding)
     case setting(Setting)
     case business(Business)
-    case clientList
+    case clientList(context: ClientListViewModel.Context)
     
 }

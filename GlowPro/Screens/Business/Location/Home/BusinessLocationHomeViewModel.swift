@@ -26,7 +26,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
     @Published private(set) var business: Business?
     @Published private(set) var location: Location?
     
-    private var locationId: String!
+    private(set) var locationId: String!
     
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,

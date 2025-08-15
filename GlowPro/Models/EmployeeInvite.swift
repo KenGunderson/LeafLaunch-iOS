@@ -13,19 +13,22 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
     let name: String
     let email: String
     let businessName: String
-    let locations: [Location] = []
+    let locations: [Location]
     let role: Role?
     
     init(id: String,
          name: String,
          email: String,
-         businessName: String) {
+         businessName: String,
+         locations: [Location] = [],
+         role: Role? = nil) {
         
         self.id = id
         self.name = name
         self.email = email
         self.businessName = businessName
-        self.role = nil
+        self.locations = locations
+        self.role = role
         
     }
     

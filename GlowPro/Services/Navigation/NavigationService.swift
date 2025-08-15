@@ -91,9 +91,10 @@ extension View {
             case .devSetting(let route): devSettings(route: route)
             case .business(let route): business(route: route)
                 
-            case .clientList:
+            case .clientList(let context):
                 
                 let viewModel = globalResolver.resolve(ClientListViewModel.self)!
+                    .setup(context: context)
                 
                 ClientListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
