@@ -77,7 +77,14 @@ struct BusinessLocationHomeScreen: GPView {
     
     @ViewBuilder
     private func content() -> some View {
-        tilesGrid()
+        
+        VStack(spacing: Style.shared.spacing(.small2)) {
+            
+            tilesGrid()
+            buttonList()
+            
+        }
+        
     }
     
     @ViewBuilder
@@ -133,6 +140,18 @@ struct BusinessLocationHomeScreen: GPView {
                 
             }
             
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func buttonList() -> some View {
+        
+        CommonButton(
+            title: "Add New Client",
+            icon: .systemImage("plus")
+        ) {
+            // TODO: - ADD NEW CLIENT
         }
         
     }
