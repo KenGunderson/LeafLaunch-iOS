@@ -107,7 +107,7 @@ struct LocationCardView: View {
                     .truncationMode(.middle)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(location.formattedAddress)
+                Text(location.fullFormattedAddress)
                     .appFont(with: .BODY_2)
                     .truncationMode(.middle)
                     .frame(maxWidth: .infinity, alignment: .leading)

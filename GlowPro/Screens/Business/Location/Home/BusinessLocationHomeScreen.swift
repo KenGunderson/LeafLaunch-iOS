@@ -51,8 +51,8 @@ struct BusinessLocationHomeScreen: GPView {
     private func navBarView() -> some View {
         
         NavHeader(
-            title: self.viewModel.location?.name ?? "",
-            subtitle: self.viewModel.location?.formattedAddress ?? "",
+            title: self.viewModel.business?.name ?? "",
+            subtitle: self.viewModel.location?.name ?? "",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
                 
@@ -77,7 +77,64 @@ struct BusinessLocationHomeScreen: GPView {
     
     @ViewBuilder
     private func content() -> some View {
-        EmptyView()
+        tilesGrid()
+    }
+    
+    @ViewBuilder
+    private func tilesGrid() -> some View {
+        
+        LazyVGrid(columns: [
+            .init(.flexible()),
+            .init(.flexible()),
+        ]) {
+            
+            QuickActionTileView(
+                icon: .systemImage("pin.fill"),
+                iconBackgroundColor: .color(GPColor.iconBlue),
+                title: "Location Info",
+                subtitle: "54th Street Florida",
+                prominentSubtitle: false
+            )
+            .appShadow(.subtle)
+            .asButton {}
+            
+            QuickActionTileView(
+                icon: .systemImage("camera.fill"),
+                iconBackgroundColor: .color(GPColor.iconYellow),
+                title: "Camera",
+                subtitle: "Quick Photo Capture",
+                prominentSubtitle: false
+            )
+            .appShadow(.subtle)
+            .asButton {}
+            
+            QuickActionTileView(
+                icon: .systemImage("photo.on.rectangle.fill"),
+                iconBackgroundColor: .color(GPColor.iconPurple),
+                title: "Photo Gallery",
+                subtitle: "View All Photos",
+                prominentSubtitle: false
+            )
+            .appShadow(.subtle)
+            .asButton {}
+            
+            QuickActionTileView(
+                icon: .systemImage("person.2.fill"),
+                iconBackgroundColor: .color(GPColor.iconOrange),
+                title: "Clients",
+                subtitle: "View All Clients",
+                prominentSubtitle: false
+            )
+            .appShadow(.subtle)
+            .asButton {
+                
+                self.navigationService
+                    .push(.clientList)
+                
+            }
+            
+        }
+        
     }
     
 }

@@ -9,6 +9,11 @@ import SwiftUI
 
 struct GPColor {
     
+    static let iconBlue = Color(hex: "#4A90E2")
+    static let iconPurple = Color(hex: "#7D52F4")
+    static let iconOrange = Color(hex: "#FA7319")
+    static let iconYellow = Color(hex: "#F6B51E")
+    
     static let purple = Color(hex: "#6343BF")
     static let lightPurple = Color(hex: "#DCDCE5")
     static let fadedPurple = Color(hex: "#F8F5FE")

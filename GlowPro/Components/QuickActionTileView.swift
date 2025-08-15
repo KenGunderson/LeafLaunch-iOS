@@ -43,7 +43,7 @@ struct QuickActionTileView: View {
                 foregroundColor: .color(.white),
                 backgroundColor: self.iconBackgroundColor,
                 imageSource: self.icon,
-                size: 32
+                size: 40
             )
             
             Text(self.title)
@@ -66,10 +66,11 @@ struct QuickActionTileView: View {
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
-            .padding(.top, self.prominentSubtitle ? .small : .custom(2))
+            .padding(.top, .medium)
             
         }
-        .padding(.medium)
+        .padding(.horizontal, .medium)
+        .padding(.vertical, .large)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Style.shared.background(.secondary).source())
         .cornerRadius(.small)
@@ -80,7 +81,7 @@ struct QuickActionTileView: View {
 
 #Preview {
     
-    AppBaseView {
+    AppBaseView(backgroundStyle: .color(.gray.opacity(0.15))) {
         
         VStack {
             

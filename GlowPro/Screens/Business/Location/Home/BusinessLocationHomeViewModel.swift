@@ -23,6 +23,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published private(set) var currentUser: GPUser?
+    @Published private(set) var business: Business?
     @Published private(set) var location: Location?
     
     private var locationId: String!
@@ -86,9 +87,13 @@ final class BusinessLocationHomeViewModel: ViewModel {
             do {
                 
                 let location = try await self.apiService.getLocation(id: self.locationId)
+                let business = try await self.apiService.getBusiness(id: location.businessId)
                 
                 await MainActor.run { [weak self] in
+                    
                     self?.location = location
+                    self?.business = business
+                    
                 }
                 
             }

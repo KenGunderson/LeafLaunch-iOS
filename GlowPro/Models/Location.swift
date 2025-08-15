@@ -20,7 +20,7 @@ struct Location: Identifiable,
     let employees: [Employee]
     let clients: [Client]
     
-    var formattedAddress: String {
+    var fullFormattedAddress: String {
         
         var string = ""
         string += "\(address.street),"

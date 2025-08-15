@@ -5,10 +5,6 @@
 [Invitation]
 - Add endpoint call to submit
 - Update copy on success to reflect figma
-- Use proper icons for BusinessLocationStackView
-
-[Home]
-- Add Pending Invites
 
 [Location Home]
 - Make Endpoint
