@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+
 public extension Theme {
     
+    /// THIS IS A DUMMY TEXT TITLE
     static let GLOW_PRO = Theme(
         id: "GLOW_PRO_THEME",
         foreground: .init(

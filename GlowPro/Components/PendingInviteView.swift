@@ -81,14 +81,14 @@ struct PendingInviteView: View {
                 titleColor: .color(.gray.opacity(0.8)),
                 titleFont: .TITLE_2,
                 backgroundStyle: .color(.gray.opacity(0.3)),
-                verticalPadding: .small) {
+                verticalPadding: .custom(10)) {
                     declineAction()
                 }
             
             CommonButton(
                 title: "Accept",
                 titleFont: .TITLE_2,
-                verticalPadding: .small) {
+                verticalPadding: .custom(10)) {
                     acceptAction()
                 }
             

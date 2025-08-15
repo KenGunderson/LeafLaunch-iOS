@@ -143,7 +143,7 @@ struct BusinessHomeScreen: GPView {
                 title: "Invite Employee",
                 titleFont: .TITLE_2,
                 icon: .systemImage("plus"),
-                verticalPadding: .small,
+                verticalPadding: .custom(10),
                 horizontalPadding: .none) {
                     
                     self.navigationService
@@ -155,7 +155,7 @@ struct BusinessHomeScreen: GPView {
                 title: "Add New Location",
                 titleFont: .TITLE_2,
                 icon: .systemImage("plus"),
-                verticalPadding: .small,
+                verticalPadding: .custom(10),
                 horizontalPadding: .none) {
                     
                     self.navigationService

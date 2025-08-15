@@ -9,9 +9,13 @@
 
 [Location Home]
 - Make Endpoint
+- Only Show Gear For settings if you are the owner
 
 [Business Home]
 - Make Endpoint
 - Pending Invites
 - Use Real Count Values
 - View All Pedning should push to screen
+
+[KF]
+- Image tint loading options as Rune param

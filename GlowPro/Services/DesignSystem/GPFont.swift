@@ -39,7 +39,7 @@ extension UIFont {
         switch weight {
         case .regular: name = SFProDisplay.regular
         case .medium: name = SFProDisplay.medium
-        case .semibold:  name = SFProDisplay.semibold
+        case .semibold: name = SFProDisplay.semibold
         case .bold: name = SFProDisplay.bold
         case .heavy: name = SFProDisplay.heavy
         case .light: name = SFProDisplay.regular
