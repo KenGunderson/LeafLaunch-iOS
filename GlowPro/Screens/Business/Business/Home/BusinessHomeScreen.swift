@@ -77,7 +77,139 @@ struct BusinessHomeScreen: GPView {
     
     @ViewBuilder
     private func content() -> some View {
-        EmptyView()
+        
+        VStack(spacing: Style.shared.spacing(.medium)) {
+            
+            tilesGrid()
+            
+            quickActionButtons()
+                .padding(.top, .small)
+            
+            pendingInvites()
+                .padding(.top, .medium)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func tilesGrid() -> some View {
+        
+        LazyVGrid(columns: [
+            .init(.flexible()),
+            .init(.flexible()),
+        ]) {
+            
+            QuickActionTileView(
+                icon: .systemImage("person.2.fill"),
+                iconBackgroundColor: .color(GPColor.iconGreen),
+                title: "All Clients",
+                subtitle: "25",
+                prominentSubtitle: true
+            )
+            .appShadow(.subtle)
+            .asButton {
+                
+                self.navigationService
+                    .push(.clientList)
+                
+            }
+            
+            QuickActionTileView(
+                icon: .systemImage("pin.fill"),
+                iconBackgroundColor: .color(GPColor.iconBlue),
+                title: "All Locations",
+                subtitle: "4",
+                prominentSubtitle: true
+            )
+            .appShadow(.subtle)
+            .asButton {
+                
+                self.navigationService
+                    .push(.business(.businessLocations(businessId: self.viewModel.businessId)))
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func quickActionButtons() -> some View {
+     
+        HStack {
+            
+            CommonButton(
+                title: "Invite Employee",
+                titleFont: .TITLE_2,
+                icon: .systemImage("plus"),
+                verticalPadding: .small,
+                horizontalPadding: .none) {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeesInvite(businessId: self.viewModel.businessId)))
+                    
+                }
+            
+            CommonButton(
+                title: "Add New Location",
+                titleFont: .TITLE_2,
+                icon: .systemImage("plus"),
+                verticalPadding: .small,
+                horizontalPadding: .none) {
+                    
+                    self.navigationService
+                        .push(.business(.businessLocationCreate(businessId: self.viewModel.businessId)))
+                    
+                }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func pendingInvites() -> some View {
+     
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+            
+            section(title: "Pending Invites")
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func section(title: String) -> some View {
+     
+        VStack(alignment: .leading) {
+            
+            HStack {
+                
+                Text(title)
+                    .appFont(with: .TITLE_5)
+                    .foregroundStyle(Rune.Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                HStack {
+                    
+                    Text("View All")
+                        .appFont(with: .BODY_1)
+                    
+                    Image(systemName: "arrow.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 12, height: 12)
+                    
+                }
+                .foregroundStyle(Rune.Style.shared.textColor(.body).source())
+                
+            }
+            
+            Divider()
+                .background(Style.shared.background(.border).source())
+            
+        }
+        
     }
     
 }

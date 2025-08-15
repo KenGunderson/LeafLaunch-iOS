@@ -25,7 +25,7 @@ final class BusinessHomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var business: Business?
     
-    private var businessId: String!
+    private(set) var businessId: String!
     
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
