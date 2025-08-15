@@ -66,18 +66,33 @@ struct BusinessEmployeeInviteListScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            ForEach(self.viewModel.employeeInvites, id: \.id) { pendingInvite in
-                
-                PendingInviteView(
-                    employeeInvitation: pendingInvite,
-                    declineAction: { self.viewModel.denyInvite(pendingInvite) },
-                    acceptAction: { self.viewModel.acceptInvite(pendingInvite) }
-                )
-                
+            ForEach(self.viewModel.employeeInvites, id: \.id) { invite in
+                inviteView(invite)
             }
             
         }
         .padding(.horizontal, .medium)
+        
+    }
+    
+    @ViewBuilder
+    private func inviteView(_ invite: EmployeeInvite) -> some View {
+        
+        switch self.viewModel.context {
+        case .personal:
+            
+            PendingInviteView(
+                employeeInvitation: invite,
+                declineAction: { self.viewModel.denyInvite(invite) },
+                acceptAction: { self.viewModel.acceptInvite(invite) }
+            )
+            
+        case .business:
+            
+            Text(invite.name)
+            
+        default: EmptyView()
+        }
         
     }
     

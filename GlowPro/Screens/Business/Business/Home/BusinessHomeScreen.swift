@@ -104,7 +104,7 @@ struct BusinessHomeScreen: GPView {
                 icon: .systemImage("person.2.fill"),
                 iconBackgroundColor: .color(GPColor.iconGreen),
                 title: "All Clients",
-                subtitle: "25",
+                subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
                 prominentSubtitle: true
             )
             .appShadow(.subtle)
@@ -119,7 +119,7 @@ struct BusinessHomeScreen: GPView {
                 icon: .systemImage("pin.fill"),
                 iconBackgroundColor: .color(GPColor.iconBlue),
                 title: "All Locations",
-                subtitle: "4",
+                subtitle: "\(self.viewModel.business?.locations.count ?? 0)",
                 prominentSubtitle: true
             )
             .appShadow(.subtle)
@@ -202,6 +202,14 @@ struct BusinessHomeScreen: GPView {
                     
                 }
                 .foregroundStyle(Rune.Style.shared.textColor(.body).source())
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeeInviteList(
+                            context: .business(businessId: self.viewModel.businessId))
+                        ))
+                    
+                }
                 
             }
             

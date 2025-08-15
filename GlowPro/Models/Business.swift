@@ -24,6 +24,7 @@ struct Business: Identifiable,
     let employees: [Employee]
     let locations: [Location]
     var employeeInvites: [EmployeeInvite]
+    var clientsCount: Int = 0
     
     init(id: String,
          name: String,

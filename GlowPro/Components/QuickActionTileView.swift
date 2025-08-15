@@ -56,6 +56,7 @@ struct QuickActionTileView: View {
                 Text(self.subtitle)
                     .appFont(with: subtitleFont)
                     .foregroundStyle(subtitleColor.source())
+                    .contentTransition(.numericText())
                 
                 Spacer()
                 

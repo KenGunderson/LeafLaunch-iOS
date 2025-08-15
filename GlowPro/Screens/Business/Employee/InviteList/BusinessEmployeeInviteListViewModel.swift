@@ -27,7 +27,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     
     @Published private(set) var employeeInvites: [EmployeeInvite] = []
     
-    private var context: Context!
+    private(set) var context: Context!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
