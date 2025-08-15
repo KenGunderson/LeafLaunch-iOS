@@ -37,3 +37,7 @@ struct SplashScreenItem: View {
     }
     
 }
+
+#Preview {
+    SplashScreenItem(isLoading: .constant(true))
+}

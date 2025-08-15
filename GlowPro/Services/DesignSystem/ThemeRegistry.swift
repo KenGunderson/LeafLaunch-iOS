@@ -9,6 +9,7 @@ import Foundation
 
 enum AvailableTheme: String, CaseIterable {
     
+    case glowPro
     case goldNavy
     case goldLight
     case lightCyan
@@ -20,6 +21,7 @@ enum AvailableTheme: String, CaseIterable {
     func theme() -> Theme {
         
         switch self {
+        case .glowPro: return Theme.GLOW_PRO
         case .goldNavy: return Theme.GOLD_NAVY
         case .goldLight: return Theme.GOLD_LIGHT
         case .lightCyan: return Theme.TEAL_CYAN_LIGHT

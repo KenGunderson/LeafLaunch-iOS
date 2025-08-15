@@ -33,7 +33,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
     
-    @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .lightCyan {
+    @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .glowPro {
         didSet {
             self.themePublisher.send(self.theme)
         }
