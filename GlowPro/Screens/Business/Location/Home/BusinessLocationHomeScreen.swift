@@ -136,7 +136,7 @@ struct BusinessLocationHomeScreen: GPView {
             .asButton {
                 
                 self.navigationService
-                    .push(.clientList(context: .location(locationId: self.viewModel.locationId)))
+                    .push(.client(.clientList(context: .location(locationId: self.viewModel.locationId))))
                 
             }
             
@@ -151,7 +151,10 @@ struct BusinessLocationHomeScreen: GPView {
             title: "Add New Client",
             icon: .systemImage("plus")
         ) {
-            // TODO: - ADD NEW CLIENT
+            
+            self.navigationService
+                .push(.client(.clientCreate(locationId: self.viewModel.locationId)))
+            
         }
         
     }

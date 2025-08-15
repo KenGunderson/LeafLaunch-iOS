@@ -427,6 +427,10 @@
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		75F2877D2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */; };
+		75F2877E2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */; };
+		75F287802E4FFD110045097D /* ClientCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */; };
+		75F287812E4FFD110045097D /* ClientCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */; };
 		75F4DF602E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F4DF612E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */; };
@@ -660,6 +664,8 @@
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateViewModel.swift; sourceTree = "<group>"; };
+		75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateScreen.swift; sourceTree = "<group>"; };
 		75F4DF5F2E4C4515003308CF /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Businesses.swift"; sourceTree = "<group>"; };
 		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
@@ -1536,6 +1542,7 @@
 		759B64762E04A751006F4995 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				75F2877A2E4FFCFC0045097D /* Create */,
 				759B647B2E04A8E6006F4995 /* List */,
 				758DAE832E050DB500311C7C /* TabBar */,
 			);
@@ -1701,6 +1708,15 @@
 				75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */,
 			);
 			path = Permission;
+			sourceTree = "<group>";
+		};
+		75F2877A2E4FFCFC0045097D /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */,
+				75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
@@ -1985,6 +2001,7 @@
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
+				75F287802E4FFD110045097D /* ClientCreateScreen.swift in Sources */,
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -2101,6 +2118,7 @@
 				75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */,
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
+				75F2877D2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
@@ -2202,6 +2220,7 @@
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
+				75F287812E4FFD110045097D /* ClientCreateScreen.swift in Sources */,
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -2318,6 +2337,7 @@
 				75D66D6D2DC713C300E51CFC /* CustomTabBarView.swift in Sources */,
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
+				75F2877E2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,

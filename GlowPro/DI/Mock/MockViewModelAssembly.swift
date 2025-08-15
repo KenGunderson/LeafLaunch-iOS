@@ -328,6 +328,19 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Client Create
+        
+        container
+            .register(ClientCreateViewModel.self) { r in
+                ClientCreateViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Client List
         
         container

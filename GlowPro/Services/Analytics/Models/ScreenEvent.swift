@@ -167,6 +167,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     enum ClientScreen {
         
         case clientList
+        case clientCreate
         case clientDetails(clientId: String)
         
         var screenName: String {
@@ -175,6 +176,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             
             switch self {
             case .clientList: name = "client_list"
+            case .clientCreate: name = "client_create"
             case .clientDetails: name = "client_details"
             }
             
@@ -186,6 +188,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             
             switch self {
             case .clientList: return nil
+            case .clientCreate: return nil
             case .clientDetails(let clientId): return ["client_id": clientId]
             }
             

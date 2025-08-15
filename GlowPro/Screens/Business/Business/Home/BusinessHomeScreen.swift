@@ -111,7 +111,7 @@ struct BusinessHomeScreen: GPView {
             .asButton {
                 
                 self.navigationService
-                    .push(.clientList(context: .business(businessId: self.viewModel.businessId)))
+                    .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
                 
             }
             

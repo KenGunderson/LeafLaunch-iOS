@@ -50,6 +50,13 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum Client: Hashable {
+        
+        case clientCreate(locationId: String)
+        case clientList(context: ClientListViewModel.Context)
+        
+    }
+    
     enum Setting: String, CaseIterable {
         
         case profile
@@ -148,6 +155,6 @@ enum Route: Navigation, Hashable, Sendable {
     case onboarding(Onboarding)
     case setting(Setting)
     case business(Business)
-    case clientList(context: ClientListViewModel.Context)
+    case client(Client)
     
 }

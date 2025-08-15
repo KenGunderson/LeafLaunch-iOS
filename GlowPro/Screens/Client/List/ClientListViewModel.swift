@@ -14,6 +14,20 @@ final class ClientListViewModel: ViewModel {
         case business(businessId: String)
         case location(locationId: String)
         
+        var isBusinessContext: Bool {
+            switch self {
+            case .business: return true
+            case .location: return false
+            }
+        }
+        
+        var isLocationContext: Bool {
+            switch self {
+            case .business: return false
+            case .location: return true
+            }
+        }
+        
     }
     
     internal let loggerName: String = "CLIENT_LIST_VIEW_MODEL"
@@ -30,7 +44,11 @@ final class ClientListViewModel: ViewModel {
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
     
-    private var context: Context!
+    private(set) var context: Context!
+    
+    var isLocationContext: Bool {
+        return self.context.isLocationContext
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,

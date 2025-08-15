@@ -54,14 +54,23 @@ struct ClientListScreen: GPView {
         .asAnyView()
         
         let plusButton = NavBarButton(style: .plus) {
-            print("ADD NEW CLIENT")
+            
+            switch self.viewModel.context {
+            case .location(let locationId):
+                
+                self.navigationService
+                    .push(.client(.clientCreate(locationId: locationId)))
+                
+            default: break
+            }
+            
         }
         .asAnyView()
         
         return NavBarView(
             title: "Client List",
             leftButtonView: backButton,
-            rightButtonView: plusButton
+            rightButtonView: self.viewModel.isLocationContext ? plusButton : nil
         )
         
     }

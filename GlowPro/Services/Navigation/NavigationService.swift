@@ -90,15 +90,7 @@ extension View {
             case .setting(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
             case .business(let route): business(route: route)
-                
-            case .clientList(let context):
-                
-                let viewModel = globalResolver.resolve(ClientListViewModel.self)!
-                    .setup(context: context)
-                
-                ClientListScreen(viewModel: viewModel)
-                    .navigationBarBackButtonHidden()
-                
+            case .client(let route): client(route: route)
             }
             
         }
@@ -312,6 +304,30 @@ extension View {
                 
                 BusinessLocationDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func client(route: Route.Client) -> some View {
+            
+            switch route {
+            case .clientCreate(let locationId):
+                
+                let viewModel = globalResolver.resolve(ClientCreateViewModel.self)!
+                    .setup(locationId: locationId)
+                
+                ClientCreateScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .clientList(let context):
+                
+                let viewModel = globalResolver.resolve(ClientListViewModel.self)!
+                    .setup(context: context)
+                
+                ClientListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }
