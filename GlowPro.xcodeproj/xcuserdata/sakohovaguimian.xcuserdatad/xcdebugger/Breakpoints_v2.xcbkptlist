@@ -44,8 +44,8 @@
             filePath = "GlowPro/DI/Mock/MockServiceAssembly.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "declineEmployeeInvite(invite:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -163,7 +163,19 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getBusiness(id: String) async throws -> Business {
-        return self.businesses.filter { $0.id == id }.first ?? .DUMMY_DATA()
+        
+        var business = self.businesses.filter { $0.id == id }.first ?? .DUMMY_DATA()
+        let clients = self.clients.filter { $0.employee.businessId == id }
+        let employees = self.employees.filter { $0.businessId == id }
+        let locations = self.locations.filter { $0.businessId == id }
+        
+        business.clientsCount = clients.count
+        business.mediaCount = 0
+        business.employees = employees
+        business.locations = locations
+        
+        return business
+        
     }
     
     func deleteBusiness(id: String) async throws {

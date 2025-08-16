@@ -1,10 +1,8 @@
 [System]
-- Update TabBar Icons to Figma Ones
+- Update Icons To Figma Ones
 
 [Invitation]
 - Update copy on success to reflect figma
-- Have Pedning invite view have a few permuations based on the info supplied
-    - Locations, Role, Etc.
 
 [Location Home]
 - Make Endpoint
@@ -12,9 +10,7 @@
 
 [Business Home]
 - Make Endpoint
-- Pending Invites
-- Use Real Count Values
-- View All Pedning should push to screen
+- Use Real Count Values (Clients, Employees, Media, Locations)
 
 [KF]
 - Image tint loading options as Rune param
@@ -22,5 +18,10 @@
 [Client Create]
 - Birthday
 
+[Secuirty & Privacy Settings]
+- Secure Mode
+- Add Secure Pin to API
+- Encode on API // Decode on FRONT END
+
 [Open Questions]
-- Do we need Active Destination?
+- Do we need Active Destination anymore since we have the landing page?

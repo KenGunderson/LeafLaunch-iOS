@@ -224,10 +224,13 @@ extension View {
                 BusinessEditDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessEmployees(let businessId):
+            case .businessEmployees(let businessId, let context):
                 
                 let viewModel = globalResolver.resolve(BusinessEmployeesViewModel.self)!
-                    .setup(businessId: businessId)
+                    .setup(
+                        businessId: businessId,
+                        context: context
+                    )
                 
                 BusinessEmployeesScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

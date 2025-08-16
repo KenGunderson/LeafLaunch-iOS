@@ -21,10 +21,11 @@ struct Business: Identifiable,
     let phoneNumber: String?
     let address: Address?
     let owner: GPUser
-    let employees: [Employee]
-    let locations: [Location]
+    var employees: [Employee]
+    var locations: [Location]
     var employeeInvites: [EmployeeInvite]
     var clientsCount: Int = 0
+    var mediaCount: Int = 0
     
     init(id: String,
          name: String,

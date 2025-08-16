@@ -108,7 +108,10 @@ struct BusinessEmployeesScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessEmployeesViewModel.self)
-        .setup(businessId: MockModels.ID.business1)
+        .setup(
+            businessId: MockModels.ID.business1,
+            context: .business(businessId: MockModels.ID.business1)
+        )
     
     BusinessEmployeesScreen(viewModel: viewModel)
         .withMockServices()

@@ -106,15 +106,18 @@ struct BusinessHomeScreen: GPView {
             QuickActionTileView(
                 icon: .systemImage("person.2.fill"),
                 iconBackgroundColor: .color(GPColor.iconGreen),
-                title: "All Clients",
-                subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
+                title: "All Employees",
+                subtitle: "\(self.viewModel.business?.employees.count ?? 0)",
                 prominentSubtitle: true
             )
             .appShadow(.subtle)
             .asButton {
                 
                 self.navigationService
-                    .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
+                    .push(.business(.businessEmployees(
+                        businessId: self.viewModel.businessId,
+                        context: .business(businessId: self.viewModel.businessId))
+                    ))
                 
             }
             
@@ -130,6 +133,37 @@ struct BusinessHomeScreen: GPView {
                 
                 self.navigationService
                     .push(.business(.businessLocations(businessId: self.viewModel.businessId)))
+                
+            }
+            
+            
+            QuickActionTileView(
+                icon: .systemImage("person.3.fill"),
+                iconBackgroundColor: .color(GPColor.iconOrange),
+                title: "All Clients",
+                subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
+                prominentSubtitle: true
+            )
+            .appShadow(.subtle)
+            .asButton {
+                
+                self.navigationService
+                    .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
+                
+            }
+            
+            
+            QuickActionTileView(
+                icon: .systemImage("photo.on.rectangle.fill"),
+                iconBackgroundColor: .color(GPColor.iconPurple),
+                title: "All Media",
+                subtitle: "\(self.viewModel.business?.mediaCount ?? 0)",
+                prominentSubtitle: true
+            )
+            .appShadow(.subtle)
+            .asButton {
+                
+                // TODO: - ADD NAVIGATION HERE
                 
             }
             

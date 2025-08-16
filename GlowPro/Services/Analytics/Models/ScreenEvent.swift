@@ -94,7 +94,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case businessLocationCreateEdit(businessId: String, locationId: String?)
         case businessLocationHome(locationId: String)
         case businessLocationDetails(businessId: String, locationId: String)
-        case businessEmployees(businessId: String)
+        case businessEmployees(context: BusinessEmployeesViewModel.Context)
         case businessEmployeeInvite(businessId: String)
         case businessEmployeeInviteList(context: BusinessEmployeeInviteListViewModel.Context)
         case businessEmployeeJoin
@@ -150,7 +150,13 @@ indirect enum ScreenEvent: AnalyticsEvent {
                     "location_id": locationId
                 ]
                 
-            case .businessEmployees(let businessId): return ["business_id": businessId]
+            case .businessEmployees(let context):
+                
+                return [
+                    "context": context.analyticsName,
+                    "id": context.analyticsId
+                ]
+                
             case .businessEmployeeInvite(let businessId): return ["business_id": businessId]
             case .businessEmployeeInviteList(let businessId): return ["business_id": businessId]
             case .businessEmployeeJoin: return nil

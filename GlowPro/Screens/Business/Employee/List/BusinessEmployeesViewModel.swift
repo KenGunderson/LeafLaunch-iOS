@@ -9,6 +9,27 @@ import Foundation
 
 final class BusinessEmployeesViewModel: ViewModel {
     
+    public enum Context: Hashable {
+        
+        case business(businessId: String)
+        case location(locationId: String)
+        
+        var analyticsName: String {
+            switch self {
+            case .business: return "business"
+            case .location: return "location"
+            }
+        }
+        
+        var analyticsId: String {
+            switch self {
+            case .business(businessId: let businessId): return businessId
+            case .location(locationId: let locationId): return locationId
+            }
+        }
+        
+    }
+    
     internal let loggerName: String = "BUSINESS_EMPLOYEES_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
@@ -22,6 +43,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     @Published private(set) var employees: [Employee] = []
     
     private var businessId: String!
+    private var context: Context!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -47,9 +69,11 @@ final class BusinessEmployeesViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(businessId: String,
+               context: Context) -> Self {
         
         self.businessId = businessId
+        self.context = context
         return self
         
     }
@@ -58,8 +82,8 @@ final class BusinessEmployeesViewModel: ViewModel {
         
         navigate(to: .business(.businessEmployeeDetails(
             businessId: self.businessId,
-            employeeId: employee.id)
-        ))
+            employeeId: employee.id
+        )))
         
     }
     
@@ -76,14 +100,25 @@ final class BusinessEmployeesViewModel: ViewModel {
             
             do {
                 
-                let business = try await self.apiService
-                    .getBusinesses()
-                    .first
+                var employees: [Employee] = []
+                var business = try await self.apiService
+                    .getBusiness(id: self.businessId)
                 
-                let employees = try await self.apiService
-                    .getEmployees(businessId: self.businessId)
+                switch self.context {
+                case .business(let businessId):
                 
-                await MainActor.run { [weak self] in
+                    employees = try await self.apiService
+                        .getEmployees(businessId: businessId)
+                    
+                case .location(let locationId):
+                    
+                    employees = try await self.apiService
+                        .getEmployees(locationId: locationId)
+                    
+                default: break
+                }
+                
+                await MainActor.run { [weak self, business, employees] in
 
                     self?.business = business
                     self?.employees = employees
@@ -126,7 +161,7 @@ final class BusinessEmployeesViewModel: ViewModel {
 extension BusinessEmployeesViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .business(.businessEmployees(businessId: self.businessId)))
+        self.analyticsService.track(screen: .business(.businessEmployees(context: self.context)))
     }
     
 }
