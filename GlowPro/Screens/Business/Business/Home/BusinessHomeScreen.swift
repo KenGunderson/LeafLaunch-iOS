@@ -159,7 +159,7 @@ struct BusinessHomeScreen: GPView {
                 horizontalPadding: .none) {
                     
                     self.navigationService
-                        .push(.business(.businessLocationCreate(businessId: self.viewModel.businessId)))
+                        .push(.business(.businessLocationCreateEdit(businessId: self.viewModel.businessId)))
                     
                 }
             

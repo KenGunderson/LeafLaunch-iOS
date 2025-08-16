@@ -318,10 +318,10 @@
 		75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
 		75CB87732E4F84AB00FB7D78 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
 		75CB87742E4F84AB00FB7D78 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
-		75CD6B672E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
-		75CD6B682E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */; };
-		75CD6B692E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */; };
-		75CD6B6A2E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */; };
+		75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */; };
+		75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */; };
+		75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */; };
+		75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */; };
 		75CD6B6C2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
 		75CD6B6D2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
 		75D66CF42DC713C300E51CFC /* Tab2Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD32DB9366E00E7994E /* Tab2Screen.swift */; };
@@ -427,10 +427,10 @@
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
-		75F2877D2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */; };
-		75F2877E2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */; };
-		75F287802E4FFD110045097D /* ClientCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */; };
-		75F287812E4FFD110045097D /* ClientCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */; };
+		75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */; };
+		75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */; };
+		75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */; };
+		75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */; };
 		75F4DF602E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F4DF612E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */; };
@@ -643,8 +643,8 @@
 		75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		75CB876F2E4F81F400FB7D78 /* GPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTheme.swift; sourceTree = "<group>"; };
 		75CB87722E4F84A800FB7D78 /* GPFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPFont.swift; sourceTree = "<group>"; };
-		75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateViewModel.swift; sourceTree = "<group>"; };
-		75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateScreen.swift; sourceTree = "<group>"; };
+		75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditViewModel.swift; sourceTree = "<group>"; };
+		75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditScreen.swift; sourceTree = "<group>"; };
 		75CD6B6B2E20C582004A1720 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DC72DC7141A00E51CFC /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
@@ -664,8 +664,8 @@
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
-		75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateViewModel.swift; sourceTree = "<group>"; };
-		75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateScreen.swift; sourceTree = "<group>"; };
+		75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditViewModel.swift; sourceTree = "<group>"; };
+		75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditScreen.swift; sourceTree = "<group>"; };
 		75F4DF5F2E4C4515003308CF /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Businesses.swift"; sourceTree = "<group>"; };
 		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
@@ -1639,8 +1639,8 @@
 		75CD6B642E20C0F7004A1720 /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				75CD6B652E20C114004A1720 /* BusinessLocationCreateViewModel.swift */,
-				75CD6B662E20C114004A1720 /* BusinessLocationCreateScreen.swift */,
+				75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */,
+				75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -1713,8 +1713,8 @@
 		75F2877A2E4FFCFC0045097D /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				75F2877C2E4FFD080045097D /* ClientCreateViewModel.swift */,
-				75F2877F2E4FFD100045097D /* ClientCreateScreen.swift */,
+				75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */,
+				75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -1977,8 +1977,8 @@
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
-				75CD6B672E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */,
-				75CD6B682E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */,
+				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
+				75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
@@ -2001,7 +2001,7 @@
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
-				75F287802E4FFD110045097D /* ClientCreateScreen.swift in Sources */,
+				75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -2118,7 +2118,7 @@
 				75C643EA2DB929340033D68E /* CustomTabBarView.swift in Sources */,
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
-				75F2877D2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */,
+				75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,
@@ -2196,8 +2196,8 @@
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
-				75CD6B692E20C114004A1720 /* BusinessLocationCreateScreen.swift in Sources */,
-				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateViewModel.swift in Sources */,
+				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
+				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
@@ -2220,7 +2220,7 @@
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
-				75F287812E4FFD110045097D /* ClientCreateScreen.swift in Sources */,
+				75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
@@ -2337,7 +2337,7 @@
 				75D66D6D2DC713C300E51CFC /* CustomTabBarView.swift in Sources */,
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
-				75F2877E2E4FFD0D0045097D /* ClientCreateViewModel.swift in Sources */,
+				75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
 				7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */,

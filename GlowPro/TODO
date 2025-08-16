@@ -19,3 +19,14 @@
 
 [KF]
 - Image tint loading options as Rune param
+
+[Client Create]
+- Birthday
+- Save Call
+- Update for context / create / edit
+
+- Rename creates into CreateEdit i.e. LocationCreateEditViewModel; ClientCreateEditViewModel
+- Use contexts for them with optional getters and optional update calls
+
+
+- Do we need Active Destination?

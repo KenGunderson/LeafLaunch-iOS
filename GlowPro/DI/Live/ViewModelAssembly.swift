@@ -214,8 +214,8 @@ class ViewModelAssembly: Assembly {
         // Business Location Create
         
         container
-            .register(BusinessLocationCreateViewModel.self) { r in
-                BusinessLocationCreateViewModel(
+            .register(BusinessLocationCreateEditViewModel.self) { r in
+                BusinessLocationCreateEditViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
@@ -333,8 +333,8 @@ class ViewModelAssembly: Assembly {
         // Client Create
         
         container
-            .register(ClientCreateViewModel.self) { r in
-                ClientCreateViewModel(
+            .register(ClientCreateEditViewModel.self) { r in
+                ClientCreateEditViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

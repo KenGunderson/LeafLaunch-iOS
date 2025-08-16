@@ -54,36 +54,40 @@ struct ClientDetailsScreen: GPView {
             navigationService: nav.tab1NavigationService,
             alertService: self.viewModel.alertService) {
                 
-                content()
+                AppHeaderScrollView(horizontalPadding: .medium) {
+                    navBarView()
+                } scrollViewContent: {
+                    content()
+                }
                 
                 // Lifecycle
                 
-                    .onFirstAppear {
-                        
-                        self.viewModel
-                            .track()
-                        
-                        self.viewModel
-                            .setup(tabBarNavigationService: self.tabBarNavigationService)
-                        
-                    }
+                .onFirstAppear {
+                    
+                    self.viewModel
+                        .track()
+                    
+                    self.viewModel
+                        .setup(tabBarNavigationService: self.tabBarNavigationService)
+                    
+                }
                 
-                    .onAppear {
-                        
-                        self.tabBarNavigationService
-                            .shouldShowTabBar(true)
-                        
-                    }
-                    .task {
-                        
-                        self.viewModel
-                            .loadData()
-                        
-                    }
+                .onAppear {
+                    
+                    self.tabBarNavigationService
+                        .shouldShowTabBar(true)
+                    
+                }
+                .task {
+                    
+                    self.viewModel
+                        .loadData()
+                    
+                }
                 
             }
             .tag(self.tab)
-            
+        
             .onChange(of: self.tabBarNavigationService.selectedTab) { oldValue, newValue in
                 
                 self.viewModel
@@ -110,7 +114,6 @@ struct ClientDetailsScreen: GPView {
                 .asButton {
                     dismiss()
                 }
-                .padding(.horizontal, .medium)
                 .transition(.move(edge: .bottom))
                 
                 actionItems()
@@ -130,6 +133,28 @@ struct ClientDetailsScreen: GPView {
     }
     
     @ViewBuilder
+    private func navBarView() -> some View {
+        
+        let pencilButton = NavBarButton(style: .pencil) {
+            
+            self.tabBarNavigationService
+                .tab1NavigationService
+                .push(.client(.clientCreate(
+                    locationId: nil,
+                    clientId: self.viewModel.client?.id)
+                ))
+            
+        }
+        .asAnyView()
+        
+        NavBarView(
+            title: "Client Details",
+            rightButtonView: pencilButton
+        )
+        
+    }
+    
+    @ViewBuilder
     private func actionItems() -> some View {
         
         LazyVGrid(columns: [.init(.adaptive(minimum: 80, maximum: 80), spacing: 8, alignment: .center)], spacing: 4) {
@@ -145,7 +170,6 @@ struct ClientDetailsScreen: GPView {
             }
             
         }
-        .padding(.horizontal, .medium)
         
     }
     
@@ -214,7 +238,6 @@ struct ClientDetailsScreen: GPView {
         ActivitiesView(
             activities: self.viewModel.selectedActivitiesFilter == nil ? activities : activities.suffix(3)
         )
-        .padding(.horizontal, .medium)
         .animation(.spring, value: self.viewModel.selectedActivitiesFilter)
         
     }

@@ -1,35 +1,27 @@
 //
-//  BusinessEmployeeCreateScreen.swift
+//  ClientCreateEditScreen.swift
 //  GlowPro
 //
-//  Created by Sako Hovaguimian on 7/9/25.
+//  Created by Sako Hovaguimian on 8/15/25.
 //
 
 import SwiftUI
 
-struct BusinessLocationCreateScreen: GPView {
+struct ClientCreateEditScreen: GPView {
     
     enum FocusedField: Hashable {
         
-        case name
+        case firstName
+        case lastName
         case email
         case phone
-        case street
-        case street2
-        case city
-        case state
-        case zip
         
         var displayName: String {
             switch self {
-            case .name: return "Business Name"
+            case .firstName: return "First Name"
+            case .lastName: return "Last Name"
             case .email: return "Email"
             case .phone: return "Phone"
-            case .street: return "Street"
-            case .street2: return "Street 2"
-            case .city: return "City"
-            case .state: return "State"
-            case .zip: return "Zip"
             }
         }
         
@@ -38,12 +30,10 @@ struct BusinessLocationCreateScreen: GPView {
     @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel: BusinessLocationCreateViewModel
+    @StateObject var viewModel: ClientCreateEditViewModel
     
     @FocusState private var focusedField: FocusedField?
-    
-    @State private var isDropdownPresented: Bool = false
-    
+        
     var body: some View {
         
         content()
@@ -95,7 +85,7 @@ struct BusinessLocationCreateScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "Create Location",
+            title: self.viewModel.navTitle,
             leftButtonView: backButton
         )
         
@@ -107,7 +97,6 @@ struct BusinessLocationCreateScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.large)) {
             
             businessGeneralInformation()
-            businessAddress()
             
         }
         .padding(.horizontal, .medium)
@@ -124,38 +113,10 @@ struct BusinessLocationCreateScreen: GPView {
                 
                 VStack(spacing: Style.shared.spacing(.small)) {
                     
-                    textField(fieldToFocus: .name)
+                    textField(fieldToFocus: .firstName)
+                    textField(fieldToFocus: .lastName)
                     textField(fieldToFocus: .email)
                     textField(fieldToFocus: .phone)
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    private func businessAddress() -> some View {
-        
-        VStack(spacing: Style.shared.spacing(.small)) {
-            
-            sectionTitle("Business Address")
-            
-            AppCardView {
-                
-                VStack(spacing: Style.shared.spacing(.small)) {
-                    
-                    textField(fieldToFocus: .street)
-                    textField(fieldToFocus: .street2)
-                    textField(fieldToFocus: .city)
-                    
-                    HStack {
-                        
-                        textField(fieldToFocus: .state)
-                        textField(fieldToFocus: .zip)
-                        
-                    }
                     
                 }
                 
@@ -188,10 +149,17 @@ struct BusinessLocationCreateScreen: GPView {
         let placeholder: String = fieldToFocus.displayName
         
         switch fieldToFocus {
-        case .name:
+        case .firstName:
             
-            text = self.$viewModel.name
-            isFocused = self.focusedField == .name
+            text = self.$viewModel.firstName
+            isFocused = self.focusedField == .firstName
+            keyboardType = .default
+            textContentType = .organizationName
+            
+        case .lastName:
+            
+            text = self.$viewModel.lastName
+            isFocused = self.focusedField == .lastName
             keyboardType = .default
             textContentType = .organizationName
             
@@ -208,41 +176,6 @@ struct BusinessLocationCreateScreen: GPView {
             isFocused = self.focusedField == .phone
             keyboardType = .phonePad
             textContentType = .telephoneNumber
-            
-        case .street:
-            
-            text = self.$viewModel.street
-            isFocused = self.focusedField == .street
-            keyboardType = .default
-            textContentType = .streetAddressLine1
-            
-        case .street2:
-            
-            text = self.$viewModel.street2
-            isFocused = self.focusedField == .street2
-            keyboardType = .default
-            textContentType = .streetAddressLine2
-            
-        case .city:
-            
-            text = self.$viewModel.city
-            isFocused = self.focusedField == .city
-            keyboardType = .default
-            textContentType = .addressCity
-            
-        case .state:
-            
-            text = self.$viewModel.state
-            isFocused = self.focusedField == .state
-            keyboardType = .default
-            textContentType = .addressState
-            
-        case .zip:
-            
-            text = self.$viewModel.zip
-            isFocused = self.focusedField == .zip
-            keyboardType = .default
-            textContentType = .postalCode
         }
         
         return TextField("", text: text)
@@ -294,10 +227,10 @@ struct BusinessLocationCreateScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(BusinessLocationCreateViewModel.self)
-        .setup(businessId: MockModels.ID.business1)
+    let viewModel = mockResolve(ClientCreateEditViewModel.self)
+        .setup(locationId: MockModels.ID.location1)
     
-    BusinessLocationCreateScreen(viewModel: viewModel)
+    ClientCreateEditScreen(viewModel: viewModel)
         .withMockServices()
     
 }

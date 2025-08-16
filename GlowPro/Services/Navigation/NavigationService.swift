@@ -286,12 +286,15 @@ extension View {
                 BusinessLocationsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessLocationCreate(let businessId):
+            case .businessLocationCreateEdit(let businessId, let locationId):
                 
-                let viewModel = globalResolver.resolve(BusinessLocationCreateViewModel.self)!
-                    .setup(businessId: businessId)
+                let viewModel = globalResolver.resolve(BusinessLocationCreateEditViewModel.self)!
+                    .setup(
+                        businessId: businessId,
+                        locationId: locationId
+                    )
                 
-                BusinessLocationCreateScreen(viewModel: viewModel)
+                BusinessLocationCreateEditScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .businessLocationDetails(let businessId, let locationId):
@@ -312,12 +315,15 @@ extension View {
         func client(route: Route.Client) -> some View {
             
             switch route {
-            case .clientCreate(let locationId):
+            case .clientCreate(let locationId, let clientId):
                 
-                let viewModel = globalResolver.resolve(ClientCreateViewModel.self)!
-                    .setup(locationId: locationId)
+                let viewModel = globalResolver.resolve(ClientCreateEditViewModel.self)!
+                    .setup(
+                        locationId: locationId,
+                        clientId: clientId
+                    )
                 
-                ClientCreateScreen(viewModel: viewModel)
+                ClientCreateEditScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .clientList(let context):

@@ -16,6 +16,8 @@ struct Location: Identifiable,
     let id: String
     let businessId: String
     let name: String
+    let email: String?
+    let phone: String?
     let address: Address
     let employees: [Employee]
     let clients: [Client]
@@ -43,6 +45,8 @@ extension Location {
             id: UUID().uuidString,
             businessId: Bool.random() ? MockModels.ID.business1 : MockModels.ID.business2,
             name: "My First Location",
+            email: nil,
+            phone: nil,
             address: .DUMMY_DATA(),
             employees: [],
             clients: []

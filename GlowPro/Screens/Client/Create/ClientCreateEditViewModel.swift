@@ -1,16 +1,16 @@
 //
-//  BusinessEmployeeCreateViewModel.swift
+//  ClientCreateEditViewModel.swift
 //  GlowPro
 //
-//  Created by Sako Hovaguimian on 7/9/25.
+//  Created by Sako Hovaguimian on 8/15/25.
 //
 
-import Foundation
+import Combine
 
-final class BusinessLocationCreateViewModel: ViewModel {
+final class ClientCreateEditViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_LOCATION_CREATE_VIEW_MODEL"
-    internal let loggerEmoji: String = "🏰"
+    internal let loggerName: String = "CLIENT_CREATE_EDIT_VIEW_MODEL"
+    internal let loggerEmoji: String = "👤"
     
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
@@ -20,33 +20,31 @@ final class BusinessLocationCreateViewModel: ViewModel {
     
     @Published private(set) var business: Business?
     
-    @Published var name: String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
     @Published var phone: String = ""
     @Published var email: String = ""
-    @Published var street: String = ""
-    @Published var street2: String = ""
-    @Published var city: String = ""
-    @Published var state: String = ""
-    @Published var zip: String = ""
     
     var isSaveButtonEnabled: Bool {
         
         return (
-            !self.name.isEmpty &&
+            !self.firstName.isEmpty &&
+            !self.lastName.isEmpty &&
             !self.phone.isEmpty &&
-            !self.email.isEmpty &&
-            !self.street.isEmpty &&
-            !self.city.isEmpty &&
-            !self.state.isEmpty &&
-            !self.zip.isEmpty
+            !self.email.isEmpty
         )
         
     }
     
-    private var businessId: String!
+    private var locationId: String?
+    private var clientId: String?
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var navTitle: String {
+        return self.clientId == nil ? "Create Client" : "Edit Client"
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -69,10 +67,55 @@ final class BusinessLocationCreateViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(locationId: String? = nil,
+               clientId: String? = nil) -> Self {
         
-        self.businessId = businessId
+        self.locationId = locationId
+        self.clientId = clientId
+        
         return self
+        
+    }
+    
+    func loadData() {
+        
+        guard let clientId else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let client = try await self.apiService.getClient(id: clientId)
+                
+                await MainActor.run {
+                    
+                    self.firstName = client.firstName
+                    self.lastName = client.lastName
+                    self.phone = client.phone ?? ""
+                    self.email = client.email ?? ""
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while fetching your client. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     
@@ -87,43 +130,8 @@ final class BusinessLocationCreateViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
-        
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
-        
-        Task {
-            
-            do {
-                
-                let business = try await self.apiService
-                    .getBusiness(id: self.businessId)
-                
-                await MainActor.run { [weak self] in
-                    self?.business = business
-                }
-                
-            }
-            catch {
-                
-                self.alertService.showAlert(.init(
-                    .appAlert(
-                        .error(
-                            message: "Something went wrong while fetching your business. Please try again later.",
-                            action: {})
-                    ))
-                )
-                
-            }
-            
-            self.alertService
-                .dismissLoadingIndicator()
-            
-        }
-        
-    }
-    
     func save() {
+        
     }
     
     private func bindSubscribers() {
@@ -132,14 +140,10 @@ final class BusinessLocationCreateViewModel: ViewModel {
     
 }
 
-extension BusinessLocationCreateViewModel {
+extension ClientCreateEditViewModel {
     
     func track() {
-        
-        self.analyticsService.track(screen: .business(.businessLocationCreate(
-            businessId: self.businessId
-        )))
-        
+        self.analyticsService.track(screen: .client(.clientCreateEdit(clientId: self.clientId)))
     }
     
 }

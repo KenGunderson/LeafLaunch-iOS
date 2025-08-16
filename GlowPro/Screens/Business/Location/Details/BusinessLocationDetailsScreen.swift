@@ -55,9 +55,21 @@ struct BusinessLocationDetailsScreen: GPView {
         }
         .asAnyView()
         
+        let pencilButton = NavBarButton(style: .pencil) {
+            
+            self.navigationService
+                .push(.business(.businessLocationCreateEdit(
+                    businessId: self.viewModel.business?.id ?? "",
+                    locationId: self.viewModel.location?.id
+                )))
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: "Location Details",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: pencilButton
         )
         
     }

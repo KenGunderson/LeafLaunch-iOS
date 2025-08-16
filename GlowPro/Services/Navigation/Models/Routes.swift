@@ -39,7 +39,10 @@ enum Route: Navigation, Hashable, Sendable {
         
         case businessLocationHome(locationId: String)
         case businessLocations(businessId: String)
-        case businessLocationCreate(businessId: String)
+        
+        case businessLocationCreateEdit(businessId: String,
+                                        locationId: String? = nil)
+        
         case businessLocationDetails(businessId: String, locationId: String)
         
         case businessEmployees(businessId: String)
@@ -52,8 +55,10 @@ enum Route: Navigation, Hashable, Sendable {
     
     enum Client: Hashable {
         
-        case clientCreate(locationId: String)
+        case clientCreate(locationId: String?,
+                          clientId: String? = nil)
         case clientList(context: ClientListViewModel.Context)
+        
         
     }
     

@@ -16,6 +16,7 @@ struct NavBarButton: View {
         case settings
         case plus
         case bell(notificationCount: Int = 0)
+        case pencil
         
         var systemName: String {
             switch self {
@@ -24,6 +25,14 @@ struct NavBarButton: View {
             case .settings: return "gear"
             case .plus: return "plus"
             case .bell: return "bell"
+            case .pencil: return "pencil"
+            }
+        }
+        
+        var smallerIcon: Bool {
+            switch self {
+            case .close, .pencil: return true
+            default: return false
             }
         }
         
@@ -41,9 +50,8 @@ struct NavBarButton: View {
     }
     
     var body: some View {
-        
-        let isClose = (self.style == .close)
-        let frame: CGFloat = isClose ? 16 : 20
+    
+        let frame: CGFloat = self.style.smallerIcon ? 16 : 20
         
         Image(systemName: self.style.systemName)
             .resizable()
