@@ -138,6 +138,9 @@ struct ClientDetailsScreen: GPView {
         let pencilButton = NavBarButton(style: .pencil) {
             
             self.tabBarNavigationService
+                .shouldShowTabBar(false)
+            
+            self.tabBarNavigationService
                 .tab1NavigationService
                 .push(.client(.clientCreate(
                     locationId: nil,

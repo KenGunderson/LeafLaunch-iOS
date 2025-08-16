@@ -40,6 +40,9 @@ struct BusinessHomeScreen: GPView {
             self.viewModel
                 .setup(navigationService: self.navigationService)
             
+        }
+        .task {
+            
             self.viewModel
                 .loadData()
             
@@ -169,10 +172,16 @@ struct BusinessHomeScreen: GPView {
     
     @ViewBuilder
     private func pendingInvites() -> some View {
-     
+        
+        let pendingInvites = self.viewModel.business?.employeeInvites ?? []
+        
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             section(title: "Pending Invites")
+            
+            ForEach(pendingInvites, id: \.id) { invite in
+                EmployeeInviteView(employeeInvitation: invite)
+            }
             
         }
         

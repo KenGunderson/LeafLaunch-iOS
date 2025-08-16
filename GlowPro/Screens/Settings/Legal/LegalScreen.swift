@@ -29,10 +29,13 @@ struct LegalScreen: View {
                 .track()
             
             self.viewModel
-                .loadData()
+                .setup(navigationService: self.navigationService)
+            
+        }
+        .task {
             
             self.viewModel
-                .setup(navigationService: self.navigationService)
+                .loadData()
             
         }
 

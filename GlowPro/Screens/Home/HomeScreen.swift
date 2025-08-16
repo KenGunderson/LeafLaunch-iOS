@@ -47,9 +47,6 @@ struct HomeScreen: GPView {
                     self.viewModel
                         .setup(navigationService: self.navigationService)
                     
-                    self.viewModel
-                        .loadData()
-                    
                     self.isFirstAppear = false
                     
                 }
@@ -61,6 +58,12 @@ struct HomeScreen: GPView {
                             .loadData(showHud: false)
                         
                     }
+                    
+                }
+                .task {
+                    
+                    self.viewModel
+                        .loadData()
                     
                 }
                 

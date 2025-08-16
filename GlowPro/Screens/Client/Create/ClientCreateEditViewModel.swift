@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class ClientCreateEditViewModel: ViewModel {
     
@@ -44,6 +45,10 @@ final class ClientCreateEditViewModel: ViewModel {
     
     var navTitle: String {
         return self.clientId == nil ? "Create Client" : "Edit Client"
+    }
+    
+    var saveButtonTitle: String {
+        return self.clientId == nil ? "Create" : "Save"
     }
     
     init(apiService: APIServiceProtocol,
@@ -105,7 +110,7 @@ final class ClientCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your client. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("client"),
                             action: {})
                     ))
                 )
@@ -131,6 +136,54 @@ final class ClientCreateEditViewModel: ViewModel {
     }
     
     func save() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let newClient = Client(
+                    id: UUID().uuidString,
+                    firstName: self.firstName,
+                    lastName: self.lastName,
+                    email: self.email,
+                    phone: self.phone,
+                    birthDate: nil,
+                    employee: .DUMMY_DATA()
+                )
+                
+                try await self.apiService
+                    .createClient(
+                        client: newClient,
+                        locationId: self.locationId ?? ""
+                    )
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "User created successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while saving your client. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
         
     }
     

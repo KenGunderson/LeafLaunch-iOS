@@ -298,6 +298,8 @@
 		75A69EFA2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
 		75A69EFB2E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */; };
 		75A69EFC2E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */; };
+		75AE94032E5045D4006F4DED /* EmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */; };
+		75AE94042E5045D4006F4DED /* EmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */; };
 		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
 		75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
 		75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */; };
@@ -631,6 +633,7 @@
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A69EF72E2C8FEE000E5595 /* BusinessEmployeeJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinViewModel.swift; sourceTree = "<group>"; };
 		75A69EF82E2C8FEE000E5595 /* BusinessEmployeeJoinScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeJoinScreen.swift; sourceTree = "<group>"; };
+		75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInviteView.swift; sourceTree = "<group>"; };
 		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
 		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateScreen.swift; sourceTree = "<group>"; };
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -1275,14 +1278,14 @@
 			path = ActiveDestination;
 			sourceTree = "<group>";
 		};
-		75573AB92DD82B4A00C7CA6E /* Globals + Constants */ = {
+		75573AB92DD82B4A00C7CA6E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				753EC1B12DB8BD3900265B2A /* Constants.swift */,
 				753EC1B32DB8BD4A00265B2A /* Globals.swift */,
 				7548D23D2DD561EE008AE243 /* GlobalImports.swift */,
 			);
-			path = "Globals + Constants";
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		75573ABA2DD82CD200C7CA6E /* Welcome */ = {
@@ -1351,7 +1354,7 @@
 				750B85F32E48E12A00417BA5 /* TODO */,
 				753EC2082DB8CBBB00265B2A /* App.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
-				75573AB92DD82B4A00C7CA6E /* Globals + Constants */,
+				75573AB92DD82B4A00C7CA6E /* Helpers */,
 				753EC1E62DB8C4E800265B2A /* DI */,
 				755C98262D9CC8E000437D5D /* Services */,
 				758DAEA12E0514F100311C7C /* Components */,
@@ -1533,6 +1536,7 @@
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
+				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				754D29312E07B1260065E242 /* Base */,
 				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
 			);
@@ -1947,6 +1951,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75715AD62DB9366E00E7994E /* Tab2Screen.swift in Sources */,
+				75AE94042E5045D4006F4DED /* EmployeeInviteView.swift in Sources */,
 				753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */,
 				751F95402E0B7EB5001CAF72 /* BusinessEditDetailsScreen.swift in Sources */,
 				75715AD02DB9365F00E7994E /* ClientDetailsViewModel.swift in Sources */,
@@ -2166,6 +2171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75D66CF42DC713C300E51CFC /* Tab2Screen.swift in Sources */,
+				75AE94032E5045D4006F4DED /* EmployeeInviteView.swift in Sources */,
 				75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */,
 				751F95412E0B7EB5001CAF72 /* BusinessEditDetailsScreen.swift in Sources */,
 				75D66D102DC713C300E51CFC /* ClientDetailsViewModel.swift in Sources */,

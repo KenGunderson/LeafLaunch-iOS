@@ -76,7 +76,7 @@ final class BusinessEmployeeJoinViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your data. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("data"),
                             action: {})
                     ))
                 )

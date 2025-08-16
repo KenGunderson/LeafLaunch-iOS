@@ -40,6 +40,9 @@ struct BusinessLocationHomeScreen: GPView {
             self.viewModel
                 .setup(navigationService: self.navigationService)
             
+        }
+        .task {
+            
             self.viewModel
                 .loadData()
             

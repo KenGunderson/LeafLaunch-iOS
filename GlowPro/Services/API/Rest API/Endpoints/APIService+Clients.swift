@@ -89,6 +89,23 @@ extension APIService {
         
     }
     
+    func createClient(client: Client,
+                      locationId: String) async throws {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .client(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteClient(id: String) async throws {
         
         do {

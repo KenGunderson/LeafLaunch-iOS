@@ -204,7 +204,7 @@ struct ClientCreateEditScreen: GPView {
         
         if self.focusedField == nil {
             
-            CommonButton(title: "Create",
+            CommonButton(title: self.viewModel.saveButtonTitle,
                          isEnabled: self.viewModel.isSaveButtonEnabled) {
                 
                 self.viewModel

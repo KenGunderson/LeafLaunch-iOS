@@ -99,7 +99,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your employees. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("employees"),
                             action: {})
                     ))
                 )

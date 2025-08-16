@@ -93,7 +93,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your employee. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("employee details"),
                             action: {})
                     ))
                 )

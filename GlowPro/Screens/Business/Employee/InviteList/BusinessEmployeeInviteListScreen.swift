@@ -89,7 +89,7 @@ struct BusinessEmployeeInviteListScreen: GPView {
             
         case .business:
             
-            Text(invite.name)
+            EmployeeInviteView(employeeInvitation: invite)
             
         default: EmptyView()
         }

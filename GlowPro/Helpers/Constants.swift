@@ -85,6 +85,18 @@ struct Constants {
         
     }
     
+    struct Error {
+        
+        static func createErrorMessage(_ topic: String) -> String {
+            return "Something went wrong while creating your \(topic). Please try again later."
+        }
+        
+        static func fetchErrorMessage(_ topic: String) -> String {
+            return "Something went wrong while fetching your \(topic). Please try again later."
+        }
+        
+    }
+    
     struct WhatsNewItems {
         
         static var items: [WhatsNewItem] {

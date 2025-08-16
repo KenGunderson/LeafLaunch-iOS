@@ -85,7 +85,7 @@ final class ClientDetailsViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your client. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("client"),
                             action: {})
                     ))
                 )

@@ -20,7 +20,7 @@ struct Location: Identifiable,
     let phone: String?
     let address: Address
     let employees: [Employee]
-    let clients: [Client]
+    var clients: [Client]
     
     var fullFormattedAddress: String {
         

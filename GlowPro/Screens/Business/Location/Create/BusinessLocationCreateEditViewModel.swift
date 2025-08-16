@@ -47,6 +47,10 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         return self.locationId == nil ? "Create Location" : "Edit Location"
     }
     
+    var saveButtonTitle: String {
+        return self.locationId == nil ? "Create" : "Save"
+    }
+    
     private var businessId: String!
     private var locationId: String?
 
@@ -136,7 +140,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your business. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("business"),
                             action: {})
                     ))
                 )

@@ -1,6 +1,5 @@
 [System]
 - Update TabBar Icons to Figma Ones
-- Add Other Colors In Figma To GPColor
 
 [Invitation]
 - Update copy on success to reflect figma
@@ -22,11 +21,6 @@
 
 [Client Create]
 - Birthday
-- Save Call
-- Update for context / create / edit
 
-- Rename creates into CreateEdit i.e. LocationCreateEditViewModel; ClientCreateEditViewModel
-- Use contexts for them with optional getters and optional update calls
-
-
+[Open Questions]
 - Do we need Active Destination?

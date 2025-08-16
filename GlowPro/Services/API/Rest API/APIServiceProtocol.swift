@@ -79,6 +79,7 @@ protocol APIServiceProtocol: APIProtocol {
     func getClients(locationId: String) async throws -> [Client]
     func getClients(employeeId: String) async throws -> [Client]
     func getClient(id: String) async throws -> Client
+    func createClient(client: Client, locationId: String) async throws
     func deleteClient(id: String) async throws
     
     // System

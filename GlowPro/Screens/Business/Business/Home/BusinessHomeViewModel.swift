@@ -97,7 +97,7 @@ final class BusinessHomeViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while fetching your business. Please try again later.",
+                            message: Constants.Error.fetchErrorMessage("business"),
                             action: {})
                     ))
                 )

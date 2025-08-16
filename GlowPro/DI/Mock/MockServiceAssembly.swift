@@ -284,11 +284,23 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getClients(employeeId: String) async throws -> [Client] {
-        return self.clients.filter { $0.employee.id == employeeId}
+        return self.clients.filter { $0.employee.id == employeeId }
     }
     
     func getClient(id: String) async throws -> Client {
         return self.clients.filter { $0.id == id }.first ?? .DUMMY_DATA()
+    }
+    
+    func createClient(client: Client,
+                      locationId: String) async throws {
+        
+        if let locationIndex = self.locations.firstIndex(where: { $0.id == locationId }) {
+            
+            self.clients.append(client)
+            self.locations[locationIndex].clients.append(client)
+            
+        }
+        
     }
     
     func deleteClient(id: String) async throws {
