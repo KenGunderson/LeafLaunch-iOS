@@ -135,7 +135,17 @@ final class ClientCreateEditViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func save() {
+    func saveOrUpdate() {
+        
+        if self.clientId == nil {
+            save()
+        } else {
+            update()
+        }
+        
+    }
+    
+    private func save() {
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -165,7 +175,7 @@ final class ClientCreateEditViewModel: ViewModel {
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
-                        message: "User created successfully.",
+                        message: "Client created successfully.",
                         action: {
                             self.navigationService?.pop()
                         }
@@ -178,6 +188,60 @@ final class ClientCreateEditViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: "Something went wrong while saving your client. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    private func update() {
+        
+        guard let clientId else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let isValidDateOfBirth = !self.dateOfBirth.isToday
+                let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
+                
+                let updatedClient = Client(
+                    id: clientId,
+                    firstName: self.firstName,
+                    lastName: self.lastName,
+                    email: self.email,
+                    phone: self.phone,
+                    birthDate: dateOfBirth,
+                    employee: .DUMMY_DATA(),
+                )
+                
+                try await self.apiService
+                    .updateClient(client: updatedClient)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Client updated successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while updating your client. Please try again later.",
                             action: {})
                     ))
                 )

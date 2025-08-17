@@ -159,7 +159,18 @@ final class MockAPIService: APIServiceProtocol {
     // Business
     
     func getBusinesses() async throws -> [Business] {
-        return self.businesses
+        
+        var businesses: [Business] = []
+        
+        for business in self.businesses {
+            
+            let fetchedBusiness = try await getBusiness(id: business.id)
+            businesses.append(fetchedBusiness)
+            
+        }
+        
+        return businesses
+        
     }
     
     func getBusiness(id: String) async throws -> Business {

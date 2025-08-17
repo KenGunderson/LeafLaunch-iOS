@@ -4,9 +4,21 @@
 [Invitation]
 - Update copy on success to reflect figma
 
-[Client, Location, Business]
+[Permissions]
+- Only owner can edit locations, add locations, add employees, edit employees
+
+[Client, Location, Business, Employee]
 - Update Calls + Page Refresh
 - Delete Calls (on details or on outer layer?)
+
+[Employee Update]
+- Edit Employee Information. Only Name
+
+[Location Home]
+- Edit Information Pencil on the Location Card
+
+[Client Create / Edit]
+- Remove employee id dummy_data and use the current user id
 
 [KF]
 - Image tint loading options as Rune param

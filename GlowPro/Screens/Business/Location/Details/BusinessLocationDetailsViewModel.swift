@@ -78,12 +78,15 @@ final class BusinessLocationDetailsViewModel: ViewModel {
             
             do {
                 
+                let business = try await self.apiService
+                    .getBusiness(id: self.businessId)
+                
                 let location = try await self.apiService
                     .getLocation(id: self.locationId)
                 
                 await MainActor.run { [weak self] in
 
-                    self?.business = .DUMMY_DATA()
+                    self?.business = business
                     self?.location = location
                     
                 }

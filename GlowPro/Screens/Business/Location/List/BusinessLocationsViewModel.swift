@@ -77,13 +77,12 @@ final class BusinessLocationsViewModel: ViewModel {
             do {
                 
                 let business = try await self.apiService
-                    .getBusinesses()
-                    .first
+                    .getBusiness(id: self.businessId)
                 
                 await MainActor.run { [weak self] in
 
                     self?.business = business
-                    self?.locations = business?.locations ?? []
+                    self?.locations = business.locations
                     
                 }
                 

@@ -77,12 +77,15 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
             
             do {
                 
+                let business = try await self.apiService
+                    .getBusiness(id: self.businessId)
+                
                 let employee = try await self.apiService
                     .getEmployee(id: self.employeeId)
                 
                 await MainActor.run { [weak self] in
 
-                    self?.business = .DUMMY_DATA()
+                    self?.business = business
                     self?.employee = employee
                     
                 }

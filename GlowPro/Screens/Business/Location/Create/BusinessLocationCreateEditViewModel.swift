@@ -154,7 +154,126 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         
     }
     
-    func save() {
+    func saveOrUpdate() {
+        
+        if self.locationId == nil {
+            save()
+        } else {
+            update()
+        }
+        
+    }
+    
+    private func save() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let newLocation = Location(
+                    id: "",
+                    businessId: self.businessId,
+                    name: self.name,
+                    email: self.email,
+                    phone: self.phone,
+                    address: .init(
+                        street: self.street,
+                        street2: self.street2.isEmpty ? nil : self.street2,
+                        city: self.city,
+                        state: self.state,
+                        zip: self.zip
+                    ),
+                    employees: [],
+                    clients: []
+                )
+                
+                _ = try await self.apiService
+                    .createLocation(location: newLocation)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Location created successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while updating your location. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    private func update() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let updatedLocation = Location(
+                    id: self.locationId ?? "",
+                    businessId: self.businessId,
+                    name: self.name,
+                    email: self.email,
+                    phone: self.phone,
+                    address: .init(
+                        street: self.street,
+                        street2: self.street2.isEmpty ? nil : self.street2,
+                        city: self.city,
+                        state: self.state,
+                        zip: self.zip
+                    ),
+                    employees: [],
+                    clients: []
+                )
+                
+                try await self.apiService
+                    .updateLocation(location: updatedLocation)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Location updated successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while updating your location. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
+        
     }
     
     private func bindSubscribers() {

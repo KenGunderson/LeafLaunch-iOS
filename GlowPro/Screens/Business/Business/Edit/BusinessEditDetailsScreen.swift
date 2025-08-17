@@ -270,7 +270,7 @@ struct BusinessEditDetailsScreen: GPView {
         if self.focusedField == nil {
             
             CommonButton(title: "Save") {
-                
+                self.viewModel.update()
             }
             .padding(.top, .small)
             .padding(.horizontal, .medium)

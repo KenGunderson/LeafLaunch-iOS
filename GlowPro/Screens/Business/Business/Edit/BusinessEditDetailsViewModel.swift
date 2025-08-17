@@ -119,6 +119,64 @@ final class BusinessEditDetailsViewModel: ViewModel {
         
     }
     
+    func update() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let updatedBusiness = Business(
+                    id: self.businessId,
+                    name: self.name,
+                    description: "",
+                    email: self.email,
+                    phoneNumber: self.phone,
+                    address: .init(
+                        street: self.street,
+                        street2: self.street2.isEmpty ? nil : self.street2,
+                        city: self.city,
+                        state: self.state,
+                        zip: self.zip
+                    ),
+                    owner: self.business?.owner ?? .DUMMY_DATA(),
+                    employees: [],
+                    locations: [],
+                    employeeInvites: []
+                )
+                
+                try await self.apiService
+                    .updateBusiness(business: updatedBusiness)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Business updated successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while updating your business. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
     }

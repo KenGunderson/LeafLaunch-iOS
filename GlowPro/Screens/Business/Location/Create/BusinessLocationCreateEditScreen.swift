@@ -275,7 +275,7 @@ struct BusinessLocationCreateEditScreen: GPView {
                          isEnabled: self.viewModel.isSaveButtonEnabled) {
                 
                 self.viewModel
-                    .save()
+                    .saveOrUpdate()
                 
             }
             .padding(.top, .small)
