@@ -43,6 +43,10 @@ struct ClientListScreen: GPView {
         } scrollViewContent: {
             clientList()
         }
+        .emptyStateOverlay(
+            shouldShow: self.viewModel.shouldShowEmptyState,
+            config: self.viewModel.emptyStateConfig()
+        )
 
     }
     
@@ -92,6 +96,7 @@ struct ClientListScreen: GPView {
             }
             
         }
+        .frame(maxWidth: .infinity)
         .padding(.bottom, .custom(86))
         
     }

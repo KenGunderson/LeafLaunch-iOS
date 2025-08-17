@@ -43,6 +43,7 @@ final class ClientListViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
+    @Published private(set) var shouldShowEmptyState: Bool = false
     
     private(set) var context: Context!
     
@@ -110,8 +111,9 @@ final class ClientListViewModel: ViewModel {
                     return client.firstName.first ?? "?"
                 }
                 
-                await MainActor.run { [weak self] in
+                await MainActor.run { [weak self, clients] in
                     self?.groupedClientsDict = usersByFirstLetter
+                    self?.shouldShowEmptyState = clients.isEmpty
                 }
                 
             }
@@ -145,6 +147,22 @@ final class ClientListViewModel: ViewModel {
         
         self.navigationService?
             .pop()
+        
+    }
+    
+    func emptyStateConfig() -> EmptyStateConfig {
+        
+        return .init(
+            title: "No Clients Found",
+            message: "Start building your client base by adding your first client",
+            image: .systemImage("magnifyingglass"),
+            actionTitle: "Add Your First Client",
+            action: {
+                if case let .location(locationId) = self.context {
+                    self.navigationService?.push(.client(.clientCreate(locationId: locationId)))
+                }
+            }
+        )
         
     }
     

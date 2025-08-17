@@ -177,8 +177,7 @@ struct MockModels {
             address: .DUMMY_DATA(),
             owner: MockUser.user1,
             locations: [
-                MockLocation.location1,
-                MockLocation.location2,
+                MockLocation.location1
             ],
             employeeInvites: [
                 MockEmployeeInvite.employeeInvite1,

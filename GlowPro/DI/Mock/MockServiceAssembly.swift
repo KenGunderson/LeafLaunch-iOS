@@ -348,7 +348,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getClients(locationId: String) async throws -> [Client] {
-        return self.clients.filter { $0.employee.locationId == locationId }
+        return self.clients.filter { $0.locationId == locationId }
     }
     
     func getClients(employeeId: String) async throws -> [Client] {

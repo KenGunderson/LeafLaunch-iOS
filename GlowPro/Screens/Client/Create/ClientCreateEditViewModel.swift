@@ -164,6 +164,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     email: self.email,
                     phone: self.phone,
                     birthDate: dateOfBirth,
+                    locationId: self.locationId ?? "",
                     employee: .DUMMY_DATA(),
                 )
                 
@@ -221,7 +222,8 @@ final class ClientCreateEditViewModel: ViewModel {
                     email: self.email,
                     phone: self.phone,
                     birthDate: dateOfBirth,
-                    employee: .DUMMY_DATA(),
+                    locationId: self.locationId ?? "",
+                    employee: .DUMMY_DATA()
                 )
                 
                 try await self.apiService

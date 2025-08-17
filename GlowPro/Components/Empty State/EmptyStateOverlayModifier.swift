@@ -1,0 +1,58 @@
+//
+//  EmptyStateViewModifier.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 8/17/25.
+//
+
+import SwiftUI
+
+public struct EmptyStateOverlayModifier: ViewModifier {
+    
+    let shouldShow: Bool
+    
+    let config: EmptyStateConfig
+    
+    let transition: AnyTransition
+    let animation: Animation
+    
+    public func body(content: Content) -> some View {
+        
+        content
+            .overlay {
+                
+                if shouldShow {
+                    
+                    EmptyStateView(config: self.config)
+                        .transition(transition)
+                    
+                }
+                
+            }
+            .animation(animation, value: shouldShow)
+        
+    }
+    
+}
+
+extension View {
+    
+    /// Adds a reusable empty state overlay that animates in/out.
+    func emptyStateOverlay(shouldShow: Bool,
+                           config: EmptyStateConfig,
+                           transition: AnyTransition = .move(edge: .bottom).combined(with: .opacity),
+                           animation: Animation = .bouncy.delay(0.3)) -> some View {
+        
+        modifier(
+            EmptyStateOverlayModifier(
+                shouldShow: shouldShow,
+                config: config,
+                transition: transition,
+                animation: animation
+            )
+        )
+        
+    }
+    
+}
+

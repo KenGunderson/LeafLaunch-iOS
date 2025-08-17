@@ -20,6 +20,7 @@ final class BusinessLocationsViewModel: ViewModel {
     
     @Published private(set) var business: Business?
     @Published private(set) var locations: [Location] = []
+    @Published private(set) var shouldShowEmptyState: Bool = false
     
     private var businessId: String!
 
@@ -83,6 +84,7 @@ final class BusinessLocationsViewModel: ViewModel {
 
                     self?.business = business
                     self?.locations = business.locations
+                    self?.shouldShowEmptyState = business.locations.isEmpty
                     
                 }
                 
@@ -103,6 +105,25 @@ final class BusinessLocationsViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func emptyStateConfig() -> EmptyStateConfig {
+        
+        return .init(
+            title: "No Locations Found",
+            message: "Start building your business by adding your first location",
+            image: .systemImage("magnifyingglass"),
+            actionTitle: "Add Your First Location",
+            action: {
+                
+                self.navigationService?.push(.business(.businessLocationCreateEdit(
+                    businessId: self.businessId,
+                    locationId: nil
+                )))
+                
+            }
+        )
         
     }
     

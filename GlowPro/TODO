@@ -8,15 +8,14 @@
 - Only owner can edit locations, add locations, add employees, edit employees
 
 [Client, Location, Business, Employee]
-- Update Calls + Page Refresh (Task seems to get called on all lifecycle events)
 - Delete Calls (on details or on outer layer?)
 
-[Clients, Locations, Employees]
+[Clients, Locations, Employees] (List views)
 - Empty State Views in Figma
 - Make sure there is an isLoaded flag on viewModel for the first load
 
 [Employee Update]
-- Edit Employee Information. Only Name
+- Update Call for Employee Information. Only Name should be able to be edited
 
 [Location Home]
 - Edit Information Pencil on the Location Card
