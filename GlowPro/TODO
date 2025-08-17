@@ -36,3 +36,6 @@
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
+
+[TextFields]
+- Make sure to use the font we use in signup / login. The current one for all the forms are way tooooo bold
