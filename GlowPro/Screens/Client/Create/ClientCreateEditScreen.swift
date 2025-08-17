@@ -206,8 +206,6 @@ struct ClientCreateEditScreen: GPView {
         VStack(alignment: .leading) {
             
             Text("Date Of Birth")
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .appFont(with: .TITLE_3)
             
             DatePicker(
                 "",
@@ -221,7 +219,10 @@ struct ClientCreateEditScreen: GPView {
             .padding(.leading, -8)
             
         }
+        .foregroundStyle(Style.shared.textColor(.title).source())
+        .appFont(with: .TITLE_3)
         .padding(.top, Style.shared.spacing(.extraSmall))
+        .preferredColorScheme(.light)
         
     }
     

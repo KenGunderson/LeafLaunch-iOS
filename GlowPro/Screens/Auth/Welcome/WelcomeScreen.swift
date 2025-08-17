@@ -40,11 +40,11 @@ struct WelcomeScreen: GPView {
     
     var content: some View {
         
-        VStack(spacing: Style.shared.spacing(.extraLarge)) {
+        VStack(spacing: Style.shared.spacing(.none)) {
             
-            RoundedRectangle(cornerRadius: Style.shared.radius(.large))
-                .fill(.gray.opacity(0.15))
-                .frame(height: 360)
+            Image(.illustrationWelcome)
+                .resizable()
+                .frame(height: UIScreen.main.bounds.height / 1.95)
             
             VStack(spacing: Style.shared.spacing(.large)) {
                 
@@ -53,17 +53,33 @@ struct WelcomeScreen: GPView {
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
-                Text("Capture your clients' transformations beautifully and professionally.")
+                Text("Secure records, treatment tracking, and before & after results, all in one place.")
                     .appFont(with: .BODY_4)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Style.shared.textColor(.body).source())
+                    .padding(.horizontal, .custom(48))
                 
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, .custom(48))
+            .background(Style.shared.background(.primary).source())
+//            .background {
+//                
+//                LinearGradient(
+//                    colors: [
+//                        Style.shared.accent.asColor!.opacity(1),
+//                        Color(hex: "#A9D0B5"),
+////                        Color(hex: "#A9D0B5").opacity(0.01)
+//                    ],
+//                    startPoint: .top,
+//                    endPoint: .bottom
+//                )
+//                
+//            }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding(.top, .extraLarge)
-        .padding(.horizontal, .medium)
+        .ignoresSafeArea()
         
     }
     

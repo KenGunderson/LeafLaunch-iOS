@@ -8,8 +8,12 @@
 - Only owner can edit locations, add locations, add employees, edit employees
 
 [Client, Location, Business, Employee]
-- Update Calls + Page Refresh
+- Update Calls + Page Refresh (Task seems to get called on all lifecycle events)
 - Delete Calls (on details or on outer layer?)
+
+[Clients, Locations, Employees]
+- Empty State Views in Figma
+- Make sure there is an isLoaded flag on viewModel for the first load
 
 [Employee Update]
 - Edit Employee Information. Only Name
@@ -30,3 +34,6 @@
 
 [Open Questions]
 - Do we need Active Destination anymore since we have the landing page?
+
+[Settings]
+- All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
