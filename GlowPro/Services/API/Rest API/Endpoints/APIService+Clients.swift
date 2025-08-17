@@ -106,6 +106,22 @@ extension APIService {
         
     }
     
+    func updateClient(client: Client) async throws {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .client(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteClient(id: String) async throws {
         
         do {

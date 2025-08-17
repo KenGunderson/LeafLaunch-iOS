@@ -53,6 +53,8 @@ struct BusinessLocationHomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
+        let trailingNavButtons: [NavBarButton.Style] = self.viewModel.isOwner ? [.settings] : []
+        
         NavHeader(
             title: self.viewModel.business?.name ?? "",
             subtitle: self.viewModel.location?.name ?? "",
@@ -65,7 +67,7 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
             },
-            trailingNavButtons: [.settings]) { navItem in
+            trailingNavButtons: trailingNavButtons) { navItem in
                 
                 switch navItem {
                 case .settings: self.navigationService.modal(fullScreenCover: .settings)
@@ -99,14 +101,24 @@ struct BusinessLocationHomeScreen: GPView {
         ]) {
             
             QuickActionTileView(
-                icon: .systemImage("pin.fill"),
-                iconBackgroundColor: .color(GPColor.iconBlue),
-                title: "Location Info",
-                subtitle: "54th Street Florida",
+                icon: .systemImage("person.2.fill"),
+                iconBackgroundColor: .color(GPColor.iconGreen),
+                title: "Employees",
+                subtitle: "View All Employees",
                 prominentSubtitle: false
             )
             .appShadow(.subtle)
-            .asButton {}
+            .asButton {
+                
+                let businessId = self.viewModel.location?.businessId ?? ""
+                
+                self.navigationService
+                    .push(.business(.businessEmployees(
+                        businessId: businessId,
+                        context: .location(locationId: self.viewModel.locationId))
+                    ))
+                
+            }
             
             QuickActionTileView(
                 icon: .systemImage("camera.fill"),

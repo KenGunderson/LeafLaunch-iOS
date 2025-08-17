@@ -88,6 +88,40 @@ extension APIService {
         
     }
     
+    func createLocation(location: Location) async throws -> Location {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .location(""))
+            )
+            
+            return .DUMMY_DATA()
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func updateLocation(location: Location) async throws {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .location(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteLocation(id: String) async throws {
         
         do {

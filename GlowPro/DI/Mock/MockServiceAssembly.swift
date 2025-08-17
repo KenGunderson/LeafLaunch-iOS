@@ -182,6 +182,25 @@ final class MockAPIService: APIServiceProtocol {
         return self.businesses.removeAll { $0.id == id }
     }
     
+    func createBusiness(business: Business) async throws -> Business {
+        
+        self.businesses.append(business)
+        return business
+        
+    }
+    
+    func updateBusiness(business: Business) async throws {
+        
+        if let index = self.businesses.firstIndex(where: { $0.id == business.id }) {
+            self.businesses[index] = business
+        }
+        
+    }
+    
+    func deleteLocation(id: String) async throws {
+        return self.locations.removeAll { $0.id == id }
+    }
+    
     // Locations
     
     func getLocations() async throws -> [Location] {
@@ -196,8 +215,19 @@ final class MockAPIService: APIServiceProtocol {
         return self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
     }
     
-    func deleteLocation(id: String) async throws {
-        return self.locations.removeAll { $0.id == id }
+    func createLocation(location: Location) async throws -> Location {
+        
+        self.locations.append(location)
+        return location
+        
+    }
+    
+    func updateLocation(location: Location) async throws {
+     
+        if let index = self.locations.firstIndex(where: { $0.id == location.id }) {
+            self.locations[index] = location
+        }
+        
     }
     
     // Workspaces
@@ -218,6 +248,21 @@ final class MockAPIService: APIServiceProtocol {
     
     func getEmployee(id: String) async throws -> Employee {
         return self.employees.first ?? .DUMMY_DATA()
+    }
+    
+    func createEmployee(employee: Employee) async throws -> Employee {
+        
+        self.employees.append(employee)
+        return employee
+        
+    }
+    
+    func updateEmployee(employee: Employee) async throws {
+        
+        if let index = self.employees.firstIndex(where: { $0.id == employee.id }) {
+            self.employees[index] = employee
+        }
+        
     }
     
     func deleteEmployee(id: String) async throws {
@@ -311,6 +356,14 @@ final class MockAPIService: APIServiceProtocol {
             self.clients.append(client)
             self.locations[locationIndex].clients.append(client)
             
+        }
+        
+    }
+
+    func updateClient(client: Client) async throws {
+        
+        if let index = self.clients.firstIndex(where: { $0.id == client.id }) {
+            self.clients[index] = client
         }
         
     }

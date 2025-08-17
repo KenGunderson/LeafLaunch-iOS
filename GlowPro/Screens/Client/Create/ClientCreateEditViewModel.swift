@@ -25,13 +25,13 @@ final class ClientCreateEditViewModel: ViewModel {
     @Published var lastName: String = ""
     @Published var phone: String = ""
     @Published var email: String = ""
+    @Published var dateOfBirth: Date = .now
     
     var isSaveButtonEnabled: Bool {
         
         return (
             !self.firstName.isEmpty &&
             !self.lastName.isEmpty &&
-            !self.phone.isEmpty &&
             !self.email.isEmpty
         )
         
@@ -144,14 +144,17 @@ final class ClientCreateEditViewModel: ViewModel {
             
             do {
                 
+                let isValidDateOfBirth = !self.dateOfBirth.isToday
+                let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
+                
                 let newClient = Client(
                     id: UUID().uuidString,
                     firstName: self.firstName,
                     lastName: self.lastName,
                     email: self.email,
                     phone: self.phone,
-                    birthDate: nil,
-                    employee: .DUMMY_DATA()
+                    birthDate: dateOfBirth,
+                    employee: .DUMMY_DATA(),
                 )
                 
                 try await self.apiService

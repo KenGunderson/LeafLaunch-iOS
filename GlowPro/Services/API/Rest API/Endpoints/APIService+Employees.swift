@@ -70,6 +70,40 @@ extension APIService {
         
     }
     
+    func createEmployee(employee: Employee) async throws -> Employee {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .employee(""))
+            )
+            
+            return .DUMMY_DATA()
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func updateEmployee(employee: Employee) async throws {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .employee(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteEmployee(id: String) async throws {
         
         do {

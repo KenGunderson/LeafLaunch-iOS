@@ -136,7 +136,6 @@ struct BusinessHomeScreen: GPView {
                 
             }
             
-            
             QuickActionTileView(
                 icon: .systemImage("person.3.fill"),
                 iconBackgroundColor: .color(GPColor.iconOrange),
@@ -151,7 +150,6 @@ struct BusinessHomeScreen: GPView {
                     .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
                 
             }
-            
             
             QuickActionTileView(
                 icon: .systemImage("photo.on.rectangle.fill"),

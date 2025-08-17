@@ -118,6 +118,7 @@ struct ClientCreateEditScreen: GPView {
                     textField(fieldToFocus: .email)
                     textField(fieldToFocus: .phone)
                     
+                    dateOfBirthPicker()
                 }
                 
             }
@@ -196,6 +197,31 @@ struct ClientCreateEditScreen: GPView {
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+        
+    }
+    
+    @ViewBuilder
+    private func dateOfBirthPicker() -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            Text("Date Of Birth")
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .appFont(with: .TITLE_3)
+            
+            DatePicker(
+                "",
+                selection: self.$viewModel.dateOfBirth,
+                displayedComponents: .date
+            )
+            .tint(Style.shared.accent.source())
+            .datePickerStyle(.compact)
+            .fixedSize()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, -8)
+            
+        }
+        .padding(.top, Style.shared.spacing(.extraSmall))
         
     }
     

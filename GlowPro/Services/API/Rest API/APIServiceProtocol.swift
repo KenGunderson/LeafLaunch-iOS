@@ -43,6 +43,8 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getBusinesses() async throws -> [Business]
     func getBusiness(id: String) async throws -> Business
+    func createBusiness(business: Business) async throws -> Business
+    func updateBusiness(business: Business) async throws
     func deleteBusiness(id: String) async throws
     
     // Locations
@@ -50,6 +52,8 @@ protocol APIServiceProtocol: APIProtocol {
     func getLocations() async throws -> [Location]
     func getLocations(businessId: String) async throws -> [Location]
     func getLocation(id: String) async throws -> Location
+    func createLocation(location: Location) async throws -> Location
+    func updateLocation(location: Location) async throws
     func deleteLocation(id: String) async throws
     
     // Workspaces
@@ -61,6 +65,8 @@ protocol APIServiceProtocol: APIProtocol {
     func getEmployees(businessId: String) async throws -> [Employee]
     func getEmployees(locationId: String) async throws -> [Employee]
     func getEmployee(id: String) async throws -> Employee
+    func createEmployee(employee: Employee) async throws -> Employee
+    func updateEmployee(employee: Employee) async throws
     func deleteEmployee(id: String) async throws
     
     // Employee Invites
@@ -80,6 +86,7 @@ protocol APIServiceProtocol: APIProtocol {
     func getClients(employeeId: String) async throws -> [Client]
     func getClient(id: String) async throws -> Client
     func createClient(client: Client, locationId: String) async throws
+    func updateClient(client: Client) async throws
     func deleteClient(id: String) async throws
     
     // System

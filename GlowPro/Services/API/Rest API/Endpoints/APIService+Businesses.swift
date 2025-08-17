@@ -50,6 +50,40 @@ extension APIService {
         
     }
     
+    func createBusiness(business: Business) async throws -> Business {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .business(""))
+            )
+            
+            return .DUMMY_DATA()
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func updateBusiness(business: Business) async throws {
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .business(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteBusiness(id: String) async throws {
         
         do {

@@ -4,19 +4,12 @@
 [Invitation]
 - Update copy on success to reflect figma
 
-[Location Home]
-- Make Endpoint
-- Only Show Gear For settings if you are the owner
-
-[Business Home]
-- Make Endpoint
-- Use Real Count Values (Clients, Employees, Media, Locations)
+[Client, Location, Business]
+- Update Calls + Page Refresh
+- Delete Calls (on details or on outer layer?)
 
 [KF]
 - Image tint loading options as Rune param
-
-[Client Create]
-- Birthday
 
 [Secuirty & Privacy Settings]
 - Secure Mode

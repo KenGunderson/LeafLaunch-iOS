@@ -193,7 +193,7 @@ struct MockModels {
             email: "business2@me.com",
             phoneNumber: "818-522-5755",
             address: .DUMMY_DATA(),
-            owner: MockUser.user1,
+            owner: MockUser.user2,
             locations: [
                 MockLocation.location2
             ]

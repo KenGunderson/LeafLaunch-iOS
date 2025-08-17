@@ -28,6 +28,10 @@ final class BusinessLocationHomeViewModel: ViewModel {
     
     private(set) var locationId: String!
     
+    var isOwner: Bool {
+        self.authService.currentUser?.id == self.business?.owner.id
+    }
+    
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
