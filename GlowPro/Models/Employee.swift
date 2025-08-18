@@ -16,6 +16,7 @@ struct Employee: Identifiable,
     let id: String
     let businessId: String
     let locationId: String
+    let userId: String
     let name: String
     let email: String
     let phone: String
@@ -26,6 +27,7 @@ struct Employee: Identifiable,
         case id
         case businessId = "business_id"
         case locationId = "location_id"
+        case userId = "user_id"
         case name
         case email
         case phone
@@ -43,6 +45,7 @@ extension Employee {
             id: UUID().uuidString,
             businessId: MockModels.ID.business1,
             locationId: MockModels.ID.location1,
+            userId: MockModels.ID.user1,
             name: "Juan Employee",
             email: "juan@me.com",
             phone: "8185225755",

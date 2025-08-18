@@ -244,7 +244,46 @@ final class MockAPIService: APIServiceProtocol {
     // Workspaces
     
     func getWorkspaces() async throws -> [Workspace] {
-        return self.workspaces
+        
+        var workspaces: [Workspace] = []
+        
+        let currentUserId = self.currentUser.id
+        let ownedBusinesses = self.businesses.filter { $0.owner.id == currentUserId }
+        let allEmployeeRoles = self.employees.filter { $0.userId == currentUserId }
+        
+        for business in ownedBusinesses {
+            
+            let businessDetails = try await self.getBusiness(id: business.id)
+            
+            let ownedWorkspace = Workspace(
+                id: "owner_workspace",
+                name: businessDetails.name,
+                isOwner: true,
+                locations: businessDetails.locations
+            )
+            
+            workspaces.append(ownedWorkspace)
+            
+        }
+        
+        for employee in allEmployeeRoles {
+            
+            let businessDetails = try await self.getBusiness(id: employee.businessId)
+            let location = try await self.getLocation(id: employee.locationId)
+            
+            let employedWorkspace = Workspace(
+                id: UUID().uuidString,
+                name: businessDetails.name,
+                isOwner: false,
+                locations: [location]
+            )
+            
+            workspaces.append(employedWorkspace)
+            
+        }
+        
+        return workspaces
+        
     }
     
     // Employees
@@ -303,6 +342,26 @@ final class MockAPIService: APIServiceProtocol {
         
         if let businessIndex = self.businesses.firstIndex(where: { $0.name == invite.businessName }),
            let employeeInviteIndex = self.businesses[businessIndex].employeeInvites.firstIndex(of: invite) {
+            
+            let business = self.businesses[businessIndex]
+            let invitedLocations = invite.locations.isEmpty ? business.locations : invite.locations
+            
+            for location in invitedLocations {
+                
+                let employee = Employee(
+                    id: UUID().uuidString,
+                    businessId: business.id,
+                    locationId: location.id,
+                    userId: self.currentUser.id,
+                    name: invite.name,
+                    email: invite.email,
+                    phone: "",
+                    role: invite.role ?? .employee
+                )
+                
+                self.employees.append(employee)
+                
+            }
             
             self.businesses[businessIndex].employeeInvites.remove(at: employeeInviteIndex)
             self.currentUser.businesses.append(self.businesses[businessIndex])
@@ -522,19 +581,19 @@ final class MockAuthService: AuthServiceProtocol {
     
     private let apiService: APIServiceProtocol = MockAPIService()
     
-    var currentUser: GPUser? = .DUMMY_DATA()
+    var currentUser: GPUser? = MockModels.MockUser.user1
     var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
     var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
     var onError = CurrentValueSubject<Error?, Never>(nil)
     
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
-        self.currentUser = .DUMMY_DATA()
+        self.currentUser = MockModels.MockUser.user1
     }
     
     func login(email: String, password: String) async throws {
         
         let businesses = try await apiService.getBusinesses()
-        var currentUser = GPUser.DUMMY_DATA()
+        var currentUser = MockModels.MockUser.user1
         currentUser.businesses = businesses
         
         self.currentUser = currentUser

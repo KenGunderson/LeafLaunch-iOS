@@ -12,9 +12,6 @@
 [Client, Location, Business, Employee]
 - Delete Calls (on details or on outer layer?)
 
-[Employee Invite Empty State] (List views)
-- Empty State Views in Figma using view modifier
-
 [Employee Update]
 - Update Call for Employee Information. Only Name should be able to be edited
 
