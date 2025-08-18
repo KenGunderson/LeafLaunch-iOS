@@ -12,7 +12,7 @@
 [Client, Location, Business, Employee]
 - Delete Calls (on details or on outer layer?)
 
-[Clients, Locations, Employees] (List views)
+[Employee Invite Empty State] (List views)
 - Empty State Views in Figma using view modifier
 
 [Employee Update]
@@ -37,6 +37,3 @@
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
-
-[TextFields]
-- Make sure to use the font we use in signup / login. The current one for all the forms are way tooooo bold

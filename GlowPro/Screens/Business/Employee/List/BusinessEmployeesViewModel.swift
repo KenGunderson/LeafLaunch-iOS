@@ -41,6 +41,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     
     @Published private(set) var business: Business?
     @Published private(set) var employees: [Employee] = []
+    @Published private(set) var shouldShowEmptyState: Bool = false
     
     private var businessId: String!
     private var context: Context!
@@ -122,6 +123,7 @@ final class BusinessEmployeesViewModel: ViewModel {
 
                     self?.business = business
                     self?.employees = employees
+                    self?.shouldShowEmptyState = employees.isEmpty
                     
                 }
                 
@@ -142,6 +144,23 @@ final class BusinessEmployeesViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func emptyStateConfig() -> EmptyStateConfig {
+        
+        return .init(
+            title: "No Employees Found",
+            message: "Start building your business by inviting your first employee",
+            image: .systemImage("magnifyingglass"),
+            actionTitle: "Invite Your First Employee",
+            action: {
+                
+                self.navigationService?
+                    .push(.business(.businessEmployeesInvite(businessId: self.businessId)))
+                
+            }
+        )
         
     }
     

@@ -26,6 +26,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var employeeInvites: [EmployeeInvite] = []
+    @Published private(set) var shouldShowEmptyState: Bool = false
     
     private(set) var context: Context!
 
@@ -90,7 +91,10 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 }
                 
                 await MainActor.run { [employeeInvites] in
+                    
                     self.employeeInvites = employeeInvites
+                    self.shouldShowEmptyState = employeeInvites.isEmpty
+                    
                 }
                 
             }
@@ -177,6 +181,36 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
             
             loadData()
             
+        }
+        
+    }
+    
+    func emptyStateConfig() -> EmptyStateConfig {
+        
+        switch self.context! {
+        case .business(let businessId):
+            return .init(
+                title: "No Pending Invites",
+                message: "Start inviting employees to join your business by clicking the button below",
+                image: .systemImage("magnifyingglass"),
+                actionTitle: "Add Your First Employee",
+                action: {
+                    
+                    self.navigationService?
+                        .push(.business(.businessEmployeesInvite(businessId: businessId)))
+                    
+                }
+            )
+            
+        case .personal:
+            
+            return .init(
+                title: "No Pending Invites",
+                message: "Come back from time to time to see if there any new invites",
+                image: .systemImage("magnifyingglass"),
+                actionTitle: nil,
+                action: nil
+            )
         }
         
     }

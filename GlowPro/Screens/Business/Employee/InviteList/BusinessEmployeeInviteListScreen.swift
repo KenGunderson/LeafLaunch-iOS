@@ -45,6 +45,10 @@ struct BusinessEmployeeInviteListScreen: GPView {
         } scrollViewContent: {
             contentCards()
         }
+        .emptyStateOverlay(
+            shouldShow: self.viewModel.shouldShowEmptyState,
+            config: self.viewModel.emptyStateConfig()
+        )
         
     }
     
