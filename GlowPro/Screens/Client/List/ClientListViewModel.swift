@@ -38,6 +38,7 @@ final class ClientListViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -55,15 +56,18 @@ final class ClientListViewModel: ViewModel {
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.analyticsService = analyticsService
         self.alertService = alertService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
+        self.bindSubscribers()
         
     }
     
@@ -83,10 +87,14 @@ final class ClientListViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -112,8 +120,10 @@ final class ClientListViewModel: ViewModel {
                 }
                 
                 await MainActor.run { [weak self, clients] in
+                    
                     self?.groupedClientsDict = usersByFirstLetter
                     self?.shouldShowEmptyState = clients.isEmpty
+                    
                 }
                 
             }
@@ -129,8 +139,12 @@ final class ClientListViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         
@@ -163,6 +177,19 @@ final class ClientListViewModel: ViewModel {
                 }
             }
         )
+        
+    }
+    
+    private func bindSubscribers() {
+        
+        self.cancelBag = CancelBag()
+        
+        self.viewLifecycleService
+            .publisher(for: .clientList)
+            .sink { [weak self] in
+                self?.loadData(showHud: false)
+            }
+            .store(in: &self.cancelBag)
         
     }
     

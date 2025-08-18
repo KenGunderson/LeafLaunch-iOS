@@ -281,12 +281,12 @@ extension View {
                 BusinessLocationHomeScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessLocations(let businessId):
+            case .businessLocationList(let businessId):
                 
-                let viewModel = globalResolver.resolve(BusinessLocationsViewModel.self)!
+                let viewModel = globalResolver.resolve(BusinessLocationListViewModel.self)!
                     .setup(businessId: businessId)
                 
-                BusinessLocationsScreen(viewModel: viewModel)
+                BusinessLocationListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .businessLocationCreateEdit(let businessId, let locationId):

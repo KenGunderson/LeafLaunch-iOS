@@ -11,6 +11,7 @@ import Combine
 enum ViewLifecycleKey: String, Hashable {
     
     case home
+    case clientList
     case devSettings
     
 }

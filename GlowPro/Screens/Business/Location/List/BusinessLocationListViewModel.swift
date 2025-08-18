@@ -1,5 +1,5 @@
 //
-//  BusinessLocationsViewModel.swift
+//  BusinessLocationListViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 6/24/25.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class BusinessLocationsViewModel: ViewModel {
+final class BusinessLocationListViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_LOCATIONS_VIEW_MODEL"
+    internal let loggerName: String = "BUSINESS_LOCATION_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
     private let apiService: APIServiceProtocol
@@ -140,10 +140,10 @@ final class BusinessLocationsViewModel: ViewModel {
     
 }
 
-extension BusinessLocationsViewModel {
+extension BusinessLocationListViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .business(.businessLocations(businessId: self.businessId)))
+        self.analyticsService.track(screen: .business(.businessLocationList(businessId: self.businessId)))
     }
     
 }

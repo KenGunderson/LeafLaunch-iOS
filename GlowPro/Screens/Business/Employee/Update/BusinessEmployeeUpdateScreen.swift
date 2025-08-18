@@ -204,7 +204,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
                 backgroundColor: Style.shared.background(.tertiary),
-                textFieldFont: .TITLE_4
+                textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)

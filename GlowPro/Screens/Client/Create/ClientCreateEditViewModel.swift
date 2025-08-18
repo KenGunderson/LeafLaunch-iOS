@@ -18,6 +18,7 @@ final class ClientCreateEditViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     @Published private(set) var business: Business?
     
@@ -55,13 +56,15 @@ final class ClientCreateEditViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
         
@@ -174,6 +177,9 @@ final class ClientCreateEditViewModel: ViewModel {
                         locationId: self.locationId ?? ""
                     )
                 
+                self.viewLifecycleService
+                    .reload(for: .clientList)
+                
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
                         message: "Client created successfully.",
@@ -228,6 +234,9 @@ final class ClientCreateEditViewModel: ViewModel {
                 
                 try await self.apiService
                     .updateClient(client: updatedClient)
+                
+                self.viewLifecycleService
+                    .reload(for: .clientList)
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.success(

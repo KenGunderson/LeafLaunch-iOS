@@ -1,5 +1,5 @@
 //
-//  BusinessLocationsScreen.swift
+//  BusinessLocationListScreen.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 6/24/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct BusinessLocationsScreen: GPView {
+struct BusinessLocationListScreen: GPView {
     
     @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel: BusinessLocationsViewModel
+    @StateObject var viewModel: BusinessLocationListViewModel
     
     var body: some View {
         
@@ -111,10 +111,10 @@ struct BusinessLocationsScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(BusinessLocationsViewModel.self)
+    let viewModel = mockResolve(BusinessLocationListViewModel.self)
         .setup(businessId: MockModels.ID.business1)
     
-    BusinessLocationsScreen(viewModel: viewModel)
+    BusinessLocationListScreen(viewModel: viewModel)
         .withMockServices()
     
 }

@@ -201,8 +201,8 @@ class ViewModelAssembly: Assembly {
         // Business Locations
         
         container
-            .register(BusinessLocationsViewModel.self) { r in
-                BusinessLocationsViewModel(
+            .register(BusinessLocationListViewModel.self) { r in
+                BusinessLocationListViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
@@ -339,7 +339,8 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
             }
         
@@ -352,7 +353,8 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
             }
         
