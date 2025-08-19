@@ -433,6 +433,8 @@
 		75E5F0E22E31D95B00162C72 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E12E31D95B00162C72 /* StripePayments */; };
 		75E5F0E42E31D95B00162C72 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E32E31D95B00162C72 /* StripePaymentSheet */; };
 		75E5F0E62E31D95B00162C72 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E52E31D95B00162C72 /* StripePaymentsUI */; };
+		75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */; };
+		75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
@@ -677,6 +679,7 @@
 		75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsScreen.swift; sourceTree = "<group>"; };
 		75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
+		75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppCardConfigView.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
 		75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditViewModel.swift; sourceTree = "<group>"; };
@@ -1564,11 +1567,11 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754E51DF2E54281500258225 /* Nav */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51E02E54281F00258225 /* Business */,
 				754D29312E07B1260065E242 /* Base */,
-				754E51E12E54283900258225 /* InvitationAlert.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1743,6 +1746,15 @@
 				75F024FB2E16E2C9005163FC /* Permission */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		75E72B9F2E54CA2000B51203 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */,
+				754E51E12E54283900258225 /* InvitationAlert.swift */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		75F024FB2E16E2C9005163FC /* Permission */ = {
@@ -2156,6 +2168,7 @@
 				75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
+				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
@@ -2380,6 +2393,7 @@
 				75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
+				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
