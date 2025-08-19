@@ -8,6 +8,10 @@
 [Client, Location, Business, Employee]
 - Delete Calls (on details or on outer layer?)
 
+[Business Create + Home Screen]
+- Support Empty State for new Users
+- Support Create Business Flow which leads to everything else once completed
+
 [Location Home]
 - Edit Information Pencil on the Location Card
 
@@ -22,6 +26,12 @@
 [Client Create / Edit]
 - Remove employee id dummy_data and use the current user id
 
+[Media]
+- Gallery with filters
+
+[Camera]
+- Use Native first
+
 [KF]
 - Image tint loading options as Rune param
 
@@ -30,8 +40,8 @@
 - Add Secure Pin to API
 - Encode on API // Decode on FRONT END
 
-[Open Questions]
-- Do we need Active Destination anymore since we have the landing page?
+[Active Destination]
+- Use this when we need to know where we are, but don't have a reference
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
