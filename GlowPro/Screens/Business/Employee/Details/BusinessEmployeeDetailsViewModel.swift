@@ -21,11 +21,15 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     @Published private(set) var business: Business?
     @Published private(set) var employee: Employee?
     
-    private var businessId: String!
-    private var employeeId: String!
+    private(set) var businessId: String!
+    private(set) var employeeId: String!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var isOwner: Bool {
+        return self.authService.currentUser?.id == self.business?.owner.id
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,

@@ -24,4 +24,11 @@ enum ActiveDestination: Sendable {
         }
     }
     
+    var destinationId: String {
+        switch self {
+        case .business(let businessId): return businessId
+        case .location(let locationId): return locationId
+        }
+    }
+    
 }

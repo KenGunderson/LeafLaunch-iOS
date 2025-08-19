@@ -62,7 +62,6 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
     }
     
-    
     private func contentCards() -> some View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {

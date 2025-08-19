@@ -53,6 +53,13 @@ final class HomeViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
+    func setActiveDestination(_ destination: ActiveDestination) {
+        
+        self.activeDestinationService
+            .setActiveDestination(destination)
+        
+    }
+    
     func bindSubsribers() {
         
         self.cancelBag = CancelBag()

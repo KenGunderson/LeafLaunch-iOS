@@ -149,7 +149,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 
                 try await self.apiService.createEmployeeInvite(invite: invite)
                 
-                presentSuccessAlert()
+                await presentSuccessAlert()
                 
             }
             catch {
@@ -175,17 +175,16 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
+    @MainActor
     private func presentSuccessAlert() {
         
-        self.alertService
-            .showAlert(.init(.appAlert(.success(message: "Perfect! We've sent an email to your employee to verify their account.", action: {
-                
-                print("Completed")
-                
-                self.navigationService?
-                    .pop()
-                
-            }))))
+        alertService.showAlert(
+            .init(.card(.invitationAlert(
+                name: self.name,
+                businessName: self.business?.name ?? "") { [weak self] in
+                    self?.navigationService?.pop()
+                }
+            )))
         
     }
     

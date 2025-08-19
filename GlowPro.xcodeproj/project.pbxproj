@@ -212,6 +212,8 @@
 		754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29342E07B5C60065E242 /* SettingsViewModel.swift */; };
 		754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29372E07B5CC0065E242 /* SettingsScreen.swift */; };
 		754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D29372E07B5CC0065E242 /* SettingsScreen.swift */; };
+		754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
+		754E51E32E54284C00258225 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
 		755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755076802E26C3F10041021C /* ActiveDestinationServiceProtocol.swift */; };
 		755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755076802E26C3F10041021C /* ActiveDestinationServiceProtocol.swift */; };
 		755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755076832E26C3F90041021C /* ActiveDestinationService.swift */; };
@@ -589,6 +591,7 @@
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
 		754D29342E07B5C60065E242 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		754D29372E07B5CC0065E242 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		754E51E12E54283900258225 /* InvitationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAlert.swift; sourceTree = "<group>"; };
 		755076802E26C3F10041021C /* ActiveDestinationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveDestinationServiceProtocol.swift; sourceTree = "<group>"; };
 		755076832E26C3F90041021C /* ActiveDestinationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveDestinationService.swift; sourceTree = "<group>"; };
 		755076862E26C40C0041021C /* ActiveDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveDestination.swift; sourceTree = "<group>"; };
@@ -1277,6 +1280,27 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		754E51DF2E54281500258225 /* Nav */ = {
+			isa = PBXGroup;
+			children = (
+				75A1092F2E4CE12400C25BE2 /* NavHeader.swift */,
+				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
+			);
+			path = Nav;
+			sourceTree = "<group>";
+		};
+		754E51E02E54281F00258225 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
+				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
+				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
+				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
+				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
 		7550767F2E26C30D0041021C /* ActiveDestination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1540,15 +1564,11 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				754E51DF2E54281500258225 /* Nav */,
 				75AA75572E529AB5002F1990 /* Empty State */,
-				75A1092F2E4CE12400C25BE2 /* NavHeader.swift */,
-				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
-				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
-				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
-				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
-				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
+				754E51E02E54281F00258225 /* Business */,
 				754D29312E07B1260065E242 /* Base */,
-				758DAEC22E0514FA00311C7C /* ActivityView.swift */,
+				754E51E12E54283900258225 /* InvitationAlert.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2071,6 +2091,7 @@
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
+				754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
@@ -2294,6 +2315,7 @@
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046502E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
+				754E51E32E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,

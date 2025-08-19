@@ -12,7 +12,6 @@ struct HomeScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     @Environment(NavigationService.self) private var navigationService
     
-    @State private var isFirstAppear: Bool = true
     @StateObject private var viewModel: HomeViewModel
     
     public init(viewModel: HomeViewModel) {
@@ -46,19 +45,7 @@ struct HomeScreen: GPView {
                     
                     self.viewModel
                         .setup(navigationService: self.navigationService)
-                    
-                    self.isFirstAppear = false
-                    
-                }
-                .onAppear {
-                    
-                    if !self.isFirstAppear {
-                        
-                        self.viewModel
-                            .loadData(showHud: false)
-                        
-                    }
-                    
+                                        
                 }
                 .task {
                     
@@ -116,7 +103,10 @@ struct HomeScreen: GPView {
                 imageSource: .systemImage("bell.fill"),
                 foregroundStyle: .color(.indigo)
             ) {
+                
+                self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
                 self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
+                
             }
             
             section(title: "Choose Your Workspace")
@@ -156,7 +146,10 @@ struct HomeScreen: GPView {
                     isOwner: workspace.isOwner
                 )
                 .asButton {
+                    
+                    self.viewModel.setActiveDestination(.location(locationId: location.id))
                     self.navigationService.push(.business(.businessLocationHome(locationId: location.id)))
+                    
                 }
                 
             }

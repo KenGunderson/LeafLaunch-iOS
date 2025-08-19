@@ -2,21 +2,22 @@
 - Update Icons To Figma Ones
 - Add illustrations
 
-[Invitation]
-- Update copy on success to reflect figma
-- Create custom AppAlert that has the icon for email in Constants
-
 [Permissions]
 - Only owner can edit locations, add locations, add employees, edit employees
 
 [Client, Location, Business, Employee]
 - Delete Calls (on details or on outer layer?)
 
-[Employee Update]
-- Update Call for Employee Information. Only Name should be able to be edited
-
 [Location Home]
 - Edit Information Pencil on the Location Card
+
+[Location Details]
+- Show a way to add employee to that location as owner
+- Delete Location as owner
+- Show stats
+
+[Employee Details]
+- Show a way to see what locations this employee works at
 
 [Client Create / Edit]
 - Remove employee id dummy_data and use the current user id
