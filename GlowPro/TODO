@@ -28,6 +28,7 @@
 
 [Media]
 - Gallery with filters
+- Show remaining photo count (include deleting query param)
 
 [Camera]
 - Use Native first
@@ -42,6 +43,20 @@
 
 [Active Destination]
 - Use this when we need to know where we are, but don't have a reference
+- Home Screen business info
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
+
+[Location Creation / Update]
+- Remove email / phone
+- Remove from BE
+
+[Role]
+- Remove Owner / Admin / Front desk from Roles for locations
+
+[Paywall]
+- Create
+- Style
+- Subscribe to service
+
