@@ -50,6 +50,44 @@ struct MockModels {
         
     }
     
+    
+    static var allMedia: [Media] {
+        
+        return [
+            MockMedia.media1,
+            MockMedia.media2,
+            MockMedia.media3,
+            MockMedia.media4,
+            MockMedia.media5,
+            MockMedia.media6,
+            MockMedia.media7,
+            MockMedia.media8,
+            MockMedia.media9,
+            MockMedia.media10,
+            MockMedia.media11,
+            MockMedia.media12,
+            MockMedia.media13,
+            MockMedia.media14,
+            MockMedia.media15,
+            MockMedia.media16,
+            MockMedia.media17,
+            MockMedia.media18,
+            MockMedia.media19,
+            MockMedia.media20,
+            MockMedia.media21,
+            MockMedia.media22,
+            MockMedia.media23,
+            MockMedia.media24,
+            MockMedia.media25,
+            MockMedia.media26,
+            MockMedia.media27,
+            MockMedia.media28,
+            MockMedia.media29,
+            MockMedia.media30
+        ]
+        
+    }
+    
     struct ID {
         
         static let user1: String = UUID().uuidString
@@ -80,6 +118,61 @@ struct MockModels {
         static let client8: String = UUID().uuidString
         static let client9: String = UUID().uuidString
         static let client10: String = UUID().uuidString
+        
+        static let media1: String = UUID().uuidString
+        static let media2: String = UUID().uuidString
+        static let media3: String = UUID().uuidString
+        static let media4: String = UUID().uuidString
+        static let media5: String = UUID().uuidString
+        static let media6: String = UUID().uuidString
+        static let media7: String = UUID().uuidString
+        static let media8: String = UUID().uuidString
+        static let media9: String = UUID().uuidString
+        static let media10: String = UUID().uuidString
+        static let media11: String = UUID().uuidString
+        static let media12: String = UUID().uuidString
+        static let media13: String = UUID().uuidString
+        static let media14: String = UUID().uuidString
+        static let media15: String = UUID().uuidString
+        static let media16: String = UUID().uuidString
+        static let media17: String = UUID().uuidString
+        static let media18: String = UUID().uuidString
+        static let media19: String = UUID().uuidString
+        static let media20: String = UUID().uuidString
+        static let media21: String = UUID().uuidString
+        static let media22: String = UUID().uuidString
+        static let media23: String = UUID().uuidString
+        static let media24: String = UUID().uuidString
+        static let media25: String = UUID().uuidString
+        static let media26: String = UUID().uuidString
+        static let media27: String = UUID().uuidString
+        static let media28: String = UUID().uuidString
+        static let media29: String = UUID().uuidString
+        static let media30: String = UUID().uuidString
+        
+    }
+
+    struct MockWorkspace {
+        
+        nonisolated(unsafe)
+        static var workspace1: Workspace {
+            Workspace(
+                id: ID.business1,
+                name: MockModels.MockBusiness.business1.name,
+                isOwner: MockModels.MockBusiness.business1.owner.id == ID.user1,
+                locations: MockModels.MockBusiness.business1.locations
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var workspace2: Workspace {
+            Workspace(
+                id: ID.business2,
+                name: MockModels.MockBusiness.business2.name,
+                isOwner: MockModels.MockBusiness.business2.owner.id == ID.user1,
+                locations: MockModels.MockBusiness.business2.locations
+            )
+        }
         
     }
     
@@ -379,28 +472,397 @@ struct MockModels {
         
     }
     
-    struct MockWorkspace {
+    struct MockMedia {
         
         nonisolated(unsafe)
-        static var workspace1: Workspace {
-            Workspace(
-                id: ID.business1,
-                name: MockModels.MockBusiness.business1.name,
-                isOwner: MockModels.MockBusiness.business1.owner.id == ID.user1,
-                locations: MockModels.MockBusiness.business1.locations
+        static var media1: Media {
+            Media(
+                id: ID.media1,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/1/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-7438934),
+                updatedAt: .now.addingTimeInterval(-437843)
             )
         }
         
         nonisolated(unsafe)
-        static var workspace2: Workspace {
-            Workspace(
-                id: ID.business2,
-                name: MockModels.MockBusiness.business2.name,
-                isOwner: MockModels.MockBusiness.business2.owner.id == ID.user1,
-                locations: MockModels.MockBusiness.business2.locations
+        static var media2: Media {
+            Media(
+                id: ID.media2,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/2/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-343),
+                updatedAt: .now.addingTimeInterval(-6521)
             )
         }
         
+        nonisolated(unsafe)
+        static var media3: Media {
+            Media(
+                id: ID.media3,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/3/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-231),
+                updatedAt: .now.addingTimeInterval(-3453)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media4: Media {
+            Media(
+                id: ID.media4,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/4/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-1234),
+                updatedAt: .now.addingTimeInterval(-9908)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media5: Media {
+            Media(
+                id: ID.media5,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/5/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-8054684034),
+                updatedAt: .now.addingTimeInterval(-123)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media6: Media {
+            Media(
+                id: ID.media6,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/6/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-440394),
+                updatedAt: .now.addingTimeInterval(-34934)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media7: Media {
+            Media(
+                id: ID.media7,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/7/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-23904),
+                updatedAt: .now.addingTimeInterval(-834)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media8: Media {
+            Media(
+                id: ID.media8,
+                clientId: ID.client3,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/8/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-1983483),
+                updatedAt: .now.addingTimeInterval(-98234)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media9: Media {
+            Media(
+                id: ID.media9,
+                clientId: ID.client3,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/9/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-243),
+                updatedAt: .now.addingTimeInterval(-43)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media10: Media {
+            Media(
+                id: ID.media10,
+                clientId: ID.client1,
+                businessId: ID.business2,
+                url: URL(string: "https://picsum.photos/id/10/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-659438),
+                updatedAt: .now.addingTimeInterval(-1534)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media11: Media {
+            Media(
+                id: ID.media11,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/11/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-12094),
+                updatedAt: .now.addingTimeInterval(-783)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media12: Media {
+            Media(
+                id: ID.media12,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/12/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-2309483),
+                updatedAt: .now.addingTimeInterval(-1043)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media13: Media {
+            Media(
+                id: ID.media13,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/13/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-56433),
+                updatedAt: .now.addingTimeInterval(-2343)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media14: Media {
+            Media(
+                id: ID.media14,
+                clientId: ID.client4,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/14/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-1209834),
+                updatedAt: .now.addingTimeInterval(-93483)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media15: Media {
+            Media(
+                id: ID.media15,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/15/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-834),
+                updatedAt: .now.addingTimeInterval(-238)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media16: Media {
+            Media(
+                id: ID.media16,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/16/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-2348234),
+                updatedAt: .now.addingTimeInterval(-5433)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media17: Media {
+            Media(
+                id: ID.media17,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/17/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-45),
+                updatedAt: .now.addingTimeInterval(-12)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media18: Media {
+            Media(
+                id: ID.media18,
+                clientId: ID.client3,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/18/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-54334),
+                updatedAt: .now.addingTimeInterval(-2345)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media19: Media {
+            Media(
+                id: ID.media19,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/19/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-34923),
+                updatedAt: .now.addingTimeInterval(-893)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media20: Media {
+            Media(
+                id: ID.media20,
+                clientId: ID.client4,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/20/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-489345),
+                updatedAt: .now.addingTimeInterval(-5938)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media21: Media {
+            Media(
+                id: ID.media21,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/21/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-38234),
+                updatedAt: .now.addingTimeInterval(-120)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media22: Media {
+            Media(
+                id: ID.media22,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/22/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-234823),
+                updatedAt: .now.addingTimeInterval(-324)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media23: Media {
+            Media(
+                id: ID.media23,
+                clientId: ID.client4,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/23/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-3847),
+                updatedAt: .now.addingTimeInterval(-938)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media24: Media {
+            Media(
+                id: ID.media24,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/24/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-82345),
+                updatedAt: .now.addingTimeInterval(-49)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media25: Media {
+            Media(
+                id: ID.media25,
+                clientId: ID.client2,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/25/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-48234),
+                updatedAt: .now.addingTimeInterval(-9234)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media26: Media {
+            Media(
+                id: ID.media26,
+                clientId: ID.client3,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/26/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-2134),
+                updatedAt: .now.addingTimeInterval(-1293)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media27: Media {
+            Media(
+                id: ID.media27,
+                clientId: nil,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/27/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-3124),
+                updatedAt: .now.addingTimeInterval(-230)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media28: Media {
+            Media(
+                id: ID.media28,
+                clientId: ID.client1,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/28/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-58234),
+                updatedAt: .now.addingTimeInterval(-23984)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media29: Media {
+            Media(
+                id: ID.media29,
+                clientId: ID.client4,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/29/3200/3200")!,
+                isFavorited: true,
+                createdAt: .now.addingTimeInterval(-8394),
+                updatedAt: .now.addingTimeInterval(-324)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media30: Media {
+            Media(
+                id: ID.media30,
+                clientId: ID.client3,
+                businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/30/3200/3200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-482394),
+                updatedAt: .now.addingTimeInterval(-93234)
+            )
+        }
     }
     
 }

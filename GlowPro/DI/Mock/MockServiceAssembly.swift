@@ -107,6 +107,7 @@ final class MockAPIService: APIServiceProtocol {
     private var employees: [Employee]
     private var clients: [Client]
     private var workspaces: [Workspace] = []
+    private var media: [Media]
     
     init() {
         
@@ -115,6 +116,7 @@ final class MockAPIService: APIServiceProtocol {
         self.employees = MockModels.allEmployees
         self.clients = MockModels.allClients
         self.workspaces = MockModels.allWorkspaces
+        self.media = MockModels.allMedia
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -179,11 +181,12 @@ final class MockAPIService: APIServiceProtocol {
         let clients = self.clients.filter { $0.employee.businessId == id }
         let employees = self.employees.filter { $0.businessId == id }
         let locations = self.locations.filter { $0.businessId == id }
+        let media = self.media.filter { $0.businessId == id }
         
         business.clientsCount = clients.count
-        business.mediaCount = 0
         business.employees = employees
         business.locations = locations
+        business.media = media
         
         return business
         

@@ -23,8 +23,8 @@ struct Business: Identifiable,
     var employees: [Employee]
     var locations: [Location]
     var employeeInvites: [EmployeeInvite]
+    var media: [Media] = []
     var clientsCount: Int = 0
-    var mediaCount: Int = 0
     
     init(id: String,
          name: String,

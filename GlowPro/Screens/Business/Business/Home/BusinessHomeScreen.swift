@@ -174,7 +174,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("photo.on.rectangle.fill"),
                     iconBackgroundColor: .color(GPColor.iconPurple),
                     title: "All Media",
-                    subtitle: "\(self.viewModel.business?.mediaCount ?? 0)",
+                    subtitle: "\(self.viewModel.business?.media.count ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)

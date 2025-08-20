@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		750990E62E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
+		750990E72E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
 		750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85ED2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
@@ -478,6 +480,7 @@
 
 /* Begin PBXFileReference section */
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
 		750B85F32E48E12A00417BA5 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
@@ -1147,22 +1150,23 @@
 		753EC1922DB8BC0B00265B2A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				75A1ACF92E5551A300AFCECD /* BusinessSubcategory.swift */,
-				75A1ACF62E55519900AFCECD /* BusinessCategory.swift */,
-				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
+				758DAEC52E05152000311C7C /* Activity.swift */,
+				75B731F52E14E58800038AD6 /* Address.swift */,
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
-				75B731F22E14E52900038AD6 /* Location.swift */,
+				75A1ACF62E55519900AFCECD /* BusinessCategory.swift */,
+				75A1ACF92E5551A300AFCECD /* BusinessSubcategory.swift */,
+				759B64782E04A75E006F4995 /* Client.swift */,
 				75B731F82E14E62200038AD6 /* Employee.swift */,
 				753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */,
-				759B64782E04A75E006F4995 /* Client.swift */,
-				75CD6B6B2E20C582004A1720 /* Role.swift */,
-				75B731F52E14E58800038AD6 /* Address.swift */,
-				758DAEC52E05152000311C7C /* Activity.swift */,
-				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
+				753EC1A72DB8BC6400265B2A /* GPUser.swift */,
 				75A0464F2E37BD8A00D5EFCD /* LegalItem.swift */,
+				75B731F22E14E52900038AD6 /* Location.swift */,
+				750990E52E5590D40030DD49 /* Media.swift */,
+				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
+				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2024,6 +2028,7 @@
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
 				75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				75A1ACF72E5551A100AFCECD /* BusinessCategory.swift in Sources */,
+				750990E62E5590D60030DD49 /* Media.swift in Sources */,
 				753EC1FC2DB8C58100265B2A /* MainScreen.swift in Sources */,
 				750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */,
 				750DFBCA2DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift in Sources */,
@@ -2251,6 +2256,7 @@
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
 				75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				75A1ACF82E5551A100AFCECD /* BusinessCategory.swift in Sources */,
+				750990E72E5590D60030DD49 /* Media.swift in Sources */,
 				75D66D192DC713C300E51CFC /* MainScreen.swift in Sources */,
 				75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */,
 				75D66D1B2DC713C300E51CFC /* DevDeeplinksViewModel.swift in Sources */,
