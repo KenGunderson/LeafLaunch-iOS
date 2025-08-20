@@ -74,26 +74,7 @@ struct MediaGalleryScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
-                
-                HStack {
-                    
-                    Text(groupedMedia.title)
-                        .appFont(with: .HEADER_2)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    let plural = groupedMedia.media.count == 1 ? "" : "s"
-                    Text("\(groupedMedia.media.count) photo\(plural)")
-                        .appFont(with: .BODY_1)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                    
-                }
-                
-                Divider()
-                    .foregroundStyle(Style.shared.background(.quaternary).source())
-                
-            }
+            sectionHeader(groupedMedia)
             
             LazyVGrid(
                 columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5),
@@ -119,6 +100,31 @@ struct MediaGalleryScreen: GPView {
                 }
                 
             }
+            
+        }
+        
+    }
+    
+    private func sectionHeader(_ groupedMedia: MediaGalleryViewModel.GroupedMedia) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            
+            HStack {
+                
+                Text(groupedMedia.title)
+                    .appFont(with: .HEADER_2)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                let plural = groupedMedia.media.count == 1 ? "" : "s"
+                Text("\(groupedMedia.media.count) photo\(plural)")
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+            }
+            
+            Divider()
+                .foregroundStyle(Style.shared.background(.quaternary).source())
             
         }
         
