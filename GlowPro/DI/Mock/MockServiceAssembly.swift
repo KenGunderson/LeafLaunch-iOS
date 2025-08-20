@@ -296,6 +296,16 @@ final class MockAPIService: APIServiceProtocol {
         return self.employees
     }
     
+    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> Employee {
+        
+        if let employee = self.employees.first(where: { $0.locationId == locationId && $0.userId == userId }) {
+            return employee
+        }
+        
+        throw APIError.serverError(statusCode: 401, errorMessage: "Employee Not Found")
+        
+    }
+    
     func getEmployee(id: String) async throws -> Employee {
         return self.employees.first ?? .DUMMY_DATA()
     }

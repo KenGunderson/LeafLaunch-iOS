@@ -20,9 +20,6 @@
 [Employee Details]
 - Show a way to see what locations this employee works at
 
-[Client Create / Edit]
-- Remove employee id dummy_data and use the current user id
-
 [Media]
 - Gallery with filters
 - Show remaining photo count (include deleting query param)

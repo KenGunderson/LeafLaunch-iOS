@@ -150,12 +150,19 @@ final class ClientCreateEditViewModel: ViewModel {
     
     private func save() {
         
+        guard let currentUser = self.authService.currentUser else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
         Task {
             
             do {
+                
+                let employee = try await self.apiService.getEmployeeByUserIdForLocation(
+                    userId: currentUser.id,
+                    locationId: self.locationId ?? ""
+                )
                 
                 let isValidDateOfBirth = !self.dateOfBirth.isToday
                 let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
@@ -168,7 +175,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     phone: self.phone,
                     birthDate: dateOfBirth,
                     locationId: self.locationId ?? "",
-                    employee: .DUMMY_DATA(),
+                    employee: employee
                 )
                 
                 try await self.apiService
@@ -210,6 +217,7 @@ final class ClientCreateEditViewModel: ViewModel {
     private func update() {
         
         guard let clientId else { return }
+        guard let currentUser = self.authService.currentUser else { return }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -218,7 +226,10 @@ final class ClientCreateEditViewModel: ViewModel {
             
             do {
                 
-                let employees = 
+                let employee = try await self.apiService.getEmployeeByUserIdForLocation(
+                    userId: currentUser.id,
+                    locationId: self.locationId ?? ""
+                )
                 
                 let isValidDateOfBirth = !self.dateOfBirth.isToday
                 let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
@@ -231,7 +242,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     phone: self.phone,
                     birthDate: dateOfBirth,
                     locationId: self.locationId ?? "",
-                    employee: .DUMMY_DATA()
+                    employee: employee
                 )
                 
                 try await self.apiService
