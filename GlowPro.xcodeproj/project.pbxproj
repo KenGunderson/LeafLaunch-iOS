@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		750892A32E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
+		750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750990E62E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
 		750990E72E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
 		750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
@@ -486,6 +488,7 @@
 
 /* Begin PBXFileReference section */
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		750892A22E561F1500D6BC68 /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
@@ -1821,6 +1824,7 @@
 				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
+				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
 				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
 				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
@@ -2209,6 +2213,7 @@
 				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
+				750892A32E561F1700D6BC68 /* APIService+Media.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
 				75CD6B6D2E20C583004A1720 /* Role.swift in Sources */,
 				75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
@@ -2440,6 +2445,7 @@
 				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
+				750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,
 				75CD6B6C2E20C583004A1720 /* Role.swift in Sources */,
 				75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,

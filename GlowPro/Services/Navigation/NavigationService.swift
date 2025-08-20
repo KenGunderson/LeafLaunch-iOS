@@ -346,9 +346,10 @@ extension View {
         func media(route: Route.Media) -> some View {
             
             switch route {
-            case .gallery:
+            case .gallery(let context):
                 
                 let viewModel = globalResolver.resolve(MediaGalleryViewModel.self)!
+                    .setup(context: context)
                 
                 MediaGalleryScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

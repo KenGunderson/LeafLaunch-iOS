@@ -58,7 +58,44 @@ struct MediaGalleryScreen: GPView {
     
     @ViewBuilder
     private func content() -> some View {
-        Text("Gallery")
+        
+        LazyVStack {
+            
+            ForEach(self.viewModel.groups, id: \.id) { group in
+                groupSection(group)
+            }
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func groupSection(_ groupedMedia: MediaGalleryViewModel.GroupedMedia) -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            Text(groupedMedia.title)
+                .appFont(with: .HEADER_2)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5),
+                spacing: 4
+            ) {
+                
+                ForEach(groupedMedia.media) { item in
+                    
+                    ImageSource.remote(url: item.url)
+                        .view(shouldResize: false)
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(.small)
+                    
+                }
+                
+            }
+            
+        }
+        
     }
     
 }
@@ -66,6 +103,7 @@ struct MediaGalleryScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(MediaGalleryViewModel.self)
+        .setup(context: .business(businessId: MockModels.ID.business1))
     
     MediaGalleryScreen(viewModel: viewModel)
         .withMockServices()

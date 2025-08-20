@@ -90,6 +90,12 @@ protocol APIServiceProtocol: APIProtocol {
     func updateClient(client: Client) async throws
     func deleteClient(id: String) async throws
     
+    // Media
+    
+    func getMedia(businessId: String) async throws -> [Media]
+    func getMedia(locationId: String) async throws -> [Media]
+    func getMedia(clientId: String) async throws -> [Media]
+    
     // System
     
     func getLegalInformation(context: String) async throws -> [LegalItem]

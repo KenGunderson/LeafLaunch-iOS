@@ -66,7 +66,7 @@ enum Route: Navigation, Hashable, Sendable {
     
     enum Media: Hashable {
         
-        case gallery
+        case gallery(MediaGalleryViewModel.Context)
         
     }
     

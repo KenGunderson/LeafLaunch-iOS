@@ -455,6 +455,36 @@ final class MockAPIService: APIServiceProtocol {
         self.clients.removeAll { $0.id == id }
     }
     
+    // Media
+    
+    func getMedia(businessId: String) async throws -> [Media] {
+        return self.media.filter { $0.businessId == businessId }
+    }
+    
+    func getMedia(locationId: String) async throws -> [Media] {
+        
+        var media: [Media] = []
+        
+        for mediaItem in self.media {
+            
+            guard let clientId = mediaItem.clientId else { continue }
+            
+            let client = try await self.getClient(id: clientId)
+            
+            if client.locationId == locationId {
+                media.append(mediaItem)
+            }
+            
+        }
+        
+        return media
+        
+    }
+    
+    func getMedia(clientId: String) async throws -> [Media] {
+        return self.media.filter { $0.clientId == clientId }
+    }
+    
     // System
     
     func getLegalInformation(context: String) -> [LegalItem] {
