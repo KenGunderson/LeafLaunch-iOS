@@ -59,7 +59,7 @@ struct MediaGalleryScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        LazyVStack {
+        LazyVStack(spacing: Style.shared.spacing(.large)) {
             
             ForEach(self.viewModel.groups, id: \.id) { group in
                 groupSection(group)
@@ -72,23 +72,49 @@ struct MediaGalleryScreen: GPView {
     
     private func groupSection(_ groupedMedia: MediaGalleryViewModel.GroupedMedia) -> some View {
         
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
-            Text(groupedMedia.title)
-                .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                
+                HStack {
+                    
+                    Text(groupedMedia.title)
+                        .appFont(with: .HEADER_2)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    let plural = groupedMedia.media.count == 1 ? "" : "s"
+                    Text("\(groupedMedia.media.count) photo\(plural)")
+                        .appFont(with: .BODY_1)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    
+                }
+                
+                Divider()
+                    .foregroundStyle(Style.shared.background(.quaternary).source())
+                
+            }
             
             LazyVGrid(
                 columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5),
                 spacing: 4
             ) {
                 
+                let placeholderView = AppLoadingView(style: .circleRunner(
+                    color: Style.shared.background(.quaternary),
+                    size: 16
+                ))
+                .asAnyView()
+                
                 ForEach(groupedMedia.media) { item in
                     
-                    ImageSource.remote(url: item.url)
-                        .view(shouldResize: false)
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(.small)
+                    ImageSource.remote(
+                        url: item.url,
+                        placeholder: placeholderView,
+                    )
+                    .view(shouldResize: false)
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(.small)
                     
                 }
                 

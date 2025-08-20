@@ -480,7 +480,7 @@ struct MockModels {
                 id: ID.media1,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/1/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/1/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-7438934),
                 updatedAt: .now.addingTimeInterval(-437843)
@@ -493,7 +493,7 @@ struct MockModels {
                 id: ID.media2,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/2/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/2/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-343),
                 updatedAt: .now.addingTimeInterval(-6521)
@@ -506,7 +506,7 @@ struct MockModels {
                 id: ID.media3,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/3/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/3/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-231),
                 updatedAt: .now.addingTimeInterval(-3453)
@@ -519,7 +519,7 @@ struct MockModels {
                 id: ID.media4,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/4/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/4/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-1234),
                 updatedAt: .now.addingTimeInterval(-9908)
@@ -532,7 +532,7 @@ struct MockModels {
                 id: ID.media5,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/5/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/5/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-8054684034),
                 updatedAt: .now.addingTimeInterval(-123)
@@ -545,7 +545,7 @@ struct MockModels {
                 id: ID.media6,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/6/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/6/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-440394),
                 updatedAt: .now.addingTimeInterval(-34934)
@@ -558,7 +558,7 @@ struct MockModels {
                 id: ID.media7,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/7/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/7/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-23904),
                 updatedAt: .now.addingTimeInterval(-834)
@@ -571,7 +571,7 @@ struct MockModels {
                 id: ID.media8,
                 clientId: ID.client3,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/8/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/8/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-1983483),
                 updatedAt: .now.addingTimeInterval(-98234)
@@ -584,7 +584,7 @@ struct MockModels {
                 id: ID.media9,
                 clientId: ID.client3,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/9/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/9/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-243),
                 updatedAt: .now.addingTimeInterval(-43)
@@ -597,7 +597,7 @@ struct MockModels {
                 id: ID.media10,
                 clientId: ID.client1,
                 businessId: ID.business2,
-                url: URL(string: "https://picsum.photos/id/10/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/10/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-659438),
                 updatedAt: .now.addingTimeInterval(-1534)
@@ -610,7 +610,7 @@ struct MockModels {
                 id: ID.media11,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/11/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/11/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-12094),
                 updatedAt: .now.addingTimeInterval(-783)
@@ -623,7 +623,7 @@ struct MockModels {
                 id: ID.media12,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/12/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/12/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-2309483),
                 updatedAt: .now.addingTimeInterval(-1043)
@@ -636,7 +636,7 @@ struct MockModels {
                 id: ID.media13,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/13/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/13/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-56433),
                 updatedAt: .now.addingTimeInterval(-2343)
@@ -649,7 +649,7 @@ struct MockModels {
                 id: ID.media14,
                 clientId: ID.client4,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/14/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/14/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-1209834),
                 updatedAt: .now.addingTimeInterval(-93483)
@@ -662,7 +662,7 @@ struct MockModels {
                 id: ID.media15,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/15/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/15/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-834),
                 updatedAt: .now.addingTimeInterval(-238)
@@ -675,7 +675,7 @@ struct MockModels {
                 id: ID.media16,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/16/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/16/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-2348234),
                 updatedAt: .now.addingTimeInterval(-5433)
@@ -688,7 +688,7 @@ struct MockModels {
                 id: ID.media17,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/17/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/17/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-45),
                 updatedAt: .now.addingTimeInterval(-12)
@@ -701,7 +701,7 @@ struct MockModels {
                 id: ID.media18,
                 clientId: ID.client3,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/18/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/18/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-54334),
                 updatedAt: .now.addingTimeInterval(-2345)
@@ -714,7 +714,7 @@ struct MockModels {
                 id: ID.media19,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/19/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/19/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-34923),
                 updatedAt: .now.addingTimeInterval(-893)
@@ -727,7 +727,7 @@ struct MockModels {
                 id: ID.media20,
                 clientId: ID.client4,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/20/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/20/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-489345),
                 updatedAt: .now.addingTimeInterval(-5938)
@@ -740,7 +740,7 @@ struct MockModels {
                 id: ID.media21,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/21/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/21/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-38234),
                 updatedAt: .now.addingTimeInterval(-120)
@@ -753,7 +753,7 @@ struct MockModels {
                 id: ID.media22,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/22/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/22/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-234823),
                 updatedAt: .now.addingTimeInterval(-324)
@@ -766,7 +766,7 @@ struct MockModels {
                 id: ID.media23,
                 clientId: ID.client4,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/23/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/23/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-3847),
                 updatedAt: .now.addingTimeInterval(-938)
@@ -779,7 +779,7 @@ struct MockModels {
                 id: ID.media24,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/24/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/24/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-82345),
                 updatedAt: .now.addingTimeInterval(-49)
@@ -792,7 +792,7 @@ struct MockModels {
                 id: ID.media25,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/25/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/25/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-48234),
                 updatedAt: .now.addingTimeInterval(-9234)
@@ -805,7 +805,7 @@ struct MockModels {
                 id: ID.media26,
                 clientId: ID.client3,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/26/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/26/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-2134),
                 updatedAt: .now.addingTimeInterval(-1293)
@@ -818,7 +818,7 @@ struct MockModels {
                 id: ID.media27,
                 clientId: nil,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/27/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/27/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-3124),
                 updatedAt: .now.addingTimeInterval(-230)
@@ -831,7 +831,7 @@ struct MockModels {
                 id: ID.media28,
                 clientId: ID.client1,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/28/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/28/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-58234),
                 updatedAt: .now.addingTimeInterval(-23984)
@@ -844,7 +844,7 @@ struct MockModels {
                 id: ID.media29,
                 clientId: ID.client4,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/29/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/29/1200/1200")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-8394),
                 updatedAt: .now.addingTimeInterval(-324)
@@ -857,7 +857,7 @@ struct MockModels {
                 id: ID.media30,
                 clientId: ID.client3,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/30/3200/3200")!,
+                url: URL(string: "https://picsum.photos/id/30/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-482394),
                 updatedAt: .now.addingTimeInterval(-93234)
