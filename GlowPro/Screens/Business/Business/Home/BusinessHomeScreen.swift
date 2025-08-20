@@ -230,53 +230,18 @@ struct BusinessHomeScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            section(title: "Pending Invites")
+            SectionView(title: "Pending Invites", showDivider: true) {
+                
+                self.navigationService
+                    .push(.business(.businessEmployeeInviteList(
+                        context: .business(businessId: self.viewModel.businessId))
+                    ))
+                
+            }
             
             ForEach(pendingInvites, id: \.id) { invite in
                 EmployeeInviteView(employeeInvitation: invite)
             }
-            
-        }
-        
-    }
-    
-    @ViewBuilder
-    private func section(title: String) -> some View {
-     
-        VStack(alignment: .leading) {
-            
-            HStack {
-                
-                Text(title)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(Rune.Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                HStack {
-                    
-                    Text("View All")
-                        .appFont(with: .BODY_1)
-                    
-                    Image(systemName: "arrow.right")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 12, height: 12)
-                    
-                }
-                .foregroundStyle(Rune.Style.shared.textColor(.body).source())
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.business(.businessEmployeeInviteList(
-                            context: .business(businessId: self.viewModel.businessId))
-                        ))
-                    
-                }
-                
-            }
-            
-            Divider()
-                .background(Style.shared.background(.border).source())
             
         }
         

@@ -35,6 +35,8 @@
 		750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
 		750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
 		750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
+		750F9E182E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
+		750F9E192E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		751970142E3D021D007FB142 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751970132E3D021B007FB142 /* HomeScreen.swift */; };
@@ -499,6 +501,7 @@
 		750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevImpersonateScreen.swift; sourceTree = "<group>"; };
 		750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesViewModel.swift; sourceTree = "<group>"; };
 		750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesScreen.swift; sourceTree = "<group>"; };
+		750F9E172E56116B00C72EA7 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		751970132E3D021B007FB142 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -1579,6 +1582,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				750F9E172E56116B00C72EA7 /* Section.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				754E51E02E54281F00258225 /* Business */,
@@ -2134,6 +2138,7 @@
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
 				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
+				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -2362,6 +2367,7 @@
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
 				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
+				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -2597,6 +2603,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2606,7 +2613,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glowpro.glowproapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2631,6 +2638,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2640,7 +2648,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glowpro.glowproapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2737,16 +2745,21 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glowpro.glowproapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2771,16 +2784,21 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glowpro.glowproapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

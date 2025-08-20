@@ -112,7 +112,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("General Information")
+            SectionView(title: "General Information")
             
             AppCardView {
                 
@@ -130,7 +130,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("Business Address")
+            SectionView(title: "Business Address")
             
             AppCardView {
                 
@@ -152,19 +152,6 @@ struct BusinessLocationCreateEditScreen: GPView {
             }
             
         }
-        
-    }
-    
-    @ViewBuilder
-    private func sectionTitle(_ title: String) -> some View {
-        
-        Text(title)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_6)
-            .frame(
-                maxWidth: .infinity,
-                alignment: .leading
-            )
         
     }
     

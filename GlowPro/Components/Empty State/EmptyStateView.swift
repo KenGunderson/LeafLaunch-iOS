@@ -19,6 +19,7 @@ struct EmptyStateView: View {
                 .image
                 .view()
                 .aspectRatio(contentMode: .fit)
+                .foregroundStyle(Style.shared.textColor(.title).source())
                 .frame(width: 100, height: 120)
             
             Text(self.config.title)

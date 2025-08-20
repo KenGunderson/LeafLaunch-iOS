@@ -118,27 +118,12 @@ struct HomeScreen: GPView {
                 
             }
             
-            section(title: "Choose Your Workspace")
+            SectionView(title: "Choose Your Location", showDivider: true)
+            
             workspacesList()
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        
-    }
-    
-    @ViewBuilder
-    private func section(title: String) -> some View {
-     
-        VStack(alignment: .leading) {
-            
-            Text(title)
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(Rune.Style.shared.textColor(.title).source())
-            
-            Divider()
-                .background(Style.shared.background(.border).source())
-            
-        }
         
     }
     

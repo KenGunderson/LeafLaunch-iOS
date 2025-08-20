@@ -112,8 +112,8 @@ struct BusinessCreateEditScreen: GPView {
         }
         .padding(.horizontal, .medium)
         .padding(.bottom, .custom(72))
-        .animation(.smooth, value: self.viewModel.selectedCategories)
-        .animation(.smooth, value: self.viewModel.selectedSubcategories)
+        .animation(.bouncy, value: self.viewModel.selectedCategories)
+        .animation(.bouncy, value: self.viewModel.selectedSubcategories)
         
     }
     
@@ -121,7 +121,7 @@ struct BusinessCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("General Information")
+            SectionView(title: "General Information")
             
             AppCardView {
                 
@@ -143,7 +143,7 @@ struct BusinessCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("Business Address")
+            SectionView(title: "Business Address")
             
             AppCardView {
                 
@@ -175,7 +175,7 @@ struct BusinessCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("Categories")
+            SectionView(title: "Categories")
             
             WStack {
                 
@@ -207,7 +207,7 @@ struct BusinessCreateEditScreen: GPView {
 
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            sectionTitle("Subcategories")
+            SectionView(title: "Subcategories")
             
             WStack {
                 
@@ -234,21 +234,8 @@ struct BusinessCreateEditScreen: GPView {
             }
             
         }
-        .animation(.smooth, value: self.viewModel.selectedCategories)
-        .animation(.smooth, value: self.viewModel.selectedSubcategories)
-        
-    }
-    
-    @ViewBuilder
-    private func sectionTitle(_ title: String) -> some View {
-        
-        Text(title)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_6)
-            .frame(
-                maxWidth: .infinity,
-                alignment: .leading
-            )
+        .animation(.bouncy, value: self.viewModel.selectedCategories)
+        .animation(.bouncy, value: self.viewModel.selectedSubcategories)
         
     }
     
@@ -352,7 +339,7 @@ struct BusinessCreateEditScreen: GPView {
             .padding(.horizontal, .medium)
             .transition(.move(edge: .bottom)
                 .combined(with: .opacity)
-                .animation(.smooth(duration: 0.3))
+                .animation(.bouncy(duration: 0.3))
             )
             .background(Style.shared.background(.primary).source())
             

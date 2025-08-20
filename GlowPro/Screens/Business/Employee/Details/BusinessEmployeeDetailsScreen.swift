@@ -87,19 +87,6 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
     }
     
-    @ViewBuilder
-    private func sectionTitle(_ title: String) -> some View {
-        
-        Text(title)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_6)
-            .frame(
-                maxWidth: .infinity,
-                alignment: .leading
-            )
-        
-    }
-    
 }
 
 #Preview {

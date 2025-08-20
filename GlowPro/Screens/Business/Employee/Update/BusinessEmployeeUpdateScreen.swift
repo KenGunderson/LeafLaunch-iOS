@@ -127,19 +127,6 @@ struct BusinessEmployeeUpdateScreen: GPView {
     }
     
     @ViewBuilder
-    private func sectionTitle(_ title: String) -> some View {
-        
-        Text(title)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .appFont(with: .TITLE_6)
-            .frame(
-                maxWidth: .infinity,
-                alignment: .leading
-            )
-        
-    }
-    
-    @ViewBuilder
     private func rolePicker() -> some View {
         
         VStack(spacing: Style.shared.spacing(.custom(6))) {
