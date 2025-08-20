@@ -37,6 +37,10 @@
 		750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
 		750F9E182E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		750F9E192E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
+		750F9E1D2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E1C2E56155600C72EA7 /* MediaGalleryViewModel.swift */; };
+		750F9E1E2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E1C2E56155600C72EA7 /* MediaGalleryViewModel.swift */; };
+		750F9E202E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */; };
+		750F9E212E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */; };
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		751970142E3D021D007FB142 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751970132E3D021B007FB142 /* HomeScreen.swift */; };
@@ -502,6 +506,8 @@
 		750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesViewModel.swift; sourceTree = "<group>"; };
 		750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesScreen.swift; sourceTree = "<group>"; };
 		750F9E172E56116B00C72EA7 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		750F9E1C2E56155600C72EA7 /* MediaGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryViewModel.swift; sourceTree = "<group>"; };
+		750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryScreen.swift; sourceTree = "<group>"; };
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		751970132E3D021B007FB142 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -850,6 +856,23 @@
 				750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */,
 			);
 			path = Routes;
+			sourceTree = "<group>";
+		};
+		750F9E1A2E56154B00C72EA7 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				750F9E1B2E56155200C72EA7 /* Gallery */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		750F9E1B2E56155200C72EA7 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				750F9E1C2E56155600C72EA7 /* MediaGalleryViewModel.swift */,
+				750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */,
+			);
+			path = Gallery;
 			sourceTree = "<group>";
 		};
 		7510A3C62D9D8AAF000A93CA /* Preview Content */ = {
@@ -1425,6 +1448,7 @@
 				751970122E3D0214007FB142 /* Home */,
 				751F953E2E0B7E92001CAF72 /* Business */,
 				759B64762E04A751006F4995 /* Client */,
+				750F9E1A2E56154B00C72EA7 /* Media */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
 				754D29322E07B5AE0065E242 /* Settings */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
@@ -2080,6 +2104,7 @@
 				75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
+				750F9E212E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
@@ -2124,6 +2149,7 @@
 				754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
+				750F9E1E2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75A0357D2E4D704A00F29417 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
@@ -2309,6 +2335,7 @@
 				75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
+				750F9E202E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
@@ -2353,6 +2380,7 @@
 				754E51E32E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
+				750F9E1D2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75A0357E2E4D704A00F29417 /* BusinessEmployeeInviteListViewModel.swift in Sources */,

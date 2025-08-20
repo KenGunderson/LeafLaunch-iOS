@@ -369,6 +369,19 @@ class MockViewModelAssembly: Assembly {
                 )
             }
         
+        // Media
+        
+        container
+            .register(MediaGalleryViewModel.self) { r in
+                MediaGalleryViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Settings
         
         container

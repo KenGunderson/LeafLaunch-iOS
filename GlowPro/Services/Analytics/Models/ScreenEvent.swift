@@ -227,6 +227,38 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum MediaScreen {
+        
+        case gallery
+        case camera
+        case photoEdit
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .gallery: name = "gallery"
+            case .camera: name = "camera"
+            case .photoEdit: name = "photo_edit"
+            }
+            
+            return "media.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .gallery: return nil
+            case .camera: return nil
+            case .photoEdit: return nil
+            }
+            
+        }
+        
+    }
+    
     enum Settings {
         
         case settings
@@ -303,6 +335,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case tab(Tab)
     case business(BusinessScreen)
     case client(ClientScreen)
+    case media(MediaScreen)
     case profile(ProfileScreen)
     case whatsNew
     case settings(Settings)
@@ -330,6 +363,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.properties
             
         case .client(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
+        case .media(let screen):
             
             screenName = screen.screenName
             properties = screen.properties
