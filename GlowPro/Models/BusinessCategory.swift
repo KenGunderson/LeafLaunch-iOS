@@ -46,7 +46,6 @@ enum BusinessCategory: String, Codable, CaseIterable {
                 .pigmentVascular,
                 .skinResurfacing,
                 .pmuAndBrows,
-                .other // generic catch-all
             ]
             
         case .injector:
@@ -55,7 +54,6 @@ enum BusinessCategory: String, Codable, CaseIterable {
                 .fillers,
                 .fatDissolvers,
                 .prpPrf,
-                .other
             ]
             
         case .esthetician:
@@ -66,7 +64,6 @@ enum BusinessCategory: String, Codable, CaseIterable {
                 .microneedling,
                 .acneCare,
                 .skincare,
-                .other
             ]
             
         case .bodyContouring:

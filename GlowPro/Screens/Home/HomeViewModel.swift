@@ -53,10 +53,19 @@ final class HomeViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func setActiveDestination(_ destination: ActiveDestination) {
+    func setActiveDestination(_ destination: ActiveDestination?) {
         
-        self.activeDestinationService
-            .setActiveDestination(destination)
+        if let destination {
+            
+            self.activeDestinationService
+                .setActiveDestination(destination)
+            
+        } else {
+            
+            self.activeDestinationService
+                .removeActiveDestination()
+            
+        }
         
     }
     

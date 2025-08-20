@@ -38,6 +38,15 @@ struct HomeScreen: GPView {
                 }
                 // Lifecycle
                 
+                .onAppear {
+                    
+                    // Reset Active Destination
+                    
+                    self.viewModel
+                        .setActiveDestination(nil)
+                    
+                }
+                
                 .onFirstAppear {
                     
                     self.viewModel

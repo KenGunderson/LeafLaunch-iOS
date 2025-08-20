@@ -10,11 +10,7 @@
 
 [Business Create + Home Screen]
 - Support Empty State for new Users
-- Support Create Business Flow which leads to everything else once completed
-- Create categories + sub categories
-
-[Location Home]
-- Edit Information Pencil on the Location Card
+- Support Create Business Flow which leads to business home once completed
 
 [Location Details]
 - Show a way to add employee to that location as owner
@@ -41,10 +37,6 @@
 - Secure Mode
 - Add Secure Pin to API
 - Encode on API // Decode on FRONT END
-
-[Active Destination]
-- Use this when we need to know where we are, but don't have a reference
-- Home Screen business info
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now

@@ -218,6 +218,8 @@ final class ClientCreateEditViewModel: ViewModel {
             
             do {
                 
+                let employees = 
+                
                 let isValidDateOfBirth = !self.dateOfBirth.isToday
                 let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
                 
