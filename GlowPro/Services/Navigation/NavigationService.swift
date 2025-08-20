@@ -91,6 +91,7 @@ extension View {
             case .devSetting(let route): devSettings(route: route)
             case .business(let route): business(route: route)
             case .client(let route): client(route: route)
+            case .media(let route): media(route: route)
             }
             
         }
@@ -337,6 +338,20 @@ extension View {
                 ClientListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            }
+            
+        }
+        
+        @ViewBuilder
+        func media(route: Route.Media) -> some View {
+            
+            switch route {
+            case .gallery:
+                
+                let viewModel = globalResolver.resolve(MediaGalleryViewModel.self)!
+                
+                MediaGalleryScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }

@@ -180,7 +180,8 @@ struct BusinessHomeScreen: GPView {
                 .appShadow(.subtle)
                 .asButton {
                     
-                    // TODO: - ADD NAVIGATION HERE
+                    self.navigationService
+                        .push(.media(.gallery))
                     
                 }
                 

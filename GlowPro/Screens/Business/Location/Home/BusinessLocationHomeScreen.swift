@@ -173,7 +173,12 @@ struct BusinessLocationHomeScreen: GPView {
                     prominentSubtitle: false
                 )
                 .appShadow(.subtle)
-                .asButton {}
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.media(.gallery))
+                    
+                }
                 
             }
             

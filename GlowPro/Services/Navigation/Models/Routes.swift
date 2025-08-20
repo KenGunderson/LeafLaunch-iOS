@@ -64,6 +64,12 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum Media: Hashable {
+        
+        case gallery
+        
+    }
+    
     enum Setting: String, CaseIterable {
         
         case profile
@@ -163,5 +169,6 @@ enum Route: Navigation, Hashable, Sendable {
     case setting(Setting)
     case business(Business)
     case client(Client)
+    case media(Media)
     
 }
