@@ -21,8 +21,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     @Published private(set) var business: Business?
     
     @Published var name: String = ""
-    @Published var phone: String = ""
-    @Published var email: String = ""
     @Published var street: String = ""
     @Published var street2: String = ""
     @Published var city: String = ""
@@ -33,8 +31,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         
         return (
             !self.name.isEmpty &&
-            !self.phone.isEmpty &&
-            !self.email.isEmpty &&
             !self.street.isEmpty &&
             !self.city.isEmpty &&
             !self.state.isEmpty &&
@@ -124,8 +120,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     
                     self?.business = business
                     self?.name = location?.name ?? ""
-                    self?.phone = location?.phone ?? ""
-                    self?.email = location?.email ?? ""
                     self?.street = location?.address.street ?? ""
                     self?.street2 = location?.address.street2 ?? ""
                     self?.city = location?.address.city ?? ""
@@ -177,8 +171,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     id: "",
                     businessId: self.businessId,
                     name: self.name,
-                    email: self.email,
-                    phone: self.phone,
                     address: .init(
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,
@@ -233,8 +225,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     id: self.locationId ?? "",
                     businessId: self.businessId,
                     name: self.name,
-                    email: self.email,
-                    phone: self.phone,
                     address: .init(
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,

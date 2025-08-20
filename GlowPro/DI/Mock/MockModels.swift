@@ -150,8 +150,6 @@ struct MockModels {
             id: ID.location1,
             businessId: ID.business1,
             name: "First Location",
-            email: nil,
-            phone: nil,
             address: .DUMMY_DATA(),
             employees: [MockEmployee.employee1, MockEmployee.employee2],
             clients: []
@@ -162,8 +160,6 @@ struct MockModels {
             id: ID.location2,
             businessId: ID.business2,
             name: "Second Location",
-            email: nil,
-            phone: nil,
             address: .DUMMY_DATA(),
             employees: [MockEmployee.employee1, MockEmployee.employee2],
             clients: []
@@ -174,8 +170,6 @@ struct MockModels {
             id: ID.location3,
             businessId: ID.business3,
             name: "Newest Location",
-            email: nil,
-            phone: nil,
             address: .DUMMY_DATA(),
             employees: [],
             clients: []

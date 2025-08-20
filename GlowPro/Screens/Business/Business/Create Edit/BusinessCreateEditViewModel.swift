@@ -1,5 +1,5 @@
 //
-//  BusinessEditDetailsViewModel.swift
+//  BusinessCreateEditViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 6/24/25.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class BusinessEditDetailsViewModel: ViewModel {
+final class BusinessCreateEditViewModel: ViewModel {
     
-    internal let loggerName: String = "BUSINESS_EDIT_DETAILS_VIEW_MODEL"
+    internal let loggerName: String = "BUSINESS_CREATE_EDIT_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
     private let apiService: APIServiceProtocol
@@ -29,10 +29,17 @@ final class BusinessEditDetailsViewModel: ViewModel {
     @Published var state: String = ""
     @Published var zip: String = ""
     
-    private var businessId: String!
+    @Published var selectedCategories: [BusinessCategory] = []
+    @Published var selectedSubcategories: [BusinessSubcategory] = []
+    
+    private var businessId: String?
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var isCreateContext: Bool {
+        return self.businessId == nil
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -55,7 +62,7 @@ final class BusinessEditDetailsViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(businessId: String?) -> Self {
         
         self.businessId = businessId
         return self
@@ -75,6 +82,8 @@ final class BusinessEditDetailsViewModel: ViewModel {
     
     func loadData() {
         
+        guard let businessId else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -83,7 +92,7 @@ final class BusinessEditDetailsViewModel: ViewModel {
             do {
                 
                 let business = try await self.apiService
-                    .getBusiness(id: self.businessId)
+                    .getBusiness(id: businessId)
                 
                 await MainActor.run { [weak self] in
                     
@@ -119,7 +128,79 @@ final class BusinessEditDetailsViewModel: ViewModel {
         
     }
     
-    func update() {
+    func createOrUpdate() {
+        
+        if self.isCreateContext {
+            create()
+        } else {
+            update()
+        }
+        
+    }
+    
+    private func create() {
+        
+        guard let authUser = self.authService.currentUser else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let newBusiness = Business(
+                    id: UUID().uuidString,
+                    name: self.name,
+                    description: "",
+                    email: self.email,
+                    phoneNumber: self.phone,
+                    address: .init(
+                        street: self.street,
+                        street2: self.street2.isEmpty ? nil : self.street2,
+                        city: self.city,
+                        state: self.state,
+                        zip: self.zip
+                    ),
+                    owner: authUser,
+                    employees: [],
+                    locations: [],
+                    employeeInvites: []
+                )
+                
+                _ = try await self.apiService
+                    .createBusiness(business: newBusiness)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Business created successfully.",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Error.createErrorMessage("business"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    private func update() {
+        
+        guard let businessId else { return }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -129,7 +210,7 @@ final class BusinessEditDetailsViewModel: ViewModel {
             do {
                 
                 let updatedBusiness = Business(
-                    id: self.businessId,
+                    id: businessId,
                     name: self.name,
                     description: "",
                     email: self.email,
@@ -177,16 +258,36 @@ final class BusinessEditDetailsViewModel: ViewModel {
         
     }
     
+    func set(category: BusinessCategory) {
+        
+        if self.selectedCategories.contains(category) {
+            self.selectedCategories.removeAll { $0 == category }
+        } else {
+            self.selectedCategories.append(category)
+        }
+        
+    }
+    
+    func set(subcategory: BusinessSubcategory) {
+        
+        if self.selectedSubcategories.contains(subcategory) {
+            self.selectedSubcategories.removeAll { $0 == subcategory }
+        } else {
+            self.selectedSubcategories.append(subcategory)
+        }
+        
+    }
+    
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
     }
     
 }
 
-extension BusinessEditDetailsViewModel {
+extension BusinessCreateEditViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .business(.businessEditDetails(businessId: self.businessId)))
+        self.analyticsService.track(screen: .business(.businessCreateEdit(businessId: self.businessId)))
     }
     
 }

@@ -186,8 +186,8 @@ class MockViewModelAssembly: Assembly {
         // Business Details
         
         container
-            .register(BusinessEditDetailsViewModel.self) { r in
-                BusinessEditDetailsViewModel(
+            .register(BusinessCreateEditViewModel.self) { r in
+                BusinessCreateEditViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

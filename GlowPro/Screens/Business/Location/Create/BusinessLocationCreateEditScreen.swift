@@ -12,8 +12,6 @@ struct BusinessLocationCreateEditScreen: GPView {
     enum FocusedField: Hashable {
         
         case name
-        case email
-        case phone
         case street
         case street2
         case city
@@ -23,8 +21,6 @@ struct BusinessLocationCreateEditScreen: GPView {
         var displayName: String {
             switch self {
             case .name: return "Business Name"
-            case .email: return "Email"
-            case .phone: return "Phone"
             case .street: return "Street"
             case .street2: return "Street 2"
             case .city: return "City"
@@ -41,9 +37,7 @@ struct BusinessLocationCreateEditScreen: GPView {
     @StateObject var viewModel: BusinessLocationCreateEditViewModel
     
     @FocusState private var focusedField: FocusedField?
-    
-    @State private var isDropdownPresented: Bool = false
-    
+        
     var body: some View {
         
         content()
@@ -123,11 +117,7 @@ struct BusinessLocationCreateEditScreen: GPView {
             AppCardView {
                 
                 VStack(spacing: Style.shared.spacing(.small)) {
-                    
                     textField(fieldToFocus: .name)
-                    textField(fieldToFocus: .email)
-                    textField(fieldToFocus: .phone)
-                    
                 }
                 
             }
@@ -194,21 +184,7 @@ struct BusinessLocationCreateEditScreen: GPView {
             isFocused = self.focusedField == .name
             keyboardType = .default
             textContentType = .organizationName
-            
-        case .email:
-            
-            text = self.$viewModel.email
-            isFocused = self.focusedField == .email
-            keyboardType = .emailAddress
-            textContentType = .emailAddress
-            
-        case .phone:
-            
-            text = self.$viewModel.phone
-            isFocused = self.focusedField == .phone
-            keyboardType = .phonePad
-            textContentType = .telephoneNumber
-            
+
         case .street:
             
             text = self.$viewModel.street

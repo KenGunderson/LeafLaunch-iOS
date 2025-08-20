@@ -95,63 +95,85 @@ struct BusinessLocationHomeScreen: GPView {
     @ViewBuilder
     private func tilesGrid() -> some View {
         
-        LazyVGrid(columns: [
-            .init(.flexible()),
-            .init(.flexible()),
-        ]) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             QuickActionTileView(
-                icon: .systemImage("person.2.fill"),
-                iconBackgroundColor: .color(GPColor.iconGreen),
-                title: "Employees",
-                subtitle: "View All Employees",
+                icon: .systemImage("storefront.fill"),
+                iconBackgroundColor: .color(GPColor.iconBlue),
+                title: "Location Information",
+                subtitle: self.viewModel.business?.address?.shortFormattedAddress ?? "No Address",
                 prominentSubtitle: false
             )
             .appShadow(.subtle)
             .asButton {
                 
-                let businessId = self.viewModel.location?.businessId ?? ""
-                
                 self.navigationService
-                    .push(.business(.businessEmployees(
-                        businessId: businessId,
-                        context: .location(locationId: self.viewModel.locationId))
-                    ))
+                    .push(.business(.businessLocationCreateEdit(
+                        businessId: self.viewModel.business?.id ?? "",
+                        locationId: self.viewModel.locationId
+                    )))
                 
             }
             
-            QuickActionTileView(
-                icon: .systemImage("camera.fill"),
-                iconBackgroundColor: .color(GPColor.iconYellow),
-                title: "Camera",
-                subtitle: "Quick Photo Capture",
-                prominentSubtitle: false
-            )
-            .appShadow(.subtle)
-            .asButton {}
-            
-            QuickActionTileView(
-                icon: .systemImage("photo.on.rectangle.fill"),
-                iconBackgroundColor: .color(GPColor.iconPurple),
-                title: "Photo Gallery",
-                subtitle: "View All Photos",
-                prominentSubtitle: false
-            )
-            .appShadow(.subtle)
-            .asButton {}
-            
-            QuickActionTileView(
-                icon: .systemImage("person.2.fill"),
-                iconBackgroundColor: .color(GPColor.iconOrange),
-                title: "Clients",
-                subtitle: "View All Clients",
-                prominentSubtitle: false
-            )
-            .appShadow(.subtle)
-            .asButton {
+            LazyVGrid(columns: [
+                .init(.flexible()),
+                .init(.flexible()),
+            ]) {
                 
-                self.navigationService
-                    .push(.client(.clientList(context: .location(locationId: self.viewModel.locationId))))
+                QuickActionTileView(
+                    icon: .systemImage("person.2.fill"),
+                    iconBackgroundColor: .color(GPColor.iconGreen),
+                    title: "Employees",
+                    subtitle: "View All Employees",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    let businessId = self.viewModel.location?.businessId ?? ""
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployees(
+                            businessId: businessId,
+                            context: .location(locationId: self.viewModel.locationId))
+                        ))
+                    
+                }
+                
+                QuickActionTileView(
+                    icon: .systemImage("person.2.fill"),
+                    iconBackgroundColor: .color(GPColor.iconOrange),
+                    title: "Clients",
+                    subtitle: "View All Clients",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.client(.clientList(context: .location(locationId: self.viewModel.locationId))))
+                    
+                }
+                
+                QuickActionTileView(
+                    icon: .systemImage("camera.fill"),
+                    iconBackgroundColor: .color(GPColor.iconYellow),
+                    title: "Camera",
+                    subtitle: "Quick Photo Capture",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {}
+                
+                QuickActionTileView(
+                    icon: .systemImage("photo.on.rectangle.fill"),
+                    iconBackgroundColor: .color(GPColor.iconPurple),
+                    title: "Photo Gallery",
+                    subtitle: "View All Photos",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {}
                 
             }
             

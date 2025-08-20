@@ -89,7 +89,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
         case businessHome(businessId: String)
         case businessDetails(businessId: String)
-        case businessEditDetails(businessId: String)
+        case businessCreateEdit(businessId: String?)
         case businessLocationList(businessId: String)
         case businessLocationCreateEdit(businessId: String, locationId: String?)
         case businessLocationHome(locationId: String)
@@ -108,7 +108,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .businessHome: name = "business_home"
             case .businessDetails: name = "business_details"
-            case .businessEditDetails: name = "business_edit_details"
+            case .businessCreateEdit: name = "business_edit_details"
             case .businessLocationList: name = "business_locations"
             case .businessLocationCreateEdit: name = "business_location_create_edit"
             case .businessLocationHome: name = "business_location_home"
@@ -130,7 +130,15 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .businessHome(let businessId): return ["business_id": businessId]
             case .businessDetails(let businessId): return ["business_id": businessId]
-            case .businessEditDetails(let businessId): return ["business_id": businessId]
+            case .businessCreateEdit(let businessId):
+                
+                let context = (businessId == nil) ? "create" : "edit"
+                return [
+                    "business_id": businessId,
+                    "context": context
+                ]
+                .compact()
+                
             case .businessLocationList(let businessId): return ["business_id": businessId]
             case .businessLocationCreateEdit(let businessId, let locationId):
                 

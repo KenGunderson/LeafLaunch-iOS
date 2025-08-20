@@ -230,7 +230,7 @@ struct BusinessEmployeeInviteScreen: GPView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             CommonDropDownMenu(
-                options: Role.allCases,
+                options: Role.LocationRoles,
                 backgroundStyle: .color(.clear),
                 shadow: .none,
                 textHorizontalPadding: .small,

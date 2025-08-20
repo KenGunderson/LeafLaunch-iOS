@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BusinessEditDetailsScreen: GPView {
+struct businessCreateEditScreen: GPView {
     
     enum FocusedField: Hashable {
         
@@ -38,7 +38,7 @@ struct BusinessEditDetailsScreen: GPView {
     @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel: BusinessEditDetailsViewModel
+    @StateObject var viewModel: BusinessCreateEditViewModel
     
     @FocusState private var focusedField: FocusedField?
     
@@ -288,10 +288,10 @@ struct BusinessEditDetailsScreen: GPView {
 
 #Preview {
     
-    let viewModel = mockResolve(BusinessEditDetailsViewModel.self)
+    let viewModel = mockResolve(BusinessCreateEditViewModel.self)
         .setup(businessId: MockModels.ID.business1)
     
-    BusinessEditDetailsScreen(viewModel: viewModel)
+    businessCreateEditScreen(viewModel: viewModel)
         .withMockServices()
     
 }

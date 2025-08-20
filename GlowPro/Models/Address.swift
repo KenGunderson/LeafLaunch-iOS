@@ -18,6 +18,33 @@ struct Address: Codable,
     let state: String
     let zip: String
     
+    var shortFormattedAddress: String {
+        
+        var string = ""
+        string += "\(self.street),"
+        
+        if let street = self.street2 {
+            string += " \(street),"
+        }
+        
+        return string + " \(self.city), \(self.state) \(self.zip)"
+        
+    }
+    
+    var fullFormattedAddress: String {
+        
+        var string = ""
+        string += "\(self.street),"
+        
+        if let street = self.street2 {
+            string += " \(street),"
+        }
+        
+        string += "\n\(self.city), \(self.zip) \(self.state)"
+        return string
+        
+    }
+    
 }
 
 extension Address {

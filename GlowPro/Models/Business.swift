@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Business: Identifiable,
                  Equatable,
                  Hashable,

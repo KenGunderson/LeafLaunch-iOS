@@ -11,6 +11,7 @@
 [Business Create + Home Screen]
 - Support Empty State for new Users
 - Support Create Business Flow which leads to everything else once completed
+- Create categories + sub categories
 
 [Location Home]
 - Edit Information Pencil on the Location Card
@@ -47,13 +48,6 @@
 
 [Settings]
 - All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
-
-[Location Creation / Update]
-- Remove email / phone
-- Remove from BE
-
-[Role]
-- Remove Owner / Admin / Front desk from Roles for locations
 
 [Paywall]
 - Create

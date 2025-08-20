@@ -35,7 +35,7 @@ enum Route: Navigation, Hashable, Sendable {
         
         case businessHome(businessId: String)
         case businessDetails(businessId: String)
-        case businessEditDetails(businessId: String)
+        case businessCreateEdit(businessId: String?)
         
         case businessLocationHome(locationId: String)
         case businessLocationList(businessId: String)

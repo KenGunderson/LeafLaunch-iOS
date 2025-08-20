@@ -30,4 +30,8 @@ enum Role: String,
         }
     }
     
+    static var LocationRoles: [Role] {
+        return [.manager, .employee, .receptionist]
+    }
+    
 }

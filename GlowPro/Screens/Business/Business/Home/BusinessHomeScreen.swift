@@ -98,70 +98,91 @@ struct BusinessHomeScreen: GPView {
     @ViewBuilder
     private func tilesGrid() -> some View {
         
-        LazyVGrid(columns: [
-            .init(.flexible()),
-            .init(.flexible()),
-        ]) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             QuickActionTileView(
-                icon: .systemImage("person.2.fill"),
-                iconBackgroundColor: .color(GPColor.iconGreen),
-                title: "All Employees",
-                subtitle: "\(self.viewModel.business?.employees.count ?? 0)",
-                prominentSubtitle: true
+                icon: .systemImage("storefront.fill"),
+                iconBackgroundColor: .color(GPColor.iconBlue),
+                title: "Business Information",
+                subtitle: self.viewModel.business?.address?.shortFormattedAddress ?? "No Address",
+                prominentSubtitle: false
             )
             .appShadow(.subtle)
             .asButton {
                 
                 self.navigationService
-                    .push(.business(.businessEmployees(
-                        businessId: self.viewModel.businessId,
-                        context: .business(businessId: self.viewModel.businessId))
+                    .push(.business(
+                        .businessCreateEdit(businessId: self.viewModel.businessId)
                     ))
                 
             }
             
-            QuickActionTileView(
-                icon: .systemImage("pin.fill"),
-                iconBackgroundColor: .color(GPColor.iconBlue),
-                title: "All Locations",
-                subtitle: "\(self.viewModel.business?.locations.count ?? 0)",
-                prominentSubtitle: true
-            )
-            .appShadow(.subtle)
-            .asButton {
+            LazyVGrid(columns: [
+                .init(.flexible()),
+                .init(.flexible()),
+            ]) {
                 
-                self.navigationService
-                    .push(.business(.businessLocationList(businessId: self.viewModel.businessId)))
+                QuickActionTileView(
+                    icon: .systemImage("person.2.fill"),
+                    iconBackgroundColor: .color(GPColor.iconGreen),
+                    title: "All Employees",
+                    subtitle: "\(self.viewModel.business?.employees.count ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployees(
+                            businessId: self.viewModel.businessId,
+                            context: .business(businessId: self.viewModel.businessId))
+                        ))
+                    
+                }
                 
-            }
-            
-            QuickActionTileView(
-                icon: .systemImage("person.3.fill"),
-                iconBackgroundColor: .color(GPColor.iconOrange),
-                title: "All Clients",
-                subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
-                prominentSubtitle: true
-            )
-            .appShadow(.subtle)
-            .asButton {
+                QuickActionTileView(
+                    icon: .systemImage("pin.fill"),
+                    iconBackgroundColor: .color(GPColor.iconYellow),
+                    title: "All Locations",
+                    subtitle: "\(self.viewModel.business?.locations.count ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.business(.businessLocationList(businessId: self.viewModel.businessId)))
+                    
+                }
                 
-                self.navigationService
-                    .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
+                QuickActionTileView(
+                    icon: .systemImage("person.3.fill"),
+                    iconBackgroundColor: .color(GPColor.iconOrange),
+                    title: "All Clients",
+                    subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
+                    
+                }
                 
-            }
-            
-            QuickActionTileView(
-                icon: .systemImage("photo.on.rectangle.fill"),
-                iconBackgroundColor: .color(GPColor.iconPurple),
-                title: "All Media",
-                subtitle: "\(self.viewModel.business?.mediaCount ?? 0)",
-                prominentSubtitle: true
-            )
-            .appShadow(.subtle)
-            .asButton {
-                
-                // TODO: - ADD NAVIGATION HERE
+                QuickActionTileView(
+                    icon: .systemImage("photo.on.rectangle.fill"),
+                    iconBackgroundColor: .color(GPColor.iconPurple),
+                    title: "All Media",
+                    subtitle: "\(self.viewModel.business?.mediaCount ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    // TODO: - ADD NAVIGATION HERE
+                    
+                }
                 
             }
             

@@ -16,25 +16,9 @@ struct Location: Identifiable,
     let id: String
     let businessId: String
     let name: String
-    let email: String?
-    let phone: String?
     let address: Address
     let employees: [Employee]
     var clients: [Client]
-    
-    var fullFormattedAddress: String {
-        
-        var string = ""
-        string += "\(address.street),"
-        
-        if let street = address.street2 {
-            string += " \(street),"
-        }
-        
-        string += "\n\(address.city), \(address.zip) \(address.state)"
-        return string
-        
-    }
     
 }
 
@@ -45,8 +29,6 @@ extension Location {
             id: UUID().uuidString,
             businessId: Bool.random() ? MockModels.ID.business1 : MockModels.ID.business2,
             name: "My First Location",
-            email: nil,
-            phone: nil,
             address: .DUMMY_DATA(),
             employees: [],
             clients: []
