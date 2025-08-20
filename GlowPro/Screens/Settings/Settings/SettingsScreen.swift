@@ -28,6 +28,7 @@ struct SettingsScreen: GPView {
             } scrollViewContent: {
                 content()
             }
+            
             // Lifecycle
             
             .onFirstAppear {
@@ -47,6 +48,12 @@ struct SettingsScreen: GPView {
                 
                 self.viewModel
                     .loadData()
+                
+            }
+            .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
+                
+                guard newValue else { return }
+                dismiss()
                 
             }
             
@@ -92,6 +99,8 @@ struct SettingsScreen: GPView {
                     settingItem(item)
                 }
                 
+                versionItem()
+                
             }
             
         }
@@ -123,17 +132,43 @@ struct SettingsScreen: GPView {
         .asButton {
             
             withAnimation(.smooth) {
-                
-                if item == .logout {
-                    dismiss()
-                }
-                
+
                 self.viewModel
                     .selectSetting(item)
                 
             }
             
         }
+        
+    }
+    
+    private func versionItem() -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            AppCardView(shadow: .subtle) {
+                
+                HStack(spacing: Style.shared.spacing(.small)) {
+                    
+                    Image(systemName: "iphone")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.accent.source())
+                    
+                    Text("App Version")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                    
+                    Text(self.viewModel.appVersion)
+                        .appFont(with: .HEADER_1)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    
+                }
+                
+            }
+            
+        }
+        .padding(.top, .large)
         
     }
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SettingsViewModel: ViewModel {
     
@@ -19,6 +20,13 @@ final class SettingsViewModel: ViewModel {
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    @Published var shouldDismiss: Bool = false
+    
+    @MainActor
+    var appVersion: String {
+        return UIApplication.version
+    }
     
     init(authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
@@ -43,14 +51,11 @@ final class SettingsViewModel: ViewModel {
         switch setting {
         case .logout:
             
-            Task { [weak self] in
-                
-                guard let self else { return }          
-                try await self.authService.logout()
-                
-            }
+            presentLogoutAlert()
             
-        default: self.navigationService?.push(.setting(setting))
+        default:
+            
+            self.navigationService?.push(.setting(setting))
         }
         
     }
@@ -65,6 +70,45 @@ final class SettingsViewModel: ViewModel {
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    private func logout() {
+        
+        Task { [weak self] in
+            
+            guard let self else { return }
+            
+            try await Task.sleep(for: .seconds(0.3))
+            
+            await MainActor.run {
+                self.shouldDismiss = true
+            }
+            
+            try await Task.sleep(for: .seconds(0.3))
+            try await self.authService.logout()
+            
+        }
+        
+    }
+    
+    private func presentLogoutAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Logout?",
+                message: "Are you sure you want to logout?",
+                primaryButtonTitle: "Okay",
+                primaryButtonAction: { [weak self] in
+                    self?.logout()
+                },
+                primaryButtonBackgroundColor: Style.shared.accent,
+                primaryButtonTextColor: Style.shared.textColor(.button),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.error),
+                secondaryButtonTextColor: Style.shared.textColor(.titleInverted)
+            ))))
+        
     }
     
 }

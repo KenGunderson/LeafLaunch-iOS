@@ -81,7 +81,7 @@ struct BusinessHomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.extraSmall)) {
             
             tilesGrid()
             
@@ -199,7 +199,7 @@ struct BusinessHomeScreen: GPView {
                 title: "Invite Employee",
                 titleFont: .TITLE_2,
                 icon: .systemImage("plus"),
-                verticalPadding: .custom(10),
+                verticalPadding: .small2,
                 horizontalPadding: .none) {
                     
                     self.navigationService
@@ -211,7 +211,7 @@ struct BusinessHomeScreen: GPView {
                 title: "Add New Location",
                 titleFont: .TITLE_2,
                 icon: .systemImage("plus"),
-                verticalPadding: .custom(10),
+                verticalPadding: .small2,
                 horizontalPadding: .none) {
                     
                     self.navigationService
