@@ -2,6 +2,11 @@
 - Update Icons To Figma Ones
 - Add illustrations
 
+[Location Cards]
+- Green for owner
+- Yellow for employee
+- Use GPT
+
 [Permissions]
 - Only owner can edit locations, add locations, add employees, edit employees
 
@@ -21,8 +26,10 @@
 - Show a way to see what locations this employee works at
 
 [Media]
-- Gallery with filters
+- Gallery with filters (Tags / Sort)
+- Gallery Empty State
 - Show remaining photo count (include deleting query param)
+    - show progress bar remaining photos in accent green progress bar
 
 [Camera]
 - Use Native first

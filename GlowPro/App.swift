@@ -11,6 +11,7 @@ import SwiftUI
 struct GlowProApp: App {
     
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @State private var navigationService = NavigationService()
     
     private let appAssembler: AppAssembler = AppAssembler()
     private let rootViewModel: RootViewModel
@@ -31,7 +32,10 @@ struct GlowProApp: App {
                 .onAppear {
                     
                     self.rootViewModel
-                        .setup(appDelegate: self.appDelegate)
+                        .setup(
+                            appDelegate: self.appDelegate,
+                            navigationService: self.navigationService
+                        )
                     
                 }
             

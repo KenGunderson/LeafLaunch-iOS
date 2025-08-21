@@ -23,6 +23,16 @@ struct AppRootView<Content: View>: View {
         
     }
     
+    init(navigationService: Bindable<NavigationService>,
+         alertService: AlertServiceProtocol? = nil,
+         @ViewBuilder content: () -> Content) {
+        
+        self._navigationService = .constant(navigationService.wrappedValue)
+        self.alertService = alertService
+        self.content = content()
+        
+    }
+    
     public var body: some View {
      
         NavigationStack(path: self.$navigationService.routes) {

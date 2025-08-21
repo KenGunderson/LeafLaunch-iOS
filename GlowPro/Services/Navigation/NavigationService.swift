@@ -9,7 +9,15 @@ import SwiftUI
 import Combine
 
 @Observable
-class NavigationService: NavigationServiceProtocol {
+class NavigationService: NavigationServiceProtocol, Equatable {
+    
+    static func == (lhs: NavigationService, rhs: NavigationService) -> Bool {
+        
+        lhs.routes == rhs.routes &&
+        lhs.sheet == rhs.sheet &&
+        lhs.fullScreenCover == rhs.fullScreenCover
+        
+    }
     
     var routes: [Route] = []
     var sheet: Sheet?

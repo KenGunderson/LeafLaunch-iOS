@@ -34,6 +34,8 @@ final class RootViewModel: ViewModel {
     @Published private(set) var isImpersonatingUser: Bool = false
     @Published var shouldPresentDevSettings: Bool = false
     
+    @Published var navigationService = NavigationService()
+    
     var impersonatingUserEmail: String {
         return self.impersonateService.impersonatedUser?.email ?? ""
     }
@@ -88,7 +90,10 @@ final class RootViewModel: ViewModel {
     // MARK: - PUBLIC
     
     @discardableResult
-    func setup(appDelegate: AppDelegate) -> Self {
+    func setup(appDelegate: AppDelegate,
+               navigationService: NavigationService) -> Self {
+        
+        self.navigationService = navigationService
         
         self.appDelegateService
             .setup(appDelegate: appDelegate)

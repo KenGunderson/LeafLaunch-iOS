@@ -35,6 +35,8 @@ final class MediaGalleryViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var groups: [GroupedMedia] = []
+    @Published private(set) var shouldShowEmptyState: Bool = false
+    
     private var media: [Media] = []
     
     private var context: Context!
@@ -96,8 +98,11 @@ final class MediaGalleryViewModel: ViewModel {
                 
                 let groupedMedia = self.groupedByMonth(media: media)
                 
-                await MainActor.run { [weak self] in
+                await MainActor.run { [weak self, media] in
+                    
                     self?.groups = groupedMedia
+                    self?.shouldShowEmptyState = media.isEmpty
+                    
                 }
                 
             }
@@ -117,6 +122,22 @@ final class MediaGalleryViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func emptyStateConfig() -> EmptyStateConfig {
+        
+        return .init(
+            title: "No Photos Found",
+            message: "Take your first photo. Don't forget to tag 'em!",
+            image: .systemImage("magnifyingglass"),
+            actionTitle: "Take Your First Photo",
+            action: {
+                
+                // TODO: - Pop & Go To Camera
+                
+            }
+        )
         
     }
     

@@ -4,7 +4,7 @@
 //
 //  Created by Sako Hovaguimian on 8/20/25.
 //
-
+//WHTY IS NOT WORKING? PUSHING???
 import SwiftUI
 
 struct MediaGalleryScreen: GPView {
@@ -21,6 +21,10 @@ struct MediaGalleryScreen: GPView {
         } scrollViewContent: {
             content()
         }
+        .emptyStateOverlay(
+            shouldShow: self.viewModel.shouldShowEmptyState,
+            config: self.viewModel.emptyStateConfig()
+        )
         
         // Lifecycle
         

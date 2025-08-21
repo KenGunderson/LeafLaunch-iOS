@@ -11,7 +11,7 @@ struct HomeScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(NavigationService.self) private var navigationService
-    
+        
     @StateObject private var viewModel: HomeViewModel
     
     public init(viewModel: HomeViewModel) {
@@ -21,10 +21,7 @@ struct HomeScreen: GPView {
     var body: some View {
                 
         AppRootView(
-            navigationService: Binding<NavigationService>(
-                get: { navigationService },
-                set: { _ in /* no-op because the environment value isn’t replaceable */ }
-            ),
+            navigationService: Bindable(navigationService),
             alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
              
                 AppHeaderScrollView(horizontalPadding: .medium) {
