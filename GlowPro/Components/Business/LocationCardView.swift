@@ -16,7 +16,7 @@ struct LocationCardView: View {
     let cornerRadius: CGFloat = Style.shared.radius(.small2)
     
     var backgroundColor: Color {
-        return self.isOwner ? GPColor.lightOrange : GPColor.lightPurple
+        return self.isOwner ? GPColor.lightGreen : GPColor.lightOrange
     }
     
     init(businessName: String,
@@ -52,8 +52,8 @@ struct LocationCardView: View {
     private func businessHeaderView() -> some View {
         
         let tokenText = self.isOwner ? "Owner" : "Employee"
-        let tokenTextColor = self.isOwner ? GPColor.orange : GPColor.purple
-        let tokenBackgroundColor = self.isOwner ? GPColor.fadedOrange : GPColor.fadedPurple
+        let tokenTextColor = self.isOwner ? GPColor.green : GPColor.orange
+        let tokenBackgroundColor = self.isOwner ? GPColor.fadedGreen : GPColor.fadedOrange
         
         return HStack {
             

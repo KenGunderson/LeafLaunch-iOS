@@ -29,7 +29,7 @@ struct OnboardingFeaturesScreen: GPView {
                 .padding([.top], .large)
                 .zIndex(-1)
             
-            VStack {
+            VStack(spacing: Style.shared.spacing(.medium)) {
                 
                 Text(self.onboardingPage.title)
                     .appFont(with: .HEADER_3)
