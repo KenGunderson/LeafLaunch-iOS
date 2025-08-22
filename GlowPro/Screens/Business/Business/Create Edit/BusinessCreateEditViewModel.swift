@@ -114,7 +114,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("business details"),
+                            message: Constants.Error.errorMessage("business details"),
                             action: {})
                     ))
                 )
@@ -185,7 +185,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.createErrorMessage("business"),
+                            message: Constants.Error.errorMessage(context: .create, "business"),
                             action: {})
                     ))
                 )

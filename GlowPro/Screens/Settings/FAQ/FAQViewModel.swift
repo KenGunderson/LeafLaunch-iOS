@@ -89,7 +89,7 @@ final class FAQViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("frequently asked questions"),
+                            message: Constants.Error.errorMessage("frequently asked questions"),
                             action: {})
                     ))
                 )

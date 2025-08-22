@@ -105,7 +105,7 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("business"),
+                            message: Constants.Error.errorMessage("business"),
                             action: {})
                     ))
                 )

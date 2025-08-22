@@ -141,7 +141,7 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("person.2.fill"),
+                    icon: .systemImage("person.3.fill"),
                     iconBackgroundColor: .color(GPColor.iconOrange),
                     title: "Clients",
                     subtitle: "View All Clients",

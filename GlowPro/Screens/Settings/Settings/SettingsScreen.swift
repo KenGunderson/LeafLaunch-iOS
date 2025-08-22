@@ -113,7 +113,11 @@ struct SettingsScreen: GPView {
             
             HStack(spacing: Style.shared.spacing(.small)) {
                 
-                Image(systemName: item.icon)
+                item
+                    .icon
+                    .view(renderingMode: .template)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 24, height: 24)
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(item.tintColor.source())
                 

@@ -97,17 +97,17 @@ enum Route: Navigation, Hashable, Sendable {
             }
         }
         
-        var icon: String {
+        var icon: ImageSource {
             switch self {
-            case .profile: return "person.fill"
-            case .subscription: return "cart.fill"
-            case .aboutUs: return "info.circle.fill"
-            case .frequentlyAskedQuestions: return "questionmark.circle.fill"
-            case .contactSupport: return "envelope.fill"
-            case .sendFeedback: return "message.fill"
-            case .privacyPolicy: return "lock.shield.fill"
-            case .termsOfService: return "clipboard.fill"
-            case .logout: return "xmark.circle.fill"
+            case .profile: return .image(.iconPerson)
+            case .subscription: return .image(.iconShoppingCart)
+            case .aboutUs: return .image(.iconInfoCircle)
+            case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
+            case .contactSupport: return .image(.iconMail)
+            case .sendFeedback: return .image(.iconChatBubble)
+            case .privacyPolicy: return .image(.iconLock)
+            case .termsOfService: return .systemImage("clipboard.fill")
+            case .logout: return .image(.iconCloseCircle)
             }
         }
         

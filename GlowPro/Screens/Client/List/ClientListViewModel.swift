@@ -132,7 +132,7 @@ final class ClientListViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("clients"),
+                            message: Constants.Error.errorMessage("clients"),
                             action: {})
                     ))
                 )

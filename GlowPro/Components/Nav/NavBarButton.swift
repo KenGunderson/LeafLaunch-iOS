@@ -18,14 +18,14 @@ struct NavBarButton: View {
         case bell(notificationCount: Int = 0)
         case pencil
         
-        var systemName: String {
+        var icon: ImageSource {
             switch self {
-            case .back: return "arrow.left"
-            case .close: return "xmark"
-            case .settings: return "gear"
-            case .plus: return "plus"
-            case .bell: return "bell"
-            case .pencil: return "pencil"
+            case .back: return .systemImage("arrow.left")
+            case .close: return .systemImage("xmark")
+            case .settings: return .image(.iconSetting)
+            case .plus: return .systemImage("plus")
+            case .bell: return .image(.iconBell)
+            case .pencil: return .systemImage("pencil")
             }
         }
         
@@ -53,8 +53,8 @@ struct NavBarButton: View {
     
         let frame: CGFloat = self.style.smallerIcon ? 16 : 20
         
-        Image(systemName: self.style.systemName)
-            .resizable()
+        self.style.icon
+            .view(renderingMode: .template)
             .scaledToFit()
             .frame(width: frame, height: frame)
             .padding(4)

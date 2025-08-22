@@ -105,7 +105,7 @@ final class LegalViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("legal information"),
+                            message: Constants.Error.errorMessage("legal information"),
                             action: {})
                     ))
                 )

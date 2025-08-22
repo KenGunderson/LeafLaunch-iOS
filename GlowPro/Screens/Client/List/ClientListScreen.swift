@@ -134,15 +134,15 @@ struct ClientListScreen: GPView {
                     HStack(spacing: Style.shared.spacing(.small)) {
                         
                         if client.email != nil {
-                            extraInformationItem(icon: "envelope.fill")
+                            extraInformationItem(icon: .image(.iconMail))
                         }
                         
                         if client.phone != nil {
-                            extraInformationItem(icon: "phone.fill")
+                            extraInformationItem(icon: .image(.iconPhone))
                         }
                         
                         if client.birthDate != nil {
-                            extraInformationItem(icon: "birthday.cake.fill")
+                            extraInformationItem(icon: .image(.iconCake))
                         }
                             
                     }
@@ -165,10 +165,10 @@ struct ClientListScreen: GPView {
         
     }
     
-    private func extraInformationItem(icon: String) -> some View {
+    private func extraInformationItem(icon: ImageSource) -> some View {
         
-        Image(systemName: icon)
-            .resizable()
+        icon
+            .view(renderingMode: .template)
             .aspectRatio(contentMode: .fit)
             .frame(width: 16, height: 16)
             .foregroundStyle(Style.shared.textColor(.body).source())

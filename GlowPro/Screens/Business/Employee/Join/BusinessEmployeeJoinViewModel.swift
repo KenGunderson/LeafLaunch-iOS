@@ -76,7 +76,7 @@ final class BusinessEmployeeJoinViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("data"),
+                            message: Constants.Error.errorMessage("data"),
                             action: {})
                     ))
                 )

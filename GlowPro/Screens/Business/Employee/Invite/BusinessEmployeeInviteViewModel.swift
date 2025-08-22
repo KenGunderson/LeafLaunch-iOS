@@ -100,7 +100,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("business"),
+                            message: Constants.Error.errorMessage("business"),
                             action: {})
                     ))
                 )
@@ -157,7 +157,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.createErrorMessage("employee invite"),
+                            message: Constants.Error.errorMessage(context: .create, "employee invite"),
                             action: {})
                     ))
                 )

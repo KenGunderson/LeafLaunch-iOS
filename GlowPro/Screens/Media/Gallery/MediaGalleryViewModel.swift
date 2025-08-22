@@ -111,7 +111,7 @@ final class MediaGalleryViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("business details"),
+                            message: Constants.Error.errorMessage("business details"),
                             action: {})
                     ))
                 )

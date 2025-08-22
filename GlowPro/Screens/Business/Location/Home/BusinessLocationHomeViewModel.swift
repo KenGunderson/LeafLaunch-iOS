@@ -106,7 +106,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.fetchErrorMessage("location"),
+                            message: Constants.Error.errorMessage("location"),
                             action: {})
                     ))
                 )

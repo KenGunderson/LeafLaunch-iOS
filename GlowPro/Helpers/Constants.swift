@@ -87,12 +87,26 @@ struct Constants {
     
     struct Error {
         
-        static func createErrorMessage(_ topic: String) -> String {
-            return "Something went wrong while creating your \(topic). Please try again later."
+        enum Context {
+            
+            case get
+            case create
+            case update
+            case delete
+            
+            var verbDescription: String {
+                switch self {
+                case .get: return "getting"
+                case .create: return "creating"
+                case .update: return "updating"
+                case .delete: return "deleting"
+                }
+            }
+            
         }
         
-        static func fetchErrorMessage(_ topic: String) -> String {
-            return "Something went wrong while fetching your \(topic). Please try again later."
+        static func errorMessage(context: Context = .get, _ topic: String) -> String {
+            return "Something went wrong while \(context.verbDescription) your \(topic). Please try again later."
         }
         
     }
