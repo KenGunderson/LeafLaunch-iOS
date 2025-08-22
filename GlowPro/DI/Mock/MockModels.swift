@@ -118,6 +118,7 @@ struct MockModels {
         static let client8: String = UUID().uuidString
         static let client9: String = UUID().uuidString
         static let client10: String = UUID().uuidString
+        static let client11: String = UUID().uuidString
         
         static let media1: String = UUID().uuidString
         static let media2: String = UUID().uuidString
@@ -149,6 +150,7 @@ struct MockModels {
         static let media28: String = UUID().uuidString
         static let media29: String = UUID().uuidString
         static let media30: String = UUID().uuidString
+        static let media31: String = UUID().uuidString
         
     }
 
@@ -225,8 +227,8 @@ struct MockModels {
         nonisolated(unsafe)
         static var employee2 = Employee(
             id: ID.employee2,
-            businessId: ID.business1,
-            locationId: ID.location1,
+            businessId: ID.business2,
+            locationId: ID.location2,
             userId: MockModels.ID.user2,
             name: "Employee 2",
             email: "emp2@me.com",
@@ -468,6 +470,19 @@ struct MockModels {
             birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             employee: MockEmployee.employee1
+        )
+        
+        nonisolated(unsafe)
+        static var client11 = Client(
+            id: ID.client11,
+            firstName: "Mr.",
+            lastName: "11",
+            email: "cow@me.com",
+            phone: "878-789-3232",
+            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            imageURL: nil,
+            locationId: ID.location2,
+            employee: MockEmployee.employee2
         )
         
     }
@@ -857,6 +872,19 @@ struct MockModels {
                 id: ID.media30,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                url: URL(string: "https://picsum.photos/id/30/1200/1200")!,
+                isFavorited: false,
+                createdAt: .now.addingTimeInterval(-482394),
+                updatedAt: .now.addingTimeInterval(-93234)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var media31: Media {
+            Media(
+                id: ID.media31,
+                clientId: ID.client11,
+                businessId: ID.business2,
                 url: URL(string: "https://picsum.photos/id/30/1200/1200")!,
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-482394),

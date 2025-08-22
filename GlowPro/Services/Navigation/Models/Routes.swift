@@ -23,10 +23,11 @@ enum Route: Navigation, Hashable, Sendable {
     
     enum Onboarding: Hashable {
         
-        case welcome
-        case captureProgress
-        case compareResults
-        case shareGrow
+        case businessSetup
+        case locationControl
+        case photos
+        case beforeAndAfter
+        case documentation
         case permission
         
     }

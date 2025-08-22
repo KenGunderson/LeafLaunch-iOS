@@ -11,41 +11,43 @@ struct OnboardingFeaturesScreen: GPView {
     
     @State private var shouldAnimate: Bool = false
     
-    private let title: String
-    private let message: String
+    private let onboardingPage: OnboardingPage
     
-    init(title: String,
-         message: String) {
-        
-        self.title = title
-        self.message = message
-        
+    init(onboardingPage: OnboardingPage) {
+        self.onboardingPage = onboardingPage
     }
     
     var body: some View {
         
         VStack(spacing: Style.shared.spacing(.none)) {
             
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Style.shared.accent.source())
-                .frame(height: 360)
+            self.onboardingPage
+                .illustration
+                .view()
+                .scaledToFit()
+                .frame(height: UIScreen.main.bounds.height * 0.53)
                 .padding([.top], .large)
                 .zIndex(-1)
             
-            Text(self.title)
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .padding(.top, .extraLarge)
-            
-            Text(self.message)
-                .appFont(with: .BODY_3)
-                .foregroundStyle(Style.shared.textColor(.body).source())
-                .padding(.top, .small)
-                .multilineTextAlignment(.center)
+            VStack {
+                
+                Text(self.onboardingPage.title)
+                    .appFont(with: .HEADER_3)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .padding(.horizontal, .extraLarge)
+                
+                Text(self.onboardingPage.message)
+                    .appFont(with: .BODY_4)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, .extraLarge)
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, .large)
 
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .padding(.horizontal, .medium)
         .onAppear {
             
             withAnimation(.smooth(duration: 0.6, extraBounce: 0.2).delay(0.3)) {
@@ -69,10 +71,5 @@ struct OnboardingFeaturesScreen: GPView {
 }
 
 #Preview {
-    
-    OnboardingFeaturesScreen(
-        title: "Capture Progress",
-        message: "Use our built-in camera to take before and after photos right in the treatment room"
-    )
-
+    OnboardingFeaturesScreen(onboardingPage: .businessSetup)
 }

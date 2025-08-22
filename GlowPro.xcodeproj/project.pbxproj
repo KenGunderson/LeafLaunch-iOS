@@ -418,11 +418,9 @@
 		75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
 		75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
 		75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */; };
 		75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
 		75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
 		75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */; };
 		75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
 		75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
 		75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
@@ -696,7 +694,6 @@
 		75E0CA752E1604090081A02A /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		75E0CA762E1604090081A02A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		75E0CA772E1604090081A02A /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
-		75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeScreen.swift; sourceTree = "<group>"; };
 		75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsScreen.swift; sourceTree = "<group>"; };
 		75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
@@ -1784,7 +1781,6 @@
 			isa = PBXGroup;
 			children = (
 				75E0CA752E1604090081A02A /* OnboardingPage.swift */,
-				75E0CA782E1604090081A02A /* OnboardingWelcomeScreen.swift */,
 				75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */,
 				75F024FB2E16E2C9005163FC /* Permission */,
 			);
@@ -2182,7 +2178,6 @@
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
-				75E0CA832E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				75A1ACFA2E5551A800AFCECD /* BusinessSubcategory.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464D2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,
@@ -2414,7 +2409,6 @@
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
-				75E0CA7E2E1604090081A02A /* OnboardingWelcomeScreen.swift in Sources */,
 				75A1ACFB2E5551A800AFCECD /* BusinessSubcategory.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
 				75A0464B2E37BCDE00D5EFCD /* LegalScreen.swift in Sources */,

@@ -471,7 +471,7 @@ final class MockAPIService: APIServiceProtocol {
             
             let client = try await self.getClient(id: clientId)
             
-            if client.locationId == locationId {
+            if client.employee.locationId == locationId {
                 media.append(mediaItem)
             }
             

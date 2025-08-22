@@ -31,7 +31,7 @@ struct OnboardingScreen: View {
                 navigationService: self.$navigationService,
                 alertService: self.viewModel.alertService
             ) {
-                OnboardingWelcomeScreen()
+                OnboardingFeaturesScreen(onboardingPage: .businessSetup)
             }
             
             headerView()
@@ -156,10 +156,11 @@ struct OnboardingScreen: View {
     OnboardingScreen(
         viewModel: mockResolve(OnboardingViewModel.self)
             .setup(pages: [
-                .welcome,
-                .captureProgress,
-                .compareResults,
-                .shareGrow,
+                .businessSetup,
+                .locationControl,
+                .photos,
+                .beforeAndAfter,
+                .documentation,
                 .permission
             ])
     )

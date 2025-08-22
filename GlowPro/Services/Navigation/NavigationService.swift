@@ -136,34 +136,30 @@ extension View {
         func onboarding(route: Route.Onboarding) -> some View {
             
             switch route {
-            case .welcome:
+            case .businessSetup:
                 
-                OnboardingWelcomeScreen()
+                OnboardingFeaturesScreen(onboardingPage: .businessSetup)
                     .navigationBarBackButtonHidden()
                 
-            case .captureProgress:
+            case .locationControl:
                 
-                OnboardingFeaturesScreen(
-                    title: "Capture Progress",
-                    message: "Use our built-in camera to take before and after photos right in the treatment room"
-                )
-                .navigationBarBackButtonHidden()
+                OnboardingFeaturesScreen(onboardingPage: .locationControl)
+                    .navigationBarBackButtonHidden()
                 
-            case .compareResults:
+            case .photos:
                 
-                OnboardingFeaturesScreen(
-                    title: "Compare Results",
-                    message: "Show clients their amazing transformation with beautiful before and after comparisons"
-                )
-                .navigationBarBackButtonHidden()
+                OnboardingFeaturesScreen(onboardingPage: .photos)
+                    .navigationBarBackButtonHidden()
                 
-            case .shareGrow:
+            case .beforeAndAfter:
                 
-                OnboardingFeaturesScreen(
-                    title: "Share & Grow",
-                    message: "Create stunning galleries and collages that wow your clients and attract new ones"
-                )
-                .navigationBarBackButtonHidden()
+                OnboardingFeaturesScreen(onboardingPage: .beforeAndAfter)
+                    .navigationBarBackButtonHidden()
+                
+            case .documentation:
+                
+                OnboardingFeaturesScreen(onboardingPage: .documentation)
+                    .navigationBarBackButtonHidden()
                 
             case .permission:
                 
@@ -467,10 +463,11 @@ extension View {
                 
                 let viewModel = globalResolver.resolve(OnboardingViewModel.self)!
                     .setup(pages: [
-                        .welcome,
-                        .captureProgress,
-                        .compareResults,
-                        .shareGrow,
+                        .businessSetup,
+                        .locationControl,
+                        .photos,
+                        .beforeAndAfter,
+                        .documentation,
                         .permission
                     ])
                 

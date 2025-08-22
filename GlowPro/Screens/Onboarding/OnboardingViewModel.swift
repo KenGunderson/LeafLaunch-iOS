@@ -77,7 +77,7 @@ final class OnboardingViewModel: ViewModel {
     func setup(pages: [OnboardingPage]) -> Self {
         
         self.pages = pages
-        self.currentPage = pages.first ?? .welcome
+        self.currentPage = pages.first ?? .businessSetup
         
         return self
         
@@ -95,10 +95,11 @@ final class OnboardingViewModel: ViewModel {
             self.currentPageIndex += 1
             
             switch nextPage {
-            case .welcome: self.navigationService?.push(.onboarding(.welcome))
-            case .captureProgress: self.navigationService?.push(.onboarding(.captureProgress))
-            case .compareResults: self.navigationService?.push(.onboarding(.compareResults))
-            case .shareGrow: self.navigationService?.push(.onboarding(.shareGrow))
+            case .businessSetup: self.navigationService?.push(.onboarding(.businessSetup))
+            case .locationControl: self.navigationService?.push(.onboarding(.locationControl))
+            case .photos: self.navigationService?.push(.onboarding(.photos))
+            case .beforeAndAfter: self.navigationService?.push(.onboarding(.beforeAndAfter))
+            case .documentation: self.navigationService?.push(.onboarding(.documentation))
             case .permission: self.navigationService?.push(.onboarding(.permission))
             }
             
@@ -110,8 +111,8 @@ final class OnboardingViewModel: ViewModel {
                 
         if routes.isEmpty {
             
-            self.currentPage = .welcome
-            self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
+            self.currentPage = .businessSetup
+            self.currentPageIndex = self.pages.firstIndex(of: .businessSetup) ?? 0
             return
             
         }
@@ -122,25 +123,30 @@ final class OnboardingViewModel: ViewModel {
         case .onboarding(let route):
             
             switch route {
-            case .welcome:
+            case .businessSetup:
                 
-                self.currentPage = .welcome
-                self.currentPageIndex = self.pages.firstIndex(of: .welcome) ?? 0
+                self.currentPage = .businessSetup
+                self.currentPageIndex = self.pages.firstIndex(of: .businessSetup) ?? 0
                 
-            case .captureProgress:
+            case .locationControl:
                 
-                self.currentPage = .captureProgress
-                self.currentPageIndex = self.pages.firstIndex(of: .captureProgress) ?? 0
+                self.currentPage = .locationControl
+                self.currentPageIndex = self.pages.firstIndex(of: .locationControl) ?? 0
                 
-            case .compareResults:
+            case .photos:
                 
-                self.currentPage = .compareResults
-                self.currentPageIndex = self.pages.firstIndex(of: .compareResults) ?? 0
+                self.currentPage = .photos
+                self.currentPageIndex = self.pages.firstIndex(of: .photos) ?? 0
                 
-            case .shareGrow:
+            case .beforeAndAfter:
                 
-                self.currentPage = .shareGrow
-                self.currentPageIndex = self.pages.firstIndex(of: .shareGrow) ?? 0
+                self.currentPage = .beforeAndAfter
+                self.currentPageIndex = self.pages.firstIndex(of: .beforeAndAfter) ?? 0
+                
+            case .documentation:
+                
+                self.currentPage = .documentation
+                self.currentPageIndex = self.pages.firstIndex(of: .documentation) ?? 0
                 
             case .permission:
                 
