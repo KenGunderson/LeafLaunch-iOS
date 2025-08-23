@@ -1,12 +1,3 @@
-[System]
-- Update Icons To Figma Ones
-- Add illustrations
-
-[Location Cards]
-- Green for owner
-- Yellow for employee
-- Use GPT
-
 [Permissions]
 - Only owner can edit locations, add locations, add employees, edit employees
 
@@ -24,12 +15,13 @@
 
 [Employee Details]
 - Show a way to see what locations this employee works at
+    - Only show what other locations relative to this business
 
 [Media]
-- Gallery with filters (Tags / Sort)
-- Gallery Empty State
 - Show remaining photo count (include deleting query param)
     - show progress bar remaining photos in accent green progress bar
+- Have endpoint to get all tags
+- If tag is selected and media count == 0; change empty state copy
 
 [Camera]
 - Use Native first
@@ -49,3 +41,8 @@
 - Create
 - Style
 - Subscribe to service
+
+
+[RUNE]
+- use .animation for dropDown + multiDropDown instead of withAnimation
+- add cornerRadius to tokenView

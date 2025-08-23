@@ -17,6 +17,7 @@ struct NavBarButton: View {
         case plus
         case bell(notificationCount: Int = 0)
         case pencil
+        case filter(isFilled: Bool = false)
         
         var icon: ImageSource {
             switch self {
@@ -26,6 +27,7 @@ struct NavBarButton: View {
             case .plus: return .systemImage("plus")
             case .bell: return .image(.iconBell)
             case .pencil: return .systemImage("pencil")
+            case .filter(let isFilled): return .systemImage("line.3.horizontal.decrease.circle\(isFilled ? ".fill" : "")")
             }
         }
         
@@ -116,6 +118,8 @@ struct NavBarButton: View {
         NavBarButton(style: .close, action: {})
         NavBarButton(style: .settings, action: {})
         NavBarButton(style: .plus, action: {})
+        NavBarButton(style: .filter(isFilled: true), action: {})
+        NavBarButton(style: .filter(isFilled: false), action: {})
         NavBarButton(style: .bell(notificationCount: 6), action: {})
         NavBarButton(style: .bell(notificationCount: 65), action: {})
         

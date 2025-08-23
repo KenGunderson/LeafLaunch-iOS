@@ -17,7 +17,7 @@ struct MediaGalleryScreen: GPView {
     var body: some View {
         
         AppHeaderScrollView(horizontalPadding: .none) {
-            navBar()
+            topBar()
         } scrollViewContent: {
             content()
         }
@@ -46,31 +46,84 @@ struct MediaGalleryScreen: GPView {
         
     }
     
-    private func navBar() -> some View {
+    @ViewBuilder
+    private func topBar() -> some View {
         
         let backButton = NavBarButton(style: .back) {
             self.dismiss()
         }
         .asAnyView()
         
-        return NavBarView(
+        let filterButton = NavBarButton(style: .filter(isFilled: self.viewModel.showFilters)) {
+            
+            self.viewModel
+                .set(showFilters: !self.viewModel.showFilters)
+            
+        }
+        .asAnyView()
+        
+        NavBarView(
             title: "Photo Gallery",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: filterButton
         )
+        
+    }
+    
+    @ViewBuilder
+    private func filters() -> some View {
+     
+        if self.viewModel.showFilters {
+            
+            VStack(spacing: Style.shared.spacing(.small2)) {
+                
+                CommonDropDownMenu(
+                    options: MediaSortingOption.allCases,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    shouldPushContentDown: true,
+                    selectedOption: self.$viewModel.selectedSortingOption,
+                    showDropDown: self.$viewModel.showSortingDropdown
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                
+                WStack {
+                    
+                    tagView("Tag 1")
+                    tagView("Tag 2")
+                    tagView("Tag 3")
+                    tagView("Tag 4")
+                    tagView("Tag 5")
+                    tagView("Tag 6")
+                    tagView("Tag 7")
+                    
+                }
+                
+            }
+            .zIndex(5000)
+            .frame(maxWidth: .infinity)
+            .transition(.move(edge: .top).combined(with: .opacity))
+            
+        }
         
     }
     
     @ViewBuilder
     private func content() -> some View {
         
-        LazyVStack(spacing: Style.shared.spacing(.large)) {
+        VStack(spacing: Style.shared.spacing(.large)) {
+            
+            filters()
             
             ForEach(self.viewModel.groups, id: \.id) { group in
                 groupSection(group)
             }
+            .padding(.top, -8)
             
         }
         .padding(.horizontal, .medium)
+        .animation(.snappy, value: self.viewModel.showFilters)
         
     }
     
@@ -136,6 +189,27 @@ struct MediaGalleryScreen: GPView {
             Divider()
                 .foregroundStyle(Style.shared.background(.quaternary).source())
             
+        }
+        
+    }
+    
+    private func tagView(_ tag: String) -> some View {
+        
+        let isSelected = self.viewModel.selectedTags.contains(tag)
+        
+        return TokenView(
+            text: tag,
+            foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
+            backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
+        )
+        .appBorder(
+            cornerRadius: .custom(99),
+            color: isSelected ? Style.shared.accent : Style.shared.background(.border),
+            lineWidth: 1.5
+        )
+        .appShadow(.subtle)
+        .onTapGesture {
+            self.viewModel.set(tag: tag)
         }
         
     }

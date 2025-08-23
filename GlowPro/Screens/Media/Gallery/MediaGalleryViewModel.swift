@@ -9,7 +9,7 @@ import Foundation
 
 final class MediaGalleryViewModel: ViewModel {
     
-    struct GroupedMedia {
+    struct GroupedMedia: Equatable {
         
         let id: String
         let title: String
@@ -36,6 +36,11 @@ final class MediaGalleryViewModel: ViewModel {
     
     @Published private(set) var groups: [GroupedMedia] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published private(set) var showFilters: Bool = false
+    
+    @Published var showSortingDropdown: Bool = false
+    @Published var selectedSortingOption: MediaSortingOption? = .newest
+    @Published var selectedTags: [String] = []
     
     private var media: [Media] = []
     
@@ -57,6 +62,7 @@ final class MediaGalleryViewModel: ViewModel {
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
+        self.bindSubscribers()
         
     }
     
@@ -76,6 +82,21 @@ final class MediaGalleryViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
+    func set(showFilters: Bool) {
+        self.showFilters = showFilters
+    }
+    
+    func set(tag: String) {
+        
+        if self.selectedTags.contains(tag) {
+            self.selectedTags.removeAll { $0 == tag }
+        }
+        else {
+            self.selectedTags.append(tag)
+        }
+        
+    }
+    
     func loadData() {
                 
         self.alertService
@@ -89,11 +110,28 @@ final class MediaGalleryViewModel: ViewModel {
                 
                 switch self.context! {
                 case .business(let businessId):
-                    media = try await self.apiService.getMedia(businessId: businessId)
+                    
+                    media = try await self.apiService.getMedia(
+                        businessId: businessId,
+                        sortingOption: self.selectedSortingOption,
+                        tags: self.selectedTags
+                    )
+                    
                 case .location(let locationId):
-                    media = try await self.apiService.getMedia(locationId: locationId)
+                    
+                    media = try await self.apiService.getMedia(
+                        locationId: locationId,
+                        sortingOption: self.selectedSortingOption,
+                        tags: self.selectedTags
+                    )
+                    
                 case .client(let clientId):
-                    media = try await self.apiService.getMedia(clientId: clientId)
+                    
+                    media = try await self.apiService.getMedia(
+                        clientId: clientId,
+                        sortingOption: self.selectedSortingOption,
+                        tags: self.selectedTags
+                    )
                 }
                 
                 let groupedMedia = self.groupedByMonth(media: media)
@@ -204,7 +242,14 @@ final class MediaGalleryViewModel: ViewModel {
             
             let items = group
                 .map { $0.item }
-                .sorted { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
+                .sorted {
+                
+                    switch self.selectedSortingOption {
+                    case .oldest: return ($0.createdAt ?? .distantPast) < ($1.createdAt ?? .distantPast)
+                    default: return ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast)
+                    }
+                    
+                }
 
             sections.append(.init(
                 id: any.key,
@@ -215,12 +260,37 @@ final class MediaGalleryViewModel: ViewModel {
         }
 
         // 4) Sort sections by key (newest first)
-        return sections.sorted { $0.id > $1.id }
+        return sections.sorted {
+            
+            switch self.selectedSortingOption {
+            case .oldest: return ($0.id < $1.id)
+            default: return ($0.id > $1.id)
+            }
+            
+        }
         
     }
     
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.$selectedSortingOption
+            .receiveOnMain()
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.loadData()
+            }
+            .store(in: &self.cancelBag)
+        
+        self.$selectedTags
+            .receiveOnMain()
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.loadData()
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
 }

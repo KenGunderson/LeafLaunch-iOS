@@ -226,7 +226,18 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getLocation(id: String) async throws -> Location {
-        return self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
+        
+        var location = self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
+        let clients = self.clients.filter { $0.employee.locationId == id }
+        let employees = self.employees.filter { $0.locationId == id }
+        let media = self.media.filter { $0.businessId == id }
+        
+        location.employees = employees
+        location.clients = clients
+        location.media = media
+        
+        return location
+        
     }
     
     func createLocation(location: Location) async throws -> Location {
@@ -457,11 +468,23 @@ final class MockAPIService: APIServiceProtocol {
     
     // Media
     
-    func getMedia(businessId: String) async throws -> [Media] {
-        return self.media.filter { $0.businessId == businessId }
+    func getMedia(businessId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media] {
+        
+        let media = self.media.filter { $0.businessId == businessId }
+        
+        return processMedia(
+            media,
+            sortingOption: sortingOption,
+            tags: tags
+        )
+        
     }
     
-    func getMedia(locationId: String) async throws -> [Media] {
+    func getMedia(locationId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media] {
         
         var media: [Media] = []
         
@@ -477,12 +500,51 @@ final class MockAPIService: APIServiceProtocol {
             
         }
         
-        return media
+        return processMedia(
+            media,
+            sortingOption: sortingOption,
+            tags: tags
+        )
         
     }
     
-    func getMedia(clientId: String) async throws -> [Media] {
-        return self.media.filter { $0.clientId == clientId }
+    func getMedia(clientId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media] {
+        
+        let media = self.media.filter { $0.clientId == clientId }
+        
+        return processMedia(
+            media,
+            sortingOption: sortingOption,
+            tags: tags
+        )
+        
+    }
+    
+    private func processMedia(_ media: [Media],
+                              sortingOption: MediaSortingOption?,
+                              tags: [String]) -> [Media] {
+        
+        var filtered = media
+        
+        if !tags.isEmpty {
+            
+            filtered = filtered.filter { media in
+                !Set(tags).isDisjoint(with: media.tags)
+            }
+            
+        }
+        
+        switch sortingOption {
+        case .newest: filtered.sort { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
+        case .oldest: filtered.sort { ($0.createdAt ?? .distantFuture) < ($1.createdAt ?? .distantFuture) }
+        case .favorited: filtered = filtered.filter { $0.isFavorited }
+        case .none: break
+        }
+        
+        return filtered
+        
     }
     
     // System
@@ -630,7 +692,21 @@ final class MockAuthService: AuthServiceProtocol {
     var onError = CurrentValueSubject<Error?, Never>(nil)
     
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
-        self.currentUser = MockModels.MockUser.user1
+        
+        if email == MockModels.MockUser.user1.email {
+            
+            self.currentUser = MockModels.MockUser.user1
+            return
+            
+        }
+        
+        self.currentUser = GPUser(
+            id: "1",
+            name: firstName + " " + lastName,
+            email: email,
+            externalId: "1"
+        )
+        
     }
     
     func login(email: String, password: String) async throws {

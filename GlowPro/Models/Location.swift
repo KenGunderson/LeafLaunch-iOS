@@ -17,8 +17,9 @@ struct Location: Identifiable,
     let businessId: String
     let name: String
     let address: Address
-    let employees: [Employee]
+    var employees: [Employee]
     var clients: [Client]
+    var media: [Media] = []
     
 }
 
@@ -31,7 +32,8 @@ extension Location {
             name: "My First Location",
             address: .DUMMY_DATA(),
             employees: [],
-            clients: []
+            clients: [],
+            media: []
         )
     }
     

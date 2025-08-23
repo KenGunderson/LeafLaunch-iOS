@@ -66,24 +66,74 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
+            profile()
+            locations()
+            activities()
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    
+    private func profile() -> some View {
+        
+        Group {
+            
+            SectionView(title: "Profile", showDivider: true)
+            
             AppCardView {
                 
                 VStack(alignment: .leading) {
                     
-                    Text(self.viewModel.employee?.id ?? "")
-                        .appFont(with: .TITLE_2)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    label(
+                        title: self.viewModel.employee?.name ?? "",
+                        icon: "person.text.rectangle.fill"
+                    )
                     
-                    Text(self.viewModel.employee?.name ?? "")
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    label(
+                        title: self.viewModel.employee?.email ?? "",
+                        icon: "envelope.fill"
+                    )
                     
                 }
                 
             }
             
         }
-        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func locations() -> some View {
+        
+        SectionView(title: "Active Locations", showDivider: true)
+        
+    }
+    
+    private func activities() -> some View {
+        
+        SectionView(title: "Activities", showDivider: true) {
+            print("Show All Activities")
+        }
+        
+    }
+    
+    private func label(title: String,
+                       icon: String) -> some View {
+        
+        HStack {
+            
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 16, height: 16)
+                .foregroundStyle(Style.shared.accent.source())
+            
+            Text(title)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+        }
         
     }
     

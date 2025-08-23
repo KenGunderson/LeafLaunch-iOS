@@ -92,9 +92,17 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Media
     
-    func getMedia(businessId: String) async throws -> [Media]
-    func getMedia(locationId: String) async throws -> [Media]
-    func getMedia(clientId: String) async throws -> [Media]
+    func getMedia(businessId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media]
+    
+    func getMedia(locationId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media]
+    
+    func getMedia(clientId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [String]) async throws -> [Media]
     
     // System
     

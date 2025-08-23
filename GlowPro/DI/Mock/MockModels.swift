@@ -496,7 +496,7 @@ struct MockModels {
                 clientId: ID.client1,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/1/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-7438934),
                 updatedAt: .now.addingTimeInterval(-437843)
             )
@@ -509,7 +509,7 @@ struct MockModels {
                 clientId: nil,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/2/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-343),
                 updatedAt: .now.addingTimeInterval(-6521)
             )
@@ -522,7 +522,7 @@ struct MockModels {
                 clientId: ID.client1,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/3/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-231),
                 updatedAt: .now.addingTimeInterval(-3453)
             )
@@ -548,7 +548,7 @@ struct MockModels {
                 clientId: ID.client2,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/5/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-8054684034),
                 updatedAt: .now.addingTimeInterval(-123)
             )
@@ -574,7 +574,7 @@ struct MockModels {
                 clientId: nil,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/7/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-23904),
                 updatedAt: .now.addingTimeInterval(-834)
             )
@@ -600,7 +600,7 @@ struct MockModels {
                 clientId: ID.client3,
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/9/1200/1200")!,
-                isFavorited: true,
+                isFavorited: false,
                 createdAt: .now.addingTimeInterval(-243),
                 updatedAt: .now.addingTimeInterval(-43)
             )
@@ -692,6 +692,7 @@ struct MockModels {
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/16/1200/1200")!,
                 isFavorited: true,
+                tags: ["Tag 1"],
                 createdAt: .now.addingTimeInterval(-2348234),
                 updatedAt: .now.addingTimeInterval(-5433)
             )

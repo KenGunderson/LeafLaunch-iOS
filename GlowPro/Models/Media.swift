@@ -7,6 +7,28 @@
 
 import Foundation
 
+enum MediaSortingOption: String,
+                    CaseIterable,
+                    Selectable {
+    
+    var id: String {
+        return self.rawValue
+    }
+    
+    case newest
+    case oldest
+    case favorited
+    
+    var description: String {
+        switch self {
+        case .newest: return "Newest"
+        case .oldest: return "Oldest"
+        case .favorited: return "Favorited"
+        }
+    }
+    
+}
+
 struct Media: Identifiable,
               Equatable,
               Codable,
@@ -18,6 +40,7 @@ struct Media: Identifiable,
     let businessId: String
     let url: URL
     let isFavorited: Bool
+    let tags: [String]
     
     private var _createdAt: String?
     private var _updatedAt: String?
@@ -43,6 +66,7 @@ struct Media: Identifiable,
          businessId: String,
          url: URL,
          isFavorited: Bool,
+         tags: [String] = [],
          createdAt: Date? = nil,
          updatedAt: Date? = nil) {
         
@@ -51,6 +75,7 @@ struct Media: Identifiable,
         self.businessId = businessId
         self.url = url
         self.isFavorited = isFavorited
+        self.tags = tags
         self._createdAt = createdAt?.ISO8601Format()
         self._updatedAt = updatedAt?.ISO8601Format()
         
@@ -62,6 +87,7 @@ struct Media: Identifiable,
         case clientId = "client_id"
         case businessId = "business_id"
         case url
+        case tags
         case isFavorited = "is_favorited"
         case _createdAt = "created_at"
         case _updatedAt = "updated_at"
