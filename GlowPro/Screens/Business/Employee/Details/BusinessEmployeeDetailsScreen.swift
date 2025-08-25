@@ -106,17 +106,52 @@ struct BusinessEmployeeDetailsScreen: GPView {
     
     private func locations() -> some View {
         
-        SectionView(title: "Active Locations", showDivider: true)
+        VStack(spacing: Style.shared.spacing(.small2)) {
+            
+            SectionView(title: "Active Locations", showDivider: true)
+            
+            Group {
+                
+                AppCardView {
+                    
+                    Text("Put Locations Here")
+                        .appFont(with: .TITLE_5)
+                    
+                }
+                
+                AppCardView {
+                    
+                    Text("Put Locations Here")
+                        .appFont(with: .TITLE_5)
+                    
+                }
+                
+                AppCardView {
+                    
+                    Text("Put Locations Here")
+                        .appFont(with: .TITLE_5)
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
     private func activities() -> some View {
         
-        SectionView(title: "Activities", showDivider: true) {
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            self.navigationService.push(.business(.businessActivitiesList(
-                context: .employee(employeeId: self.viewModel.employeeId)
-            )))
+            SectionView(title: "Activities", showDivider: true) {
+                
+                self.navigationService.push(.business(.businessActivitiesList(
+                    context: .employee(employeeId: self.viewModel.employeeId)
+                )))
+                
+            }
+            
+            ActivitiesView(activities: self.viewModel.activities)
             
         }
         

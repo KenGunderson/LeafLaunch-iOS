@@ -1,6 +1,10 @@
 [Activity List]
-- Add Activity List API Endpoints to Mock
-- Add Activity List LoadData Endpoint
+- Add activity enum to activity
+- Add metadata support
+- would be cool to have colors + icons for unique ones
+- Make it stand out
+- Maybe filter by a set of them to keep them uniqie
+- How should we style these?
 
 [Permissions]
 - Only owner can edit locations, add locations, add employees, edit employees
@@ -11,6 +15,8 @@
 [Business Create + Home Screen]
 - Support Empty State for new Users
 - Support Create Business Flow which leads to business home once completed
+- Use option set for all options in subcategories
+- Remove selected subcategories when parent category is removed (property for parent category in child category items (CHAT GPT it))
 
 [Location Details]
 - Show a way to add employee to that location as owner
@@ -20,12 +26,13 @@
 [Employee Details]
 - Show a way to see what locations this employee works at
     - Only show what other locations relative to this business
+- Show activities in list
 
 [Media]
 - Show remaining photo count (include deleting query param)
     - show progress bar remaining photos in accent green progress bar
 - Have endpoint to get all tags
-- If tag is selected and media count == 0; change empty state copy
+- When we have camera SWAP to that view in the empty state action
 
 [Camera]
 - Use Native first

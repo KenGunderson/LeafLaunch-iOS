@@ -164,17 +164,16 @@ final class MediaGalleryViewModel: ViewModel {
     }
     
     func emptyStateConfig() -> EmptyStateConfig {
-        
+                
         return .init(
             title: "No Photos Found",
-            message: "Take your first photo. Don't forget to tag 'em!",
+            message: "Add a photo or adjust your filters to see results.",
             image: .systemImage("magnifyingglass"),
-            actionTitle: "Take Your First Photo",
+            actionTitle: "Take A Photo",
             action: {
-                
-                // TODO: - Pop & Go To Camera
-                
+                self.navigationService?.swap(.onboarding(.beforeAndAfter))
             }
+            
         )
         
     }
