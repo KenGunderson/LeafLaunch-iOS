@@ -1,3 +1,7 @@
+[Activity List]
+- Add Activity List API Endpoints to Mock
+- Add Activity List LoadData Endpoint
+
 [Permissions]
 - Only owner can edit locations, add locations, add employees, edit employees
 

@@ -315,6 +315,14 @@ extension View {
                 
                 BusinessLocationDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+                
+            case .businessActivitiesList(let context):
+                
+                let viewModel = globalResolver.resolve(BusinessActivityListViewModel.self)!
+                    .setup(context: context)
+                
+                BusinessActivityListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }

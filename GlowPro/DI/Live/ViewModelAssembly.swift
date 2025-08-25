@@ -344,6 +344,19 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
+        // Business Activities List
+        
+        container
+            .register(BusinessActivityListViewModel.self) { r in
+                BusinessActivityListViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }
+        
         // Client List
         
         container

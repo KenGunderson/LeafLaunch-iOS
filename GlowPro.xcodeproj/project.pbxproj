@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
+		750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
+		750843362E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */; };
+		750843372E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */; };
 		750892A32E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750990E62E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
@@ -486,6 +490,8 @@
 
 /* Begin PBXFileReference section */
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
+		750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListViewModel.swift; sourceTree = "<group>"; };
 		750892A22E561F1500D6BC68 /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
@@ -771,6 +777,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		750843312E5BDD6E0039B06B /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */,
+				750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		750B85F22E48DD9400417BA5 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1447,6 +1462,7 @@
 				753EC1F62DB8C58100265B2A /* Root */,
 				751970122E3D0214007FB142 /* Home */,
 				751F953E2E0B7E92001CAF72 /* Business */,
+				750843312E5BDD6E0039B06B /* Activity */,
 				759B64762E04A751006F4995 /* Client */,
 				750F9E1A2E56154B00C72EA7 /* Media */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
@@ -2071,6 +2087,7 @@
 				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				753EC1A32DB8BC5E00265B2A /* Trackable.swift in Sources */,
 				753EC1A42DB8BC5E00265B2A /* AppError.swift in Sources */,
+				750843362E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */,
 				753EC1A52DB8BC5E00265B2A /* WhatsNew.swift in Sources */,
 				753EC1A62DB8BC5E00265B2A /* AppEnvironment.swift in Sources */,
 				753EC2092DB8CBBB00265B2A /* App.swift in Sources */,
@@ -2198,6 +2215,7 @@
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
+				750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75715AE02DB9368100E7994E /* Tab4Screen.swift in Sources */,
 				75F4DF612E4C4518003308CF /* Workspace.swift in Sources */,
@@ -2302,6 +2320,7 @@
 				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				75D66D302DC713C300E51CFC /* Trackable.swift in Sources */,
 				75D66D312DC713C300E51CFC /* AppError.swift in Sources */,
+				750843372E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */,
 				75D66D322DC713C300E51CFC /* WhatsNew.swift in Sources */,
 				75D66D332DC713C300E51CFC /* AppEnvironment.swift in Sources */,
 				75D66D372DC713C300E51CFC /* App.swift in Sources */,
@@ -2429,6 +2448,7 @@
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
 				75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
+				750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D66D4E2DC713C300E51CFC /* Tab4Screen.swift in Sources */,
 				75F4DF602E4C4518003308CF /* Workspace.swift in Sources */,

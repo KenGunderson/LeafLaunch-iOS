@@ -113,7 +113,11 @@ struct BusinessEmployeeDetailsScreen: GPView {
     private func activities() -> some View {
         
         SectionView(title: "Activities", showDivider: true) {
-            print("Show All Activities")
+            
+            self.navigationService.push(.business(.businessActivitiesList(
+                context: .employee(employeeId: self.viewModel.employeeId)
+            )))
+            
         }
         
     }
