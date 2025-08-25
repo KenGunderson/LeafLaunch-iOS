@@ -79,7 +79,7 @@ struct MediaGalleryScreen: GPView {
                 
                 CommonDropDownMenu(
                     options: MediaSortingOption.allCases,
-                    backgroundStyle: .color(.minimumOpacity),
+                    backgroundStyle: Style.shared.background(.primary),
                     shadow: .none,
                     textHorizontalPadding: .small,
                     shouldPushContentDown: true,
@@ -103,6 +103,7 @@ struct MediaGalleryScreen: GPView {
             }
             .zIndex(5000)
             .frame(maxWidth: .infinity)
+            .background(Style.shared.background(.primary).source())
             .transition(.move(edge: .top).combined(with: .opacity))
             
         }
@@ -124,6 +125,9 @@ struct MediaGalleryScreen: GPView {
         }
         .padding(.horizontal, .medium)
         .animation(.snappy, value: self.viewModel.showFilters)
+        .animation(.snappy, value: self.viewModel.showSortingDropdown)
+        .animation(.snappy, value: self.viewModel.selectedTags)
+        .animation(.snappy, value: self.viewModel.selectedSortingOption)
         
     }
     
@@ -165,6 +169,7 @@ struct MediaGalleryScreen: GPView {
             }
             
         }
+        .id(groupedMedia.id)
         
     }
     
@@ -201,9 +206,10 @@ struct MediaGalleryScreen: GPView {
             text: tag,
             foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
             backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
+            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
         )
         .appBorder(
-            cornerRadius: .custom(99),
+            cornerRadius: .extraSmall,
             color: isSelected ? Style.shared.accent : Style.shared.background(.border),
             lineWidth: 1.5
         )

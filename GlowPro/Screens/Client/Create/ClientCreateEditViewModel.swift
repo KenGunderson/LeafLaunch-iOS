@@ -32,8 +32,7 @@ final class ClientCreateEditViewModel: ViewModel {
         
         return (
             !self.firstName.isEmpty &&
-            !self.lastName.isEmpty &&
-            !self.email.isEmpty
+            !self.lastName.isEmpty
         )
         
     }

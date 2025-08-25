@@ -11,7 +11,8 @@ final class MediaGalleryViewModel: ViewModel {
     
     struct GroupedMedia: Equatable {
         
-        let id: String
+        let id: String = UUID().uuidString
+        let mediaKey: String
         let title: String
         let media: [Media]
         
@@ -251,7 +252,7 @@ final class MediaGalleryViewModel: ViewModel {
                 }
 
             sections.append(.init(
-                id: any.key,
+                mediaKey: any.key,
                 title: title,
                 media: items
             ))
@@ -262,8 +263,8 @@ final class MediaGalleryViewModel: ViewModel {
         return sections.sorted {
             
             switch self.selectedSortingOption {
-            case .oldest: return ($0.id < $1.id)
-            default: return ($0.id > $1.id)
+            case .oldest: return ($0.mediaKey < $1.mediaKey)
+            default: return ($0.mediaKey > $1.mediaKey)
             }
             
         }

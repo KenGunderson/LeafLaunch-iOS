@@ -52,8 +52,3 @@
 - Create
 - Style
 - Subscribe to service
-
-
-[RUNE]
-- use .animation for dropDown + multiDropDown instead of withAnimation
-- add cornerRadius to tokenView

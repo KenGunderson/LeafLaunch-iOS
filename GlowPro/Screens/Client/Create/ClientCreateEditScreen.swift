@@ -20,8 +20,8 @@ struct ClientCreateEditScreen: GPView {
             switch self {
             case .firstName: return "First Name"
             case .lastName: return "Last Name"
-            case .email: return "Email"
-            case .phone: return "Phone"
+            case .email: return "Email (Optional)"
+            case .phone: return "Phone (Optional)"
             }
         }
         
@@ -192,7 +192,7 @@ struct ClientCreateEditScreen: GPView {
         
         VStack(alignment: .leading) {
             
-            Text("Date Of Birth")
+            Text("Date Of Birth (Optional)")
             
             DatePicker(
                 "",

@@ -122,9 +122,21 @@ struct BusinessEmployeeInviteScreen: GPView {
                 textField(fieldToFocus: .email)
                 locationPicker()
                 rolePicker()
+                
+                Rectangle()
+                    .fill(.red)
+                    .opacity(0)
+                    .frame(height: 45)
             }
             
         }
+        
+        // Animations
+        
+        .animation(.bouncy, value: self.isLocationDropdownPresented)
+        .animation(.bouncy, value: self.isRoleDropdownPresented)
+        .animation(.bouncy, value: self.viewModel.selectedLocations)
+        .animation(.bouncy, value: self.viewModel.selectedRole)
         
     }
     
@@ -191,9 +203,10 @@ struct BusinessEmployeeInviteScreen: GPView {
                 
                 CommonDropDownMultiSelectMenu(
                     options: locationNames,
-                    backgroundStyle: .color(.clear),
+                    backgroundStyle: .color(.minimumOpacity),
                     shadow: .none,
                     textHorizontalPadding: .small,
+                    animation: .spring,
                     selectedOptions: self.$selectedLocations,
                     showDropDown: self.$isLocationDropdownPresented
                 )
@@ -218,9 +231,10 @@ struct BusinessEmployeeInviteScreen: GPView {
             
             CommonDropDownMenu(
                 options: Role.LocationRoles,
-                backgroundStyle: .color(.clear),
+                backgroundStyle: .color(.minimumOpacity),
                 shadow: .none,
                 textHorizontalPadding: .small,
+                animation: .bouncy,
                 selectedOption: self.$viewModel.selectedRole,
                 showDropDown: self.$isRoleDropdownPresented
             )
