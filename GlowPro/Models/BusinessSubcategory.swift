@@ -155,7 +155,6 @@ extension BusinessSubcategory {
              .prpRegenerative,
              .facialsHydro,
              .chemicalPeels,
-             .microneedling,
              .laserHairRemoval,
              .pigmentVascular,
              .skinResurfacing,
@@ -174,6 +173,7 @@ extension BusinessSubcategory {
              .peels,
              .plasmaFibroblast,
              .acneCare,
+             .microneedling,
              .skincare:
             return .esthetician
             
