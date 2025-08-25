@@ -91,25 +91,30 @@ final class BusinessActivityListViewModel: ViewModel {
             
             do {
                 
-//                var employeeInvites: [EmployeeInvite] = []
-//                
-//                switch context {
-//                case .personal:
-//                    
-//                    employeeInvites = try await self.apiService
-//                        .getPendingInvitesForUser()
-//                    
-//                case .business(let businessId):
-//                    
-//                    employeeInvites = try await self.apiService
-//                        .getEmployeeInvites(businessId: businessId)
-//                
-//                default: break
-//                }
-//                
+                var activities: [Activity] = []
+                
+                switch context {
+                case .business(let businessId):
+                    
+                    activities = try await self.apiService
+                        .getActivitiy(businessId: businessId)
+                    
+                case .location(let locationId):
+                    
+                    activities = try await self.apiService
+                        .getActivitiy(locationId: locationId)
+                
+                case .employee(let employeeId):
+                    
+                    activities = try await self.apiService
+                        .getActivitiy(employeeId: employeeId)
+                    
+                default: break
+                }
+      
                 await MainActor.run { [activities] in
                     
-//                    self.employeeInvites = employeeInvites
+                    self.activities = activities
                     self.shouldShowEmptyState = activities.isEmpty
                     
                 }

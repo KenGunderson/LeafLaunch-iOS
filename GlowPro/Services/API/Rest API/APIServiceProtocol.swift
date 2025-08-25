@@ -104,6 +104,13 @@ protocol APIServiceProtocol: APIProtocol {
                   sortingOption: MediaSortingOption?,
                   tags: [String]) async throws -> [Media]
     
+    // Activity
+    
+    func getActivitiy(businessId: String) async throws -> [Activity]
+    func getActivitiy(locationId: String) async throws -> [Activity]
+    func getActivitiy(employeeId: String) async throws -> [Activity]
+    func getActivitiy(clientId: String) async throws -> [Activity]
+    
     // System
     
     func getLegalInformation(context: String) async throws -> [LegalItem]

@@ -13,6 +13,8 @@
 		750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
 		750843362E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */; };
 		750843372E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */; };
+		750843392E5C04850039B06B /* APIService+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843382E5C047D0039B06B /* APIService+Activity.swift */; };
+		7508433A2E5C04850039B06B /* APIService+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843382E5C047D0039B06B /* APIService+Activity.swift */; };
 		750892A32E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750990E62E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
@@ -492,6 +494,7 @@
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
 		750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListViewModel.swift; sourceTree = "<group>"; };
+		750843382E5C047D0039B06B /* APIService+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Activity.swift"; sourceTree = "<group>"; };
 		750892A22E561F1500D6BC68 /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
@@ -1833,11 +1836,12 @@
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
 				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
+				750843382E5C047D0039B06B /* APIService+Activity.swift */,
+				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
 				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
 				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
@@ -2177,6 +2181,7 @@
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
 				7537F48C2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
+				7508433A2E5C04850039B06B /* APIService+Activity.swift in Sources */,
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
@@ -2410,6 +2415,7 @@
 				7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
 				7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
+				750843392E5C04850039B06B /* APIService+Activity.swift in Sources */,
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,

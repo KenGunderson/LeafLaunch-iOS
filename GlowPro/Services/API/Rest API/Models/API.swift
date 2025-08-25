@@ -44,6 +44,7 @@ internal enum AppRoute {
     case employeeInvite(String)
     case client(String)
     case media(String)
+    case activity(String)
     case system(String)
     
     var category: String {
@@ -58,6 +59,7 @@ internal enum AppRoute {
         case .employeeInvite: return "employee-invites"
         case .client: return "clients"
         case .media: return "media"
+        case .activity: return "activities"
         case .system: return "glowpro"
         }
     }
@@ -74,6 +76,7 @@ internal enum AppRoute {
         case .employeeInvite(let path): return "\(self.category)\(path)"
         case .client(let path): return "\(self.category)\(path)"
         case .media(let path): return "\(self.category)\(path)"
+        case .activity(let path): return "\(self.category)\(path)"
         case .system(let path): return "\(self.category)\(path)"
         }
     }

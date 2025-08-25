@@ -108,6 +108,7 @@ final class MockAPIService: APIServiceProtocol {
     private var clients: [Client]
     private var workspaces: [Workspace] = []
     private var media: [Media]
+    private var activities: [Activity]
     
     init() {
         
@@ -117,6 +118,7 @@ final class MockAPIService: APIServiceProtocol {
         self.clients = MockModels.allClients
         self.workspaces = MockModels.allWorkspaces
         self.media = MockModels.allMedia
+        self.activities = MockModels.allActivities
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -545,6 +547,52 @@ final class MockAPIService: APIServiceProtocol {
         
         return filtered
         
+    }
+    
+    // Activity
+    
+    func getActivitiy(businessId: String) async throws -> [Activity] {
+        
+        var activities: [Activity] = []
+        
+        for activity in self.activities {
+                        
+            let employee = try await self.getEmployee(id: activity.employeeId)
+            
+            if employee.businessId == businessId {
+                activities.append(activity)
+            }
+            
+        }
+        
+        return activities
+        
+    }
+    
+    func getActivitiy(locationId: String) async throws -> [Activity] {
+        
+        var activities: [Activity] = []
+        
+        for activity in self.activities {
+                        
+            let employee = try await self.getEmployee(id: activity.employeeId)
+            
+            if employee.locationId == locationId {
+                activities.append(activity)
+            }
+            
+        }
+        
+        return activities
+        
+    }
+    
+    func getActivitiy(employeeId: String) async throws -> [Activity] {
+        return self.activities.filter { $0.employeeId == employeeId }
+    }
+    
+    func getActivitiy(clientId: String) async throws -> [Activity] {
+        return self.activities.filter { $0.clientId == clientId }
     }
     
     // System

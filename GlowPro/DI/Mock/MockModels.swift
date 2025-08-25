@@ -33,6 +33,8 @@ struct MockModels {
         return [MockWorkspace.workspace1, MockWorkspace.workspace2]
     }
     
+    
+    
     static var allClients: [Client] {
         
         return [
@@ -84,6 +86,23 @@ struct MockModels {
             MockMedia.media28,
             MockMedia.media29,
             MockMedia.media30
+        ]
+        
+    }
+    
+    static var allActivities: [Activity] {
+        
+        return [
+            MockActivity.activity1,
+            MockActivity.activity2,
+            MockActivity.activity3,
+            MockActivity.activity4,
+            MockActivity.activity5,
+            MockActivity.activity6,
+            MockActivity.activity7,
+            MockActivity.activity8,
+            MockActivity.activity9,
+            MockActivity.activity10
         ]
         
     }
@@ -152,8 +171,18 @@ struct MockModels {
         static let media30: String = UUID().uuidString
         static let media31: String = UUID().uuidString
         
+        static let activity1: String = UUID().uuidString
+        static let activity2: String = UUID().uuidString
+        static let activity3: String = UUID().uuidString
+        static let activity4: String = UUID().uuidString
+        static let activity5: String = UUID().uuidString
+        static let activity6: String = UUID().uuidString
+        static let activity7: String = UUID().uuidString
+        static let activity8: String = UUID().uuidString
+        static let activity9: String = UUID().uuidString
+        static let activity10: String = UUID().uuidString
     }
-
+    
     struct MockWorkspace {
         
         nonisolated(unsafe)
@@ -239,7 +268,7 @@ struct MockModels {
     }
     
     struct MockLocation {
-     
+        
         nonisolated(unsafe)
         static var location1 = Location(
             id: ID.location1,
@@ -351,7 +380,7 @@ struct MockModels {
     }
     
     struct MockClient {
-     
+        
         nonisolated(unsafe)
         static var client1 = Client(
             id: ID.client1,
@@ -892,6 +921,121 @@ struct MockModels {
                 updatedAt: .now.addingTimeInterval(-93234)
             )
         }
+        
+    }
+    
+    struct MockActivity {
+        
+        nonisolated(unsafe)
+        static var activity1: Activity {
+            Activity(
+                id: ID.activity1,
+                title: "Initial Consultation",
+                clientId: ID.client1,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-83493).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity2: Activity {
+            Activity(
+                id: ID.activity2,
+                title: "Follow-up Call",
+                clientId: ID.client1,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-42384).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity3: Activity {
+            Activity(
+                id: ID.activity3,
+                title: "Scheduled Appointment",
+                clientId: ID.client1,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-23984).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity4: Activity {
+            Activity(
+                id: ID.activity4,
+                title: "Consultation Completed",
+                clientId: ID.client1,
+                employeeId: ID.employee2,
+                createdAt: Date().addingTimeInterval(-834).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity5: Activity {
+            Activity(
+                id: ID.activity5,
+                title: "Sent Email Follow-up",
+                clientId: ID.client1,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-34923).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity6: Activity {
+            Activity(
+                id: ID.activity6,
+                title: "First Procedure",
+                clientId: ID.client2,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-234234).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity7: Activity {
+            Activity(
+                id: ID.activity7,
+                title: "Shared Pre-Visit Instructions",
+                clientId: ID.client1,
+                employeeId: ID.employee2,
+                createdAt: Date().addingTimeInterval(-99834).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity8: Activity {
+            Activity(
+                id: ID.activity8,
+                title: "Sent Invoice",
+                clientId: ID.client2,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-5384).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity9: Activity {
+            Activity(
+                id: ID.activity9,
+                title: "Payment Received",
+                clientId: ID.client1,
+                employeeId: ID.employee1,
+                createdAt: Date().addingTimeInterval(-324).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var activity10: Activity {
+            Activity(
+                id: ID.activity10,
+                title: "Treatment Follow-up",
+                clientId: ID.client1,
+                employeeId: ID.employee2,
+                createdAt: Date().addingTimeInterval(-84923).toISO()
+            )
+        }
+        
     }
     
 }
