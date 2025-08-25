@@ -41,7 +41,6 @@ enum BusinessCategory: String, Codable, CaseIterable {
                 .prpRegenerative,
                 .facialsHydro,
                 .chemicalPeels,
-                .microneedling,
                 .laserHairRemoval,
                 .pigmentVascular,
                 .skinResurfacing,

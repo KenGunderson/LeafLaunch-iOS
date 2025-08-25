@@ -261,7 +261,13 @@ final class BusinessCreateEditViewModel: ViewModel {
     func set(category: BusinessCategory) {
         
         if self.selectedCategories.contains(category) {
+            
+            // Remove the category
             self.selectedCategories.removeAll { $0 == category }
+            
+            // Also remove all subcategories that belong to this category
+            self.selectedSubcategories.removeAll { $0.category == category }
+            
         } else {
             self.selectedCategories.append(category)
         }

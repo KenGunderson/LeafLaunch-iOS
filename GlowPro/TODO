@@ -1,54 +1,120 @@
-[Activity List]
-- Add activity enum to activity
-- Add metadata support
-- would be cool to have colors + icons for unique ones
-- Make it stand out
-- Maybe filter by a set of them to keep them uniqie
-- How should we style these?
+==================================================
+                ACTIVITY
+==================================================
+Tasks:
+  • Add Activity enum to Activity
+  • Add metadata support
+  • Add unique colors + icons
+  • Support filtering by activity set
 
-[Permissions]
-- Only owner can edit locations, add locations, add employees, edit employees
+Open Questions:
+  • How should these be styled?
+    (Simple list vs styled info cards)
 
-[Client, Location, Business, Employee]
-- Delete Calls (on details or on outer layer?)
+Goal:
+  • Make activities visually distinct and informative
 
-[Business Create + Home Screen]
-- Support Empty State for new Users
-- Support Create Business Flow which leads to business home once completed
-- Use option set for all options in subcategories
-- Remove selected subcategories when parent category is removed (property for parent category in child category items (CHAT GPT it))
+==================================================
+                PERMISSIONS
+==================================================
+Owner Only Actions:
+  • Edit locations
+  • Add locations
+  • Add employees
+  • Edit employees
 
-[Location Details]
-- Show a way to add employee to that location as owner
-- Delete Location as owner
-- Show stats
+==================================================
+     CLIENT / LOCATION / BUSINESS / EMPLOYEE
+==================================================
+Decisions:
+  • Delete calls on details page
+    OR on outer layer?
 
-[Employee Details]
-- Show a way to see what locations this employee works at
-    - Only show what other locations relative to this business
-- Show activities in list
+==================================================
+             BUSINESS FLOW
+==================================================
+Tasks:
+  • Support empty state for new users
+  • Create Business Flow → leads to Business Home
 
-[Media]
-- Show remaining photo count (include deleting query param)
-    - show progress bar remaining photos in accent green progress bar
-- Have endpoint to get all tags
-- When we have camera SWAP to that view in the empty state action
+==================================================
+             LOCATION DETAILS
+==================================================
+Tasks:
+  • Add employee to location (as owner)
+  • Delete location (as owner)
+  • Show location stats
 
-[Camera]
-- Use Native first
+==================================================
+             EMPLOYEE DETAILS
+==================================================
+Tasks:
+  • Show which locations this employee works at
+    (restricted to current business)
+  • Show activities list
 
-[KF]
-- Image tint loading options as Rune param
+==================================================
+                MEDIA
+==================================================
+Tasks:
+  • Show remaining photo count
+     – Include delete query param
+     – Show progress bar (accent green)
+  • Endpoint to get all tags
+  • Empty state action → open camera
 
-[Secuirty & Privacy Settings]
-- Secure Mode
-- Add Secure Pin to API
-- Encode on API // Decode on FRONT END
+==================================================
+                CAMERA
+==================================================
+  • Use native camera first
 
-[Settings]
-- All the pages need to be created an added to folder strcutre, viewModel assemlies (mock / live), simple views for now
+==================================================
+                KF (IMAGES)
+==================================================
+  • Add Rune param for image tint loading options
 
-[Paywall]
-- Create
-- Style
-- Subscribe to service
+==================================================
+        SECURITY & PRIVACY
+==================================================
+  • Secure Mode toggle
+  • Add secure pin (API)
+  • Encode on API / Decode on Frontend
+
+==================================================
+                SETTINGS
+==================================================
+Tasks:
+  • Create all settings pages
+  • Add to folder structure
+  • Setup ViewModel assemblies (mock + live)
+  • Create simple placeholder views for all settings pages
+  • Delete account (Delete from firebase?)
+
+==================================================
+                PAYWALL
+==================================================
+Tasks:
+  • Create
+  • Style
+  • Subscribe to service
+  
+  
+  
+  
+  
+  
+  
+
+// TEMPLATE FOR USE
+
+==================================================
+                SECTION NAME
+==================================================
+Tasks:
+  •
+
+Open Questions:
+  •
+
+Goal:
+  •

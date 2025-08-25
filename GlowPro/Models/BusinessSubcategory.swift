@@ -143,3 +143,87 @@ extension BusinessSubcategory {
     }
     
 }
+
+extension BusinessSubcategory {
+    
+    var category: BusinessCategory {
+        switch self {
+            
+        // Shared / Medspa
+        case .bodyContouring,
+             .injectables,
+             .prpRegenerative,
+             .facialsHydro,
+             .chemicalPeels,
+             .microneedling,
+             .laserHairRemoval,
+             .pigmentVascular,
+             .skinResurfacing,
+             .pmuAndBrows:
+            return .medspa
+            
+        // Injector
+        case .botox,
+             .fillers,
+             .fatDissolvers,
+             .prpPrf:
+            return .injector
+            
+        // Esthetician
+        case .facials,
+             .peels,
+             .plasmaFibroblast,
+             .acneCare,
+             .skincare:
+            return .esthetician
+            
+        // Body Contouring
+        case .fatFreezing,
+             .rfContour,
+             .cavitation,
+             .muscleToning,
+             .cellulite,
+             .skinTightening:
+            return .bodyContouring
+            
+        // Laser Clinic
+        case .hairRemoval,
+             .pigmentRemoval,
+             .tattooRemoval,
+             .vascular,
+             .resurfacing,
+             .iplPhotofacial,
+             .scarRepair:
+            return .laserClinic
+            
+        // PMU Artist
+        case .microblading,
+             .powderBrows,
+             .lipBlush,
+             .eyeliner,
+             .smp,
+             .areola,
+             .scarCamo:
+            return .pmuArtist
+            
+        // Medical Clinic
+        case .plasticSurgery,
+             .cosmeticSurgery,
+             .dermatology,
+             .dentistry,
+             .orthodontics:
+            return .medicalClinic
+            
+        // Other Business Types
+        case .weightLoss,
+             .hairRestoration,
+             .hairstylistBarber,
+             .footHandAesthetics,
+             .fitnessBody,
+             .tattooArtist:
+            return .otherBusinessTypes
+        }
+        
+    }
+    
+}
