@@ -60,8 +60,6 @@ Tasks:
   • Show remaining photo count
      – Include delete query param
      – Show progress bar (accent green)
-  • Endpoint to get all tags
-  • Empty state action → open camera
 
 ==================================================
                 CAMERA
