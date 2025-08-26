@@ -70,20 +70,13 @@ struct BusinessActivityListScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            ForEach(self.viewModel.activities, id: \.id) { activity in
-                activityView(activity)
-            }
+            ActivitiesView(activities: self.viewModel.activities)
             
         }
         .padding(.horizontal, .medium)
         
     }
-    
-    @ViewBuilder
-    private func activityView(_ activity: Activity) -> some View {
-        Text(activity.title)
-    }
-    
+
 }
 
 #Preview {
