@@ -41,9 +41,10 @@ final class MediaGalleryViewModel: ViewModel {
     
     @Published var showSortingDropdown: Bool = false
     @Published var selectedSortingOption: MediaSortingOption? = .newest
-    @Published var selectedTags: [String] = []
+    @Published var selectedTags: [MediaTag] = []
     
     private var media: [Media] = []
+    private(set) var mediaTags: [MediaTag] = []
     
     private var context: Context!
 
@@ -87,7 +88,7 @@ final class MediaGalleryViewModel: ViewModel {
         self.showFilters = showFilters
     }
     
-    func set(tag: String) {
+    func set(tag: MediaTag) {
         
         if self.selectedTags.contains(tag) {
             self.selectedTags.removeAll { $0 == tag }
@@ -135,12 +136,15 @@ final class MediaGalleryViewModel: ViewModel {
                     )
                 }
                 
+                let mediaTags = try await self.apiService.getMediaTags()
+                
                 let groupedMedia = self.groupedByMonth(media: media)
                 
                 await MainActor.run { [weak self, media] in
                     
                     self?.groups = groupedMedia
                     self?.shouldShowEmptyState = media.isEmpty
+                    self?.mediaTags = mediaTags
                     
                 }
                 

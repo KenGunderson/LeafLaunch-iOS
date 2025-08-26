@@ -90,13 +90,9 @@ struct MediaGalleryScreen: GPView {
                 
                 WStack {
                     
-                    tagView("Tag 1")
-                    tagView("Tag 2")
-                    tagView("Tag 3")
-                    tagView("Tag 4")
-                    tagView("Tag 5")
-                    tagView("Tag 6")
-                    tagView("Tag 7")
+                    ForEach(self.viewModel.mediaTags) { tag in
+                        tagView(tag)
+                    }
                     
                 }
                 
@@ -138,7 +134,7 @@ struct MediaGalleryScreen: GPView {
             sectionHeader(groupedMedia)
             
             LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5),
+                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 4),
                 spacing: 4
             ) {
                 
@@ -198,12 +194,12 @@ struct MediaGalleryScreen: GPView {
         
     }
     
-    private func tagView(_ tag: String) -> some View {
+    private func tagView(_ tag: MediaTag) -> some View {
         
         let isSelected = self.viewModel.selectedTags.contains(tag)
         
         return TokenView(
-            text: tag,
+            text: tag.name.capitalized,
             foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
             backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
             clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))

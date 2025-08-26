@@ -29,6 +29,31 @@ enum MediaSortingOption: String,
     
 }
 
+struct MediaTag: Identifiable,
+                 Equatable,
+                 Codable,
+                 Hashable {
+    
+    let id: String
+    let name: String
+    
+    init(id: String,
+         name: String) {
+        
+        self.id = id
+        self.name = name
+        
+    }
+    
+    init(name: String) {
+        
+        self.id = UUID().uuidString
+        self.name = name
+        
+    }
+    
+}
+
 struct Media: Identifiable,
               Equatable,
               Codable,
@@ -40,7 +65,7 @@ struct Media: Identifiable,
     let businessId: String
     let url: URL
     let isFavorited: Bool
-    let tags: [String]
+    let tags: [MediaTag]
     
     private var _createdAt: String?
     private var _updatedAt: String?
@@ -66,7 +91,7 @@ struct Media: Identifiable,
          businessId: String,
          url: URL,
          isFavorited: Bool,
-         tags: [String] = [],
+         tags: [MediaTag] = [],
          createdAt: Date? = nil,
          updatedAt: Date? = nil) {
         

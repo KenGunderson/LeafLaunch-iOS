@@ -108,6 +108,7 @@ final class MockAPIService: APIServiceProtocol {
     private var clients: [Client]
     private var workspaces: [Workspace] = []
     private var media: [Media]
+    private var mediaTags: [MediaTag] = []
     private var activities: [Activity]
     
     init() {
@@ -118,6 +119,7 @@ final class MockAPIService: APIServiceProtocol {
         self.clients = MockModels.allClients
         self.workspaces = MockModels.allWorkspaces
         self.media = MockModels.allMedia
+        self.mediaTags = MockModels.allMediaTags
         self.activities = MockModels.allActivities
         
         var user = MockModels.MockUser.user1
@@ -472,7 +474,7 @@ final class MockAPIService: APIServiceProtocol {
     
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
-                  tags: [String]) async throws -> [Media] {
+                  tags: [MediaTag]) async throws -> [Media] {
         
         let media = self.media.filter { $0.businessId == businessId }
         
@@ -486,7 +488,7 @@ final class MockAPIService: APIServiceProtocol {
     
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
-                  tags: [String]) async throws -> [Media] {
+                  tags: [MediaTag]) async throws -> [Media] {
         
         var media: [Media] = []
         
@@ -512,7 +514,7 @@ final class MockAPIService: APIServiceProtocol {
     
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
-                  tags: [String]) async throws -> [Media] {
+                  tags: [MediaTag]) async throws -> [Media] {
         
         let media = self.media.filter { $0.clientId == clientId }
         
@@ -526,7 +528,7 @@ final class MockAPIService: APIServiceProtocol {
     
     private func processMedia(_ media: [Media],
                               sortingOption: MediaSortingOption?,
-                              tags: [String]) -> [Media] {
+                              tags: [MediaTag]) -> [Media] {
         
         var filtered = media
         
@@ -547,6 +549,23 @@ final class MockAPIService: APIServiceProtocol {
         
         return filtered
         
+    }
+    
+    // Media Tags
+    
+    func getMediaTags() async throws -> [MediaTag] {
+        return self.mediaTags
+    }
+    
+    func createTag(tag: String) async throws {
+        
+        let mediaTag = MediaTag(name: tag)
+        self.mediaTags.append(mediaTag)
+        
+    }
+    
+    func deleteTag(mediaTagId: String) async throws {
+        self.mediaTags.removeAll(where: { $0.id == mediaTagId })
     }
     
     // Activity

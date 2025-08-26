@@ -33,8 +33,6 @@ struct MockModels {
         return [MockWorkspace.workspace1, MockWorkspace.workspace2]
     }
     
-    
-    
     static var allClients: [Client] {
         
         return [
@@ -51,7 +49,6 @@ struct MockModels {
         ]
         
     }
-    
     
     static var allMedia: [Media] {
         
@@ -86,6 +83,18 @@ struct MockModels {
             MockMedia.media28,
             MockMedia.media29,
             MockMedia.media30
+        ]
+        
+    }
+    
+    static var allMediaTags: [MediaTag] {
+        
+        return [
+            MockMediaTag.mediaTag1,
+            MockMediaTag.mediaTag2,
+            MockMediaTag.mediaTag3,
+            MockMediaTag.mediaTag4,
+            MockMediaTag.mediaTag5
         ]
         
     }
@@ -170,6 +179,12 @@ struct MockModels {
         static let media29: String = UUID().uuidString
         static let media30: String = UUID().uuidString
         static let media31: String = UUID().uuidString
+        
+        static let mediaTag1: String = UUID().uuidString
+        static let mediaTag2: String = UUID().uuidString
+        static let mediaTag3: String = UUID().uuidString
+        static let mediaTag4: String = UUID().uuidString
+        static let mediaTag5: String = UUID().uuidString
         
         static let activity1: String = UUID().uuidString
         static let activity2: String = UUID().uuidString
@@ -721,7 +736,9 @@ struct MockModels {
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/16/1200/1200")!,
                 isFavorited: true,
-                tags: ["Tag 1"],
+                tags: [
+                    MockMediaTag.mediaTag1
+                ],
                 createdAt: .now.addingTimeInterval(-2348234),
                 updatedAt: .now.addingTimeInterval(-5433)
             )
@@ -735,6 +752,11 @@ struct MockModels {
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/17/1200/1200")!,
                 isFavorited: true,
+                tags: [
+                    MockMediaTag.mediaTag1,
+                    MockMediaTag.mediaTag2,
+                    MockMediaTag.mediaTag3
+                ],
                 createdAt: .now.addingTimeInterval(-45),
                 updatedAt: .now.addingTimeInterval(-12)
             )
@@ -919,6 +941,50 @@ struct MockModels {
                 isFavorited: false,
                 createdAt: .now.addingTimeInterval(-482394),
                 updatedAt: .now.addingTimeInterval(-93234)
+            )
+        }
+        
+    }
+    
+    struct MockMediaTag {
+     
+        nonisolated(unsafe)
+        static var mediaTag1: MediaTag {
+            MediaTag(
+                id: ID.mediaTag1,
+                name: "Facials"
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var mediaTag2: MediaTag {
+            MediaTag(
+                id: ID.mediaTag2,
+                name: "Acne"
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var mediaTag3: MediaTag {
+            MediaTag(
+                id: ID.mediaTag3,
+                name: "Tattoo Removal"
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var mediaTag4: MediaTag {
+            MediaTag(
+                id: ID.mediaTag4,
+                name: "Microblading"
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var mediaTag5: MediaTag {
+            MediaTag(
+                id: ID.mediaTag5,
+                name: "Skincare"
             )
         }
         
