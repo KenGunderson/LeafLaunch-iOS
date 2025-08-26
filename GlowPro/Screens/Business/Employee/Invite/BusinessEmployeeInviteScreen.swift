@@ -240,7 +240,7 @@ struct BusinessEmployeeInviteScreen: GPView {
                 backgroundStyle: .color(.minimumOpacity),
                 shadow: .none,
                 textHorizontalPadding: .small,
-                animation: .bouncy,
+                animation: .spring,
                 selectedOption: self.$selectedRole,
                 showDropDown: self.$isRoleDropdownPresented
             )
