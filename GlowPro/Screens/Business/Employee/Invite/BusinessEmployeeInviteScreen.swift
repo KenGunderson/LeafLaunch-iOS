@@ -137,12 +137,12 @@ struct BusinessEmployeeInviteScreen: GPView {
         
         // Animations
         
-        .animation(.bouncy, value: self.isLocationDropdownPresented)
-        .animation(.bouncy, value: self.isRoleDropdownPresented)
-        .animation(.bouncy, value: self.viewModel.selectedLocations)
-        .animation(.bouncy, value: self.viewModel.selectedRole)
-        .animation(.bouncy, value: self.selectedRole)
-        .animation(.bouncy, value: self.selectedLocations)
+        .animation(.spring, value: self.isLocationDropdownPresented)
+        .animation(.spring, value: self.isRoleDropdownPresented)
+        .animation(.spring, value: self.viewModel.selectedLocations)
+        .animation(.spring, value: self.viewModel.selectedRole)
+        .animation(.spring, value: self.selectedRole)
+        .animation(.spring, value: self.selectedLocations)
         
     }
     
