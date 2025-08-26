@@ -998,7 +998,7 @@ struct MockModels {
                 id: ID.activity1,
                 title: "Initial Consultation",
                 clientId: ID.client1,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-83493).toISO()
             )
         }
@@ -1009,7 +1009,7 @@ struct MockModels {
                 id: ID.activity2,
                 title: "Follow-up Call",
                 clientId: ID.client1,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-42384).toISO()
             )
         }
@@ -1020,7 +1020,7 @@ struct MockModels {
                 id: ID.activity3,
                 title: "Scheduled Appointment",
                 clientId: ID.client1,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-23984).toISO()
             )
         }
@@ -1031,7 +1031,7 @@ struct MockModels {
                 id: ID.activity4,
                 title: "Consultation Completed",
                 clientId: ID.client1,
-                employeeId: ID.employee2,
+                authorId: ID.employee2,
                 createdAt: Date().addingTimeInterval(-834).toISO()
             )
         }
@@ -1042,7 +1042,7 @@ struct MockModels {
                 id: ID.activity5,
                 title: "Sent Email Follow-up",
                 clientId: ID.client1,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-34923).toISO()
             )
         }
@@ -1053,7 +1053,7 @@ struct MockModels {
                 id: ID.activity6,
                 title: "First Procedure",
                 clientId: ID.client2,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-234234).toISO()
             )
         }
@@ -1064,7 +1064,7 @@ struct MockModels {
                 id: ID.activity7,
                 title: "Shared Pre-Visit Instructions",
                 clientId: ID.client1,
-                employeeId: ID.employee2,
+                authorId: ID.employee2,
                 createdAt: Date().addingTimeInterval(-99834).toISO()
             )
         }
@@ -1075,7 +1075,7 @@ struct MockModels {
                 id: ID.activity8,
                 title: "Sent Invoice",
                 clientId: ID.client2,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-5384).toISO()
             )
         }
@@ -1086,7 +1086,7 @@ struct MockModels {
                 id: ID.activity9,
                 title: "Payment Received",
                 clientId: ID.client1,
-                employeeId: ID.employee1,
+                authorId: ID.employee1,
                 createdAt: Date().addingTimeInterval(-324).toISO()
             )
         }
@@ -1097,7 +1097,7 @@ struct MockModels {
                 id: ID.activity10,
                 title: "Treatment Follow-up",
                 clientId: ID.client1,
-                employeeId: ID.employee2,
+                authorId: ID.employee2,
                 createdAt: Date().addingTimeInterval(-84923).toISO()
             )
         }

@@ -115,6 +115,23 @@ Tasks:
 • Delete for each of the above (owner only)
 • Client Details Screen (What is it?)
 
+
+==================================================
+                BACKEND
+==================================================
+Tasks:
+  • Add birth_date to client
+    • Send it in a way to turn into a date with no timezone attached
+  • Tags for media
+    • Media Tags
+    • CRUD
+    • Get all unique tags endpoint for business
+    • 
+  • Sort Media
+  •
+
+
+
 // TEMPLATE FOR USE
 
 ==================================================

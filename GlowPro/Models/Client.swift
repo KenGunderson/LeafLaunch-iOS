@@ -72,7 +72,7 @@ struct Client: Codable,
         case firstName = "first_name"
         case lastName = "last_name"
         case email
-        case phone
+        case phone = "phone_number"
         case _birthDate = "birth_date"
         case imageURL = "image_url"
         case locationId = "location_id"

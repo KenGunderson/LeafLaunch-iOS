@@ -21,6 +21,18 @@ struct Location: Identifiable,
     var clients: [Client]
     var media: [Media] = []
     
+    private enum CodingKeys: String, CodingKey {
+        
+        case id
+        case businessId = "business_id"
+        case name
+        case address
+        case employees
+        case clients
+        case media
+        
+    }
+    
 }
 
 extension Location {

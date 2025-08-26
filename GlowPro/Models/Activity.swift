@@ -12,10 +12,19 @@ struct Activity: Codable, Mockable {
     let id: String
     let title: String
     let clientId: String
-    let employeeId: String
+    let authorId: String
     let _createdAt: String?
+    let _updatedAt: String?
     
     var createdAt: Date? {
+        
+        self._createdAt?
+            .toDate()?
+            .date
+        
+    }
+    
+    var updatedAt: Date? {
         
         self._createdAt?
             .toDate()?
@@ -28,14 +37,15 @@ struct Activity: Codable, Mockable {
     init(id: String,
          title: String,
          clientId: String,
-         employeeId: String,
+         authorId: String,
          createdAt: String?) {
         
         self.id = id
         self.title = title
         self.clientId = clientId
-        self.employeeId = employeeId
+        self.authorId = authorId
         self._createdAt = createdAt
+        self._updatedAt = createdAt
         self.createdAtNoTimestamp = createDateWithTimestamp()
         
     }
@@ -45,8 +55,9 @@ struct Activity: Codable, Mockable {
         case id
         case title
         case clientId = "client_id"
-        case employeeId = "employee_id"
+        case authorId = "author_id"
         case _createdAt = "created_at"
+        case _updatedAt = "updated_at"
         
     }
     
@@ -71,7 +82,7 @@ extension Activity {
             id: "1",
             title: "Called Client",
             clientId: "1",
-            employeeId: "1",
+            authorId: "1",
             createdAt: Date().toISO()
         )
         

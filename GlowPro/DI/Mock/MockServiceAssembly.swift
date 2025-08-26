@@ -611,7 +611,7 @@ final class MockAPIService: APIServiceProtocol {
         
         for activity in self.activities {
                         
-            let employee = try await self.getEmployee(id: activity.employeeId)
+            let employee = try await self.getEmployee(id: activity.authorId)
             
             if employee.businessId == businessId {
                 activities.append(activity)
@@ -629,7 +629,7 @@ final class MockAPIService: APIServiceProtocol {
         
         for activity in self.activities {
                         
-            let employee = try await self.getEmployee(id: activity.employeeId)
+            let employee = try await self.getEmployee(id: activity.authorId)
             
             if employee.locationId == locationId {
                 activities.append(activity)
@@ -642,7 +642,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getActivitiy(employeeId: String) async throws -> [Activity] {
-        return self.activities.filter { $0.employeeId == employeeId }
+        return self.activities.filter { $0.authorId == employeeId }
     }
     
     func getActivitiy(clientId: String) async throws -> [Activity] {

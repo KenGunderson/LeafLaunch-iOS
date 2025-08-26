@@ -114,42 +114,42 @@ struct ActivitiesView: View {
                 id: "1",
                 title: "Called Client",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().addingTimeInterval(-73497493).toISO()
             ),
             .init(
                 id: "2",
                 title: "Intake Form Filled",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
                 id: "3",
                 title: "Ate At Outback",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
                 id: "4",
                 title: "Did Something Else",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().toISO()
             ),
             .init(
                 id: "5",
                 title: "Built Legos",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().toISO()
             ),
             .init(
                 id: "6",
                 title: "Ate Some Soup",
                 clientId: "",
-                employeeId: "",
+                authorId: "",
                 createdAt: Date().toISO()
             ),
         ]

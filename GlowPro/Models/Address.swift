@@ -45,6 +45,16 @@ struct Address: Codable,
         
     }
     
+    private enum CodingKeys: String, CodingKey {
+        
+        case street
+        case street2 = "street_2"
+        case city
+        case state
+        case zip
+        
+    }
+    
 }
 
 extension Address {
