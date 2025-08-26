@@ -182,10 +182,22 @@ final class MockAPIService: APIServiceProtocol {
     func getBusiness(id: String) async throws -> Business {
         
         var business = self.businesses.filter { $0.id == id }.first ?? .DUMMY_DATA()
-        let clients = self.clients.filter { $0.employee.businessId == id }
         let employees = self.employees.filter { $0.businessId == id }
         let locations = self.locations.filter { $0.businessId == id }
         let media = self.media.filter { $0.businessId == id }
+        
+        var clients: [Client] = []
+        
+        for client in self.clients {
+            
+            let employeeId = client.employeeId ?? ""
+            let employee = try await getEmployee(id: employeeId)
+            
+            if employee.businessId == business.id {
+                clients.append(client)
+            }
+            
+        }
         
         business.clientsCount = clients.count
         business.employees = employees
@@ -232,7 +244,7 @@ final class MockAPIService: APIServiceProtocol {
     func getLocation(id: String) async throws -> Location {
         
         var location = self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
-        let clients = self.clients.filter { $0.employee.locationId == id }
+        let clients = self.clients.filter { $0.locationId == id }
         let employees = self.employees.filter { $0.locationId == id }
         let media = self.media.filter { $0.businessId == id }
         
@@ -314,11 +326,19 @@ final class MockAPIService: APIServiceProtocol {
         return self.employees
     }
     
-    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> Employee {
+    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String {
         
         if let employee = self.employees.first(where: { $0.locationId == locationId && $0.userId == userId }) {
-            return employee
+            return employee.id
         }
+        
+        if let location = self.locations.filter({ $0.id == locationId }).first,
+           let business = self.businesses.filter ({ $0.id == location.businessId }).first {
+            
+            return business.owner.id
+            
+        }
+        
         
         throw APIError.serverError(statusCode: 401, errorMessage: "Employee Not Found")
         
@@ -431,7 +451,22 @@ final class MockAPIService: APIServiceProtocol {
     // Clients
     
     func getClients(businessId: String) async throws -> [Client] {
-        return self.clients.filter { $0.employee.businessId == businessId }
+                
+        var clients: [Client] = []
+        
+        for client in self.clients {
+            
+            let employeeId = client.employeeId ?? ""
+            let employee = try await getEmployee(id: employeeId)
+            
+            if employee.businessId == businessId {
+                clients.append(client)
+            }
+            
+        }
+        
+        return clients
+        
     }
     
     func getClients(locationId: String) async throws -> [Client] {
@@ -439,7 +474,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getClients(employeeId: String) async throws -> [Client] {
-        return self.clients.filter { $0.employee.id == employeeId }
+        return self.clients.filter { $0.employeeId == employeeId }
     }
     
     func getClient(id: String) async throws -> Client {
@@ -498,7 +533,7 @@ final class MockAPIService: APIServiceProtocol {
             
             let client = try await self.getClient(id: clientId)
             
-            if client.employee.locationId == locationId {
+            if client.locationId == locationId {
                 media.append(mediaItem)
             }
             

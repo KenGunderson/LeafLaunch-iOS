@@ -51,7 +51,7 @@ extension APIService {
         
     }
     
-    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> Employee {
+    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String {
         
         do {
             
@@ -61,7 +61,7 @@ extension APIService {
             )
             
             let result: Employee = try parseData(data: data)
-            return result
+            return result.id
             
         }
         catch {

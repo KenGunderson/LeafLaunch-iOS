@@ -158,7 +158,7 @@ final class ClientCreateEditViewModel: ViewModel {
             
             do {
                 
-                let employee = try await self.apiService.getEmployeeByUserIdForLocation(
+                let employeeId = try await self.apiService.getEmployeeByUserIdForLocation(
                     userId: currentUser.id,
                     locationId: self.locationId ?? ""
                 )
@@ -174,7 +174,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     phone: self.phone,
                     birthDate: dateOfBirth,
                     locationId: self.locationId ?? "",
-                    employee: employee
+                    employeeId: employeeId
                 )
                 
                 try await self.apiService
@@ -225,7 +225,7 @@ final class ClientCreateEditViewModel: ViewModel {
             
             do {
                 
-                let employee = try await self.apiService.getEmployeeByUserIdForLocation(
+                let employeeId = try await self.apiService.getEmployeeByUserIdForLocation(
                     userId: currentUser.id,
                     locationId: self.locationId ?? ""
                 )
@@ -241,7 +241,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     phone: self.phone,
                     birthDate: dateOfBirth,
                     locationId: self.locationId ?? "",
-                    employee: employee
+                    employeeId: employeeId
                 )
                 
                 try await self.apiService

@@ -64,7 +64,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getEmployees(businessId: String) async throws -> [Employee]
     func getEmployees(locationId: String) async throws -> [Employee]
-    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> Employee
+    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String
     func getEmployee(id: String) async throws -> Employee
     func createEmployee(employee: Employee) async throws -> Employee
     func updateEmployee(employee: Employee) async throws

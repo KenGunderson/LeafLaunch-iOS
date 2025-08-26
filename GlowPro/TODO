@@ -52,6 +52,14 @@ Tasks:
   • Show which locations this employee works at
     (restricted to current business)
   • Show activities list
+  • Add plus to invite
+    • As Manager you can only invite to the current location
+    • As owner you can invite to many locations
+Open Questions:
+  • Do we auto accept invites for an employee that already exists in the same business, but another location?
+    • BE can do this with another check in the create invite endpoint
+  # OR
+    • should a manager be able to see and add people to a location across the ORG
 
 ==================================================
                 MEDIA
@@ -87,6 +95,7 @@ Tasks:
   • Setup ViewModel assemblies (mock + live)
   • Create simple placeholder views for all settings pages
   • Delete account (Delete from firebase?)
+  • Create Write a review
 
 ==================================================
                 PAYWALL

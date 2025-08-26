@@ -168,7 +168,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
             do {
                 
                 let newLocation = Location(
-                    id: "",
+                    id: UUID().uuidString,
                     businessId: self.businessId,
                     name: self.name,
                     address: .init(
