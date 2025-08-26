@@ -33,6 +33,7 @@ struct BusinessEmployeeInviteScreen: GPView {
     @State private var isRoleDropdownPresented: Bool = false
     @State private var isLocationDropdownPresented: Bool = false
     @State private var selectedLocations: Set<String> = []
+    @State private var selectedRole: Role?
     
     var body: some View {
         
@@ -57,6 +58,9 @@ struct BusinessEmployeeInviteScreen: GPView {
             }
             .onChange(of: self.selectedLocations) { _, newValue in
                 self.viewModel.updateSelectedLocations(Array(newValue))
+            }
+            .onChange(of: self.selectedRole) { _, newValue in
+                self.viewModel.updateSelectedRole(newValue)
             }
         
         // Tap
@@ -137,6 +141,8 @@ struct BusinessEmployeeInviteScreen: GPView {
         .animation(.bouncy, value: self.isRoleDropdownPresented)
         .animation(.bouncy, value: self.viewModel.selectedLocations)
         .animation(.bouncy, value: self.viewModel.selectedRole)
+        .animation(.bouncy, value: self.selectedRole)
+        .animation(.bouncy, value: self.selectedLocations)
         
     }
     
@@ -221,7 +227,7 @@ struct BusinessEmployeeInviteScreen: GPView {
     
     @ViewBuilder
     private func rolePicker() -> some View {
-        
+                
         VStack(spacing: Style.shared.spacing(.custom(6))) {
             
             Text("Role (Optional)")
@@ -230,12 +236,12 @@ struct BusinessEmployeeInviteScreen: GPView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             CommonDropDownMenu(
-                options: Role.LocationRoles,
+                options: viewModel.locationRoles,
                 backgroundStyle: .color(.minimumOpacity),
                 shadow: .none,
                 textHorizontalPadding: .small,
                 animation: .bouncy,
-                selectedOption: self.$viewModel.selectedRole,
+                selectedOption: self.$selectedRole,
                 showDropDown: self.$isRoleDropdownPresented
             )
             .appBorder(cornerRadius: .small, lineWidth: 1.5)

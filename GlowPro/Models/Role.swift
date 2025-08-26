@@ -30,8 +30,6 @@ enum Role: String,
         }
     }
     
-    static var LocationRoles: [Role] {
-        return [.manager, .employee, .receptionist]
-    }
+    static let LocationRoles: [Role] = [.manager, .employee, .receptionist]
     
 }

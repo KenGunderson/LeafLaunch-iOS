@@ -25,6 +25,8 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     @Published var selectedRole: Role? = .employee
     @Published var selectedLocations: [Location] = []
     
+    let locationRoles = Role.LocationRoles
+    
     var isSaveButtonEnabled: Bool {
         
         return (
@@ -127,6 +129,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
             
         }
         
+    }
+    
+    func updateSelectedRole(_ role: Role?) {
+        self.selectedRole = role
     }
     
     func inviteEmployee() {
