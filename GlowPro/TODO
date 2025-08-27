@@ -120,8 +120,6 @@ Tasks:
                 BACKEND
 ==================================================
 Tasks:
-  • Add birth_date to client
-    • Send it in a way to turn into a date with no timezone attached
   • Tags for media
     • Media Tags
     • CRUD

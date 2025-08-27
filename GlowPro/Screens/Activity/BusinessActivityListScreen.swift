@@ -52,7 +52,7 @@ struct BusinessActivityListScreen: GPView {
         .safeAreaInset(edge: .bottom) {
             bottomBar()
         }
-        .animation(.bouncy, value: self.viewModel.selectedActivityTypes)
+        .animation(.smooth(duration: 0.3), value: self.viewModel.selectedActivityTypes)
         
     }
     

@@ -97,7 +97,7 @@ final class SettingsViewModel: ViewModel {
             .showAlert(.init(.appAlert(.init(
                 title: "Logout?",
                 message: "Are you sure you want to logout?",
-                primaryButtonTitle: "Okay",
+                primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     self?.logout()
                 },
@@ -105,8 +105,8 @@ final class SettingsViewModel: ViewModel {
                 primaryButtonTextColor: Style.shared.textColor(.button),
                 secondaryButtonTitle: "No",
                 secondaryButtonAction: {},
-                secondaryButtonBackgroundColor: Style.shared.background(.error),
-                secondaryButtonTextColor: Style.shared.textColor(.titleInverted)
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
             ))))
         
     }
