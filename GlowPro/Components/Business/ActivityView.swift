@@ -29,7 +29,7 @@ struct ActivityView: View {
         Image(systemName: self.activity.activityType.icon)
             .aspectRatio(contentMode: .fit)
             .foregroundStyle(self.activity.activityType.tintColor)
-            .frame(width: 32, height: 32)
+            .frame(width: 36, height: 36)
             .background(self.activity.activityType.tintColor.opacity(0.15))
             .clipShape(.circle)
         
@@ -38,7 +38,7 @@ struct ActivityView: View {
     private func title() -> some View {
         
         Text(self.activity.activityType.displayName)
-            .appFont(with: .TITLE_3)
+            .appFont(with: .TITLE_4)
             .foregroundStyle(Style.shared.textColor(.title).source())
             .frame(maxWidth: .infinity, alignment: .leading)
         
@@ -56,7 +56,7 @@ struct ActivityView: View {
         }
         
         return Text(formattedDate ?? "")
-            .appFont(with: .BODY_1)
+            .appFont(with: .BODY_2)
             .foregroundStyle(Style.shared.textColor(.body).source())
         
     }
