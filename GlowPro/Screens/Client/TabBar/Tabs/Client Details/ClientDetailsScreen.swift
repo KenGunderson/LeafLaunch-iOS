@@ -199,6 +199,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Called Client",
                 clientId: "",
                 authorId: "",
+                activityType: .clientUpdated,
                 createdAt: Date().addingTimeInterval(-73497493).toISO()
             ),
             .init(
@@ -206,6 +207,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Intake Form Filled",
                 clientId: "",
                 authorId: "",
+                activityType: .formSubmitted,
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
@@ -213,6 +215,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Ate At Outback",
                 clientId: "",
                 authorId: "",
+                activityType: .quickNote,
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
@@ -220,6 +223,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Did Something Else",
                 clientId: "",
                 authorId: "",
+                activityType: .businessUpdated,
                 createdAt: Date().toISO()
             ),
             .init(
@@ -227,6 +231,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Built Legos",
                 clientId: "",
                 authorId: "",
+                activityType: .noteAdded,
                 createdAt: Date().toISO()
             ),
             .init(
@@ -234,6 +239,7 @@ struct ClientDetailsScreen: GPView {
                 title: "Ate Some Soup",
                 clientId: "",
                 authorId: "",
+                activityType: .mediaAdded,
                 createdAt: Date().toISO()
             ),
         ]

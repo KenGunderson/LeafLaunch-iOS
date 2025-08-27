@@ -13,6 +13,7 @@ struct Activity: Codable, Mockable {
     let title: String
     let clientId: String
     let authorId: String
+    let activityType: ActivityType
     let _createdAt: String?
     let _updatedAt: String?
     
@@ -38,12 +39,14 @@ struct Activity: Codable, Mockable {
          title: String,
          clientId: String,
          authorId: String,
+         activityType: ActivityType,
          createdAt: String?) {
         
         self.id = id
         self.title = title
         self.clientId = clientId
         self.authorId = authorId
+        self.activityType = activityType
         self._createdAt = createdAt
         self._updatedAt = createdAt
         self.createdAtNoTimestamp = createDateWithTimestamp()
@@ -56,6 +59,7 @@ struct Activity: Codable, Mockable {
         case title
         case clientId = "client_id"
         case authorId = "author_id"
+        case activityType = "activity_type"
         case _createdAt = "created_at"
         case _updatedAt = "updated_at"
         
@@ -83,6 +87,7 @@ extension Activity {
             title: "Called Client",
             clientId: "1",
             authorId: "1",
+            activityType: .businessCreated,
             createdAt: Date().toISO()
         )
         

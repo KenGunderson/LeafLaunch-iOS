@@ -56,10 +56,10 @@ Tasks:
     • As Manager you can only invite to the current location
     • As owner you can invite to many locations
 Open Questions:
-  • Do we auto accept invites for an employee that already exists in the same business, but another location?
+  • Do we auto accept invites for an employee that already exists in the same business, but another location? (YES)
     • BE can do this with another check in the create invite endpoint
   # OR
-    • should a manager be able to see and add people to a location across the ORG
+    • should a manager be able to see and add people to a location across the ORG (NO)
 
 ==================================================
                 MEDIA
@@ -130,7 +130,24 @@ Tasks:
   • Sort Media
   •
 
+// TEMPLATE FOR USE
 
+==================================================
+                DELETE ACCOUNT
+==================================================
+Tasks:
+  • show a delete account option in settings
+    • explain process, reach out if you need your data
+  • What if they are subscribed
+    • Cancel subscription alert first
+    • Webhook?
+  • Delete from firebase?
+  
+==================================================
+                DELETE EMPLOYEE
+==================================================
+Tasks:
+    • Show alert that says from location or org?
 
 // TEMPLATE FOR USE
 

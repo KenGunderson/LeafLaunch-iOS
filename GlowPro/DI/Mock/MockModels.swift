@@ -991,7 +991,7 @@ struct MockModels {
     }
     
     struct MockActivity {
-        
+            
         nonisolated(unsafe)
         static var activity1: Activity {
             Activity(
@@ -999,6 +999,7 @@ struct MockModels {
                 title: "Initial Consultation",
                 clientId: ID.client1,
                 authorId: ID.employee1,
+                activityType: .clientCreated,
                 createdAt: Date().addingTimeInterval(-83493).toISO()
             )
         }
@@ -1010,6 +1011,7 @@ struct MockModels {
                 title: "Follow-up Call",
                 clientId: ID.client1,
                 authorId: ID.employee1,
+                activityType: .clientUpdated,
                 createdAt: Date().addingTimeInterval(-42384).toISO()
             )
         }
@@ -1021,6 +1023,7 @@ struct MockModels {
                 title: "Scheduled Appointment",
                 clientId: ID.client1,
                 authorId: ID.employee1,
+                activityType: .formSubmitted,
                 createdAt: Date().addingTimeInterval(-23984).toISO()
             )
         }
@@ -1032,6 +1035,7 @@ struct MockModels {
                 title: "Consultation Completed",
                 clientId: ID.client1,
                 authorId: ID.employee2,
+                activityType: .noteAdded,
                 createdAt: Date().addingTimeInterval(-834).toISO()
             )
         }
@@ -1043,6 +1047,7 @@ struct MockModels {
                 title: "Sent Email Follow-up",
                 clientId: ID.client1,
                 authorId: ID.employee1,
+                activityType: .quickNote,
                 createdAt: Date().addingTimeInterval(-34923).toISO()
             )
         }
@@ -1054,6 +1059,7 @@ struct MockModels {
                 title: "First Procedure",
                 clientId: ID.client2,
                 authorId: ID.employee1,
+                activityType: .mediaAdded,
                 createdAt: Date().addingTimeInterval(-234234).toISO()
             )
         }
@@ -1065,6 +1071,7 @@ struct MockModels {
                 title: "Shared Pre-Visit Instructions",
                 clientId: ID.client1,
                 authorId: ID.employee2,
+                activityType: .employeeInvited,
                 createdAt: Date().addingTimeInterval(-99834).toISO()
             )
         }
@@ -1076,6 +1083,7 @@ struct MockModels {
                 title: "Sent Invoice",
                 clientId: ID.client2,
                 authorId: ID.employee1,
+                activityType: .businessUpdated,
                 createdAt: Date().addingTimeInterval(-5384).toISO()
             )
         }
@@ -1087,6 +1095,7 @@ struct MockModels {
                 title: "Payment Received",
                 clientId: ID.client1,
                 authorId: ID.employee1,
+                activityType: .businessCreated,
                 createdAt: Date().addingTimeInterval(-324).toISO()
             )
         }
@@ -1098,10 +1107,10 @@ struct MockModels {
                 title: "Treatment Follow-up",
                 clientId: ID.client1,
                 authorId: ID.employee2,
+                activityType: .soapNote,
                 createdAt: Date().addingTimeInterval(-84923).toISO()
             )
         }
-        
     }
     
 }

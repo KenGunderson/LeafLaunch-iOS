@@ -42,8 +42,21 @@ final class BusinessActivityListViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private(set) var activities: [Activity] = []
+    @Published private var activities: [Activity] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published private(set) var selectedActivityTypes: [ActivityType] = []
+    
+    var filteredActivities: [Activity] {
+        
+        guard !self.selectedActivityTypes.isEmpty else {
+            return self.activities
+        }
+        
+        return self.activities.filter { activity in
+            self.selectedActivityTypes.contains(activity.activityType)
+        }
+        
+    }
     
     private(set) var context: Context!
 
@@ -137,6 +150,21 @@ final class BusinessActivityListViewModel: ViewModel {
             
         }
         
+    }
+    
+    func set(activityType: ActivityType) {
+     
+        if self.selectedActivityTypes.contains(activityType) {
+            self.selectedActivityTypes.removeAll { $0 == activityType }
+        }
+        else {
+            self.selectedActivityTypes.append(activityType)
+        }
+        
+    }
+    
+    func clearFilters() {
+        self.selectedActivityTypes.removeAll()
     }
     
     func emptyStateConfig() -> EmptyStateConfig {

@@ -2,105 +2,62 @@
 //  ActivityView.swift
 //  GlowPro
 //
-//  Created by Sako Hovaguimian on 6/19/25.
+//  Created by Sako Hovaguimian on 8/26/25.
 //
 
 import SwiftUI
 
-struct ActivitiesView: View {
+struct ActivityView: View {
     
-    private let activityDict: [Date: [Activity]]
-    
-    init(activities: [Activity]) {
-                
-        self.activityDict = Dictionary(
-            grouping: activities,
-            by: \.createdAtNoTimestamp
-        )
-        
-    }
-    
+    let activity: Activity
+
     var body: some View {
         
-        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        HStack {
             
-            ForEach(activityDict.keys.sorted(), id: \.date) { key in
-                
-                section(
-                    date: key.formatted(date: .abbreviated, time: .omitted),
-                    activities: activityDict[key] ?? []
-                )
-                
-            }
+            icon()
+            title()
+            date()
             
         }
-        .frame(
-            maxWidth: .infinity,
-            alignment: .leading
+        .frame(maxWidth: .infinity)
+        
+    }
+    
+    private func icon() -> some View {
+        
+        Image(systemName: self.activity.activityType.icon)
+            .aspectRatio(contentMode: .fit)
+            .foregroundStyle(self.activity.activityType.tintColor)
+            .frame(width: 32, height: 32)
+            .background(self.activity.activityType.tintColor.opacity(0.15))
+            .clipShape(.circle)
+        
+    }
+    
+    private func title() -> some View {
+        
+        Text(self.activity.activityType.displayName)
+            .appFont(with: .TITLE_3)
+            .foregroundStyle(Style.shared.textColor(.title).source())
+            .frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
+    private func date() -> some View {
+        
+        var formattedDate = DateComponentsFormatter.shortRelative.string(
+            from: self.activity.createdAt ?? .now,
+            to: Date()
         )
         
-    }
-    
-    private func section(date: String,
-                         activities: [Activity]) -> some View {
-        
-        VStack(alignment: .leading, spacing: 0) {
-            
-            Text(date)
-                .appFont(with: .TITLE_4)
-                .padding(.bottom, .small)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-            
-            activityList(activities: activities)
-            
+        if formattedDate == "0m" {
+            formattedDate = "now"
         }
         
-    }
-    
-    private func activityList(activities: [Activity]) -> some View {
-        
-        ForEach(activities, id: \.id) { activity in
-            
-            let hideLine = (activity.id == activities.last?.id)
-            
-            VStack(alignment: .leading, spacing: 0) {
-                
-                HStack(alignment: .center) {
-                    
-                    pin()
-                    activityItem(activity)
-                        .frame(height: 12)
-                    
-                }
-                
-                if !hideLine {
-                    
-                    Rectangle()
-                        .fill(Style.shared.background(.quaternary).source())
-                        .frame(width: 2, height: 16)
-                        .padding(.leading, 3.5)
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    private func activityItem(_ activity: Activity) -> some View {
-        
-        Text(activity.title)
-            .appFont(with: .TITLE_3)
+        return Text(formattedDate ?? "")
+            .appFont(with: .BODY_1)
             .foregroundStyle(Style.shared.textColor(.body).source())
-        
-    }
-    
-    private func pin() -> some View {
-     
-        Circle()
-            .fill(Style.shared.accent.source())
-            .frame(width: 10, height: 10)
         
     }
     
@@ -108,52 +65,15 @@ struct ActivitiesView: View {
 
 #Preview {
     
-    ActivitiesView(
-        activities: [
-            .init(
-                id: "1",
-                title: "Called Client",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().addingTimeInterval(-73497493).toISO()
-            ),
-            .init(
-                id: "2",
-                title: "Intake Form Filled",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().addingTimeInterval(-4379743).toISO()
-            ),
-            .init(
-                id: "3",
-                title: "Ate At Outback",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().addingTimeInterval(-4379743).toISO()
-            ),
-            .init(
-                id: "4",
-                title: "Did Something Else",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().toISO()
-            ),
-            .init(
-                id: "5",
-                title: "Built Legos",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().toISO()
-            ),
-            .init(
-                id: "6",
-                title: "Ate Some Soup",
-                clientId: "",
-                authorId: "",
-                createdAt: Date().toISO()
-            ),
-        ]
-    )
-    .padding(.horizontal, .medium)
+    VStack(spacing: 6) {
+     
+        ForEach(MockModels.allActivities, id: \.id) { activity in
+            
+            ActivityView(activity: activity)
+            
+        }
+        
+    }
+    .padding(.horizontal, .large)
     
 }
