@@ -1,20 +1,4 @@
 ==================================================
-                ACTIVITY
-==================================================
-Tasks:
-  • Add Activity enum to Activity
-  • Add metadata support
-  • Add unique colors + icons
-  • Support filtering by activity set
-
-Open Questions:
-  • How should these be styled?
-    (Simple list vs styled info cards)
-
-Goal:
-  • Make activities visually distinct and informative
-
-==================================================
                 PERMISSIONS
 ==================================================
 Owner Only Actions:
@@ -51,7 +35,6 @@ Tasks:
 Tasks:
   • Show which locations this employee works at
     (restricted to current business)
-  • Show activities list
   • Add plus to invite
     • As Manager you can only invite to the current location
     • As owner you can invite to many locations
@@ -115,23 +98,6 @@ Tasks:
 • Delete for each of the above (owner only)
 • Client Details Screen (What is it?)
 
-
-==================================================
-                BACKEND
-==================================================
-Tasks:
-  • Add birth_date to client
-    • Send it in a way to turn into a date with no timezone attached
-  • Tags for media
-    • Media Tags
-    • CRUD
-    • Get all unique tags endpoint for business
-    • 
-  • Sort Media
-  •
-
-// TEMPLATE FOR USE
-
 ==================================================
                 DELETE ACCOUNT
 ==================================================
@@ -148,6 +114,20 @@ Tasks:
 ==================================================
 Tasks:
     • Show alert that says from location or org?
+        • Only For Manager
+    
+==================================================
+                BACKEND
+==================================================
+Tasks:
+  • Add birth_date to client
+    • Send it in a way to turn into a date with no timezone attached
+  • Tags for media
+    • Media Tags
+    • CRUD
+    • Get all unique tags endpoint for business
+    •
+  • Sort Media
 
 // TEMPLATE FOR USE
 

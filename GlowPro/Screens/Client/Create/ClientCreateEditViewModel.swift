@@ -172,7 +172,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     lastName: self.lastName,
                     email: self.email,
                     phone: self.phone,
-                    birthDate: dateOfBirth,
+                    dateOfBirth: dateOfBirth,
                     locationId: self.locationId ?? "",
                     employeeId: employeeId
                 )
@@ -239,7 +239,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     lastName: self.lastName,
                     email: self.email,
                     phone: self.phone,
-                    birthDate: dateOfBirth,
+                    dateOfBirth: dateOfBirth,
                     locationId: self.locationId ?? "",
                     employeeId: employeeId
                 )

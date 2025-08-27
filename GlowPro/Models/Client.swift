@@ -22,11 +22,11 @@ struct Client: Codable,
     let employeeId: String?
     let locationId: String?
     
-    private var _birthDate: String?
+    private var _dateOfBirth: String?
     
-    var birthDate: Date? {
+    var dateOfBirth: Date? {
 
-        self._birthDate?
+        self._dateOfBirth?
             .toDate()?
             .date
 
@@ -37,7 +37,7 @@ struct Client: Codable,
     }
     
     var hasEmailPhoneOrBirthday: Bool {
-        return email != nil || phone != nil || birthDate != nil
+        return email != nil || phone != nil || dateOfBirth != nil
     }
     
     init(id: String,
@@ -45,7 +45,7 @@ struct Client: Codable,
          lastName: String,
          email: String?,
          phone: String?,
-         birthDate: String? = nil,
+         dateOfBirth: String? = nil,
          imageURL: URL? = nil,
          locationId: String? = nil,
          employeeId: String? = nil) {
@@ -55,7 +55,7 @@ struct Client: Codable,
         self.lastName = lastName
         self.email = email
         self.phone = phone
-        self._birthDate = birthDate
+        self._dateOfBirth = dateOfBirth
         self.imageURL = imageURL
         self.locationId = locationId
         self.employeeId = employeeId
@@ -63,7 +63,7 @@ struct Client: Codable,
     }
     
     mutating func setBirthday(dateString: String) {
-        self._birthDate = dateString
+        self._dateOfBirth = dateString
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -73,7 +73,7 @@ struct Client: Codable,
         case lastName = "last_name"
         case email
         case phone = "phone_number"
-        case _birthDate = "birth_date"
+        case _dateOfBirth = "date_of_birth"
         case imageURL = "image_url"
         case locationId = "location_id"
         case employeeId = "employee_id"
@@ -92,7 +92,7 @@ extension Client {
             lastName: "Hovaguimian",
             email: "sako@me.com",
             phone: "8185225755",
-            birthDate: nil,
+            dateOfBirth: nil,
             imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA")
         )
         

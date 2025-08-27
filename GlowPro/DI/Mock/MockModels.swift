@@ -403,7 +403,7 @@ struct MockModels {
             lastName: "Smith",
             email: "joe@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-785849).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-785849).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -415,7 +415,7 @@ struct MockModels {
             lastName: "Glover",
             email: "mary@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-4456).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-4456).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -427,7 +427,7 @@ struct MockModels {
             lastName: "Bieber",
             email: "jb@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-234234).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-234234).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -439,7 +439,7 @@ struct MockModels {
             lastName: "Bison",
             email: "cow@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -451,7 +451,7 @@ struct MockModels {
             lastName: "Sharpe",
             email: "js@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -463,7 +463,7 @@ struct MockModels {
             lastName: "Sharpe",
             email: "rs@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -475,7 +475,7 @@ struct MockModels {
             lastName: "Hovaguimian",
             email: "lh@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-4564).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-4564).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -487,7 +487,7 @@ struct MockModels {
             lastName: "Winkle",
             email: "dw@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-4578948).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-4578948).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee2.id
         )
@@ -499,7 +499,7 @@ struct MockModels {
             lastName: "Sharpe",
             email: "es@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-4563).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-4563).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee2.id
         )
@@ -511,7 +511,7 @@ struct MockModels {
             lastName: "10",
             email: "cow@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee2.id
         )
@@ -523,7 +523,7 @@ struct MockModels {
             lastName: "11",
             email: "cow@me.com",
             phone: "878-789-3232",
-            birthDate: Date().addingTimeInterval(-23567).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-23567).ISO8601Format(),
             imageURL: nil,
             locationId: ID.location2,
             employeeId: MockEmployee.employee2.id

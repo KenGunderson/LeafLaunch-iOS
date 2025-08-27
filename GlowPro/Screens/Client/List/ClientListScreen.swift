@@ -141,7 +141,7 @@ struct ClientListScreen: GPView {
                             extraInformationItem(icon: .image(.iconPhone))
                         }
                         
-                        if client.birthDate != nil {
+                        if client.dateOfBirth != nil {
                             extraInformationItem(icon: .image(.iconCake))
                         }
                             
