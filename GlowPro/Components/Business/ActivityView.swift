@@ -26,7 +26,11 @@ struct ActivityView: View {
     
     private func icon() -> some View {
         
-        Image(systemName: self.activity.activityType.icon)
+        self.activity.activityType.icon
+            .view(
+                shouldResize: false,
+                renderingMode: .template
+            )
             .aspectRatio(contentMode: .fit)
             .foregroundStyle(self.activity.activityType.tintColor)
             .frame(width: 36, height: 36)

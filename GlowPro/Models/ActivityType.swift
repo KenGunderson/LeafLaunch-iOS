@@ -66,61 +66,61 @@ enum ActivityType: String, Codable, CaseIterable {
         switch self {
         case .businessCreated,
              .businessUpdated,
-             .businessDeleted: return .blue
+             .businessDeleted: return GPColor.iconBlue
             
         case .locationCreated,
              .locationUpdated,
-             .locationDeleted: return .green
+             .locationDeleted: return GPColor.iconGreen
             
         case .employeeInvited,
              .employeeCreated,
-             .employeeDeleted: return .purple
+             .employeeDeleted: return GPColor.iconOrange
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return .orange
+             .clientDeleted: return GPColor.iconPurple
             
-        case .formSubmitted: return .teal
+        case .formSubmitted: return GPColor.iconRed
             
         case .noteAdded,
              .noteDeleted,
              .quickNote,
-             .soapNote: return .gray
+             .soapNote: return GPColor.iconPink
             
         case .mediaAdded,
              .mediaFavorited,
-             .mediaDeleted:  return .pink
+             .mediaDeleted:  return GPColor.iconTeal
         }
     }
     
-    var icon: String {
+    var icon: ImageSource {
         switch self {
         case .businessCreated,
              .businessUpdated,
-             .businessDeleted: return "building.2"
+             .businessDeleted: return .systemImage("storefront")
             
         case .locationCreated,
              .locationUpdated,
-             .locationDeleted: return "mappin.and.ellipse"
+             .locationDeleted: return .systemImage("pin")
             
         case .employeeInvited,
              .employeeCreated,
-             .employeeDeleted: return "person.2"
+             .employeeDeleted: return .image(.iconPersonOutline)
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return "person.crop.circle"
+             .clientDeleted: return .image(.iconPerson2Outline)
             
-        case .formSubmitted: return "doc.text"
+        case .formSubmitted: return .image(.iconFileOutline)
             
         case .noteAdded,
              .noteDeleted,
              .quickNote,
-             .soapNote: return "note.text"
+             .soapNote: return .image(.iconNoteOutline)
             
         case .mediaAdded,
              .mediaFavorited,
-             .mediaDeleted:  return "photo"
+             .mediaDeleted:  return .image(.iconCamera)
         }
         
     }
