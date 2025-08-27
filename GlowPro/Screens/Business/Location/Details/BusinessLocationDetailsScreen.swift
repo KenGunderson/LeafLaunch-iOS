@@ -55,13 +55,28 @@ struct BusinessLocationDetailsScreen: GPView {
         }
         .asAnyView()
         
-        let pencilButton = NavBarButton(style: .pencil) {
+        let trailingButtons = HStack {
             
-            self.navigationService
-                .push(.business(.businessLocationCreateEdit(
-                    businessId: self.viewModel.business?.id ?? "",
-                    locationId: self.viewModel.location?.id
-                )))
+            if self.viewModel.isOwner {
+                
+                NavBarButton(style: .trash) {
+                    
+                    self.viewModel
+                        .presentDeleteLocationAlert()
+                    
+                }
+                
+                NavBarButton(style: .pencil) {
+                    
+                    self.navigationService
+                        .push(.business(.businessLocationCreateEdit(
+                            businessId: self.viewModel.business?.id ?? "",
+                            locationId: self.viewModel.location?.id
+                        )))
+                    
+                }
+                
+            }
             
         }
         .asAnyView()
@@ -69,11 +84,10 @@ struct BusinessLocationDetailsScreen: GPView {
         return NavBarView(
             title: "Location Details",
             leftButtonView: backButton,
-            rightButtonView: pencilButton
+            rightButtonView: trailingButtons
         )
         
     }
-    
     
     private func contentCards() -> some View {
         

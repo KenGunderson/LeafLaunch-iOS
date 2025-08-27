@@ -27,6 +27,10 @@ final class BusinessLocationDetailsViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
+    var isOwner: Bool {
+        return self.authService.currentUser?.id == self.business?.owner.id
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
@@ -106,6 +110,54 @@ final class BusinessLocationDetailsViewModel: ViewModel {
             
             self.alertService
                 .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func presentDeleteLocationAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Delete Location?",
+                message: "You are attemping to delete your location. This action cannot be undone. Are you sure you wish to continue?",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteLocation()
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteLocation() {
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteLocation(id: self.locationId)
+                
+                await MainActor.run { [weak self] in
+                    self?.navigationService?.pop()
+                }
+                
+            }
+            catch {
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.error(
+                        message: Constants.Error.errorMessage(context: .delete, "location"),
+                        action: {})
+                    )))
+                
+            }
             
         }
         
