@@ -36,6 +36,11 @@ struct ActivityView: View {
             .frame(width: 36, height: 36)
             .background(self.activity.activityType.tintColor.opacity(0.15))
             .clipShape(.circle)
+            .appBorder(
+                cornerRadius: .custom(64),
+                color: .color(self.activity.activityType.tintColor),
+                lineWidth: 2
+            )
         
     }
     
