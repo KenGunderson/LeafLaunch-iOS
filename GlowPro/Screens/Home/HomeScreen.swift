@@ -92,30 +92,33 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             InfoView(
                 title: "You Have Pending Invites",
                 titleFont: .TITLE_4,
                 imageSource: .systemImage("bell.fill"),
-                foregroundStyle: Style.shared.accent
+                foregroundStyle: .color(.indigo)
             ) {
                 self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
             }
+            .appBorder(cornerRadius: .medium, color: .color(.indigo), lineWidth: 2)
             
             InfoView(
                 title: "My Business Dashboard",
                 titleFont: .TITLE_4,
                 imageSource: .systemImage("bell.fill"),
-                foregroundStyle: .color(.indigo)
+                foregroundStyle: Style.shared.accent
             ) {
                 
                 self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
                 self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
                 
             }
+            .appBorder(cornerRadius: .medium, color: Style.shared.accent, lineWidth: 2)
             
             SectionView(title: "Choose Your Location", showDivider: true)
+                .padding(.top, .small)
             
             workspacesList()
             
