@@ -117,7 +117,7 @@ struct HomeScreen: GPView {
                 clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
                 appBorderConfig: .init(
                     cornerRadius: .small2,
-                    tintColor: .color(.indigo),
+                    tintColor: Style.shared.accent,
                     lineWidth: 2
                 )
             ) {
