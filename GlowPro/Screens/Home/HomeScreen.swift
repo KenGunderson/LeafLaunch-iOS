@@ -99,34 +99,34 @@ struct HomeScreen: GPView {
                 titleFont: .TITLE_4,
                 imageSource: .systemImage("bell.fill"),
                 foregroundStyle: .color(.indigo),
-                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2)))
+                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
+                appBorderConfig: .init(
+                    cornerRadius: .small2,
+                    tintColor: .color(.indigo),
+                    lineWidth: 2
+                )
             ) {
                 self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
             }
-            .appBorder(
-                cornerRadius: .small2,
-                color: .color(.indigo),
-                lineWidth: 2
-            )
             
             InfoView(
                 title: "My Business Dashboard",
                 titleFont: .TITLE_4,
                 imageSource: .systemImage("bell.fill"),
                 foregroundStyle: Style.shared.accent,
-                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2)))
+                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
+                appBorderConfig: .init(
+                    cornerRadius: .small2,
+                    tintColor: .color(.indigo),
+                    lineWidth: 2
+                )
             ) {
                 
                 self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
                 self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
                 
             }
-            .appBorder(
-                cornerRadius: .small2,
-                color: Style.shared.accent,
-                lineWidth: 2
-            )
-                
+
             SectionView(title: "Choose Your Location", showDivider: true)
                 .padding(.top, .small)
             
