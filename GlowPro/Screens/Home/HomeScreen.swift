@@ -92,7 +92,27 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
+            
+            SectionView(title: "First Steps", showDivider: true)
+            
+            ChecklistView(checklistItems: self.viewModel.checklistItems)
+            
+            SectionView(title: "Choose Your Location", showDivider: true)
+            
+            workspacesList()
+            
+            itemViews()
+                .padding(.top, .small)
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
+    private func itemViews() -> some View {
+        
+        Group {
             
             InfoView(
                 title: "You Have Pending Invites",
@@ -126,14 +146,8 @@ struct HomeScreen: GPView {
                 self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
                 
             }
-
-            SectionView(title: "Choose Your Location", showDivider: true)
-                .padding(.top, .small)
-            
-            workspacesList()
             
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     

@@ -25,6 +25,7 @@ final class HomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var pendingInvites: [EmployeeInvite] = []
     @Published private(set) var workspaces: [Workspace] = []
+    @Published private(set) var checklistItems: [ChecklistView.ChecklistItem] = []
     
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
@@ -103,6 +104,13 @@ final class HomeViewModel: ViewModel {
 
                     self?.workspaces = workspaces
                     self?.pendingInvites = pendingInvites
+                    
+                    self?.checklistItems = [
+                        .init(type: .completeProfile, isComplete: false),
+                        .init(type: .createOrJoinBusiness, isComplete: false),
+                        .init(type: .addClient, isComplete: false),
+                        .init(type: .takeAPhoto, isComplete: false),
+                    ]
                     
                 }
                 

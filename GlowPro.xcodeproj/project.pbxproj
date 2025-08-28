@@ -185,6 +185,8 @@
 		7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
 		7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
 		7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
+		753B113B2E60D8FC0080C9FF /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753B113A2E60D8FA0080C9FF /* ChecklistView.swift */; };
+		753B113C2E60D8FC0080C9FF /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753B113A2E60D8FA0080C9FF /* ChecklistView.swift */; };
 		753CC0AF2E40FDD30024C776 /* EmployeeInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */; };
 		753CC0B02E40FDD30024C776 /* EmployeeInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */; };
 		753EC19E2DB8BC5E00265B2A /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1952DB8BC5E00265B2A /* Query.swift */; };
@@ -589,6 +591,7 @@
 		7537F4142DF661EA0031D9CF /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleService.swift; sourceTree = "<group>"; };
+		753B113A2E60D8FA0080C9FF /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 		753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInvite.swift; sourceTree = "<group>"; };
 		753EC1932DB8BC5E00265B2A /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		753EC1942DB8BC5E00265B2A /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
@@ -1631,12 +1634,13 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				750F9E172E56116B00C72EA7 /* Section.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				754E51E02E54281F00258225 /* Business */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
+				750F9E172E56116B00C72EA7 /* Section.swift */,
+				753B113A2E60D8FA0080C9FF /* ChecklistView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2177,6 +2181,7 @@
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				750F9E1E2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */,
+				753B113B2E60D8FC0080C9FF /* ChecklistView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75A0357D2E4D704A00F29417 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
@@ -2412,6 +2417,7 @@
 				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
 				750F9E1D2E56155D00C72EA7 /* MediaGalleryViewModel.swift in Sources */,
+				753B113C2E60D8FC0080C9FF /* ChecklistView.swift in Sources */,
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75A0357E2E4D704A00F29417 /* BusinessEmployeeInviteListViewModel.swift in Sources */,
