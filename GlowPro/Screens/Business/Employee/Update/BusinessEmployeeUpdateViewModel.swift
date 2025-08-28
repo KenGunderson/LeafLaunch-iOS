@@ -18,7 +18,6 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private(set) var business: Business?
     @Published private(set) var employee: Employee?
     
     @Published var name: String = ""
@@ -85,18 +84,12 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
         Task {
             
             do {
-                
-                let business = try await self.apiService
-                    .getBusiness(id: self.businessId)
-                
+
                 let employee = try await self.apiService
                     .getEmployee(id: self.employeeId)
                 
                 await MainActor.run { [weak self] in
-                    
-                    self?.business = business
                     self?.employee = employee
-                    
                 }
                 
             }

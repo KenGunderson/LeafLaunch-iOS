@@ -247,6 +247,7 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
@@ -290,20 +291,6 @@ class ViewModelAssembly: Assembly {
                 )
             }
         
-        // Business Employee Join
-        
-        container
-            .register(BusinessEmployeeJoinViewModel.self) { r in
-                BusinessEmployeeJoinViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
         // Business Employee Update
         
         container
@@ -326,6 +313,7 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }

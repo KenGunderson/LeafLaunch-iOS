@@ -70,7 +70,7 @@ struct BusinessLocationDetailsScreen: GPView {
                     
                     self.navigationService
                         .push(.business(.businessLocationCreateEdit(
-                            businessId: self.viewModel.business?.id ?? "",
+                            businessId: self.viewModel.businessId,
                             locationId: self.viewModel.location?.id
                         )))
                     

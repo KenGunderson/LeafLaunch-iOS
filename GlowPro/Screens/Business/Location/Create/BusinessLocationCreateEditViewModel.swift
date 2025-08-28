@@ -17,9 +17,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
-    
-    @Published private(set) var business: Business?
-    
+        
     @Published var name: String = ""
     @Published var street: String = ""
     @Published var street2: String = ""
@@ -104,9 +102,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
             
             do {
                 
-                let business = try await self.apiService
-                    .getBusiness(id: self.businessId)
-                
                 var location: Location?
                 
                 if let locationId {
@@ -118,7 +113,6 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 
                 await MainActor.run { [weak self, location] in
                     
-                    self?.business = business
                     self?.name = location?.name ?? ""
                     self?.street = location?.address.street ?? ""
                     self?.street2 = location?.address.street2 ?? ""

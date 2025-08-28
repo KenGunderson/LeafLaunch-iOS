@@ -39,7 +39,6 @@ final class BusinessEmployeesViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private(set) var business: Business?
     @Published private(set) var employees: [Employee] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
     
@@ -102,8 +101,6 @@ final class BusinessEmployeesViewModel: ViewModel {
             do {
                 
                 var employees: [Employee] = []
-                var business = try await self.apiService
-                    .getBusiness(id: self.businessId)
                 
                 switch self.context {
                 case .business(let businessId):
@@ -119,9 +116,8 @@ final class BusinessEmployeesViewModel: ViewModel {
                 default: break
                 }
                 
-                await MainActor.run { [weak self, business, employees] in
+                await MainActor.run { [weak self, employees] in
 
-                    self?.business = business
                     self?.employees = employees
                     self?.shouldShowEmptyState = employees.isEmpty
                     

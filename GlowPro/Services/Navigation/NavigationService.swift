@@ -442,15 +442,6 @@ extension View {
             case .permissions:
                 
                 Color.indigo.ignoresSafeArea()
-                
-            case .businessEmployeeJoin:
-                
-                let viewModel = globalResolver.resolve(BusinessEmployeeJoinViewModel.self)!
-                
-                BusinessEmployeeJoinScreen(viewModel: viewModel)
-                    .presentationDragIndicator(.hidden)
-                    .interactiveDismissDisabled()
-                
             }
             
         }

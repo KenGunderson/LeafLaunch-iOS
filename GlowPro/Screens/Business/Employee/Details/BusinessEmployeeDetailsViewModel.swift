@@ -16,9 +16,9 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private(set) var business: Business?
     @Published private(set) var employee: Employee?
     @Published private(set) var activities: [Activity] = []
     
@@ -29,19 +29,21 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     var isOwner: Bool {
-        return self.authService.currentUser?.id == self.business?.owner.id
+        return self.activeDestinationService.isOwner
     }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -53,7 +55,8 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String, employeeId: String) -> Self {
+    func setup(businessId: String,
+               employeeId: String) -> Self {
         
         self.businessId = businessId
         self.employeeId = employeeId
@@ -82,9 +85,6 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
             
             do {
                 
-                let business = try await self.apiService
-                    .getBusiness(id: self.businessId)
-                
                 let employee = try await self.apiService
                     .getEmployee(id: self.employeeId)
                 
@@ -93,7 +93,6 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
 
-                    self?.business = business
                     self?.employee = employee
                     self?.activities = activities
                     
@@ -114,6 +113,54 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
             
             self.alertService
                 .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func presentDeleteEmployeeAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Delete Employee?",
+                message: "You are attemping to delete your employee. This action cannot be undone. Are you sure you wish to continue?",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteEmployee()
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteEmployee() {
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteEmployee(id: self.employeeId)
+                
+                await MainActor.run { [weak self] in
+                    self?.navigationService?.pop()
+                }
+                
+            }
+            catch {
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.error(
+                        message: Constants.Error.errorMessage(context: .delete, "employee"),
+                        action: {})
+                    )))
+                
+            }
             
         }
         

@@ -839,6 +839,11 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     private let apiService: APIServiceProtocol = MockAPIService()
     private let analyticsService: AnalyticsServiceProtocol = MockAnalyticsService()
     
+    private(set) var isOwner: Bool = true
+    private(set) var isManager: Bool = true
+    private(set) var isOwnerOrManager: Bool = true
+    private(set) var role: Role? = .owner
+    
     @Published private(set) var activeDestination: ActiveDestination?
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {
         return self.$activeDestination.eraseToAnyPublisher()

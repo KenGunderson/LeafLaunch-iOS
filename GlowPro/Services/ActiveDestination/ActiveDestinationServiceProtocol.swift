@@ -12,6 +12,12 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     var activeDestination: ActiveDestination? { get }
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> { get }
     
+    var isOwner: Bool { get }
+    var isManager: Bool { get }
+    var isOwnerOrManager: Bool { get }
+    
+    var role: Role? { get }
+    
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
     func logout()

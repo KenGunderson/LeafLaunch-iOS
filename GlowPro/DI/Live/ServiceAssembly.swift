@@ -188,6 +188,10 @@ class ServiceAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
                 )
             }.inObjectScope(.container)
+            .initCompleted { r, service in
+                let service = service as! ActiveDestinationService
+                service.setAuthService(r.resolve(AuthServiceProtocol.self)!)
+            }
         
     }
     
