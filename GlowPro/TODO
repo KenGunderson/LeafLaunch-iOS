@@ -1,13 +1,4 @@
 ==================================================
-                NEXT UP
-==================================================
-• Remove Workspace concept
- • Use something else since BE does not support it
- ```
- • rename this to workspace in Typescript
- ```
-
-==================================================
              BUSINESS FLOW
 ==================================================
 Tasks:
@@ -18,15 +9,13 @@ Tasks:
              LOCATION DETAILS
 ==================================================
 Tasks:
-  • Add employee to location (as owner)
-  • Delete location (as owner)
   • Show location stats
 
 ==================================================
              EMPLOYEE DETAILS
 ==================================================
 Tasks:
-  •
+  • Show employee stats
 
 ==================================================
                 MEDIA
@@ -40,18 +29,6 @@ Tasks:
                 CAMERA
 ==================================================
   • Use native camera first
-
-==================================================
-                KF (IMAGES)
-==================================================
-  • Add Rune param for image tint loading options
-
-==================================================
-        SECURITY & PRIVACY
-==================================================
-  • Secure Mode toggle
-  • Add secure pin (API)
-  • Encode on API / Decode on Frontend
 
 ==================================================
                 SETTINGS
@@ -73,15 +50,27 @@ Tasks:
   • Subscribe to service
   
 ==================================================
+        SECURITY & PRIVACY
+==================================================
+  • Secure Mode toggle
+  • Add secure pin (API)
+  • Encode on API / Decode on Frontend
+  
+==================================================
                 PRE TESTFLIGHT
 ==================================================
 Tasks:
 • Basic Camera Apple's
 • Way to show empty state for new users
-• Invite / Create Employees, Clients, Locations, Businesses, Photos, (Activities?)
-• Delete for each of the above (owner only)
-• Client Details Screen (What is it?)
-
+• Delete Pending Employee Invite
+  
+==================================================
+                DELETE EMPLOYEE
+==================================================
+Tasks:
+    • Show alert from business home if user is still part of locations
+    • remove from locations first
+    
 ==================================================
                 DELETE ACCOUNT
 ==================================================
@@ -94,11 +83,9 @@ Tasks:
   • Delete from firebase?
   
 ==================================================
-                DELETE EMPLOYEE
+                KF (IMAGES)
 ==================================================
-Tasks:
-    • Show alert that says from location or org?
-        • Only For Manager
+  • Add Rune param for image tint loading options
     
 ==================================================
                 BACKEND

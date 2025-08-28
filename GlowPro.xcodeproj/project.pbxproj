@@ -248,8 +248,6 @@
 		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
-		75601C0F2E5FE1AF00F7EF48 /* DeleteEmployeeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75601C0E2E5FE1AA00F7EF48 /* DeleteEmployeeAlert.swift */; };
-		75601C102E5FE1AF00F7EF48 /* DeleteEmployeeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75601C0E2E5FE1AA00F7EF48 /* DeleteEmployeeAlert.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */; };
@@ -636,7 +634,6 @@
 		755C97E92D9CC86900437D5D /* GlowPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GlowProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GlowProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		75601C0E2E5FE1AA00F7EF48 /* DeleteEmployeeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEmployeeAlert.swift; sourceTree = "<group>"; };
 		7560ACD82E2835ED00A30E55 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
 		7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeViewModel.swift; sourceTree = "<group>"; };
 		7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeScreen.swift; sourceTree = "<group>"; };
@@ -1817,7 +1814,6 @@
 			isa = PBXGroup;
 			children = (
 				75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */,
-				75601C0E2E5FE1AA00F7EF48 /* DeleteEmployeeAlert.swift */,
 				754E51E12E54283900258225 /* InvitationAlert.swift */,
 			);
 			path = Alerts;
@@ -2197,7 +2193,6 @@
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
 				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
-				75601C102E5FE1AF00F7EF48 /* DeleteEmployeeAlert.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -2433,7 +2428,6 @@
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
 				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
-				75601C0F2E5FE1AF00F7EF48 /* DeleteEmployeeAlert.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */,
