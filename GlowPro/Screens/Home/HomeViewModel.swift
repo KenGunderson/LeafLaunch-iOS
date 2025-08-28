@@ -106,7 +106,7 @@ final class HomeViewModel: ViewModel {
                     self?.pendingInvites = pendingInvites
                     
                     self?.checklistItems = [
-                        .init(type: .completeProfile, isComplete: false),
+                        .init(type: .completeProfile, isComplete: true),
                         .init(type: .createOrJoinBusiness, isComplete: false),
                         .init(type: .addClient, isComplete: false),
                         .init(type: .takeAPhoto, isComplete: false),

@@ -115,7 +115,8 @@ struct ChecklistView: View {
                     .cornerRadius(.small)
                     .appBorder(
                         cornerRadius: .small,
-                        color: .color(item.type.color)
+                        color: .color(item.type.color),
+                        lineWidth: 2
                     )
                 
                 Text(item.type.displayName)

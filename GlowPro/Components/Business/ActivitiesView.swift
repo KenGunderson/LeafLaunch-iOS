@@ -44,11 +44,10 @@ struct ActivitiesView: View {
     private func section(date: String,
                          activities: [Activity]) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text(date)
                 .appFont(with: .TITLE_4)
-                .padding(.bottom, .small)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             activityList(activities: activities)
@@ -59,8 +58,12 @@ struct ActivitiesView: View {
     
     private func activityList(activities: [Activity]) -> some View {
         
-        ForEach(activities, id: \.id) { activity in
-            ActivityView(activity: activity)
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            ForEach(activities, id: \.id) { activity in
+                ActivityView(activity: activity)
+            }
+            
         }
         
     }
