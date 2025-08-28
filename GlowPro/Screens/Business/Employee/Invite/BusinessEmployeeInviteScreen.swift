@@ -195,7 +195,7 @@ struct BusinessEmployeeInviteScreen: GPView {
     @ViewBuilder
     private func locationPicker() -> some View {
         
-        let locations = self.viewModel.business?.locations ?? []
+        let locations = self.viewModel.eligibleLocations
         let locationNames = locations.map(\.name)
         
         if !locations.isEmpty {

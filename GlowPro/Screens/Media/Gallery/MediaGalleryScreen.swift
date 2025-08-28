@@ -119,6 +119,7 @@ struct MediaGalleryScreen: GPView {
             .padding(.top, -8)
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, .medium)
         .animation(.snappy, value: self.viewModel.showFilters)
         .animation(.snappy, value: self.viewModel.showSortingDropdown)

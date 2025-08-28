@@ -95,6 +95,13 @@ struct ClientDetailsScreen: GPView {
                 
             }
         
+            .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
+                
+                guard newValue else { return }
+                dismiss()
+                
+            }
+        
     }
     
     @ViewBuilder
@@ -135,24 +142,39 @@ struct ClientDetailsScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let pencilButton = NavBarButton(style: .pencil) {
+        let trailingButtons = HStack {
             
-            self.tabBarNavigationService
-                .shouldShowTabBar(false)
+            if self.viewModel.isOwnerOrManager {
+                
+                NavBarButton(style: .trash) {
+                    
+                    self.viewModel
+                        .presentDeleteClientAlert()
+                    
+                }
+                
+            }
             
-            self.tabBarNavigationService
-                .tab1NavigationService
-                .push(.client(.clientCreate(
-                    locationId: nil,
-                    clientId: self.viewModel.client?.id)
-                ))
+            NavBarButton(style: .pencil) {
+                
+                self.tabBarNavigationService
+                    .shouldShowTabBar(false)
+                
+                self.tabBarNavigationService
+                    .tab1NavigationService
+                    .push(.client(.clientCreate(
+                        locationId: nil,
+                        clientId: self.viewModel.client?.id)
+                    ))
+                
+            }
             
         }
         .asAnyView()
         
         NavBarView(
             title: "Client Details",
-            rightButtonView: pencilButton
+            rightButtonView: trailingButtons
         )
         
     }

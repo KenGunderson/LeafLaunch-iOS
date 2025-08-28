@@ -28,7 +28,7 @@ final class BusinessLocationDetailsViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     var isOwner: Bool {
-        self.activeDestinationService.isOwner
+        return self.activeDestinationService.isOwner
     }
     
     init(apiService: APIServiceProtocol,

@@ -16,27 +16,39 @@ final class ClientDetailsViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     @Published private(set) var client: Client?
     @Published var selectedActivitiesFilter: String?
+    
+    @Published private(set) var shouldDismiss: Bool = false
     
     private var clientId: String!
     
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
+    var isOwnerOrManager: Bool {
+        return self.activeDestinationService.isOwnerOrManager
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         activeDestinationService: ActiveDestinationServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
         bindSubsribers()
@@ -103,6 +115,59 @@ final class ClientDetailsViewModel: ViewModel {
         
         self.analyticsService
             .track(.main(.tabIntent(tab: tab)))
+        
+    }
+    
+    func presentDeleteClientAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Delete Client?",
+                message: "You are attemping to delete your client. This action cannot be undone. Are you sure you wish to continue?",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteClient()
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteClient() {
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteClient(id: self.clientId)
+                
+                await MainActor.run { [weak self] in
+                    
+                    self?.viewLifecycleService
+                        .reload(for: .clientList)
+                    
+                    self?.shouldDismiss = true
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.error(
+                        message: Constants.Error.errorMessage(context: .delete, "location"),
+                        action: {})
+                    )))
+                
+            }
+            
+        }
         
     }
     

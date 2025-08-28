@@ -66,15 +66,15 @@ struct BusinessLocationDetailsScreen: GPView {
                     
                 }
                 
-                NavBarButton(style: .pencil) {
-                    
-                    self.navigationService
-                        .push(.business(.businessLocationCreateEdit(
-                            businessId: self.viewModel.businessId,
-                            locationId: self.viewModel.location?.id
-                        )))
-                    
-                }
+            }
+            
+            NavBarButton(style: .pencil) {
+                
+                self.navigationService
+                    .push(.business(.businessLocationCreateEdit(
+                        businessId: self.viewModel.businessId,
+                        locationId: self.viewModel.location?.id
+                    )))
                 
             }
             

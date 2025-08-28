@@ -37,27 +37,34 @@ final class BusinessEmployeesViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var employees: [Employee] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
     
-    private var businessId: String!
+    private(set) var businessId: String!
     private var context: Context!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
+    var isOwnerOrManager: Bool {
+        return self.activeDestinationService.isOwnerOrManager
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()

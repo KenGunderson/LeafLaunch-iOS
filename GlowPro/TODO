@@ -8,13 +8,6 @@ Owner Only Actions:
   • Edit employees
 
 ==================================================
-     CLIENT / LOCATION / BUSINESS / EMPLOYEE
-==================================================
-Decisions:
-  • Delete calls on details page
-    OR on outer layer?
-
-==================================================
              BUSINESS FLOW
 ==================================================
 Tasks:
@@ -33,16 +26,7 @@ Tasks:
              EMPLOYEE DETAILS
 ==================================================
 Tasks:
-  • Show which locations this employee works at
-    (restricted to current business)
-  • Add plus to invite
-    • As Manager you can only invite to the current location
-    • As owner you can invite to many locations
-Open Questions:
-  • Do we auto accept invites for an employee that already exists in the same business, but another location? (YES)
-    • BE can do this with another check in the create invite endpoint
-  # OR
-    • should a manager be able to see and add people to a location across the ORG (NO)
+  •
 
 ==================================================
                 MEDIA

@@ -59,9 +59,20 @@ struct BusinessEmployeesScreen: GPView {
         }
         .asAnyView()
         
+        let plusButton = NavBarButton(style: .plus) {
+            
+            self.navigationService
+                .push(.business(.businessEmployeesInvite(
+                    businessId: self.viewModel.businessId
+                )))
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: "Employees",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.isOwnerOrManager ? plusButton : nil
         )
         
     }

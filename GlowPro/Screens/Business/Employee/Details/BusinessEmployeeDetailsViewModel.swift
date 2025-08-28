@@ -28,8 +28,8 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    var isOwner: Bool {
-        return self.activeDestinationService.isOwner
+    var isOwnerOrManager: Bool {
+        return self.activeDestinationService.isOwnerOrManager
     }
     
     init(apiService: APIServiceProtocol,
@@ -119,6 +119,8 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     }
     
     func presentDeleteEmployeeAlert() {
+        
+        // TODO: - REMOVE THIS FOR CARD
         
         self.alertService
             .showAlert(.init(.appAlert(.init(

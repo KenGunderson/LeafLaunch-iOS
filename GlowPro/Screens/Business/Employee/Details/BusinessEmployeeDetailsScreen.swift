@@ -55,9 +55,18 @@ struct BusinessEmployeeDetailsScreen: GPView {
         }
         .asAnyView()
         
+        let deleteButton = NavBarButton(style: .trash) {
+            
+            self.viewModel
+                .presentDeleteEmployeeAlert()
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: "Employee Details",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.isOwnerOrManager ? deleteButton : nil
         )
         
     }

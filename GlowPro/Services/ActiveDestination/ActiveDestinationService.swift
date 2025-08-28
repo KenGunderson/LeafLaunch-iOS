@@ -56,6 +56,7 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     func setActiveDestination(_ destination: ActiveDestination) {
         
         self.activeDestination = destination
+        loadData()
         self.log(message: "Set active destination: \(destination)")
         
     }

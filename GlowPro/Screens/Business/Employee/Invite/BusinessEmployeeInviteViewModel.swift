@@ -16,6 +16,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var business: Business?
@@ -24,6 +25,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     @Published var email: String = ""
     @Published var selectedRole: Role? = .employee
     @Published var selectedLocations: [Location] = []
+    
+    private var isOwner: Bool {
+        return self.activeDestinationService.isOwner
+    }
     
     let locationRoles = Role.LocationRoles
     
@@ -36,6 +41,26 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         
     }
     
+    var eligibleLocations: [Location] {
+        
+        let allLocations = self.business?.locations ?? []
+        let isLocationContext = self.activeDestinationService.activeDestination?.isLocation ?? false
+        let locationId = self.activeDestinationService.activeDestination?.destinationId
+        
+        if self.isOwner {
+            return allLocations
+        }
+        else if self.activeDestinationService.isManager,
+                isLocationContext {
+            
+            return allLocations.filter { $0.id == locationId ?? "" }
+            
+        }
+        
+        return allLocations
+        
+    }
+    
     private var businessId: String!
 
     private var navigationService: NavigationService?
@@ -45,12 +70,14 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
