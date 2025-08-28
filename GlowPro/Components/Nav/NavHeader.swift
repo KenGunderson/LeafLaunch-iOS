@@ -73,9 +73,17 @@ struct NavHeader: View {
         
         AvatarView(
             style: avatar,
-            backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.25))
+            backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.10))
         )
-        .frame(width: 40, height: 40)
+        .frame(
+            width: 40,
+            height: 40
+        )
+        .appBorder(
+            cornerRadius: .custom(20),
+            color: Style.shared.accent,
+            lineWidth: 2
+        )
         
     }
     

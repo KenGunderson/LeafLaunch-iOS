@@ -40,10 +40,15 @@ struct QuickActionTileView: View {
         ) {
             
             CircularIconView(
-                foregroundColor: .color(.white),
-                backgroundColor: self.iconBackgroundColor,
+                foregroundColor: self.iconBackgroundColor,
+                backgroundColor: .color(self.iconBackgroundColor.asColor!.opacity(0.10)),
                 imageSource: self.icon,
                 size: 40
+            )
+            .appBorder(
+                cornerRadius: .custom(20),
+                color: self.iconBackgroundColor,
+                lineWidth: 2
             )
             
             Text(self.title)

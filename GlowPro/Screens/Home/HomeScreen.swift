@@ -140,19 +140,23 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func workspacesList() -> some View {
         
-        ForEach(self.viewModel.workspaces, id: \.id) { workspace in
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            ForEach(workspace.roleLocations, id: \.id) { roleLocation in
+            ForEach(self.viewModel.workspaces, id: \.id) { workspace in
                 
-                LocationCardView(
-                    businessName: workspace.name,
-                    businessLocation: roleLocation.location,
-                    role: roleLocation.role
-                )
-                .asButton {
+                ForEach(workspace.roleLocations, id: \.id) { roleLocation in
                     
-                    self.viewModel.setActiveDestination(.location(locationId: roleLocation.location.id))
-                    self.navigationService.push(.business(.businessLocationHome(locationId: roleLocation.location.id)))
+                    LocationCardView(
+                        businessName: workspace.name,
+                        businessLocation: roleLocation.location,
+                        role: roleLocation.role
+                    )
+                    .asButton {
+                        
+                        self.viewModel.setActiveDestination(.location(locationId: roleLocation.location.id))
+                        self.navigationService.push(.business(.businessLocationHome(locationId: roleLocation.location.id)))
+                        
+                    }
                     
                 }
                 
