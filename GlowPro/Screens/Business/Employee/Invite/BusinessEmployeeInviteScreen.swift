@@ -62,6 +62,9 @@ struct BusinessEmployeeInviteScreen: GPView {
             .onChange(of: self.selectedRole) { _, newValue in
                 self.viewModel.updateSelectedRole(newValue)
             }
+            .onChange(of: self.viewModel.selectedLocations) { _, newValue in
+                self.selectedLocations = Set(newValue.map(\.name))
+            }
         
         // Tap
         

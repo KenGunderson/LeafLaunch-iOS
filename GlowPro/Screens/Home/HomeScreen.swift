@@ -129,17 +129,17 @@ struct HomeScreen: GPView {
         
         ForEach(self.viewModel.workspaces, id: \.id) { workspace in
             
-            ForEach(workspace.locations, id: \.id) { location in
+            ForEach(workspace.roleLocations, id: \.id) { roleLocation in
                 
                 LocationCardView(
                     businessName: workspace.name,
-                    businessLocation: location,
-                    isOwner: workspace.isOwner
+                    businessLocation: roleLocation.location,
+                    role: roleLocation.role
                 )
                 .asButton {
                     
-                    self.viewModel.setActiveDestination(.location(locationId: location.id))
-                    self.navigationService.push(.business(.businessLocationHome(locationId: location.id)))
+                    self.viewModel.setActiveDestination(.location(locationId: roleLocation.location.id))
+                    self.navigationService.push(.business(.businessLocationHome(locationId: roleLocation.location.id)))
                     
                 }
                 

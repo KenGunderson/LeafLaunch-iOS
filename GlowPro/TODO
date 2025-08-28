@@ -1,11 +1,11 @@
 ==================================================
-                PERMISSIONS
+                NEXT UP
 ==================================================
-Owner Only Actions:
-  • Edit locations
-  • Add locations
-  • Add employees
-  • Edit employees
+• Remove Workspace concept
+ • Use something else since BE does not support it
+ ```
+ • rename this to workspace in Typescript
+ ```
 
 ==================================================
              BUSINESS FLOW

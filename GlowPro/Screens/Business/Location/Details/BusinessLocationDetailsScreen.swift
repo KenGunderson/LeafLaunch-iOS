@@ -108,6 +108,20 @@ struct BusinessLocationDetailsScreen: GPView {
                 }
                 
             }
+            .asButton {
+                
+                self.viewModel
+                    .setActiveDestination(.location(locationId: self.viewModel.location?.id ?? ""))
+                
+                self.navigationService
+                    .push(.business(.businessLocationHome(locationId: self.viewModel.location?.id ?? "") {
+                       
+                        self.viewModel
+                            .setActiveDestination(.business(businessId: self.viewModel.businessId))
+                        
+                    }))
+                
+            }
             
         }
         .padding(.horizontal, .medium)

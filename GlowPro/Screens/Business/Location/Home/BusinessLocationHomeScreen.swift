@@ -52,9 +52,7 @@ struct BusinessLocationHomeScreen: GPView {
     
     @ViewBuilder
     private func navBarView() -> some View {
-        
-        let trailingNavButtons: [NavBarButton.Style] = self.viewModel.isOwner ? [.settings] : []
-        
+                
         NavHeader(
             title: self.viewModel.business?.name ?? "",
             subtitle: self.viewModel.location?.name ?? "",
@@ -62,19 +60,15 @@ struct BusinessLocationHomeScreen: GPView {
             leadingNavButtonsAction: { navItem in
                 
                 switch navItem {
-                case .back: self.dismiss()
+                case .back:
+                    
+                    self.viewModel.completion?()
+                    self.dismiss()
+                    
                 default: fatalError("Not Implemented")
                 }
                 
-            },
-            trailingNavButtons: trailingNavButtons) { navItem in
-                
-                switch navItem {
-                case .settings: self.navigationService.modal(fullScreenCover: .settings)
-                default: fatalError("Not Implemented")
-                }
-                
-            }
+            })
             .padding(.bottom, .custom(4))
             .padding(.horizontal, .medium)
         
@@ -206,7 +200,7 @@ struct BusinessLocationHomeScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessLocationHomeViewModel.self)
-        .setup(locationId: MockModels.ID.location1)
+        .setup(locationId: MockModels.ID.location1, completion: {})
     
     BusinessLocationHomeScreen(viewModel: viewModel)
         .withMockServices()

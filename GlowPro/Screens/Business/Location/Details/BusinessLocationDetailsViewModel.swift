@@ -71,6 +71,13 @@ final class BusinessLocationDetailsViewModel: ViewModel {
         
     }
     
+    func setActiveDestination(_ activeDestination: ActiveDestination) {
+        
+        self.activeDestinationService
+            .setActiveDestination(activeDestination)
+        
+    }
+    
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
     }

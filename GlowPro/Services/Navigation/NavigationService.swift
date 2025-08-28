@@ -278,10 +278,13 @@ extension View {
                 BusinessEmployeeDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessLocationHome(let locationId):
+            case .businessLocationHome(let locationId, let completion):
                 
                 let viewModel = globalResolver.resolve(BusinessLocationHomeViewModel.self)!
-                    .setup(locationId: locationId)
+                    .setup(
+                        locationId: locationId,
+                        completion: completion
+                    )
                 
                 BusinessLocationHomeScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

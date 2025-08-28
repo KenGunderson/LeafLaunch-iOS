@@ -289,7 +289,7 @@ final class MockAPIService: APIServiceProtocol {
                 id: "owner_workspace",
                 name: businessDetails.name,
                 isOwner: true,
-                locations: businessDetails.locations
+                roleLocations: businessDetails.locations.map { return .init(role: .owner, location: $0) }
             )
             
             workspaces.append(ownedWorkspace)
@@ -305,7 +305,7 @@ final class MockAPIService: APIServiceProtocol {
                 id: UUID().uuidString,
                 name: businessDetails.name,
                 isOwner: false,
-                locations: [location]
+                roleLocations: [.init(role: employee.role, location: location)]
             )
             
             workspaces.append(employedWorkspace)
@@ -345,7 +345,7 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getEmployee(id: String) async throws -> Employee {
-        return self.employees.first ?? .DUMMY_DATA()
+        return self.employees.filter { $0.id == id }.first ?? .DUMMY_DATA()
     }
     
     func createEmployee(employee: Employee) async throws -> Employee {
@@ -392,9 +392,8 @@ final class MockAPIService: APIServiceProtocol {
            let employeeInviteIndex = self.businesses[businessIndex].employeeInvites.firstIndex(of: invite) {
             
             let business = self.businesses[businessIndex]
-            let invitedLocations = invite.locations.isEmpty ? business.locations : invite.locations
             
-            for location in invitedLocations {
+            for location in invite.locations {
                 
                 let employee = Employee(
                     id: UUID().uuidString,
@@ -417,8 +416,8 @@ final class MockAPIService: APIServiceProtocol {
         }
         
     }
-    
-    func declineEmployeeInvite(invite: EmployeeInvite) async throws {
+
+func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
         if let businessIndex = self.businesses.firstIndex(where: { $0.name == invite.businessName }),
            let employeeInviteIndex = self.businesses[businessIndex].employeeInvites.firstIndex(of: invite) {

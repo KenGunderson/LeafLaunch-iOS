@@ -27,6 +27,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
     @Published private(set) var location: Location?
     
     private(set) var locationId: String!
+    private(set) var completion: (() -> ())?
     
     var isOwner: Bool {
         self.activeDestinationService.isOwner
@@ -56,9 +57,12 @@ final class BusinessLocationHomeViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(locationId: String) -> Self {
+    func setup(locationId: String,
+               completion: (() -> ())?) -> Self {
         
         self.locationId = locationId
+        self.completion = completion
+        
         return self
         
     }

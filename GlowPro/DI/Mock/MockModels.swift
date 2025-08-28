@@ -18,7 +18,7 @@ struct MockModels {
     }
     
     static var allLocations: [Location] {
-        return [MockLocation.location1, MockLocation.location2, MockLocation.location3]
+        return [MockLocation.location1, MockLocation.location2, MockLocation.location3, MockLocation.location4]
     }
     
     static var allEmployees: [Employee] {
@@ -26,7 +26,7 @@ struct MockModels {
     }
     
     static var allEmployeeInvites: [EmployeeInvite] {
-        return [MockEmployeeInvite.employeeInvite1, MockEmployeeInvite.employeeInvite2, MockEmployeeInvite.employeeInvite3]
+        return [MockEmployeeInvite.employeeInvite1, MockEmployeeInvite.employeeInvite2, MockEmployeeInvite.employeeInvite3, MockEmployeeInvite.employeeInvite4]
     }
     
     static var allWorkspaces: [Workspace] {
@@ -128,6 +128,7 @@ struct MockModels {
         static let location1: String = UUID().uuidString
         static let location2: String = UUID().uuidString
         static let location3: String = UUID().uuidString
+        static let location4: String = UUID().uuidString
         
         static let employee1: String = UUID().uuidString
         static let employee2: String = UUID().uuidString
@@ -135,6 +136,7 @@ struct MockModels {
         static let employeeInvite1: String = UUID().uuidString
         static let employeeInvite2: String = UUID().uuidString
         static let employeeInvite3: String = UUID().uuidString
+        static let employeeInvite4: String = UUID().uuidString
         
         static let client1: String = UUID().uuidString
         static let client2: String = UUID().uuidString
@@ -202,22 +204,44 @@ struct MockModels {
         
         nonisolated(unsafe)
         static var workspace1: Workspace {
-            Workspace(
+            
+            let role: Role = (MockModels.MockBusiness.business1.owner.id == ID.user1) ? .owner : .employee
+            
+            let roleLocations: [Workspace.RoleLocation] = MockModels.MockBusiness.business1.locations.map { location in
+                return .init(
+                    role: role,
+                    location: location
+                )
+            }
+            
+            return Workspace(
                 id: ID.business1,
                 name: MockModels.MockBusiness.business1.name,
-                isOwner: MockModels.MockBusiness.business1.owner.id == ID.user1,
-                locations: MockModels.MockBusiness.business1.locations
+                isOwner: role == .owner,
+                roleLocations: roleLocations
             )
+            
         }
         
         nonisolated(unsafe)
         static var workspace2: Workspace {
-            Workspace(
+            
+            let role: Role = (MockModels.MockBusiness.business2.owner.id == ID.user1) ? .owner : .employee
+            
+            let roleLocations: [Workspace.RoleLocation] = MockModels.MockBusiness.business2.locations.map { location in
+                return .init(
+                    role: role,
+                    location: location
+                )
+            }
+            
+            return Workspace(
                 id: ID.business2,
                 name: MockModels.MockBusiness.business2.name,
-                isOwner: MockModels.MockBusiness.business2.owner.id == ID.user1,
-                locations: MockModels.MockBusiness.business2.locations
+                isOwner: role == .owner,
+                roleLocations: roleLocations
             )
+            
         }
         
     }
@@ -314,6 +338,16 @@ struct MockModels {
             clients: []
         )
         
+        nonisolated(unsafe)
+        static var location4 = Location(
+            id: ID.location4,
+            businessId: ID.business3,
+            name: "Manager Location",
+            address: .DUMMY_DATA(),
+            employees: [],
+            clients: []
+        )
+        
     }
     
     struct MockBusiness {
@@ -357,10 +391,12 @@ struct MockModels {
             address: .DUMMY_DATA(),
             owner: MockUser.user2,
             locations: [
-                MockLocation.location3
+                MockLocation.location3,
+                MockLocation.location4
             ],
             employeeInvites: [
                 MockEmployeeInvite.employeeInvite3,
+                MockEmployeeInvite.employeeInvite4,
             ]
         )
         
@@ -381,7 +417,10 @@ struct MockModels {
             id: ID.employeeInvite2,
             name: "Monkey D. Luffy",
             email: "monkey@me.com",
-            businessName: "My First Business"
+            businessName: "My First Business",
+            locations: [
+                MockLocation.location2
+            ],
         )
         
         nonisolated(unsafe)
@@ -389,7 +428,22 @@ struct MockModels {
             id: ID.employeeInvite3,
             name: "Sako Hovaguimian",
             email: "dope@me.com",
-            businessName: "Body Sculpting Magic"
+            businessName: "Body Sculpting Magic",
+            locations: [
+                MockLocation.location3
+            ],
+        )
+        
+        nonisolated(unsafe)
+        static var employeeInvite4 = EmployeeInvite(
+            id: ID.employeeInvite4,
+            name: "Sako Hovaguimian",
+            email: "dope@me.com",
+            businessName: "Body Sculpting Magic",
+            locations: [
+                MockLocation.location4
+            ],
+            role: .manager
         )
         
     }

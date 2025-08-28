@@ -38,7 +38,9 @@ enum Route: Navigation, Hashable, Sendable {
         case businessDetails(businessId: String)
         case businessCreateEdit(businessId: String?)
         
-        case businessLocationHome(locationId: String)
+        case businessLocationHome(locationId: String,
+                                  completion: (() -> ())? = nil)
+                                  
         case businessLocationList(businessId: String)
         
         case businessLocationCreateEdit(businessId: String,
@@ -173,5 +175,97 @@ enum Route: Navigation, Hashable, Sendable {
     case business(Business)
     case client(Client)
     case media(Media)
+    
+}
+
+extension Route.Business {
+    
+    static func == (lhs: Route.Business, rhs: Route.Business) -> Bool {
+        
+        switch (lhs, rhs) {
+        case let (.businessHome(id1), .businessHome(id2)):
+            return id1 == id2
+        case let (.businessDetails(id1), .businessDetails(id2)):
+            return id1 == id2
+        case let (.businessCreateEdit(id1), .businessCreateEdit(id2)):
+            return id1 == id2
+        case let (.businessLocationHome(id1, _), .businessLocationHome(id2, _)):
+            return id1 == id2
+        case let (.businessLocationList(id1), .businessLocationList(id2)):
+            return id1 == id2
+        case let (.businessLocationCreateEdit(b1, l1),
+                  .businessLocationCreateEdit(b2, l2)):
+            return b1 == b2 && l1 == l2
+        case let (.businessLocationDetails(b1, l1),
+                  .businessLocationDetails(b2, l2)):
+            return b1 == b2 && l1 == l2
+        case let (.businessEmployees(b1, c1), .businessEmployees(b2, c2)):
+            return b1 == b2 && c1 == c2
+        case let (.businessEmployeesInvite(b1), .businessEmployeesInvite(b2)):
+            return b1 == b2
+        case let (.businessEmployeeInviteList(c1), .businessEmployeeInviteList(c2)):
+            return c1 == c2
+        case let (.businessEmployeesUpdate(b1, e1), .businessEmployeesUpdate(b2, e2)):
+            return b1 == b2 && e1 == e2
+        case let (.businessEmployeeDetails(b1, e1), .businessEmployeeDetails(b2, e2)):
+            return b1 == b2 && e1 == e2
+        case let (.businessActivitiesList(c1), .businessActivitiesList(c2)):
+            return c1 == c2
+        default:
+            return false
+        }
+        
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        
+        switch self {
+        case let .businessHome(id):
+            hasher.combine(0)
+            hasher.combine(id)
+        case let .businessDetails(id):
+            hasher.combine(1)
+            hasher.combine(id)
+        case let .businessCreateEdit(id):
+            hasher.combine(2)
+            hasher.combine(id)
+        case let .businessLocationHome(id, _):
+            hasher.combine(3)
+            hasher.combine(id)
+        case let .businessLocationList(id):
+            hasher.combine(4)
+            hasher.combine(id)
+        case let .businessLocationCreateEdit(b, l):
+            hasher.combine(5)
+            hasher.combine(b)
+            hasher.combine(l)
+        case let .businessLocationDetails(b, l):
+            hasher.combine(6)
+            hasher.combine(b)
+            hasher.combine(l)
+        case let .businessEmployees(b, c):
+            hasher.combine(7)
+            hasher.combine(b)
+            hasher.combine(c)
+        case let .businessEmployeesInvite(b):
+            hasher.combine(8)
+            hasher.combine(b)
+        case let .businessEmployeeInviteList(c):
+            hasher.combine(9)
+            hasher.combine(c)
+        case let .businessEmployeesUpdate(b, e):
+            hasher.combine(10)
+            hasher.combine(b)
+            hasher.combine(e)
+        case let .businessEmployeeDetails(b, e):
+            hasher.combine(11)
+            hasher.combine(b)
+            hasher.combine(e)
+        case let .businessActivitiesList(c):
+            hasher.combine(12)
+            hasher.combine(c)
+        }
+        
+    }
     
 }

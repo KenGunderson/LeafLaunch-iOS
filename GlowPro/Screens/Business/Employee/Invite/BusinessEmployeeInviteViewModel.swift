@@ -41,25 +41,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         
     }
     
-    var eligibleLocations: [Location] {
-        
-        let allLocations = self.business?.locations ?? []
-        let isLocationContext = self.activeDestinationService.activeDestination?.isLocation ?? false
-        let locationId = self.activeDestinationService.activeDestination?.destinationId
-        
-        if self.isOwner {
-            return allLocations
-        }
-        else if self.activeDestinationService.isManager,
-                isLocationContext {
-            
-            return allLocations.filter { $0.id == locationId ?? "" }
-            
-        }
-        
-        return allLocations
-        
-    }
+    var eligibleLocations: [Location] = []
     
     private var businessId: String!
 
@@ -120,7 +102,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                     .getBusiness(id: self.businessId)
                 
                 await MainActor.run { [weak self] in
+                    
                     self?.business = business
+                    self?.setEligableLocations()
+                    
                 }
                 
             }
@@ -206,6 +191,27 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    private func setEligableLocations() {
+        
+        let allLocations = self.business?.locations ?? []
+        let locationId = self.activeDestinationService.activeDestination?.destinationId
+        let currentLocationArray = allLocations.filter { $0.id == (locationId ?? "") }
+        
+        let isLocationContext = self.activeDestinationService.activeDestination?.isLocation ?? false
+        
+        if isLocationContext {
+            
+            self.eligibleLocations = currentLocationArray
+            self.selectedLocations = currentLocationArray
+            
+        } else {
+            
+            self.eligibleLocations = allLocations
+            
+        }
+                
     }
     
     @MainActor

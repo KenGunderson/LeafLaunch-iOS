@@ -11,21 +11,41 @@ struct LocationCardView: View {
     
     private let businessName: String
     private let businessLocation: Location
-    private let isOwner: Bool
+    private let role: Role
     
     let cornerRadius: CGFloat = Style.shared.radius(.small2)
     
     var backgroundColor: Color {
-        return self.isOwner ? GPColor.lightGreen : GPColor.lightOrange
+        switch role {
+        case .owner: return GPColor.lightGreen
+        case .manager: return GPColor.lightPurple
+        default: return GPColor.lightOrange
+        }
+    }
+    
+    var tokenTextColor: Color {
+        switch role {
+        case .owner: return GPColor.green
+        case .manager: return GPColor.purple
+        default: return GPColor.orange
+        }
+    }
+    
+    var tokenBackgroundColor: Color {
+        switch role {
+        case .owner: return GPColor.fadedGreen
+        case .manager: return GPColor.fadedPurple
+        default: return GPColor.fadedOrange
+        }
     }
     
     init(businessName: String,
          businessLocation: Location,
-         isOwner: Bool) {
+         role: Role) {
         
         self.businessName = businessName
         self.businessLocation = businessLocation
-        self.isOwner = isOwner
+        self.role = role
         
     }
     
@@ -51,9 +71,7 @@ struct LocationCardView: View {
     
     private func businessHeaderView() -> some View {
         
-        let tokenText = self.isOwner ? "Owner" : "Employee"
-        let tokenTextColor = self.isOwner ? GPColor.green : GPColor.orange
-        let tokenBackgroundColor = self.isOwner ? GPColor.fadedGreen : GPColor.fadedOrange
+        let tokenText: String = self.role.description
         
         return HStack {
             
@@ -138,14 +156,21 @@ struct LocationCardView: View {
             LocationCardView(
                 businessName: business.name,
                 businessLocation: business.locations.first!,
-                isOwner: true
+                role: .owner
             )
             .padding(.horizontal, .medium)
             
             LocationCardView(
                 businessName: business2.name,
                 businessLocation: business2.locations.first!,
-                isOwner: false
+                role: .manager
+            )
+            .padding(.horizontal, .medium)
+            
+            LocationCardView(
+                businessName: business2.name,
+                businessLocation: business2.locations.first!,
+                role: .employee
             )
             .padding(.horizontal, .medium)
             
