@@ -102,7 +102,11 @@ struct HomeScreen: GPView {
             ) {
                 self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
             }
-            .appBorder(cornerRadius: .medium, color: .color(.indigo), lineWidth: 2)
+            .appBorder(
+                cornerRadius: .medium,
+                color: .color(.indigo),
+                lineWidth: 2
+            )
             
             InfoView(
                 title: "My Business Dashboard",

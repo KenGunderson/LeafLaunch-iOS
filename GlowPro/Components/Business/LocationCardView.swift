@@ -63,7 +63,7 @@ struct LocationCardView: View {
         .overlay {
             
             RoundedRectangle(cornerRadius: self.cornerRadius)
-                .stroke(self.backgroundColor, lineWidth: 1)
+                .stroke(self.backgroundColor, lineWidth: 3.5)
             
         }
         
