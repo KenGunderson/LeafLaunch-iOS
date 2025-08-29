@@ -73,6 +73,11 @@ final class BusinessLocationDetailsViewModel: ViewModel {
     
     func setActiveDestination(_ activeDestination: ActiveDestination) {
         
+        let currentDestinationId = self.activeDestinationService.activeDestination?.destinationId
+        let nextDestinationId = activeDestination.destinationId
+        
+        guard currentDestinationId != nextDestinationId else { return }
+        
         self.activeDestinationService
             .setActiveDestination(activeDestination)
         

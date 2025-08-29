@@ -35,6 +35,16 @@ struct BusinessLocationDetailsScreen: GPView {
                     .loadData()
                 
             }
+            .onChange(of: self.navigationService.routes) { oldValue, newValue in
+                
+                if oldValue.last == .business(.businessLocationHome(locationId: self.viewModel.location?.id ?? "", completion: nil)) {
+                    
+                    self.viewModel
+                        .setActiveDestination(.business(businessId: self.viewModel.businessId))
+                    
+                }
+                
+            }
         
     }
     
