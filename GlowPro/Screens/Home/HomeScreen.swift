@@ -99,6 +99,14 @@ struct HomeScreen: GPView {
             
             SectionView(leadingTitle: "First Steps", showDivider: true)
             
+            OpenNewBusinessView()
+                .asButton {
+                   
+                    self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
+                    self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
+                    
+                }
+            
             ChecklistView(checklistItems: self.viewModel.checklistItems)
             
             SectionView(leadingTitle: "Choose Your Location", showDivider: true)
@@ -115,41 +123,19 @@ struct HomeScreen: GPView {
     
     private func itemViews() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small)) {
-            
-            InfoView(
-                title: "You Have Pending Invites",
-                titleFont: .TITLE_4,
-                imageSource: .systemImage("bell.fill"),
-                foregroundStyle: .color(.indigo),
-                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
-                appBorderConfig: .init(
-                    cornerRadius: .small2,
-                    tintColor: .color(.indigo),
-                    lineWidth: 2
-                )
-            ) {
-                self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
-            }
-            
-            InfoView(
-                title: "My Business Dashboard",
-                titleFont: .TITLE_4,
-                imageSource: .systemImage("bell.fill"),
-                foregroundStyle: Style.shared.accent,
-                clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
-                appBorderConfig: .init(
-                    cornerRadius: .small2,
-                    tintColor: Style.shared.accent,
-                    lineWidth: 2
-                )
-            ) {
-                
-                self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
-                self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
-                
-            }
-            
+        InfoView(
+            title: "You Have Pending Invites",
+            titleFont: .TITLE_4,
+            imageSource: .systemImage("bell.fill"),
+            foregroundStyle: .color(.indigo),
+            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
+            appBorderConfig: .init(
+                cornerRadius: .small2,
+                tintColor: .color(.indigo),
+                lineWidth: 2
+            )
+        ) {
+            self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
         }
         
     }
