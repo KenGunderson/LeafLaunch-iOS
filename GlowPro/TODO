@@ -4,12 +4,18 @@
 Tasks:
   • Support empty state for new users
   • Create Business Flow → leads to Business Home
+    • Have it have 2 states for layout -> Create / Go To Dashboard / pass optional businessObject in
 
 ==================================================
              LOCATION DETAILS
 ==================================================
 Tasks:
   • Show location stats
+
+==================================================
+            LOCATION_LIST
+==================================================
+  • Have create button for locationList
 
 ==================================================
              EMPLOYEE DETAILS
