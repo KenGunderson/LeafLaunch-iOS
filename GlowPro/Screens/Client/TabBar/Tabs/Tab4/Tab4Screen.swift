@@ -23,7 +23,6 @@ struct TabBar4Screen: GPView {
             alertService: nil) {
                 
                 content()
-                    .tag(self.tab)
                 
                 // Lifecycle
                 

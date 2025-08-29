@@ -11,6 +11,7 @@ struct ClientDetailsTabBarScreen: GPView {
  
     @Environment(\.dismiss) private var dismiss
     
+    let alertService: AlertServiceProtocol
     @StateObject var clientDetailsViewModel: ClientDetailsViewModel
     @StateObject var tab2ViewModel: Tab2ViewModel
     @StateObject var tab3ViewModel: Tab3ViewModel
@@ -18,16 +19,23 @@ struct ClientDetailsTabBarScreen: GPView {
     
     @State private var tabBarNavigationService = TabBarNavigationService()
     
+    var observableAlertServiceWrapper: ObservableAlertServiceWrapper {
+        return .init(alertService: self.alertService)
+    }
+    
     var body: some View {
         
         TabBarScreen(
             selectedTab: self.$tabBarNavigationService.selectedTab,
             isTabBarVisibile: self.$tabBarNavigationService.isTabBarVisible,
+            alertService: self.alertService,
             clientDetailsViewModel: self.clientDetailsViewModel,
             tab2ViewModel: self.tab2ViewModel,
             tab3ViewModel: self.tab3ViewModel,
             tab4ViewModel: self.tab4ViewModel
         )
+        .withAlertService(self.observableAlertServiceWrapper)
+        .environment(self.observableAlertServiceWrapper)
         .environment(self.tabBarNavigationService)
         
     }
@@ -44,6 +52,7 @@ struct ClientDetailsTabBarScreen: GPView {
     let tab4ViewModel = mockResolve(Tab4ViewModel.self)
     
     ClientDetailsTabBarScreen(
+        alertService: mockResolve(AlertServiceProtocol.self),
         clientDetailsViewModel: clientDetailsViewModel,
         tab2ViewModel: tab2ViewModel,
         tab3ViewModel: tab3ViewModel,

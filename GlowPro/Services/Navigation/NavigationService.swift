@@ -490,6 +490,7 @@ extension View {
                 let tab4ViewModel = globalResolver.resolve(Tab4ViewModel.self)!
                 
                 ClientDetailsTabBarScreen(
+                    alertService: clientDetailsViewModel.alertService,
                     clientDetailsViewModel: clientDetailsViewModel,
                     tab2ViewModel: tab2ViewModel,
                     tab3ViewModel: tab3ViewModel,

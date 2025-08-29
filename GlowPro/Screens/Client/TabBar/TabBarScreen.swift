@@ -31,6 +31,7 @@ struct TabBarScreen: GPView {
     @Binding var selectedTab: Tab
     @Binding var isTabBarVisible: Bool
     
+    private let alertService: AlertServiceProtocol
     private let clientDetailsViewModel: ClientDetailsViewModel!
     private let tab2ViewModel: Tab2ViewModel!
     private let tab3ViewModel: Tab3ViewModel!
@@ -38,6 +39,7 @@ struct TabBarScreen: GPView {
         
     init(selectedTab: Binding<Tab>,
          isTabBarVisibile: Binding<Bool>,
+         alertService: AlertServiceProtocol,
          clientDetailsViewModel: ClientDetailsViewModel,
          tab2ViewModel: Tab2ViewModel,
          tab3ViewModel: Tab3ViewModel,
@@ -45,6 +47,8 @@ struct TabBarScreen: GPView {
                 
         self._selectedTab = selectedTab
         self._isTabBarVisible = isTabBarVisibile
+        
+        self.alertService = alertService
         
         self.clientDetailsViewModel = clientDetailsViewModel
         self.tab2ViewModel = tab2ViewModel
@@ -140,6 +144,7 @@ struct TabBarScreen: GPView {
     TabBarScreen(
         selectedTab: $selectedTab,
         isTabBarVisibile: $isTabBarVisible,
+        alertService: mockResolve(AlertServiceProtocol.self),
         clientDetailsViewModel: mockResolve(ClientDetailsViewModel.self).setup(clientId: MockModels.ID.client1),
         tab2ViewModel: mockResolve(Tab2ViewModel.self),
         tab3ViewModel: mockResolve(Tab3ViewModel.self),

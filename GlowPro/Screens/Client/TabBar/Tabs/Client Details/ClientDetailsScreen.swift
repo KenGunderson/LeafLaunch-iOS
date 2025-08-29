@@ -52,7 +52,7 @@ struct ClientDetailsScreen: GPView {
         
         AppRootView(
             navigationService: nav.tab1NavigationService,
-            alertService: self.viewModel.alertService) {
+            alertService: nil) {
                 
                 AppHeaderScrollView(horizontalPadding: .medium) {
                     navBarView()
@@ -101,7 +101,6 @@ struct ClientDetailsScreen: GPView {
                 dismiss()
                 
             }
-        
     }
     
     @ViewBuilder

@@ -37,11 +37,12 @@ struct OpenNewBusinessView: View {
                 
             }
             .padding(.top, .extraSmall)
-            .appFont(with: .TITLE_4)
-            .foregroundStyle(Style.shared.accent.source())
+            .appFont(with: .TITLE_3)
+            .foregroundStyle(Style.shared.textColor(.body).source())
             
         }
-        .padding(.medium)
+        .padding(.horizontal, .medium)
+        .padding(.vertical, .medium2)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background {
             
@@ -54,7 +55,7 @@ struct OpenNewBusinessView: View {
                 .foregroundStyle(Style.shared.background(.quaternary).source())
             
         }
-        .background(Style.shared.background(.quaternary).source(opacity: 0.45))
+        .background(Style.shared.background(.quaternary).source(opacity: 0.35))
         .clipShape(.rect(cornerRadius: Style.shared.radius(.small2)))
         
     }
