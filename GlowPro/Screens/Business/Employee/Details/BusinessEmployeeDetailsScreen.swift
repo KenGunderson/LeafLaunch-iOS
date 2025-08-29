@@ -89,7 +89,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         Group {
             
-            SectionView(title: "Profile", showDivider: true)
+            SectionView(leadingTitle: "Profile", showDivider: true)
             
             AppCardView {
                 
@@ -117,7 +117,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            SectionView(title: "Active Locations", showDivider: true)
+            SectionView(leadingTitle: "Active Locations", showDivider: true)
             
             Group {
                 
@@ -152,7 +152,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            SectionView(title: "Activities", showDivider: true) {
+            SectionView(leadingTitle: "Activities", showDivider: true) {
                 
                 self.navigationService.push(.business(.businessActivitiesList(
                     context: .employee(employeeId: self.viewModel.employeeId)

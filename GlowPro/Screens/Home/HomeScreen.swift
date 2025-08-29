@@ -60,6 +60,10 @@ struct HomeScreen: GPView {
                     
                 }
                 
+                .sheet(isPresented: self.$viewModel.shouldShowChecklistCompletionSheet) {
+                    ChecklistCompleteSheet()
+                }
+                
             }
         
     }
@@ -85,20 +89,19 @@ struct HomeScreen: GPView {
             
         }
         .padding(.bottom, .custom(4))
-        .padding(.horizontal, .medium)
         
     }
     
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            SectionView(title: "First Steps", showDivider: true)
+            SectionView(leadingTitle: "First Steps", showDivider: true)
             
             ChecklistView(checklistItems: self.viewModel.checklistItems)
             
-            SectionView(title: "Choose Your Location", showDivider: true)
+            SectionView(leadingTitle: "Choose Your Location", showDivider: true)
             
             workspacesList()
             
@@ -112,7 +115,7 @@ struct HomeScreen: GPView {
     
     private func itemViews() -> some View {
         
-        Group {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             InfoView(
                 title: "You Have Pending Invites",

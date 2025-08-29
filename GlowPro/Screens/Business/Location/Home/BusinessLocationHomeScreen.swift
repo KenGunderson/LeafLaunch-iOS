@@ -69,8 +69,6 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
             })
-            .padding(.bottom, .custom(4))
-            .padding(.horizontal, .medium)
         
     }
     

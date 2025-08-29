@@ -465,6 +465,8 @@
 		75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */; };
 		75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */; };
 		75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */; };
+		75F32AFC2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */; };
+		75F32AFD2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */; };
 		75F4DF602E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F4DF612E4C4518003308CF /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DF5F2E4C4515003308CF /* Workspace.swift */; };
 		75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */; };
@@ -717,6 +719,7 @@
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
 		75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditViewModel.swift; sourceTree = "<group>"; };
 		75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditScreen.swift; sourceTree = "<group>"; };
+		75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCompleteSheet.swift; sourceTree = "<group>"; };
 		75F4DF5F2E4C4515003308CF /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Businesses.swift"; sourceTree = "<group>"; };
 		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
@@ -1637,6 +1640,7 @@
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				754E51E02E54281F00258225 /* Business */,
+				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,
@@ -1692,9 +1696,9 @@
 		75AA75572E529AB5002F1990 /* Empty State */ = {
 			isa = PBXGroup;
 			children = (
-				75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */,
 				75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */,
 				75AA75542E529485002F1990 /* EmptyStateView.swift */,
+				75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */,
 			);
 			path = "Empty State";
 			sourceTree = "<group>";
@@ -1839,6 +1843,14 @@
 				75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */,
 			);
 			path = Create;
+			sourceTree = "<group>";
+		};
+		75F32AFA2E615327003D904B /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */,
+			);
+			path = Sheets;
 			sourceTree = "<group>";
 		};
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
@@ -2281,6 +2293,7 @@
 				7526CD3D2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */,
 				750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */,
 				750DFBD72DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift in Sources */,
+				75F32AFC2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,
 				750DFBD92DC6ED1200A2AB74 /* DevAnalyticsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2517,6 +2530,7 @@
 				7526CD3C2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */,
 				75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */,
 				75D66DB52DC713C300E51CFC /* DevAnalyticsViewModel.swift in Sources */,
+				75F32AFD2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,
 				75D66DB62DC713C300E51CFC /* DevAnalyticsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

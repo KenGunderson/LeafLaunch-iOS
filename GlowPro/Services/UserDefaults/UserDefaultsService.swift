@@ -22,6 +22,7 @@ enum Setting: String, CaseIterable {
     case theme
     case didCompleteOnboarding
     case didCompletePermission
+    case didViewChecklistCompletionSheet
     case lastViewedWhatsNewVersion
     case didRateMyAppAlertShow
     case impersonatedUser
@@ -51,6 +52,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
+    @AppStorage(Setting.didViewChecklistCompletionSheet.rawValue) private(set) var didViewChecklistCompletionSheet: Bool = false {
+        didSet {
+            self.didViewChecklistCompletionSheetPublisher.send(self.didViewChecklistCompletionSheet)
+        }
+    }
+    
     @AppStorage(Setting.lastViewedWhatsNewVersion.rawValue) private(set) var lastViewedWhatsNewVersion: String? {
         didSet {
             self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
@@ -73,6 +80,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
     var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
     var didShowPermissionScreenPublisher = PassthroughSubject<Bool, Never>()
+    var didViewChecklistCompletionSheetPublisher = PassthroughSubject<Bool, Never>()
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
@@ -85,6 +93,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.themePublisher.send(self.theme)
         self.didCompleteOnboardingPublisher.send(self.didCompleteOnboarding)
         self.didCompletePermissionPublisher.send(self.didCompletePermission)
+        self.didViewChecklistCompletionSheetPublisher.send(self.didViewChecklistCompletionSheet)
         self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
@@ -108,6 +117,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     func set(didCompletePermission: Bool) {
         self.didCompletePermission = didCompletePermission
+    }
+    
+    func set(didViewChecklistCompletionSheet: Bool) {
+        self.didViewChecklistCompletionSheet = didViewChecklistCompletionSheet
     }
     
     func set(lastViewedWhatsNewVersion: String?) {

@@ -27,6 +27,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     @Published var theme: AvailableTheme!
     @Published var didCompleteOnboarding: Bool!
     @Published var didShowPermissionScreen: Bool!
+    @Published var didViewChecklistCompletionSheet: Bool!
     @Published var didCompletePermission: Bool!
     @Published var didRateMyAppAlertShow: Bool!
 
@@ -60,6 +61,7 @@ final class DevUserDefaultsViewModel: ViewModel {
         self.theme = userDefaultsService.theme
         self.didCompleteOnboarding = userDefaultsService.didCompleteOnboarding
         self.didCompletePermission = userDefaultsService.didCompletePermission
+        self.didViewChecklistCompletionSheet = userDefaultsService.didViewChecklistCompletionSheet
         self.didRateMyAppAlertShow = userDefaultsService.didRateMyAppAlertShow
         self.impersonatedUserData = userDefaultsService.impersonatingUserData
         self.lastViewedWhatsNewVersion = userDefaultsService.lastViewedWhatsNewVersion
@@ -127,6 +129,17 @@ final class DevUserDefaultsViewModel: ViewModel {
                 
                 guard let didCompletePermission else { return }
                 self?.userDefaultsService.set(didCompletePermission: didCompletePermission)
+                
+            }
+            .store(in: &self.cancelBag)
+        
+        self.$didViewChecklistCompletionSheet
+            .dropFirst()
+            .receiveOnMain()
+            .sink { [weak self] didViewChecklistCompletionSheet in
+                
+                guard let didViewChecklistCompletionSheet else { return }
+                self?.userDefaultsService.set(didViewChecklistCompletionSheet: didViewChecklistCompletionSheet)
                 
             }
             .store(in: &self.cancelBag)

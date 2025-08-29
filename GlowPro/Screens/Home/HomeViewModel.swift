@@ -27,6 +27,8 @@ final class HomeViewModel: ViewModel {
     @Published private(set) var workspaces: [Workspace] = []
     @Published private(set) var checklistItems: [ChecklistView.ChecklistItem] = []
     
+    @Published var shouldShowChecklistCompletionSheet: Bool = false
+    
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
@@ -111,6 +113,16 @@ final class HomeViewModel: ViewModel {
                         .init(type: .addClient, isComplete: false),
                         .init(type: .takeAPhoto, isComplete: false),
                     ]
+                    
+                    if let didView = self?.userDefaultsService.didViewChecklistCompletionSheet,
+                       !didView {
+                        
+                        self?.shouldShowChecklistCompletionSheet = true
+                        
+                        self?.userDefaultsService
+                            .set(didViewChecklistCompletionSheet: true)
+                        
+                    }
                     
                 }
                 

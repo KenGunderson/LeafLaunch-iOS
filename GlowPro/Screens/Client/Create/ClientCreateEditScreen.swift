@@ -107,7 +107,7 @@ struct ClientCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            SectionView(title: "General Information")
+            SectionView(leadingTitle: "General Information")
             
             AppCardView {
                 

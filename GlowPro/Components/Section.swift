@@ -9,45 +9,45 @@ import SwiftUI
 
 struct SectionView: View {
     
-    let title: String
-    let titleFont: Theme.FontKey
+    let leadingTitle: String
+    let leadingTitleFont: Theme.FontKey
     let showDivider: Bool
-    let viewAllTitle: String
-    let viewAllAction: (() -> Void)?
+    let trailingTitle: String
+    let trailingAction: (() -> Void)?
     
-    init(title: String,
-         titleFont: Theme.FontKey = .TITLE_6,
+    init(leadingTitle: String,
+         leadingTitleFont: Theme.FontKey = .TITLE_6,
          showDivider: Bool = false,
-         viewAllTitle: String = "View All",
-         viewAllAction: (() -> Void)? = nil) {
+         trailingTitle: String = "View All",
+         trailingAction: (() -> Void)? = nil) {
         
-        self.title = title
-        self.titleFont = titleFont
+        self.leadingTitle = leadingTitle
+        self.leadingTitleFont = leadingTitleFont
         self.showDivider = showDivider
-        self.viewAllTitle = viewAllTitle
-        self.viewAllAction = viewAllAction
+        self.trailingTitle = trailingTitle
+        self.trailingAction = trailingAction
         
     }
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
             
             HStack {
                 
-                Text(self.title)
-                    .appFont(with: .TITLE_5)
+                Text(self.leadingTitle)
+                    .appFont(with: self.leadingTitleFont)
                     .foregroundStyle(Rune.Style.shared.textColor(.title).source())
                     .frame(
                         maxWidth: .infinity,
                         alignment: .leading
                     )
                 
-                if let viewAllAction {
+                if let trailingAction {
                     
                     HStack {
                         
-                        Text(self.viewAllTitle)
+                        Text(self.trailingTitle)
                             .appFont(with: .BODY_2)
                         
                         Image(systemName: "arrow.right")
@@ -58,7 +58,7 @@ struct SectionView: View {
                     }
                     .foregroundStyle(Rune.Style.shared.textColor(.body).source())
                     .asButton {
-                        viewAllAction()
+                        trailingAction()
                     }
                     
                 }
@@ -67,12 +67,31 @@ struct SectionView: View {
             
             if self.showDivider {
                 
-                Divider()
-                    .background(Style.shared.background(.border).source())
+                Capsule()
+                    .fill(Style.shared.background(.quaternary).source())
+                    .frame(height: 1.5)
                 
             }
             
         }
+        
+    }
+    
+}
+
+#Preview {
+    
+    AppBaseView {
+        
+        VStack {
+            
+            SectionView(leadingTitle: "Section 1", showDivider: true) {}
+            SectionView(leadingTitle: "Section 2", showDivider: true, trailingTitle: "Show me more") {}
+            SectionView(leadingTitle: "Section 3", showDivider: true) {}
+            SectionView(leadingTitle: "Section 4", leadingTitleFont: .HEADER_4) {}
+            
+        }
+        .padding(.horizontal, .large)
         
     }
     

@@ -120,7 +120,7 @@ struct ChecklistView: View {
                     )
                 
                 Text(item.type.displayName)
-                    .appFont(with: .TITLE_3)
+                    .appFont(with: .TITLE_4)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

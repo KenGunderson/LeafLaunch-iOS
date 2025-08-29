@@ -112,7 +112,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            SectionView(title: "General Information")
+            SectionView(leadingTitle: "General Information")
             
             AppCardView {
                 
@@ -130,7 +130,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            SectionView(title: "Business Address")
+            SectionView(leadingTitle: "Business Address")
             
             AppCardView {
                 

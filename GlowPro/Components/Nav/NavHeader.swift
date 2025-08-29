@@ -65,6 +65,16 @@ struct NavHeader: View {
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, .medium)
+        .background(Style.shared.background(.primary).source())
+        .background {
+            
+            Rectangle()
+                .fill(Style.shared.background(.primary).source())
+                .blur(radius: 2)
+                .offset(y: 8)
+            
+        }
         
     }
     
@@ -106,7 +116,8 @@ struct NavHeader: View {
     }
     
     @ViewBuilder
-    private func navButtons(_ buttons: [NavBarButton.Style], action: ((NavBarButton.Style) -> ())? = nil) -> some View {
+    private func navButtons(_ buttons: [NavBarButton.Style],
+                            action: ((NavBarButton.Style) -> ())? = nil) -> some View {
         
         HStack(spacing: Style.shared.spacing(.small)) {
             
@@ -164,5 +175,47 @@ struct NavHeader: View {
         .padding(.horizontal, .medium)
         
     }
+    
+}
+
+#Preview {
+    
+    AppHeaderScrollView(navBarContent: {
+        
+        NavHeader(
+            title: "Good Morning, Sako",
+            subtitle: "Select where you're working today",
+            avatar: .initials(name: "Sako Hovaguimian"),
+            trailingNavButtons: [
+                .bell(notificationCount: 1),
+                .settings
+            ]
+        ) { navItem in
+            print(navItem)
+        }
+        
+    }, scrollViewContent: {
+     
+        VStack(spacing: 24) {
+            
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.red.opacity(0.5))
+                .frame(height: 120)
+            
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.red.opacity(0.5))
+                .frame(height: 120)
+            
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.red.opacity(0.5))
+                .frame(height: 120)
+            
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.red.opacity(0.5))
+                .frame(height: 120)
+            
+        }
+        
+    })
     
 }

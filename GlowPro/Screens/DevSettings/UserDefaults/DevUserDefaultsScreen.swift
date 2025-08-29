@@ -134,6 +134,7 @@ struct DevUserDefaultsScreen: GPView {
             
             Toggle("didCompleteOnboarding", isOn: self.$viewModel.didCompleteOnboarding)
             Toggle("didCompletePermission", isOn: self.$viewModel.didCompletePermission)
+            Toggle("didViewChecklistCompletionSheet", isOn: self.$viewModel.didViewChecklistCompletionSheet)
             Toggle("didRateMyAppAlertShow", isOn: self.$viewModel.didRateMyAppAlertShow)
             
         }

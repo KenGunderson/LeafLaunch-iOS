@@ -73,8 +73,6 @@ struct BusinessHomeScreen: GPView {
                 }
                 
             }
-            .padding(.bottom, .custom(4))
-            .padding(.horizontal, .medium)
         
     }
     
@@ -231,7 +229,7 @@ struct BusinessHomeScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
-            SectionView(title: "Pending Invites", showDivider: true) {
+            SectionView(leadingTitle: "Pending Invites", showDivider: true) {
                 
                 self.navigationService
                     .push(.business(.businessEmployeeInviteList(
