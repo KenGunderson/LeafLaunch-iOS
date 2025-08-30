@@ -99,7 +99,9 @@ struct HomeScreen: GPView {
             
             SectionView(leadingTitle: "First Steps", showDivider: true)
             
-            OpenNewBusinessView()
+            let hasActiveBusiness = self.viewModel.workspaces.contains(where: { $0.isOwner })
+            
+            BusinessDashboardView(isBusinessActive: hasActiveBusiness)
                 .asButton {
                    
                     self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))

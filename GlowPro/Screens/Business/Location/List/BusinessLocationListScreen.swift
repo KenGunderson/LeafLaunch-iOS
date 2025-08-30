@@ -59,9 +59,21 @@ struct BusinessLocationListScreen: GPView {
         }
         .asAnyView()
         
+        let plusButton = NavBarButton(style: .plus) {
+            
+            self.navigationService
+                .push(.business(.businessLocationCreateEdit(
+                    businessId: self.viewModel.businessId,
+                    locationId: nil
+                )))
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: "Locations",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.isOwner ? plusButton : nil
         )
         
     }

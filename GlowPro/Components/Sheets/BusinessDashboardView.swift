@@ -1,5 +1,5 @@
 //
-//  OpenNewBusinessView.swift
+//  BusinessDashboardView.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 8/29/25.
@@ -7,11 +7,37 @@
 
 import SwiftUI
 
-struct OpenNewBusinessView: View {
+struct BusinessDashboardView: View {
+        
+    private let isBusinessActive: Bool
     
-    private let title: String = "Create Your Business"
-    private let message: String = "Set up your business profile to start managing locations, clients, media and growing with GlowPro."
-    private let actionTitle: String = "Get Started"
+    init(isBusinessActive: Bool) {
+        self.isBusinessActive = isBusinessActive
+    }
+    
+    var title: String {
+        
+        self.isBusinessActive
+        ? "View Your Business"
+        : "Create Your Business"
+        
+    }
+    
+    var message: String {
+        
+        self.isBusinessActive
+        ? "Manage your business from your dashboard"
+        : "Set up your business profile to start managing locations, clients, media and growing with GlowPro."
+        
+    }
+    
+    var actionTitle: String {
+        
+        self.isBusinessActive
+        ? "Go To Dashboard"
+        : "Get Started"
+        
+    }
     
     var body: some View {
         
@@ -38,7 +64,7 @@ struct OpenNewBusinessView: View {
             }
             .padding(.top, .extraSmall)
             .appFont(with: .TITLE_3)
-            .foregroundStyle(Style.shared.textColor(.body).source())
+            .foregroundStyle(Style.shared.accent.source())
             
         }
         .padding(.horizontal, .medium)
@@ -66,8 +92,14 @@ struct OpenNewBusinessView: View {
     
     AppBaseView {
         
-        OpenNewBusinessView()
-            .padding(.horizontal, .large)
+        VStack {
+            
+            BusinessDashboardView(isBusinessActive: true)
+            BusinessDashboardView(isBusinessActive: false)
+            
+        }
+        .padding(.horizontal, .large)
+
         
     }
     

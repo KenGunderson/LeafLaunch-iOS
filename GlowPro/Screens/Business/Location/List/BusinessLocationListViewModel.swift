@@ -16,27 +16,34 @@ final class BusinessLocationListViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var business: Business?
     @Published private(set) var locations: [Location] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
     
-    private var businessId: String!
+    private(set) var businessId: String!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var isOwner: Bool {
+        return self.activeDestinationService.isOwner
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()

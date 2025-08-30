@@ -16,6 +16,7 @@ final class SettingsViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
 
     private var navigationService: NavigationService?
@@ -25,17 +26,22 @@ final class SettingsViewModel: ViewModel {
     
     @MainActor
     var appVersion: String {
-        return UIApplication.version
+        
+        let env = self.environmentService.environment?.description ?? ""
+        return "\(env) - \(UIApplication.version)"
+        
     }
     
     init(authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         environmentService: EnvironmentServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.environmentService = environmentService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()

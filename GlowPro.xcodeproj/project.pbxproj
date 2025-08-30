@@ -61,8 +61,8 @@
 		751F95412E0B7EB5001CAF72 /* BusinessCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */; };
 		751F95432E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
 		751F95442E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
-		75263AEA2E61FD4F004008B5 /* OpenNewBusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* OpenNewBusinessView.swift */; };
-		75263AEB2E61FD4F004008B5 /* OpenNewBusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* OpenNewBusinessView.swift */; };
+		75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
+		75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		7526CD3C2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7526CD3B2E3DBFF500CA654B /* ClientDetailsTabBarScreen.swift */; };
 		7526CD3D2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7526CD3B2E3DBFF500CA654B /* ClientDetailsTabBarScreen.swift */; };
 		7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
@@ -533,7 +533,7 @@
 		751F953B2E0B7D26001CAF72 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditScreen.swift; sourceTree = "<group>"; };
 		751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditViewModel.swift; sourceTree = "<group>"; };
-		75263AE92E61FD39004008B5 /* OpenNewBusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNewBusinessView.swift; sourceTree = "<group>"; };
+		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7526CD3B2E3DBFF500CA654B /* ClientDetailsTabBarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsTabBarScreen.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
@@ -1851,7 +1851,7 @@
 		75F32AFA2E615327003D904B /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
-				75263AE92E61FD39004008B5 /* OpenNewBusinessView.swift */,
+				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
 				75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */,
 			);
 			path = Sheets;
@@ -2209,7 +2209,7 @@
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
 				7537F48C2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				7508433A2E5C04850039B06B /* APIService+Activity.swift in Sources */,
-				75263AEA2E61FD4F004008B5 /* OpenNewBusinessView.swift in Sources */,
+				75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */,
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
@@ -2447,7 +2447,7 @@
 				7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
 				7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				750843392E5C04850039B06B /* APIService+Activity.swift in Sources */,
-				75263AEB2E61FD4F004008B5 /* OpenNewBusinessView.swift in Sources */,
+				75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */,
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,

@@ -3,19 +3,21 @@
 ==================================================
 Tasks:
   • Support empty state for new users
-  • Create Business Flow → leads to Business Home
-    • Have it have 2 states for layout -> Create / Go To Dashboard / pass optional businessObject in
 
 ==================================================
              LOCATION DETAILS
 ==================================================
 Tasks:
   • Show location stats
-
+  • Activities (navigates to all activities (location context))
+  • Employees (navigates to employee details)
+  
 ==================================================
-            LOCATION_LIST
+             MEDIA TAG CREATION SHEET
 ==================================================
-  • Have create button for locationList
+Tasks:
+  • When tagging photos we should have a way to add new media tag if needed
+  • Would be nice to have a check for lowercased() filters to see if it's a duplicate or not
 
 ==================================================
              EMPLOYEE DETAILS
@@ -97,14 +99,7 @@ Tasks:
                 BACKEND
 ==================================================
 Tasks:
-  • Tags for media
-    • Media Tags
-    • CRUD
-    • Get all unique tags endpoint for business
-    •
-  • Sort Media
-
-// TEMPLATE FOR USE
+  • Sort Media Properly
 
 ==================================================
                 SECTION NAME
