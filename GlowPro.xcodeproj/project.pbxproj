@@ -19,6 +19,8 @@
 		750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750892A22E561F1500D6BC68 /* APIService+Media.swift */; };
 		750990E62E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
 		750990E72E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
+		750A18AC2E6513740087B427 /* GhostOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A18AB2E6513740087B427 /* GhostOverlayView.swift */; };
+		750A18AD2E6513740087B427 /* GhostOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A18AB2E6513740087B427 /* GhostOverlayView.swift */; };
 		750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85ED2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
@@ -521,6 +523,7 @@
 		750843382E5C047D0039B06B /* APIService+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Activity.swift"; sourceTree = "<group>"; };
 		750892A22E561F1500D6BC68 /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		750A18AB2E6513740087B427 /* GhostOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayView.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
 		750B85F32E48E12A00417BA5 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
@@ -1839,6 +1842,7 @@
 		75D6C2622E63C53300F8A336 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				750A18AB2E6513740087B427 /* GhostOverlayView.swift */,
 				75D6C2702E63C75500F8A336 /* ShutterButton.swift */,
 				75D6C2762E63C79300F8A336 /* CameraPreviewView.swift */,
 			);
@@ -2292,6 +2296,7 @@
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				75A46EEE2E5E9F0F0057EF72 /* ActivityType.swift in Sources */,
+				750A18AD2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
 				7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
@@ -2538,6 +2543,7 @@
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				75A46EED2E5E9F0F0057EF72 /* ActivityType.swift in Sources */,
+				750A18AC2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8A82E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
 				7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,

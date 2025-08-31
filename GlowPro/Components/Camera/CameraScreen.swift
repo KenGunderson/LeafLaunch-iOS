@@ -15,7 +15,9 @@ public struct CameraScreen: View {
     @StateObject var viewModel: CameraViewModel
     
     @State private var showTopOverlayDrawer: Bool = false
-    @State private var showBottomOverlayDrawer: Bool = false
+    @State private var showBottomOverlayDrawer: Bool = true
+    
+    @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     
     public var body: some View {
         
@@ -42,28 +44,6 @@ public struct CameraScreen: View {
             }
             
         }
-        .safeAreaInset(edge: .bottom) {
-            
-            ZStack(alignment: .bottom) {
-                
-                bottomBarView()
-                
-                if self.showBottomOverlayDrawer {
-                    
-                    VStack {
-
-                    }
-                    .frame(height: 350)
-                    .frame(maxWidth: .infinity)
-                    .background(Style.shared.background(.quaternary).source())
-                    .ignoresSafeArea()
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                    
-                }
-                
-            }
-            
-        }
         
         // Lifecycle
         
@@ -78,28 +58,69 @@ public struct CameraScreen: View {
         
         .animation(.snappy, value: self.showTopOverlayDrawer)
         .animation(.snappy, value: self.showBottomOverlayDrawer)
+        .animation(.snappy, value: self.selectedGhostOverlayItem)
         
     }
     
     @ViewBuilder
     private func content() -> some View {
         
-        ZStack {
+        ZStack(alignment: .center) {
             
-            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
-                
-                Color.black
-                    .ignoresSafeArea()
-                
-            }
+//            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
+//                
+//                Color.black
+//                    .ignoresSafeArea()
+//                
+//            }
             
             CameraPreviewView(session: viewModel.session)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
+            
+            if let selectedGhostOverlayItem {
+                
+                let normalized = selectedGhostOverlayItem.scale - 0.5   // -0.5...+0.5
+                let factor = pow(2.0, normalized * 3)
+                
+                selectedGhostOverlayItem
+                    .image
+                    .view()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(
+                        width: UIScreen.main.bounds.width * 0.75,
+                        height: UIScreen.main.bounds.height * 0.75
+                    )
+                    .clipped()
+                    .foregroundStyle(.white)
+                    .scaleEffect(factor)
+                    .opacity(selectedGhostOverlayItem.opacity)
+                
+            }
             
             VStack {
                 
                 Spacer()
-                errorMessage()
+                
+                ZStack(alignment: .bottom) {
+                    
+                    bottomBarView()
+                    
+                    if self.showBottomOverlayDrawer {
+                        
+                        VStack {
+
+                            GhostOverlayView(selectedGhostOverlayItem: self.$selectedGhostOverlayItem)
+                                .padding(.bottom, .small)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(Style.shared.background(.quaternary).source())
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        
+                    }
+                    
+                }
                 
             }
             
