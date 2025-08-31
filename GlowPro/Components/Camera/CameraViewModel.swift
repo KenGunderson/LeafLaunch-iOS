@@ -34,7 +34,7 @@ public final class CameraViewModel: ObservableObject {
     
     public func setup() {
         
-        Task {
+        Task { [errorMessage] in
             
             let status = await AVCaptureDevice.requestAccess(for: .video)
             
@@ -71,16 +71,16 @@ public final class CameraViewModel: ObservableObject {
         
         self.cameraService.capturePhoto { [weak self] result in
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 
-                guard let self else { return }
+                guard let strongSelf = self else { return }
                 
                 switch result {
-                case .success(let image): self.captureMode.addPhoto(image)
-                case .failure(let error): self.errorMessage = error.localizedDescription
+                case .success(let image): strongSelf.captureMode.addPhoto(image)
+                case .failure(let error): strongSelf.errorMessage = error.localizedDescription
                 }
                 
-                self.isShutterDisabled = false
+                strongSelf.isShutterDisabled = false
                 
             }
             
