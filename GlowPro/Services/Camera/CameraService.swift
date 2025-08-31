@@ -50,7 +50,7 @@ public final class CameraService: NSObject, CameraServiceProtocol {
         if self.session.canAddOutput(self.photoOutput) {
             
             self.session.addOutput(self.photoOutput)
-            self.photoOutput.maxPhotoDimensions = .init(width: 1024, height: 1024)
+//            self.photoOutput.maxPhotoDimensions = .init(width: 1024, height: 1024)
             
         } else {
             
@@ -88,7 +88,7 @@ public final class CameraService: NSObject, CameraServiceProtocol {
     public func capturePhoto(_ completion: @escaping (Result<UIImage, Error>) -> Void) {
         
         let settings = AVCapturePhotoSettings()
-        settings.maxPhotoDimensions = .init(width: 1024, height: 1024)
+//        settings.maxPhotoDimensions = .init(width: 1024, height: 1024)
         
         self.captureCompletion = completion
         

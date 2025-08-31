@@ -34,24 +34,35 @@ public final class CameraViewModel: ObservableObject {
     
     public func setup() {
         
-        Task { [errorMessage] in
+        guard !ProcessInfo.isPreview,
+              !ProcessInfo.isSimulator else { return }
+        
+        Task { @MainActor [weak self] in
             
+            let errorMessage: String?
             let status = await AVCaptureDevice.requestAccess(for: .video)
             
             if !status {
                 
-                self.errorMessage = CameraError.permissionDenied.message
+                await MainActor.run {
+                    self?.errorMessage = CameraError.permissionDenied.message
+                }
+                
                 return
                 
             }
             
             do {
                 
-                try self.cameraService.configure()
-                self.cameraService.start()
+                try self?.cameraService.configure()
+                self?.cameraService.start()
                 
             } catch {
-                self.errorMessage = error.localizedDescription
+                
+                await MainActor.run {
+                    self?.errorMessage = error.localizedDescription
+                }
+                
             }
             
         }

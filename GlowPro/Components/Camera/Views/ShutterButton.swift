@@ -25,25 +25,26 @@ public struct ShutterButton: View {
     
     public var body: some View {
         
-        Button(action: self.action) {
+        ZStack {
             
-            ZStack {
-                
-                Circle()
-                    .strokeBorder(.white.opacity(0.9), lineWidth: 4)
-                    .frame(width: self.size, height: self.size)
-                
-                Circle()
-                    .fill(.white)
-                    .frame(width: self.size - 14, height: self.size - 14)
-                
-            }
+            Circle()
+                .strokeBorder(.white.opacity(0.9), lineWidth: 4)
+                .frame(width: self.size, height: self.size)
+            
+            Circle()
+                .fill(.white)
+                .frame(width: self.size - 14, height: self.size - 14)
             
         }
-        .buttonStyle(.plain)
         .opacity(self.disabled ? 0.6 : 1)
         .scaleEffect(self.disabled ? 0.98 : 1)
         .disabled(self.disabled)
+        .asButton {
+            
+            guard !disabled else { return }
+            action()
+            
+        }
         
     }
     
