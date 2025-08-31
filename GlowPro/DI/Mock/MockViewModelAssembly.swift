@@ -93,7 +93,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Onboarding ViewModel
         
@@ -105,7 +105,7 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Onboarding Permission ViewModel
         
@@ -117,7 +117,7 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Home
         
@@ -131,7 +131,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 2 ViewModel
         
@@ -143,7 +143,7 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 3 ViewModel
         
@@ -155,7 +155,7 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 4 ViewModel
         
@@ -167,7 +167,7 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Home
         
@@ -181,7 +181,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Details
         
@@ -194,7 +194,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Locations
         
@@ -208,7 +208,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Location Create
         
@@ -221,7 +221,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Location Home
         
@@ -235,7 +235,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Locations Details
         
@@ -249,7 +249,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employees
         
@@ -263,7 +263,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Invite
         
@@ -277,7 +277,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Join
         
@@ -290,7 +290,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Update
         
@@ -303,7 +303,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Details
         
@@ -317,7 +317,7 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Activities List
         
@@ -330,7 +330,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client Create
         
@@ -344,7 +344,7 @@ class MockViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client List
         
@@ -358,7 +358,7 @@ class MockViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client Details
         
@@ -373,9 +373,18 @@ class MockViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
-        // Media
+        // Media Camera
+        
+        container
+            .register(CameraViewModel.self) { r in
+                CameraViewModel(
+                    cameraService: r.resolve(CameraServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Media Gallery
         
         container
             .register(MediaGalleryViewModel.self) { r in
@@ -386,7 +395,7 @@ class MockViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings
         
@@ -399,7 +408,7 @@ class MockViewModelAssembly: Assembly {
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings - FAQ
         
@@ -413,7 +422,7 @@ class MockViewModelAssembly: Assembly {
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings - Legal
         
@@ -427,7 +436,7 @@ class MockViewModelAssembly: Assembly {
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // DevSettings
         

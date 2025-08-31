@@ -95,7 +95,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Onboarding ViewModel
         
@@ -107,7 +107,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Onboarding Permission ViewModel
         
@@ -119,7 +119,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Home
         
@@ -133,7 +133,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 2 ViewModel
         
@@ -145,7 +145,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 3 ViewModel
         
@@ -157,7 +157,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Tab 4 ViewModel
         
@@ -169,7 +169,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Home
         
@@ -183,7 +183,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Details
         
@@ -196,7 +196,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Locations
         
@@ -210,7 +210,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Location Create
         
@@ -223,7 +223,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Location Home
         
@@ -237,7 +237,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Locations Details
         
@@ -251,7 +251,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employees
         
@@ -265,7 +265,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Invite
         
@@ -279,7 +279,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Invite List
         
@@ -292,7 +292,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Update
         
@@ -305,7 +305,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Employee Details
         
@@ -319,7 +319,7 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client Create
         
@@ -333,7 +333,7 @@ class ViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Business Activities List
         
@@ -346,7 +346,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client List
         
@@ -360,7 +360,7 @@ class ViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Client Details
         
@@ -375,9 +375,18 @@ class ViewModelAssembly: Assembly {
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
-        // Media
+        // Media Camera
+        
+        container
+            .register(CameraViewModel.self) { r in
+                CameraViewModel(
+                    cameraService: r.resolve(CameraServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Media Gallery
         
         container
             .register(MediaGalleryViewModel.self) { r in
@@ -388,7 +397,7 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings
         
@@ -401,7 +410,7 @@ class ViewModelAssembly: Assembly {
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings - FAQ
         
@@ -415,7 +424,7 @@ class ViewModelAssembly: Assembly {
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // Settings - Legal
         
@@ -429,7 +438,7 @@ class ViewModelAssembly: Assembly {
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
-            }
+            }.inObjectScope(.transient)
         
         // DevSettings
         

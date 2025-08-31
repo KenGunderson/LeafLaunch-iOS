@@ -193,6 +193,13 @@ class ServiceAssembly: Assembly {
                 service.setAuthService(r.resolve(AuthServiceProtocol.self)!)
             }
         
+        // CAMERA
+        
+        container
+            .register(CameraServiceProtocol.self) { r in
+                CameraService()
+            }.inObjectScope(.container)
+        
     }
     
 }

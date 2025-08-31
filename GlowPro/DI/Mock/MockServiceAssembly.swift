@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseStorage
 import AppTrackingTransparency
 import Swinject
+import AVFoundation
 
 // MARK: - AnalyticsServiceProtocol
 
@@ -1085,6 +1086,25 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     
 }
 
+// MARK: - CameraServiceProtocol
+
+class MockCameraServiceProtocol: CameraServiceProtocol {
+    
+    var session: AVCaptureSession = .init()
+    
+    func configure() throws {
+        //
+    }
+    
+    func start() {}
+    
+    func stop() {}
+    
+    func capturePhoto(_ completion: @escaping (Result<UIImage, any Error>) -> Void) {}
+    
+    
+}
+
 // MARK: - ViewLifecycleServiceProtocol
 
 class MockViewLifecycleService: ViewLifecycleServiceProtocol {
@@ -1129,6 +1149,7 @@ final class MockServiceAssembly: Assembly {
         container.register(AuthServiceProtocol.self) { _ in MockAuthService() }.inObjectScope(.container)
         container.register(ImpersonateServiceProtocol.self.self) { _ in MockImpersonateService() }.inObjectScope(.container)
         container.register(ActiveDestinationServiceProtocol.self.self) { _ in MockActiveDestinationService() }.inObjectScope(.container)
+        container.register(CameraServiceProtocol.self.self) { _ in CameraService() }.inObjectScope(.container)
         
     }
     

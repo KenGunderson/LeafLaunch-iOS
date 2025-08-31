@@ -361,6 +361,13 @@ extension View {
         func media(route: Route.Media) -> some View {
             
             switch route {
+            case .camera(let mode):
+                
+                let viewModel = globalResolver.resolve(CameraViewModel.self)!
+                    .setup(mode: mode)
+                
+                CameraScreen(viewModel: viewModel)
+                
             case .gallery(let context):
                 
                 let viewModel = globalResolver.resolve(MediaGalleryViewModel.self)!

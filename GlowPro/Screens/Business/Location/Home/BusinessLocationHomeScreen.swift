@@ -155,7 +155,12 @@ struct BusinessLocationHomeScreen: GPView {
                     prominentSubtitle: false
                 )
                 .appShadow(.subtle)
-                .asButton {}
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.media(.camera(mode: .multiple([]))))
+                    
+                }
                 
                 QuickActionTileView(
                     icon: .systemImage("photo.on.rectangle.fill"),
