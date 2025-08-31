@@ -367,6 +367,7 @@ extension View {
                     .setup(mode: mode)
                 
                 CameraScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
                 
             case .gallery(let context):
                 

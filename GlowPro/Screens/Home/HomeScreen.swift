@@ -182,7 +182,6 @@ struct HomeScreen: GPView {
     
 }
 
-
 //if let currentUser = self.viewModel.currentUser {
 //    
 //    VStack(spacing: 8) {

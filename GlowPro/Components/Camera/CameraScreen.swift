@@ -51,7 +51,7 @@ public struct CameraScreen: View {
                 if self.showBottomOverlayDrawer {
                     
                     VStack {
-//                        Text("123")
+
                     }
                     .frame(height: 350)
                     .frame(maxWidth: .infinity)
@@ -197,7 +197,6 @@ public struct CameraScreen: View {
             }
             
         }
-
         
     }
     
