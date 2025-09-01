@@ -32,6 +32,10 @@ Tasks:
   • Show remaining photo count
      – Include delete query param
      – Show progress bar (accent green)
+  • Preview Media
+    • Should be able to tag photos here
+        • Final option is to create tag
+    • Maybe we should allow for zoom in + more with a button click to enable horizontal scroll
 
 ==================================================
                 CAMERA

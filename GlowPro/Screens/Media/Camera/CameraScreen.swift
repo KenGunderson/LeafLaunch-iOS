@@ -95,6 +95,7 @@ public struct CameraScreen: View {
                     .foregroundStyle(.white)
                     .scaleEffect(factor)
                     .opacity(selectedGhostOverlayItem.opacity)
+                    .padding(.bottom, 44)
                 
             }
             
