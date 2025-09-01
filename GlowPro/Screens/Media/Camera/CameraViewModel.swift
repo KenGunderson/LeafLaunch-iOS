@@ -72,7 +72,7 @@ public final class CameraViewModel: ObservableObject {
     public func teardown() {
         
         self.cameraService
-            .stop()
+            .teardown()
         
     }
     

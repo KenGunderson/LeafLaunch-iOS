@@ -13,8 +13,11 @@ public protocol CameraServiceProtocol: AnyObject, Loggable {
     var session: AVCaptureSession { get }
     
     func configure() throws
+    
     func start()
     func stop()
+    func teardown()
+    
     func capturePhoto(_ completion: @escaping (Result<UIImage, Error>) -> Void)
     
 }

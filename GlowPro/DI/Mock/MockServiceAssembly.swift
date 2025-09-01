@@ -1100,8 +1100,8 @@ class MockCameraService: CameraServiceProtocol {
     }
     
     func start() {}
-    
     func stop() {}
+    func teardown() {}
     
     func capturePhoto(_ completion: @escaping (Result<UIImage, any Error>) -> Void) {}
     

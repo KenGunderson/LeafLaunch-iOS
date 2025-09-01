@@ -20,6 +20,8 @@ final class CameraService: NSObject, CameraServiceProtocol {
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var captureCompletion: ((Result<UIImage, Error>) -> Void)?
     
+    private var isConfigured: Bool = false
+    
     override init() {
         
         super.init()
@@ -33,68 +35,121 @@ final class CameraService: NSObject, CameraServiceProtocol {
     
     public func configure() throws {
         
-        self.session.beginConfiguration()
-        self.session.sessionPreset = .photo
+        // Always perform configuration on the sessionQueue to avoid races
+        var thrownError: Error?
         
-        guard let device = AVCaptureDevice.default(
-            .builtInWideAngleCamera,
-            for: .video,
-            position: .back
-        ) else {
+        self.sessionQueue.sync { [weak self] in
             
-            self.logger.error("Error: No wide angle camera found")
-            self.session.commitConfiguration()
-            throw CameraError.deviceUnavailable
+            guard let strongSelf = self else { return }
+            
+            // If already configured, do nothing (safe early return)
+            if strongSelf.isConfigured {
+                
+                strongSelf.log(message: "Session already configured; skipping reconfiguration.")
+                return
+                
+            }
+            
+            strongSelf.session.beginConfiguration()
+            strongSelf.session.sessionPreset = .photo
+            
+            // If something was left over (defensive), remove it first
+            for input in strongSelf.session.inputs {
+                strongSelf.session.removeInput(input)
+            }
+            
+            for output in strongSelf.session.outputs {
+                strongSelf.session.removeOutput(output)
+            }
+            
+            guard let device = AVCaptureDevice.default(
+                .builtInWideAngleCamera,
+                for: .video,
+                position: .back
+            ) else {
+                
+                strongSelf.logError(message: "Error: No wide angle camera found")
+                strongSelf.session.commitConfiguration()
+                thrownError = CameraError.deviceUnavailable
+                return
+                
+            }
+            
+            do {
+                
+                let input = try AVCaptureDeviceInput(device: device)
+                
+                if strongSelf.session.canAddInput(input) {
+                    
+                    strongSelf.session.addInput(input)
+                    strongSelf.videoDeviceInput = input
+                    strongSelf.log(message: "Added video device input")
+                    
+                } else {
+                    
+                    strongSelf.logError(message: "Error: Failed to add video device input")
+                    strongSelf.session.commitConfiguration()
+                    thrownError = CameraError.inputAddFailed
+                    return
+                    
+                }
+                
+            } catch {
+                
+                strongSelf.logError(message: "Error creating device input: \(error.localizedDescription)")
+                strongSelf.session.commitConfiguration()
+                thrownError = error
+                
+                return
+                
+            }
+            
+            if !strongSelf.session.outputs.contains(strongSelf.photoOutput) {
+                
+                if strongSelf.session.canAddOutput(strongSelf.photoOutput) {
+                    
+                    strongSelf.session.addOutput(strongSelf.photoOutput)
+                    strongSelf.log(message: "Added photo output")
+                    
+                } else {
+                    
+                    strongSelf.logError(message: "Error: Failed to add photo output")
+                    strongSelf.session.commitConfiguration()
+                    thrownError = CameraError.outputAddFailed
+                    return
+                    
+                }
+                
+            }
+            
+            strongSelf.session.commitConfiguration()
+            strongSelf.isConfigured = true
+            strongSelf.log(message: "Session configuration committed")
             
         }
         
-        let input = try AVCaptureDeviceInput(device: device)
-        
-        if self.session.canAddInput(input) {
-            
-            self.session.addInput(input)
-            self.videoDeviceInput = input
-            self.logger.log("Can add video device input")
-            
-        } else {
-            
-            self.logger.error("Error: Failed to add video device input")
-            self.session.commitConfiguration()
-            throw CameraError.inputAddFailed
-            
+        if let thrownError {
+            throw thrownError
         }
-        
-        if self.session.canAddOutput(self.photoOutput) {
-            
-            self.session.addOutput(self.photoOutput)
-//            self.photoOutput.maxPhotoDimensions = .init(width: 1024, height: 1024)
-            self.logger.log("Can add photo output")
-            
-        } else {
-            
-            self.logger.error("Error: Failed to add photo output")
-            self.session.commitConfiguration()
-            throw CameraError.outputAddFailed
-            
-        }
-        
-        self.session.commitConfiguration()
         
     }
     
+
     public func start() {
         
         self.sessionQueue.async { [weak self] in
             
             guard let strongSelf = self else { return }
             
-            self?.logger.log("Attemping to start camera session...")
+            strongSelf.log(message: "Attempting to start camera session...")
             
             if !strongSelf.session.isRunning {
                 
                 strongSelf.session.startRunning()
-                self?.logger.log("Starting camera session...")
+                strongSelf.log(message: "Camera session started")
                 
+            } else {
+                strongSelf.log(message: "Camera session already running")
             }
             
         }
@@ -103,30 +158,76 @@ final class CameraService: NSObject, CameraServiceProtocol {
     
     public func stop() {
         
-        self.logger.log("Attemping to stop camera session...")
+        self.log(message: "Attempting to stop camera session...")
         
         self.sessionQueue.async { [weak self] in
             
-            self?.session.stopRunning()
-            self?.logger.log( "Stopping camera session...")
+            guard let strongSelf = self else { return }
+            
+            if strongSelf.session.isRunning {
+                
+                strongSelf.session.stopRunning()
+                strongSelf.log(message: "Camera session stopped")
+                
+            }
             
         }
         
     }
     
+    public func teardown() {
+        
+        self.log(message: "Tearing down camera session...")
+        
+        self.sessionQueue.async { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            if strongSelf.session.isRunning {
+                strongSelf.session.stopRunning()
+            }
+            
+            strongSelf.session.beginConfiguration()
+            
+            for input in strongSelf.session.inputs {
+                strongSelf.session.removeInput(input)
+            }
+            
+            for output in strongSelf.session.outputs {
+                strongSelf.session.removeOutput(output)
+            }
+            
+            strongSelf.session.commitConfiguration()
+            strongSelf.videoDeviceInput = nil
+            strongSelf.isConfigured = false
+            
+            strongSelf.log(message: "Camera session torn down and ready for reconfiguration")
+            
+        }
+        
+    }
+    
+    // **************************************
+    // MARK: - Capture
+    // **************************************
+    
     public func capturePhoto(_ completion: @escaping (Result<UIImage, Error>) -> Void) {
         
-        let settings = AVCapturePhotoSettings()
-//        settings.maxPhotoDimensions = .init(width: 1024, height: 1024)
-        
-        self.captureCompletion = completion
-        
-        self.photoOutput.capturePhoto(
-            with: settings,
-            delegate: self
-        )
-        
-        self.logger.log("Capturing photo...")
+        self.sessionQueue.async { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            let settings = AVCapturePhotoSettings()
+            strongSelf.captureCompletion = completion
+            
+            strongSelf.photoOutput.capturePhoto(
+                with: settings,
+                delegate: strongSelf
+            )
+            
+            strongSelf.log(message: "Capturing photo...")
+            
+        }
         
     }
     
