@@ -10,9 +10,14 @@ import SwiftUI
 struct EmployeeInviteView: View {
     
     private let employeeInvitation: EmployeeInvite
+    private let deleteAction: () -> Void
     
-    init(employeeInvitation: EmployeeInvite) {
+    init(employeeInvitation: EmployeeInvite,
+         deleteAction: @escaping () -> Void) {
+            
         self.employeeInvitation = employeeInvitation
+        self.deleteAction = deleteAction
+            
     }
     
     var body: some View {
@@ -71,9 +76,26 @@ struct EmployeeInviteView: View {
                 
             }
             
-            Text("\(self.employeeInvitation.email)\(locationsString)")
-                .appFont(with: .BODY_2)
-                .foregroundStyle(bodyColor)
+            HStack {
+                
+                Text("\(self.employeeInvitation.email)\(locationsString)")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(bodyColor)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                TokenView(
+                    text: "Delete",
+                    titleFont: .TITLE_1,
+                    foregroundStyle: Style.shared.textColor(.titleInverted),
+                    backgroundStyle: Style.shared.background(.error),
+                    verticalPadding: .custom(2),
+                    clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
+                )
+                .asButton {
+                    self.deleteAction()
+                }
+                
+            }
 
         }
         
@@ -94,7 +116,7 @@ struct EmployeeInviteView: View {
                 businessName: "Yolo Bros",
                 locations: [],
                 role: .admin
-            ))
+            )) {}
             
             EmployeeInviteView(employeeInvitation: .init(
                 id: "1",
@@ -103,9 +125,9 @@ struct EmployeeInviteView: View {
                 businessName: "Yolo Bros",
                 locations: [.DUMMY_DATA()],
                 role: .admin
-            ))
+            )) {}
                                
-            EmployeeInviteView(employeeInvitation: .DUMMY_DATA())
+            EmployeeInviteView(employeeInvitation: .DUMMY_DATA()) {}
             
         }
         .padding(.horizontal, .medium)

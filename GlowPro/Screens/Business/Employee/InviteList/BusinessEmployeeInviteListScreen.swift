@@ -100,7 +100,9 @@ struct BusinessEmployeeInviteListScreen: GPView {
             
         case .business:
             
-            EmployeeInviteView(employeeInvitation: invite)
+            EmployeeInviteView(employeeInvitation: invite) {
+                self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+            }
             
         default: EmptyView()
         }

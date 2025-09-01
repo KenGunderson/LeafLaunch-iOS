@@ -185,6 +185,60 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
         
     }
     
+    func presentDeleteEmployeeInviteAlert(_ invite: EmployeeInvite) {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Delete Employee Invite?",
+                message: "You are attemping to delete \(invite.name)'s employee invite. This action cannot be undone. Are you sure you wish to continue?",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteInvite(invite)
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteInvite(_ invite: EmployeeInvite) {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteEmployeeInvite(invite: invite)
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while deleting your employee invite. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            loadData()
+            
+        }
+        
+    }
+    
     func emptyStateConfig() -> EmptyStateConfig {
         
         switch self.context! {

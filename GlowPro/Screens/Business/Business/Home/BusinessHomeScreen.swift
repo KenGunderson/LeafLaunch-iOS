@@ -239,7 +239,11 @@ struct BusinessHomeScreen: GPView {
             }
             
             ForEach(pendingInvites, id: \.id) { invite in
-                EmployeeInviteView(employeeInvitation: invite)
+                
+                EmployeeInviteView(employeeInvitation: invite) {
+                    self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+                }
+                
             }
             
         }
