@@ -9,6 +9,10 @@ import SwiftUI
 import AVFoundation
 import Photos
 
+// TODO: -
+// breakdown subviews more to organize better
+// make the top sheet and overlay
+
 public struct CameraScreen: View {
         
     @Environment(\.dismiss) private var dismiss
@@ -22,28 +26,6 @@ public struct CameraScreen: View {
     public var body: some View {
         
         content()
-        
-        // Safe Area
-        
-        .safeAreaInset(edge: .top) {
-            
-            ZStack(alignment: .top) {
-                
-                topBarView()
-                
-                if self.showTopOverlayDrawer {
-                    
-                    Rectangle()
-                        .fill(Style.shared.background(.quaternary).source())
-                        .frame(height: 350)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .ignoresSafeArea()
-                    
-                }
-                
-            }
-            
-        }
         
         // Lifecycle
         
@@ -77,6 +59,12 @@ public struct CameraScreen: View {
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
+                .onTapGesture {
+                    
+                    self.showBottomOverlayDrawer = false
+                    self.showTopOverlayDrawer = false
+                    
+                }
             
             if let selectedGhostOverlayItem {
                 
@@ -88,16 +76,44 @@ public struct CameraScreen: View {
                     .view()
                     .aspectRatio(contentMode: .fit)
                     .frame(
-                        width: UIScreen.main.bounds.width * 0.75,
-                        height: UIScreen.main.bounds.height * 0.75
+                        width: UIScreen.main.bounds.width * 0.85
                     )
                     .clipped()
+                    .cornerRadius(.none)
                     .foregroundStyle(.white)
                     .scaleEffect(factor)
                     .opacity(selectedGhostOverlayItem.opacity)
                     .padding(.bottom, 44)
+                    .background(.backgroundTappable)
+                    .appOnTapGesture {
+                        self.showBottomOverlayDrawer = true
+                    }
                 
             }
+            
+            VStack {
+            
+                ZStack(alignment: .top) {
+                    
+                    topBarView()
+                    
+                    if self.showTopOverlayDrawer {
+                        
+                        Rectangle()
+                            .fill(Style.shared.background(.quaternary).source())
+                            .frame(height: 350)
+                            .transition(.move(edge: .top).combined(with: .opacity))
+                            .ignoresSafeArea()
+                        
+                    }
+                    
+                }
+                .background(.backgroundTappable)
+                
+                Spacer()
+                
+            }
+            .frame(maxHeight: .infinity)
             
             VStack {
                 
@@ -122,14 +138,9 @@ public struct CameraScreen: View {
                     }
                     
                 }
+                .background(.backgroundTappable)
                 
             }
-            
-        }
-        .onTapGesture {
-            
-            self.showBottomOverlayDrawer = false
-            self.showTopOverlayDrawer = false
             
         }
         
@@ -143,7 +154,7 @@ public struct CameraScreen: View {
             CircularIconView(
                 foregroundColor: .color(.white),
                 backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("arrow.up"),
+                imageSource: .systemImage("slider.horizontal.below.sun.max"),
                 size: 36
             )
             .asButton {
@@ -155,7 +166,7 @@ public struct CameraScreen: View {
             CircularIconView(
                 foregroundColor: .color(.white),
                 backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("arrow.down"),
+                imageSource: .systemImage("slider.horizontal.below.rectangle"),
                 size: 36
             )
             .asButton {
