@@ -72,7 +72,7 @@ struct NavHeader: View {
             Rectangle()
                 .fill(Style.shared.background(.primary).source())
                 .blur(radius: 2)
-                .offset(y: 8)
+                .offset(y: 10)
             
         }
         
@@ -199,19 +199,19 @@ struct NavHeader: View {
         VStack(spacing: 24) {
             
             RoundedRectangle(cornerRadius: 16)
-                .fill(.red.opacity(0.5))
+                .fill(.red)
                 .frame(height: 120)
             
             RoundedRectangle(cornerRadius: 16)
-                .fill(.red.opacity(0.5))
+                .fill(.red)
                 .frame(height: 120)
             
             RoundedRectangle(cornerRadius: 16)
-                .fill(.red.opacity(0.5))
+                .fill(.red)
                 .frame(height: 120)
             
             RoundedRectangle(cornerRadius: 16)
-                .fill(.red.opacity(0.5))
+                .fill(.red)
                 .frame(height: 120)
             
         }
