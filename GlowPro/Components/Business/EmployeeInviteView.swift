@@ -61,30 +61,31 @@ struct EmployeeInviteView: View {
         let finalRoleString = self.employeeInvitation.role == nil ? "" : " \(roleString)"
         let locationsString = self.employeeInvitation.locations.count > 0 ? " at \(self.employeeInvitation.locations.count) location(s)" : ""
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+        HStack(spacing: Style.shared.spacing(.extraSmall)) {
             
-            HStack {
+            VStack {
                 
                 Text("\(self.employeeInvitation.name)\(finalRoleString)")
                     .appFont(with: .TITLE_3)
                     .foregroundStyle(titleColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("2 hours ago")
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(bodyColor)
-                
-            }
-            
-            HStack {
-                
                 Text("\(self.employeeInvitation.email)\(locationsString)")
                     .appFont(with: .BODY_2)
                     .foregroundStyle(bodyColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(2))) {
+                
+                Text("2 hours ago")
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(bodyColor)
+                
                 TokenView(
-                    text: "Delete",
+                    text: "Remove",
                     titleFont: .TITLE_1,
                     foregroundStyle: Style.shared.textColor(.titleInverted),
                     backgroundStyle: Style.shared.background(.error),

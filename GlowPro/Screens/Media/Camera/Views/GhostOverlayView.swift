@@ -119,13 +119,17 @@ struct GhostOverlayView: View {
                         .scaleEffect(image.image.isSystemImage ? 0.9 : 1)
                         .appOnTapGesture {
                             
-                            let isAlreadySelected = (self.selectedGhostOverlayItem == image)
-                            self.selectedGhostOverlayItem = isAlreadySelected ? nil : image
+                            let isAlreadySelected = (self.selectedGhostOverlayItem?.id == image.id)
+                            var newItem = image
+                            newItem.opacity = self.selectedOpacity
+                            newItem.scale = self.selectedScale
+                            
+                            self.selectedGhostOverlayItem = isAlreadySelected ? nil : newItem
                             
                         }
                         .appBorder(
                             cornerRadius: .small,
-                            color: .color(self.selectedGhostOverlayItem == image ? .white : .clear),
+                            color: .color(self.selectedGhostOverlayItem?.id == image.id ? .white : .clear),
                             lineWidth: 5,
                             outerBorder: true
                         )
