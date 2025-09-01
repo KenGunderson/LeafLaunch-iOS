@@ -8,7 +8,10 @@
 import Photos
 import UIKit
 
-public final class CameraService: NSObject, CameraServiceProtocol {
+final class CameraService: NSObject, CameraServiceProtocol {
+    
+    internal let loggerName: String = "CAMERA_SERVICE"
+    internal let loggerEmoji: String = "📷"
     
     public let session = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "camera.session.queue")
@@ -16,6 +19,17 @@ public final class CameraService: NSObject, CameraServiceProtocol {
     private let photoOutput = AVCapturePhotoOutput()
     private var videoDeviceInput: AVCaptureDeviceInput?
     private var captureCompletion: ((Result<UIImage, Error>) -> Void)?
+    
+    override init() {
+        
+        super.init()
+        self.logInit()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
+    }
     
     public func configure() throws {
         
@@ -28,6 +42,7 @@ public final class CameraService: NSObject, CameraServiceProtocol {
             position: .back
         ) else {
             
+            self.logger.error("Error: No wide angle camera found")
             self.session.commitConfiguration()
             throw CameraError.deviceUnavailable
             
@@ -39,9 +54,11 @@ public final class CameraService: NSObject, CameraServiceProtocol {
             
             self.session.addInput(input)
             self.videoDeviceInput = input
+            self.logger.log("Can add video device input")
             
         } else {
             
+            self.logger.error("Error: Failed to add video device input")
             self.session.commitConfiguration()
             throw CameraError.inputAddFailed
             
@@ -51,9 +68,11 @@ public final class CameraService: NSObject, CameraServiceProtocol {
             
             self.session.addOutput(self.photoOutput)
 //            self.photoOutput.maxPhotoDimensions = .init(width: 1024, height: 1024)
+            self.logger.log("Can add photo output")
             
         } else {
             
+            self.logger.error("Error: Failed to add photo output")
             self.session.commitConfiguration()
             throw CameraError.outputAddFailed
             
@@ -69,8 +88,13 @@ public final class CameraService: NSObject, CameraServiceProtocol {
             
             guard let strongSelf = self else { return }
             
+            self?.logger.log("Attemping to start camera session...")
+            
             if !strongSelf.session.isRunning {
+                
                 strongSelf.session.startRunning()
+                self?.logger.log("Starting camera session...")
+                
             }
             
         }
@@ -79,8 +103,13 @@ public final class CameraService: NSObject, CameraServiceProtocol {
     
     public func stop() {
         
+        self.logger.log("Attemping to stop camera session...")
+        
         self.sessionQueue.async { [weak self] in
+            
             self?.session.stopRunning()
+            self?.logger.log( "Stopping camera session...")
+            
         }
         
     }
@@ -96,6 +125,8 @@ public final class CameraService: NSObject, CameraServiceProtocol {
             with: settings,
             delegate: self
         )
+        
+        self.logger.log("Capturing photo...")
         
     }
     

@@ -8,7 +8,7 @@
 import Photos
 import UIKit
 
-public protocol CameraServiceProtocol: AnyObject {
+public protocol CameraServiceProtocol: AnyObject, Loggable {
     
     var session: AVCaptureSession { get }
     

@@ -1090,6 +1090,9 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
 
 class MockCameraService: CameraServiceProtocol {
     
+    internal let loggerName: String = "CAMERA_SERVICE"
+    internal let loggerEmoji: String = "📷"
+    
     var session: AVCaptureSession = .init()
     
     func configure() throws {

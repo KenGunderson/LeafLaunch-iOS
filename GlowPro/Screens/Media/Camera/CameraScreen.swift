@@ -28,9 +28,6 @@ public struct CameraScreen: View {
         .onAppear {
             viewModel.setup()
         }
-        .onDisappear {
-            viewModel.teardown()
-        }
         
         // Animations
         
@@ -108,7 +105,10 @@ public struct CameraScreen: View {
                 size: 36
             )
             .asButton {
+                
+                self.viewModel.teardown()
                 dismiss()
+                
             }
             
         }
