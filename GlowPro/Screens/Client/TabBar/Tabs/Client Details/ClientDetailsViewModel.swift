@@ -152,7 +152,9 @@ final class ClientDetailsViewModel: ViewModel {
                     self?.viewLifecycleService
                         .reload(for: .clientList)
                     
-                    self?.shouldDismiss = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self?.shouldDismiss = true
+                    }
                     
                 }
                 

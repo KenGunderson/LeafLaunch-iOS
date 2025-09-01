@@ -151,7 +151,7 @@
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
         "branch" : "main",
-        "revision" : "460ca4d88784f132458303a3893bf181ed790ed5"
+        "revision" : "07e78d25e88462b0b202189f5f8a927b39d354e2"
       }
     },
     {
@@ -186,8 +186,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Swinject/Swinject",
       "state" : {
-        "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
-        "version" : "2.9.1"
+        "revision" : "b685b549fe4d8ae265fc7a2f27d0789720425d69",
+        "version" : "2.10.0"
       }
     }
   ],
