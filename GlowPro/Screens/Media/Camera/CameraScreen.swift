@@ -9,10 +9,6 @@ import SwiftUI
 import AVFoundation
 import Photos
 
-// TODO: -
-// breakdown subviews more to organize better
-// make the top sheet and overlay
-
 public struct CameraScreen: View {
         
     @Environment(\.dismiss) private var dismiss
@@ -66,81 +62,9 @@ public struct CameraScreen: View {
                     
                 }
             
-            if let selectedGhostOverlayItem {
-                
-                let normalized = selectedGhostOverlayItem.scale - 0.5   // -0.5...+0.5
-                let factor = pow(2.0, normalized * 3)
-                
-                selectedGhostOverlayItem
-                    .image
-                    .view()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(
-                        width: UIScreen.main.bounds.width * 0.85
-                    )
-                    .clipped()
-                    .cornerRadius(.none)
-                    .foregroundStyle(.white)
-                    .scaleEffect(factor)
-                    .opacity(selectedGhostOverlayItem.opacity)
-                    .padding(.bottom, 44)
-                    .background(.backgroundTappable)
-                    .appOnTapGesture {
-                        self.showBottomOverlayDrawer = true
-                    }
-                
-            }
-            
-            VStack {
-            
-                ZStack(alignment: .top) {
-                    
-                    topBarView()
-                    
-                    if self.showTopOverlayDrawer {
-                        
-                        Rectangle()
-                            .fill(Style.shared.background(.quaternary).source())
-                            .frame(height: 350)
-                            .transition(.move(edge: .top).combined(with: .opacity))
-                            .ignoresSafeArea()
-                        
-                    }
-                    
-                }
-                .background(.backgroundTappable)
-                
-                Spacer()
-                
-            }
-            .frame(maxHeight: .infinity)
-            
-            VStack {
-                
-                Spacer()
-                
-                ZStack(alignment: .bottom) {
-                    
-                    bottomBarView()
-                    
-                    if self.showBottomOverlayDrawer {
-                        
-                        VStack {
-
-                            GhostOverlayView(selectedGhostOverlayItem: self.$selectedGhostOverlayItem)
-                                .padding(.bottom, .small)
-                            
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background(Style.shared.background(.quaternary).source())
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                        
-                    }
-                    
-                }
-                .background(.backgroundTappable)
-                
-            }
+            selectedOverlay()
+            topOverlay()
+            bottomOverlay()
             
         }
         
@@ -234,14 +158,91 @@ public struct CameraScreen: View {
     }
     
     @ViewBuilder
-    private func errorMessage() -> some View {
+    private func topOverlay() -> some View {
         
-        if let error = viewModel.errorMessage {
+        VStack {
+        
+            ZStack(alignment: .top) {
+                
+                topBarView()
+                
+                if self.showTopOverlayDrawer {
+                    
+                    Rectangle()
+                        .fill(Style.shared.background(.quaternary).source())
+                        .frame(height: 350)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .ignoresSafeArea()
+                    
+                }
+                
+            }
+            .background(.backgroundTappable)
             
-            Text(error)
-                .font(.footnote)
-                .foregroundStyle(.red)
-                .padding(.bottom, 8)
+            Spacer()
+            
+        }
+        .frame(maxHeight: .infinity)
+        
+    }
+    
+    @ViewBuilder
+    private func bottomOverlay() -> some View {
+        
+        VStack {
+            
+            Spacer()
+            
+            ZStack(alignment: .bottom) {
+                
+                bottomBarView()
+                
+                if self.showBottomOverlayDrawer {
+                    
+                    VStack {
+
+                        GhostOverlayView(selectedGhostOverlayItem: self.$selectedGhostOverlayItem)
+                            .padding(.bottom, .small)
+                        
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(Style.shared.background(.quaternary).source())
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    
+                }
+                
+            }
+            .background(.backgroundTappable)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func selectedOverlay() -> some View {
+     
+        if let selectedGhostOverlayItem {
+            
+            let normalized = selectedGhostOverlayItem.scale - 0.5   // -0.5...+0.5
+            let factor = pow(2.0, normalized * 3)
+            
+            selectedGhostOverlayItem
+                .image
+                .view()
+                .aspectRatio(contentMode: .fit)
+                .frame(
+                    width: UIScreen.main.bounds.width * 0.85
+                )
+                .clipped()
+                .cornerRadius(.none)
+                .foregroundStyle(.white)
+                .scaleEffect(factor)
+                .opacity(selectedGhostOverlayItem.opacity)
+                .padding(.bottom, 44)
+                .background(.backgroundTappable)
+                .appOnTapGesture {
+                    self.showBottomOverlayDrawer = true
+                }
             
         }
         
