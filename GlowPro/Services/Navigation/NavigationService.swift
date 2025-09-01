@@ -358,7 +358,7 @@ extension View {
         }
         
         @ViewBuilder
-        func media(route: Route.Media) -> some View {
+        func media(route: Route.MediaRoute) -> some View {
             
             switch route {
             case .camera(let mode):
@@ -376,6 +376,18 @@ extension View {
                 
                 MediaGalleryScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+                
+            case .preview(let selectedMedia, let media):
+                
+                let viewModel = globalResolver.resolve(MediaPreviewViewModel.self)!
+                    .setup(
+                        selectedMedia: selectedMedia,
+                        media: media
+                    )
+                
+                MediaPreviewScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }

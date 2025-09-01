@@ -160,6 +160,12 @@ struct MediaGalleryScreen: GPView {
                     .view(shouldResize: false)
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(.small)
+                    .appOnTapGesture {
+                        
+                        self.viewModel
+                            .select(item)
+                        
+                    }
                     
                 }
                 

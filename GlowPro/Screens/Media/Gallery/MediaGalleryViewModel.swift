@@ -142,6 +142,7 @@ final class MediaGalleryViewModel: ViewModel {
                 
                 await MainActor.run { [weak self, media] in
                     
+                    self?.media = media
                     self?.groups = groupedMedia
                     self?.shouldShowEmptyState = media.isEmpty
                     self?.mediaTags = mediaTags
@@ -165,6 +166,16 @@ final class MediaGalleryViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func select(_ selectedMedia: Media) {
+        
+        self.navigationService?
+            .push(.media(.preview(
+                selectedMedia: selectedMedia,
+                media: self.media)
+            ))
         
     }
     

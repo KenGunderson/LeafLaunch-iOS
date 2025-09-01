@@ -69,9 +69,13 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Media: Hashable {
+    enum MediaRoute: Hashable {
         
         case camera(mode: CameraCaptureMode)
+        
+        case preview(selectedMedia: Media?,
+                     media: [Media])
+        
         case gallery(MediaGalleryViewModel.Context)
         
     }
@@ -175,7 +179,7 @@ enum Route: Navigation, Hashable, Sendable {
     case setting(Setting)
     case business(Business)
     case client(Client)
-    case media(Media)
+    case media(MediaRoute)
     
 }
 

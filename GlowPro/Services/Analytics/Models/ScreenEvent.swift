@@ -243,6 +243,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
         case gallery
         case camera
+        case preview
         case photoEdit
         
         var screenName: String {
@@ -252,6 +253,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .gallery: name = "gallery"
             case .camera: name = "camera"
+            case .preview: name = "preview"
             case .photoEdit: name = "photo_edit"
             }
             
@@ -264,6 +266,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .gallery: return nil
             case .camera: return nil
+            case .preview: return nil
             case .photoEdit: return nil
             }
             

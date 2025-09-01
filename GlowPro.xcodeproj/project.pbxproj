@@ -481,6 +481,10 @@
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
 		75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
+		75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */; };
+		75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */; };
+		75F1BBDE2E65481D00858401 /* MediaPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */; };
+		75F1BBDF2E65481D00858401 /* MediaPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */; };
 		75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */; };
 		75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */; };
 		75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */; };
@@ -747,6 +751,8 @@
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
 		75F135D22E638FB000BFCD51 /* CameraScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
+		75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
+		75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewScreen.swift; sourceTree = "<group>"; };
 		75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditViewModel.swift; sourceTree = "<group>"; };
 		75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateEditScreen.swift; sourceTree = "<group>"; };
 		75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCompleteSheet.swift; sourceTree = "<group>"; };
@@ -918,7 +924,9 @@
 		750F9E1A2E56154B00C72EA7 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				75F135D12E638FAE00BFCD51 /* Camera */,
 				750F9E1B2E56155200C72EA7 /* Gallery */,
+				75F1BBD92E65480300858401 /* Preview */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -1668,7 +1676,6 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				75F135D12E638FAE00BFCD51 /* Camera */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				754E51E02E54281F00258225 /* Business */,
@@ -1905,6 +1912,15 @@
 				75F135D22E638FB000BFCD51 /* CameraScreen.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		75F1BBD92E65480300858401 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */,
+				75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		75F2877A2E4FFCFC0045097D /* Create */ = {
@@ -2214,6 +2230,7 @@
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
+				75F1BBDF2E65481D00858401 /* MediaPreviewScreen.swift in Sources */,
 				75D6C2682E63C56300F8A336 /* CameraServiceProtocol.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
 				75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
@@ -2318,6 +2335,7 @@
 				753CC0B02E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26C2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
@@ -2461,6 +2479,7 @@
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
+				75F1BBDE2E65481D00858401 /* MediaPreviewScreen.swift in Sources */,
 				75D6C2692E63C56300F8A336 /* CameraServiceProtocol.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
 				75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
@@ -2565,6 +2584,7 @@
 				753CC0AF2E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26B2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
 				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
