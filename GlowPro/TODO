@@ -106,6 +106,16 @@ Tasks:
 Tasks:
   • Sort Media Properly
   • isSubscribed on business object
+  
+==================================================
+                OPEN QUESTIONS
+==================================================
+Open Questions:
+  • Move checklist to business dashboard?
+  • Should we allow upload from photos?
+  • Need some test ghost overlay assets
+  • How tags should work
+    • Should we allow in media preview?
 
 ==================================================
                 SECTION NAME
