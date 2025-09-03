@@ -595,6 +595,11 @@ struct MockModels {
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/1/1200/1200")!,
                 isFavorited: false,
+                tags: [
+                    MockMediaTag.mediaTag1,
+                    MockMediaTag.mediaTag2,
+                    MockMediaTag.mediaTag3
+                ],
                 createdAt: .now.addingTimeInterval(-7438934),
                 updatedAt: .now.addingTimeInterval(-437843)
             )
@@ -608,6 +613,10 @@ struct MockModels {
                 businessId: ID.business1,
                 url: URL(string: "https://picsum.photos/id/2/1200/1200")!,
                 isFavorited: false,
+                tags: [
+                    MockMediaTag.mediaTag5,
+                    MockMediaTag.mediaTag4
+                ],
                 createdAt: .now.addingTimeInterval(-343),
                 updatedAt: .now.addingTimeInterval(-6521)
             )

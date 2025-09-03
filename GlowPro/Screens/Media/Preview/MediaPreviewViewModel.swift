@@ -24,7 +24,9 @@ final class MediaPreviewViewModel: ViewModel {
     @Published var selectedMedia: Media?
     private(set) var selectedMediaId: String = ""
     
-    @Published var shouldShowOptionsMenu: Bool = false
+    @Published var shouldShowTags: Bool = true
+    @Published var shouldShowOptionsSheet: Bool = false
+    @Published var shouldShowMediaTagsSheet: Bool = false
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -89,7 +91,7 @@ final class MediaPreviewViewModel: ViewModel {
             await MainActor.run { [weak self] in
                 
                 self?.selectedMedia?.isFavorited.toggle()
-                self?.shouldShowOptionsMenu = false
+                self?.shouldShowOptionsSheet = false
                 
             }
             
@@ -132,7 +134,7 @@ final class MediaPreviewViewModel: ViewModel {
                 self.selectedMedia = nextItem
                 self.selectedMediaId = nextItem.id
                 
-                self.shouldShowOptionsMenu = false
+                self.shouldShowOptionsSheet = false
                 
             }
             

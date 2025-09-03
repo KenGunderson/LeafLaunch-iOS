@@ -33,7 +33,7 @@ struct MediaPreviewScreen: GPView {
         // Sheets
         
             .adaptiveSheet(
-                isPresented: self.$viewModel.shouldShowOptionsMenu,
+                isPresented: self.$viewModel.shouldShowOptionsSheet,
                 backgroundStyle: Style.shared.background(.primary)
             ) {
                 
@@ -70,7 +70,7 @@ struct MediaPreviewScreen: GPView {
         .asAnyView()
         
         let settingsButton = NavBarButton(style: .ellipsis) {
-            self.viewModel.shouldShowOptionsMenu.toggle()
+            self.viewModel.shouldShowOptionsSheet.toggle()
         }
         .asAnyView()
         
@@ -85,19 +85,25 @@ struct MediaPreviewScreen: GPView {
     @ViewBuilder
     private func selectedMedia() -> some View {
         
-        if let media = self.viewModel.selectedMedia {
+        ZStack(alignment: .top) {
             
-            ZoomView {
+            if let media = self.viewModel.selectedMedia {
                 
-                ImageSource.remote(url: media.url)
-                    .view()
-                    .aspectRatio(contentMode: .fit)
-                    .clipped()
-                    .frame(width: UIScreen.main.bounds.width)
+                ZoomView {
+                    
+                    ImageSource.remote(url: media.url)
+                        .view()
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
+                        .frame(width: UIScreen.main.bounds.width)
+                    
+                }
+                .id(media.id)
+                .frame(width: UIScreen.main.bounds.width)
                 
             }
-            .id(media.id)
-            .frame(width: UIScreen.main.bounds.width)
+            
+            mediaTagsList()
             
         }
         
@@ -168,11 +174,42 @@ struct MediaPreviewScreen: GPView {
     @ViewBuilder
     private func optionsSheet() -> some View {
         
+        let tagsTitle = self.viewModel.shouldShowTags ? "Hide Tags" : "Show Tags"
+        let tagIcon = self.viewModel.shouldShowTags ? "tag.slash.fill" : "tag.fill"
+        
         let isSelectedMediaFavorited = self.viewModel.selectedMedia?.isFavorited ?? false
         let favoriteTitle = isSelectedMediaFavorited ? "Remove From Favorites" : "Add To Favorites"
         let favoriteIcon = isSelectedMediaFavorited ? "star.fill" : "star"
         
         VStack(spacing: Style.shared.spacing(.none)) {
+            
+            // Show Tags
+            
+            lineItem(
+                title: tagsTitle,
+                icon: tagIcon,
+                tintColor: Style.shared.accent.source()
+            )
+            .appOnTapGesture {
+                
+                self.viewModel
+                    .shouldShowTags.toggle()
+                
+            }
+            
+            // Update Tags
+            
+            lineItem(
+                title: "Edit Tags",
+                icon: "pencil",
+                tintColor: Style.shared.accent.source()
+            )
+            .appOnTapGesture {
+                
+                self.viewModel
+                    .shouldShowMediaTagsSheet = true
+                
+            }
             
             // Favorite
             
@@ -207,7 +244,7 @@ struct MediaPreviewScreen: GPView {
         
     }
     
-    func lineItem(title: String,
+    private func lineItem(title: String,
                   icon: String,
                   tintColor: AnyShapeStyle) -> some View {
         
@@ -239,6 +276,62 @@ struct MediaPreviewScreen: GPView {
         
     }
     
+    @ViewBuilder
+    private func mediaTagsList() -> some View {
+        
+        let tags = self.viewModel.selectedMedia?.tags ?? []
+        
+        if self.viewModel.selectedMedia != nil,
+           self.viewModel.shouldShowTags {
+            
+            ScrollView(.horizontal) {
+                
+                HStack {
+                    
+                    ForEach(tags, id: \.id) { tag in
+                        mediaTag(tag)
+                    }
+                    
+                    if tags.isEmpty {
+                        mediaTag(.init(id: "edit", name: "Add Tags"))
+                    }
+                    
+                }
+                
+            }
+            .scrollIndicators(.hidden)
+            .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+            .id(self.viewModel.selectedMediaId)
+            .animation(.spring, value: self.viewModel.selectedMediaId)
+            .transition(.move(edge: .leading).combined(with: .opacity))
+            
+        }
+        
+    }
+    
+    private func mediaTag(_ mediaTag: MediaTag) -> some View {
+        
+        let isEditTag = (mediaTag.id == "edit")
+        
+        return TokenView(
+            text: mediaTag.name,
+            foregroundStyle: isEditTag ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
+            backgroundStyle: isEditTag ? Style.shared.accent : .color(.clear),
+            verticalPadding: .extraSmall,
+            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
+        )
+        .appBorder(
+            cornerRadius: .extraSmall,
+            color: isEditTag ? Style.shared.accent : Style.shared.background(.border),
+            lineWidth: 1.5
+        )
+        .appShadow(.subtle)
+        .asButton {
+            self.viewModel.shouldShowMediaTagsSheet = true
+        }
+        
+    }
+    
 }
 
 #Preview {
@@ -246,21 +339,7 @@ struct MediaPreviewScreen: GPView {
     let viewModel = mockResolve(MediaPreviewViewModel.self)
         .setup(
             selectedMedia: MockModels.MockMedia.media13,
-            media: [
-            MockModels.MockMedia.media1,
-            MockModels.MockMedia.media2,
-            MockModels.MockMedia.media3,
-            MockModels.MockMedia.media4,
-            MockModels.MockMedia.media4,
-            MockModels.MockMedia.media5,
-            MockModels.MockMedia.media6,
-            MockModels.MockMedia.media7,
-            MockModels.MockMedia.media8,
-            MockModels.MockMedia.media9,
-            MockModels.MockMedia.media11,
-            MockModels.MockMedia.media12,
-            MockModels.MockMedia.media13
-        ]
+            media: MockModels.allMedia
     )
     
     MediaPreviewScreen(viewModel: viewModel)

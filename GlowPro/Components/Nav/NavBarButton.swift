@@ -65,6 +65,7 @@ struct NavBarButton: View {
             .frame(width: frame, height: frame)
             .padding(4)
             .foregroundStyle(Rune.Style.shared.textColor(.title).source())
+            .background(.backgroundTappable)
             .asButton {
                 action()
             }
