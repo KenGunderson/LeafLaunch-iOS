@@ -101,7 +101,7 @@ final class MediaPreviewViewModel: ViewModel {
     
     func presentDeleteMediaAlert() {
         
-        // TODO: - REMOVE THIS FOR CARD
+        self.shouldShowOptionsSheet = false
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
@@ -155,9 +155,7 @@ final class MediaPreviewViewModel: ViewModel {
                 self.media.remove(at: idx)
                 self.selectedMedia = nextItem
                 self.selectedMediaId = nextItem.id
-                
-                self.shouldShowOptionsSheet = false
-                
+                                
             }
             
         }
