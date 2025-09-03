@@ -26,9 +26,7 @@ Tasks:
      – Include delete query param
      – Show progress bar (accent green)
   • Preview Media
-    • Should be able to tag photos here
-        • Final option is to create tag
-    • Maybe we should allow for zoom in + more with a button click to enable horizontal scroll
+    • Sheet to add / remove tags -> Calls endpoint at the end
 
 ==================================================
   MEDIA TAG CREATION SHEET + FULL PAGE (VIEW ALL)
@@ -101,6 +99,7 @@ Tasks:
                 OPEN QUESTIONS
 ==================================================
 Open Questions:
+  • Preview Screen: Maybe we should allow for zoom in + more with a button click to enable horizontal scroll?
   • Should we allow upload from photos? (YES)
   • Need some test ghost overlay assets
   • Grid? (2x2, 3x3, 4x4)
