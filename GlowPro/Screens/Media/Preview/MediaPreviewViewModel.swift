@@ -99,7 +99,29 @@ final class MediaPreviewViewModel: ViewModel {
         
     }
     
-    func deleteMedia() {
+    func presentDeleteMediaAlert() {
+        
+        // TODO: - REMOVE THIS FOR CARD
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Delete Media?",
+                message: "You are attemping to delete your media. This action cannot be undone. Are you sure you wish to continue?",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteMedia()
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteMedia() {
         
         guard let selectedMedia else { return }
         

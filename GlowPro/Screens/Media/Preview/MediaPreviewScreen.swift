@@ -235,7 +235,7 @@ struct MediaPreviewScreen: GPView {
             .appOnTapGesture {
                 
                 self.viewModel
-                    .deleteMedia()
+                    .presentDeleteMediaAlert()
                 
             }
             
