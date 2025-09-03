@@ -30,6 +30,18 @@ struct MediaPreviewScreen: GPView {
                 
             }
         
+        // Sheets
+        
+            .adaptiveSheet(
+                isPresented: self.$viewModel.shouldShowOptionsMenu,
+                backgroundStyle: Style.shared.background(.primary)
+            ) {
+                
+                optionsSheet()
+                    .presentationCornerRadius(Style.shared.radius(.large))
+                
+            }
+        
     }
     
     private func content() -> some View {
@@ -57,9 +69,15 @@ struct MediaPreviewScreen: GPView {
         }
         .asAnyView()
         
+        let settingsButton = NavBarButton(style: .ellipsis) {
+            self.viewModel.shouldShowOptionsMenu.toggle()
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: "Preview",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: settingsButton
         )
         
     }
@@ -100,7 +118,7 @@ struct MediaPreviewScreen: GPView {
                         
                         ImageSource.remote(url: media.url)
                             .view()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(1, contentMode: .fit)
                             .frame(width: 65, height: 65)
                             .clipped()
                             .appBorder(
@@ -144,6 +162,80 @@ struct MediaPreviewScreen: GPView {
             }
             
         }
+        
+    }
+    
+    @ViewBuilder
+    private func optionsSheet() -> some View {
+        
+        let isSelectedMediaFavorited = self.viewModel.selectedMedia?.isFavorited ?? false
+        let favoriteTitle = isSelectedMediaFavorited ? "Remove From Favorites" : "Add To Favorites"
+        let favoriteIcon = isSelectedMediaFavorited ? "star.fill" : "star"
+        
+        VStack(spacing: Style.shared.spacing(.none)) {
+            
+            // Favorite
+            
+            lineItem(
+                title: favoriteTitle,
+                icon: favoriteIcon,
+                tintColor: AnyShapeStyle(GPColor.iconYellow)
+            )
+            .appOnTapGesture {
+                
+                self.viewModel
+                    .favoriteMedia()
+                
+            }
+            
+            // Delete
+            
+            lineItem(
+                title: "Delete Media",
+                icon: "trash.fill",
+                tintColor: Style.shared.background(.error).source()
+            )
+            .appOnTapGesture {
+                
+                self.viewModel
+                    .deleteMedia()
+                
+            }
+            
+        }
+        .padding(.top, .large)
+        
+    }
+    
+    func lineItem(title: String,
+                  icon: String,
+                  tintColor: AnyShapeStyle) -> some View {
+        
+        HStack {
+            
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
+                .foregroundStyle(tintColor)
+            
+            Text(title)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Image(systemName: "chevron.right")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 16, height: 16)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
+        }
+        .padding(.horizontal, .medium)
+        .padding(.vertical, .medium)
+        .background(.backgroundTappable)
+        .animation(.smooth, value: self.viewModel.selectedMedia)
+        .contentTransition(.numericText())
         
     }
     

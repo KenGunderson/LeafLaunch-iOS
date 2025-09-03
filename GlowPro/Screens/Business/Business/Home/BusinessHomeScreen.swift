@@ -48,6 +48,12 @@ struct BusinessHomeScreen: GPView {
             
         }
         
+        // Sheets
+        
+        .sheet(isPresented: self.$viewModel.shouldShowChecklistCompletionSheet) {
+            ChecklistCompleteSheet()
+        }
+        
     }
     
     @ViewBuilder
@@ -79,15 +85,12 @@ struct BusinessHomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.extraSmall)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             tilesGrid()
-            
             quickActionButtons()
-                .padding(.top, .small)
-            
+            checklist()
             pendingInvites()
-                .padding(.top, .medium)
             
         }
         
@@ -242,6 +245,25 @@ struct BusinessHomeScreen: GPView {
                 
                 EmployeeInviteView(employeeInvitation: invite) {
                     self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func checklist() -> some View {
+        
+        if self.viewModel.showChecklist {
+            
+            VStack(spacing: Style.shared.spacing(.medium)) {
+                
+                SectionView(leadingTitle: "First Steps", showDivider: true)
+                
+                ChecklistView(checklistItems: self.viewModel.checklistItems) { type in
+                    self.viewModel.selectChecklistType(type: type)
                 }
                 
             }

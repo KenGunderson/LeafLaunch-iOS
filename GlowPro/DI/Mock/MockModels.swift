@@ -736,7 +736,7 @@ struct MockModels {
                 id: ID.media12,
                 clientId: ID.client2,
                 businessId: ID.business1,
-                url: URL(string: "https://picsum.photos/id/12/1200/1200")!,
+                url: URL(string: "https://picsum.photos/id/30/600/900")!,
                 isFavorited: true,
                 createdAt: .now.addingTimeInterval(-2309483),
                 updatedAt: .now.addingTimeInterval(-1043)

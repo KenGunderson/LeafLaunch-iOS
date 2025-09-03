@@ -23,6 +23,8 @@ final class MediaPreviewViewModel: ViewModel {
     @Published private(set) var media: [Media] = []
     @Published var selectedMedia: Media?
     private(set) var selectedMediaId: String = ""
+    
+    @Published var shouldShowOptionsMenu: Bool = false
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -73,6 +75,68 @@ final class MediaPreviewViewModel: ViewModel {
         
         self.selectedMedia = media
         self.selectedMediaId = media.id
+        
+    }
+    
+    func favoriteMedia() {
+        
+        guard let selectedMedia else { return }
+        
+        Task { [weak self] in
+            
+            try await self?.apiService.favoriteMedia(mediaId: selectedMedia.id)
+            
+            await MainActor.run { [weak self] in
+                
+                self?.selectedMedia?.isFavorited.toggle()
+                self?.shouldShowOptionsMenu = false
+                
+            }
+            
+        }
+        
+    }
+    
+    func deleteMedia() {
+        
+        guard let selectedMedia else { return }
+        
+        Task { [weak self] in
+            
+            try await self?.apiService.deleteMedia(mediaId: selectedMedia.id)
+            
+            await MainActor.run { [weak self] in
+                
+                guard let self else { return }
+                guard let idx = self.media.firstIndex(where: { $0.id == selectedMedia.id }) else { return }
+                
+                // If this was the only item, pop and remove it.
+                if self.media.count == 1 {
+                    
+                    self.navigationService?.pop()
+                    
+                    self.media.remove(at: idx)
+                    self.selectedMedia = nil
+                    self.selectedMediaId = ""
+                    
+                    return
+                    
+                }
+                
+                // Prefer the next item; otherwise take the previous.
+                let nextIndex = (idx < self.media.count - 1) ? idx + 1 : max(idx - 1, 0)
+                let nextItem = self.media[nextIndex]
+                
+                // Remove the current item, then update selection.
+                self.media.remove(at: idx)
+                self.selectedMedia = nextItem
+                self.selectedMediaId = nextItem.id
+                
+                self.shouldShowOptionsMenu = false
+                
+            }
+            
+        }
         
     }
     

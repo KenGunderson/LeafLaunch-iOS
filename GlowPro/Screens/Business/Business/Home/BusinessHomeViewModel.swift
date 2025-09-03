@@ -24,8 +24,15 @@ final class BusinessHomeViewModel: ViewModel {
     
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var business: Business?
+    @Published private(set) var checklistItems: [ChecklistView.ChecklistItem] = []
     
+    @Published var shouldShowChecklistCompletionSheet: Bool = false
+
     private(set) var businessId: String!
+    
+    var showChecklist: Bool {
+        return !self.checklistItems.map({ $0.isComplete }).allSatisfy({ $0 })
+    }
     
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
@@ -88,7 +95,35 @@ final class BusinessHomeViewModel: ViewModel {
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 
                 await MainActor.run { [weak self] in
+                    
                     self?.business = business
+                    
+                    let hasLocations = !(self?.business?.locations.isEmpty ?? true)
+                    let hasClients = ((self?.business?.clientsCount ?? 0) > 0)
+                    let hasMedia = ((self?.business?.media.count ?? 0) > 0)
+                    
+                    self?.checklistItems = [
+                        .init(type: .completeProfile, isComplete: true),
+                        .init(type: .createLocation, isComplete: hasLocations),
+                        .init(type: .createClient, isComplete: hasClients),
+                        .init(type: .createMedia, isComplete: hasMedia),
+                    ]
+                    
+                    if let didView = self?.userDefaultsService.didViewChecklistCompletionSheet,
+                       !didView,
+                       hasLocations,
+                       hasClients,
+                       hasMedia{
+                        
+                        
+                        self?.shouldShowChecklistCompletionSheet = true
+                        
+                        
+                        self?.userDefaultsService
+                            .set(didViewChecklistCompletionSheet: true)
+                        
+                    }
+                    
                 }
                 
             }
@@ -108,6 +143,54 @@ final class BusinessHomeViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func selectChecklistType(type: ChecklistView.ChecklistItemType) {
+        
+        guard let business else { return }
+        
+        switch type {
+        case .completeProfile: break
+        case .createLocation: self.navigationService?.push(.business(.businessLocationCreateEdit(businessId: self.businessId, locationId: nil)))
+        case .createClient:
+            
+            if business.locations.isEmpty {
+                
+                presentChecklistClientMediaErrorAlert()
+                return
+                
+            }
+            
+            self.navigationService?
+                .push(.client(.clientCreate(locationId: self.business?.locations.first?.id ?? "", clientId: nil)))
+            
+        case .createMedia:
+            
+            if business.locations.isEmpty {
+                
+                presentChecklistClientMediaErrorAlert()
+                return
+                
+            }
+            
+            self.navigationService?
+                .push(.media(.camera(mode: .multiple([]))))
+        }
+        
+    }
+    
+    func presentChecklistClientMediaErrorAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Hold up!",
+                message: "You need to create a location before you can add clients or create media.",
+                primaryButtonTitle: "Okay",
+                primaryButtonAction: {},
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted)
+            ))))
         
     }
     

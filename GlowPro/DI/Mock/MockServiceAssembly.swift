@@ -586,6 +586,28 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func favoriteMedia(mediaId: String) async throws {
+        
+        if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
+            
+            let oldMedia = self.media[index]
+            
+            var newMedia = oldMedia
+            newMedia.isFavorited = true
+            
+            self.media[index] = newMedia
+            
+        }
+        
+    }
+    
+    func deleteMedia(mediaId: String) async throws {
+        
+        self.media
+            .removeAll(where: { $0.id == mediaId })
+        
+    }
+    
     // Media Tags
     
     func getMediaTags() async throws -> [MediaTag] {

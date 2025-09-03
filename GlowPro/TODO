@@ -11,13 +11,6 @@ Tasks:
   • Show location stats
   • Activities (navigates to all activities (location context))
   • Employees (navigates to employee details)
-  
-==================================================
-             MEDIA TAG CREATION SHEET
-==================================================
-Tasks:
-  • When tagging photos we should have a way to add new media tag if needed
-  • Would be nice to have a check for lowercased() filters to see if it's a duplicate or not
 
 ==================================================
              EMPLOYEE DETAILS
@@ -37,6 +30,13 @@ Tasks:
         • Final option is to create tag
     • Maybe we should allow for zoom in + more with a button click to enable horizontal scroll
 
+==================================================
+  MEDIA TAG CREATION SHEET + FULL PAGE (VIEW ALL)
+==================================================
+Tasks:
+  • When tagging photos we should have a way to add new media tag if needed
+  • Would be nice to have a check for lowercased() filters to see if it's a duplicate or not
+  
 ==================================================
                 CAMERA
 ==================================================
@@ -73,19 +73,10 @@ Tasks:
                 PRE TESTFLIGHT
 ==================================================
 Tasks:
-• Basic Camera Apple's
 • Way to show empty state for new users
-• Delete Pending Employee Invite
-  
-==================================================
-                DELETE EMPLOYEE
-==================================================
-Tasks:
-    • Show alert from business home if user is still part of locations
-    • remove from locations first
     
 ==================================================
-                DELETE ACCOUNT
+                DELETE ACCOUNT (POST MVP)
 ==================================================
 Tasks:
   • show a delete account option in settings
@@ -105,17 +96,23 @@ Tasks:
 ==================================================
 Tasks:
   • Sort Media Properly
-  • isSubscribed on business object
   
 ==================================================
                 OPEN QUESTIONS
 ==================================================
 Open Questions:
-  • Move checklist to business dashboard?
-  • Should we allow upload from photos?
+  • Should we allow upload from photos? (YES)
   • Need some test ghost overlay assets
+  • Grid? (2x2, 3x3, 4x4)
   • How tags should work
     • Should we allow in media preview?
+  • Remove Camera from location?
+  • How to assign client after the fact reliably?
+  • Remove yourself from business?
+  • Delete Employee
+        • Show alert from business home if user is still part of locations
+        • remove from locations first
+        • PROBLEM: -> Only Owner. Owner needs to remove from all first. Seems weird
 
 ==================================================
                 SECTION NAME

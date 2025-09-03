@@ -60,10 +60,6 @@ struct HomeScreen: GPView {
                     
                 }
                 
-                .sheet(isPresented: self.$viewModel.shouldShowChecklistCompletionSheet) {
-                    ChecklistCompleteSheet()
-                }
-                
             }
         
     }
@@ -96,9 +92,7 @@ struct HomeScreen: GPView {
     private func content() -> some View {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
-            
-            SectionView(leadingTitle: "First Steps", showDivider: true)
-            
+                        
             let hasActiveBusiness = self.viewModel.workspaces.contains(where: { $0.isOwner })
             
             BusinessDashboardView(isBusinessActive: hasActiveBusiness)
@@ -108,8 +102,6 @@ struct HomeScreen: GPView {
                     self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
                     
                 }
-            
-            ChecklistView(checklistItems: self.viewModel.checklistItems)
             
             SectionView(leadingTitle: "Choose Your Location", showDivider: true)
             

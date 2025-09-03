@@ -4,7 +4,7 @@
 //
 //  Created by Sako Hovaguimian on 8/20/25.
 //
-//WHTY IS NOT WORKING? PUSHING???
+
 import SwiftUI
 
 struct MediaGalleryScreen: GPView {
@@ -158,7 +158,7 @@ struct MediaGalleryScreen: GPView {
                         placeholder: placeholderView,
                     )
                     .view(shouldResize: false)
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(1, contentMode: .fit)
                     .cornerRadius(.small)
                     .appOnTapGesture {
                         

@@ -25,6 +25,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var business: Business?
     @Published private(set) var location: Location?
+    @Published private(set) var activities: [Activity] = []
     
     private(set) var locationId: String!
     private(set) var completion: (() -> ())?
@@ -96,11 +97,13 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 
                 let location = try await self.apiService.getLocation(id: self.locationId)
                 let business = try await self.apiService.getBusiness(id: location.businessId)
+                let activities = try await self.apiService.getActivitiy(locationId: self.locationId)
                 
                 await MainActor.run { [weak self] in
                     
                     self?.location = location
                     self?.business = business
+                    self?.activities = activities
                     
                 }
                 

@@ -75,10 +75,11 @@ struct BusinessLocationHomeScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             tilesGrid()
             buttonList()
+            activitiesList()
             
         }
         
@@ -176,6 +177,30 @@ struct BusinessLocationHomeScreen: GPView {
                         .push(.media(.gallery(.location(locationId: self.viewModel.locationId))))
                     
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func activitiesList() -> some View {
+        
+        if !self.viewModel.activities.isEmpty {
+            
+            VStack(spacing: Style.shared.spacing(.medium)) {
+                
+                SectionView(leadingTitle: "All Activities", showDivider: true) {
+                    
+                    self.navigationService
+                        .push(.business(.businessActivitiesList(
+                            context: .location(locationId: self.viewModel.locationId)
+                        )))
+                    
+                }
+                
+                ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
                 
             }
             

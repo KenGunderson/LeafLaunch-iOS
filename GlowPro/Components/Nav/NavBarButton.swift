@@ -14,6 +14,7 @@ struct NavBarButton: View {
         case back
         case close
         case settings
+        case ellipsis
         case plus
         case bell(notificationCount: Int = 0)
         case pencil
@@ -25,6 +26,7 @@ struct NavBarButton: View {
             case .back: return .systemImage("arrow.left")
             case .close: return .systemImage("xmark")
             case .settings: return .image(.iconSetting)
+            case .ellipsis: return .systemImage("ellipsis")
             case .plus: return .systemImage("plus")
             case .bell: return .image(.iconBell)
             case .pencil: return .systemImage("pencil")

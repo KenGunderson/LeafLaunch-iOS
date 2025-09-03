@@ -64,7 +64,7 @@ struct Media: Identifiable,
     let clientId: String?
     let businessId: String
     let url: URL
-    let isFavorited: Bool
+    var isFavorited: Bool
     let tags: [MediaTag]
     
     private var _createdAt: String?

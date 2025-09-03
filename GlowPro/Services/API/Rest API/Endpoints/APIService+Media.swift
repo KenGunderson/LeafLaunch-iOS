@@ -7,7 +7,7 @@
 
 extension APIService {
     
-    // MARK: - CLIENTS
+    // MARK: - MEDIA
     
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
@@ -72,6 +72,44 @@ extension APIService {
         
     }
     
+    func favoriteMedia(mediaId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .media(""))
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func deleteMedia(mediaId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .media(""))
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    // MARK: - MEDIA TAGS
+    
     func getMediaTags() async throws -> [MediaTag] {
         
         do {
@@ -95,12 +133,10 @@ extension APIService {
         
         do {
             
-            let data = try await buildRequest(
+            _ = try await buildRequest(
                 method: .get,
                 apiPath: .init(path: .media(""))
             )
-            
-            let result: [MediaTag] = try parseData(data: data)
             
         }
         catch {
@@ -113,13 +149,11 @@ extension APIService {
      
         do {
             
-            let data = try await buildRequest(
+            _ = try await buildRequest(
                 method: .get,
                 apiPath: .init(path: .media(""))
             )
-            
-            let result: [Media] = try parseData(data: data)
-            
+                        
         }
         catch {
             throw error

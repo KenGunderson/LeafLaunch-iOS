@@ -12,34 +12,34 @@ struct ChecklistView: View {
     enum ChecklistItemType: String, CaseIterable {
         
         case completeProfile
-        case createOrJoinBusiness
-        case addClient
-        case takeAPhoto
+        case createLocation
+        case createClient
+        case createMedia
         
         var displayName: String {
             switch self {
             case .completeProfile: return "Complete Profile"
-            case .createOrJoinBusiness: return "Create or Join Business"
-            case .addClient: return "Add Client"
-            case .takeAPhoto: return "Take a Photo"
+            case .createLocation: return "Create Location"
+            case .createClient: return "Add Client"
+            case .createMedia: return "Take a Photo"
             }
         }
         
         var icon: ImageSource {
             switch self {
             case .completeProfile: return .image(.iconNoteOutline)
-            case .createOrJoinBusiness: return .systemImage("storefront")
-            case .addClient: return .image(.iconPersonOutline)
-            case .takeAPhoto: return .image(.iconCamera)
+            case .createLocation: return .systemImage("pin")
+            case .createClient: return .image(.iconPersonOutline)
+            case .createMedia: return .image(.iconCamera)
             }
         }
         
         var color: Color {
             switch self {
             case .completeProfile: return GPColor.iconGreen
-            case .createOrJoinBusiness: return GPColor.iconBlue
-            case .addClient: return GPColor.iconPurple
-            case .takeAPhoto: return GPColor.iconTeal
+            case .createLocation: return GPColor.iconYellow
+            case .createClient: return GPColor.iconPurple
+            case .createMedia: return GPColor.iconTeal
             }
         }
          
@@ -61,6 +61,7 @@ struct ChecklistView: View {
     }
     
     let checklistItems: [ChecklistItem]
+    let checklistAction: (ChecklistItemType) -> Void
     
     var progress: Int {
         
@@ -83,9 +84,11 @@ struct ChecklistView: View {
                     item,
                     isLastItem: isLastItem
                 )
+                .appOnTapGesture {
+                    self.checklistAction(item.type)
+                }
                 
             }
-            .animation(.smooth, value: self.checklistItems)
             
         }
         .frame(maxWidth: .infinity)
@@ -124,16 +127,18 @@ struct ChecklistView: View {
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Image(systemName: item.isComplete ? "checkmark.circle.fill" : "circle")
+                Image(systemName: item.isComplete ? "checkmark.circle.fill" : "chevron.right")
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(
+                        width: item.isComplete ? 28 : 16,
+                        height: item.isComplete ? 28 : 16
+                    )
                     .foregroundStyle(
                         item.isComplete
                             ? Style.shared.accent.source()
                             : Style.shared.background(.quaternary).source()
                     )
-                    .contentTransition(.symbolEffect(.replace))
-                
                 
             }
             .padding(.horizontal, .small2)
@@ -163,10 +168,12 @@ struct ChecklistView: View {
         
         ChecklistView(checklistItems: [
             .init(type: .completeProfile, isComplete: toggleValue),
-            .init(type: .createOrJoinBusiness, isComplete: toggleValue),
-            .init(type: .addClient, isComplete: toggleValue),
-            .init(type: .takeAPhoto, isComplete: toggleValue),
-        ])
+            .init(type: .createLocation, isComplete: toggleValue),
+            .init(type: .createClient, isComplete: toggleValue),
+            .init(type: .createMedia, isComplete: toggleValue),
+        ]) { _ in
+            
+        }
         .padding(.horizontal, .large)
         
     }
