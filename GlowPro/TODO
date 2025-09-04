@@ -41,7 +41,6 @@ Tasks:
   • Setup ViewModel assemblies (mock + live)
   • Create simple placeholder views for all settings pages
   • Delete account (Delete from firebase?)
-  • Create Write a review
 
 ==================================================
                 PAYWALL
@@ -74,11 +73,6 @@ Tasks:
     • Cancel subscription alert first
     • Webhook?
   • Delete from firebase?
-  
-==================================================
-                KF (IMAGES)
-==================================================
-  • Add Rune param for image tint loading options
     
 ==================================================
                 BACKEND
