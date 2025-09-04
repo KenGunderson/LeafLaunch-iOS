@@ -187,6 +187,8 @@ extension View {
                 
             case .contactSupport: EmptyView()
             case .sendFeedback: EmptyView()
+            case .writeAReview: EmptyView()
+            case .featureRequest: EmptyView()
             case .privacyPolicy:
                 
                 let viewModel = globalResolver.resolve(LegalViewModel.self)!

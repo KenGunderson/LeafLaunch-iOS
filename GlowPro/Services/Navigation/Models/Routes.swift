@@ -88,6 +88,8 @@ enum Route: Navigation, Hashable, Sendable {
         case frequentlyAskedQuestions
         case contactSupport
         case sendFeedback
+        case featureRequest
+        case writeAReview
         case privacyPolicy
         case termsOfService
         case logout
@@ -100,6 +102,8 @@ enum Route: Navigation, Hashable, Sendable {
             case .frequentlyAskedQuestions: return "Frequently Asked Questions"
             case .contactSupport: return "Contact Support"
             case .sendFeedback: return "Send Feedback"
+            case .featureRequest: return "Feature Request"
+            case .writeAReview: return "Write a Review"
             case .privacyPolicy: return "Privacy Policy"
             case .termsOfService: return "Terms of Service"
             case .logout: return "Logout"
@@ -114,6 +118,8 @@ enum Route: Navigation, Hashable, Sendable {
             case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
             case .contactSupport: return .image(.iconMail)
             case .sendFeedback: return .image(.iconChatBubble)
+            case .featureRequest: return .systemImage("lightbulb.fill")
+            case .writeAReview: return .systemImage("star.fill")
             case .privacyPolicy: return .image(.iconLock)
             case .termsOfService: return .systemImage("clipboard.fill")
             case .logout: return .image(.iconCloseCircle)
