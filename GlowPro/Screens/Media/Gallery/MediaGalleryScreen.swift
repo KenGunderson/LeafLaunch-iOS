@@ -176,7 +176,7 @@ struct MediaGalleryScreen: GPView {
                                 .frame(width: 18, height: 18)
                                 .foregroundStyle(GPColor.iconYellow)
                                 .padding(6)
-                                .background(Material.ultraThin, in: .circle)
+                                .background(.ultraThinMaterial, in: .circle)
                                 .padding([.bottom, .trailing], .small)
                                 .transition(.scale.combined(with: .opacity))
                             

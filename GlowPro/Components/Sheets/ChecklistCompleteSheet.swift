@@ -48,9 +48,10 @@ struct ChecklistCompleteSheet: View {
         .safeAreaInset(edge: .bottom) {
             bottomBarView()
         }
-        .presentationDetents([.fraction(0.50)])
-        .presentationCornerRadius(24)
-        .presentationDragIndicator(.visible)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         
     }
     
@@ -82,9 +83,10 @@ struct ChecklistCompleteSheet: View {
             Text(self.message)
                 .appFont(with: .BODY_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
+                .lineLimit(nil)
             
         }
-        .padding(.top, .large)
+        .padding(.vertical, .large)
         .padding(.horizontal, .medium)
         .frame(maxWidth: .infinity, alignment: .leading)
         
@@ -115,7 +117,8 @@ struct ChecklistCompleteSheet: View {
         .padding(.horizontal, .large)
         
     }
-    .sheet(isPresented: $showSheet) {
+    .adaptiveSheet(isPresented: $showSheet,
+                   backgroundStyle: Style.shared.background(.primary)) {
         ChecklistCompleteSheet()
     }
     
@@ -128,11 +131,11 @@ extension ConfettiConfig {
         var settings = ConfettiConfig()
         
         // Emission
-        settings.particleCount = 100
+        settings.particleCount = 150
         settings.maxTotalParticles = 300
         
         // Spawn from near top; keep your center X
-        settings.burstX = 0.35
+        settings.burstX = 0.278
         settings.burstY = -48
         
         // Rain vibe: mostly vertical fall, modest initial kick so gravity does the work
@@ -143,8 +146,8 @@ extension ConfettiConfig {
         settings.burstXSpread = 120
         
         // Lifetime + gravity: longer travel before fade, steady speed-up
-        settings.fallDurationBase = 6.0
-        settings.gravity = 92
+        settings.fallDurationBase = 20
+        settings.gravity = 150
         
         // Mass/drag: straighter trajectories but still natural variation
         settings.massMin = 0.1
@@ -154,7 +157,7 @@ extension ConfettiConfig {
         
         // Wobble: wider sheet feel from a single X origin (your only spread lever here)
         settings.wobbleAmplitudeMin = 0
-        settings.wobbleAmplitudeMax = 150
+        settings.wobbleAmplitudeMax = 250
         settings.wobbleFrequencyMin = 0.1
         settings.wobbleFrequencyMax = 1
         settings.wobbleDecay = 0.92         // keep sway alive longer

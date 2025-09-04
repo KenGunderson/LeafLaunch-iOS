@@ -50,7 +50,10 @@ struct BusinessHomeScreen: GPView {
         
         // Sheets
         
-        .sheet(isPresented: self.$viewModel.shouldShowChecklistCompletionSheet) {
+        .adaptiveSheet(
+            isPresented: self.$viewModel.shouldShowChecklistCompletionSheet,
+            backgroundStyle: Style.shared.background(.primary)
+        ) {
             ChecklistCompleteSheet()
         }
         
