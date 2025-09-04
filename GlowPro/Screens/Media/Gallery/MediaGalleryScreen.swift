@@ -135,7 +135,7 @@ struct MediaGalleryScreen: GPView {
             sectionHeader(groupedMedia)
             
             LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 4),
+                columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3),
                 spacing: 4
             ) {
                 
@@ -164,6 +164,23 @@ struct MediaGalleryScreen: GPView {
                         
                         self.viewModel
                             .select(item)
+                        
+                    }
+                    .overlay(alignment: .bottomTrailing) {
+                        
+                        if item.isFavorited {
+                            
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .foregroundStyle(GPColor.iconYellow)
+                                .padding(6)
+                                .background(Material.ultraThin, in: .circle)
+                                .padding([.bottom, .trailing], .small)
+                                .transition(.scale.combined(with: .opacity))
+                            
+                        }
                         
                     }
                     

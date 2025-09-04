@@ -25,16 +25,6 @@ Tasks:
   • Show remaining photo count
      – Include delete query param
      – Show progress bar (accent green)
-  • Preview Media
-    • Sheet to add / remove tags -> Calls endpoint at the end
-  • Add Star to media to show favorited in gallery layer
-
-==================================================
-  MEDIA TAG CREATION SHEET + FULL PAGE (VIEW ALL)
-==================================================
-Tasks:
-  • When tagging photos we should have a way to add new media tag if needed
-  • Would be nice to have a check for lowercased() filters to see if it's a duplicate or not
   
 ==================================================
                 CAMERA
@@ -104,8 +94,6 @@ Open Questions:
   • Should we allow upload from photos? (YES)
   • Need some test ghost overlay assets
   • Grid? (2x2, 3x3, 4x4)
-  • How tags should work
-    • Should we allow in media preview?
   • Remove Camera from location?
   • How to assign client after the fact reliably?
   • Remove yourself from business?
