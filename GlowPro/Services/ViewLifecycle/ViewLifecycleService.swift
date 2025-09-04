@@ -12,6 +12,7 @@ enum ViewLifecycleKey: String, Hashable {
     
     case home
     case clientList
+    case mediaPreview
     case devSettings
     
 }

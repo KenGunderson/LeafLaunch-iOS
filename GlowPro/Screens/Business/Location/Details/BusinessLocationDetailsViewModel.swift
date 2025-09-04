@@ -109,7 +109,7 @@ final class BusinessLocationDetailsViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("location"),
+                            message: Constants.Message.errorMessage("location"),
                             action: {})
                     ))
                 )
@@ -127,8 +127,8 @@ final class BusinessLocationDetailsViewModel: ViewModel {
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
-                title: "Delete Location?",
-                message: "You are attemping to delete your location. This action cannot be undone. Are you sure you wish to continue?",
+                title: Constants.Message.deleteConfirmationTitle("Location"),
+                message: Constants.Message.deleteConfirmationMessage("location"),
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     self?.deleteLocation()
@@ -161,7 +161,7 @@ final class BusinessLocationDetailsViewModel: ViewModel {
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.error(
-                        message: Constants.Error.errorMessage(context: .delete, "location"),
+                        message: Constants.Message.errorMessage(context: .delete, "location"),
                         action: {})
                     )))
                 

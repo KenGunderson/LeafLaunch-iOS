@@ -104,7 +104,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("employee details"),
+                            message: Constants.Message.errorMessage("employee details"),
                             action: {})
                     ))
                 )
@@ -124,8 +124,8 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
-                title: "Delete Employee?",
-                message: "You are attemping to delete your employee. This action cannot be undone. Are you sure you wish to continue?",
+                title: Constants.Message.deleteConfirmationTitle("Employee"),
+                message: Constants.Message.deleteConfirmationMessage("employee"),
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     self?.deleteEmployee()
@@ -158,7 +158,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.error(
-                        message: Constants.Error.errorMessage(context: .delete, "employee"),
+                        message: Constants.Message.errorMessage(context: .delete, "employee"),
                         action: {})
                     )))
                 

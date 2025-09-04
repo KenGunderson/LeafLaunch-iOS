@@ -72,6 +72,25 @@ extension APIService {
         
     }
     
+    func getMedia(id: String) async throws -> Media {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .media(""))
+            )
+            
+            let result: Media = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func favoriteMedia(mediaId: String) async throws {
         
         do {
@@ -147,6 +166,42 @@ extension APIService {
     
     func deleteTag(mediaTagId: String) async throws {
      
+        do {
+            
+            _ = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .media(""))
+            )
+                        
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    // MARK: - MEDIA TAG RELATIONS
+    
+    func createMediaTagForMedia(mediaId: String,
+                                mediaTagId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .media(""))
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func deleteMediaTagFromMedia(mediaId: String,
+                                 mediaTagId: String) async throws {
+        
         do {
             
             _ = try await buildRequest(

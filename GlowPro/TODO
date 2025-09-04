@@ -27,6 +27,7 @@ Tasks:
      – Show progress bar (accent green)
   • Preview Media
     • Sheet to add / remove tags -> Calls endpoint at the end
+  • Add Star to media to show favorited in gallery layer
 
 ==================================================
   MEDIA TAG CREATION SHEET + FULL PAGE (VIEW ALL)

@@ -517,6 +517,13 @@ extension View {
                     tab4ViewModel: tab4ViewModel
                 )
                 
+            case .mediaTags(let selectedMedia):
+                
+                let viewModel = globalResolver.resolve(MediaTagViewModel.self)!
+                    .setup(media: selectedMedia)
+                
+                MediaTagScreen(viewModel: viewModel)
+                
             }
             
         }

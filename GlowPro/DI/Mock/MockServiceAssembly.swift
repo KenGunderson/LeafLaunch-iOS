@@ -561,6 +561,10 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func getMedia(id: String) async throws -> Media {
+        return self.media.first(where: { $0.id == id }) ?? .DUMMY_DATA()
+    }
+    
     private func processMedia(_ media: [Media],
                               sortingOption: MediaSortingOption?,
                               tags: [MediaTag]) -> [Media] {
@@ -623,6 +627,29 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     func deleteTag(mediaTagId: String) async throws {
         self.mediaTags.removeAll(where: { $0.id == mediaTagId })
+    }
+    
+    // Media Tag Relations
+    
+    func createMediaTagForMedia(mediaId: String,
+                                mediaTagId: String) async throws {
+        
+        if let index = self.media.firstIndex(where: { $0.id == mediaId }),
+           let mediaTag = self.mediaTags.first(where: { $0.id == mediaTagId }){
+            
+            self.media[index].tags.append(mediaTag)
+            
+        }
+        
+    }
+    
+    func deleteMediaTagFromMedia(mediaId: String,
+                                 mediaTagId: String) async throws {
+        
+        if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
+            self.media[index].tags.removeAll(where: { $0.id == mediaTagId })
+        }
+        
     }
     
     // Activity

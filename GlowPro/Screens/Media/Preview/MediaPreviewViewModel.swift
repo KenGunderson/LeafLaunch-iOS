@@ -26,7 +26,6 @@ final class MediaPreviewViewModel: ViewModel {
     
     @Published var shouldShowTags: Bool = true
     @Published var shouldShowOptionsSheet: Bool = false
-    @Published var shouldShowMediaTagsSheet: Bool = false
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -50,6 +49,7 @@ final class MediaPreviewViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
+        bindSubscribers()
         
     }
     
@@ -105,8 +105,8 @@ final class MediaPreviewViewModel: ViewModel {
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
-                title: "Delete Media?",
-                message: "You are attemping to delete your media. This action cannot be undone. Are you sure you wish to continue?",
+                title: Constants.Message.deleteConfirmationTitle("Media"),
+                message: Constants.Message.deleteConfirmationMessage("media"),
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     self?.deleteMedia()
@@ -118,6 +118,45 @@ final class MediaPreviewViewModel: ViewModel {
                 secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
                 secondaryButtonTextColor: Style.shared.textColor(.title)
             ))))
+        
+    }
+    
+    func showMediaTagSheet() {
+        
+        guard let selectedMedia = self.selectedMedia else { return }
+        
+        self.shouldShowOptionsSheet = false
+        
+        self.navigationService?
+            .modal(fullScreenCover: .mediaTags(
+                selectedMedia: selectedMedia
+            ))
+        
+    }
+    
+    private func reloadSelectedMedia() {
+        
+        guard let selectedMedia else { return }
+        
+        Task { [weak self] in
+         
+            let newMedia = try await self?.apiService.getMedia(id: selectedMedia.id)
+            
+            await MainActor.run { [weak self, newMedia] in
+                
+                guard let newMedia else { return }
+                
+                if let index = self?.media.firstIndex(where: { $0.id == selectedMedia.id }) {
+                    
+                    self?.media[index] = newMedia
+                    self?.selectedMedia = newMedia
+                    self?.selectedMediaId = newMedia.id
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
@@ -163,7 +202,17 @@ final class MediaPreviewViewModel: ViewModel {
     }
     
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.viewLifecycleService
+            .publisher(for: .mediaPreview)
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.reloadSelectedMedia()
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
 }

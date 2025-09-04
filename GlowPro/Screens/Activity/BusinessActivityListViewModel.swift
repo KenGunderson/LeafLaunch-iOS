@@ -138,7 +138,7 @@ final class BusinessActivityListViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("activities"),
+                            message: Constants.Message.errorMessage("activities"),
                             action: {})
                     ))
                 )

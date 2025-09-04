@@ -97,7 +97,7 @@ final class ClientDetailsViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("client"),
+                            message: Constants.Message.errorMessage("client"),
                             action: {})
                     ))
                 )
@@ -122,8 +122,8 @@ final class ClientDetailsViewModel: ViewModel {
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
-                title: "Delete Client?",
-                message: "You are attemping to delete your client. This action cannot be undone. Are you sure you wish to continue?",
+                title: Constants.Message.deleteConfirmationTitle("Client"),
+                message: Constants.Message.deleteConfirmationMessage("client"),
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     self?.deleteClient()
@@ -163,7 +163,7 @@ final class ClientDetailsViewModel: ViewModel {
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.error(
-                        message: Constants.Error.errorMessage(context: .delete, "location"),
+                        message: Constants.Message.errorMessage(context: .delete, "location"),
                         action: {})
                     )))
                 

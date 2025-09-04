@@ -112,7 +112,7 @@ final class HomeViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("information"),
+                            message: Constants.Message.errorMessage("information"),
                             action: {})
                     ))
                 )

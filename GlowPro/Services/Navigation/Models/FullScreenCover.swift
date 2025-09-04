@@ -11,6 +11,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     case devSettings
     case onboarding
     case clientDetails(clientId: String)
+    case mediaTags(selectedMedia: Media)
 
     var id: String {
         return String(self.hashValue)
@@ -27,6 +28,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .onboarding: return hasher.combine(1)
         case .settings: return hasher.combine(2)
         case .clientDetails(let clientId): return hasher.combine(clientId)
+        case .mediaTags(let selectedMedia): return hasher.combine(selectedMedia.id)
         }
         
     }

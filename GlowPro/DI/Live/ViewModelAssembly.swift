@@ -413,6 +413,20 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // Media Tags
+        
+        container
+            .register(MediaTagViewModel.self) { r in
+                MediaTagViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
         // Settings
         
         container

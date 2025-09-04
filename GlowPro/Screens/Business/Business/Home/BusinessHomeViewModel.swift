@@ -132,7 +132,7 @@ final class BusinessHomeViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Error.errorMessage("business"),
+                            message: Constants.Message.errorMessage("business"),
                             action: {})
                     ))
                 )

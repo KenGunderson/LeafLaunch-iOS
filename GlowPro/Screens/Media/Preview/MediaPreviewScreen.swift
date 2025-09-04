@@ -207,7 +207,7 @@ struct MediaPreviewScreen: GPView {
             .appOnTapGesture {
                 
                 self.viewModel
-                    .shouldShowMediaTagsSheet = true
+                    .showMediaTagSheet()
                 
             }
             
@@ -327,7 +327,10 @@ struct MediaPreviewScreen: GPView {
         )
         .appShadow(.subtle)
         .asButton {
-            self.viewModel.shouldShowMediaTagsSheet = true
+        
+            self.viewModel
+                .showMediaTagSheet()
+            
         }
         
     }

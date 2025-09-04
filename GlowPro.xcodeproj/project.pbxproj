@@ -362,6 +362,10 @@
 		75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */; };
 		75CD6B6C2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
 		75CD6B6D2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
+		75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */; };
+		75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */; };
+		75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088832E690B85000B06B2 /* MediaTagScreen.swift */; };
+		75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088832E690B85000B06B2 /* MediaTagScreen.swift */; };
 		75D66CF42DC713C300E51CFC /* Tab2Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715AD32DB9366E00E7994E /* Tab2Screen.swift */; };
 		75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		75D66D102DC713C300E51CFC /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientDetailsViewModel.swift */; };
@@ -725,6 +729,8 @@
 		75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditViewModel.swift; sourceTree = "<group>"; };
 		75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditScreen.swift; sourceTree = "<group>"; };
 		75CD6B6B2E20C582004A1720 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagViewModel.swift; sourceTree = "<group>"; };
+		75D088832E690B85000B06B2 /* MediaTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagScreen.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DC72DC7141A00E51CFC /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
@@ -924,6 +930,7 @@
 		750F9E1A2E56154B00C72EA7 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				75D0887F2E690B76000B06B2 /* MediaTag */,
 				75F135D12E638FAE00BFCD51 /* Camera */,
 				750F9E1B2E56155200C72EA7 /* Gallery */,
 				75F1BBD92E65480300858401 /* Preview */,
@@ -1802,6 +1809,15 @@
 			path = Create;
 			sourceTree = "<group>";
 		};
+		75D0887F2E690B76000B06B2 /* MediaTag */ = {
+			isa = PBXGroup;
+			children = (
+				75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */,
+				75D088832E690B85000B06B2 /* MediaTagScreen.swift */,
+			);
+			path = MediaTag;
+			sourceTree = "<group>";
+		};
 		75D66DC92DC7141A00E51CFC /* GlowPro-Dev */ = {
 			isa = PBXGroup;
 			children = (
@@ -2205,6 +2221,7 @@
 				753EC2092DB8CBBB00265B2A /* App.swift in Sources */,
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
+				75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
 				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
@@ -2270,6 +2287,7 @@
 				75795D2F2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D302E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
+				75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				75D6C2712E63C75500F8A336 /* ShutterButton.swift in Sources */,
@@ -2454,6 +2472,7 @@
 				75D66D372DC713C300E51CFC /* App.swift in Sources */,
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
+				75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
 				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
@@ -2519,6 +2538,7 @@
 				75795D312E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D322E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076852E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
+				75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				75D6C2722E63C75500F8A336 /* ShutterButton.swift in Sources */,

@@ -85,7 +85,7 @@ struct Constants {
         
     }
     
-    struct Error {
+    struct Message {
         
         enum Context {
             
@@ -107,6 +107,14 @@ struct Constants {
         
         static func errorMessage(context: Context = .get, _ topic: String) -> String {
             return "Something went wrong while \(context.verbDescription) your \(topic). Please try again later."
+        }
+        
+        static func deleteConfirmationTitle(_ topic: String) -> String {
+            return "Delete \(topic)?"
+        }
+        
+        static func deleteConfirmationMessage(_ topic: String) -> String {
+            return "You are attemping to delete your \(topic). This action cannot be undone. Are you sure you wish to continue?"
         }
         
     }

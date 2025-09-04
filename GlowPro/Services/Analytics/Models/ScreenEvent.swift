@@ -245,6 +245,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case camera
         case preview
         case photoEdit
+        case mediaTags
         
         var screenName: String {
             
@@ -255,6 +256,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .camera: name = "camera"
             case .preview: name = "preview"
             case .photoEdit: name = "photo_edit"
+            case .mediaTags: name = "media_tags"
             }
             
             return "media.\(name)"
@@ -268,6 +270,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .camera: return nil
             case .preview: return nil
             case .photoEdit: return nil
+            case .mediaTags: return nil
             }
             
         }
