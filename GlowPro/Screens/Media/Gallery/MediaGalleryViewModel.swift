@@ -187,7 +187,10 @@ final class MediaGalleryViewModel: ViewModel {
             image: .systemImage("magnifyingglass"),
             actionTitle: "Take A Photo",
             action: {
-                self.navigationService?.swap(.onboarding(.beforeAndAfter))
+            
+                self.navigationService?
+                    .push(.media(.camera(mode: .multiple([]))))
+                
             }
             
         )

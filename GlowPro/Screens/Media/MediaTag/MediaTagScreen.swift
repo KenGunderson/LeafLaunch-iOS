@@ -61,6 +61,9 @@ struct MediaTagScreen: GPView {
         .safeAreaInset(edge: .top) {
             navBar()
         }
+        .safeAreaInset(edge: .bottom) {
+            bottomBarView()
+        }
         
     }
     
@@ -224,6 +227,18 @@ struct MediaTagScreen: GPView {
         .appOnTapGesture {
             self.focusedField = fieldToFocus
         }
+        
+    }
+    
+    @ViewBuilder
+    private func bottomBarView() -> some View {
+        
+        CommonButton(title: "Done") {
+            dismiss()
+        }
+        .padding(.horizontal, .medium)
+        .opacity(self.focusedField == nil ? 1 : 0)
+        .animation(.bouncy(duration: 0.1), value: self.focusedField)
         
     }
     
