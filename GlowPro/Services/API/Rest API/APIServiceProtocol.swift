@@ -107,6 +107,8 @@ protocol APIServiceProtocol: APIProtocol {
     func getMedia(id: String) async throws -> Media
     
     func favoriteMedia(mediaId: String) async throws
+    func unfavoriteMedia(mediaId: String) async throws
+    
     func deleteMedia(mediaId: String) async throws
     
     // Media Tags

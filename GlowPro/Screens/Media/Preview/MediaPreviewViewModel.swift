@@ -86,9 +86,21 @@ final class MediaPreviewViewModel: ViewModel {
         
         Task { [weak self] in
             
-            try await self?.apiService.favoriteMedia(mediaId: selectedMedia.id)
+            if selectedMedia.isFavorited {
+                try await self?.apiService.unfavoriteMedia(mediaId: selectedMedia.id)
+            } else {
+                try await self?.apiService.favoriteMedia(mediaId: selectedMedia.id)
+            }
             
             await MainActor.run { [weak self] in
+                
+                let isNowFavorited = !selectedMedia.isFavorited
+                
+                self?.showToast(
+                    title: "Success!",
+                    message: isNowFavorited ? "Media favorited." : "Media unfavorited.",
+                    image: .systemImage("star.fill")
+                )
                 
                 self?.selectedMedia?.isFavorited.toggle()
                 self?.shouldShowOptionsSheet = false
@@ -194,7 +206,39 @@ final class MediaPreviewViewModel: ViewModel {
                 self.media.remove(at: idx)
                 self.selectedMedia = nextItem
                 self.selectedMediaId = nextItem.id
+                
+                showToast(
+                    title: "Success",
+                    message: "We were able to delete this media.",
+                    image: .systemImage("trash.fill")
+                )
                                 
+            }
+            
+        }
+        
+    }
+    
+    func showToast(title: String,
+                           message: String,
+                           image: ImageSource) {
+        
+        Task {
+            
+            await MainActor.run { [image]
+                
+                ToastManager.shared.present(
+                    toastItem: .init(
+                        title: title,
+                        message: message,
+                        backgroundColor: Style.shared.background(.primary),
+                        image: image,
+                        tint: Style.shared.accent,
+                        isUserInteractionEnabled: true,
+                        timing: .medium
+                    )
+                )
+                
             }
             
         }

@@ -604,6 +604,21 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         }
         
     }
+
+    func unfavoriteMedia(mediaId: String) async throws {
+        
+        if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
+            
+            let oldMedia = self.media[index]
+            
+            var newMedia = oldMedia
+            newMedia.isFavorited = false
+            
+            self.media[index] = newMedia
+            
+        }
+        
+    }
     
     func deleteMedia(mediaId: String) async throws {
         

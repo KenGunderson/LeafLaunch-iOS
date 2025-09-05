@@ -195,6 +195,18 @@ struct MediaPreviewScreen: GPView {
                 self.viewModel
                     .shouldShowTags.toggle()
                 
+                let shouldShow = self.viewModel.shouldShowTags
+                let message = shouldShow
+                    ? "Tags are now showing"
+                    : "Tags are now hidden"
+                
+                self.viewModel
+                    .showToast(
+                        title: "Success",
+                        message: message,
+                        image: .systemImage("tag.fill")
+                    )
+                
             }
             
             // Update Tags

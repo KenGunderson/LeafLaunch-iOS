@@ -109,6 +109,24 @@ extension APIService {
         
     }
     
+    func unfavoriteMedia(mediaId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .media(""))
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteMedia(mediaId: String) async throws {
         
         do {
