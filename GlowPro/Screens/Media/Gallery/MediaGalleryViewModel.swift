@@ -7,6 +7,14 @@
 
 import Foundation
 
+enum MediaContext: Hashable {
+    
+    case business(businessId: String)
+    case location(locationId: String)
+    case client(clientId: String)
+    
+}
+
 final class MediaGalleryViewModel: ViewModel {
     
     struct GroupedMedia: Equatable {
@@ -15,14 +23,6 @@ final class MediaGalleryViewModel: ViewModel {
         let mediaKey: String
         let title: String
         let media: [Media]
-        
-    }
-    
-    enum Context: Hashable {
-        
-        case business(businessId: String)
-        case location(locationId: String)
-        case client(clientId: String)
         
     }
     
@@ -46,7 +46,7 @@ final class MediaGalleryViewModel: ViewModel {
     private var media: [Media] = []
     private(set) var mediaTags: [MediaTag] = []
     
-    private var context: Context!
+    private var context: MediaContext!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -73,7 +73,7 @@ final class MediaGalleryViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(context: Context) -> Self {
+    func setup(context: MediaContext) -> Self {
         
         self.context = context
         return self
@@ -189,7 +189,10 @@ final class MediaGalleryViewModel: ViewModel {
             action: {
             
                 self.navigationService?
-                    .push(.media(.camera(mode: .multiple([]))))
+                    .push(.media(.camera(
+                        context: self.context,
+                        mode: .multiple([]))
+                    ))
                 
             }
             

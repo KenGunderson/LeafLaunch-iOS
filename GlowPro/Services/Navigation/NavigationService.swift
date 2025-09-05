@@ -363,10 +363,13 @@ extension View {
         func media(route: Route.MediaRoute) -> some View {
             
             switch route {
-            case .camera(let mode):
+            case .camera(let context, let mode):
                 
                 let viewModel = globalResolver.resolve(CameraViewModel.self)!
-                    .setup(mode: mode)
+                    .setup(
+                        context: context,
+                        mode: mode
+                    )
                 
                 CameraScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

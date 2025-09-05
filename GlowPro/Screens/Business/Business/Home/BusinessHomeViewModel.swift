@@ -175,7 +175,10 @@ final class BusinessHomeViewModel: ViewModel {
             }
             
             self.navigationService?
-                .push(.media(.camera(mode: .multiple([]))))
+                .push(.media(.camera(
+                    context: .business(businessId: self.businessId),
+                    mode: .multiple([])
+                )))
         }
         
     }

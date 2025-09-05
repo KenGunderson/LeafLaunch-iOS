@@ -16,6 +16,8 @@ public final class CameraViewModel: ObservableObject {
     @Published public var errorMessage: String?
     @Published public var isShutterDisabled: Bool = false
     
+    private var context: MediaContext!
+    
     public init(cameraService: CameraServiceProtocol) {
         self.cameraService = cameraService
     }
@@ -25,9 +27,12 @@ public final class CameraViewModel: ObservableObject {
     }
     
     @discardableResult
-    func setup(mode: CameraCaptureMode = .single(nil)) -> Self {
+    func setup(context: MediaContext,
+               mode: CameraCaptureMode = .single(nil)) -> Self {
         
+        self.context = context
         self.captureMode = mode
+        
         return self
         
     }
