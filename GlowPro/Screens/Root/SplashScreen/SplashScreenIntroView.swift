@@ -206,7 +206,7 @@ fileprivate struct LetterJumpView: View {
     SplashScreenIntroView(
         isLoading: $isLoading,
         text: "GlowPro",
-        explodeStagger: 0.20
+        explodeStagger: 0.125
     )
     
 }
