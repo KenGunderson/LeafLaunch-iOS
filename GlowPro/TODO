@@ -8,6 +8,7 @@ Tasks:
              LOCATION DETAILS
 ==================================================
 Tasks:
+  • Go To Dashboard View
   • Show location stats
   • Activities (navigates to all activities (location context))
   • Employees (navigates to employee details)

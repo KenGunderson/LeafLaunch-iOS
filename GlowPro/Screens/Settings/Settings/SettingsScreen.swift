@@ -81,17 +81,7 @@ struct SettingsScreen: GPView {
         
         let groups = Dictionary(grouping: Route.Setting.allCases, by: { $0.category })
         
-        let config = StaggeredConfig.init(
-            delay: 0.05,
-            maxDelay: 0.05,
-            blurRadius: 0.5,
-            offset: .init(width: 0, height: 100),
-            scale: 1,
-            scaleAnchor: .center,
-            animation: .smooth,
-            disappearInSameDirection: true,
-            noDisappearAnimation: false
-        )
+        let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
         
         StaggeredView(config: config) {
             

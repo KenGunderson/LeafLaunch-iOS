@@ -69,6 +69,27 @@ struct Constants {
         
     }
     
+    struct StaggerAnimation {
+        
+        static func config(interitemSpacing: CGFloat = 8) -> StaggeredConfig {
+            
+            return StaggeredConfig(
+                delay: 0.05,
+                maxDelay: 0.05,
+                blurRadius: 0.5,
+                offset: .init(width: 0, height: 100),
+                scale: 1,
+                scaleAnchor: .center,
+                animation: .smooth.delay(0.3),
+                interitemSpacing: 16,
+                disappearInSameDirection: true,
+                noDisappearAnimation: false
+            )
+            
+        }
+        
+    }
+    
     // MARK: - LEGAL
     
     struct Legal {
@@ -151,7 +172,7 @@ struct Constants {
         }
         
     }
-    
+        
 }
 
 extension Constants {

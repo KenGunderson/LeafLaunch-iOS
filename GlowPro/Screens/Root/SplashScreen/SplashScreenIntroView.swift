@@ -188,6 +188,7 @@ fileprivate struct LetterJumpView: View {
                 withAnimation(.easeOut(duration: 0.10)) {
                     self.didJumpUp = true
                 }
+                
                 // Then settle down with a spring, tiny overshoot polish
                 withAnimation(.interpolatingSpring(mass: 0.22, stiffness: 220, damping: 17).delay(0.02)) {
                     self.didComplete = true
