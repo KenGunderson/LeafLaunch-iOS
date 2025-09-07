@@ -134,6 +134,15 @@ enum Route: Navigation, Hashable, Sendable {
             }
         }
         
+        var category: String {
+            switch self {
+            case .profile, .subscription: return "Account"
+            case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .sendFeedback, .featureRequest, .writeAReview: return "Help & Feedback"
+            case .privacyPolicy, .termsOfService: return "Legal"
+            case .logout: return "Logout"
+            }
+        }
+        
     }
     
     enum DevSetting: String, CaseIterable {

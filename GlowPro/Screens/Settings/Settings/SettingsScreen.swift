@@ -79,6 +79,8 @@ struct SettingsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
+        let groups = Dictionary(grouping: Route.Setting.allCases, by: { $0.category })
+        
         let config = StaggeredConfig.init(
             delay: 0.05,
             maxDelay: 0.05,
@@ -95,8 +97,26 @@ struct SettingsScreen: GPView {
             
             if self.onAppearAnimation {
                 
-                ForEach(Route.Setting.allCases, id: \.self) { item in
-                    settingItem(item)
+                ForEach(groups.keys.sorted(), id: \.self) { category in
+                    
+                    let isFirst = (category == "Account")
+                    let isLogout = (category == "Logout")
+                    
+                    if !isLogout {
+                        
+                        SectionView(leadingTitle: category.capitalized)
+                            .padding(.bottom, .small)
+                            .padding(.top, isFirst ? .none : .small)
+                        
+                    }
+                    
+                    ForEach(groups[category] ?? [], id: \.self) { item in
+                        
+                        settingItem(item)
+                            .padding(.top, isLogout ? 24 : 0)
+                        
+                    }
+                    
                 }
                 
                 versionItem()
