@@ -18,14 +18,17 @@ struct SplashScreenView: View {
     
     var body: some View {
         
-        SplashScreenItem(isLoading: self.$isLoading)
-            .onChange(of: self.isLoading) { oldValue, newValue in
-                
-                if !newValue {
-                    self.didFinishAction(.completed)
-                }
-                
+        SplashScreenIntroView(
+            isLoading: self.$isLoading,
+            text: "GlowPro"
+        )
+        .onChange(of: self.isLoading) { oldValue, newValue in
+            
+            if !newValue {
+                self.didFinishAction(.completed)
             }
+            
+        }
         
     }
     

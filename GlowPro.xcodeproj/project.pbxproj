@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
+		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
@@ -219,7 +221,6 @@
 		753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E22DB8C4E800265B2A /* MockAssembler.swift */; };
 		753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1DF2DB8C4E800265B2A /* ServiceAssembly.swift */; };
 		753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
-		753EC1F82DB8C58100265B2A /* SplashScreenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F32DB8C58100265B2A /* SplashScreenItem.swift */; };
 		753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EF2DB8C58100265B2A /* MainViewModel.swift */; };
 		753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EE2DB8C58100265B2A /* RootViewModel.swift */; };
 		753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
@@ -371,7 +372,6 @@
 		75D66D102DC713C300E51CFC /* ClientDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientDetailsViewModel.swift */; };
 		75D66D112DC713C300E51CFC /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ADC2DB9368100E7994E /* Tab4ViewModel.swift */; };
 		75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
-		75D66D152DC713C300E51CFC /* SplashScreenItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F32DB8C58100265B2A /* SplashScreenItem.swift */; };
 		75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EF2DB8C58100265B2A /* MainViewModel.swift */; };
 		75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EE2DB8C58100265B2A /* RootViewModel.swift */; };
 		75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
@@ -525,6 +525,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
 		750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListViewModel.swift; sourceTree = "<group>"; };
@@ -650,7 +651,6 @@
 		753EC1EF2DB8C58100265B2A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		753EC1F02DB8C58100265B2A /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		753EC1F22DB8C58100265B2A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		753EC1F32DB8C58100265B2A /* SplashScreenItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenItem.swift; sourceTree = "<group>"; };
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Dev-Info.plist"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
@@ -1342,7 +1342,6 @@
 		753EC1F42DB8C58100265B2A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				753EC1F32DB8C58100265B2A /* SplashScreenItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1350,6 +1349,7 @@
 		753EC1F52DB8C58100265B2A /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
+				7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */,
 				753EC1F22DB8C58100265B2A /* SplashScreenView.swift */,
 				753EC1F42DB8C58100265B2A /* Views */,
 			);
@@ -2194,7 +2194,6 @@
 				75715ADF2DB9368100E7994E /* Tab4ViewModel.swift in Sources */,
 				759B64792E04A75F006F4995 /* Client.swift in Sources */,
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
-				753EC1F82DB8C58100265B2A /* SplashScreenItem.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
@@ -2287,6 +2286,7 @@
 				75795D2F2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D302E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
+				7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
 				75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
@@ -2445,7 +2445,6 @@
 				75D66D112DC713C300E51CFC /* Tab4ViewModel.swift in Sources */,
 				759B647A2E04A75F006F4995 /* Client.swift in Sources */,
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
-				75D66D152DC713C300E51CFC /* SplashScreenItem.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
@@ -2538,6 +2537,7 @@
 				75795D312E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
 				75795D322E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076852E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
+				7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
 				75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
