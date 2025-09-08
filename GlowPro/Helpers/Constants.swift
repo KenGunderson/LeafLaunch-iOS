@@ -81,7 +81,7 @@ struct Constants {
                 scale: 1,
                 scaleAnchor: .center,
                 animation: .smooth.delay(0.3),
-                interitemSpacing: 16,
+                interitemSpacing: interitemSpacing,
                 disappearInSameDirection: true,
                 noDisappearAnimation: false
             )

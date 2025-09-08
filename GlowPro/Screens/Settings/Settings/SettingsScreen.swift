@@ -95,7 +95,7 @@ struct SettingsScreen: GPView {
                     if !isLogout {
                         
                         SectionView(leadingTitle: category.capitalized)
-                            .padding(.bottom, .small)
+                            .padding(.bottom, .extraSmall)
                             .padding(.top, isFirst ? .none : .small)
                         
                     }
