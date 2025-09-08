@@ -24,7 +24,7 @@ struct SplashScreenIntroView: View {
 
     init(isLoading: Binding<Bool>,
          text: String,
-         explodeStagger: Double = 0.25,
+         explodeStagger: Double = 0.18,
          jumpHeight: CGFloat = 100) {
         
         self._isLoading = isLoading
@@ -101,35 +101,39 @@ struct SplashScreenIntroView: View {
     }
     
     private func revealLettersWithStagger() {
-                
-        for (index, _) in text.enumerated() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
             
-            let isLast = index == text.count - 1
-            let delay = (Double(index) * explodeStagger)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            for (index, _) in text.enumerated() {
                 
-                withAnimation(.interpolatingSpring(
-                    mass: 0.25,
-                    stiffness: 200,
-                    damping: 18
-                )) {
-                    self.lettersShown[index] = true
-                }
+                let isLast = index == text.count - 1
+                let delay = (Double(index) * explodeStagger)
                 
-                if isLast {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
+                    withAnimation(.interpolatingSpring(
+                        mass: 0.25,
+                        stiffness: 200,
+                        damping: 18
+                    )) {
+                        self.lettersShown[index] = true
+                    }
+                    
+                    if isLast {
                         
-                        self.currentPhase = .completed
-                        self.completionScale = true
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
                             
-                            self.completionBackground = true
+                            self.currentPhase = .completed
+                            self.completionScale = true
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.70) {
-                                self.isLoading = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                
+                                self.completionBackground = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.70) {
+                                    self.isLoading = false
+                                }
+                                
                             }
                             
                         }
