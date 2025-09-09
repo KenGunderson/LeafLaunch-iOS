@@ -69,15 +69,31 @@ struct MediaPreviewScreen: GPView {
         }
         .asAnyView()
         
-        let settingsButton = NavBarButton(style: .ellipsis) {
+        let isFavorited = self.viewModel.selectedMedia?.isFavorited ?? false
+        
+        let favoriteButtons = NavBarButton(
+            style: .star(isFilled: self.viewModel.selectedMedia?.isFavorited ?? false),
+            foregroundColor: isFavorited ? .color(GPColor.iconYellow) : Rune.Style.shared.textColor(.title)
+        ) {
+            self.viewModel.favoriteMedia()
+        }
+
+        let ellipseButton = NavBarButton(style: .ellipsis) {
             self.viewModel.shouldShowOptionsSheet.toggle()
+        }
+        
+        let trailingButtons = HStack {
+         
+            favoriteButtons
+            ellipseButton
+            
         }
         .asAnyView()
         
         return NavBarView(
             title: "Preview",
             leftButtonView: backButton,
-            rightButtonView: settingsButton
+            rightButtonView: trailingButtons
         )
         
     }
@@ -208,20 +224,6 @@ struct MediaPreviewScreen: GPView {
                 
                 self.viewModel
                     .showMediaTagSheet()
-                
-            }
-            
-            // Favorite
-            
-            lineItem(
-                title: favoriteTitle,
-                icon: favoriteIcon,
-                tintColor: AnyShapeStyle(GPColor.iconYellow)
-            )
-            .appOnTapGesture {
-                
-                self.viewModel
-                    .favoriteMedia()
                 
             }
             

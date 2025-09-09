@@ -20,6 +20,7 @@ struct NavBarButton: View {
         case pencil
         case filter(isFilled: Bool = false)
         case trash
+        case star(isFilled: Bool = false)
         
         var icon: ImageSource {
             switch self {
@@ -32,6 +33,7 @@ struct NavBarButton: View {
             case .pencil: return .systemImage("pencil")
             case .filter(let isFilled): return .systemImage("line.3.horizontal.decrease.circle\(isFilled ? ".fill" : "")")
             case .trash: return .systemImage("trash")
+            case .star(let isFilled): return .systemImage("star\(isFilled ? ".fill" : "")")
             }
         }
         
@@ -45,12 +47,15 @@ struct NavBarButton: View {
     }
     
     private let style: Style
+    private let foregroundColor: ColorSource
     private let action: () -> Void
     
     init(style: Style,
+         foregroundColor: ColorSource = Rune.Style.shared.textColor(.title),
          action: @escaping () -> Void) {
         
         self.style = style
+        self.foregroundColor = foregroundColor
         self.action = action
         
     }
@@ -64,7 +69,7 @@ struct NavBarButton: View {
             .scaledToFit()
             .frame(width: frame, height: frame)
             .padding(4)
-            .foregroundStyle(Rune.Style.shared.textColor(.title).source())
+            .foregroundStyle(self.foregroundColor.source())
             .background(.backgroundTappable)
             .asButton {
                 action()
