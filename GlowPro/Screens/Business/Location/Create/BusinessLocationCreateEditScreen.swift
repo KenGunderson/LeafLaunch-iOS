@@ -96,7 +96,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         }
         .asAnyView()
         
-        let shouldShowTrashButton = self.viewModel.isEditMode && !self.viewModel.isOwner
+        let shouldShowTrashButton = self.viewModel.isEditMode && self.viewModel.isOwner
         
         return NavBarView(
             title: self.viewModel.navTitle,
