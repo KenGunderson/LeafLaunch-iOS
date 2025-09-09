@@ -139,17 +139,7 @@ struct MediaGalleryScreen: GPView {
                 spacing: 4
             ) {
                 
-                let placeholderView = RoundedRectangle(cornerRadius: Style.shared.radius(.small))
-                    .fill(Style.shared.background(.quaternary).source())
-                    .overlay {
-                        
-                        AppLoadingView(style: .circleRunner(
-                            color: Style.shared.background(.primary),
-                            size: 24
-                        ))
-                        
-                    }
-                    .asAnyView()
+                let placeholderView = PlaceholderView().asAnyView()
                 
                 ForEach(groupedMedia.media) { item in
                     
