@@ -12,12 +12,14 @@ enum MediaContext: Hashable {
     case business(businessId: String)
     case location(locationId: String)
     case client(clientId: String)
+    case employee(employeeId: String)
     
     var allowsCameraCapability: Bool {
         switch self {
         case .business: false
         case .location: true
         case .client: true
+        case .employee: false
         }
     }
     
@@ -139,6 +141,14 @@ final class MediaGalleryViewModel: ViewModel {
                     
                     media = try await self.apiService.getMedia(
                         clientId: clientId,
+                        sortingOption: self.selectedSortingOption,
+                        tags: self.selectedTags
+                    )
+                    
+                case .employee(let employeeId):
+                    
+                    media = try await self.apiService.getMedia(
+                        authorId: employeeId,
                         sortingOption: self.selectedSortingOption,
                         tags: self.selectedTags
                     )

@@ -72,6 +72,27 @@ extension APIService {
         
     }
     
+    func getMedia(authorId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [MediaTag]) async throws -> [Media] {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .media(""))
+            )
+            
+            let result: [Media] = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func getMedia(id: String) async throws -> Media {
         
         do {

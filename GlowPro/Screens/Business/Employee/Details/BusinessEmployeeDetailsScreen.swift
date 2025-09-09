@@ -76,11 +76,14 @@ struct BusinessEmployeeDetailsScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             profile()
-            locations()
+                .padding(.horizontal, .medium)
+            
+            media()
+            
             activities()
+                .padding(.horizontal, .medium)
             
         }
-        .padding(.horizontal, .medium)
         
     }
     
@@ -113,37 +116,54 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
     }
     
-    private func locations() -> some View {
+    @ViewBuilder
+    private func media() -> some View {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            SectionView(leadingTitle: "Active Locations", showDivider: true)
-            
-            Group {
+            SectionView(leadingTitle: "Media", showDivider: true) {
                 
-                AppCardView {
-                    
-                    Text("Put Locations Here")
-                        .appFont(with: .TITLE_5)
-                    
-                }
-                
-                AppCardView {
-                    
-                    Text("Put Locations Here")
-                        .appFont(with: .TITLE_5)
-                    
-                }
-                
-                AppCardView {
-                    
-                    Text("Put Locations Here")
-                        .appFont(with: .TITLE_5)
-                    
-                }
+                self.navigationService.push(.media(
+                    .gallery(.employee(employeeId: self.viewModel.employeeId))
+                ))
                 
             }
+            .padding(.horizontal, .medium)
             
+            ScrollView(.horizontal) {
+                
+                LazyHStack {
+                    
+                    let placeholderView = RoundedRectangle(cornerRadius: Style.shared.radius(.small))
+                        .fill(Style.shared.background(.quaternary).source())
+                        .overlay {
+                            
+                            AppLoadingView(style: .circleRunner(
+                                color: Style.shared.background(.primary),
+                                size: 24
+                            ))
+                            
+                        }
+                        .asAnyView()
+                    
+                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
+                        
+                        ImageSource.remote(
+                            url: media.url,
+                            placeholder: placeholderView,
+                        )
+                        .view(shouldResize: false)
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 64)
+                        .cornerRadius(.small)
+                        
+                    }
+                    
+                }
+                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+                
+            }
+               
         }
         
     }

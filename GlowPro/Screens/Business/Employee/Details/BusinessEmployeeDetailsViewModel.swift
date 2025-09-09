@@ -21,6 +21,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     
     @Published private(set) var employee: Employee?
     @Published private(set) var activities: [Activity] = []
+    @Published private(set) var media: [Media] = []
     
     private(set) var businessId: String!
     private(set) var employeeId: String!
@@ -88,12 +89,20 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 let employee = try await self.apiService
                     .getEmployee(id: self.employeeId)
                 
+                let media = try await self.apiService
+                    .getMedia(
+                        authorId: self.employeeId,
+                        sortingOption: .newest,
+                        tags: []
+                    )
+                
                 let activities = try await self.apiService
                     .getActivitiy(employeeId: self.employeeId)
                 
                 await MainActor.run { [weak self] in
 
                     self?.employee = employee
+                    self?.media = media
                     self?.activities = activities
                     
                 }

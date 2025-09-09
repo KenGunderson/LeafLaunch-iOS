@@ -561,6 +561,20 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func getMedia(authorId: String,
+                  sortingOption: MediaSortingOption?,
+                  tags: [MediaTag]) async throws -> [Media] {
+        
+        let media = self.media.filter { $0.authorId == authorId }
+        
+        return processMedia(
+            media,
+            sortingOption: sortingOption,
+            tags: tags
+        )
+        
+    }
+    
     func getMedia(id: String) async throws -> Media {
         return self.media.first(where: { $0.id == id }) ?? .DUMMY_DATA()
     }
