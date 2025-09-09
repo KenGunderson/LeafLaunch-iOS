@@ -22,7 +22,7 @@ struct ActivitiesView: View {
     
     var body: some View {
         
-        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
             ForEach(activityDict.keys.sorted(), id: \.date) { key in
                 
