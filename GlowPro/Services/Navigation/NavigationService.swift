@@ -309,17 +309,6 @@ extension View {
                 BusinessLocationCreateEditScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .businessLocationDetails(let businessId, let locationId):
-                
-                let viewModel = globalResolver.resolve(BusinessLocationDetailsViewModel.self)!
-                    .setup(
-                        businessId: businessId,
-                        locationId: locationId
-                    )
-                
-                BusinessLocationDetailsScreen(viewModel: viewModel)
-                    .navigationBarBackButtonHidden()
-                
             case .businessActivitiesList(let context):
                 
                 let viewModel = globalResolver.resolve(BusinessActivityListViewModel.self)!

@@ -281,10 +281,6 @@
 		75795D2A2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */; };
 		75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D272E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift */; };
 		75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */; };
-		75795D2F2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D2D2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift */; };
-		75795D302E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D2E2E1732BD008BD44A /* BusinessLocationDetailsScreen.swift */; };
-		75795D312E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D2D2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift */; };
-		75795D322E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D2E2E1732BD008BD44A /* BusinessLocationDetailsScreen.swift */; };
 		7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
 		7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
 		758C3CDE2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */; };
@@ -686,8 +682,6 @@
 		75740B772E0A1FB700EF8627 /* FAQScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQScreen.swift; sourceTree = "<group>"; };
 		75795D272E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsViewModel.swift; sourceTree = "<group>"; };
 		75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsScreen.swift; sourceTree = "<group>"; };
-		75795D2D2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationDetailsViewModel.swift; sourceTree = "<group>"; };
-		75795D2E2E1732BD008BD44A /* BusinessLocationDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationDetailsScreen.swift; sourceTree = "<group>"; };
 		7582A2D82E48145A0020BA28 /* PendingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInviteView.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
 		758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListScreen.swift; sourceTree = "<group>"; };
@@ -1642,15 +1636,6 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		75795D262E17318C008BD44A /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				75795D2D2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift */,
-				75795D2E2E1732BD008BD44A /* BusinessLocationDetailsScreen.swift */,
-			);
-			path = Details;
-			sourceTree = "<group>";
-		};
 		758C3CDB2E14AF7900BC1A43 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -1767,7 +1752,6 @@
 				7560F89E2E4D38E5002BA9D6 /* Home */,
 				758C3CDB2E14AF7900BC1A43 /* List */,
 				75CD6B642E20C0F7004A1720 /* Create */,
-				75795D262E17318C008BD44A /* Details */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -2283,8 +2267,6 @@
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
-				75795D2F2E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
-				75795D302E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
 				75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
@@ -2534,8 +2516,6 @@
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */,
 				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
-				75795D312E1732BD008BD44A /* BusinessLocationDetailsViewModel.swift in Sources */,
-				75795D322E1732BD008BD44A /* BusinessLocationDetailsScreen.swift in Sources */,
 				755076852E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
 				75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,

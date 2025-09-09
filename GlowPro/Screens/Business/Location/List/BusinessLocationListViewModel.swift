@@ -62,15 +62,6 @@ final class BusinessLocationListViewModel: ViewModel {
         
     }
     
-    func selectLocation(_ location: Location) {
-        
-        navigate(to: .business(.businessLocationDetails(
-            businessId: self.businessId,
-            locationId: location.id)
-        ))
-        
-    }
-    
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
     }
@@ -112,6 +103,18 @@ final class BusinessLocationListViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func setActiveDestination(_ activeDestination: ActiveDestination) {
+        
+        let currentDestinationId = self.activeDestinationService.activeDestination?.destinationId
+        let nextDestinationId = activeDestination.destinationId
+        
+        guard currentDestinationId != nextDestinationId else { return }
+        
+        self.activeDestinationService
+            .setActiveDestination(activeDestination)
         
     }
     

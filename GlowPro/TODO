@@ -3,46 +3,13 @@
 ==================================================
 Tasks:
   • Support empty state for new users
-  
-==================================================
-             MEDIA TAGS
-==================================================
-Tasks:
-  • No empty spaces
-  • Trim whitespaces
-  • edit mode to delete?
-  • Make list instead of WStack
-    • allow for delete button on trailing end of new view
-  • Attach Can't find tag view to BottomBarView
-  
-==================================================
-             LOCATION DETAILS
-==================================================
-Tasks:
-  • Delete This ViewModel + View + References + Analytics + Deeplinks
-
-==================================================
-             LOCATION LIST
-==================================================
-Tasks:
-  • Cells
-    • View Dashboard Buttons
-    • Pencil button
-    • location stats
-        • reference desktop photos
-        
-==================================================
-             LOCATION CREATE EDIT SCREEN
-==================================================
-Tasks:
-  • Only in Edit context
-    • show trash can icon to delete location
 
 ==================================================
              EMPLOYEE DETAILS
 ==================================================
 Tasks:
   • Show employee stats
+  • Show media horizontal scroll + ViewMore to navigate to 
   
 ==================================================
                 CAMERA
@@ -81,6 +48,7 @@ Tasks:
 Tasks:
   • Sort Media Properly
   • Categories + Subcategories for business
+  • Add author_id as employee_id to all Media
   
 ==================================================
                 OPEN QUESTIONS

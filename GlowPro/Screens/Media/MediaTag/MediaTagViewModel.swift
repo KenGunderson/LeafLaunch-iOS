@@ -23,6 +23,15 @@ final class MediaTagViewModel: ViewModel {
     @Published private(set) var mediaTags: [MediaTag] = []
     @Published var newMediaTag: String = ""
     
+    var isNewMediaTagValid: Bool {
+        
+        guard !newMediaTag.isEmpty else { return false }
+        
+        let trimmedNewMediaTag = newMediaTag.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !trimmedNewMediaTag.isEmpty
+        
+    }
+    
     private(set) var selectedMedia: Media!
 
     private var navigationService: NavigationService?
@@ -99,6 +108,8 @@ final class MediaTagViewModel: ViewModel {
     
     func createMediaTag() {
         
+        guard self.isNewMediaTagValid else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -106,7 +117,9 @@ final class MediaTagViewModel: ViewModel {
             
             do {
                 
-                try await self.apiService.createTag(tag: self.newMediaTag)
+                let trimmedNewMediaTag = self.newMediaTag.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                try await self.apiService.createTag(tag: trimmedNewMediaTag)
                 
                 await MainActor.run { [weak self] in
                     self?.newMediaTag = ""
@@ -144,7 +157,7 @@ final class MediaTagViewModel: ViewModel {
         
     }
     
-    func presentMediaTagAlert() {
+    func presentMediaTagAlert(mediaTag: MediaTag) {
                 
         self.alertService
             .showAlert(.init(.appAlert(.init(
@@ -152,7 +165,9 @@ final class MediaTagViewModel: ViewModel {
                 message: Constants.Message.deleteConfirmationMessage("media tag"),
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
-                    self?.deleteMediaTag()
+                    
+                    self?.deleteMediaTag(mediaTag: mediaTag)
+                    
                 },
                 primaryButtonBackgroundColor: Style.shared.background(.error),
                 primaryButtonTextColor: Style.shared.textColor(.titleInverted),
@@ -164,7 +179,39 @@ final class MediaTagViewModel: ViewModel {
         
     }
     
-    private func deleteMediaTag() {
+    private func deleteMediaTag(mediaTag: MediaTag) {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService.deleteTag(mediaTagId: mediaTag.id)
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .delete, "media tags"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.viewLifecycleService
+                .reload(for: .mediaPreview)
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            loadData()
+            
+        }
         
     }
     

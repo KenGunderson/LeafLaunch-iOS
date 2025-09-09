@@ -45,9 +45,7 @@ enum Route: Navigation, Hashable, Sendable {
         
         case businessLocationCreateEdit(businessId: String,
                                         locationId: String? = nil)
-        
-        case businessLocationDetails(businessId: String, locationId: String)
-        
+                
         case businessEmployees(businessId: String,
                                context: BusinessEmployeesViewModel.Context)
         
@@ -214,9 +212,6 @@ extension Route.Business {
         case let (.businessLocationCreateEdit(b1, l1),
                   .businessLocationCreateEdit(b2, l2)):
             return b1 == b2 && l1 == l2
-        case let (.businessLocationDetails(b1, l1),
-                  .businessLocationDetails(b2, l2)):
-            return b1 == b2 && l1 == l2
         case let (.businessEmployees(b1, c1), .businessEmployees(b2, c2)):
             return b1 == b2 && c1 == c2
         case let (.businessEmployeesInvite(b1), .businessEmployeesInvite(b2)):
@@ -255,10 +250,6 @@ extension Route.Business {
             hasher.combine(id)
         case let .businessLocationCreateEdit(b, l):
             hasher.combine(5)
-            hasher.combine(b)
-            hasher.combine(l)
-        case let .businessLocationDetails(b, l):
-            hasher.combine(6)
             hasher.combine(b)
             hasher.combine(l)
         case let .businessEmployees(b, c):

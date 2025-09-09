@@ -237,20 +237,6 @@ class MockViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
-        // Business Locations Details
-        
-        container
-            .register(BusinessLocationDetailsViewModel.self) { r in
-                BusinessLocationDetailsViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
         // Business Employees
         
         container

@@ -13,6 +13,14 @@ enum MediaContext: Hashable {
     case location(locationId: String)
     case client(clientId: String)
     
+    var allowsCameraCapability: Bool {
+        switch self {
+        case .business: false
+        case .location: true
+        case .client: true
+        }
+    }
+    
 }
 
 final class MediaGalleryViewModel: ViewModel {
@@ -180,21 +188,25 @@ final class MediaGalleryViewModel: ViewModel {
     }
     
     func emptyStateConfig() -> EmptyStateConfig {
+        
+        let shouldShowAction = self.context.allowsCameraCapability
+        let actionTitle: String? = shouldShowAction ? "Take A Photo" : nil
+        let action: (() -> Void)? = shouldShowAction ? {
+        
+            self.navigationService?
+                .push(.media(.camera(
+                    context: self.context,
+                    mode: .multiple([]))
+                ))
+            
+        } : nil
                 
         return .init(
             title: "No Photos Found",
             message: "Add a photo or adjust your filters to see results.",
             image: .systemImage("magnifyingglass"),
-            actionTitle: "Take A Photo",
-            action: {
-            
-                self.navigationService?
-                    .push(.media(.camera(
-                        context: self.context,
-                        mode: .multiple([]))
-                    ))
-                
-            }
+            actionTitle: actionTitle,
+            action: action
             
         )
         

@@ -41,7 +41,7 @@ struct EmptyStateView: View {
                 CommonButton(title: actionTitle) {
                     self.config.action?()
                 }
-                .padding(.top, .medium2)
+                .padding(.top, .small)
                 
             }
             

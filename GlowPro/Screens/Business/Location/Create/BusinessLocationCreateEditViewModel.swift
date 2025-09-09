@@ -38,11 +38,15 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     }
     
     var navTitle: String {
-        return self.locationId == nil ? "Create Location" : "Edit Location"
+        return self.isEditMode ? "Edit Location" : "Create Location"
     }
     
     var saveButtonTitle: String {
-        return self.locationId == nil ? "Create" : "Save"
+        return self.isEditMode ? "Save" : "Create"
+    }
+    
+    var isEditMode: Bool {
+        return self.locationId != nil
     }
     
     private var businessId: String!
@@ -148,6 +152,55 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
             save()
         } else {
             update()
+        }
+        
+    }
+    func presentDeleteLocationAlert() {
+            
+            self.alertService
+                .showAlert(.init(.appAlert(.init(
+                    title: Constants.Message.deleteConfirmationTitle("Location"),
+                    message: Constants.Message.deleteConfirmationMessage("location"),
+                    primaryButtonTitle: "Yes",
+                    primaryButtonAction: { [weak self] in
+                        self?.deleteLocation()
+                    },
+                    primaryButtonBackgroundColor: Style.shared.background(.error),
+                    primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                    secondaryButtonTitle: "No",
+                    secondaryButtonAction: {},
+                    secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                    secondaryButtonTextColor: Style.shared.textColor(.title)
+                ))))
+            
+        }
+        
+    private func deleteLocation() {
+        
+        guard let locationId else { return }
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteLocation(id: locationId)
+                
+                await MainActor.run { [weak self] in
+                    self?.navigationService?.pop()
+                }
+                
+            }
+            catch {
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.error(
+                        message: Constants.Message.errorMessage(context: .delete, "location"),
+                        action: {})
+                    )))
+                
+            }
+            
         }
         
     }

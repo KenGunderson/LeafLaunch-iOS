@@ -88,13 +88,21 @@ struct BusinessLocationCreateEditScreen: GPView {
         }
         .asAnyView()
         
+        let trashButton = NavBarButton(style: .trash) {
+            
+            self.viewModel
+                .presentDeleteLocationAlert()
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: self.viewModel.navTitle,
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.isEditMode ? trashButton : nil
         )
         
     }
-    
     
     private func contentCards() -> some View {
         

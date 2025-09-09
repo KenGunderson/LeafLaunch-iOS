@@ -45,6 +45,10 @@ struct MediaTagScreen: GPView {
                 
             }
         
+        // Alerts
+        
+            .withAlertService(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
+        
         // Tap
         
             .onTapGesture {
@@ -55,11 +59,10 @@ struct MediaTagScreen: GPView {
     
     private func content() -> some View {
         
-        AppBaseView {
-            mediaTagsList()
-        }
-        .safeAreaInset(edge: .top) {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             navBar()
+        } scrollViewContent: {
+            mediaTagsList()
         }
         .safeAreaInset(edge: .bottom) {
             bottomBarView()
@@ -84,25 +87,27 @@ struct MediaTagScreen: GPView {
     @ViewBuilder
     private func mediaTagsList() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium2)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             SectionView(
-                leadingTitle: "Your Tags",
+                leadingTitle: "Select All That Apply",
+                leadingTitleFont: .TITLE_5,
                 showDivider: true
             )
             
-            WStack {
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
                 
                 ForEach(self.viewModel.mediaTags, id: \.self) { tag in
                     
                     mediaTag(tag)
-                        .transition(.scale.combined(with: .opacity))
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .bottom).combined(with: .opacity),
+                            removal: .scale.combined(with: .opacity)
+                        ))
                     
                 }
                 
             }
-            
-            createTagView()
             
         }
         .frame(
@@ -112,28 +117,34 @@ struct MediaTagScreen: GPView {
         )
         .animation(.spring, value: self.viewModel.selectedMedia)
         .animation(.spring, value: self.viewModel.mediaTags)
-        .padding(.horizontal, .medium)
-        .padding(.top, .medium)
         
     }
     
+    @ViewBuilder
     private func mediaTag(_ mediaTag: MediaTag) -> some View {
         
         let isSelected = self.viewModel.selectedMedia.tags.contains(mediaTag)
         
-        return TokenView(
-            text: mediaTag.name,
-            foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
-            backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
-            verticalPadding: .extraSmall,
-            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
-        )
-        .appBorder(
-            cornerRadius: .extraSmall,
-            color: isSelected ? Style.shared.accent : Style.shared.background(.border),
-            lineWidth: 1.5
-        )
-        .appShadow(.subtle)
+        let foregroundStyle = isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title)
+        let backgroundStyle = isSelected ? Style.shared.accent : Style.shared.background(.secondary)
+        
+        AppCardView(backgroundStyle: backgroundStyle, shadow: .subtle) {
+            
+            Text(mediaTag.name.capitalized)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(foregroundStyle.source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Image(systemName: "trash")
+                .foregroundStyle(foregroundStyle.source())
+                .asButton {
+                    
+                    self.viewModel
+                        .presentMediaTagAlert(mediaTag: mediaTag)
+                    
+                }
+            
+        }
         .asButton {
             
             self.viewModel
@@ -165,6 +176,7 @@ struct MediaTagScreen: GPView {
                     createTagButton()
                     
                 }
+                .padding(.top, -Style.shared.spacing(.small))
                 .zIndex(-1)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 
@@ -185,12 +197,9 @@ struct MediaTagScreen: GPView {
             verticalPadding: .small,
             clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
         )
-        .appBorder(
-            cornerRadius: .extraSmall,
-            color: Style.shared.accent,
-            lineWidth: 1.5
-        )
         .appShadow(.subtle)
+        .allowsHitTesting(self.viewModel.isNewMediaTagValid)
+        .opacity(self.viewModel.isNewMediaTagValid ? 1 : 0.75)
         .asButton {
             
             viewModel
@@ -224,6 +233,7 @@ struct MediaTagScreen: GPView {
         .keyboardType(.default)
         .submitLabel(.done)
         .textInputAutocapitalization(.words)
+        .padding(.bottom, .small)
         .appOnTapGesture {
             self.focusedField = fieldToFocus
         }
@@ -233,11 +243,27 @@ struct MediaTagScreen: GPView {
     @ViewBuilder
     private func bottomBarView() -> some View {
         
-        CommonButton(title: "Done") {
-            dismiss()
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            createTagView()
+            
+            if self.focusedField == nil {
+                
+                CommonButton(title: "Done") {
+                    dismiss()
+                }
+                
+            } else {
+                
+                EmptyView()
+                    .frame(height: 16)
+                
+            }
+            
         }
+        .padding(.top, .medium)
         .padding(.horizontal, .medium)
-        .opacity(self.focusedField == nil ? 1 : 0)
+        .background(Style.shared.background(.primary).source())
         .animation(.bouncy(duration: 0.1), value: self.focusedField)
         
     }
