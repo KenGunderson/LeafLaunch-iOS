@@ -115,7 +115,7 @@ struct MediaTagScreen: GPView {
             maxHeight: .infinity,
             alignment: .top
         )
-        .animation(.spring, value: self.viewModel.selectedMedia)
+        .animation(.spring(duration: 0.25), value: self.viewModel.selectedMedia)
         .animation(.spring, value: self.viewModel.mediaTags)
         
     }
