@@ -101,12 +101,14 @@ struct BusinessEmployeeDetailsScreen: GPView {
                 VStack(alignment: .leading) {
                     
                     label(
-                        title: self.viewModel.employee?.name ?? "",
+                        title: "Name:",
+                        value: self.viewModel.employee?.name ?? "",
                         icon: "person.text.rectangle.fill"
                     )
                     
                     label(
-                        title: self.viewModel.employee?.email ?? "",
+                        title: "Email:",
+                        value: self.viewModel.employee?.email ?? "",
                         icon: "envelope.fill"
                     )
                     
@@ -180,9 +182,10 @@ struct BusinessEmployeeDetailsScreen: GPView {
     }
     
     private func label(title: String,
+                       value: String,
                        icon: String) -> some View {
         
-        HStack {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
             Image(systemName: icon)
                 .resizable()
@@ -191,8 +194,13 @@ struct BusinessEmployeeDetailsScreen: GPView {
                 .foregroundStyle(Style.shared.accent.source())
             
             Text(title)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
+            Text(value)
                 .appFont(with: .TITLE_4)
                 .foregroundStyle(Style.shared.textColor(.title).source())
+                .padding(.leading, -2)
             
         }
         
