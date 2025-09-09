@@ -186,7 +186,6 @@ extension View {
                     .navigationBarBackButtonHidden()
                 
             case .contactSupport: EmptyView()
-            case .sendFeedback: EmptyView()
             case .writeAReview: EmptyView()
             case .featureRequest: EmptyView()
             case .privacyPolicy:

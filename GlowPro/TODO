@@ -3,15 +3,40 @@
 ==================================================
 Tasks:
   • Support empty state for new users
-
+  
+==================================================
+             MEDIA TAGS
+==================================================
+Tasks:
+  • No empty spaces
+  • Trim whitespaces
+  • edit mode to delete?
+  • Make list instead of WStack
+    • allow for delete button on trailing end of new view
+  • Attach Can't find tag view to BottomBarView
+  
 ==================================================
              LOCATION DETAILS
 ==================================================
 Tasks:
-  • Go To Dashboard View
-  • Show location stats
-  • Activities (navigates to all activities (location context))
-  • Employees (navigates to employee details)
+  • Delete This ViewModel + View + References + Analytics + Deeplinks
+
+==================================================
+             LOCATION LIST
+==================================================
+Tasks:
+  • Cells
+    • View Dashboard Buttons
+    • Pencil button
+    • location stats
+        • reference desktop photos
+        
+==================================================
+             LOCATION CREATE EDIT SCREEN
+==================================================
+Tasks:
+  • Only in Edit context
+    • show trash can icon to delete location
 
 ==================================================
              EMPLOYEE DETAILS
@@ -51,21 +76,11 @@ Tasks:
   • Encode on API / Decode on Frontend
     
 ==================================================
-                DELETE ACCOUNT (POST MVP)
-==================================================
-Tasks:
-  • show a delete account option in settings
-    • explain process, reach out if you need your data
-  • What if they are subscribed
-    • Cancel subscription alert first
-    • Webhook?
-  • Delete from firebase?
-    
-==================================================
                 BACKEND
 ==================================================
 Tasks:
   • Sort Media Properly
+  • Categories + Subcategories for business
   
 ==================================================
                 OPEN QUESTIONS
@@ -85,6 +100,17 @@ Open Questions:
   • Show remaining photo count in gallery / camera? 1500?
      – Include delete query param
      – Show progress bar (accent green)
+     
+==================================================
+           DELETE ACCOUNT (POST MVP)
+==================================================
+Tasks:
+  • show a delete account option in settings
+    • explain process, reach out if you need your data
+  • What if they are subscribed
+    • Cancel subscription alert first
+    • Webhook?
+  • Delete from firebase?
 
 ==================================================
                 SECTION NAME
