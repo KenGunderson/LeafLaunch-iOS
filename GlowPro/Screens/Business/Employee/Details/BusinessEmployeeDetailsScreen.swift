@@ -92,27 +92,23 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func profile() -> some View {
         
-        Group {
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            VStack(spacing: Style.shared.spacing(.small2)) {
+            SectionView(leadingTitle: "Profile", showDivider: true)
+            
+            AppCardView {
                 
-                SectionView(leadingTitle: "Profile", showDivider: true)
-                
-                AppCardView {
+                VStack(alignment: .leading) {
                     
-                    VStack(alignment: .leading) {
-                        
-                        label(
-                            title: self.viewModel.employee?.name ?? "",
-                            icon: "person.text.rectangle.fill"
-                        )
-                        
-                        label(
-                            title: self.viewModel.employee?.email ?? "",
-                            icon: "envelope.fill"
-                        )
-                        
-                    }
+                    label(
+                        title: self.viewModel.employee?.name ?? "",
+                        icon: "person.text.rectangle.fill"
+                    )
+                    
+                    label(
+                        title: self.viewModel.employee?.email ?? "",
+                        icon: "envelope.fill"
+                    )
                     
                 }
                 
@@ -125,42 +121,38 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func media() -> some View {
         
-        Group {
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            VStack(spacing: Style.shared.spacing(.small2)) {
+            SectionView(leadingTitle: "Media", showDivider: true) {
                 
-                SectionView(leadingTitle: "Media", showDivider: true) {
-                    
-                    self.navigationService.push(.media(
-                        .gallery(.employee(employeeId: self.viewModel.employeeId))
-                    ))
-                    
-                }
-                .padding(.horizontal, .medium)
+                self.navigationService.push(.media(
+                    .gallery(.employee(employeeId: self.viewModel.employeeId))
+                ))
                 
-                ScrollView(.horizontal) {
+            }
+            .padding(.horizontal, .medium)
+            
+            ScrollView(.horizontal) {
+                
+                LazyHStack {
                     
-                    LazyHStack {
+                    let placeholderView = PlaceholderView().asAnyView()
+                    
+                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
                         
-                        let placeholderView = PlaceholderView().asAnyView()
-                        
-                        ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
-                            
-                            ImageSource.remote(
-                                url: media.url,
-                                placeholder: placeholderView,
-                            )
-                            .view(shouldResize: false)
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(width: 64)
-                            .cornerRadius(.small)
-                            
-                        }
+                        ImageSource.remote(
+                            url: media.url,
+                            placeholder: placeholderView,
+                        )
+                        .view(shouldResize: false)
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 64)
+                        .cornerRadius(.small)
                         
                     }
-                    .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
                     
                 }
+                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
                 
             }
             
@@ -171,21 +163,17 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func activities() -> some View {
         
-        Group {
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            VStack(spacing: Style.shared.spacing(.small2)) {
+            SectionView(leadingTitle: "Activities", showDivider: true) {
                 
-                SectionView(leadingTitle: "Activities", showDivider: true) {
-                    
-                    self.navigationService.push(.business(.businessActivitiesList(
-                        context: .employee(employeeId: self.viewModel.employeeId)
-                    )))
-                    
-                }
-                
-                ActivitiesView(activities: self.viewModel.activities)
+                self.navigationService.push(.business(.businessActivitiesList(
+                    context: .employee(employeeId: self.viewModel.employeeId)
+                )))
                 
             }
+            
+            ActivitiesView(activities: self.viewModel.activities)
             
         }
         
