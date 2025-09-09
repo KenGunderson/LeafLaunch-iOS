@@ -51,7 +51,8 @@ extension APIService {
         
     }
     
-    func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String {
+    func getEmployeeByUserIdForLocation(userId: String,
+                                        locationId: String) async throws -> String {
         
         do {
             

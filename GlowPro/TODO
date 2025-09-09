@@ -8,7 +8,6 @@ Tasks:
              EMPLOYEE DETAILS
 ==================================================
 Tasks:
-    • Show Employee Basic Information
     • Show Active Locations if owner
   
 ==================================================
@@ -47,6 +46,8 @@ Tasks:
 ==================================================
 Tasks:
   • Sort Media Properly
+  • Business object needs counts
+  • Location object needs counts
   
 ==================================================
                 OPEN QUESTIONS
@@ -59,10 +60,10 @@ Open Questions:
   • Remove Camera from location?
   • How to assign client after the fact reliably?
   • Remove yourself from business?
-  • Delete Employee
-        • Show alert from business home if user is still part of locations
-        • remove from locations first
-        • PROBLEM: -> Only Owner. Owner needs to remove from all first. Seems weird
+    • Delete Employee
+       • Show alert from business home if user is still part of locations
+       • remove from locations first
+       • PROBLEM: -> Only Owner. Owner needs to remove from all first. Seems weird
   • Show remaining photo count in gallery / camera? 1500?
      – Include delete query param
      – Show progress bar (accent green)
