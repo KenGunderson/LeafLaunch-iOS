@@ -15,6 +15,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
+    private(set) var activeDestinationService: ActiveDestinationServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
         
@@ -49,6 +50,10 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         return self.locationId != nil
     }
     
+    var isOwner: Bool {
+        return self.activeDestinationService.isOwner
+    }
+    
     private var businessId: String!
     private var locationId: String?
 
@@ -58,12 +63,14 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
+        self.activeDestinationService = activeDestinationService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
         

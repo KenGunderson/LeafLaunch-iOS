@@ -218,6 +218,7 @@ class MockViewModelAssembly: Assembly {
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
