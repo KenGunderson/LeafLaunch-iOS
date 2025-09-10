@@ -90,6 +90,26 @@ extension APIService {
         
     }
     
+    func getLocationEmployee(employeeId: String,
+                             locationId: String) async throws -> LocationEmployee {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .locationEmployee("/user/\(employeeId)/location/\(locationId)"))
+            )
+            
+            let result: LocationEmployee = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func createEmployee(employee: Employee) async throws -> Employee {
         
         let parameters: [String: Any] = [

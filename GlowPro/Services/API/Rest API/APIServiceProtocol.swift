@@ -1,5 +1,5 @@
 //
-//  APIServiceProtocl.swift
+//  APIServiceProtocol.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/13/24.
@@ -69,6 +69,10 @@ protocol APIServiceProtocol: APIProtocol {
     func createEmployee(employee: Employee) async throws -> Employee
     func updateEmployee(employee: Employee) async throws
     func deleteEmployee(id: String) async throws
+    
+    // Location Employee
+    
+    func getLocationEmployee(employeeId: String, locationId: String) async throws -> LocationEmployee
     
     // Employee Invites
     

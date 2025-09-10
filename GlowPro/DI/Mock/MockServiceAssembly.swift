@@ -106,6 +106,7 @@ final class MockAPIService: APIServiceProtocol {
     private var businesses: [Business]
     private var locations: [Location]
     private var employees: [Employee]
+    private var locationEmployees: [LocationEmployee]
     private var clients: [Client]
     private var workspaces: [Workspace] = []
     private var media: [Media]
@@ -116,6 +117,7 @@ final class MockAPIService: APIServiceProtocol {
         
         self.businesses = MockModels.allBusinesses
         self.locations = MockModels.allLocations
+        self.locationEmployees = MockModels.allLocationEmployees
         self.employees = MockModels.allEmployees
         self.clients = MockModels.allClients
         self.workspaces = MockModels.allWorkspaces
@@ -246,7 +248,7 @@ final class MockAPIService: APIServiceProtocol {
         
         var location = self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
         let clients = self.clients.filter { $0.locationId == id }
-        let employees = self.employees.filter { $0.locationId == id }
+        let employees = self.locationEmployees.filter { $0.locationId == id }
         let media = self.media.filter { $0.businessId == id }
         
         location.employees = employees
@@ -280,7 +282,7 @@ final class MockAPIService: APIServiceProtocol {
         
         let currentUserId = self.currentUser.id
         let ownedBusinesses = self.businesses.filter { $0.owner.id == currentUserId }
-        let allEmployeeRoles = self.employees.filter { $0.userId == currentUserId }
+        let allEmployeeRoles = self.locationEmployees.filter { $0.user.id == currentUserId }
         
         for business in ownedBusinesses {
             
@@ -307,7 +309,7 @@ final class MockAPIService: APIServiceProtocol {
                 name: businessDetails.name,
                 isOwner: false,
                 roleLocations: [.init(
-                    role: employee.role ?? .employee,
+                    role: employee.role,
                     location: location
                 )]
             )
@@ -332,7 +334,7 @@ final class MockAPIService: APIServiceProtocol {
     
     func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String {
         
-        if let employee = self.employees.first(where: { $0.locationId == locationId && $0.userId == userId }) {
+        if let employee = self.locationEmployees.first(where: { $0.locationId == locationId && $0.user.id == userId }) {
             return employee.id
         }
         
@@ -371,6 +373,15 @@ final class MockAPIService: APIServiceProtocol {
         self.employees.removeAll { $0.id  == id }
     }
     
+    // Location Employee
+    
+    func getLocationEmployee(employeeId: String,
+                             locationId: String) async throws -> LocationEmployee {
+        
+        return self.locationEmployees.filter({ $0.locationId == locationId && $0.employeeId == employeeId }).first!
+        
+    }
+    
     // Employee Invites
     
     func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite] {
@@ -397,20 +408,29 @@ final class MockAPIService: APIServiceProtocol {
             
             let business = self.businesses[businessIndex]
             
+            let employee = Employee(
+                id: UUID().uuidString,
+                businessId: business.id,
+                userId: currentUser.id,
+                name: invite.name,
+                email: invite.email,
+                phoneNumber: currentUser.phoneNumber ?? ""
+            )
+            
+            self.employees.append(employee)
+            
             for location in invite.locationIds {
                 
-                let employee = Employee(
+                let locationEmployee = LocationEmployee(
                     id: UUID().uuidString,
                     businessId: business.id,
                     locationId: location,
-                    userId: self.currentUser.id,
-                    name: invite.name,
-                    email: invite.email,
-                    phone: "",
+                    employeeId: employee.id,
+                    user: currentUser,
                     role: invite.role ?? .employee
                 )
                 
-                self.employees.append(employee)
+                self.locationEmployees.append(locationEmployee)
                 
             }
             
@@ -712,9 +732,9 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
         for activity in self.activities {
                         
-            let employee = try await self.getEmployee(id: activity.authorId)
+            let locationEmployee = try await self.getLocationEmployee(employeeId: activity.authorId, locationId: locationId)
             
-            if employee.locationId == locationId {
+            if locationEmployee.locationId == locationId {
                 activities.append(activity)
             }
             

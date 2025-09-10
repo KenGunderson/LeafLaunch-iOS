@@ -154,7 +154,7 @@ struct HomeScreen: GPView {
             
             ForEach(self.viewModel.workspaces, id: \.id) { workspace in
                 
-                ForEach(workspace.roleLocations, id: \.id) { roleLocation in
+                ForEach(workspace.roleLocations, id: \.self) { roleLocation in
                     
                     LocationCardView(
                         businessName: workspace.name,

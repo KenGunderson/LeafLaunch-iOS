@@ -14,14 +14,12 @@ struct Workspace: Codable,
     struct RoleLocation: Codable,
                          Hashable {
         
-        let id: String
         let role: Role
         let location: Location
         
         init(role: Role,
              location: Location) {
             
-            self.id = UUID().uuidString
             self.role = role
             self.location = location
             

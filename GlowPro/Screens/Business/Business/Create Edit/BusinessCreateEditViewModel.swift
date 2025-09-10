@@ -165,6 +165,8 @@ final class BusinessCreateEditViewModel: ViewModel {
                         zip: self.zip
                     ),
                     owner: authUser,
+                    categories: self.selectedCategories.map { $0.rawValue },
+                    subcategories: self.selectedSubcategories.map { $0.rawValue },
                     employees: [],
                     locations: [],
                     employeeInvites: []
@@ -225,6 +227,8 @@ final class BusinessCreateEditViewModel: ViewModel {
                         zip: self.zip
                     ),
                     owner: self.business?.owner ?? .DUMMY_DATA(),
+                    categories: self.selectedCategories.map { $0.rawValue },
+                    subcategories: self.selectedSubcategories.map { $0.rawValue },
                     employees: [],
                     locations: [],
                     employeeInvites: []

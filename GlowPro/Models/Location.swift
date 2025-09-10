@@ -17,7 +17,7 @@ struct Location: Identifiable,
     let businessId: String
     let name: String
     let address: Address
-    var employees: [Employee]
+    var employees: [LocationEmployee]
     var clients: [Client]
     var media: [Media] = []
     

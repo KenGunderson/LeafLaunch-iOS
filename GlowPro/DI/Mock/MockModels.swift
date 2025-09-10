@@ -25,6 +25,10 @@ struct MockModels {
         return [MockEmployee.employee1, MockEmployee.employee2]
     }
     
+    static var allLocationEmployees: [LocationEmployee] {
+        return [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2]
+    }
+    
     static var allEmployeeInvites: [EmployeeInvite] {
         return [MockEmployeeInvite.employeeInvite1, MockEmployeeInvite.employeeInvite2, MockEmployeeInvite.employeeInvite3, MockEmployeeInvite.employeeInvite4]
     }
@@ -132,6 +136,9 @@ struct MockModels {
         
         static let employee1: String = UUID().uuidString
         static let employee2: String = UUID().uuidString
+        
+        static let locationEmployee1: String = UUID().uuidString
+        static let locationEmployee2: String = UUID().uuidString
         
         static let employeeInvite1: String = UUID().uuidString
         static let employeeInvite2: String = UUID().uuidString
@@ -286,24 +293,20 @@ struct MockModels {
         static var employee1 = Employee(
             id: ID.employee1,
             businessId: ID.business1,
-            locationId: ID.location1,
             userId: MockModels.ID.user1,
             name: "Employee 1",
             email: "emp@me.com",
-            phone: "999-999-9999",
-            role: .employee
+            phoneNumber: "999-999-9999",
         )
         
         nonisolated(unsafe)
         static var employee2 = Employee(
             id: ID.employee2,
             businessId: ID.business2,
-            locationId: ID.location2,
             userId: MockModels.ID.user2,
             name: "Employee 2",
             email: "emp2@me.com",
-            phone: "999-999-9999",
-            role: .employee
+            phoneNumber: "999-999-9999",
         )
         
     }
@@ -316,7 +319,7 @@ struct MockModels {
             businessId: ID.business1,
             name: "First Location",
             address: .DUMMY_DATA(),
-            employees: [MockEmployee.employee1, MockEmployee.employee2],
+            employees: [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2],
             clients: []
         )
         
@@ -326,7 +329,7 @@ struct MockModels {
             businessId: ID.business2,
             name: "Second Location",
             address: .DUMMY_DATA(),
-            employees: [MockEmployee.employee1, MockEmployee.employee2],
+            employees: [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2],
             clients: []
         )
         
@@ -348,6 +351,30 @@ struct MockModels {
             address: .DUMMY_DATA(),
             employees: [],
             clients: []
+        )
+        
+    }
+    
+    struct MockLocationEmployee {
+        
+        nonisolated(unsafe)
+        static var locationEmployee1 = LocationEmployee(
+            id: ID.locationEmployee1,
+            businessId: ID.business1,
+            locationId: ID.location1,
+            employeeId: ID.employee1,
+            user: MockUser.user1,
+            role: .employee
+        )
+        
+        nonisolated(unsafe)
+        static var locationEmployee2 = LocationEmployee(
+            id: ID.locationEmployee2,
+            businessId: ID.business1,
+            locationId: ID.location2,
+            employeeId: ID.employee1,
+            user: MockUser.user1,
+            role: .manager
         )
         
     }

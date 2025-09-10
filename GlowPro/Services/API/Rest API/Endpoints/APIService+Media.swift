@@ -13,16 +13,22 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
-        let queryParameters: [String : String] = [
-            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        var queryParameters: [String : String] = [
+            "order_by": sortingOption?.queryParameter
         ]
         .compact()
+        
+        if !tags.isEmpty {
+            queryParameters["tag_ids"] = tags.map({ $0.id }).joined(separator: ",")
+        }
+        
+        let favoritePrefix = sortingOption == .favorited ? "favorites/" : ""
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/business/\(businessId)")),
+                apiPath: .init(path: .media("/\(favoritePrefix)business/\(businessId)")),
                 queryParameters: queryParameters
             )
             
@@ -40,16 +46,22 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
-        let queryParameters: [String : String] = [
-            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        var queryParameters: [String : String] = [
+            "order_by": sortingOption?.queryParameter
         ]
         .compact()
+        
+        if !tags.isEmpty {
+            queryParameters["tag_ids"] = tags.map({ $0.id }).joined(separator: ",")
+        }
+        
+        let favoritePrefix = sortingOption == .favorited ? "favorites/" : ""
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/location/\(locationId)")),
+                apiPath: .init(path: .media("/\(favoritePrefix)location/\(locationId)")),
                 queryParameters: queryParameters
             )
             
@@ -67,16 +79,22 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
-        let queryParameters: [String : String] = [
-            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        var queryParameters: [String : String] = [
+            "order_by": sortingOption?.queryParameter
         ]
         .compact()
+        
+        if !tags.isEmpty {
+            queryParameters["tag_ids"] = tags.map({ $0.id }).joined(separator: ",")
+        }
+        
+        let favoritePrefix = sortingOption == .favorited ? "favorites/" : ""
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/client/\(clientId)")),
+                apiPath: .init(path: .media("/\(favoritePrefix)client/\(clientId)")),
                 queryParameters: queryParameters
             )
             
@@ -94,16 +112,22 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
-        let queryParameters: [String : String] = [
-            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        var queryParameters: [String : String] = [
+            "order_by": sortingOption?.queryParameter
         ]
         .compact()
+        
+        if !tags.isEmpty {
+            queryParameters["tag_ids"] = tags.map({ $0.id }).joined(separator: ",")
+        }
+        
+        let favoritePrefix = sortingOption == .favorited ? "favorites/" : ""
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/employee/\(authorId)")),
+                apiPath: .init(path: .media("/\(favoritePrefix)employee/\(authorId)")),
                 queryParameters: queryParameters
             )
             
@@ -147,7 +171,7 @@ extension APIService {
         do {
             
             _ = try await buildRequest(
-                method: .put,
+                method: .post,
                 apiPath: .init(path: .mediaFavorite("")),
                 parameters: parameters
             )
@@ -168,7 +192,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .media("/\(mediaId)"))
+                apiPath: .init(path: .mediaFavorite("/\(mediaId)"))
             )
             
             return

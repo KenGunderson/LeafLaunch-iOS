@@ -27,6 +27,14 @@ enum MediaSortingOption: String,
         }
     }
     
+    var queryParameter: String {
+        switch self {
+        case .newest: return "desc"
+        case .oldest: return "asc"
+        case .favorited: return "desc"
+        }
+    }
+    
 }
 
 struct MediaTag: Identifiable,

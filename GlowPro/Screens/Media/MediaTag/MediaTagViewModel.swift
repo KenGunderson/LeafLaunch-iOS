@@ -132,6 +132,8 @@ final class MediaTagViewModel: ViewModel {
                     self?.newMediaTag = ""
                 }
                 
+                loadData()
+                
             }
             catch {
                 
@@ -147,8 +149,6 @@ final class MediaTagViewModel: ViewModel {
             
             self.alertService
                 .dismissLoadingIndicator()
-            
-            loadData()
             
         }
         

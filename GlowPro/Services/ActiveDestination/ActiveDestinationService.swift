@@ -22,7 +22,7 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     }
     
     @Published private(set) var isOwner: Bool = false
-    @Published private(set) var employee: Employee?
+    @Published private(set) var employee: LocationEmployee?
     
     var role: Role? {
         return self.employee?.role
@@ -93,7 +93,7 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         Task { [weak self] in
             
             var business: Business?
-            var employee: Employee?
+            var locationEmployee: LocationEmployee?
             
             switch activeDestination {
             case .business(let businessId):
@@ -114,25 +114,28 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
                         locationId: location?.id ?? ""
                     )
                     
-                    employee = try await self?.apiService
-                        .getEmployee(id: employeeId ?? "")
+                    locationEmployee = try await self?.apiService
+                        .getLocationEmployee(
+                            employeeId: employeeId ?? "",
+                            locationId: locationId
+                        )
                     
                 }
                 
             }
             
-            await MainActor.run { [weak self, business, employee] in
+            await MainActor.run { [weak self, business, locationEmployee] in
                 
                 self?.isOwner = (business?.owner.id == currentUserId)
                 
-                self?.employee = employee
+                self?.employee = locationEmployee
                 
                 if let business {
                     self?.log(message: "Loaded Business: \(business.id)")
                 }
                 
-                if let employee {
-                    self?.log(message: "Loaded Employee: \(employee.id)")
+                if let locationEmployee {
+                    self?.log(message: "Loaded Employee: \(locationEmployee.id)")
                 }
                 
             }

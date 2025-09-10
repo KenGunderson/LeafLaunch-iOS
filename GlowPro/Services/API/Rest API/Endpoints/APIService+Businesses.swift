@@ -92,11 +92,34 @@ extension APIService {
     
     func updateBusiness(business: Business) async throws {
         
+        let address: [String : Any?] = [
+            "street": business.address?.street,
+            "street_2": business.address?.street2,
+            "city": business.address?.city,
+            "state": business.address?.state,
+            "zip": business.address?.zip,
+            "country": "USA"
+        ]
+        
+        let parameters: [String: Any] = [
+            "id": business.id,
+            "owner_id": business.owner.id,
+            "name": business.name,
+            "description": business.description,
+            "address": address,
+            "phone_number": business.phoneNumber,
+            "email": business.email,
+            "categories": business.categories,
+            "subcategories": business.subcategories
+        ]
+        .compact()
+        
         do {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .business("/\(business.id)"))
+                apiPath: .init(path: .business("/\(business.id)")),
+                parameters: parameters
             )
             
         }
