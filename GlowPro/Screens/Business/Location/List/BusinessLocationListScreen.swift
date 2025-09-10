@@ -89,6 +89,7 @@ struct BusinessLocationListScreen: GPView {
             
         }
         .padding(.horizontal, .medium)
+        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     
