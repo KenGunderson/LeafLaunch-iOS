@@ -95,6 +95,8 @@ final class BusinessLocationHomeViewModel: ViewModel {
             
             do {
                 
+                activeDestinationService.refresh()
+                
                 let location = try await self.apiService.getLocation(id: self.locationId)
                 let business = try await self.apiService.getBusiness(id: location.businessId)
                 let activities = try await self.apiService.getActivitiy(locationId: self.locationId)

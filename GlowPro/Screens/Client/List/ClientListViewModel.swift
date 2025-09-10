@@ -182,14 +182,17 @@ final class ClientListViewModel: ViewModel {
             action: { [weak self] in
                 
                 switch self?.context {
-                case .business(let businessId):
+                case .business(_):
                     
                     let hasLocation = !(self?.activeDestinationService.business?.locations.isEmpty ?? true)
                     
                     if hasLocation {
                         
                         self?.navigationService?
-                            .push(.client(.clientList(context: .business(businessId: businessId))))
+                            .push(.client(.clientCreate(
+                                locationId: self?.activeDestinationService.business?.locations.first?.id ?? "",
+                                clientId: nil
+                            )))
                         
                     } else {
                         self?.presentChecklistClientMediaErrorAlert()

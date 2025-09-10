@@ -23,6 +23,7 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
+    func refresh()
     func logout()
     
 }

@@ -162,7 +162,7 @@ struct ClientDetailsScreen: GPView {
                 self.tabBarNavigationService
                     .tab1NavigationService
                     .push(.client(.clientCreate(
-                        locationId: nil,
+                        locationId: self.viewModel.client?.locationId ?? "",
                         clientId: self.viewModel.client?.id)
                     ))
                 

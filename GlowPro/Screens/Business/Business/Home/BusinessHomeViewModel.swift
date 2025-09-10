@@ -98,6 +98,8 @@ final class BusinessHomeViewModel: ViewModel {
             
             do {
                 
+                self.activeDestinationService.refresh()
+                
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 
                 await MainActor.run { [weak self] in

@@ -60,10 +60,10 @@ enum Route: Navigation, Hashable, Sendable {
     
     enum Client: Hashable {
         
-        case clientCreate(locationId: String?,
+        case clientCreate(locationId: String,
                           clientId: String? = nil)
-        case clientList(context: ClientListViewModel.Context)
         
+        case clientList(context: ClientListViewModel.Context)
         
     }
     

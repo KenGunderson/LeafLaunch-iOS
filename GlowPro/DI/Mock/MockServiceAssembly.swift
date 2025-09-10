@@ -1002,6 +1002,8 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
         self.activeDestination = nil
     }
     
+    func refresh() {}
+    
 }
 
 // MARK: IMPERSONATE

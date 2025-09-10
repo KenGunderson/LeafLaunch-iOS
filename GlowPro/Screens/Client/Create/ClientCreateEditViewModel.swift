@@ -156,7 +156,8 @@ final class ClientCreateEditViewModel: ViewModel {
         
         guard let currentUser = self.authService.currentUser else { return }
         
-        if !self.email.isValidEmail() {
+        if !email.isEmpty,
+           !self.email.isValidEmail() {
             
             self.alertService
                 .showAlert(Constants.INVALID_EMAIL_ALERT())
@@ -184,8 +185,8 @@ final class ClientCreateEditViewModel: ViewModel {
                     id: UUID().uuidString,
                     firstName: self.firstName,
                     lastName: self.lastName,
-                    email: self.email,
-                    phone: self.phone,
+                    email: self.email.isEmpty ? nil : self.email,
+                    phone: self.phone.isEmpty ? nil : self.phone,
                     dateOfBirth: dateOfBirth,
                     locationId: self.locationId ?? "",
                     employeeId: employeeId
@@ -232,7 +233,8 @@ final class ClientCreateEditViewModel: ViewModel {
         guard let clientId else { return }
         guard let currentUser = self.authService.currentUser else { return }
         
-        if !self.email.isValidEmail() {
+        if !email.isEmpty,
+           !self.email.isValidEmail() {
             
             self.alertService
                 .showAlert(Constants.INVALID_EMAIL_ALERT())
@@ -260,8 +262,8 @@ final class ClientCreateEditViewModel: ViewModel {
                     id: clientId,
                     firstName: self.firstName,
                     lastName: self.lastName,
-                    email: self.email,
-                    phone: self.phone,
+                    email: self.email.isEmpty ? nil : self.email,
+                    phone: self.phone.isEmpty ? nil : self.phone,
                     dateOfBirth: dateOfBirth,
                     locationId: self.locationId ?? "",
                     employeeId: employeeId

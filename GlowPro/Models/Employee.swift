@@ -18,7 +18,7 @@ struct Employee: Identifiable,
     let userId: String
     let name: String
     let email: String
-    let phoneNumber: String
+    let phoneNumber: String?
     
     private enum CodingKeys: String, CodingKey {
         

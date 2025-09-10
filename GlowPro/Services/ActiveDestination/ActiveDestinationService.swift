@@ -78,6 +78,10 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
     }
     
+    func refresh() {
+        loadData()
+    }
+    
     private func loadData() {
         
         guard let activeDestination else { return }
