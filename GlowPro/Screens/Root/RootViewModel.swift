@@ -40,6 +40,8 @@ final class RootViewModel: ViewModel {
         return self.impersonateService.impersonatedUser?.email ?? ""
     }
     
+    var observableAlertServiceWrapper: ObservableAlertServiceWrapper!
+    
     init(launchService: LaunchScreenServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
@@ -67,6 +69,7 @@ final class RootViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.pushNotificationService = pushNotificationService
         self.deeplinkService = deeplinkService
+        self.observableAlertServiceWrapper = ObservableAlertServiceWrapper(alertService: alertService)
         
         self.logInit()
         bindSubscribers()

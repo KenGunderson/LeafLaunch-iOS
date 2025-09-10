@@ -301,8 +301,8 @@ final class MockAPIService: APIServiceProtocol {
         
         for employee in allEmployeeRoles {
             
-            let businessDetails = try await self.getBusiness(id: employee.businessId)
             let location = try await self.getLocation(id: employee.locationId)
+            let businessDetails = try await self.getBusiness(id: location.businessId)
             
             let employedWorkspace = Workspace(
                 id: UUID().uuidString,

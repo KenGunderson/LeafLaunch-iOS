@@ -217,49 +217,55 @@ struct ClientDetailsScreen: GPView {
         let activities: [Activity] = [
             .init(
                 id: "1",
-                title: "Called Client",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .clientUpdated,
                 createdAt: Date().addingTimeInterval(-73497493).toISO()
             ),
             .init(
                 id: "2",
-                title: "Intake Form Filled",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .formSubmitted,
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
                 id: "3",
-                title: "Ate At Outback",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .quickNote,
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(
                 id: "4",
-                title: "Did Something Else",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .businessUpdated,
                 createdAt: Date().toISO()
             ),
             .init(
                 id: "5",
-                title: "Built Legos",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .noteAdded,
                 createdAt: Date().toISO()
             ),
             .init(
                 id: "6",
-                title: "Ate Some Soup",
                 clientId: "",
                 authorId: "",
+                businessId: MockModels.ID.business1,
+                locationId: MockModels.ID.location1,
                 activityType: .mediaAdded,
                 createdAt: Date().toISO()
             ),

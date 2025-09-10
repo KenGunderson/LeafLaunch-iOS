@@ -44,7 +44,7 @@ struct BusinessHomeScreen: GPView {
         .task {
             
             self.viewModel
-                .loadData()
+                .loadData(showsLoadingIndicator: self.viewModel.isFirstLoad)
             
         }
         

@@ -92,11 +92,16 @@ extension APIService {
     func createClient(client: Client,
                       locationId: String) async throws {
         
+        let parameters: [String: Any] = [
+            :
+        ]
+        
         do {
             
             let _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .client(""))
+                apiPath: .init(path: .client("")),
+                parameters: parameters
             )
             
         }

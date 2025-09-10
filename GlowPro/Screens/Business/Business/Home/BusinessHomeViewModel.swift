@@ -27,6 +27,8 @@ final class BusinessHomeViewModel: ViewModel {
     @Published private(set) var checklistItems: [ChecklistView.ChecklistItem] = []
     
     @Published var shouldShowChecklistCompletionSheet: Bool = false
+    
+    var isFirstLoad: Bool = true
 
     private(set) var businessId: String!
     
@@ -83,10 +85,14 @@ final class BusinessHomeViewModel: ViewModel {
         
     }
     
-    func loadData() {
+    func loadData(showsLoadingIndicator: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showsLoadingIndicator {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -96,6 +102,7 @@ final class BusinessHomeViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
                     
+                    self?.isFirstLoad = false
                     self?.business = business
                     
                     let hasLocations = !(self?.business?.locations.isEmpty ?? true)
@@ -115,9 +122,7 @@ final class BusinessHomeViewModel: ViewModel {
                        hasClients,
                        hasMedia{
                         
-                        
                         self?.shouldShowChecklistCompletionSheet = true
-                        
                         
                         self?.userDefaultsService
                             .set(didViewChecklistCompletionSheet: true)
@@ -139,8 +144,12 @@ final class BusinessHomeViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showsLoadingIndicator {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         
@@ -245,7 +254,7 @@ final class BusinessHomeViewModel: ViewModel {
             self.alertService
                 .dismissLoadingIndicator()
             
-            loadData()
+            loadData(showsLoadingIndicator: false)
             
         }
         

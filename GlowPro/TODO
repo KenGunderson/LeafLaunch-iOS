@@ -7,8 +7,13 @@ Tasks:
     
 
 RANDOM:
-1. Alerts keep doubling up on the business dashboard page
-2.
+2. Location Create Edit
+3. Location 'You are not an employee of this location!' -> Even if owner?
+4. When location home throws error we should pop
+6. CREATE CLIENT + UPDATE CLIENT need parameters in API
+7. Test Delete on all levels
+8. Test Update / Create on all levels
+9. Make sure we receive pending invites as employees (HomeScreen check for pending invites)
 
 ==================================================
              BUSINESS FLOW

@@ -125,10 +125,20 @@ extension APIService {
     
     func updateLocation(location: Location) async throws {
         
+        let address: [String : Any?] = [
+            "street": location.address.street,
+            "street_2": location.address.street2,
+            "city": location.address.city,
+            "state": location.address.state,
+            "zip": location.address.zip,
+            "country": "USA"
+        ]
+        
         let parameters: [String: Any] = [
+            "id": location.id,
             "business_id": location.businessId,
             "name": location.name,
-            "address": location.address
+            "address": address
         ]
         
         do {

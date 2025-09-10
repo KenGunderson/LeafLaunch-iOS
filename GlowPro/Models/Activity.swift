@@ -10,9 +10,10 @@ import Foundation
 struct Activity: Codable, Mockable {
     
     let id: String
-    let title: String
-    let clientId: String
+    let clientId: String?
     let authorId: String
+    let businessId: String
+    let locationId: String?
     let activityType: ActivityType
     let _createdAt: String?
     let _updatedAt: String?
@@ -33,33 +34,37 @@ struct Activity: Codable, Mockable {
         
     }
     
-    var createdAtNoTimestamp: Date!
+    var createdAtNoTimestamp: Date {
+        return createDateWithTimestamp()
+    }
     
     init(id: String,
-         title: String,
-         clientId: String,
+         clientId: String?,
          authorId: String,
+         businessId: String,
+         locationId: String?,
          activityType: ActivityType,
          createdAt: String?) {
         
         self.id = id
-        self.title = title
         self.clientId = clientId
         self.authorId = authorId
+        self.businessId = businessId
+        self.locationId = locationId
         self.activityType = activityType
         self._createdAt = createdAt
         self._updatedAt = createdAt
-        self.createdAtNoTimestamp = createDateWithTimestamp()
         
     }
     
     public enum CodingKeys: String, CodingKey {
         
         case id
-        case title
         case clientId = "client_id"
         case authorId = "author_id"
-        case activityType = "activity_type"
+        case businessId = "business_id"
+        case locationId = "location_id"
+        case activityType = "type"
         case _createdAt = "created_at"
         case _updatedAt = "updated_at"
         
@@ -84,9 +89,10 @@ extension Activity {
         
         return .init(
             id: "1",
-            title: "Called Client",
             clientId: "1",
             authorId: "1",
+            businessId: "1",
+            locationId: nil,
             activityType: .businessCreated,
             createdAt: Date().toISO()
         )

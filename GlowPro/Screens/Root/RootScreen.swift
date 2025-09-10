@@ -29,8 +29,8 @@ struct RootScreen: GPView {
             splashScreenView()
             
         }
-        .withAlertService(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
-        .environmentObject(ObservableAlertServiceWrapper(alertService: self.viewModel.alertService))
+        .withAlertService(self.viewModel.observableAlertServiceWrapper)
+        .environmentObject(self.viewModel.observableAlertServiceWrapper)
         .environment(self.viewModel.navigationService)
         .withToastOverlay()
         
