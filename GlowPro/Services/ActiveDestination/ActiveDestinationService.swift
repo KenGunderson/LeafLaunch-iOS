@@ -36,15 +36,8 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         return self.isOwner || self.role == .manager
     }
     
-    var businessId: String {
-        
-        if (self.activeDestination?.isBusiness ?? false) {
-            return self.activeDestination!.destinationId
-        } else {
-            return self.employee?.businessId ?? ""
-        }
-        
-    }
+    internal var business: Business?
+    internal var businessId: String?
     
     init(apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol) {
@@ -127,11 +120,14 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
             await MainActor.run { [weak self, business, locationEmployee] in
                 
                 self?.isOwner = (business?.owner.id == currentUserId)
-                
                 self?.employee = locationEmployee
                 
                 if let business {
+                    
                     self?.log(message: "Loaded Business: \(business.id)")
+                    self?.business = business
+                    self?.businessId = business.id
+                    
                 }
                 
                 if let locationEmployee {

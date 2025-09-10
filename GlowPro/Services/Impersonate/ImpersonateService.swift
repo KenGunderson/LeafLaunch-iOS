@@ -100,6 +100,13 @@ final class ImpersonateService: ImpersonateServiceProtocol {
         
     }
     
+    func logout() {
+        
+        self.originalUser = nil
+        self.impersonatedUser = nil
+        
+    }
+    
     // MARK: - Private
     
     private func bindSubscribers() {

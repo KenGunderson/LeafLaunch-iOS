@@ -70,19 +70,9 @@ struct BusinessDashboardView: View {
         .padding(.horizontal, .medium)
         .padding(.vertical, .medium2)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            
-            RoundedRectangle(cornerRadius: Style.shared.radius(.small2))
-                .strokeBorder(style: .init(
-                    lineWidth: 1.5,
-                    dash: [5],
-                    dashPhase: 1
-                ), antialiased: true)
-                .foregroundStyle(Style.shared.background(.quaternary).source())
-            
-        }
-        .background(Style.shared.background(.quaternary).source(opacity: 0.35))
+        .background(Style.shared.accent.source(opacity: 0.08))
         .clipShape(.rect(cornerRadius: Style.shared.radius(.small2)))
+        .appBorder(cornerRadius: .small2, color: Style.shared.accent, lineWidth: 2)
         
     }
     

@@ -37,6 +37,7 @@ final class ClientListViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
@@ -56,6 +57,7 @@ final class ClientListViewModel: ViewModel {
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol) {
         
@@ -63,6 +65,7 @@ final class ClientListViewModel: ViewModel {
         self.authService = authService
         self.analyticsService = analyticsService
         self.alertService = alertService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
         
@@ -176,12 +179,30 @@ final class ClientListViewModel: ViewModel {
             message: "Start building your client base by adding your first client",
             image: .systemImage("magnifyingglass"),
             actionTitle: "Add Your First Client",
-            action: {
-                if case let .location(locationId) = self.context {
-                    self.navigationService?.push(.client(.clientCreate(locationId: locationId)))
+            action: { [weak self] in
+                
+                switch self?.context {
+                case .business(let businessId):
+                    
+                    let hasLocation = !(self?.activeDestinationService.business?.locations.isEmpty ?? true)
+                    
+                    if hasLocation {
+                        
+                        self?.navigationService?
+                            .push(.client(.clientList(context: .business(businessId: businessId))))
+                        
+                    } else {
+                        self?.presentChecklistClientMediaErrorAlert()
+                    }
+                    
+                case .location(let locationId):
+                    
+                    self?.navigationService?
+                        .push(.client(.clientCreate(locationId: locationId)))
+                
+                default: break
                 }
-            }
-        )
+            })
         
     }
     
@@ -195,6 +216,20 @@ final class ClientListViewModel: ViewModel {
                 self?.loadData(showHud: false)
             }
             .store(in: &self.cancelBag)
+        
+    }
+    
+    private func presentChecklistClientMediaErrorAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Hold up!",
+                message: "You need to create a location before you can add clients or create media.",
+                primaryButtonTitle: "Okay",
+                primaryButtonAction: {},
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted)
+            ))))
         
     }
     

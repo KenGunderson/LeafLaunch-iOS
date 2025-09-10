@@ -332,7 +332,10 @@ struct BusinessCreateEditScreen: GPView {
         
         if self.focusedField == nil {
             
-            CommonButton(title: "Save") {
+            CommonButton(
+                title: "Save",
+                isEnabled: self.viewModel.isSubmitButtonEnabled
+            ) {
                 self.viewModel.createOrUpdate()
             }
             .padding(.top, .small)

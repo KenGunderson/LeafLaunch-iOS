@@ -18,6 +18,7 @@ final class SettingsViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let impersonateService: ImpersonateServiceProtocol
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -36,13 +37,15 @@ final class SettingsViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         impersonateService: ImpersonateServiceProtocol) {
         
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.environmentService = environmentService
         self.userDefaultsService = userDefaultsService
+        self.impersonateService = impersonateService
         
         self.logInit()
         
@@ -85,6 +88,9 @@ final class SettingsViewModel: ViewModel {
             guard let self else { return }
             
             try await Task.sleep(for: .seconds(0.3))
+            
+            self.impersonateService
+                .logout()
             
             await MainActor.run {
                 self.shouldDismiss = true

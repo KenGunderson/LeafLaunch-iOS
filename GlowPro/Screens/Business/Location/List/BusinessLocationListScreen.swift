@@ -98,13 +98,38 @@ struct BusinessLocationListScreen: GPView {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
                 
-                Text(location.name)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                HStack {
+                    
+                    Text(location.name)
+                        .appFont(with: .TITLE_5)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Image(systemName: "pencil")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 16)
+                        .padding(9)
+                        .background(.backgroundTappable)
+                        .foregroundStyle(Style.shared.accent.source())
+                        .asButton {
+                            
+                            self.navigationService
+                                .push(.business(
+                                    .businessLocationCreateEdit(
+                                        businessId: self.viewModel.businessId,
+                                        locationId: location.id
+                                    )
+                                ))
+                            
+                        }
+                    
+                }
                 
                 Text(location.address.fullFormattedAddress)
                     .appFont(with: .BODY_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
+                    .padding(.top, -Style.shared.spacing(.small2))
                 
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 0),
@@ -150,26 +175,6 @@ struct BusinessLocationListScreen: GPView {
                         
                     }
                     .frame(maxWidth: .infinity)
-                    
-                    Image(systemName: "pencil")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 18)
-                        .padding(9)
-                        .foregroundStyle(.white)
-                        .background(Style.shared.accent.source())
-                        .cornerRadius(.small)
-                        .asButton {
-                            
-                            self.navigationService
-                                .push(.business(
-                                    .businessLocationCreateEdit(
-                                        businessId: self.viewModel.businessId,
-                                        locationId: location.id
-                                    )
-                                ))
-                            
-                        }
                     
                 }
                 

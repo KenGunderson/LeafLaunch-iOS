@@ -160,18 +160,3 @@ struct BusinessActivityListScreen: GPView {
         .withMockServices()
     
 }
-
-//
-//if !self.viewModel.selectedActivityTypes.isEmpty {
-//    
-//    Text("Clear Filters")
-//        .appFont(with: .BODY_3)
-//        .foregroundStyle(Style.shared.background(.error).source())
-//        .padding(.small)
-//        .background(Style.shared.background(.error).source(opacity: 0.15))
-//        .clipShape(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
-//        .transition(.move(edge: .leading).combined(with: .opacity))
-//        .frame(maxWidth: .infinity, alignment: .leading)
-//        .padding(.horizontal, .medium)
-//    
-//}

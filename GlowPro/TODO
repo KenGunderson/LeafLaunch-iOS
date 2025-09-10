@@ -3,15 +3,9 @@
 ==================================================
 
 RANDOM:
-2. Location Create Edit
-3. Location 'You are not an employee of this location!' -> Even if owner?
-9. Make sure we receive pending invites as employees (HomeScreen check for pending invites)
-
-==================================================
-             BUSINESS FLOW
-==================================================
-Tasks:
-  • Support empty state for new users
+1. Make sure we receive pending invites as employees (HomeScreen check for pending invites)
+2. Make Owner an employee when location created
+3.
 
 ==================================================
              EMPLOYEE DETAILS
@@ -55,7 +49,6 @@ Tasks:
 ==================================================
 Tasks:
  • Implement All Activities
-
   
 ==================================================
                 OPEN QUESTIONS

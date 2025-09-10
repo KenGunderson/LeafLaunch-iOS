@@ -24,5 +24,6 @@ protocol ImpersonateServiceProtocol: AnyObject, Loggable {
             
     func impersonateUser(email: String) async throws
     func revert() async throws
+    func logout()
     
 }

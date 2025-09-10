@@ -156,6 +156,15 @@ final class ClientCreateEditViewModel: ViewModel {
         
         guard let currentUser = self.authService.currentUser else { return }
         
+        if !self.email.isValidEmail() {
+            
+            self.alertService
+                .showAlert(Constants.INVALID_EMAIL_ALERT())
+            
+            return
+            
+        }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -222,6 +231,15 @@ final class ClientCreateEditViewModel: ViewModel {
         
         guard let clientId else { return }
         guard let currentUser = self.authService.currentUser else { return }
+        
+        if !self.email.isValidEmail() {
+            
+            self.alertService
+                .showAlert(Constants.INVALID_EMAIL_ALERT())
+            
+            return
+            
+        }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))

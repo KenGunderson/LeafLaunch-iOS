@@ -91,6 +91,15 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     
     func loadData() {
         
+        if !self.email.isValidEmail() {
+            
+            self.alertService
+                .showAlert(Constants.INVALID_EMAIL_ALERT())
+            
+            return
+            
+        }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         

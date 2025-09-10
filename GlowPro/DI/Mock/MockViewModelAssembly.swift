@@ -342,6 +342,7 @@ class MockViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
@@ -423,7 +424,8 @@ class MockViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)
         

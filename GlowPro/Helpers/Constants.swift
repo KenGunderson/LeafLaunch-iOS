@@ -177,6 +177,21 @@ struct Constants {
 
 extension Constants {
     
+    static func INVALID_EMAIL_ALERT() -> RuneAlert {
+        
+        return .init(.appAlert(.error(
+            message: "Your email address is invalid. Please try again.",
+            buttonTitle: "Okay",
+            action: {
+                
+            })))
+        
+    }
+    
+}
+
+extension Constants {
+    
     static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
         
         .init(

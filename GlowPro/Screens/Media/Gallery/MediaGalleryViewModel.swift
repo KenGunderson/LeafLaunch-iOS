@@ -158,7 +158,7 @@ final class MediaGalleryViewModel: ViewModel {
                 }
                 
                 let mediaTags = try await self.apiService
-                    .getMediaTags(businessId: self.activeDestinationService.businessId)
+                    .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
                 
                 let groupedMedia = self.groupedByMonth(media: media)
                 

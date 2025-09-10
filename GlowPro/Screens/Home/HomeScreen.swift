@@ -67,10 +67,12 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
+        let currentUser = viewModel.currentUser
+        
         NavHeader(
-            title: "Good Morning, Sako",
+            title: "Good Morning, \(currentUser?.firstName ?? "")",
             subtitle: "Select where you're working today",
-            avatar: .initials(name: "Sako Hovaguimian"),
+            avatar: .initials(name: currentUser?.fullName ?? ""),
             trailingNavButtons: [
                 .bell(notificationCount: self.viewModel.pendingInvites.count),
                 .settings
@@ -116,33 +118,54 @@ struct HomeScreen: GPView {
                     
                 }
             
-            SectionView(leadingTitle: "Choose Your Location", showDivider: true)
-            
-            workspacesList()
-            
-            itemViews()
-                .padding(.top, .small)
+            if self.viewModel.workspaces.isEmpty {
+                emptyStateView()
+            } else {
+                
+                SectionView(
+                    leadingTitle: "Choose Your Location",
+                    showDivider: true
+                )
+                
+                workspacesList()
+                
+            }
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     
-    private func itemViews() -> some View {
+    private func emptyStateView() -> some View {
         
-        InfoView(
-            title: "You Have Pending Invites",
-            titleFont: .TITLE_4,
-            imageSource: .systemImage("bell.fill"),
-            foregroundStyle: .color(.indigo),
-            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.small2))),
-            appBorderConfig: .init(
-                cornerRadius: .small2,
-                tintColor: .color(.indigo),
-                lineWidth: 2
-            )
-        ) {
-            self.navigationService.push(.business(.businessEmployeeInviteList(context: .personal)))
+        VStack {
+            
+            HStack {
+                
+                Rectangle()
+                    .fill(Style.shared.background(.quaternary).source())
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 1.5)
+                
+                Text("or")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+                Rectangle()
+                    .fill(Style.shared.background(.quaternary).source())
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 1.5)
+                
+            }
+            
+            BusinessEmployeeInviteView(email: self.viewModel.currentUser?.email ?? "")
+                .asButton {
+                 
+                    self.navigationService
+                        .push(.business(.businessEmployeeInviteList(context: .personal)))
+                    
+                }
+            
         }
         
     }

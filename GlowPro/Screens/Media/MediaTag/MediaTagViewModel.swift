@@ -84,7 +84,7 @@ final class MediaTagViewModel: ViewModel {
             do {
                 
                 let mediaTags = try await self.apiService
-                    .getMediaTags(businessId: self.activeDestinationService.businessId)
+                    .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
                 
                 await MainActor.run { [weak self] in
                     self?.mediaTags = mediaTags
@@ -130,7 +130,7 @@ final class MediaTagViewModel: ViewModel {
                 
                 try await self.apiService.createTag(
                     tag: trimmedNewMediaTag,
-                    businessId: self.activeDestinationService.businessId
+                    businessId: self.activeDestinationService.businessId ?? ""
                 )
                 
                 await MainActor.run { [weak self] in

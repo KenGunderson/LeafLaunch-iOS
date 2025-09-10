@@ -982,7 +982,8 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     private(set) var isManager: Bool = true
     private(set) var isOwnerOrManager: Bool = true
     private(set) var role: Role? = .owner
-    private(set) var businessId: String = MockModels.ID.business1
+    internal var business: Business? = MockModels.MockBusiness.business1
+    internal var businessId: String? = MockModels.ID.business1
     
     @Published private(set) var activeDestination: ActiveDestination?
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {
@@ -1026,6 +1027,7 @@ class MockImpersonateService: ImpersonateServiceProtocol {
     
     func impersonateUser(email: String) async throws {}
     func revert() async throws {}
+    func logout() {}
     
 }
 

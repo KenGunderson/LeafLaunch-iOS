@@ -41,6 +41,20 @@ final class BusinessCreateEditViewModel: ViewModel {
         return self.businessId == nil
     }
     
+    var isSubmitButtonEnabled: Bool {
+        
+        return (
+            !self.name.isEmpty &&
+            !self.email.isEmpty &&
+            self.email.isValidEmail() &&
+            !self.street.isEmpty &&
+            !self.city.isEmpty &&
+            !self.state.isEmpty &&
+            !self.zip.isEmpty
+        )
+        
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
@@ -149,6 +163,15 @@ final class BusinessCreateEditViewModel: ViewModel {
         
         guard let authUser = self.authService.currentUser else { return }
         
+        if !self.email.isValidEmail() {
+            
+            self.alertService
+                .showAlert(Constants.INVALID_EMAIL_ALERT())
+            
+            return
+            
+        }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -210,6 +233,15 @@ final class BusinessCreateEditViewModel: ViewModel {
     private func update() {
         
         guard let businessId else { return }
+        
+        if !self.email.isValidEmail() {
+            
+            self.alertService
+                .showAlert(Constants.INVALID_EMAIL_ALERT())
+            
+            return
+            
+        }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))

@@ -228,6 +228,8 @@
 		753EC2092DB8CBBB00265B2A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
 		754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
+		754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
+		754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
 		754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */; };
 		7548D23A2DD5612C008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D2392DD5612C008AE243 /* Rune */; };
 		7548D23C2DD56138008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D23B2DD56138008AE243 /* Rune */; };
@@ -655,6 +657,7 @@
 		753EC1F22DB8C58100265B2A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		754241CE2E71CA9C00848F6F /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
+		754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteView.swift; sourceTree = "<group>"; };
 		7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Dev-Info.plist"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
 		754D29342E07B5C60065E242 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1412,6 +1415,8 @@
 			children = (
 				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
 				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
+				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
+				754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */,
 				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
@@ -1947,7 +1952,6 @@
 		75F32AFA2E615327003D904B /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
-				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
 				75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */,
 			);
 			path = Sheets;
@@ -2218,6 +2222,7 @@
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
+				754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
@@ -2470,6 +2475,7 @@
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
 				75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
+				754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
@@ -2814,9 +2820,13 @@
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2849,9 +2859,13 @@
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
