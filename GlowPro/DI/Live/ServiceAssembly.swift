@@ -145,13 +145,13 @@ class ServiceAssembly: Assembly {
         
         container
             .register(APIServiceProtocol.self) { r in
-                MockAPIService() // TODO: - REPLACE WITH LIVE
-//                APIService(
-//                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-//                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
-//                    appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
-//                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!
-//                )
+//                MockAPIService() // TODO: - REPLACE WITH LIVE
+                APIService(
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
+                    appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
+                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!
+                )
             }.inObjectScope(.container)
         
         // AUTH

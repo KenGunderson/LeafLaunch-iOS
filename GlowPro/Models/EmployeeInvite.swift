@@ -12,22 +12,25 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
     let id: String
     let name: String
     let email: String
+    let businessId: String
     let businessName: String
-    let locations: [Location]
+    let locationIds: [String]
     let role: Role?
     
     init(id: String,
          name: String,
          email: String,
+         businessId: String,
          businessName: String,
-         locations: [Location] = [],
+         locationIds: [String] = [],
          role: Role? = nil) {
         
         self.id = id
         self.name = name
         self.email = email
+        self.businessId = businessId
         self.businessName = businessName
-        self.locations = locations
+        self.locationIds = locationIds
         self.role = role
         
     }
@@ -37,8 +40,9 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
         case id
         case name
         case email
+        case businessId = "business_id"
         case businessName = "business_name"
-        case locations
+        case locationIds = "location_ids"
         case role
         
     }
@@ -53,6 +57,7 @@ extension EmployeeInvite {
             id: UUID().uuidString,
             name: "Sako Hovaguimian",
             email: "sako@hovaguimian.com",
+            businessId: "1",
             businessName: "My Awesome Business"
         )
         

@@ -3,4 +3,66 @@
    uuid = "1E71E390-4E9D-4DD3-BB40-DC8166E5361A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93F50210-EDFC-48FC-9800-5126EC75F806"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GlowPro/Screens/Home/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "loadData(showHud:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "93F50210-EDFC-48FC-9800-5126EC75F806 - 7b90054df0cdac1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 () async -&gt; () in GlowPro.HomeViewModel.loadData(showHud: Swift.Bool) -&gt; ()"
+                  moduleName = "GlowPro.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Home/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104">
+               </Location>
+               <Location
+                  uuid = "93F50210-EDFC-48FC-9800-5126EC75F806 - b04af2802845b3ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(10) suspend resume partial function for closure #1 () async -&gt; () in GlowPro.HomeViewModel.loadData(showHud: Swift.Bool) -&gt; ()"
+                  moduleName = "GlowPro.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Home/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104">
+               </Location>
+               <Location
+                  uuid = "93F50210-EDFC-48FC-9800-5126EC75F806 - 83d6746858a52d3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in closure #1 () async -&gt; () in GlowPro.HomeViewModel.loadData(showHud: Swift.Bool) -&gt; ()"
+                  moduleName = "GlowPro.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Home/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

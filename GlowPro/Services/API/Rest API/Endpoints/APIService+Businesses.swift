@@ -12,13 +12,13 @@ extension APIService {
     
     // MARK: - BUSINESS
     
-    func getBusinesses() async throws -> [Business] {
+    func getBusinesses(userId: String) async throws -> [Business] {
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .business(""))
+                apiPath: .init(path: .business("/users/\(userId)"))
             )
             
             let result: [Business] = try parseData(data: data)
@@ -52,11 +52,33 @@ extension APIService {
     
     func createBusiness(business: Business) async throws -> Business {
         
+        let address: [String : Any?] = [
+            "street": business.address?.street,
+            "street_2": business.address?.street2,
+            "city": business.address?.city,
+            "state": business.address?.state,
+            "zip": business.address?.zip,
+            "country": "USA"
+        ]
+        
+        let parameters: [String: Any] = [
+            "owner_id": business.owner.id,
+            "name": business.name,
+            "description": business.description,
+            "address": address,
+            "phone_number": business.phoneNumber,
+            "email": business.email,
+            "categories": business.categories,
+            "subcategories": business.subcategories
+        ]
+        .compact()
+        
         do {
             
             let _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .business(""))
+                apiPath: .init(path: .business("")),
+                parameters: parameters
             )
             
             return .DUMMY_DATA()
@@ -74,7 +96,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .business(""))
+                apiPath: .init(path: .business("/\(business.id)"))
             )
             
         }

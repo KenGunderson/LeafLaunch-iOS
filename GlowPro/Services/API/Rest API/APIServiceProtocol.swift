@@ -11,13 +11,13 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var accessToken: String? { get }
+    var accessToken: String? { get set }
     
 }
 
 protocol APIServiceProtocol: APIProtocol {
     
-    var accessToken: String? { get }
+    var accessToken: String? { get set }
     var deviceToken: String? { get }
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
@@ -41,7 +41,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Business
     
-    func getBusinesses() async throws -> [Business]
+    func getBusinesses(userId: String) async throws -> [Business]
     func getBusiness(id: String) async throws -> Business
     func createBusiness(business: Business) async throws -> Business
     func updateBusiness(business: Business) async throws
@@ -73,7 +73,7 @@ protocol APIServiceProtocol: APIProtocol {
     // Employee Invites
     
     func getEmployeeInvites(businessId: String) async throws -> [EmployeeInvite]
-    func getPendingInvitesForUser() async throws -> [EmployeeInvite]
+    func getPendingInvitesForUser(email: String) async throws -> [EmployeeInvite]
     func acceptEmployeeInvite(invite: EmployeeInvite) async throws
     func declineEmployeeInvite(invite: EmployeeInvite) async throws
     
@@ -110,15 +110,18 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getMedia(id: String) async throws -> Media
     
-    func favoriteMedia(mediaId: String) async throws
-    func unfavoriteMedia(mediaId: String) async throws
+    func favoriteMedia(mediaId: String,
+                       locationId: String) async throws
+    
+    func unfavoriteMedia(mediaId: String,
+                         locationId: String) async throws
     
     func deleteMedia(mediaId: String) async throws
     
     // Media Tags
     
-    func getMediaTags() async throws -> [MediaTag]
-    func createTag(tag: String) async throws
+    func getMediaTags(businessId: String) async throws -> [MediaTag]
+    func createTag(tag: String, businessId: String) async throws
     func deleteTag(mediaTagId: String) async throws
     
     // Media Tag Relations
@@ -162,7 +165,9 @@ extension APIProtocol {
                 throw URLError(.badURL)
             }
             
-            urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
+            if !(queryParameters?.isEmpty ?? false) {
+                urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
+            }
             
             guard let url = urlComponents.url else {
                 throw URLError(.badURL)

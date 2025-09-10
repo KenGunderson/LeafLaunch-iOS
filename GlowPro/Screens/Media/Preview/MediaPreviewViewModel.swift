@@ -87,9 +87,20 @@ final class MediaPreviewViewModel: ViewModel {
         Task { [weak self] in
             
             if selectedMedia.isFavorited {
-                try await self?.apiService.unfavoriteMedia(mediaId: selectedMedia.id)
+                
+                try await self?.apiService
+                    .unfavoriteMedia(
+                        mediaId: selectedMedia.id,
+                        locationId: selectedMedia.locationId
+                    )
+                
             } else {
-                try await self?.apiService.favoriteMedia(mediaId: selectedMedia.id)
+                
+                try await self?.apiService.favoriteMedia(
+                    mediaId: selectedMedia.id,
+                    locationId: selectedMedia.locationId
+                )
+                
             }
             
             await MainActor.run { [weak self] in

@@ -18,6 +18,8 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     
     var role: Role? { get }
     
+    var businessId: String { get }
+    
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
     func logout()

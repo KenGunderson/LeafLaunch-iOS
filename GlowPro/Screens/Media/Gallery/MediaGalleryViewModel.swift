@@ -43,6 +43,7 @@ final class MediaGalleryViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var groups: [GroupedMedia] = []
@@ -65,12 +66,14 @@ final class MediaGalleryViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -154,7 +157,8 @@ final class MediaGalleryViewModel: ViewModel {
                     )
                 }
                 
-                let mediaTags = try await self.apiService.getMediaTags()
+                let mediaTags = try await self.apiService
+                    .getMediaTags(businessId: self.activeDestinationService.businessId)
                 
                 let groupedMedia = self.groupedByMonth(media: media)
                 

@@ -13,11 +13,17 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
+        let queryParameters: [String : String] = [
+            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        ]
+        .compact()
+        
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .media("/business/\(businessId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Media] = try parseData(data: data)
@@ -34,11 +40,17 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
+        let queryParameters: [String : String] = [
+            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        ]
+        .compact()
+        
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .media("/location/\(locationId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Media] = try parseData(data: data)
@@ -55,11 +67,17 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
+        let queryParameters: [String : String] = [
+            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        ]
+        .compact()
+        
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .media("/client/\(clientId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Media] = try parseData(data: data)
@@ -76,11 +94,17 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   tags: [MediaTag]) async throws -> [Media] {
         
+        let queryParameters: [String : String] = [
+            "tag_ids": tags.map({ $0.id }).joined(separator: ",")
+        ]
+        .compact()
+        
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .media("/employee/\(authorId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Media] = try parseData(data: data)
@@ -99,7 +123,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .media("/\(id)"))
             )
             
             let result: Media = try parseData(data: data)
@@ -112,13 +136,20 @@ extension APIService {
         
     }
     
-    func favoriteMedia(mediaId: String) async throws {
+    func favoriteMedia(mediaId: String,
+                       locationId: String) async throws {
+        
+        let parameters = [
+            "location_id": locationId,
+            "media_id": mediaId
+        ]
         
         do {
             
             _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .mediaFavorite("")),
+                parameters: parameters
             )
             
             return
@@ -130,13 +161,14 @@ extension APIService {
         
     }
     
-    func unfavoriteMedia(mediaId: String) async throws {
+    func unfavoriteMedia(mediaId: String,
+                         locationId: String) async throws {
         
         do {
             
             _ = try await buildRequest(
-                method: .put,
-                apiPath: .init(path: .media(""))
+                method: .delete,
+                apiPath: .init(path: .media("/\(mediaId)"))
             )
             
             return
@@ -153,8 +185,8 @@ extension APIService {
         do {
             
             _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .media(""))
+                method: .delete,
+                apiPath: .init(path: .media("/\(mediaId)"))
             )
             
             return
@@ -168,13 +200,13 @@ extension APIService {
     
     // MARK: - MEDIA TAGS
     
-    func getMediaTags() async throws -> [MediaTag] {
+    func getMediaTags(businessId: String) async throws -> [MediaTag] {
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media(""))
+                apiPath: .init(path: .mediaTags("/business/\(businessId)"))
             )
             
             let result: [MediaTag] = try parseData(data: data)
@@ -187,13 +219,19 @@ extension APIService {
         
     }
     
-    func createTag(tag: String) async throws {
+    func createTag(tag: String, businessId: String) async throws {
+        
+        let parameters: [String: Any] = [
+            "name": tag,
+            "business_id": businessId
+        ]
         
         do {
             
             _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .media(""))
+                method: .post,
+                apiPath: .init(path: .mediaTags("")),
+                parameters: parameters
             )
             
         }
@@ -208,8 +246,8 @@ extension APIService {
         do {
             
             _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .media(""))
+                method: .delete,
+                apiPath: .init(path: .mediaTags("/\(mediaTagId)"))
             )
                         
         }
@@ -224,11 +262,17 @@ extension APIService {
     func createMediaTagForMedia(mediaId: String,
                                 mediaTagId: String) async throws {
         
+        let parameters: [String: Any] = [
+            "media_id": mediaId,
+            "tag_id": mediaTagId
+        ]
+        
         do {
             
             _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .media(""))
+                method: .post,
+                apiPath: .init(path: .mediaTagRelations("")),
+                parameters: parameters
             )
             
         }
@@ -241,11 +285,17 @@ extension APIService {
     func deleteMediaTagFromMedia(mediaId: String,
                                  mediaTagId: String) async throws {
         
+        let queryParameters: [String: String] = [
+            "media_id": mediaId,
+            "tag_id": mediaTagId
+        ]
+        
         do {
             
             _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .media(""))
+                method: .delete,
+                apiPath: .init(path: .mediaTagRelations("/media/\(mediaId)/tag/\(mediaTagId)")),
+                queryParameters: queryParameters
             )
                         
         }

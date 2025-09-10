@@ -19,6 +19,8 @@ protocol FirebaseServiceProtocol: AnyObject, Sendable, Loggable {
     var currentAccessToken: String? { get }
     var currentAccessTokenPublisher: AnyPublisher<String?, Never> { get }
     
+    var isNewUserContext: Bool { get }
+    
     func setup() -> Self
     
     func signup(email: String, password: String) async throws

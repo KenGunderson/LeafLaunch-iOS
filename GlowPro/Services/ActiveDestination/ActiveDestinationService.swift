@@ -36,6 +36,16 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         return self.isOwner || self.role == .manager
     }
     
+    var businessId: String {
+        
+        if (self.activeDestination?.isBusiness ?? false) {
+            return self.activeDestination!.destinationId
+        } else {
+            return self.employee?.businessId ?? ""
+        }
+        
+    }
+    
     init(apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol) {
         

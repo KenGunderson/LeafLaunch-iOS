@@ -37,7 +37,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .location(""))
+                apiPath: .init(path: .location("/business/\(businessId)"))
             )
             
             let result: [Location] = try parseData(data: data)
@@ -56,7 +56,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .location(""))
+                apiPath: .init(path: .employedLocation(""))
             )
             
             let result: [Workspace] = try parseData(data: data)
@@ -90,14 +90,31 @@ extension APIService {
     
     func createLocation(location: Location) async throws -> Location {
         
+        let address: [String : Any?] = [
+            "street": location.address.street,
+            "street_2": location.address.street2,
+            "city": location.address.city,
+            "state": location.address.state,
+            "zip": location.address.zip,
+            "country": "USA"
+        ]
+        
+        let parameters: [String: Any] = [
+            "business_id": location.businessId,
+            "name": location.name,
+            "address": address
+        ]
+        
         do {
             
-            let _ = try await buildRequest(
+            let data = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .location(""))
+                apiPath: .init(path: .location("")),
+                parameters: parameters
             )
             
-            return .DUMMY_DATA()
+            let location: Location = try parseData(data: data)
+            return location
             
         }
         catch {
@@ -108,11 +125,18 @@ extension APIService {
     
     func updateLocation(location: Location) async throws {
         
+        let parameters: [String: Any] = [
+            "business_id": location.businessId,
+            "name": location.name,
+            "address": location.address
+        ]
+        
         do {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .location(""))
+                apiPath: .init(path: .location("/\(location.id)")),
+                parameters: parameters
             )
             
         }

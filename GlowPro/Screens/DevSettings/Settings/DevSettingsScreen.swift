@@ -140,7 +140,7 @@ struct DevSettingsScreen: GPView {
                     
                     lineItemView(
                         title: "Name",
-                        subtitle: self.viewModel.user?.name ?? ""
+                        subtitle: self.viewModel.user?.fullName ?? ""
                     )
                     
                     lineItemView(

@@ -20,10 +20,13 @@ struct Business: Identifiable,
     let phoneNumber: String?
     let address: Address?
     let owner: GPUser
+    let isSubscribed: Bool
+    let categories: [String]
+    let subcategories: [String]
     var employees: [Employee]
     var locations: [Location]
     var employeeInvites: [EmployeeInvite]
-    var media: [Media] = []
+    var media: [Media]
     var clientsCount: Int = 0
     
     init(id: String,
@@ -33,8 +36,12 @@ struct Business: Identifiable,
          phoneNumber: String? = nil,
          address: Address? = nil,
          owner: GPUser,
+         isSubscribed: Bool = false,
+         categories: [String] = [],
+         subcategories: [String] = [],
          employees: [Employee] = [],
          locations: [Location] = [],
+         media: [Media] = [],
          employeeInvites: [EmployeeInvite] = []) {
         
         self.id = id
@@ -44,12 +51,35 @@ struct Business: Identifiable,
         self.phoneNumber = phoneNumber
         self.address = address
         self.owner = owner
+        self.isSubscribed = isSubscribed
+        self.categories = categories
+        self.subcategories = subcategories
         self.employees = employees
         self.locations = locations
+        self.media = media
         self.employeeInvites = employeeInvites
         
     }
+    
+    private enum CodingKeys: String, CodingKey {
         
+        case id
+        case name
+        case description
+        case email
+        case phoneNumber = "phone_number"
+        case address
+        case owner
+        case isSubscribed = "is_subscribed"
+        case categories
+        case subcategories
+        case employees
+        case locations
+        case employeeInvites = "employee_invites"
+        case media
+        
+    }
+    
 }
 
 extension Business {

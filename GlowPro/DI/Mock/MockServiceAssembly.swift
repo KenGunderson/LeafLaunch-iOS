@@ -165,7 +165,7 @@ final class MockAPIService: APIServiceProtocol {
     
     // Business
     
-    func getBusinesses() async throws -> [Business] {
+    func getBusinesses(userId: String) async throws -> [Business] {
         
         var businesses: [Business] = []
         
@@ -306,7 +306,10 @@ final class MockAPIService: APIServiceProtocol {
                 id: UUID().uuidString,
                 name: businessDetails.name,
                 isOwner: false,
-                roleLocations: [.init(role: employee.role, location: location)]
+                roleLocations: [.init(
+                    role: employee.role ?? .employee,
+                    location: location
+                )]
             )
             
             workspaces.append(employedWorkspace)
@@ -380,10 +383,10 @@ final class MockAPIService: APIServiceProtocol {
         
     }
     
-    func getPendingInvitesForUser() async throws -> [EmployeeInvite] {
+    func getPendingInvitesForUser(email: String) async throws -> [EmployeeInvite] {
         
         let allEmployeeInvites: [EmployeeInvite] = self.businesses.flatMap(\.employeeInvites)
-        return allEmployeeInvites.filter { $0.name == currentUser.name }
+        return allEmployeeInvites.filter { $0.name.firstName == currentUser.firstName }
         
     }
     
@@ -394,12 +397,12 @@ final class MockAPIService: APIServiceProtocol {
             
             let business = self.businesses[businessIndex]
             
-            for location in invite.locations {
+            for location in invite.locationIds {
                 
                 let employee = Employee(
                     id: UUID().uuidString,
                     businessId: business.id,
-                    locationId: location.id,
+                    locationId: location,
                     userId: self.currentUser.id,
                     name: invite.name,
                     email: invite.email,
@@ -412,7 +415,7 @@ final class MockAPIService: APIServiceProtocol {
             }
             
             self.businesses[businessIndex].employeeInvites.remove(at: employeeInviteIndex)
-            self.currentUser.businesses.append(self.businesses[businessIndex])
+            self.currentUser.businesses?.append(self.businesses[businessIndex])
             
         }
         
@@ -604,7 +607,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
-    func favoriteMedia(mediaId: String) async throws {
+    func favoriteMedia(mediaId: String,
+                       locationId: String) async throws {
         
         if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
             
@@ -619,7 +623,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
 
-    func unfavoriteMedia(mediaId: String) async throws {
+    func unfavoriteMedia(mediaId: String,
+                         locationId: String) async throws {
         
         if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
             
@@ -643,11 +648,11 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     // Media Tags
     
-    func getMediaTags() async throws -> [MediaTag] {
+    func getMediaTags(businessId: String) async throws -> [MediaTag] {
         return self.mediaTags
     }
     
-    func createTag(tag: String) async throws {
+    func createTag(tag: String, businessId: String) async throws {
         
         let mediaTag = MediaTag(name: tag)
         self.mediaTags.append(mediaTag)
@@ -882,7 +887,8 @@ final class MockAuthService: AuthServiceProtocol {
         
         self.currentUser = GPUser(
             id: "1",
-            name: firstName + " " + lastName,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             externalId: "1"
         )
@@ -891,8 +897,8 @@ final class MockAuthService: AuthServiceProtocol {
     
     func login(email: String, password: String) async throws {
         
-        let businesses = try await apiService.getBusinesses()
         var currentUser = MockModels.MockUser.user1
+        let businesses = try await apiService.getBusinesses(userId: currentUser.id)
         currentUser.businesses = businesses
         
         self.currentUser = currentUser
@@ -921,6 +927,7 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     private(set) var isManager: Bool = true
     private(set) var isOwnerOrManager: Bool = true
     private(set) var role: Role? = .owner
+    private(set) var businessId: String = MockModels.ID.business1
     
     @Published private(set) var activeDestination: ActiveDestination?
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {
@@ -1035,6 +1042,8 @@ final class MockFirebaseService: FirebaseServiceProtocol {
     var userPublisher = CurrentValueSubject<FirebaseAuth.User?, Never>(nil).eraseToAnyPublisher()
     var currentAccessToken: String? = nil
     var currentAccessTokenPublisher = CurrentValueSubject<String?, Never>(nil).eraseToAnyPublisher()
+    
+    var isNewUserContext: Bool = false
     
     func setup() -> Self { self }
     

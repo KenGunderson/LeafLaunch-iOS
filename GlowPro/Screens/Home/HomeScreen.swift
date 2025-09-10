@@ -98,8 +98,21 @@ struct HomeScreen: GPView {
             BusinessDashboardView(isBusinessActive: hasActiveBusiness)
                 .asButton {
                    
-                    self.viewModel.setActiveDestination(.business(businessId: MockModels.ID.business1))
-                    self.navigationService.push(.business(.businessHome(businessId: MockModels.ID.business1)))
+                    if hasActiveBusiness {
+                        
+                        if let business = self.viewModel.workspaces.first(where: { $0.isOwner }) {
+                            
+                            self.viewModel.setActiveDestination(.business(businessId: business.id))
+                            self.navigationService.push(.business(.businessHome(businessId: business.id)))
+                            
+                        }
+                        
+                    } else {
+                        
+                        self.navigationService
+                            .push(.business(.businessCreateEdit(businessId: nil)))
+                        
+                    }
                     
                 }
             

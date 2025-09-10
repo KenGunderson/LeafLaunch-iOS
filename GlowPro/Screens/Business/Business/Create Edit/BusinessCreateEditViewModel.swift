@@ -105,6 +105,8 @@ final class BusinessCreateEditViewModel: ViewModel {
                     self?.city = business.address?.city ?? ""
                     self?.state = business.address?.state ?? ""
                     self?.zip = business.address?.zip ?? ""
+                    self?.selectedCategories = business.categories.compactMap({ BusinessCategory(rawValue: $0) })
+                    self?.selectedSubcategories = business.subcategories.compactMap({ BusinessSubcategory(rawValue: $0) })
                     
                 }
                 

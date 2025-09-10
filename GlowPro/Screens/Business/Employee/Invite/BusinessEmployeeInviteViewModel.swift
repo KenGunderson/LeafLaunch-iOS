@@ -160,8 +160,9 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                     id: UUID().uuidString,
                     name: self.name,
                     email: self.email,
+                    businessId: self.businessId,
                     businessName: self.business?.name ?? "",
-                    locations: self.selectedLocations,
+                    locationIds: self.selectedLocations.map { $0.id },
                     role: self.selectedRole
                 )
                 

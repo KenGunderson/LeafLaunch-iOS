@@ -17,6 +17,7 @@ final class MediaTagViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
@@ -42,12 +43,14 @@ final class MediaTagViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
         
@@ -80,7 +83,8 @@ final class MediaTagViewModel: ViewModel {
             
             do {
                 
-                let mediaTags = try await self.apiService.getMediaTags()
+                let mediaTags = try await self.apiService
+                    .getMediaTags(businessId: self.activeDestinationService.businessId)
                 
                 await MainActor.run { [weak self] in
                     self?.mediaTags = mediaTags
@@ -119,7 +123,10 @@ final class MediaTagViewModel: ViewModel {
                 
                 let trimmedNewMediaTag = self.newMediaTag.trimmingCharacters(in: .whitespacesAndNewlines)
                 
-                try await self.apiService.createTag(tag: trimmedNewMediaTag)
+                try await self.apiService.createTag(
+                    tag: trimmedNewMediaTag,
+                    businessId: self.activeDestinationService.businessId
+                )
                 
                 await MainActor.run { [weak self] in
                     self?.newMediaTag = ""

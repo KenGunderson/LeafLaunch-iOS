@@ -59,7 +59,7 @@ struct EmployeeInviteView: View {
 
         let roleString = "(\(self.employeeInvitation.role?.rawValue.capitalized ?? ""))"
         let finalRoleString = self.employeeInvitation.role == nil ? "" : " \(roleString)"
-        let locationsString = self.employeeInvitation.locations.count > 0 ? " at \(self.employeeInvitation.locations.count) location(s)" : ""
+        let locationsString = self.employeeInvitation.locationIds.count > 0 ? " at \(self.employeeInvitation.locationIds.count) location(s)" : ""
         
         HStack(spacing: Style.shared.spacing(.extraSmall)) {
             
@@ -114,8 +114,9 @@ struct EmployeeInviteView: View {
                 id: "1",
                 name: "Power Man 3000",
                 email: "sako@me.com",
+                businessId: MockModels.ID.business1,
                 businessName: "Yolo Bros",
-                locations: [],
+                locationIds: [],
                 role: .admin
             )) {}
             
@@ -123,8 +124,9 @@ struct EmployeeInviteView: View {
                 id: "1",
                 name: "Power Man 3000",
                 email: "sako@me.com",
+                businessId: MockModels.ID.business1,
                 businessName: "Yolo Bros",
-                locations: [.DUMMY_DATA()],
+                locationIds: [Location.DUMMY_DATA().id],
                 role: .admin
             )) {}
                                

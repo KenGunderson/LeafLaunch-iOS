@@ -15,7 +15,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity(""))
+                apiPath: .init(path: .activity("/business/\(businessId)"))
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -34,7 +34,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity(""))
+                apiPath: .init(path: .activity("/location/\(locationId)"))
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -53,7 +53,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity(""))
+                apiPath: .init(path: .activity("/author/\(employeeId)"))
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -68,11 +68,14 @@ extension APIService {
     
     func getActivitiy(clientId: String) async throws -> [Activity] {
         
+        let queryParameter: [String: String] = ["client_id": clientId]
+        
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity(""))
+                apiPath: .init(path: .activity("")),
+                queryParameters: queryParameter
             )
             
             let result: [Activity] = try parseData(data: data)

@@ -20,7 +20,7 @@ struct Employee: Identifiable,
     let name: String
     let email: String
     let phone: String
-    let role: Role
+    let role: Role?
     
     private enum CodingKeys: String, CodingKey {
         

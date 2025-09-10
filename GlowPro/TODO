@@ -53,12 +53,15 @@ Tasks:
                 OPEN QUESTIONS
 ==================================================
 Open Questions:
-  • Preview Screen: Maybe we should allow for zoom in + more with a button click to enable horizontal scroll?
+
+• Camera:
+  • Can we even zoom with a custom camera?
+  • Can we even white balance with custom camera?
   • Should we allow upload from photos? (YES)
   • Need some test ghost overlay assets
   • Grid? (2x2, 3x3, 4x4)
-  • Remove Camera from location?
-  • How to assign client after the fact reliably?
+  
+  • Preview Screen: Maybe we should allow for zoom in + more with a button click to enable horizontal scroll?
   • Remove yourself from business?
     • Delete Employee
        • Show alert from business home if user is still part of locations

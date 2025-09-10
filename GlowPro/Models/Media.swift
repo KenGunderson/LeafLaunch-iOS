@@ -63,6 +63,7 @@ struct Media: Identifiable,
     let id: String
     let clientId: String?
     let businessId: String
+    let locationId: String
     let authorId: String
     let url: URL
     var isFavorited: Bool
@@ -90,6 +91,7 @@ struct Media: Identifiable,
     init(id: String,
          clientId: String?,
          businessId: String,
+         locationId: String,
          authorId: String,
          url: URL,
          isFavorited: Bool,
@@ -100,6 +102,7 @@ struct Media: Identifiable,
         self.id = id
         self.clientId = clientId
         self.businessId = businessId
+        self.locationId = locationId
         self.authorId = authorId
         self.url = url
         self.isFavorited = isFavorited
@@ -114,6 +117,7 @@ struct Media: Identifiable,
         case id
         case clientId = "client_id"
         case businessId = "business_id"
+        case locationId = "location_id"
         case authorId = "author_id"
         case url
         case tags
@@ -133,6 +137,7 @@ extension Media {
             id: UUID().uuidString,
             clientId: "1",
             businessId: "1",
+            locationId: "1",
             authorId: "1",
             url: URL(string: "https://www.google.com")!,
             isFavorited: false

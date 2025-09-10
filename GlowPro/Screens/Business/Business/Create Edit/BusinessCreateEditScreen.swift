@@ -93,7 +93,7 @@ struct BusinessCreateEditScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "Edit Business",
+            title: self.viewModel.isCreateContext ? "Create Business" : "Edit Business",
             leftButtonView: backButton
         )
         

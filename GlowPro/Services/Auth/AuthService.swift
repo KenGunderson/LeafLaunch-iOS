@@ -65,14 +65,16 @@ final class AuthService: AuthServiceProtocol {
                 password: password
             )
             
+            self.apiService.accessToken = self.firebaseService.currentAccessToken
+            
             let _ = try await self.apiService
                 .createUser(user: .init(
                     id: "",
-                    name: firstName.capitalized,
+                    firstName: firstName.capitalized.trimmingCharacters(in: .whitespacesAndNewlines),
+                    lastName: lastName.capitalized.trimmingCharacters(in: .whitespacesAndNewlines),
                     email: email,
                     externalId: self.firebaseService.user?.uid ?? "",
                     birthday: nil,
-                    gender: nil,
                     imageURL: nil
                 ))
             
@@ -147,6 +149,9 @@ final class AuthService: AuthServiceProtocol {
             
             try await self.firebaseService
                 .getAccessTokenForCurrentUser()
+            
+            self.apiService
+                .accessToken = self.firebaseService.currentAccessToken
                         
             let user = try await self.apiService
                 .getUserProfile()
@@ -283,11 +288,11 @@ final class AuthService: AuthServiceProtocol {
                                 let user = try await self.apiService
                                     .createUser(user: .init(
                                         id: "",
-                                        name: name,
+                                        firstName: name.firstName,
+                                        lastName: name.lastName,
                                         email: email,
                                         externalId: self.firebaseService.user?.uid ?? "",
                                         birthday: nil,
-                                        gender: nil,
                                         imageURL: nil
                                     ))
                                 
@@ -358,6 +363,7 @@ final class AuthService: AuthServiceProtocol {
                 
                 guard let self else { return }
                 guard let user else { return }
+                guard !self.firebaseService.isNewUserContext else { return }
                 
                 loadInitialUser(user)
                 

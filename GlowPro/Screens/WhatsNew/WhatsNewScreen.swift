@@ -1,6 +1,6 @@
 //
 //  WhatsNewScreen.swift
-//  GentlePath
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 3/7/25.
 //

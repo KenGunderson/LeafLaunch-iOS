@@ -67,6 +67,8 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     
     func loadData() {
         
+        guard let currentUser = self.authService.currentUser else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -80,7 +82,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 case .personal:
                     
                     employeeInvites = try await self.apiService
-                        .getPendingInvitesForUser()
+                        .getPendingInvitesForUser(email: currentUser.email)
                     
                 case .business(let businessId):
                     

@@ -19,7 +19,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employee("/business/\(businessId)"))
             )
             
             let result: [Employee] = try parseData(data: data)
@@ -38,7 +38,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employee("/location/\(locationId)"))
             )
             
             let result: [Employee] = try parseData(data: data)
@@ -58,7 +58,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee("/\(userId)"))
+                apiPath: .init(path: .employee("/user/\(userId)/location/\(locationId)"))
             )
             
             let result: Employee = try parseData(data: data)
@@ -92,11 +92,18 @@ extension APIService {
     
     func createEmployee(employee: Employee) async throws -> Employee {
         
+        let parameters: [String: Any] = [
+            "user_id": employee.userId,
+            "business_id": employee.businessId
+        ]
+        .compact()
+        
         do {
             
             let _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employee("")),
+                parameters: parameters
             )
             
             return .DUMMY_DATA()
@@ -110,11 +117,18 @@ extension APIService {
     
     func updateEmployee(employee: Employee) async throws {
         
+        let parameters: [String: Any] = [
+            "user_id": employee.userId,
+            "business_id": employee.businessId
+        ]
+        .compact()
+        
         do {
             
             let _ = try await buildRequest(
-                method: .post,
-                apiPath: .init(path: .employee(""))
+                method: .put,
+                apiPath: .init(path: .employee("/\(employee.id)")),
+                parameters: parameters
             )
             
         }

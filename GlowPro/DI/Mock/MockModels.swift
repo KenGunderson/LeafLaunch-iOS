@@ -251,11 +251,12 @@ struct MockModels {
         nonisolated(unsafe)
         static var user1 = GPUser(
             id: ID.user1,
-            name: "Sako Hovaguimian",
+            firstName: "Sako",
+            lastName: "Hovaguimian",
             email: "sako@me.com",
+            phoneNumber: "8185225755",
             externalId: "1",
             birthday: Date().addingTimeInterval(-34587).ISO8601Format(),
-            gender: .male,
             imageURL: nil,
             businesses: [
                 
@@ -265,11 +266,12 @@ struct MockModels {
         nonisolated(unsafe)
         static var user2 = GPUser(
             id: ID.user2,
-            name: "KC Gunserson",
+            firstName: "KC",
+            lastName: "Gunserson",
             email: "kc@me.com",
+            phoneNumber: "8185225755",
             externalId: "2",
             birthday: Date().addingTimeInterval(-123903).ISO8601Format(),
-            gender: .male,
             imageURL: nil,
             businesses: [
                 
@@ -409,6 +411,7 @@ struct MockModels {
             id: ID.employeeInvite1,
             name: "Sako Hovaguimian",
             email: "naruto@me.com",
+            businessId: MockModels.ID.business1,
             businessName: "My First Business"
         )
         
@@ -417,9 +420,10 @@ struct MockModels {
             id: ID.employeeInvite2,
             name: "Monkey D. Luffy",
             email: "monkey@me.com",
+            businessId: MockModels.ID.business1,
             businessName: "My First Business",
-            locations: [
-                MockLocation.location2
+            locationIds: [
+                MockLocation.location2.id
             ],
         )
         
@@ -428,9 +432,10 @@ struct MockModels {
             id: ID.employeeInvite3,
             name: "Sako Hovaguimian",
             email: "dope@me.com",
+            businessId: MockModels.ID.business1,
             businessName: "Body Sculpting Magic",
-            locations: [
-                MockLocation.location3
+            locationIds: [
+                MockLocation.location3.id
             ],
         )
         
@@ -439,9 +444,10 @@ struct MockModels {
             id: ID.employeeInvite4,
             name: "Sako Hovaguimian",
             email: "dope@me.com",
+            businessId: MockModels.ID.business1,
             businessName: "Body Sculpting Magic",
-            locations: [
-                MockLocation.location4
+            locationIds: [
+                MockLocation.location4.id
             ],
             role: .manager
         )
@@ -593,6 +599,7 @@ struct MockModels {
                 id: ID.media1,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/1/1200/1200")!,
                 isFavorited: false,
@@ -612,6 +619,7 @@ struct MockModels {
                 id: ID.media2,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/2/1200/1200")!,
                 isFavorited: false,
@@ -630,6 +638,7 @@ struct MockModels {
                 id: ID.media3,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/3/1200/1200")!,
                 isFavorited: false,
@@ -644,6 +653,7 @@ struct MockModels {
                 id: ID.media4,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/4/1200/1200")!,
                 isFavorited: false,
@@ -658,6 +668,7 @@ struct MockModels {
                 id: ID.media5,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/5/1200/1200")!,
                 isFavorited: false,
@@ -672,6 +683,7 @@ struct MockModels {
                 id: ID.media6,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/6/1200/1200")!,
                 isFavorited: false,
@@ -686,6 +698,7 @@ struct MockModels {
                 id: ID.media7,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/7/1200/1200")!,
                 isFavorited: false,
@@ -700,6 +713,7 @@ struct MockModels {
                 id: ID.media8,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/8/1200/1200")!,
                 isFavorited: false,
@@ -714,6 +728,7 @@ struct MockModels {
                 id: ID.media9,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/9/1200/1200")!,
                 isFavorited: false,
@@ -728,6 +743,7 @@ struct MockModels {
                 id: ID.media10,
                 clientId: ID.client1,
                 businessId: ID.business2,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/10/1200/1200")!,
                 isFavorited: false,
@@ -742,6 +758,7 @@ struct MockModels {
                 id: ID.media11,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/11/1200/1200")!,
                 isFavorited: true,
@@ -756,6 +773,7 @@ struct MockModels {
                 id: ID.media12,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/30/600/900")!,
                 isFavorited: true,
@@ -770,6 +788,7 @@ struct MockModels {
                 id: ID.media13,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/13/1200/1200")!,
                 isFavorited: false,
@@ -784,6 +803,7 @@ struct MockModels {
                 id: ID.media14,
                 clientId: ID.client4,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/14/1200/1200")!,
                 isFavorited: true,
@@ -798,6 +818,7 @@ struct MockModels {
                 id: ID.media15,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/15/1200/1200")!,
                 isFavorited: false,
@@ -812,6 +833,7 @@ struct MockModels {
                 id: ID.media16,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/16/1200/1200")!,
                 isFavorited: true,
@@ -829,6 +851,7 @@ struct MockModels {
                 id: ID.media17,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/17/1200/1200")!,
                 isFavorited: true,
@@ -848,6 +871,7 @@ struct MockModels {
                 id: ID.media18,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/18/1200/1200")!,
                 isFavorited: false,
@@ -862,6 +886,7 @@ struct MockModels {
                 id: ID.media19,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/19/1200/1200")!,
                 isFavorited: true,
@@ -876,6 +901,7 @@ struct MockModels {
                 id: ID.media20,
                 clientId: ID.client4,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/20/1200/1200")!,
                 isFavorited: false,
@@ -890,6 +916,7 @@ struct MockModels {
                 id: ID.media21,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/21/1200/1200")!,
                 isFavorited: true,
@@ -904,6 +931,7 @@ struct MockModels {
                 id: ID.media22,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/22/1200/1200")!,
                 isFavorited: false,
@@ -918,6 +946,7 @@ struct MockModels {
                 id: ID.media23,
                 clientId: ID.client4,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/23/1200/1200")!,
                 isFavorited: true,
@@ -932,6 +961,7 @@ struct MockModels {
                 id: ID.media24,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/24/1200/1200")!,
                 isFavorited: true,
@@ -946,6 +976,7 @@ struct MockModels {
                 id: ID.media25,
                 clientId: ID.client2,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/25/1200/1200")!,
                 isFavorited: false,
@@ -960,6 +991,7 @@ struct MockModels {
                 id: ID.media26,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/26/1200/1200")!,
                 isFavorited: false,
@@ -974,6 +1006,7 @@ struct MockModels {
                 id: ID.media27,
                 clientId: nil,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/27/1200/1200")!,
                 isFavorited: true,
@@ -988,6 +1021,7 @@ struct MockModels {
                 id: ID.media28,
                 clientId: ID.client1,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/28/1200/1200")!,
                 isFavorited: false,
@@ -1002,6 +1036,7 @@ struct MockModels {
                 id: ID.media29,
                 clientId: ID.client4,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/29/1200/1200")!,
                 isFavorited: true,
@@ -1016,6 +1051,7 @@ struct MockModels {
                 id: ID.media30,
                 clientId: ID.client3,
                 businessId: ID.business1,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/30/1200/1200")!,
                 isFavorited: false,
@@ -1030,6 +1066,7 @@ struct MockModels {
                 id: ID.media31,
                 clientId: ID.client11,
                 businessId: ID.business2,
+                locationId: ID.location1,
                 authorId: ID.employee1,
                 url: URL(string: "https://picsum.photos/id/30/1200/1200")!,
                 isFavorited: false,

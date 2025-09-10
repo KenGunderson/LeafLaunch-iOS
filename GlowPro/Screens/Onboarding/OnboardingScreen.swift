@@ -1,6 +1,6 @@
 //
 //  OnboardingScreen.swift
-//  GentlePath
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 7/18/24.
 //

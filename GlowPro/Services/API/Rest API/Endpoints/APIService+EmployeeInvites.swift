@@ -13,7 +13,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("/businesses/\(businessId)"))
             )
             
             let result: [EmployeeInvite] = try parseData(data: data)
@@ -26,13 +26,13 @@ extension APIService {
         
     }
     
-    func getPendingInvitesForUser() async throws -> [EmployeeInvite] {
+    func getPendingInvitesForUser(email: String) async throws -> [EmployeeInvite] {
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("/email/\(email)"))
             )
             
             let result: [EmployeeInvite] = try parseData(data: data)
@@ -51,7 +51,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("/\(invite.id)/accept"))
             )
             
         }
@@ -67,7 +67,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("/\(invite.id)"))
             )
             
         }
@@ -79,11 +79,22 @@ extension APIService {
     
     func createEmployeeInvite(invite: EmployeeInvite) async throws {
         
+        let parameters: [String: Any] = [
+            "email": invite.email,
+            "name": invite.name,
+            "role": invite.role?.rawValue,
+            "business_id": invite.businessId,
+            "business_name": invite.businessName,
+            "location_ids": invite.locationIds
+        ]
+        .compact()
+        
         do {
             
             _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("")),
+                parameters: parameters
             )
             
         }
@@ -99,7 +110,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .employee(""))
+                apiPath: .init(path: .employeeInvite("/\(invite.id)"))
             )
             
         }

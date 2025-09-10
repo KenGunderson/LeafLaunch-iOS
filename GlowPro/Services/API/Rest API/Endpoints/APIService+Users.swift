@@ -77,12 +77,13 @@ extension APIService {
     func createUser(user: GPUser) async throws -> GPUser {
         
         let parameters: [String : Any] = [
-            "name": user.name,
+            "first_name": user.firstName,
+            "last_name": user.lastName,
             "email": user.email,
+            "phone_number": user.phoneNumber,
             "external_id": user.externalId,
             "image_url": user.imageURL?.absoluteString,
-            "birthday": user.birthday?.toISO(),
-            "gender": user.gender?.rawValue,
+            "birthday": user.birthday?.toISO()
         ]
         .compact()
         
@@ -108,11 +109,12 @@ extension APIService {
         
         let parameters: [String : Any] = [
             "id": user.id,
-            "name": user.name,
+            "first_name": user.firstName,
+            "last_name": user.lastName,
             "email": user.email,
+            "phone_number": user.phoneNumber,
             "image_url": user.imageURL?.absoluteString,
             "birthday": user.birthday?.toISO(),
-            "gender": user.gender?.rawValue,
         ]
         .compact()
         

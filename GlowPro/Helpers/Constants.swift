@@ -44,8 +44,8 @@ struct Constants {
             switch env {
             case .custom(let address): return "\(address)"
             case .localhost: return self.defaultCustomEnvironmentAddress
-            case .development: return "https://api-dev-efmy4.ondigitalocean.app/api"
-            case .production: return "https://api-dev-efmy4.ondigitalocean.app/api"
+            case .development: return self.defaultCustomEnvironmentAddress
+            case .production: return self.defaultCustomEnvironmentAddress
             }
             
         }

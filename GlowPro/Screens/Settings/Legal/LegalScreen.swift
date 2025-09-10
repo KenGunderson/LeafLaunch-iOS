@@ -1,6 +1,6 @@
 //
 //  LegalScreen.swift
-//  GentlePath
+//  GlowPro
 //
 //  Created by Sako Hovaguimian on 1/23/25.
 //

@@ -20,12 +20,13 @@ struct GPUser: Codable,
                Mockable {
     
     let id: String
-    let name: String
+    let firstName: String
+    let lastName: String
     let email: String
+    let phoneNumber: String?
     let externalId: String
-    let gender: Gender?
     let imageURL: URL?
-    var businesses: [Business]
+    var businesses: [Business]?
     
     private var _birthday: String?
     
@@ -37,33 +38,27 @@ struct GPUser: Codable,
 
     }
     
-    var firstName: String {
-        
-        let nameComponents = self.name.components(separatedBy: " ")
-        
-        if nameComponents.count > 1 {
-            return nameComponents[0]
-        }
-        
-        return self.name.capitalized
-        
+    var fullName: String {
+        return self.firstName + " " + self.lastName
     }
     
     init(id: String,
-         name: String,
+         firstName: String,
+         lastName: String,
          email: String,
+         phoneNumber: String? = nil,
          externalId: String,
          birthday: String? = nil,
-         gender: Gender? = nil,
          imageURL: URL? = nil,
-         businesses: [Business] = []) {
+         businesses: [Business]? = []) {
         
         self.id = id
-        self.name = name
+        self.firstName = firstName
+        self.lastName = lastName
         self.email = email
+        self.phoneNumber = phoneNumber
         self.externalId = externalId
         self._birthday = birthday
-        self.gender = gender
         self.imageURL = imageURL
         self.businesses = businesses
         
@@ -76,11 +71,12 @@ struct GPUser: Codable,
     private enum CodingKeys: String, CodingKey {
         
         case id
-        case name
+        case firstName = "first_name"
+        case lastName = "last_name"
         case email
+        case phoneNumber = "phone_number"
         case externalId = "external_id"
         case _birthday = "birthday"
-        case gender
         case imageURL = "image_url"
         case businesses = "businesses"
         
@@ -94,11 +90,12 @@ extension GPUser {
         
         return .init(
             id: "1",
-            name: "Sako Hovaguimian",
+            firstName: "Sako",
+            lastName: "Hovaguimian",
             email: "sako@me.com",
+            phoneNumber: "8185225755",
             externalId: "1",
             birthday: nil,
-            gender: .male,
             imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA"),
             businesses: []
         )

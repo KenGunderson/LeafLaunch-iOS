@@ -382,6 +382,7 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)
@@ -410,6 +411,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)

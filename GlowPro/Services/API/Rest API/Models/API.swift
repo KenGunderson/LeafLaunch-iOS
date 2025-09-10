@@ -40,10 +40,14 @@ internal enum AppRoute {
     case device(String)
     case business(String)
     case location(String)
+    case employedLocation(String)
     case employee(String)
     case employeeInvite(String)
     case client(String)
     case media(String)
+    case mediaFavorite(String)
+    case mediaTags(String)
+    case mediaTagRelations(String)
     case activity(String)
     case system(String)
     
@@ -55,10 +59,14 @@ internal enum AppRoute {
         case .device: return "devices"
         case .business: return "businesses"
         case .location: return "locations"
+        case .employedLocation: return "employed-locations"
         case .employee: return "employees"
         case .employeeInvite: return "employee-invites"
         case .client: return "clients"
         case .media: return "media"
+        case .mediaFavorite: return "media-favorites"
+        case .mediaTags: return "media-tags"
+        case .mediaTagRelations: return "media-tag-relations"
         case .activity: return "activities"
         case .system: return "glowpro"
         }
@@ -72,10 +80,14 @@ internal enum AppRoute {
         case .device(let path): return "\(self.category)\(path)"
         case .business(let path): return "\(self.category)\(path)"
         case .location(let path): return "\(self.category)\(path)"
+        case .employedLocation(let path): return "\(self.category)\(path)"
         case .employee(let path): return "\(self.category)\(path)"
         case .employeeInvite(let path): return "\(self.category)\(path)"
         case .client(let path): return "\(self.category)\(path)"
         case .media(let path): return "\(self.category)\(path)"
+        case .mediaFavorite(let path): return "\(self.category)\(path)"
+        case .mediaTags(let path): return "\(self.category)\(path)"
+        case .mediaTagRelations(let path): return "\(self.category)\(path)"
         case .activity(let path): return "\(self.category)\(path)"
         case .system(let path): return "\(self.category)\(path)"
         }
