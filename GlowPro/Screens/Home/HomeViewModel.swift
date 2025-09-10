@@ -86,7 +86,7 @@ final class HomeViewModel: ViewModel {
     func loadData(showHud: Bool = true) {
         
         guard let currentUser else { return }
-        
+                
         if showHud {
             
             self.alertService
@@ -95,14 +95,19 @@ final class HomeViewModel: ViewModel {
         }
         
         Task {
-            
+                        
             do {
                 
                 let workspaces = try await self.apiService.getWorkspaces()
                 let pendingInvites = try await self.apiService.getPendingInvitesForUser(email: currentUser.email)
                 
+                print(workspaces)
+                
                 await MainActor.run { [weak self] in
 
+                    
+                    print(workspaces)
+                    
                     self?.workspaces = workspaces
                     self?.pendingInvites = pendingInvites
                     

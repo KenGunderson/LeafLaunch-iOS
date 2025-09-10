@@ -106,7 +106,12 @@ final class LegalViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("legal information"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

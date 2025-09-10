@@ -130,7 +130,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("person.2.fill"),
                     iconBackgroundColor: .color(GPColor.iconGreen),
                     title: "All Employees",
-                    subtitle: "\(self.viewModel.business?.employees.count ?? 0)",
+                    subtitle: "\(self.viewModel.business?.totalEmployeeCount ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)
@@ -148,7 +148,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("pin.fill"),
                     iconBackgroundColor: .color(GPColor.iconYellow),
                     title: "All Locations",
-                    subtitle: "\(self.viewModel.business?.locations.count ?? 0)",
+                    subtitle: "\(self.viewModel.business?.totalLocationCount ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)
@@ -163,7 +163,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("person.3.fill"),
                     iconBackgroundColor: .color(GPColor.iconOrange),
                     title: "All Clients",
-                    subtitle: "\(self.viewModel.business?.clientsCount ?? 0)",
+                    subtitle: "\(self.viewModel.business?.totalClientCount ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)
@@ -178,7 +178,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("photo.on.rectangle.fill"),
                     iconBackgroundColor: .color(GPColor.iconPurple),
                     title: "All Media",
-                    subtitle: "\(self.viewModel.business?.media.count ?? 0)",
+                    subtitle: "\(self.viewModel.business?.totalMediaCount ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)

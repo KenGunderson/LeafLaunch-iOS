@@ -21,6 +21,34 @@ struct Location: Identifiable,
     var clients: [Client]
     var media: [Media] = []
     
+    var totalClientCount: Int
+    var totalEmployeeCount: Int
+    var totalMediaCount: Int
+    
+    init(id: String,
+         businessId: String,
+         name: String,
+         address: Address,
+         employees: [LocationEmployee] = [],
+         clients: [Client] = [],
+         media: [Media] = [],
+         totalClientCount: Int = 0,
+         totalEmployeeCount: Int = 0,
+         totalMediaCount: Int = 0) {
+        
+        self.id = id
+        self.businessId = businessId
+        self.name = name
+        self.address = address
+        self.employees = employees
+        self.clients = clients
+        self.media = media
+        self.totalClientCount = totalClientCount
+        self.totalEmployeeCount = totalEmployeeCount
+        self.totalMediaCount = totalMediaCount
+        
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case id
@@ -30,6 +58,10 @@ struct Location: Identifiable,
         case employees
         case clients
         case media
+        
+        case totalClientCount = "total_clients"
+        case totalEmployeeCount = "total_employees"
+        case totalMediaCount = "total_media"
         
     }
     
@@ -45,7 +77,10 @@ extension Location {
             address: .DUMMY_DATA(),
             employees: [],
             clients: [],
-            media: []
+            media: [],
+            totalClientCount: 0,
+            totalEmployeeCount: 0,
+            totalMediaCount: 0
         )
     }
     

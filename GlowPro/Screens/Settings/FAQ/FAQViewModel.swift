@@ -90,7 +90,12 @@ final class FAQViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("frequently asked questions"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

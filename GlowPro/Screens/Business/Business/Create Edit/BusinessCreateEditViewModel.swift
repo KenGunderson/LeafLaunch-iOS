@@ -117,7 +117,12 @@ final class BusinessCreateEditViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("business details"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

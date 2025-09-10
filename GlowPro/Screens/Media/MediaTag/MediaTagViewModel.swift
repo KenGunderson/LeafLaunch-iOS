@@ -28,7 +28,7 @@ final class MediaTagViewModel: ViewModel {
         
         guard !newMediaTag.isEmpty else { return false }
         
-        let trimmedNewMediaTag = newMediaTag.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedNewMediaTag = newMediaTag.trimmed()
         return !trimmedNewMediaTag.isEmpty
         
     }
@@ -97,7 +97,12 @@ final class MediaTagViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("media tags"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 
@@ -121,7 +126,7 @@ final class MediaTagViewModel: ViewModel {
             
             do {
                 
-                let trimmedNewMediaTag = self.newMediaTag.trimmingCharacters(in: .whitespacesAndNewlines)
+                let trimmedNewMediaTag = self.newMediaTag.trimmed()
                 
                 try await self.apiService.createTag(
                     tag: trimmedNewMediaTag,

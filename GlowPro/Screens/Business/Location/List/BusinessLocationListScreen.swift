@@ -114,19 +114,19 @@ struct BusinessLocationListScreen: GPView {
                     
                     statView(
                         title: "Employees",
-                        value: "\(location.employees.count)",
+                        value: "\(location.totalEmployeeCount)",
                         icon: .systemImage("person.2.fill")
                     )
                     
                     statView(
                         title: "Clients",
-                        value: "\(location.clients.count)",
+                        value: "\(location.totalClientCount)",
                         icon: .systemImage("person.3.fill")
                     )
                     
                     statView(
                         title: "Media",
-                        value: "\(location.media.count)",
+                        value: "\(location.totalMediaCount)",
                         icon: .systemImage("photo.on.rectangle.fill")
                     )
                     

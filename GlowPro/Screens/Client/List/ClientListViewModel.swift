@@ -133,7 +133,12 @@ final class ClientListViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("clients"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

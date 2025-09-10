@@ -45,6 +45,19 @@ struct Address: Codable,
         
     }
     
+    func asJSON() -> [String: Any] {
+    
+        return [
+            "street": self.street,
+            "street_2": self.street2 ?? "",
+            "city": self.city,
+            "state": self.state,
+            "zip": self.zip,
+            "country": "USA"
+        ]
+        
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case street

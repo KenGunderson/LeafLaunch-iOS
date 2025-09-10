@@ -139,7 +139,12 @@ final class BusinessActivityListViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("activities"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

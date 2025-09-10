@@ -70,8 +70,8 @@ final class AuthService: AuthServiceProtocol {
             let _ = try await self.apiService
                 .createUser(user: .init(
                     id: "",
-                    firstName: firstName.capitalized.trimmingCharacters(in: .whitespacesAndNewlines),
-                    lastName: lastName.capitalized.trimmingCharacters(in: .whitespacesAndNewlines),
+                    firstName: firstName.capitalized.trimmed(),
+                    lastName: lastName.capitalized.trimmed(),
                     email: email,
                     externalId: self.firebaseService.user?.uid ?? "",
                     birthday: nil,

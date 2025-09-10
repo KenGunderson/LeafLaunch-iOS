@@ -189,6 +189,32 @@ final class MockAPIService: APIServiceProtocol {
         let locations = self.locations.filter { $0.businessId == id }
         let media = self.media.filter { $0.businessId == id }
         
+        var totalClients: [Client] {
+            
+            var localClients: [Client] = []
+            
+            locations
+                .forEach { location in
+                    
+                    self.clients.forEach { client in
+                        
+                        if client.locationId == location.id {
+                            localClients.append(client)
+                        }
+                        
+                    }
+                    
+                }
+            
+            return localClients
+            
+        }
+        
+        let totalLocationCount = business.totalLocationCount
+        let totalEmployeeCount = employees.count
+        let totalMediaCount = business.totalMediaCount
+        let totalClientCount = totalClients
+        
         var clients: [Client] = []
         
         for client in self.clients {
@@ -202,10 +228,14 @@ final class MockAPIService: APIServiceProtocol {
             
         }
         
-        business.clientsCount = clients.count
+        business.totalClientCount = clients.count
         business.employees = employees
         business.locations = locations
         business.media = media
+        business.totalLocationCount = totalLocationCount
+        business.totalEmployeeCount = totalEmployeeCount
+        business.totalMediaCount = totalMediaCount
+        business.totalClientCount = totalClientCount.count
         
         return business
         
@@ -249,11 +279,18 @@ final class MockAPIService: APIServiceProtocol {
         var location = self.locations.filter { $0.id == id }.first ?? .DUMMY_DATA()
         let clients = self.clients.filter { $0.locationId == id }
         let employees = self.locationEmployees.filter { $0.locationId == id }
-        let media = self.media.filter { $0.businessId == id }
+        let media = self.media.filter { $0.locationId == id }
+        
+        let totalClientCount = clients.count
+        let totalEmployeeCount = employees.count
+        let totalMediaCount = media.count
         
         location.employees = employees
         location.clients = clients
         location.media = media
+        location.totalClientCount = totalClientCount
+        location.totalEmployeeCount = totalEmployeeCount
+        location.totalMediaCount = totalMediaCount
         
         return location
         
@@ -329,7 +366,10 @@ final class MockAPIService: APIServiceProtocol {
     }
     
     func getEmployees(locationId: String) async throws -> [Employee] {
-        return self.employees
+        
+        let pairs = self.locationEmployees.filter { $0.locationId == locationId }
+        return pairs.compactMap { pair in self.employees.first { $0.id == pair.employeeId } }
+        
     }
     
     func getEmployeeByUserIdForLocation(userId: String, locationId: String) async throws -> String {
@@ -378,7 +418,13 @@ final class MockAPIService: APIServiceProtocol {
     func getLocationEmployee(employeeId: String,
                              locationId: String) async throws -> LocationEmployee {
         
-        return self.locationEmployees.filter({ $0.locationId == locationId && $0.employeeId == employeeId }).first!
+        let locationEmployees = self.locationEmployees.filter({ $0.locationId == locationId && $0.employeeId == employeeId })
+        
+        if let locationEmployee = locationEmployees.first {
+            return locationEmployee
+        }
+        
+        return self.locationEmployees.first!
         
     }
     
@@ -892,27 +938,16 @@ final class MockAuthService: AuthServiceProtocol {
     private let apiService: APIServiceProtocol = MockAPIService()
     
     var currentUser: GPUser? = MockModels.MockUser.user1
-    var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
+    var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(MockModels.MockUser.user1).eraseToAnyPublisher()
     var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
     var onError = CurrentValueSubject<Error?, Never>(nil)
     
+    init() {
+        self.currentUser = MockModels.MockUser.user1
+    }
+    
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
-        
-        if email == MockModels.MockUser.user1.email {
-            
-            self.currentUser = MockModels.MockUser.user1
-            return
-            
-        }
-        
-        self.currentUser = GPUser(
-            id: "1",
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            externalId: "1"
-        )
-        
+        self.currentUser = MockModels.MockUser.user1
     }
     
     func login(email: String, password: String) async throws {

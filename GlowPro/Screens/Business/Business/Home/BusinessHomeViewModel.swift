@@ -105,9 +105,9 @@ final class BusinessHomeViewModel: ViewModel {
                     self?.isFirstLoad = false
                     self?.business = business
                     
-                    let hasLocations = !(self?.business?.locations.isEmpty ?? true)
-                    let hasClients = ((self?.business?.clientsCount ?? 0) > 0)
-                    let hasMedia = ((self?.business?.media.count ?? 0) > 0)
+                    let hasLocations = ((self?.business?.totalLocationCount ?? 0) > 0)
+                    let hasClients = ((self?.business?.totalClientCount ?? 0) > 0)
+                    let hasMedia = ((self?.business?.totalMediaCount ?? 0) > 0)
                     
                     self?.checklistItems = [
                         .init(type: .completeProfile, isComplete: true),
@@ -138,7 +138,12 @@ final class BusinessHomeViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("business"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

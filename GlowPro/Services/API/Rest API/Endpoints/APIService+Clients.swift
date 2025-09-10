@@ -93,8 +93,14 @@ extension APIService {
                       locationId: String) async throws {
         
         let parameters: [String: Any] = [
-            :
+            "first_name": client.firstName,
+            "last_name": client.lastName,
+            "phone_number": client.phoneNumber,
+            "email": client.email,
+            "location_id": locationId,
+            "date_of_birth": client.dateOfBirth?.ISO8601Format()
         ]
+        .compact()
         
         do {
             
@@ -113,11 +119,23 @@ extension APIService {
     
     func updateClient(client: Client) async throws {
         
+        let parameters: [String: Any] = [
+            "id": client.id,
+            "first_name": client.firstName,
+            "last_name": client.lastName,
+            "phone_number": client.phoneNumber,
+            "email": client.email,
+            "location_id": client.locationId,
+            "date_of_birth": client.dateOfBirth?.ISO8601Format()
+        ]
+        .compact()
+        
         do {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .client("/\(client.id)"))
+                apiPath: .init(path: .client("/\(client.id)")),
+                parameters: parameters
             )
             
         }

@@ -22,11 +22,11 @@ struct MockModels {
     }
     
     static var allEmployees: [Employee] {
-        return [MockEmployee.employee1, MockEmployee.employee2]
+        return [MockEmployee.employee1, MockEmployee.employee2, MockEmployee.employee3]
     }
     
     static var allLocationEmployees: [LocationEmployee] {
-        return [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2]
+        return [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2, MockLocationEmployee.locationEmployee3]
     }
     
     static var allEmployeeInvites: [EmployeeInvite] {
@@ -136,9 +136,11 @@ struct MockModels {
         
         static let employee1: String = UUID().uuidString
         static let employee2: String = UUID().uuidString
+        static let employee3: String = UUID().uuidString
         
         static let locationEmployee1: String = UUID().uuidString
         static let locationEmployee2: String = UUID().uuidString
+        static let locationEmployee3: String = UUID().uuidString
         
         static let employeeInvite1: String = UUID().uuidString
         static let employeeInvite2: String = UUID().uuidString
@@ -309,6 +311,16 @@ struct MockModels {
             phoneNumber: "999-999-9999",
         )
         
+        nonisolated(unsafe)
+        static var employee3 = Employee(
+            id: ID.employee3,
+            businessId: ID.business2,
+            userId: MockModels.ID.user1,
+            name: "Employee 3",
+            email: "emp3@me.com",
+            phoneNumber: "999-999-9999"
+        )
+        
     }
     
     struct MockLocation {
@@ -319,18 +331,16 @@ struct MockModels {
             businessId: ID.business1,
             name: "First Location",
             address: .DUMMY_DATA(),
-            employees: [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2],
-            clients: []
+            employees: [MockLocationEmployee.locationEmployee1]
         )
-        
+
         nonisolated(unsafe)
         static var location2 = Location(
             id: ID.location2,
             businessId: ID.business2,
             name: "Second Location",
             address: .DUMMY_DATA(),
-            employees: [MockLocationEmployee.locationEmployee1, MockLocationEmployee.locationEmployee2],
-            clients: []
+            employees: [MockLocationEmployee.locationEmployee2, MockLocationEmployee.locationEmployee3]
         )
         
         nonisolated(unsafe)
@@ -339,8 +349,6 @@ struct MockModels {
             businessId: ID.business3,
             name: "Newest Location",
             address: .DUMMY_DATA(),
-            employees: [],
-            clients: []
         )
         
         nonisolated(unsafe)
@@ -349,8 +357,6 @@ struct MockModels {
             businessId: ID.business3,
             name: "Manager Location",
             address: .DUMMY_DATA(),
-            employees: [],
-            clients: []
         )
         
     }
@@ -358,24 +364,34 @@ struct MockModels {
     struct MockLocationEmployee {
         
         nonisolated(unsafe)
-        static var locationEmployee1 = LocationEmployee(
-            id: ID.locationEmployee1,
-            businessId: ID.business1,
-            locationId: ID.location1,
-            employeeId: ID.employee1,
-            user: MockUser.user1,
-            role: .employee
-        )
+            static var locationEmployee1 = LocationEmployee(
+                id: ID.locationEmployee1,
+                businessId: ID.business1,
+                locationId: ID.location1,
+                employeeId: ID.employee1,
+                user: MockUser.user1,
+                role: .employee
+            )
+
+            nonisolated(unsafe)
+            static var locationEmployee2 = LocationEmployee(
+                id: ID.locationEmployee3,
+                businessId: ID.business2,
+                locationId: ID.location2,
+                employeeId: ID.employee3,
+                user: MockUser.user1,
+                role: .manager
+            )
         
-        nonisolated(unsafe)
-        static var locationEmployee2 = LocationEmployee(
-            id: ID.locationEmployee2,
-            businessId: ID.business1,
-            locationId: ID.location2,
-            employeeId: ID.employee1,
-            user: MockUser.user1,
-            role: .manager
-        )
+            nonisolated(unsafe)
+            static var locationEmployee3 = LocationEmployee(
+                id: ID.locationEmployee2,
+                businessId: ID.business2,
+                locationId: ID.location2,
+                employeeId: ID.employee2,
+                user: MockUser.user2,
+                role: .employee
+            )
         
     }
     
@@ -1193,10 +1209,10 @@ struct MockModels {
         static var activity4: Activity {
             Activity(
                 id: ID.activity4,
-                clientId: ID.client1,
+                clientId: ID.client8,
                 authorId: ID.employee2,
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
+                businessId: MockModels.ID.business2,
+                locationId: MockModels.ID.location2,
                 activityType: .noteAdded,
                 createdAt: Date().addingTimeInterval(-834).toISO()
             )
@@ -1232,10 +1248,10 @@ struct MockModels {
         static var activity7: Activity {
             Activity(
                 id: ID.activity7,
-                clientId: ID.client1,
+                clientId: ID.client9,
                 authorId: ID.employee2,
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
+                businessId: MockModels.ID.business2,
+                locationId: MockModels.ID.location2,
                 activityType: .employeeInvited,
                 createdAt: Date().addingTimeInterval(-99834).toISO()
             )
@@ -1271,10 +1287,10 @@ struct MockModels {
         static var activity10: Activity {
             Activity(
                 id: ID.activity10,
-                clientId: ID.client1,
+                clientId: ID.client11,
                 authorId: ID.employee2,
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
+                businessId: MockModels.ID.business2,
+                locationId: MockModels.ID.location2,
                 activityType: .soapNote,
                 createdAt: Date().addingTimeInterval(-84923).toISO()
             )

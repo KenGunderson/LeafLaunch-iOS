@@ -17,7 +17,7 @@ struct Client: Codable,
     let firstName: String
     let lastName: String
     let email: String?
-    let phone: String?
+    let phoneNumber: String?
     let imageURL: URL?
     let employeeId: String?
     let locationId: String?
@@ -37,7 +37,7 @@ struct Client: Codable,
     }
     
     var hasEmailPhoneOrBirthday: Bool {
-        return email != nil || phone != nil || dateOfBirth != nil
+        return email != nil || phoneNumber != nil || dateOfBirth != nil
     }
     
     init(id: String,
@@ -54,7 +54,7 @@ struct Client: Codable,
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
-        self.phone = phone
+        self.phoneNumber = phone
         self._dateOfBirth = dateOfBirth
         self.imageURL = imageURL
         self.locationId = locationId
@@ -72,7 +72,7 @@ struct Client: Codable,
         case firstName = "first_name"
         case lastName = "last_name"
         case email
-        case phone = "phone_number"
+        case phoneNumber = "phone_number"
         case _dateOfBirth = "date_of_birth"
         case imageURL = "image_url"
         case locationId = "location_id"

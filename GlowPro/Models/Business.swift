@@ -27,7 +27,11 @@ struct Business: Identifiable,
     var locations: [Location]
     var employeeInvites: [EmployeeInvite]
     var media: [Media]
-    var clientsCount: Int = 0
+    
+    var totalLocationCount: Int
+    var totalClientCount: Int
+    var totalEmployeeCount: Int
+    var totalMediaCount: Int
     
     init(id: String,
          name: String,
@@ -42,7 +46,11 @@ struct Business: Identifiable,
          employees: [Employee] = [],
          locations: [Location] = [],
          media: [Media] = [],
-         employeeInvites: [EmployeeInvite] = []) {
+         employeeInvites: [EmployeeInvite] = [],
+         totalLocationCount: Int = 0,
+         totalClientCount: Int = 0,
+         totalEmployeeCount: Int = 0,
+         totalMediaCount: Int = 0) {
         
         self.id = id
         self.name = name
@@ -58,6 +66,10 @@ struct Business: Identifiable,
         self.locations = locations
         self.media = media
         self.employeeInvites = employeeInvites
+        self.totalLocationCount = totalLocationCount
+        self.totalClientCount = totalClientCount
+        self.totalEmployeeCount = totalEmployeeCount
+        self.totalMediaCount = totalMediaCount
         
     }
     
@@ -77,6 +89,10 @@ struct Business: Identifiable,
         case locations
         case employeeInvites = "employee_invites"
         case media
+        case totalLocationCount = "total_locations"
+        case totalClientCount = "total_clients"
+        case totalEmployeeCount = "total_employees"
+        case totalMediaCount = "total_media"
         
     }
     

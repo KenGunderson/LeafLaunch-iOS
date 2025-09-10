@@ -114,7 +114,12 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("employee details"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

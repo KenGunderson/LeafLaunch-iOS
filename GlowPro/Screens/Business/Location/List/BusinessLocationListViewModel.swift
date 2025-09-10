@@ -93,7 +93,12 @@ final class BusinessLocationListViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("locations"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

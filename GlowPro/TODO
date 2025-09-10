@@ -1,18 +1,10 @@
 ==================================================
                 BACKEND
 ==================================================
-Tasks:
-    1. Add counts for business object
-    2. Add counts for location object
-    
 
 RANDOM:
 2. Location Create Edit
 3. Location 'You are not an employee of this location!' -> Even if owner?
-4. When location home throws error we should pop
-6. CREATE CLIENT + UPDATE CLIENT need parameters in API
-7. Test Delete on all levels
-8. Test Update / Create on all levels
 9. Make sure we receive pending invites as employees (HomeScreen check for pending invites)
 
 ==================================================
@@ -57,14 +49,13 @@ Tasks:
   • Secure Mode toggle
   • Add secure pin (API)
   • Encode on API / Decode on Frontend
-    
+  
 ==================================================
                 BACKEND
 ==================================================
 Tasks:
-  • Sort Media Properly
-  • Business object needs counts
-  • Location object needs counts
+ • Implement All Activities
+
   
 ==================================================
                 OPEN QUESTIONS
@@ -87,6 +78,7 @@ Open Questions:
   • Show remaining photo count in gallery / camera? 1500?
      – Include delete query param
      – Show progress bar (accent green)
+  • Add pending invites to location? (Managers?)
      
 ==================================================
            DELETE ACCOUNT (POST MVP)

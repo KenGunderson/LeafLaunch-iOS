@@ -137,7 +137,7 @@ struct ClientListScreen: GPView {
                             extraInformationItem(icon: .image(.iconMail))
                         }
                         
-                        if client.phone != nil {
+                        if client.phoneNumber != nil {
                             extraInformationItem(icon: .image(.iconPhone))
                         }
                         

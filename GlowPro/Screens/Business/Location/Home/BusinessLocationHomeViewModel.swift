@@ -114,7 +114,12 @@ final class BusinessLocationHomeViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("location"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

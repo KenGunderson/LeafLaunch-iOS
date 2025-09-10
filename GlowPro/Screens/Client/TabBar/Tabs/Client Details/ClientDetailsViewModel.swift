@@ -98,7 +98,11 @@ final class ClientDetailsViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("client"),
-                            action: {})
+                            action: {
+                                
+                                self.shouldDismiss = true
+                                
+                            })
                     ))
                 )
                 

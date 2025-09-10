@@ -52,20 +52,11 @@ extension APIService {
     
     func createBusiness(business: Business) async throws -> Business {
         
-        let address: [String : Any?] = [
-            "street": business.address?.street,
-            "street_2": business.address?.street2,
-            "city": business.address?.city,
-            "state": business.address?.state,
-            "zip": business.address?.zip,
-            "country": "USA"
-        ]
-        
         let parameters: [String: Any] = [
             "owner_id": business.owner.id,
             "name": business.name,
             "description": business.description,
-            "address": address,
+            "address": business.address?.asJSON(),
             "phone_number": business.phoneNumber,
             "email": business.email,
             "categories": business.categories,
@@ -92,21 +83,12 @@ extension APIService {
     
     func updateBusiness(business: Business) async throws {
         
-        let address: [String : Any?] = [
-            "street": business.address?.street,
-            "street_2": business.address?.street2,
-            "city": business.address?.city,
-            "state": business.address?.state,
-            "zip": business.address?.zip,
-            "country": "USA"
-        ]
-        
         let parameters: [String: Any] = [
             "id": business.id,
             "owner_id": business.owner.id,
             "name": business.name,
             "description": business.description,
-            "address": address,
+            "address": business.address?.asJSON(),
             "phone_number": business.phoneNumber,
             "email": business.email,
             "categories": business.categories,

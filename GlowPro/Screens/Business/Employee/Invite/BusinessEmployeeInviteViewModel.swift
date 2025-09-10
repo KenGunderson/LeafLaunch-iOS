@@ -115,7 +115,12 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("business"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 

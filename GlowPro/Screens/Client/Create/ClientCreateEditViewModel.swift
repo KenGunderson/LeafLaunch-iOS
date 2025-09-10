@@ -101,7 +101,7 @@ final class ClientCreateEditViewModel: ViewModel {
                     
                     self.firstName = client.firstName
                     self.lastName = client.lastName
-                    self.phone = client.phone ?? ""
+                    self.phone = client.phoneNumber ?? ""
                     self.email = client.email ?? ""
                     
                 }
@@ -113,7 +113,12 @@ final class ClientCreateEditViewModel: ViewModel {
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("client"),
-                            action: {})
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
                     ))
                 )
                 
