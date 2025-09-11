@@ -342,7 +342,13 @@ final class RootViewModel: ViewModel {
     private func showAuthError(_ error: Error) {
         
         self.alertService.showAlert(.init(.appAlert(.error(message: "We couldn't log you in please try again!", action: { [weak self] in
-            Task { try await self?.authService.logout() }
+            
+            self?.impersonateService.logout()
+            
+            Task {
+                try await self?.authService.logout()
+            }
+            
         }))))
         
     }
