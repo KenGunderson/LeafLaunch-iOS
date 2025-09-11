@@ -11,6 +11,7 @@ enum ActivityType: String, Codable, CaseIterable {
     case locationDeleted = "LOCATION_DELETED"
     
     case employeeInvited = "EMPLOYEE_INVITED"
+    case employeeInivteDeleted = "EMPLOYEE_INVITE_DELETED"
     case employeeCreated = "EMPLOYEE_CREATED"
     case employeeDeleted = "EMPLOYEE_DELETED"
     
@@ -41,6 +42,7 @@ enum ActivityType: String, Codable, CaseIterable {
         case .locationDeleted: return "Location Deleted"
             
         case .employeeInvited: return "Employee Invited"
+        case .employeeInivteDeleted: return "Employee Invite Deleted"
         case .employeeCreated: return "Employee Created"
         case .employeeDeleted: return "Employee Deleted"
             
@@ -73,6 +75,7 @@ enum ActivityType: String, Codable, CaseIterable {
              .locationDeleted: return GPColor.iconGreen
             
         case .employeeInvited,
+             .employeeInivteDeleted,
              .employeeCreated,
              .employeeDeleted: return GPColor.iconOrange
             
@@ -104,6 +107,7 @@ enum ActivityType: String, Codable, CaseIterable {
              .locationDeleted: return .systemImage("pin")
             
         case .employeeInvited,
+             .employeeInivteDeleted,
              .employeeCreated,
              .employeeDeleted: return .image(.iconPersonOutline)
             

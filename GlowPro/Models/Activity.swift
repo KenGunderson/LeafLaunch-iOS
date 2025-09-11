@@ -12,7 +12,7 @@ struct Activity: Codable, Mockable {
     let id: String
     let clientId: String?
     let authorId: String
-    let businessId: String
+    let businessId: String?
     let locationId: String?
     let activityType: ActivityType
     let _createdAt: String?
