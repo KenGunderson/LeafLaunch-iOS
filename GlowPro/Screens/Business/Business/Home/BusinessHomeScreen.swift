@@ -234,21 +234,25 @@ struct BusinessHomeScreen: GPView {
         
         let pendingInvites = self.viewModel.business?.employeeInvites ?? []
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        if !pendingInvites.isEmpty {
             
-            SectionView(leadingTitle: "Pending Invites", showDivider: true) {
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
                 
-                self.navigationService
-                    .push(.business(.businessEmployeeInviteList(
-                        context: .business(businessId: self.viewModel.businessId))
-                    ))
+                SectionView(leadingTitle: "Pending Invites", showDivider: true) {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeeInviteList(
+                            context: .business(businessId: self.viewModel.businessId))
+                        ))
+                    
+                }
                 
-            }
-            
-            ForEach(pendingInvites, id: \.id) { invite in
-                
-                EmployeeInviteView(employeeInvitation: invite) {
-                    self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+                ForEach(pendingInvites, id: \.id) { invite in
+                    
+                    EmployeeInviteView(employeeInvitation: invite) {
+                        self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+                    }
+                    
                 }
                 
             }
