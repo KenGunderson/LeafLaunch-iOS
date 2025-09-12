@@ -50,6 +50,7 @@ internal enum AppRoute {
     case mediaTags(String)
     case mediaTagRelations(String)
     case activity(String)
+    case featureRequest(String)
     case system(String)
     
     var category: String {
@@ -70,6 +71,7 @@ internal enum AppRoute {
         case .mediaTags: return "media-tags"
         case .mediaTagRelations: return "media-tag-relations"
         case .activity: return "activities"
+        case .featureRequest: return "feature-requests"
         case .system: return "glowpro"
         }
     }
@@ -92,6 +94,7 @@ internal enum AppRoute {
         case .mediaTags(let path): return "\(self.category)\(path)"
         case .mediaTagRelations(let path): return "\(self.category)\(path)"
         case .activity(let path): return "\(self.category)\(path)"
+        case .featureRequest(let path): return "\(self.category)\(path)"
         case .system(let path): return "\(self.category)\(path)"
         }
     }

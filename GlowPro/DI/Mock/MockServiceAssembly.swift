@@ -887,7 +887,13 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
 
         ]
     }
-
+    
+    // Feature Requests
+    
+    func submitFeatureRequest(userId: String,
+                              request: String) async throws {
+        
+    }
 
 }
 

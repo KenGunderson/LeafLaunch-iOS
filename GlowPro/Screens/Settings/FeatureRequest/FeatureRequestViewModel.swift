@@ -60,9 +60,47 @@ final class FeatureRequestViewModel: ViewModel {
         
     }
     
-    func submitFeatureReqeust() {
+    func submit() {
         
-        self.featureRequestText = ""
+        guard let authUser = self.authService.currentUser else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                _ = try await self.apiService
+                    .submitFeatureRequest(
+                        userId: authUser.id,
+                        request: self.featureRequestText
+                    )
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Request Submitted Successfully!",
+                        action: {
+                            self.navigationService?.pop()
+                        }
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .create, "feature request"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
         
     }
 

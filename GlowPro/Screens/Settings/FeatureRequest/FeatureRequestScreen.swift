@@ -133,7 +133,7 @@ struct FeatureRequestScreen: GPView {
             CommonButton(title: "Submit") {
                 
                 self.viewModel
-                    .submitFeatureReqeust()
+                    .submit()
                 
             }
             .padding(.horizontal, .medium)

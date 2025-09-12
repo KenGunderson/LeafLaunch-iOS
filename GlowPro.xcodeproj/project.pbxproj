@@ -495,6 +495,8 @@
 		75F131332E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */; };
 		75F131352E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */; };
 		75F131362E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */; };
+		75F131382E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */; };
+		75F131392E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */; };
 		75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
 		75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
 		75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */; };
@@ -774,6 +776,7 @@
 		75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsScreen.swift; sourceTree = "<group>"; };
 		75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestViewModel.swift; sourceTree = "<group>"; };
 		75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestScreen.swift; sourceTree = "<group>"; };
+		75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+FeatureRequest.swift"; sourceTree = "<group>"; };
 		75F135D22E638FB000BFCD51 /* CameraScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
 		75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
 		75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewScreen.swift; sourceTree = "<group>"; };
@@ -1992,6 +1995,7 @@
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
 				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
@@ -2001,8 +2005,8 @@
 				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
 				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
 				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
+				75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */,
 				75A046522E37BE7300D5EFCD /* APIService+System.swift */,
-				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -2405,6 +2409,7 @@
 				75795D2A2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
+				75F131392E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				750892A32E561F1700D6BC68 /* APIService+Media.swift in Sources */,
 				75C643D32DB929340033D68E /* TabBarScreen.swift in Sources */,
@@ -2663,6 +2668,7 @@
 				75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
 				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
+				75F131382E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */,
 				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
 				750892A42E561F1700D6BC68 /* APIService+Media.swift in Sources */,
 				75D66D582DC713C300E51CFC /* TabBarScreen.swift in Sources */,
