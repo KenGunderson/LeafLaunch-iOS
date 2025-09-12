@@ -7,36 +7,6 @@
 
 import SwiftUI
 
-enum ClientActionItem: String, CaseIterable {
-    
-    case notes
-    case forms
-    case folders
-    case proposals
-    case media
-    case collages
-    case activity
-    case edit
-    
-    var displayName: String {
-        self.rawValue.capitalized
-    }
-    
-    var systemIcon: String {
-        switch self {
-        case .notes: return "pencil"
-        case .forms: return "text.document.fill"
-        case .folders: return "folder.fill"
-        case .proposals: return "dollarsign.circle.fill"
-        case .media: return "photo.on.rectangle.fill"
-        case .collages: return "grid"
-        case .activity: return "magnifyingglass"
-        case .edit: return "square.and.pencil"
-        }
-    }
-    
-}
-
 struct ClientDetailsScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
@@ -54,7 +24,7 @@ struct ClientDetailsScreen: GPView {
             navigationService: nav.tab1NavigationService,
             alertService: nil) {
                 
-                AppHeaderScrollView(horizontalPadding: .medium) {
+                AppHeaderScrollView(horizontalPadding: .none) {
                     navBarView()
                 } scrollViewContent: {
                     content()
@@ -106,25 +76,18 @@ struct ClientDetailsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: 24) {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             if let client = viewModel.client {
-                
-                AppCardView {
+            
+                Group {
                     
-                    Text(client.fullName)
-                        .appFont(with: .HEADER_2)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    profile(client)
+                    media()
+                    activities()
                     
                 }
-                .asButton {
-                    dismiss()
-                }
-                .transition(.move(edge: .bottom))
-                
-                actionItems()
-                activityFilters()
-                activities()
+                .transition(.move(edge: .bottom).combined(with: .opacity))
                 
             }
             
@@ -135,11 +98,18 @@ struct ClientDetailsScreen: GPView {
             alignment: .topLeading
         )
         .animation(.smooth(duration: 0.4), value: self.viewModel.client)
+        .animation(.smooth(duration: 0.4), value: self.viewModel.media)
+        .animation(.smooth(duration: 0.4), value: self.viewModel.activities)
         
     }
     
     @ViewBuilder
     private func navBarView() -> some View {
+        
+        let closeButton = NavBarButton(style: .close) {
+            dismiss()
+        }
+        .asAnyView()
         
         let trailingButtons = HStack {
             
@@ -169,27 +139,113 @@ struct ClientDetailsScreen: GPView {
             }
             
         }
-        .asAnyView()
+            .asAnyView()
         
         NavBarView(
             title: "Client Details",
+            leftButtonView: closeButton,
             rightButtonView: trailingButtons
         )
         
     }
     
     @ViewBuilder
-    private func actionItems() -> some View {
+    private func profile(_ client: Client) -> some View {
         
-        LazyVGrid(columns: [.init(.adaptive(minimum: 80, maximum: 80), spacing: 8, alignment: .center)], spacing: 4) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
-            ForEach(ClientActionItem.allCases, id: \.self) { action in
+            SectionView(leadingTitle: "Profile", showDivider: true)
+            
+            AppCardView {
                 
-                actionItem(
-                    title: action.displayName,
-                    icon: action.systemIcon,
-                    action: {}
-                )
+                VStack(alignment: .leading) {
+                    
+                    label(
+                        title: "First Name:",
+                        value: client.firstName,
+                        icon: "person.text.rectangle.fill"
+                    )
+ 
+                    label(
+                        title: "Last Name:",
+                        value: client.lastName,
+                        icon: "person.text.rectangle.fill"
+                    )
+                    
+                    if let email = client.email {
+                        
+                        label(
+                            title: "Email:",
+                            value: email,
+                            icon: "envelope.fill"
+                        )
+                        
+                    }
+                    
+                    if let phoneNumber = client.phoneNumber {
+                        
+                        label(
+                            title: "Phone Number:",
+                            value: phoneNumber.formatted(.phone(defaultCountryCode: nil)),
+                            icon: "phone.fill"
+                        )
+                        
+                    }
+                    
+                    if let dateOfBirth = client.dateOfBirth {
+                        
+                        label(
+                            title: "Date Of Birth",
+                            value: dateOfBirth.formatted(date: .long, time: .omitted),
+                            icon: "calendar"
+                        )
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    @ViewBuilder
+    private func media() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(leadingTitle: "Media", showDivider: true) {
+                
+                self.tabBarNavigationService.tab1NavigationService.push(.media(
+                    .gallery(.client(clientId: self.viewModel.clientId))
+                ))
+                
+            }
+            .padding(.horizontal, .medium)
+            
+            ScrollView(.horizontal) {
+                
+                LazyHStack {
+                    
+                    let placeholderView = PlaceholderView().asAnyView()
+                    
+                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
+                        
+                        ImageSource.remote(
+                            url: media.url,
+                            placeholder: placeholderView,
+                        )
+                        .view(shouldResize: false)
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 64)
+                        .cornerRadius(.small)
+                        
+                    }
+                    
+                }
+                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
                 
             }
             
@@ -198,107 +254,46 @@ struct ClientDetailsScreen: GPView {
     }
     
     @ViewBuilder
-    private func activityFilters() -> some View {
-        
-        TokenView(
-            text: "Toggle Activity",
-            foregroundStyle: Style.shared.textColor(.button),
-            backgroundStyle: Style.shared.accent
-        )
-        .asButton {
-            self.viewModel.selectedActivitiesFilter = (self.viewModel.selectedActivitiesFilter == nil) ? "1" : nil
-        }
-        
-    }
-    
-    @ViewBuilder
     private func activities() -> some View {
         
-        let activities: [Activity] = [
-            .init(
-                id: "1",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .clientUpdated,
-                createdAt: Date().addingTimeInterval(-73497493).toISO()
-            ),
-            .init(
-                id: "2",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .formSubmitted,
-                createdAt: Date().addingTimeInterval(-4379743).toISO()
-            ),
-            .init(
-                id: "3",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .quickNote,
-                createdAt: Date().addingTimeInterval(-4379743).toISO()
-            ),
-            .init(
-                id: "4",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .businessUpdated,
-                createdAt: Date().toISO()
-            ),
-            .init(
-                id: "5",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .noteAdded,
-                createdAt: Date().toISO()
-            ),
-            .init(
-                id: "6",
-                clientId: "",
-                authorId: "",
-                businessId: MockModels.ID.business1,
-                locationId: MockModels.ID.location1,
-                activityType: .mediaAdded,
-                createdAt: Date().toISO()
-            ),
-        ]
-        
-        ActivitiesView(
-            activities: self.viewModel.selectedActivitiesFilter == nil ? activities : activities.suffix(3)
-        )
-        .animation(.spring, value: self.viewModel.selectedActivitiesFilter)
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(leadingTitle: "Activities", showDivider: true) {
+                
+                self.tabBarNavigationService.tab1NavigationService.push(.business(.businessActivitiesList(
+                    context: .client(clientId: self.viewModel.clientId)
+                )))
+                
+            }
+            
+            ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
+            
+        }
+        .padding(.horizontal, .medium)
         
     }
     
-    private func actionItem(title: String,
-                            icon: String,
-                            action: @escaping () -> Void) -> some View {
+    private func label(title: String,
+                       value: String,
+                       icon: String) -> some View {
         
-        VStack {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
             Image(systemName: icon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 24, height: 24)
+                .frame(width: 16, height: 16)
+                .foregroundStyle(Style.shared.accent.source())
             
             Text(title)
-                .appFont(with: .TITLE_3)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
             
-        }
-        .foregroundStyle(Style.shared.textColor(.titleInverted).source())
-        .frame(width: 80, height: 80)
-        .background(Style.shared.accent.asColor!.gradient)
-        .clipShape(.rect(cornerRadius: Style.shared.radius(.medium)))
-        .asButton {
-            action()
+            Text(value)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .padding(.leading, -2)
+            
         }
         
     }

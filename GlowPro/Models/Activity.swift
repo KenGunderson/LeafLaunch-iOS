@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Activity: Codable, Mockable {
+struct Activity: Codable, Mockable, Equatable {
     
     let id: String
     let clientId: String?

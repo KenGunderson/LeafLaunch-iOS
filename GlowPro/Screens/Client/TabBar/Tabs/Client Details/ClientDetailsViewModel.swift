@@ -21,11 +21,12 @@ final class ClientDetailsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     @Published private(set) var client: Client?
-    @Published var selectedActivitiesFilter: String?
-    
+    @Published private(set) var activities: [Activity] = []
+    @Published private(set) var media: [Media] = []
+        
     @Published private(set) var shouldDismiss: Bool = false
     
-    private var clientId: String!
+    private(set) var clientId: String!
     
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
@@ -87,8 +88,22 @@ final class ClientDetailsViewModel: ViewModel {
                 let client = try await self.apiService
                     .getClient(id: self.clientId)
                 
+                let activities = try await self.apiService
+                    .getActivitiy(clientId: self.clientId)
+                
+                let media = try await self.apiService
+                    .getMedia(
+                        clientId: self.clientId,
+                        sortingOption: .newest,
+                        tags: []
+                    )
+                
                 await MainActor.run { [weak self] in
+                    
                     self?.client = client
+                    self?.activities = activities
+                    self?.media = media
+                    
                 }
                 
             }

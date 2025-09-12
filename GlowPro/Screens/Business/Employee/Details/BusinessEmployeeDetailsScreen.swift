@@ -175,7 +175,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
                 
             }
             
-            ActivitiesView(activities: self.viewModel.activities)
+            ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
             
         }
         

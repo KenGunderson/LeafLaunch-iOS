@@ -14,12 +14,14 @@ final class BusinessActivityListViewModel: ViewModel {
         case business(businessId: String)
         case location(locationId: String)
         case employee(employeeId: String)
+        case client(clientId: String)
         
         var identifier: String {
             switch self {
             case .business(let businessId): return businessId
             case .location(let locationId): return locationId
             case .employee(let employeeId): return employeeId
+            case .client(let clientId): return clientId
             }
         }
         
@@ -28,6 +30,7 @@ final class BusinessActivityListViewModel: ViewModel {
             case .business: return "business"
             case .location: return "location"
             case .employee: return "employee"
+            case .client: return "client"
             }
         }
         
@@ -121,6 +124,11 @@ final class BusinessActivityListViewModel: ViewModel {
                     
                     activities = try await self.apiService
                         .getActivitiy(employeeId: employeeId)
+                    
+                case .client(let clientId):
+                    
+                    activities = try await self.apiService
+                        .getActivitiy(clientId: clientId)
                     
                 default: break
                 }
