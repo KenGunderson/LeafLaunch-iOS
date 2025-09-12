@@ -92,7 +92,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func profile() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             SectionView(leadingTitle: "Profile", showDivider: true)
             
@@ -123,7 +123,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func media() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             SectionView(leadingTitle: "Media", showDivider: true) {
                 
@@ -165,7 +165,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
     @ViewBuilder
     private func activities() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        VStack(spacing: Style.shared.spacing(.small)) {
             
             SectionView(leadingTitle: "Activities", showDivider: true) {
                 

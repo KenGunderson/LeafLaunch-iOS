@@ -25,6 +25,7 @@ final class BusinessHomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var business: Business?
     @Published private(set) var checklistItems: [ChecklistView.ChecklistItem] = []
+    @Published private(set) var activities: [Activity] = []
     
     @Published var shouldShowChecklistCompletionSheet: Bool = false
     
@@ -101,11 +102,13 @@ final class BusinessHomeViewModel: ViewModel {
                 self.activeDestinationService.refresh()
                 
                 let business = try await self.apiService.getBusiness(id: self.businessId)
+                let activities = try await self.apiService.getActivitiy(businessId: self.businessId)
                 
                 await MainActor.run { [weak self] in
                     
                     self?.isFirstLoad = false
                     self?.business = business
+                    self?.activities = activities
                     
                     let hasLocations = ((self?.business?.totalLocationCount ?? 0) > 0)
                     let hasClients = ((self?.business?.totalClientCount ?? 0) > 0)

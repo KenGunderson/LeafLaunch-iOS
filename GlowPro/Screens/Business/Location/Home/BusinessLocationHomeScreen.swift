@@ -44,7 +44,7 @@ struct BusinessLocationHomeScreen: GPView {
         .task {
             
             self.viewModel
-                .loadData()
+                .loadData(showsLoadingIndicator: self.viewModel.isFirstLoad)
             
         }
         
@@ -79,6 +79,11 @@ struct BusinessLocationHomeScreen: GPView {
             
             tilesGrid()
             buttonList()
+            
+            if self.viewModel.isOwnerOrManager {
+                pendingInvitesList()
+            }
+            
             activitiesList()
             
         }
@@ -192,7 +197,7 @@ struct BusinessLocationHomeScreen: GPView {
         
         if !self.viewModel.activities.isEmpty {
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: Style.shared.spacing(.small)) {
                 
                 SectionView(leadingTitle: "All Activities", showDivider: true) {
                     
@@ -204,6 +209,38 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func pendingInvitesList() -> some View {
+        
+        let pendingInvites = self.viewModel.pendingInvites
+        
+        if !pendingInvites.isEmpty {
+                        
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+                
+                SectionView(leadingTitle: "Pending Invites", showDivider: true) {
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeeInviteList(
+                            context: .business(businessId: self.viewModel.location?.businessId ?? ""))
+                        ))
+                    
+                }
+                
+                ForEach(pendingInvites, id: \.id) { invite in
+                    
+                    EmployeeInviteView(employeeInvitation: invite) {
+                        self.viewModel.presentDeleteEmployeeInviteAlert(invite)
+                    }
+                    
+                }
                 
             }
             

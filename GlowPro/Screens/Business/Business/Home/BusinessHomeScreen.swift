@@ -93,7 +93,8 @@ struct BusinessHomeScreen: GPView {
             tilesGrid()
             quickActionButtons()
             checklist()
-            pendingInvites()
+            pendingInvitesList()
+            activitiesList()
             
         }
         
@@ -229,11 +230,11 @@ struct BusinessHomeScreen: GPView {
     }
     
     @ViewBuilder
-    private func pendingInvites() -> some View {
+    private func pendingInvitesList() -> some View {
         
         let pendingInvites = self.viewModel.business?.employeeInvites ?? []
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             SectionView(leadingTitle: "Pending Invites", showDivider: true) {
                 
@@ -261,13 +262,37 @@ struct BusinessHomeScreen: GPView {
         
         if self.viewModel.showChecklist {
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: Style.shared.spacing(.small)) {
                 
                 SectionView(leadingTitle: "First Steps", showDivider: true)
                 
                 ChecklistView(checklistItems: self.viewModel.checklistItems) { type in
                     self.viewModel.selectChecklistType(type: type)
                 }
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func activitiesList() -> some View {
+        
+        if !self.viewModel.activities.isEmpty {
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                SectionView(leadingTitle: "All Activities", showDivider: true) {
+                    
+                    self.navigationService
+                        .push(.business(.businessActivitiesList(
+                            context: .business(businessId: self.viewModel.businessId)
+                        )))
+                    
+                }
+                
+                ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
                 
             }
             
