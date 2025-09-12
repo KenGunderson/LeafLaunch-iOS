@@ -160,44 +160,44 @@ struct ClientDetailsScreen: GPView {
                 
                 VStack(alignment: .leading) {
                     
-                    label(
+                    LineItemView(
                         title: "First Name:",
                         value: client.firstName,
-                        icon: "person.text.rectangle.fill"
+                        systemName: "person.text.rectangle.fill"
                     )
  
-                    label(
+                    LineItemView(
                         title: "Last Name:",
                         value: client.lastName,
-                        icon: "person.text.rectangle.fill"
+                        systemName: "person.text.rectangle.fill"
                     )
                     
                     if let email = client.email {
                         
-                        label(
+                        LineItemView(
                             title: "Email:",
                             value: email,
-                            icon: "envelope.fill"
+                            systemName: "envelope.fill"
                         )
                         
                     }
                     
                     if let phoneNumber = client.phoneNumber {
                         
-                        label(
+                        LineItemView(
                             title: "Phone Number:",
                             value: phoneNumber.formatted(.phone(defaultCountryCode: nil)),
-                            icon: "phone.fill"
+                            systemName: "phone.fill"
                         )
                         
                     }
                     
                     if let dateOfBirth = client.dateOfBirth {
                         
-                        label(
+                        LineItemView(
                             title: "Date Of Birth",
                             value: dateOfBirth.formatted(date: .long, time: .omitted),
-                            icon: "calendar"
+                            systemName: "calendar"
                         )
                         
                     }
@@ -270,31 +270,6 @@ struct ClientDetailsScreen: GPView {
             
         }
         .padding(.horizontal, .medium)
-        
-    }
-    
-    private func label(title: String,
-                       value: String,
-                       icon: String) -> some View {
-        
-        HStack(spacing: Style.shared.spacing(.small)) {
-            
-            Image(systemName: icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 16, height: 16)
-                .foregroundStyle(Style.shared.accent.source())
-            
-            Text(title)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(Style.shared.textColor(.body).source())
-            
-            Text(value)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .padding(.leading, -2)
-            
-        }
         
     }
     

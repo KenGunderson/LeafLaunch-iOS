@@ -100,16 +100,16 @@ struct BusinessEmployeeDetailsScreen: GPView {
                 
                 VStack(alignment: .leading) {
                     
-                    label(
+                    LineItemView(
                         title: "Name:",
                         value: self.viewModel.employee?.name ?? "",
-                        icon: "person.text.rectangle.fill"
+                        systemName: "person.text.rectangle.fill"
                     )
                     
-                    label(
+                    LineItemView(
                         title: "Email:",
                         value: self.viewModel.employee?.email ?? "",
-                        icon: "envelope.fill"
+                        systemName: "envelope.fill"
                     )
                     
                 }
@@ -176,31 +176,6 @@ struct BusinessEmployeeDetailsScreen: GPView {
             }
             
             ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
-            
-        }
-        
-    }
-    
-    private func label(title: String,
-                       value: String,
-                       icon: String) -> some View {
-        
-        HStack(spacing: Style.shared.spacing(.small)) {
-            
-            Image(systemName: icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 16, height: 16)
-                .foregroundStyle(Style.shared.accent.source())
-            
-            Text(title)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(Style.shared.textColor(.body).source())
-            
-            Text(value)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .padding(.leading, -2)
             
         }
         
