@@ -15,18 +15,12 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .system("legal-information")),
+                apiPath: .init(path: .system("/legal-information")),
                 queryParameters: ["context": context]
             )
             
-            let result: [String: [LegalItem]] = try parseData(data: data)
-            
-            if let legalInformation = result["legal_information"] {
-                return legalInformation
-            }
-            else {
-                throw APIError.serverError(statusCode: 401, errorMessage: "missing legal information")
-            }
+            let result: [LegalItem] = try parseData(data: data)
+            return result
             
         }
         catch {
@@ -41,7 +35,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .system("faq"))
+                apiPath: .init(path: .system("/faq"))
             )
             
             let result: [FAQViewModel.FAQItemSection] = try parseData(data: data)

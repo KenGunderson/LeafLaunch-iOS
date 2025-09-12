@@ -82,22 +82,21 @@ struct FAQScreen: GPView {
     
     private func section(item: FAQViewModel.FAQItemSection) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            Text(item.title)
-                .appFont(with: .TITLE_6)
-                .foregroundStyle(Style.shared.accent.source())
+            SectionView(
+                leadingTitle: item.title,
+                leadingTitleFont: .TITLE_6,
+                leadingForegroundColor: Style.shared.accent,
+                showDivider: true
+            )
             
-            VStack(spacing: Style.shared.spacing(.small)) {
+            ForEach(item.sections, id: \.question) { section in
                 
-                ForEach(item.sections, id: \.question) { section in
-                    
-                    cardView(
-                        title: section.question,
-                        description: section.answer
-                    )
-                    
-                }
+                cardView(
+                    title: section.question,
+                    description: section.answer
+                )
                 
             }
             

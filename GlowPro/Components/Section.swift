@@ -11,18 +11,21 @@ struct SectionView: View {
     
     let leadingTitle: String
     let leadingTitleFont: Theme.FontKey
+    let leadingForegroundColor: ColorSource
     let showDivider: Bool
     let trailingTitle: String
     let trailingAction: (() -> Void)?
     
     init(leadingTitle: String,
          leadingTitleFont: Theme.FontKey = .TITLE_6,
+         leadingForegroundColor: ColorSource = Rune.Style.shared.textColor(.title),
          showDivider: Bool = false,
          trailingTitle: String = "View All",
          trailingAction: (() -> Void)? = nil) {
         
         self.leadingTitle = leadingTitle
         self.leadingTitleFont = leadingTitleFont
+        self.leadingForegroundColor = leadingForegroundColor
         self.showDivider = showDivider
         self.trailingTitle = trailingTitle
         self.trailingAction = trailingAction
@@ -37,7 +40,7 @@ struct SectionView: View {
                 
                 Text(self.leadingTitle)
                     .appFont(with: self.leadingTitleFont)
-                    .foregroundStyle(Rune.Style.shared.textColor(.title).source())
+                    .foregroundStyle(self.leadingForegroundColor.source())
                     .frame(
                         maxWidth: .infinity,
                         alignment: .leading

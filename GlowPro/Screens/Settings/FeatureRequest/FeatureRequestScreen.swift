@@ -55,8 +55,8 @@ struct FeatureRequestScreen: GPView {
         
         // Animation
         
-        .animation(.snappy(duration: 1), value: self.onAppearAnimation)
-        .animation(.snappy(duration: 0.3).delay(1), value: self.showBottomBar)
+        .animation(.snappy(duration: 0.5), value: self.onAppearAnimation)
+        .animation(.snappy(duration: 0.3).delay(0.3), value: self.showBottomBar)
         
         // Tap
         

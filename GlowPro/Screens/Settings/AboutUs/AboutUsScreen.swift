@@ -36,7 +36,7 @@ struct AboutUsScreen: GPView {
         }
         .task {
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                 self.onAppearAnimation = true
             }
             
