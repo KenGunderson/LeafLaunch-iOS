@@ -1269,8 +1269,8 @@
 		753EC1922DB8BC0B00265B2A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				75A46EEC2E5E9F0D0057EF72 /* ActivityType.swift */,
 				758DAEC52E05152000311C7C /* Activity.swift */,
+				75A46EEC2E5E9F0D0057EF72 /* ActivityType.swift */,
 				75B731F52E14E58800038AD6 /* Address.swift */,
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
 				75A1ACF62E55519900AFCECD /* BusinessCategory.swift */,
@@ -1425,21 +1425,6 @@
 				75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */,
 			);
 			path = Nav;
-			sourceTree = "<group>";
-		};
-		754E51E02E54281F00258225 /* Business */ = {
-			isa = PBXGroup;
-			children = (
-				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
-				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
-				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
-				754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */,
-				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
-				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
-				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
-				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
-			);
-			path = Business;
 			sourceTree = "<group>";
 		};
 		7550767F2E26C30D0041021C /* ActiveDestination */ = {
@@ -1699,16 +1684,23 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
+				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
+				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
+				754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */,
+				753B113A2E60D8FA0080C9FF /* ChecklistView.swift */,
+				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				75136AA72E7477AD00779BB9 /* LineItemView.swift */,
+				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
+				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
+				750F9E172E56116B00C72EA7 /* Section.swift */,
+				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
-				754E51E02E54281F00258225 /* Business */,
 				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
-				750F9E172E56116B00C72EA7 /* Section.swift */,
-				753B113A2E60D8FA0080C9FF /* ChecklistView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1752,8 +1744,8 @@
 		75A46EF52E5EB4540057EF72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				754241CE2E71CA9C00848F6F /* Ext+String.swift */,
 				75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */,
+				754241CE2E71CA9C00848F6F /* Ext+String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

@@ -5,8 +5,6 @@
 //  Created by Sako Hovaguimian on 8/17/25.
 //
 
-
-
 struct EmptyStateConfig {
     
     let title: String
