@@ -177,7 +177,13 @@ extension View {
             switch route {
             case .profile: EmptyView()
             case .subscription: EmptyView()
-            case .aboutUs: EmptyView()
+            case .aboutUs:
+                
+                let viewModel = globalResolver.resolve(AboutUsViewModel.self)!
+                
+                AboutUsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .frequentlyAskedQuestions:
                 
                 let viewModel = globalResolver.resolve(FAQViewModel.self)!
@@ -187,7 +193,13 @@ extension View {
                 
             case .contactSupport: EmptyView()
             case .writeAReview: EmptyView()
-            case .featureRequest: EmptyView()
+            case .featureRequest:
+                
+                let viewModel = globalResolver.resolve(FeatureRequestViewModel.self)!
+                
+                FeatureRequestScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .privacyPolicy:
                 
                 let viewModel = globalResolver.resolve(LegalViewModel.self)!

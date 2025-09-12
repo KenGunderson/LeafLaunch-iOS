@@ -431,6 +431,34 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // Settings - ABOUT US
+        
+        container
+            .register(AboutUsViewModel.self) { r in
+                AboutUsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - FEATURE REQUEST
+        
+        container
+            .register(FeatureRequestViewModel.self) { r in
+                FeatureRequestViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
         // Settings - FAQ
         
         container

@@ -487,6 +487,14 @@
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */; };
+		75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */; };
+		75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */; };
+		75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */; };
+		75F131322E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */; };
+		75F131332E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */; };
+		75F131352E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */; };
+		75F131362E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */; };
 		75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
 		75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F135D22E638FB000BFCD51 /* CameraScreen.swift */; };
 		75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */; };
@@ -762,6 +770,10 @@
 		75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppCardConfigView.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewModel.swift; sourceTree = "<group>"; };
+		75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsScreen.swift; sourceTree = "<group>"; };
+		75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestViewModel.swift; sourceTree = "<group>"; };
+		75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestScreen.swift; sourceTree = "<group>"; };
 		75F135D22E638FB000BFCD51 /* CameraScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
 		75F1BBDA2E65480B00858401 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
 		75F1BBDD2E65481A00858401 /* MediaPreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewScreen.swift; sourceTree = "<group>"; };
@@ -1386,6 +1398,8 @@
 			isa = PBXGroup;
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
+				75F131292E74B2CD00E7636B /* AboutUs */,
+				75F131302E74B6C700E7636B /* FeatureRequest */,
 				75740B752E0A1FA900EF8627 /* FAQ */,
 				75A046482E37BCC700D5EFCD /* Legal */,
 			);
@@ -1920,6 +1934,24 @@
 			path = Permission;
 			sourceTree = "<group>";
 		};
+		75F131292E74B2CD00E7636B /* AboutUs */ = {
+			isa = PBXGroup;
+			children = (
+				75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */,
+				75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */,
+			);
+			path = AboutUs;
+			sourceTree = "<group>";
+		};
+		75F131302E74B6C700E7636B /* FeatureRequest */ = {
+			isa = PBXGroup;
+			children = (
+				75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */,
+				75F131342E74B6D700E7636B /* FeatureRequestScreen.swift */,
+			);
+			path = FeatureRequest;
+			sourceTree = "<group>";
+		};
 		75F135D12E638FAE00BFCD51 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -2220,6 +2252,7 @@
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
+				75F131362E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
 				754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
@@ -2273,6 +2306,7 @@
 				7537F4742DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4752DF661EA0031D9CF /* EventType.swift in Sources */,
 				7537F4762DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
+				75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7537F4772DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				7537F4782DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
@@ -2296,6 +2330,7 @@
 				75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				75A46EF02E5EB1C30057EF72 /* ActivityView.swift in Sources */,
@@ -2410,6 +2445,7 @@
 				750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */,
 				7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				7526CD3D2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */,
+				75F131332E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,
 				750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */,
 				750DFBD72DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift in Sources */,
 				75F32AFC2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,
@@ -2474,6 +2510,7 @@
 				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
 				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
 				75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
+				75F131352E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
 				754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
@@ -2527,6 +2564,7 @@
 				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4362DF661EA0031D9CF /* EventType.swift in Sources */,
 				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
+				75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
@@ -2550,6 +2588,7 @@
 				75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
+				75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
 				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046502E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				75A46EF12E5EB1C30057EF72 /* ActivityView.swift in Sources */,
@@ -2664,6 +2703,7 @@
 				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
 				7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				7526CD3C2E3DC00000CA654B /* ClientDetailsTabBarScreen.swift in Sources */,
+				75F131322E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,
 				75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */,
 				75D66DB52DC713C300E51CFC /* DevAnalyticsViewModel.swift in Sources */,
 				75F32AFD2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,

@@ -272,6 +272,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
         case settings
         case profile
+        case aboutUs
         case legal(context: String)
         case faq
         case featureRequest
@@ -283,6 +284,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .settings: name = "settings"
             case .profile: name = "profile"
+            case .aboutUs: name = "about_us"
             case .legal: name = "legal"
             case .faq: name = "faq"
             case .featureRequest: name = "feature_request"
@@ -297,6 +299,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .settings: return [:]
             case .profile: return [:]
+            case .aboutUs: return [:]
             case .legal(let context): return ["context": context]
             case .faq: return [:]
             case .featureRequest: return [:]
