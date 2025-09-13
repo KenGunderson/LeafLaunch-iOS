@@ -41,7 +41,7 @@ struct FeatureRequestScreen: GPView {
         }
         .task {
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 
                 self.onAppearAnimation = true
                 

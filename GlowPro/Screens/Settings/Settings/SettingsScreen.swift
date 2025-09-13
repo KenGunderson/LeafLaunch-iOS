@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsScreen: GPView {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.requestReview) var requestReview
     
     @StateObject var viewModel: SettingsViewModel
     @State private var navigationService = NavigationService()
@@ -49,13 +51,31 @@ struct SettingsScreen: GPView {
                 self.viewModel
                     .loadData()
                 
+                
             }
+            
+            // OnChange
+            
             .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
                 
                 guard newValue else { return }
-                dismiss()
+                self.dismiss()
                 
             }
+            
+            .onChange(of: self.viewModel.shouldShowRateAppAlert) { oldValue, newValue in
+                
+                guard newValue else { return }
+                self.requestReview()
+                
+            }
+            
+            // Mail Composer
+            
+            .emailComposer(
+                isPresented: self.$viewModel.shouldShowMailComposer,
+                emailData: self.viewModel.emailData
+            )
             
         }
         

@@ -24,12 +24,25 @@ final class SettingsViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published var shouldDismiss: Bool = false
+    @Published var shouldShowRateAppAlert: Bool = false
+    @Published var shouldShowMailComposer: Bool = false
     
     @MainActor
     var appVersion: String {
         
         let env = self.environmentService.environment?.description ?? ""
         return "\(env) - \(UIApplication.version)"
+        
+    }
+    
+    var emailData: EmailData {
+        
+        return .init(
+            subject: "Customer Support",
+            recipients: [Constants.Legal.supportEmail],
+            body: "",
+            isHTML: false,
+            attachments: [])
         
     }
     
@@ -62,6 +75,14 @@ final class SettingsViewModel: ViewModel {
             
             presentLogoutAlert()
             
+        case .contactSupport:
+            
+            self.shouldShowMailComposer = true
+            
+        case .writeAReview:
+            
+            reviewApp()
+            
         default:
             
             self.navigationService?.push(.setting(setting))
@@ -79,6 +100,13 @@ final class SettingsViewModel: ViewModel {
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    private func reviewApp() {
+        
+        self.shouldShowRateAppAlert = true
+        self.userDefaultsService.set(didRateMyAppAlertShow: true)
+        
     }
     
     private func logout() {

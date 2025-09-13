@@ -136,6 +136,34 @@ struct ClientHomeScreen: GPView {
             ]) {
                 
                 QuickActionTileView(
+                    icon: .image(.iconNoteOutline),
+                    iconBackgroundColor: .color(GPColor.iconPink),
+                    title: "All Notes",
+                    subtitle: "Show All Notes",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    // TODO: - FILL OUT
+                    
+                }
+                
+                QuickActionTileView(
+                    icon: .image(.iconFileOutline),
+                    iconBackgroundColor: .color(GPColor.iconRed),
+                    title: "All Forms",
+                    subtitle: "Show All Forms",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    // TODO: - FILL OUT
+                    
+                }
+                
+                QuickActionTileView(
                     icon: .systemImage("camera.fill"),
                     iconBackgroundColor: .color(GPColor.iconYellow),
                     title: "Camera",
@@ -157,22 +185,7 @@ struct ClientHomeScreen: GPView {
                     icon: .systemImage("photo.on.rectangle.fill"),
                     iconBackgroundColor: .color(GPColor.iconPurple),
                     title: "All Media",
-                    subtitle: "Shows All Media",
-                    prominentSubtitle: false
-                )
-                .appShadow(.subtle)
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.media(.gallery(.client(clientId: client.id))))
-                    
-                }
-                
-                QuickActionTileView(
-                    icon: .image(.iconNoteOutline),
-                    iconBackgroundColor: .color(GPColor.iconPink),
-                    title: "All Notes",
-                    subtitle: "Shows All Notes",
+                    subtitle: "Show All Media",
                     prominentSubtitle: false
                 )
                 .appShadow(.subtle)

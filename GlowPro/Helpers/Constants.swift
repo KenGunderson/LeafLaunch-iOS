@@ -94,7 +94,7 @@ struct Constants {
     
     struct Legal {
         
-        static let supportEmail: String = "test@support.com"
+        static let supportEmail: String = "support@glowpromd.app"
         
         // MARK: - PRIVACY POLICY
         
