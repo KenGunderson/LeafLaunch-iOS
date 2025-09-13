@@ -145,8 +145,8 @@ enum ActivityCategory {
         switch self {
         case .business:return .systemImage("storefront.fill")
         case .location: return .systemImage("pin")
-        case .employee: return .image(.iconPersonOutline)
-        case .client: return .image(.iconPerson2Outline)
+        case .employee: return .systemImage("stethoscope")
+        case .client: return .image(.iconPersonOutline)
         case .form: return .image(.iconFileOutline)
         case .note: return .image(.iconNoteOutline)
         case .camera: return .image(.iconCamera)
