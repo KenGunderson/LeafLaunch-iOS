@@ -58,6 +58,10 @@ final class AboutUsViewModel: ViewModel {
         
     }
     
+    func tagLine() -> String {
+        return "We're not just software\nwe're a family."
+    }
+    
     func aboutUsMessage() -> String {
         
         return """
