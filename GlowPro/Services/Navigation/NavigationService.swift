@@ -355,6 +355,13 @@ extension View {
                 ClientListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            case .clientHome(let clientId):
+                
+                let viewModel = globalResolver.resolve(ClientHomeViewModel.self)!
+                    .setup(clientId: clientId)
+                
+                ClientHomeScreen(viewModel: viewModel)
+                
             }
             
         }
@@ -504,23 +511,6 @@ extension View {
                 
                 let viewModel = globalResolver.resolve(SettingsViewModel.self)!
                 SettingsScreen(viewModel: viewModel)
-                
-            case .clientDetails(let clientId):
-                
-                let clientDetailsViewModel = globalResolver.resolve(ClientDetailsViewModel.self)!
-                    .setup(clientId: clientId)
-                
-                let tab2ViewModel = globalResolver.resolve(Tab2ViewModel.self)!
-                let tab3ViewModel = globalResolver.resolve(Tab3ViewModel.self)!
-                let tab4ViewModel = globalResolver.resolve(Tab4ViewModel.self)!
-                
-                ClientDetailsTabBarScreen(
-                    alertService: clientDetailsViewModel.alertService,
-                    clientDetailsViewModel: clientDetailsViewModel,
-                    tab2ViewModel: tab2ViewModel,
-                    tab3ViewModel: tab3ViewModel,
-                    tab4ViewModel: tab4ViewModel
-                )
                 
             case .mediaTags(let selectedMedia):
                 

@@ -161,7 +161,7 @@ final class ClientListViewModel: ViewModel {
     func selectClient(_ client: Client) {
         
         self.navigationService?
-            .modal(fullScreenCover: .clientDetails(clientId: client.id))
+            .push(.client(.clientHome(clientId: client.id)))
         
     }
     

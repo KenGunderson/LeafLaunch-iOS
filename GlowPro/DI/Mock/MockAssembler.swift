@@ -52,7 +52,6 @@ extension View {
         PreviewWrapper {
             self
         }
-        .environment(TabBarNavigationService())
         .environment(NavigationService())
         .withToastOverlay()
     }

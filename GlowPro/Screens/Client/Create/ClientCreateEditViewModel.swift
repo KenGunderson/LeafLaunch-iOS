@@ -17,6 +17,7 @@ final class ClientCreateEditViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
@@ -37,6 +38,10 @@ final class ClientCreateEditViewModel: ViewModel {
         
     }
     
+    var isOwnerOrManager: Bool {
+        return self.activeDestinationService.isOwnerOrManager
+    }
+    
     private var locationId: String?
     private var clientId: String?
 
@@ -55,6 +60,7 @@ final class ClientCreateEditViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol) {
         
@@ -62,6 +68,7 @@ final class ClientCreateEditViewModel: ViewModel {
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
         
@@ -297,6 +304,61 @@ final class ClientCreateEditViewModel: ViewModel {
             }
             
             self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func presentDeleteClientAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: Constants.Message.deleteConfirmationTitle("Client"),
+                message: Constants.Message.deleteConfirmationMessage("client"),
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    self?.deleteClient()
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    private func deleteClient() {
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .deleteClient(id: self.clientId ?? "")
+                
+                await MainActor.run { [weak self] in
+                    
+                    self?.viewLifecycleService
+                        .reload(for: .clientList)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self?.navigationService?.pop()
+                    }
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.error(
+                        message: Constants.Message.errorMessage(context: .delete, "location"),
+                        action: {})
+                    )))
+                
+            }
             
         }
         

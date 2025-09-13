@@ -65,6 +65,8 @@ enum Route: Navigation, Hashable, Sendable {
         
         case clientList(context: ClientListViewModel.Context)
         
+        case clientHome(clientId: String)
+        
     }
     
     enum MediaRoute: Hashable {

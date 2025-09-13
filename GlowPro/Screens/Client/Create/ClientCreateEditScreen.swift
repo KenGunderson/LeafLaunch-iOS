@@ -84,9 +84,18 @@ struct ClientCreateEditScreen: GPView {
         }
         .asAnyView()
         
+        let deleteButton = NavBarButton(style: .trash) {
+            
+            self.viewModel
+                .presentDeleteClientAlert()
+            
+        }
+        .asAnyView()
+        
         return NavBarView(
             title: self.viewModel.navTitle,
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.isOwnerOrManager ? deleteButton : nil
         )
         
     }

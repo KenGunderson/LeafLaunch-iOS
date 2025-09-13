@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ClientDetailsViewModel: ViewModel {
+final class ClientHomeViewModel: ViewModel {
     
     internal let loggerName: String = "CLIENT_DETAILS_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
@@ -21,6 +21,7 @@ final class ClientDetailsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     @Published private(set) var client: Client?
+    @Published private(set) var location: Location?
     @Published private(set) var activities: [Activity] = []
     @Published private(set) var media: [Media] = []
         
@@ -28,7 +29,7 @@ final class ClientDetailsViewModel: ViewModel {
     
     private(set) var clientId: String!
     
-    private var tabBarNavigationService: TabBarNavigationService?
+    private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     var isOwnerOrManager: Bool {
@@ -68,8 +69,8 @@ final class ClientDetailsViewModel: ViewModel {
         
     }
     
-    func setup(tabBarNavigationService: TabBarNavigationService) {
-        self.tabBarNavigationService = tabBarNavigationService
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
     }
     
     func bindSubsribers() {
@@ -88,6 +89,9 @@ final class ClientDetailsViewModel: ViewModel {
                 let client = try await self.apiService
                     .getClient(id: self.clientId)
                 
+                let location = try await self.apiService
+                    .getLocation(id: client.locationId ?? "")
+                
                 let activities = try await self.apiService
                     .getActivitiy(clientId: self.clientId)
                 
@@ -101,6 +105,7 @@ final class ClientDetailsViewModel: ViewModel {
                 await MainActor.run { [weak self] in
                     
                     self?.client = client
+                    self?.location = location
                     self?.activities = activities
                     self?.media = media
                     
@@ -130,74 +135,35 @@ final class ClientDetailsViewModel: ViewModel {
         
     }
     
-    func track(tab: Tab) {
+    func buildSubtitleString(client: Client) -> String {
         
-        self.analyticsService
-            .track(.main(.tabIntent(tab: tab)))
+        var formattedString = ""
         
-    }
-    
-    func presentDeleteClientAlert() {
+        if let email = client.email {
+            formattedString += "\(email)"
+        }
         
-        self.alertService
-            .showAlert(.init(.appAlert(.init(
-                title: Constants.Message.deleteConfirmationTitle("Client"),
-                message: Constants.Message.deleteConfirmationMessage("client"),
-                primaryButtonTitle: "Yes",
-                primaryButtonAction: { [weak self] in
-                    self?.deleteClient()
-                },
-                primaryButtonBackgroundColor: Style.shared.background(.error),
-                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
-                secondaryButtonTitle: "No",
-                secondaryButtonAction: {},
-                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
-                secondaryButtonTextColor: Style.shared.textColor(.title)
-            ))))
+        if let phoneNumber = client.phoneNumber {
+            formattedString += (formattedString.isEmpty ? "\(phoneNumber)" : " • \(phoneNumber)")
+        }
         
-    }
-    
-    private func deleteClient() {
-        
-        Task {
+        if let dateOfBirth = client.dateOfBirth {
             
-            do {
-                
-                try await self.apiService
-                    .deleteClient(id: self.clientId)
-                
-                await MainActor.run { [weak self] in
-                    
-                    self?.viewLifecycleService
-                        .reload(for: .clientList)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self?.shouldDismiss = true
-                    }
-                    
-                }
-                
-            }
-            catch {
-                
-                self.alertService
-                    .showAlert(.init(.appAlert(.error(
-                        message: Constants.Message.errorMessage(context: .delete, "location"),
-                        action: {})
-                    )))
-                
-            }
+            let dateString = dateOfBirth.formatted(date: .abbreviated, time: .omitted)
+            formattedString += (formattedString.isEmpty ? "\(dateString)" : " • \(dateString)")
             
         }
+        
+        return formattedString.isEmpty ? "Update Client Information" : formattedString
         
     }
     
 }
 
-extension ClientDetailsViewModel {
+extension ClientHomeViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .client(.clientDetails(clientId: self.clientId)))
+        self.analyticsService.track(screen: .client(.clientHome(clientId: self.clientId)))
     }
     
 }

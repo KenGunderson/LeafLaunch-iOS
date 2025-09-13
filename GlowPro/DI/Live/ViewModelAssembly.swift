@@ -135,42 +135,6 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
-        // Tab 2 ViewModel
-        
-        container
-            .register(Tab2ViewModel.self) { r in
-                Tab2ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Tab 3 ViewModel
-        
-        container
-            .register(Tab3ViewModel.self) { r in
-                Tab3ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Tab 4 ViewModel
-        
-        container
-            .register(Tab4ViewModel.self) { r in
-                Tab4ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
         // Business Home
         
         container
@@ -317,6 +281,7 @@ class ViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
@@ -353,8 +318,8 @@ class ViewModelAssembly: Assembly {
         // Client Details
         
         container
-            .register(ClientDetailsViewModel.self) { r in
-                ClientDetailsViewModel(
+            .register(ClientHomeViewModel.self) { r in
+                ClientHomeViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

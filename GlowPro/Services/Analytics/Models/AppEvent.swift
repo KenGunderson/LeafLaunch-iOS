@@ -43,34 +43,7 @@ enum AppEvent: AnalyticsEvent {
         
     }
     
-    enum MainEvent {
-        
-        case tabIntent(tab: Tab)
-        
-        var data: EventData {
-            
-            var eventName: String
-            var properties: [String: Any]?
-            
-            switch self {
-            case .tabIntent(let tab):
-                
-                eventName = "tab_intent"
-                properties = ["tab" : tab.rawValue]
-             
-            }
-            
-            return EventData(
-                name: "main.\(eventName)",
-                properties: properties
-            )
-            
-        }
-        
-    }
-    
     case onboarding(OnboardingEvent)
-    case main(MainEvent)
     
     var eventType: EventType {
         return .app
@@ -80,7 +53,6 @@ enum AppEvent: AnalyticsEvent {
         
         switch self {
         case .onboarding(let event): return event.data
-        case .main(let event): return event.data
         }
         
     }

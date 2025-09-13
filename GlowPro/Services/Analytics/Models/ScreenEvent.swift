@@ -35,30 +35,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
-    enum Tab {
-        
-        case clientDetails
-        case tab2
-        case tab3
-        case tab4
-        
-        var screenName: String {
-            
-            var name: String
-            
-            switch self {
-            case .clientDetails: name = "client_details"
-            case .tab2: name = "Tab 2"
-            case .tab3: name = "Tab 3"
-            case .tab4: name = "Tab 4"
-            }
-            
-            return "tab.\(name)"
-            
-        }
-        
-    }
-    
     enum ProfileScreen {
         
         case profile(userId: String)
@@ -194,7 +170,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
         case clientList
         case clientCreateEdit(clientId: String?)
-        case clientDetails(clientId: String)
+        case clientHome(clientId: String)
         
         var screenName: String {
             
@@ -203,7 +179,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .clientList: name = "client_list"
             case .clientCreateEdit: name = "client_create_edit"
-            case .clientDetails: name = "client_details"
+            case .clientHome: name = "client_home"
             }
             
             return "client.\(name)"
@@ -223,7 +199,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
                 ]
                 .compact()
                 
-            case .clientDetails(let clientId): return ["client_id": clientId]
+            case .clientHome(let clientId): return ["client_id": clientId]
             }
             
         }
@@ -344,7 +320,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case main
     case home
     case onboarding(OnboardingScreen)
-    case tab(Tab)
     case business(BusinessScreen)
     case client(ClientScreen)
     case media(MediaScreen)
@@ -368,7 +343,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case .main: screenName = "main"
         case .home: screenName = "home"
         case .onboarding(let screen): screenName = screen.screenName
-        case .tab(let screen): screenName = screen.screenName
         case .business(let screen):
             
             screenName = screen.screenName
