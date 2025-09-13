@@ -17,6 +17,7 @@ struct GPColor {
     static let iconRed = Color(hex: "#E94E77")
     static let iconTeal = Color(hex: "#1BCFCF")
     static let iconPink = Color(hex: "#FF6FB5")
+    static let iconAmber = Color(hex: "#F89C25")
     
     static let purple = Color(hex: "#6343BF")
     static let lightPurple = Color(hex: "#E3DDF8")

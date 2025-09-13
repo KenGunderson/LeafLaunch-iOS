@@ -24,7 +24,7 @@ struct ActivitiesView: View {
         
         LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
-            ForEach(activityDict.keys.sorted(), id: \.date) { key in
+            ForEach(activityDict.keys.sorted(by: { $0 > $1}), id: \.date) { key in
                 
                 section(
                     date: key.formatted(date: .abbreviated, time: .omitted),

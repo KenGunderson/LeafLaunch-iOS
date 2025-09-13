@@ -55,7 +55,7 @@ struct BusinessLocationHomeScreen: GPView {
                 
         NavHeader(
             title: self.viewModel.business?.name ?? "",
-            subtitle: self.viewModel.location?.name ?? "",
+            subtitle: "Location Dashboard",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
                 
@@ -93,13 +93,15 @@ struct BusinessLocationHomeScreen: GPView {
     @ViewBuilder
     private func tilesGrid() -> some View {
         
+        let location = self.viewModel.location
+        
         VStack(spacing: Style.shared.spacing(.small)) {
             
             QuickActionTileView(
-                icon: .systemImage("storefront.fill"),
-                iconBackgroundColor: .color(GPColor.iconBlue),
-                title: "Location Information",
-                subtitle: self.viewModel.business?.address?.shortFormattedAddress ?? "No Address",
+                icon: ActivityCategory.location.icon,
+                iconBackgroundColor: .color(ActivityCategory.location.color),
+                title: location?.name ?? "Location Information",
+                subtitle: location?.address.shortFormattedAddress ?? "No Address",
                 prominentSubtitle: false
             )
             .appShadow(.subtle)
@@ -119,8 +121,8 @@ struct BusinessLocationHomeScreen: GPView {
             ]) {
                 
                 QuickActionTileView(
-                    icon: .systemImage("person.2.fill"),
-                    iconBackgroundColor: .color(GPColor.iconGreen),
+                    icon: ActivityCategory.employee.icon,
+                    iconBackgroundColor: .color(ActivityCategory.employee.color),
                     title: "Employees",
                     subtitle: "View All Employees",
                     prominentSubtitle: false
@@ -139,8 +141,8 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("person.3.fill"),
-                    iconBackgroundColor: .color(GPColor.iconOrange),
+                    icon: ActivityCategory.client.icon,
+                    iconBackgroundColor: .color(ActivityCategory.client.color),
                     title: "Clients",
                     subtitle: "View All Clients",
                     prominentSubtitle: false
@@ -154,8 +156,8 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("camera.fill"),
-                    iconBackgroundColor: .color(GPColor.iconYellow),
+                    icon: ActivityCategory.camera.icon,
+                    iconBackgroundColor: .color(ActivityCategory.camera.color),
                     title: "Camera",
                     subtitle: "Quick Photo Capture",
                     prominentSubtitle: false
@@ -172,8 +174,8 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("photo.on.rectangle.fill"),
-                    iconBackgroundColor: .color(GPColor.iconPurple),
+                    icon: ActivityCategory.media.icon,
+                    iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "Photo Gallery",
                     subtitle: "View All Photos",
                     prominentSubtitle: false

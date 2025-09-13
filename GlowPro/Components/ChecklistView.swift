@@ -27,19 +27,19 @@ struct ChecklistView: View {
         
         var icon: ImageSource {
             switch self {
-            case .completeProfile: return .image(.iconNoteOutline)
-            case .createLocation: return .systemImage("pin")
-            case .createClient: return .image(.iconPersonOutline)
-            case .createMedia: return .image(.iconCamera)
+            case .completeProfile: return ActivityCategory.business.icon
+            case .createLocation: return ActivityCategory.location.icon
+            case .createClient: return ActivityCategory.client.icon
+            case .createMedia: return ActivityCategory.camera.icon
             }
         }
         
         var color: Color {
             switch self {
-            case .completeProfile: return GPColor.iconGreen
-            case .createLocation: return GPColor.iconYellow
-            case .createClient: return GPColor.iconPurple
-            case .createMedia: return GPColor.iconTeal
+            case .completeProfile: return ActivityCategory.business.color
+            case .createLocation: return ActivityCategory.location.color
+            case .createClient: return ActivityCategory.client.color
+            case .createMedia: return ActivityCategory.camera.color
             }
         }
          

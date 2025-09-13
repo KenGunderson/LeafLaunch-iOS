@@ -112,8 +112,8 @@ struct ClientHomeScreen: GPView {
         VStack(spacing: Style.shared.spacing(.small)) {
             
             QuickActionTileView(
-                icon: .systemImage("person.fill"),
-                iconBackgroundColor: .color(GPColor.iconBlue),
+                icon: ActivityCategory.client.icon,
+                iconBackgroundColor: .color(ActivityCategory.client.color),
                 title: client.fullName,
                 subtitle: viewModel.buildSubtitleString(client: client),
                 prominentSubtitle: false
@@ -136,8 +136,8 @@ struct ClientHomeScreen: GPView {
             ]) {
                 
                 QuickActionTileView(
-                    icon: .image(.iconNoteOutline),
-                    iconBackgroundColor: .color(GPColor.iconPink),
+                    icon: ActivityCategory.note.icon,
+                    iconBackgroundColor: .color(ActivityCategory.note.color),
                     title: "All Notes",
                     subtitle: "Show All Notes",
                     prominentSubtitle: false
@@ -150,8 +150,8 @@ struct ClientHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .image(.iconFileOutline),
-                    iconBackgroundColor: .color(GPColor.iconRed),
+                    icon: ActivityCategory.form.icon,
+                    iconBackgroundColor: .color(ActivityCategory.form.color),
                     title: "All Forms",
                     subtitle: "Show All Forms",
                     prominentSubtitle: false
@@ -164,8 +164,8 @@ struct ClientHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("camera.fill"),
-                    iconBackgroundColor: .color(GPColor.iconYellow),
+                    icon: ActivityCategory.camera.icon,
+                    iconBackgroundColor: .color(ActivityCategory.camera.color),
                     title: "Camera",
                     subtitle: "Quick Photo Capture",
                     prominentSubtitle: false
@@ -182,8 +182,8 @@ struct ClientHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("photo.on.rectangle.fill"),
-                    iconBackgroundColor: .color(GPColor.iconPurple),
+                    icon: ActivityCategory.media.icon,
+                    iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "All Media",
                     subtitle: "Show All Media",
                     prominentSubtitle: false

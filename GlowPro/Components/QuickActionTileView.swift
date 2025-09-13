@@ -31,7 +31,7 @@ struct QuickActionTileView: View {
     
     var body: some View {
         
-        let subtitleFont: Theme.FontKey = self.prominentSubtitle ? .TITLE_6 : .BODY_1
+        let subtitleFont: Theme.FontKey = self.prominentSubtitle ? .TITLE_7 : .BODY_1
         let subtitleColor = Style.shared.textColor(self.prominentSubtitle ? .title : .body)
         
         VStack(
@@ -52,7 +52,7 @@ struct QuickActionTileView: View {
             )
             
             Text(self.title)
-                .appFont(with: .TITLE_3)
+                .appFont(with: .TITLE_4)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .padding(.top, .small)
             
@@ -78,6 +78,7 @@ struct QuickActionTileView: View {
         .padding(.horizontal, .medium)
         .padding(.vertical, .large)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: 152)
         .background(Style.shared.background(.secondary).source())
         .cornerRadius(.small)
         

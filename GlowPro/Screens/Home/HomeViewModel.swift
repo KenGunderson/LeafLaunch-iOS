@@ -25,6 +25,14 @@ final class HomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var pendingInvites: [EmployeeInvite] = []
     @Published private(set) var workspaces: [Workspace] = []
+    
+    var hasActiveBusiness: Bool {
+        return self.workspaces.contains(where: { $0.isOwner })
+    }
+    
+    var hasActiveWorkspace: Bool {
+        return self.workspaces.count > 0
+    }
         
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,

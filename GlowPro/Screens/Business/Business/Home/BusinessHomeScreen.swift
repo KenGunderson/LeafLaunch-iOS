@@ -106,9 +106,9 @@ struct BusinessHomeScreen: GPView {
         VStack(spacing: Style.shared.spacing(.small)) {
             
             QuickActionTileView(
-                icon: .systemImage("storefront.fill"),
-                iconBackgroundColor: .color(GPColor.iconBlue),
-                title: "Business Information",
+                icon: ActivityCategory.business.icon,
+                iconBackgroundColor: .color(ActivityCategory.business.color),
+                title: self.viewModel.business?.name ?? "Business Information",
                 subtitle: self.viewModel.business?.address?.shortFormattedAddress ?? "No Address",
                 prominentSubtitle: false
             )
@@ -128,8 +128,8 @@ struct BusinessHomeScreen: GPView {
             ]) {
                 
                 QuickActionTileView(
-                    icon: .systemImage("person.2.fill"),
-                    iconBackgroundColor: .color(GPColor.iconGreen),
+                    icon: ActivityCategory.employee.icon,
+                    iconBackgroundColor: .color(ActivityCategory.employee.color),
                     title: "All Employees",
                     subtitle: "\(self.viewModel.business?.totalEmployeeCount ?? 0)",
                     prominentSubtitle: true
@@ -146,8 +146,8 @@ struct BusinessHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("pin.fill"),
-                    iconBackgroundColor: .color(GPColor.iconYellow),
+                    icon: ActivityCategory.location.icon,
+                    iconBackgroundColor: .color(ActivityCategory.location.color),
                     title: "All Locations",
                     subtitle: "\(self.viewModel.business?.totalLocationCount ?? 0)",
                     prominentSubtitle: true
@@ -161,8 +161,8 @@ struct BusinessHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("person.3.fill"),
-                    iconBackgroundColor: .color(GPColor.iconOrange),
+                    icon: ActivityCategory.client.icon,
+                    iconBackgroundColor: .color(ActivityCategory.client.color),
                     title: "All Clients",
                     subtitle: "\(self.viewModel.business?.totalClientCount ?? 0)",
                     prominentSubtitle: true
@@ -176,8 +176,8 @@ struct BusinessHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: .systemImage("photo.on.rectangle.fill"),
-                    iconBackgroundColor: .color(GPColor.iconPurple),
+                    icon: ActivityCategory.media.icon,
+                    iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "All Media",
                     subtitle: "\(self.viewModel.business?.totalMediaCount ?? 0)",
                     prominentSubtitle: true

@@ -68,10 +68,13 @@ struct HomeScreen: GPView {
     private func navBarView() -> some View {
         
         let currentUser = viewModel.currentUser
+        let subtitle = self.viewModel.hasActiveWorkspace
+            ? "Select where you're working today"
+            : "Let's get started"
         
         NavHeader(
             title: "Good Morning, \(currentUser?.firstName ?? "")",
-            subtitle: "Select where you're working today",
+            subtitle: subtitle,
             avatar: .initials(name: currentUser?.fullName ?? ""),
             trailingNavButtons: [
                 .bell(notificationCount: self.viewModel.pendingInvites.count),
@@ -95,7 +98,7 @@ struct HomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
                         
-            let hasActiveBusiness = self.viewModel.workspaces.contains(where: { $0.isOwner })
+            let hasActiveBusiness = self.viewModel.hasActiveBusiness
             
             BusinessDashboardView(isBusinessActive: hasActiveBusiness)
                 .asButton {
@@ -118,9 +121,7 @@ struct HomeScreen: GPView {
                     
                 }
             
-            if self.viewModel.workspaces.isEmpty {
-                emptyStateView()
-            } else {
+            if self.viewModel.hasActiveBusiness {
                 
                 SectionView(
                     leadingTitle: "Choose Your Location",
@@ -129,6 +130,8 @@ struct HomeScreen: GPView {
                 
                 workspacesList()
                 
+            } else {
+                emptyStateView()
             }
             
         }

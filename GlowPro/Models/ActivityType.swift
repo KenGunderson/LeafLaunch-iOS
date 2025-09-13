@@ -68,31 +68,31 @@ enum ActivityType: String, Codable, CaseIterable {
         switch self {
         case .businessCreated,
              .businessUpdated,
-             .businessDeleted: return GPColor.iconBlue
+             .businessDeleted: return ActivityCategory.business.color
             
         case .locationCreated,
              .locationUpdated,
-             .locationDeleted: return GPColor.iconGreen
+             .locationDeleted: return ActivityCategory.location.color
             
         case .employeeInvited,
              .employeeInivteDeleted,
              .employeeCreated,
-             .employeeDeleted: return GPColor.iconOrange
+             .employeeDeleted: return ActivityCategory.employee.color
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return GPColor.iconPurple
+             .clientDeleted: return ActivityCategory.client.color
             
-        case .formSubmitted: return GPColor.iconRed
+        case .formSubmitted: return ActivityCategory.form.color
             
         case .noteAdded,
              .noteDeleted,
              .quickNote,
-             .soapNote: return GPColor.iconPink
+             .soapNote: return ActivityCategory.note.color
             
         case .mediaAdded,
              .mediaFavorited,
-             .mediaDeleted:  return GPColor.iconTeal
+             .mediaDeleted:  return ActivityCategory.media.color
         }
     }
     
@@ -100,33 +100,71 @@ enum ActivityType: String, Codable, CaseIterable {
         switch self {
         case .businessCreated,
              .businessUpdated,
-             .businessDeleted: return .systemImage("storefront")
+             .businessDeleted: return ActivityCategory.business.icon
             
         case .locationCreated,
              .locationUpdated,
-             .locationDeleted: return .systemImage("pin")
+             .locationDeleted: return ActivityCategory.location.icon
             
         case .employeeInvited,
              .employeeInivteDeleted,
              .employeeCreated,
-             .employeeDeleted: return .image(.iconPersonOutline)
+             .employeeDeleted: return ActivityCategory.employee.icon
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return .image(.iconPerson2Outline)
+             .clientDeleted: return ActivityCategory.client.icon
             
-        case .formSubmitted: return .image(.iconFileOutline)
+        case .formSubmitted: return ActivityCategory.form.icon
             
         case .noteAdded,
              .noteDeleted,
              .quickNote,
-             .soapNote: return .image(.iconNoteOutline)
+             .soapNote: return ActivityCategory.note.icon
             
         case .mediaAdded,
              .mediaFavorited,
-             .mediaDeleted:  return .image(.iconCamera)
+             .mediaDeleted:  return ActivityCategory.media.icon
         }
-        
+    }
+    
+}
+
+enum ActivityCategory {
+    
+    case business
+    case location
+    case employee
+    case client
+    case form
+    case note
+    case camera
+    case media
+    
+    var icon: ImageSource {
+        switch self {
+        case .business:return .systemImage("storefront.fill")
+        case .location: return .systemImage("pin")
+        case .employee: return .image(.iconPersonOutline)
+        case .client: return .image(.iconPerson2Outline)
+        case .form: return .image(.iconFileOutline)
+        case .note: return .image(.iconNoteOutline)
+        case .camera: return .image(.iconCamera)
+        case .media: return .systemImage("photo.on.rectangle.fill")
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .business: return GPColor.iconBlue
+        case .location: return GPColor.iconGreen
+        case .employee: return GPColor.iconAmber
+        case .client: return GPColor.iconPurple
+        case .form: return GPColor.iconRed
+        case .note: return GPColor.iconPink
+        case .camera: return GPColor.iconTeal
+        case .media: return GPColor.iconTeal
+        }
     }
     
 }
