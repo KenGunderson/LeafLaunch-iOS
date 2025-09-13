@@ -144,7 +144,10 @@ final class ClientHomeViewModel: ViewModel {
         }
         
         if let phoneNumber = client.phoneNumber {
+            
+            let phoneNumber = phoneNumber.formatted(.phone(usesParentheses: true, defaultCountryCode: nil))
             formattedString += (formattedString.isEmpty ? "\(phoneNumber)" : " • \(phoneNumber)")
+            
         }
         
         if let dateOfBirth = client.dateOfBirth {
