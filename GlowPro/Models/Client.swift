@@ -40,6 +40,19 @@ struct Client: Codable,
         return email != nil || phoneNumber != nil || dateOfBirth != nil
     }
     
+    var dateOfBirthWithCurrentYear: Date {
+        
+        guard let dob = self.dateOfBirth else { return .now }
+
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.month, .day], from: dob)
+        components.year = calendar.component(.year, from: Date())
+        
+        guard let normalizedDate = calendar.date(from: components) else { return .now }
+        return normalizedDate.date
+        
+    }
+    
     init(id: String,
          firstName: String,
          lastName: String,

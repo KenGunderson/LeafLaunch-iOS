@@ -270,7 +270,10 @@ struct BusinessLocationHomeScreen: GPView {
     @ViewBuilder
     private func clientBirthdayList() -> some View {
         
-        let clientBirthdays = self.viewModel.location?.clientsWithBirthdaysThisMonth ?? []
+        let clientBirthdays = (self.viewModel
+            .location?
+            .clientsWithBirthdaysThisMonth ?? [])
+            .sorted { ($0.dateOfBirthWithCurrentYear) < ($1.dateOfBirthWithCurrentYear) }
         
         if !clientBirthdays.isEmpty {
             

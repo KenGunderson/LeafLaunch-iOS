@@ -308,7 +308,10 @@ struct BusinessHomeScreen: GPView {
     @ViewBuilder
     private func clientBirthdayList() -> some View {
         
-        let clientBirthdays = self.viewModel.business?.clientsWithBirthdaysThisMonth ?? []
+        let clientBirthdays = (self.viewModel
+            .business?
+            .clientsWithBirthdaysThisMonth ?? [])
+            .sorted { ($0.dateOfBirthWithCurrentYear) < ($1.dateOfBirthWithCurrentYear) }
         
         if !clientBirthdays.isEmpty {
             
