@@ -55,16 +55,7 @@ struct ActivityView: View {
     
     private func date() -> some View {
         
-        var formattedDate = DateComponentsFormatter.shortRelative.string(
-            from: self.activity.createdAt ?? .now,
-            to: Date()
-        )
-        
-        if formattedDate == "0m" {
-            formattedDate = "now"
-        }
-        
-        return Text(formattedDate ?? "")
+        return Text(self.activity.createdAt?.relativeDateString() ?? "")
             .appFont(with: .BODY_2)
             .foregroundStyle(Style.shared.textColor(.body).source())
         

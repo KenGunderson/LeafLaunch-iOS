@@ -79,6 +79,9 @@ struct BusinessEmployeeDetailsScreen: GPView {
             profile()
                 .padding(.horizontal, .medium)
             
+            activeLocations()
+                .padding(.horizontal, .medium)
+            
             media()
             
             activities()
@@ -96,7 +99,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
             
             SectionView(leadingTitle: "Profile", showDivider: true)
             
-            AppCardView {
+            AppCardView(shadow: .subtle) {
                 
                 VStack(alignment: .leading) {
                     
@@ -176,6 +179,48 @@ struct BusinessEmployeeDetailsScreen: GPView {
             }
             
             ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func activeLocations() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Active Locations",
+                showDivider: true
+            )
+            
+            ForEach(self.viewModel.activeLocations, id: \.self) { location in
+                activeLocation(location)
+            }
+            
+        }
+        
+    }
+    
+    private func activeLocation(_ activeLocation: Workspace.RoleLocation) -> some View {
+        
+        AppCardView(shadow: .subtle) {
+            
+            VStack(alignment: .leading) {
+                
+                LineItemView(
+                    title: "Location",
+                    value: activeLocation.location.name,
+                    systemName: "pin.fill"
+                )
+                
+                LineItemView(
+                    title: "Role",
+                    value: activeLocation.role.description,
+                    systemName: "person.text.rectangle.fill"
+                )
+                
+            }
             
         }
         

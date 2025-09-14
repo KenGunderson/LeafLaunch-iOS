@@ -20,7 +20,7 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         var displayName: String {
             switch self {
-            case .name: return "Business Name"
+            case .name: return "Location Name"
             case .street: return "Street"
             case .street2: return "Street 2"
             case .city: return "City"

@@ -20,3 +20,22 @@ extension DateComponentsFormatter {
     }()
     
 }
+
+extension Date {
+    
+    func relativeDateString() -> String {
+        
+        var formattedDate = DateComponentsFormatter.shortRelative.string(
+            from: self,
+            to: Date()
+        )
+        
+        if formattedDate == "0m" {
+            formattedDate = "now"
+        }
+        
+        return formattedDate ?? "N/A"
+        
+    }
+    
+}

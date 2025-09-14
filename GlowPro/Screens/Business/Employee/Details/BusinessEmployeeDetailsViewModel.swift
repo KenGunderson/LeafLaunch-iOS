@@ -20,6 +20,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var employee: Employee?
+    @Published private(set) var activeLocations: [Workspace.RoleLocation] = []
     @Published private(set) var activities: [Activity] = []
     @Published private(set) var media: [Media] = []
     
@@ -99,11 +100,20 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 let activities = try await self.apiService
                     .getActivitiy(employeeId: self.employeeId)
                 
+                let workspaces = try await self.apiService
+                    .getWorkspaces()
+                
                 await MainActor.run { [weak self] in
 
                     self?.employee = employee
                     self?.media = media
                     self?.activities = activities
+                    
+                    let roleLocations =  workspaces
+                        .filter({ $0.id == self?.businessId })
+                        .flatMap({ $0.roleLocations })
+                    
+                    self?.activeLocations = roleLocations
                     
                 }
                 

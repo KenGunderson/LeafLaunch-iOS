@@ -43,7 +43,7 @@ struct NoteListScreen: GPView {
         AppHeaderScrollView(horizontalPadding: .none) {
             navBar()
         } scrollViewContent: {
-            contentCards()
+            noteList()
         }
         .emptyStateOverlay(
             shouldShow: self.viewModel.shouldShowEmptyState,
@@ -71,7 +71,7 @@ struct NoteListScreen: GPView {
         .asAnyView()
         
         return NavBarView(
-            title: "Locations",
+            title: "Notes",
             leftButtonView: backButton,
             rightButtonView: plusButton
         )
@@ -79,7 +79,7 @@ struct NoteListScreen: GPView {
     }
     
     
-    private func contentCards() -> some View {
+    private func noteList() -> some View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
@@ -95,29 +95,49 @@ struct NoteListScreen: GPView {
     
     private func noteItem(_ note: Note) -> some View {
         
-        AppCardView {
+        AppCardView(shadow: .subtle) {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
                 
-                HStack {
-                    
-                    Text(note.title)
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
+                Text(note.title)
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(note.message)
+                    .appFont(with: .BODY_2)
+                    .lineLimit(2)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
             }
-            .asButton {
+            
+            VStack {
                 
-                self.navigationService
-                    .push(.note(.noteCreateEdit(
-                        context: .update(noteId: note.id),
-                        clientId: note.clientId.id)
-                    ))
+                Text(note.createdAt?.relativeDateString() ?? "")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+                Spacer()
                 
             }
+            
+        }
+        .asButton {
+            
+            self.navigationService
+                .push(.note(.noteCreateEdit(
+                    context: .update(noteId: note.id),
+                    clientId: note.clientId.id)
+                ))
             
         }
         
