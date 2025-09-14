@@ -55,7 +55,7 @@ struct ActivityView: View {
     
     private func date() -> some View {
         
-        return Text(self.activity.createdAt?.relativeDateString() ?? "")
+        return Text(self.activity.createdAt?.relativeDateStringWithOverride() ?? "")
             .appFont(with: .BODY_2)
             .foregroundStyle(Style.shared.textColor(.body).source())
         

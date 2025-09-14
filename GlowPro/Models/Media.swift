@@ -83,7 +83,7 @@ struct Media: Identifiable,
     var createdAt: Date? {
 
         self._createdAt?
-            .toDate()?
+            .toDate(region: .local)?
             .date
 
     }
@@ -91,7 +91,7 @@ struct Media: Identifiable,
     var updatedAt: Date? {
 
         self._updatedAt?
-            .toDate()?
+            .toDate(region: .local)?
             .date
         
     }

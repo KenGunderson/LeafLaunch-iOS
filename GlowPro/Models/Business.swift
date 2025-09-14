@@ -27,6 +27,7 @@ struct Business: Identifiable,
     var locations: [Location]
     var employeeInvites: [EmployeeInvite]
     var media: [Media]
+    var clientsWithBirthdaysThisMonth: [Client] = []
     
     var totalLocationCount: Int
     var totalClientCount: Int
@@ -93,6 +94,7 @@ struct Business: Identifiable,
         case totalClientCount = "total_clients"
         case totalEmployeeCount = "total_employees"
         case totalMediaCount = "total_media"
+        case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"
         
     }
     

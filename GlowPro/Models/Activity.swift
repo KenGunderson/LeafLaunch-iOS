@@ -21,7 +21,7 @@ struct Activity: Codable, Mockable, Equatable {
     var createdAt: Date? {
         
         self._createdAt?
-            .toDate()?
+            .toDate(region: .local)?
             .date
         
     }
@@ -29,7 +29,7 @@ struct Activity: Codable, Mockable, Equatable {
     var updatedAt: Date? {
         
         self._createdAt?
-            .toDate()?
+            .toDate(region: .local)?
             .date
         
     }

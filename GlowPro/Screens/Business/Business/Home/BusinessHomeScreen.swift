@@ -94,6 +94,7 @@ struct BusinessHomeScreen: GPView {
             quickActionButtons()
             checklist()
             pendingInvitesList()
+            clientBirthdayList()
             activitiesList()
             
         }
@@ -297,6 +298,27 @@ struct BusinessHomeScreen: GPView {
                 }
                 
                 ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func clientBirthdayList() -> some View {
+        
+        let clientBirthdays = self.viewModel.business?.clientsWithBirthdaysThisMonth ?? []
+        
+        if !clientBirthdays.isEmpty {
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                SectionView(leadingTitle: "Client Birthdays", showDivider: true)
+                
+                ForEach(clientBirthdays, id: \.self) { client in
+                    ClientBirthdayView(client: client)
+                }
                 
             }
             

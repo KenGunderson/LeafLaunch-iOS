@@ -114,7 +114,7 @@ struct NoteListScreen: GPView {
             
             VStack {
                 
-                Text(note.createdAt?.relativeDateString() ?? "")
+                Text(note.createdAt?.relativeDateStringWithOverride() ?? "")
                     .appFont(with: .BODY_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 

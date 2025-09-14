@@ -33,7 +33,7 @@ struct GPUser: Codable,
     var birthday: Date? {
 
         self._birthday?
-            .toDate()?
+            .toDate(region: .local)?
             .date
 
     }

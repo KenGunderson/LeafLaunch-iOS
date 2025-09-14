@@ -264,6 +264,8 @@
 		7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
 		7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */; };
 		7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
+		7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
+		7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */; };
 		75715AD02DB9365F00E7994E /* ClientHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */; };
 		75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75740B762E0A1FB700EF8627 /* FAQViewModel.swift */; };
@@ -673,6 +675,7 @@
 		7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeScreen.swift; sourceTree = "<group>"; };
 		7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeViewModel.swift; sourceTree = "<group>"; };
 		7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeScreen.swift; sourceTree = "<group>"; };
+		7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientBirthdayView.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeScreen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeViewModel.swift; sourceTree = "<group>"; };
 		75740B762E0A1FB700EF8627 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
@@ -1618,6 +1621,7 @@
 				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
 				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
 				754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */,
+				7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */,
 				753B113A2E60D8FA0080C9FF /* ChecklistView.swift */,
 				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				75136AA72E7477AD00779BB9 /* LineItemView.swift */,
@@ -2366,6 +2370,7 @@
 				75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
+				7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
@@ -2618,6 +2623,7 @@
 				75D66DD82DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
+				7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,

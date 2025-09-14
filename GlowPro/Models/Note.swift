@@ -25,7 +25,7 @@ struct Note: Identifiable,
     var createdAt: Date? {
 
         self._createdAt?
-            .toDate()?
+            .toDate(region: .local)?
             .date
 
     }

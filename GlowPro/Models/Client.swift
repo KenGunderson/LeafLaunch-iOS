@@ -27,7 +27,7 @@ struct Client: Codable,
     var dateOfBirth: Date? {
 
         self._dateOfBirth?
-            .toDate()?
+            .toDate(region: .local)?
             .date
 
     }
