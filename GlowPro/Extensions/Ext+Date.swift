@@ -67,7 +67,7 @@ extension Date {
     
     /// Calendar-day relative string. Compares startOfDay to avoid "today" for a date on the next day.
     /// Examples: today/tomorrow/yesterday, "in 3 days", "2 days ago"
-    func calendarDayRelativeString(nowOverride: String = "today") -> String {
+    func calendarDayRelativeString(nowOverride: String = "Today") -> String {
         
         var formattedDate = self.date.preciseFutureRelativeString(
             unitStyle: .full,
@@ -77,10 +77,10 @@ extension Date {
         formattedDate.removeAll(where: { $0 == "-"})
         
         if formattedDate == "0 days" { return nowOverride }
-        if formattedDate == "1 day" { return "yesterday" }
-        if formattedDate == "-1 day" { return "tomorrow" }
+        if formattedDate == "1 day" { return "Yesterday" }
+        if formattedDate == "-1 day" { return "Tomorrow" }
         
-        return formattedDate
+        return formattedDate.capitalized
         
     }
     
@@ -93,11 +93,11 @@ extension Date {
         VStack {
             
             Text(Date().relativeDateStringWithOverride())
-            Text(Date().dateByAdding(1, .minute).dateByAdding(1, .second).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(1, .hour).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(1, .day).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(1, .month).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(1, .year).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(-1, .minute).dateByAdding(-1, .second).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(-1, .hour).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(-1, .day).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(-1, .month).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(-1, .year).date.relativeDateStringWithOverride())
             
             Rectangle()
                 .fill(.clear)

@@ -51,7 +51,8 @@ struct Business: Identifiable,
          totalLocationCount: Int = 0,
          totalClientCount: Int = 0,
          totalEmployeeCount: Int = 0,
-         totalMediaCount: Int = 0) {
+         totalMediaCount: Int = 0,
+         clientsWithBirthdaysThisMonth: [Client] = []) {
         
         self.id = id
         self.name = name
@@ -71,6 +72,7 @@ struct Business: Identifiable,
         self.totalClientCount = totalClientCount
         self.totalEmployeeCount = totalEmployeeCount
         self.totalMediaCount = totalMediaCount
+        self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
         
     }
     

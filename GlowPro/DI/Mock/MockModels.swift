@@ -347,7 +347,8 @@ struct MockModels {
             businessId: ID.business1,
             name: "First Location",
             address: .DUMMY_DATA(),
-            employees: [MockLocationEmployee.locationEmployee1]
+            employees: [MockLocationEmployee.locationEmployee1],
+            clientsWithBirthdaysThisMonth: [MockClient.client1]
         )
 
         nonisolated(unsafe)
@@ -427,7 +428,8 @@ struct MockModels {
             employeeInvites: [
                 MockEmployeeInvite.employeeInvite1,
                 MockEmployeeInvite.employeeInvite2,
-            ]
+            ],
+            clientsWithBirthdaysThisMonth: [MockClient.client1]
         )
         
         nonisolated(unsafe)
@@ -522,7 +524,7 @@ struct MockModels {
             lastName: "Smith",
             email: "joe@me.com",
             phone: "878-789-3232",
-            dateOfBirth: Date().addingTimeInterval(-785849).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-0).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
@@ -534,7 +536,7 @@ struct MockModels {
             lastName: "Glover",
             email: "mary@me.com",
             phone: "878-789-3232",
-            dateOfBirth: Date().addingTimeInterval(-4456).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-1000).ISO8601Format(),
             imageURL: nil,
             employeeId: MockEmployee.employee1.id
         )
