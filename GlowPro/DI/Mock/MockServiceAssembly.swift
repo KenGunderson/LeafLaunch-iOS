@@ -112,6 +112,7 @@ final class MockAPIService: APIServiceProtocol {
     private var media: [Media]
     private var mediaTags: [MediaTag] = []
     private var activities: [Activity]
+    private var notes: [Note] = []
     
     init() {
         
@@ -124,6 +125,7 @@ final class MockAPIService: APIServiceProtocol {
         self.media = MockModels.allMedia
         self.mediaTags = MockModels.allMediaTags
         self.activities = MockModels.allActivities
+        self.notes = MockModels.allNotes
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -798,6 +800,38 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         return self.activities.filter { $0.clientId == clientId }
     }
     
+    // Notes
+    
+    func getNotes(clientId: String) async throws -> [Note] {
+        return self.notes.filter { $0.clientId == clientId }
+    }
+    
+    func getNote(id: String) async throws -> Note {
+        
+        if let note = self.notes.first(where: { $0.id == id }) {
+            return note
+        }
+        
+        return .DUMMY_DATA()
+        
+    }
+    
+    func createNote(note: Note) async throws {
+        self.notes.append(note)
+    }
+    
+    func updateNote(note: Note) async throws {
+        
+        if let index = self.notes.firstIndex(where: { $0.id == note.id }) {
+            self.notes[index] = note
+        }
+        
+    }
+    
+    func deleteNote(id: String) async throws {
+        self.notes.removeAll(where: { $0.id == id })
+    }
+    
     // System
     
     func getLegalInformation(context: String) -> [LegalItem] {
@@ -990,6 +1024,7 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     private(set) var role: Role? = .owner
     internal var business: Business? = MockModels.MockBusiness.business1
     internal var businessId: String? = MockModels.ID.business1
+    internal var locationEmployee: LocationEmployee? = MockModels.MockLocationEmployee.locationEmployee1
     
     @Published private(set) var activeDestination: ActiveDestination?
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {

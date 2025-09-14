@@ -380,6 +380,36 @@ class MockViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // Note List
+        
+        container
+            .register(NoteListViewModel.self) { r in
+                NoteListViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                )
+            }.inObjectScope(.transient)
+        
+        // Note Create Edit
+        
+        container
+            .register(NoteCreateEditViewModel.self) { r in
+                NoteCreateEditViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
         // Settings
         
         container

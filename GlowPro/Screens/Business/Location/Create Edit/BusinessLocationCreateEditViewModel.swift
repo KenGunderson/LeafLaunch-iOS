@@ -167,6 +167,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         }
         
     }
+    
     func presentDeleteLocationAlert() {
             
             self.alertService

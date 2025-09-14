@@ -21,6 +21,8 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     var business: Business? { get set }
     var businessId: String? { get set }
     
+    var locationEmployee: LocationEmployee? { get set }
+    
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
     func refresh()

@@ -116,7 +116,7 @@ struct ActivitiesView: View {
                 authorId: "",
                 businessId: MockModels.ID.business1,
                 locationId: MockModels.ID.location1,
-                activityType: .noteAdded,
+                activityType: .noteCreated,
                 createdAt: Date().toISO()
             ),
             .init(

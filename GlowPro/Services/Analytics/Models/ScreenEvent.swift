@@ -244,6 +244,53 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum NoteScreen {
+        
+        case noteList(clientId: String)
+        
+        case createEdit(context: NoteCreateEditViewModel.Context,
+                        clientId: String)
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .noteList: name = "list"
+            case .createEdit: name = "create_edit"
+            }
+            
+            return "note.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .noteList(let clientId): return ["client_id": clientId]
+            case .createEdit(let context, let clientId):
+                
+                switch context {
+                case .create: return [
+                    "context": "create",
+                    "client_id": clientId
+                ]
+                    
+                case .update(let noteId):
+                    
+                    return [
+                        "context": "update",
+                        "note_id": noteId,
+                        "client_id": clientId
+                    ]
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     enum Settings {
         
         case settings
@@ -324,6 +371,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case client(ClientScreen)
     case media(MediaScreen)
     case profile(ProfileScreen)
+    case note(NoteScreen)
     case whatsNew
     case settings(Settings)
     case devSettings(DevSettings)
@@ -354,6 +402,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.properties
             
         case .media(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
+        case .note(let screen):
             
             screenName = screen.screenName
             properties = screen.properties

@@ -81,6 +81,15 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum NoteRoute: Hashable {
+        
+        case noteList(clientId: String)
+        
+        case noteCreateEdit(context: NoteCreateEditViewModel.Context,
+                            clientId: String)
+        
+    }
+    
     enum Setting: String, CaseIterable {
         
         case profile
@@ -193,6 +202,7 @@ enum Route: Navigation, Hashable, Sendable {
     case business(Business)
     case client(Client)
     case media(MediaRoute)
+    case note(NoteRoute)
     
 }
 

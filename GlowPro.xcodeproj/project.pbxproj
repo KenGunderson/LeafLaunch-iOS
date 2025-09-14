@@ -338,6 +338,18 @@
 		75B731F72E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
 		75B731F92E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
 		75B731FA2E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
+		75C67E342E764C4400BB29F0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E332E764C4300BB29F0 /* Note.swift */; };
+		75C67E352E764C4400BB29F0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E332E764C4300BB29F0 /* Note.swift */; };
+		75C67E372E764E9300BB29F0 /* APIService+Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E362E764E9000BB29F0 /* APIService+Notes.swift */; };
+		75C67E382E764E9300BB29F0 /* APIService+Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E362E764E9000BB29F0 /* APIService+Notes.swift */; };
+		75C67E442E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */; };
+		75C67E452E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */; };
+		75C67E462E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */; };
+		75C67E472E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */; };
+		75C67E4A2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E492E765DA000BB29F0 /* NoteListViewModel.swift */; };
+		75C67E4B2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E492E765DA000BB29F0 /* NoteListViewModel.swift */; };
+		75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */; };
+		75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */; };
 		75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
 		75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
 		75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
@@ -699,6 +711,12 @@
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		75C67E332E764C4300BB29F0 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		75C67E362E764E9000BB29F0 /* APIService+Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Notes.swift"; sourceTree = "<group>"; };
+		75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCreateEditScreen.swift; sourceTree = "<group>"; };
+		75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCreateEditViewModel.swift; sourceTree = "<group>"; };
+		75C67E492E765DA000BB29F0 /* NoteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewModel.swift; sourceTree = "<group>"; };
+		75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListScreen.swift; sourceTree = "<group>"; };
 		75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		75CB876F2E4F81F400FB7D78 /* GPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTheme.swift; sourceTree = "<group>"; };
 		75CB87722E4F84A800FB7D78 /* GPFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPFont.swift; sourceTree = "<group>"; };
@@ -1244,6 +1262,7 @@
 				75B731F22E14E52900038AD6 /* Location.swift */,
 				75DBD3192E712E3200032754 /* LocationEmployee.swift */,
 				750990E52E5590D40030DD49 /* Media.swift */,
+				75C67E332E764C4300BB29F0 /* Note.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
@@ -1494,6 +1513,7 @@
 				750843312E5BDD6E0039B06B /* Activity */,
 				759B64762E04A751006F4995 /* Client */,
 				750F9E1A2E56154B00C72EA7 /* Media */,
+				75C67E392E764F2A00BB29F0 /* Note */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
 				754D29322E07B5AE0065E242 /* Settings */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
@@ -1618,7 +1638,7 @@
 		759B64762E04A751006F4995 /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				75F2877A2E4FFCFC0045097D /* Create */,
+				75F2877A2E4FFCFC0045097D /* Create Edit */,
 				759B647B2E04A8E6006F4995 /* List */,
 				75715AD12DB9366700E7994E /* Client Home */,
 			);
@@ -1687,7 +1707,7 @@
 			children = (
 				7560F89E2E4D38E5002BA9D6 /* Home */,
 				758C3CDB2E14AF7900BC1A43 /* List */,
-				75CD6B642E20C0F7004A1720 /* Create */,
+				75CD6B642E20C0F7004A1720 /* Create Edit */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -1710,13 +1730,40 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
-		75CD6B642E20C0F7004A1720 /* Create */ = {
+		75C67E392E764F2A00BB29F0 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				75C67E482E765CC400BB29F0 /* List */,
+				75C67E432E764F5200BB29F0 /* Create Edit */,
+			);
+			path = Note;
+			sourceTree = "<group>";
+		};
+		75C67E432E764F5200BB29F0 /* Create Edit */ = {
+			isa = PBXGroup;
+			children = (
+				75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */,
+				75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */,
+			);
+			path = "Create Edit";
+			sourceTree = "<group>";
+		};
+		75C67E482E765CC400BB29F0 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				75C67E492E765DA000BB29F0 /* NoteListViewModel.swift */,
+				75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		75CD6B642E20C0F7004A1720 /* Create Edit */ = {
 			isa = PBXGroup;
 			children = (
 				75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */,
 				75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */,
 			);
-			path = Create;
+			path = "Create Edit";
 			sourceTree = "<group>";
 		};
 		75D0887F2E690B76000B06B2 /* MediaTag */ = {
@@ -1867,13 +1914,13 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
-		75F2877A2E4FFCFC0045097D /* Create */ = {
+		75F2877A2E4FFCFC0045097D /* Create Edit */ = {
 			isa = PBXGroup;
 			children = (
 				75F2877C2E4FFD080045097D /* ClientCreateEditViewModel.swift */,
 				75F2877F2E4FFD100045097D /* ClientCreateEditScreen.swift */,
 			);
-			path = Create;
+			path = "Create Edit";
 			sourceTree = "<group>";
 		};
 		75F32AFA2E615327003D904B /* Sheets */ = {
@@ -1887,18 +1934,19 @@
 		75F79DA22E18291B00E24BD3 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
+				750843382E5C047D0039B06B /* APIService+Activity.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
-				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
-				750843382E5C047D0039B06B /* APIService+Activity.swift */,
 				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
+				75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */,
 				7537F3D02DF661EA0031D9CF /* APIService+Health.swift */,
 				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
-				75F131372E74BDC100E7636B /* APIService+FeatureRequest.swift */,
+				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
+				75C67E362E764E9000BB29F0 /* APIService+Notes.swift */,
 				75A046522E37BE7300D5EFCD /* APIService+System.swift */,
+				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -2160,6 +2208,7 @@
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F4592DF661EA0031D9CF /* Routes.swift in Sources */,
+				75C67E372E764E9300BB29F0 /* APIService+Notes.swift in Sources */,
 				7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
 				759B64812E04A8F6006F4995 /* ClientListScreen.swift in Sources */,
@@ -2167,6 +2216,7 @@
 				7537F45E2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
 				7537F45F2DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
 				7537F4602DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
+				75C67E4B2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */,
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
@@ -2180,6 +2230,7 @@
 				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				750F9E212E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
+				75C67E342E764C4400BB29F0 /* Note.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
@@ -2289,6 +2340,8 @@
 				750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D6C2742E63C78800F8A336 /* CameraViewModel.swift in Sources */,
+				75C67E462E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
+				75C67E472E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
 				75F4DF612E4C4518003308CF /* Workspace.swift in Sources */,
 				75795D292E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
 				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
@@ -2304,6 +2357,7 @@
 				75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
+				75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
@@ -2406,6 +2460,7 @@
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */,
+				75C67E382E764E9300BB29F0 /* APIService+Notes.swift in Sources */,
 				7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
 				759B64802E04A8F6006F4995 /* ClientListScreen.swift in Sources */,
@@ -2413,6 +2468,7 @@
 				7537F41F2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
 				7537F4202DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
 				7537F4212DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
+				75C67E4A2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */,
 				7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
@@ -2426,6 +2482,7 @@
 				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				750F9E202E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
+				75C67E352E764C4400BB29F0 /* Note.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
@@ -2535,6 +2592,8 @@
 				750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D6C2752E63C78800F8A336 /* CameraViewModel.swift in Sources */,
+				75C67E442E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
+				75C67E452E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
 				75F4DF602E4C4518003308CF /* Workspace.swift in Sources */,
 				75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
 				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
@@ -2550,6 +2609,7 @@
 				75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
 				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
+				75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,

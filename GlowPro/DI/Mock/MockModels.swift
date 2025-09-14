@@ -120,6 +120,17 @@ struct MockModels {
         
     }
     
+    static var allNotes: [Note] {
+        
+        return [
+            MockNote.note1,
+            MockNote.note2,
+            MockNote.note3,
+            MockNote.note4,
+        ]
+        
+    }
+    
     struct ID {
         
         static let user1: String = UUID().uuidString
@@ -207,6 +218,11 @@ struct MockModels {
         static let activity8: String = UUID().uuidString
         static let activity9: String = UUID().uuidString
         static let activity10: String = UUID().uuidString
+        
+        static let note1: String = UUID().uuidString
+        static let note2: String = UUID().uuidString
+        static let note3: String = UUID().uuidString
+        static let note4: String = UUID().uuidString
     }
     
     struct MockWorkspace {
@@ -1213,7 +1229,7 @@ struct MockModels {
                 authorId: ID.employee2,
                 businessId: MockModels.ID.business2,
                 locationId: MockModels.ID.location2,
-                activityType: .noteAdded,
+                activityType: .noteCreated,
                 createdAt: Date().addingTimeInterval(-834).toISO()
             )
         }
@@ -1295,6 +1311,58 @@ struct MockModels {
                 createdAt: Date().addingTimeInterval(-84923).toISO()
             )
         }
+    }
+    
+    struct MockNote {
+        
+        nonisolated(unsafe)
+        static var note1: Note {
+            Note(
+                id: ID.note1,
+                clientId: ID.client11,
+                employeeId: ID.employee1,
+                title: "My First Note",
+                message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                createdAt: Date().addingTimeInterval(-4797754).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var note2: Note {
+            Note(
+                id: ID.note2,
+                clientId: ID.client11,
+                employeeId: ID.employee1,
+                title: "My Second Note",
+                message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                createdAt: Date().addingTimeInterval(-123).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var note3: Note {
+            Note(
+                id: ID.note3,
+                clientId: ID.client11,
+                employeeId: ID.employee1,
+                title: "My Third Note",
+                message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                createdAt: Date().addingTimeInterval(-7493).toISO()
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var note4: Note {
+            Note(
+                id: ID.note4,
+                clientId: ID.client11,
+                employeeId: ID.employee1,
+                title: "My Fourth Note",
+                message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                createdAt: Date().addingTimeInterval(-6555656).toISO()
+            )
+        }
+        
     }
     
 }

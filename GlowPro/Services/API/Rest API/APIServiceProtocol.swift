@@ -140,6 +140,14 @@ protocol APIServiceProtocol: APIProtocol {
     func getActivitiy(employeeId: String) async throws -> [Activity]
     func getActivitiy(clientId: String) async throws -> [Activity]
     
+    // Notes
+    
+    func getNotes(clientId: String) async throws -> [Note]
+    func getNote(id: String) async throws -> Note
+    func createNote(note: Note) async throws
+    func updateNote(note: Note) async throws
+    func deleteNote(id: String) async throws
+    
     // System
     
     func getLegalInformation(context: String) async throws -> [LegalItem]

@@ -100,6 +100,7 @@ extension View {
             case .business(let route): business(route: route)
             case .client(let route): client(route: route)
             case .media(let route): media(route: route)
+            case .note(let route): note(route: route)
             }
             
         }
@@ -398,6 +399,33 @@ extension View {
                     )
                 
                 MediaPreviewScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            }
+            
+        }
+        
+        @ViewBuilder
+        func note(route: Route.NoteRoute) -> some View {
+            
+            switch route {
+            case .noteList(let clientId):
+                
+                let viewModel = globalResolver.resolve(NoteListViewModel.self)!
+                    .setup(clientId: clientId)
+                
+                NoteListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .noteCreateEdit(let context, let clientId):
+                
+                let viewModel = globalResolver.resolve(NoteCreateEditViewModel.self)!
+                    .setup(
+                        context: context,
+                        clientId: clientId
+                    )
+                
+                NoteCreateEditScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             }

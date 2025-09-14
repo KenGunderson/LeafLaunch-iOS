@@ -35,7 +35,7 @@ final class SettingsViewModel: ViewModel {
         
     }
     
-    var emailData: EmailData {
+    var emailData: EmailComposerData {
         
         return .init(
             subject: "Customer Support",

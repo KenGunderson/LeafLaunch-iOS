@@ -22,14 +22,14 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     }
     
     @Published private(set) var isOwner: Bool = false
-    @Published private(set) var employee: LocationEmployee?
+    @Published internal var locationEmployee: LocationEmployee?
     
     var role: Role? {
-        return self.employee?.role
+        return self.locationEmployee?.role
     }
     
     var isManager: Bool {
-        return self.employee?.role == .manager
+        return self.locationEmployee?.role == .manager
     }
     
     var isOwnerOrManager: Bool {
@@ -101,30 +101,24 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
                 
                 let location = try await self?.apiService.getLocation(id: locationId)
                 business = try await self?.apiService.getBusiness(id: location?.businessId ?? "")
+                                
+                let employeeId = try await self?.apiService.getEmployeeByUserIdForLocation(
+                    userId: currentUserId,
+                    locationId: location?.id ?? ""
+                )
                 
-                let isOwner = business?.owner.id == currentUserId
-                
-                if !isOwner {
-                    
-                    let employeeId = try await self?.apiService.getEmployeeByUserIdForLocation(
-                        userId: currentUserId,
-                        locationId: location?.id ?? ""
+                locationEmployee = try await self?.apiService
+                    .getLocationEmployee(
+                        employeeId: employeeId ?? "",
+                        locationId: locationId
                     )
-                    
-                    locationEmployee = try await self?.apiService
-                        .getLocationEmployee(
-                            employeeId: employeeId ?? "",
-                            locationId: locationId
-                        )
-                    
-                }
                 
             }
             
             await MainActor.run { [weak self, business, locationEmployee] in
                 
                 self?.isOwner = (business?.owner.id == currentUserId)
-                self?.employee = locationEmployee
+                self?.locationEmployee = locationEmployee
                 
                 if let business {
                     

@@ -145,7 +145,8 @@ struct ClientHomeScreen: GPView {
                 .appShadow(.subtle)
                 .asButton {
                     
-                    // TODO: - FILL OUT
+                    self.navigationService
+                        .push(.note(.noteList(clientId: client.id)))
                     
                 }
                 
@@ -215,7 +216,11 @@ struct ClientHomeScreen: GPView {
                 verticalPadding: .small2,
                 horizontalPadding: .none) {
                     
-                    // TODO: - FILL NOTE OUT
+                    self.navigationService
+                        .push(.note(.noteCreateEdit(
+                            context: .create,
+                            clientId: self.viewModel.clientId)
+                        ))
                     
                 }
             

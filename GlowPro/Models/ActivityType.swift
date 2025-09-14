@@ -21,7 +21,8 @@ enum ActivityType: String, Codable, CaseIterable {
     
     case formSubmitted = "FORM_SUBMITTED"
     
-    case noteAdded = "NOTE_ADDED"
+    case noteCreated = "NOTE_CREATED"
+    case noteUpdated = "NOTE_UPDATED"
     case noteDeleted = "NOTE_DELETED"
     
     case mediaAdded = "MEDIA_ADDED"
@@ -52,7 +53,8 @@ enum ActivityType: String, Codable, CaseIterable {
             
         case .formSubmitted: return "Form Submitted"
             
-        case .noteAdded: return "Note Added"
+        case .noteCreated: return "Note Added"
+        case .noteUpdated: return "Note Updated"
         case .noteDeleted: return "Note Deleted"
             
         case .mediaAdded: return "Media Added"
@@ -85,7 +87,8 @@ enum ActivityType: String, Codable, CaseIterable {
             
         case .formSubmitted: return ActivityCategory.form.color
             
-        case .noteAdded,
+        case .noteCreated,
+             .noteUpdated,
              .noteDeleted,
              .quickNote,
              .soapNote: return ActivityCategory.note.color
@@ -117,7 +120,8 @@ enum ActivityType: String, Codable, CaseIterable {
             
         case .formSubmitted: return ActivityCategory.form.icon
             
-        case .noteAdded,
+        case .noteCreated,
+             .noteUpdated,
              .noteDeleted,
              .quickNote,
              .soapNote: return ActivityCategory.note.icon
