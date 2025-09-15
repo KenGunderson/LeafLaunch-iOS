@@ -88,14 +88,8 @@ struct SecurityPinInputScreen: GPView {
     
     private func navBar() -> some View {
         
-        let closeButton = NavBarButton(style: .close) {
-            dismiss()
-        }
-        .asAnyView()
-        
         return NavBarView(
-            title: "Security",
-            rightButtonView: closeButton
+            title: "Security"
         )
         .padding(.top, self.isPresented ? .medium : .none)
         

@@ -71,14 +71,17 @@ struct DevRoutesScreen: GPView {
                 sheet: .permissions
             )
             
+            route(
+                title: "Security Pin",
+                sheet: .securityPin(
+                    businessId: "1",
+                    completion: nil
+                )
+            )
+            
             // Full Screen Covers
             
             section(title: "Full Screen")
-            
-            route(
-                title: "Dev Settings",
-                fullScreenCover: .devSettings
-            )
             
             route(
                 title: "Settings",
@@ -88,6 +91,11 @@ struct DevRoutesScreen: GPView {
             route(
                 title: "Onboarding",
                 fullScreenCover: .onboarding
+            )
+            
+            route(
+                title: "Dev Settings",
+                fullScreenCover: .devSettings
             )
             
         }
