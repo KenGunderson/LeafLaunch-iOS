@@ -7,7 +7,9 @@
 
 import Foundation
 
-enum AvailableTheme: String, CaseIterable {
+enum AvailableTheme: String,
+                     CaseIterable,
+                     Sendable {
     
     case glowPro
     case goldNavy

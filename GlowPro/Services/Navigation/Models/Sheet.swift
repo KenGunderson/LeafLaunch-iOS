@@ -9,6 +9,9 @@ import SwiftUI
 
 enum Sheet: Identifiable, Hashable, Equatable {
     
+    case securityPin(businessId: String,
+                     completion: ((Bool) -> Void)?)
+    
     case whatsNew(WhatsNewItem)
     case permissions
     
@@ -23,6 +26,7 @@ enum Sheet: Identifiable, Hashable, Equatable {
     func hash(into hasher: inout Hasher) {
         
         switch self {
+        case .securityPin(let businessId, _): return hasher.combine(businessId)
         case .whatsNew: return hasher.combine(0)
         case .permissions: return hasher.combine(1)
         }

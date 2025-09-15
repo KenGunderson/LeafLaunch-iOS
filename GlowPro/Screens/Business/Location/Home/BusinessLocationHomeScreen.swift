@@ -48,6 +48,26 @@ struct BusinessLocationHomeScreen: GPView {
             
         }
         
+        // Sheet
+        
+        .onChange(of: self.viewModel.shouldShowSecurityScreen) { oldValue, newValue in
+            
+            guard !oldValue else { return }
+            guard newValue else { return }
+            
+            self.navigationService
+                .modal(sheet: .securityPin(businessId: self.viewModel.business?.id ?? "") { success in
+                    
+                    guard success else { return }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.viewModel.dismiss()
+                    }
+                    
+                })
+            
+        }
+        
         // Animation
         
         .animation(.snappy(duration: 0.5), value: self.viewModel.location)
@@ -66,8 +86,8 @@ struct BusinessLocationHomeScreen: GPView {
                 switch navItem {
                 case .back:
                     
-                    self.viewModel.completion?()
-                    self.dismiss()
+                    self.viewModel
+                        .showSecurityPinSheetIfNeeded()
                     
                 default: fatalError("Not Implemented")
                 }

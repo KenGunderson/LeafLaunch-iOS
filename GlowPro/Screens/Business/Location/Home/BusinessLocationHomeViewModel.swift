@@ -28,6 +28,8 @@ final class BusinessLocationHomeViewModel: ViewModel {
     @Published private(set) var activities: [Activity] = []
     @Published private(set) var pendingInvites: [EmployeeInvite] = []
     
+    @Published var shouldShowSecurityScreen: Bool = false
+    
     private(set) var locationId: String!
     private(set) var completion: (() -> ())?
     
@@ -140,6 +142,26 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 .dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    func showSecurityPinSheetIfNeeded() {
+        
+        guard self.userDefaultsService.getSecurityPinForBusinessId(self.business?.id ?? "") != nil else {
+            
+            dismiss()
+            return
+            
+        }
+        
+        shouldShowSecurityScreen = true
+        
+    }
+    
+    func dismiss() {
+        
+        self.completion?()
+        self.navigationService?.pop()
         
     }
     

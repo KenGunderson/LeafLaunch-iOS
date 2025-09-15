@@ -412,6 +412,20 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // Security Pin
+        
+        container
+            .register(SecurityPinInputViewModel.self) { r in
+                SecurityPinInputViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
         // Settings
         
         container

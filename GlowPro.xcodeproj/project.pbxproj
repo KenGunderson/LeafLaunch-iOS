@@ -33,6 +33,10 @@
 		750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
 		750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B86032E49485800417BA5 /* QuickActionTileView.swift */; };
 		750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B86032E49485800417BA5 /* QuickActionTileView.swift */; };
+		750D239B2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750D239A2E786117003E57BE /* SecurityPinInputScreen.swift */; };
+		750D239C2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750D239A2E786117003E57BE /* SecurityPinInputScreen.swift */; };
+		750D239E2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750D239D2E78611E003E57BE /* SecurityPinInputViewModel.swift */; };
+		750D239F2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750D239D2E78611E003E57BE /* SecurityPinInputViewModel.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
 		750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
@@ -540,6 +544,8 @@
 		750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListScreen.swift; sourceTree = "<group>"; };
 		750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+EmployeeInvites.swift"; sourceTree = "<group>"; };
 		750B86032E49485800417BA5 /* QuickActionTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionTileView.swift; sourceTree = "<group>"; };
+		750D239A2E786117003E57BE /* SecurityPinInputScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityPinInputScreen.swift; sourceTree = "<group>"; };
+		750D239D2E78611E003E57BE /* SecurityPinInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityPinInputViewModel.swift; sourceTree = "<group>"; };
 		750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsViewModel.swift; sourceTree = "<group>"; };
 		750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsScreen.swift; sourceTree = "<group>"; };
 		750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevDeeplinksViewModel.swift; sourceTree = "<group>"; };
@@ -861,6 +867,15 @@
 				750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */,
 			);
 			path = InviteList;
+			sourceTree = "<group>";
+		};
+		750D23992E786099003E57BE /* Security Pin */ = {
+			isa = PBXGroup;
+			children = (
+				750D239D2E78611E003E57BE /* SecurityPinInputViewModel.swift */,
+				750D239A2E786117003E57BE /* SecurityPinInputScreen.swift */,
+			);
+			path = "Security Pin";
 			sourceTree = "<group>";
 		};
 		750DFBC02DC6CDAE00A2AB74 /* DevSettings */ = {
@@ -1508,6 +1523,7 @@
 		755C98252D9CC8D300437D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				750D23992E786099003E57BE /* Security Pin */,
 				75573AC12DD82E0500C7CA6E /* Auth */,
 				75E0CA712E15F0720081A02A /* Onboarding */,
 				753EC1F62DB8C58100265B2A /* Root */,
@@ -2174,6 +2190,7 @@
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
+				750D239E2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				75A1ACF72E5551A100AFCECD /* BusinessCategory.swift in Sources */,
 				750990E62E5590D60030DD49 /* Media.swift in Sources */,
@@ -2241,6 +2258,7 @@
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
+				750D239B2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */,
 				7537F46B2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F46D2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F46E2DF661EA0031D9CF /* NavigationService.swift in Sources */,
@@ -2427,6 +2445,7 @@
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
+				750D239F2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */,
 				75A1ACF82E5551A100AFCECD /* BusinessCategory.swift in Sources */,
 				750990E72E5590D60030DD49 /* Media.swift in Sources */,
@@ -2494,6 +2513,7 @@
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
+				750D239C2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */,
 				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */,

@@ -26,6 +26,7 @@ enum Setting: String, CaseIterable {
     case lastViewedWhatsNewVersion
     case didRateMyAppAlertShow
     case impersonatedUser
+    case securityPinsDictionaryData
         
 }
 
@@ -76,6 +77,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
+    @AppStorage(Setting.securityPinsDictionaryData.rawValue) private(set) var securityPinsDictionaryData: Data? {
+        didSet {
+            self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
+        }
+    }
+    
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
     var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
@@ -84,6 +91,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
+    var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     
     init() {
         
@@ -97,6 +105,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
+        self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
         
     }
     
@@ -144,6 +153,43 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             self.impersonatingUserData = nil
             
         }
+        
+    }
+    
+    func set(securityPin: String?, businessId: String) {
+        
+        let key = self.securityPinsDictionaryData
+        
+        if var dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
+            
+            dict[businessId] = securityPin
+            
+            if let data = try? JSONEncoder().encode(dict) {
+                self.securityPinsDictionaryData = data
+            }
+            
+        } else {
+            
+            var dict = [String: String?]()
+            dict[businessId] = securityPin
+            
+            if let data = try? JSONEncoder().encode(dict) {
+                self.securityPinsDictionaryData = data
+            }
+            
+        }
+        
+    }
+    
+    func getSecurityPinForBusinessId(_ businessId: String) -> String? {
+        
+        let key = self.securityPinsDictionaryData
+        
+        if let dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
+            return dict[businessId] ?? nil
+        }
+        
+        return nil
         
     }
     

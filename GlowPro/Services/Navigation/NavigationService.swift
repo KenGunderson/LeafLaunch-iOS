@@ -495,6 +495,16 @@ extension View {
         return sheet(item: customSheet) { sheet in
             
             switch sheet {
+            case .securityPin(let businessId, let completion):
+                
+                let viewModel = globalResolver.resolve(SecurityPinInputViewModel.self)!
+                    .setup(
+                        businessId: businessId,
+                        completion: completion
+                    )
+                
+                SecurityPinInputScreen(viewModel: viewModel)
+                
             case .whatsNew:
                 
                 let viewModel = globalResolver.resolve(WhatsNewViewModel.self)!

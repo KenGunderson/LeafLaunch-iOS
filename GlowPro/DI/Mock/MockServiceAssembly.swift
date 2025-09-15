@@ -40,7 +40,7 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
 
 // MARK: - MockAlertService
 
-class MockAlertService: AlertServiceProtocol, ObservableObject {
+final class MockAlertService: AlertServiceProtocol, ObservableObject {
     
     @Published var alerts: [RuneAlert] = []
     
@@ -933,7 +933,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
 
 // MARK: - AppDelegateServiceProtocol
 
-class MockAppDelegateService: AppDelegateServiceProtocol {
+final class MockAppDelegateService: AppDelegateServiceProtocol {
     
     internal let loggerName: String = "APP_DELEGATE_SERVICE"
     internal let loggerEmoji: String = "📱"
@@ -951,7 +951,7 @@ class MockAppDelegateService: AppDelegateServiceProtocol {
 
 // MARK: - AppTrackingPermissionServiceProtocol
 
-class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
+final class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
     
     internal let loggerName: String = "APP_TRACKING_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -1049,7 +1049,7 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
 
 // MARK: IMPERSONATE
 
-class MockImpersonateService: ImpersonateServiceProtocol {
+final class MockImpersonateService: ImpersonateServiceProtocol {
     
     internal let loggerName: String = "IMPERSONATE_SERVICE"
     internal let loggerEmoji: String = "🥷🏻"
@@ -1076,7 +1076,7 @@ class MockImpersonateService: ImpersonateServiceProtocol {
 
 // MARK: - CameraPermissionServiceProtocol
 
-class MockCameraPermissionService: CameraPermissionServiceProtocol {
+final class MockCameraPermissionService: CameraPermissionServiceProtocol {
     
     internal let loggerName: String = "CAMERA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -1093,7 +1093,7 @@ class MockCameraPermissionService: CameraPermissionServiceProtocol {
 
 // MARK: - ConnectivityServiceProtocol
 
-class MockConnectivityService: ConnectivityServiceProtocol {
+final class MockConnectivityService: ConnectivityServiceProtocol {
     
     internal let loggerName: String = "CONNECTIVITY_SERVICE"
     internal let loggerEmoji: String = "📡"
@@ -1107,7 +1107,7 @@ class MockConnectivityService: ConnectivityServiceProtocol {
 
 // MARK: - DeeplinkServiceProtocol
 
-class MockDeeplinkService: DeeplinkServiceProtocol {
+final class MockDeeplinkService: DeeplinkServiceProtocol {
     
     internal let loggerName: String = "DEEPLINK_SERVICE"
     internal let loggerEmoji: String = "🔗"
@@ -1119,7 +1119,7 @@ class MockDeeplinkService: DeeplinkServiceProtocol {
 
 // MARK: - EnvironmentServiceProtocol
 
-class MockEnvironmentService: EnvironmentServiceProtocol {
+final class MockEnvironmentService: EnvironmentServiceProtocol {
     
     internal let loggerName: String = "ENVIRONMENT_SERVICE"
     internal let loggerEmoji: String = "♻️"
@@ -1162,7 +1162,7 @@ final class MockFirebaseService: FirebaseServiceProtocol {
 
 // MARK: - LaunchScreenServiceProtocol
 
-class MockLaunchScreenService: LaunchScreenServiceProtocol {
+final class MockLaunchScreenService: LaunchScreenServiceProtocol {
     
     internal let loggerName: String = "LAUNCH_SERVICE"
     internal let loggerEmoji: String = "🚀"
@@ -1174,7 +1174,7 @@ class MockLaunchScreenService: LaunchScreenServiceProtocol {
 
 // MARK: - MediaPermissionServiceProtocol
 
-class MockMediaPermissionService: MediaPermissionServiceProtocol {
+final class MockMediaPermissionService: MediaPermissionServiceProtocol {
     
     internal let loggerName: String = "MEDIA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -1191,7 +1191,7 @@ class MockMediaPermissionService: MediaPermissionServiceProtocol {
 
 // MARK: - PermissionsServiceProtocol
 
-class MockPermissionsService: PermissionsServiceProtocol {
+final class MockPermissionsService: PermissionsServiceProtocol {
     
     internal let loggerName: String = "PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -1211,7 +1211,7 @@ class MockPermissionsService: PermissionsServiceProtocol {
 
 // MARK: - PushNotificationPermissionServiceProtocol
 
-class MockPushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
+final class MockPushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
     
     internal let loggerName: String = "PUSH_NOTIFICATION_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -1228,7 +1228,7 @@ class MockPushNotificationPermissionService: PushNotificationPermissionServicePr
 
 // MARK: - PushNotificationServiceProtocol
 
-class MockPushNotificationService: PushNotificationServiceProtocol {
+final class MockPushNotificationService: PushNotificationServiceProtocol {
     
     internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
     internal let loggerEmoji: String = "🔔"
@@ -1252,6 +1252,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var lastViewedWhatsNewVersion: String?
     var didRateMyAppAlertShow: Bool = false
     var impersonatingUserData: Data?
+    var securityPinsDictionaryData: Data?
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
@@ -1260,7 +1261,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
-    
+    var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     
     func set(theme: AvailableTheme) {}
     func set(didCompleteOnboarding: Bool) {}
@@ -1269,13 +1270,17 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     func set(lastViewedWhatsNewVersion: String?) {}
     func set(didRateMyAppAlertShow: Bool) {}
     func set(impersonatedUser: ImpersonatingUser?) {}
+    func set(securityPin: String?, businessId: String) {}
+    
+    func getSecurityPinForBusinessId(_ businessId: String) -> String? { return nil }
+    
     func logout() async {}
     
 }
 
 // MARK: - CameraServiceProtocol
 
-class MockCameraService: CameraServiceProtocol {
+final class MockCameraService: CameraServiceProtocol {
     
     internal let loggerName: String = "CAMERA_SERVICE"
     internal let loggerEmoji: String = "📷"
@@ -1297,7 +1302,7 @@ class MockCameraService: CameraServiceProtocol {
 
 // MARK: - ViewLifecycleServiceProtocol
 
-class MockViewLifecycleService: ViewLifecycleServiceProtocol {
+final class MockViewLifecycleService: ViewLifecycleServiceProtocol {
     
     internal let loggerName: String = "VIEW_LIFECYCLE_SERVICE"
     internal let loggerEmoji: String = "🔁"

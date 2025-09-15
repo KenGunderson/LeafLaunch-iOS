@@ -17,6 +17,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var lastViewedWhatsNewVersion: String? { get }
     var didRateMyAppAlertShow: Bool { get }
     var impersonatingUserData: Data? { get }
+    var securityPinsDictionaryData: Data? { get }
     
     var themePublisher: PassthroughSubject<AvailableTheme, Never> { get }
     var didCompleteOnboardingPublisher: PassthroughSubject<Bool, Never> { get }
@@ -25,6 +26,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var lastViewedWhatsNewVersionPublisher: PassthroughSubject<String?, Never> { get }
     var didRateMyAppAlertShowPublisher: PassthroughSubject<Bool, Never> { get }
     var impersonatingUserDataPublisher: PassthroughSubject<Data?, Never> { get }
+    var securityPinsDictionaryDataPublisher: PassthroughSubject<Data?, Never> { get }
     
     func set(theme: AvailableTheme)
     func set(didCompleteOnboarding: Bool)
@@ -33,6 +35,9 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     func set(lastViewedWhatsNewVersion: String?)
     func set(didRateMyAppAlertShow: Bool)
     func set(impersonatedUser: ImpersonatingUser?)
+    func set(securityPin: String?, businessId: String)
     func logout() async
+    
+    func getSecurityPinForBusinessId(_ businessId: String) -> String?
     
 }
