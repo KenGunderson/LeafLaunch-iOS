@@ -100,7 +100,7 @@ struct NoteListScreen: GPView {
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
                 
                 Text(note.title)
-                    .appFont(with: .TITLE_3)
+                    .appFont(with: .TITLE_5)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

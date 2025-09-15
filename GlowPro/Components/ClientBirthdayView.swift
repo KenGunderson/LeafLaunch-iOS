@@ -22,16 +22,16 @@ struct ClientBirthdayView: View {
         guard let normalizedDate = calendar.date(from: components) else { return "" }
         
         return normalizedDate.calendarDayRelativeString(
-            nowOverride: "today"
+            nowOverride: "Today"
         )
         
     }
     
     var needsPrefix: Bool {
         
-        return formattedDate != "today" &&
-               formattedDate != "tomorrow" &&
-               formattedDate != "yesterday"
+        return formattedDate != "Today" &&
+               formattedDate != "Tomorrow" &&
+               formattedDate != "Yesterday"
         
     }
     

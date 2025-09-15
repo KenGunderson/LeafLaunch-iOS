@@ -104,10 +104,10 @@ final class ClientHomeViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
                     
-                    self?.client = client
                     self?.location = location
                     self?.activities = activities
                     self?.media = media
+                    self?.client = client
                     
                 }
                 

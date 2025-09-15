@@ -56,13 +56,17 @@ struct ClientHomeScreen: GPView {
             
         }
         
+        // Animation
+        
+        .animation(.snappy(duration: 0.5), value: self.viewModel.client)
+        
     }
     
     @ViewBuilder
     private func navBarView() -> some View {
         
         NavHeader(
-            title: self.viewModel.location?.name ?? "",
+            title: self.viewModel.location?.name ?? " ",
             subtitle: "Client Dashboard",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
@@ -75,6 +79,7 @@ struct ClientHomeScreen: GPView {
             },
             trailingNavButtons: []
         )
+        .contentTransition(.numericText())
         
     }
     
@@ -93,7 +98,7 @@ struct ClientHomeScreen: GPView {
                     activities()
                     
                 }
-                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .transition(.offset(y: 200).combined(with: .opacity))
                 
             }
             

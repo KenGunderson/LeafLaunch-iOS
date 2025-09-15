@@ -111,10 +111,10 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 await MainActor.run { [weak self] in
                     
                     self?.isFirstLoad = false
-                    self?.location = location
                     self?.business = business
                     self?.activities = activities
                     self?.pendingInvites = business.employeeInvites
+                    self?.location = location
                     
                 }
                 

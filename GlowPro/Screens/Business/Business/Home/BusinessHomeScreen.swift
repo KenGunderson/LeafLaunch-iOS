@@ -57,6 +57,10 @@ struct BusinessHomeScreen: GPView {
             ChecklistCompleteSheet()
         }
         
+        // Animation
+        
+        .animation(.snappy(duration: 0.5), value: self.viewModel.business)
+        
     }
     
     @ViewBuilder
@@ -82,6 +86,7 @@ struct BusinessHomeScreen: GPView {
                 }
                 
             }
+            .contentTransition(.numericText())
         
     }
     
@@ -90,14 +95,27 @@ struct BusinessHomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.medium)) {
             
-            tilesGrid()
-            quickActionButtons()
-            checklist()
-            pendingInvitesList()
-            clientBirthdayList()
-            activitiesList()
+            if self.viewModel.business != nil {
+                
+                Group {
+                    
+                    tilesGrid()
+                    quickActionButtons()
+                    checklist()
+                    pendingInvitesList()
+                    clientBirthdayList()
+                    activitiesList()
+                    
+                }
+                .transition(.offset(y: 200).combined(with: .opacity))
+                
+            }
             
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity
+        )
         
     }
     

@@ -48,13 +48,17 @@ struct BusinessLocationHomeScreen: GPView {
             
         }
         
+        // Animation
+        
+        .animation(.snappy(duration: 0.5), value: self.viewModel.location)
+        
     }
     
     @ViewBuilder
     private func navBarView() -> some View {
                 
         NavHeader(
-            title: self.viewModel.business?.name ?? "",
+            title: self.viewModel.business?.name ?? " ",
             subtitle: "Location Dashboard",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
@@ -69,6 +73,7 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
             })
+        .contentTransition(.numericText())
         
     }
     
@@ -77,18 +82,32 @@ struct BusinessLocationHomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.medium)) {
             
-            tilesGrid()
-            buttonList()
-            
-            if self.viewModel.isOwnerOrManager {
-                pendingInvitesList()
+            if self.viewModel.location != nil {
+                
+                Group {
+                    
+                    tilesGrid()
+                    buttonList()
+                    
+                    if self.viewModel.isOwnerOrManager {
+                        pendingInvitesList()
+                    }
+                    
+                    clientBirthdayList()
+                    
+                    activitiesList()
+                    
+                }
+                .transition(.offset(y: 200).combined(with: .opacity))
+                
             }
             
-            clientBirthdayList()
-            
-            activitiesList()
-            
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .topLeading
+        )
         
     }
     

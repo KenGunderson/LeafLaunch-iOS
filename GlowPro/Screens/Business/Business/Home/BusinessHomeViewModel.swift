@@ -107,7 +107,6 @@ final class BusinessHomeViewModel: ViewModel {
                 await MainActor.run { [weak self] in
                     
                     self?.isFirstLoad = false
-                    self?.business = business
                     self?.activities = activities
                     
                     let hasLocations = ((self?.business?.totalLocationCount ?? 0) > 0)
@@ -120,6 +119,8 @@ final class BusinessHomeViewModel: ViewModel {
                         .init(type: .createClient, isComplete: hasClients),
                         .init(type: .createMedia, isComplete: hasMedia),
                     ]
+                    
+                    self?.business = business
                     
                     if let didView = self?.userDefaultsService.didViewChecklistCompletionSheet,
                        !didView,
