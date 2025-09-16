@@ -78,10 +78,13 @@ final class BusinessLocationListViewModel: ViewModel {
                 let business = try await self.apiService
                     .getBusiness(id: self.businessId)
                 
+                let locations = try await self.apiService
+                    .getLocations(businessId: self.businessId)
+                
                 await MainActor.run { [weak self] in
 
                     self?.business = business
-                    self?.locations = business.locations
+                    self?.locations = locations
                     self?.shouldShowEmptyState = business.locations.isEmpty
                     
                 }
