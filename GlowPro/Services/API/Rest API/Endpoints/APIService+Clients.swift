@@ -19,7 +19,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .client("/business/\(businessId)"))
+                apiPath: .init(path: .client("business/\(businessId)"))
             )
             
             let result: [Client] = try parseData(data: data)
@@ -38,7 +38,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .client("/location/\(locationId)"))
+                apiPath: .init(path: .client("location/\(locationId)"))
             )
             
             let result: [Client] = try parseData(data: data)
@@ -57,7 +57,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .client("/employee/\(employeeId)"))
+                apiPath: .init(path: .client("employee/\(employeeId)"))
             )
             
             let result: [Client] = try parseData(data: data)
@@ -76,7 +76,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .client("/\(id)"))
+                apiPath: .init(path: .client("\(id)"))
             )
             
             let result: Client = try parseData(data: data)
@@ -134,7 +134,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .client("/\(client.id)")),
+                apiPath: .init(path: .client("\(client.id)")),
                 parameters: parameters
             )
             

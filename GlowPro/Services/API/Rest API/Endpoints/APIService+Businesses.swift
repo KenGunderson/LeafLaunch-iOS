@@ -18,7 +18,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .business("/users/\(userId)"))
+                apiPath: .init(path: .business("users/\(userId)"))
             )
             
             let result: [Business] = try parseData(data: data)
@@ -37,7 +37,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .business("/\(id)"))
+                apiPath: .init(path: .business("\(id)"))
             )
             
             let result: Business = try parseData(data: data)
@@ -100,7 +100,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .business("/\(business.id)")),
+                apiPath: .init(path: .business("\(business.id)")),
                 parameters: parameters
             )
             
@@ -117,7 +117,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .business("/\(id)"))
+                apiPath: .init(path: .business("\(id)"))
             )
             
         }

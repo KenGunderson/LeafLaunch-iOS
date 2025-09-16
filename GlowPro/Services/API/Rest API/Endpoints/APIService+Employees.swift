@@ -19,7 +19,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee("/business/\(businessId)"))
+                apiPath: .init(path: .employee("business/\(businessId)"))
             )
             
             let result: [Employee] = try parseData(data: data)
@@ -38,7 +38,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee("/location/\(locationId)"))
+                apiPath: .init(path: .employee("location/\(locationId)"))
             )
             
             let result: [Employee] = try parseData(data: data)
@@ -58,7 +58,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee("/user/\(userId)/location/\(locationId)"))
+                apiPath: .init(path: .employee("user/\(userId)/location/\(locationId)"))
             )
             
             let result: Employee = try parseData(data: data)
@@ -77,7 +77,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employee("/\(id)"))
+                apiPath: .init(path: .employee("\(id)"))
             )
             
             let result: Employee = try parseData(data: data)
@@ -97,7 +97,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .locationEmployee("/user/\(employeeId)/location/\(locationId)"))
+                apiPath: .init(path: .locationEmployee("user/\(employeeId)/location/\(locationId)"))
             )
             
             let result: LocationEmployee = try parseData(data: data)
@@ -147,7 +147,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .put,
-                apiPath: .init(path: .employee("/\(employee.id)")),
+                apiPath: .init(path: .employee("\(employee.id)")),
                 parameters: parameters
             )
             

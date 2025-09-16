@@ -19,6 +19,7 @@ struct Note: Identifiable,
     
     let title: String
     let message: String
+    let mediaURLs: [URL]
     
     private var _createdAt: String?
     
@@ -35,6 +36,7 @@ struct Note: Identifiable,
          employeeId: String,
          title: String,
          message: String,
+         mediaURLs: [URL] = [],
          createdAt: String) {
         
         self.id = id
@@ -42,6 +44,7 @@ struct Note: Identifiable,
         self.employeeId = employeeId
         self.title = title
         self.message = message
+        self.mediaURLs = mediaURLs
         self._createdAt = createdAt
         
     }
@@ -54,6 +57,8 @@ struct Note: Identifiable,
         
         case title
         case message
+        
+        case mediaURLs = "media_urls"
         case _createdAt = "created_at"
         
     }

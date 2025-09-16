@@ -32,7 +32,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employeeInvite("/email/\(email)"))
+                apiPath: .init(path: .employeeInvite("email/\(email)"))
             )
             
             let result: [EmployeeInvite] = try parseData(data: data)
@@ -51,7 +51,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .post,
-                apiPath: .init(path: .employeeInvite("/\(invite.id)/accept"))
+                apiPath: .init(path: .employeeInvite("\(invite.id)/accept"))
             )
             
         }
@@ -67,7 +67,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .employeeInvite("/\(invite.id)"))
+                apiPath: .init(path: .employeeInvite("\(invite.id)"))
             )
             
         }
@@ -110,7 +110,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .employeeInvite("/\(invite.id)"))
+                apiPath: .init(path: .employeeInvite("\(invite.id)"))
             )
             
         }

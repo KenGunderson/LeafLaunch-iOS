@@ -1325,6 +1325,10 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My First Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                mediaURLs: [
+                    MockMedia.media1.url,
+                    MockMedia.media2.url
+                ],
                 createdAt: Date().addingTimeInterval(-4797754).toISO()
             )
         }
@@ -1337,6 +1341,10 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My Second Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                mediaURLs: [
+                    MockMedia.media1.url,
+                    MockMedia.media2.url
+                ],
                 createdAt: Date().addingTimeInterval(-123).toISO()
             )
         }

@@ -40,6 +40,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     @Published var title: String = ""
     @Published var message: String = ""
+    @Published var mediaURLs: [URL] = []
     
     private var context: Context!
     private var clientId: String!
@@ -132,6 +133,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                     self.title = note.title
                     self.message = note.message
+                    self.mediaURLs = note.mediaURLs
                     
                 }
                 

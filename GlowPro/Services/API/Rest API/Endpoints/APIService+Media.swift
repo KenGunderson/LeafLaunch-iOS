@@ -28,7 +28,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/\(favoritePrefix)business/\(businessId)")),
+                apiPath: .init(path: .media("\(favoritePrefix)business/\(businessId)")),
                 queryParameters: queryParameters
             )
             
@@ -61,7 +61,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/\(favoritePrefix)location/\(locationId)")),
+                apiPath: .init(path: .media("\(favoritePrefix)location/\(locationId)")),
                 queryParameters: queryParameters
             )
             
@@ -94,7 +94,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/\(favoritePrefix)client/\(clientId)")),
+                apiPath: .init(path: .media("\(favoritePrefix)client/\(clientId)")),
                 queryParameters: queryParameters
             )
             
@@ -127,7 +127,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/\(favoritePrefix)employee/\(authorId)")),
+                apiPath: .init(path: .media("\(favoritePrefix)employee/\(authorId)")),
                 queryParameters: queryParameters
             )
             
@@ -147,7 +147,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("/\(id)"))
+                apiPath: .init(path: .media("\(id)"))
             )
             
             let result: Media = try parseData(data: data)
@@ -192,7 +192,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .mediaFavorite("/\(mediaId)"))
+                apiPath: .init(path: .mediaFavorite("\(mediaId)"))
             )
             
             return
@@ -210,7 +210,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .media("/\(mediaId)"))
+                apiPath: .init(path: .media("\(mediaId)"))
             )
             
             return
@@ -230,7 +230,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .mediaTags("/business/\(businessId)"))
+                apiPath: .init(path: .mediaTags("business/\(businessId)"))
             )
             
             let result: [MediaTag] = try parseData(data: data)
@@ -271,7 +271,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .mediaTags("/\(mediaTagId)"))
+                apiPath: .init(path: .mediaTags("\(mediaTagId)"))
             )
                         
         }
@@ -318,7 +318,7 @@ extension APIService {
             
             _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .mediaTagRelations("/media/\(mediaId)/tag/\(mediaTagId)")),
+                apiPath: .init(path: .mediaTagRelations("media/\(mediaId)/tag/\(mediaTagId)")),
                 queryParameters: queryParameters
             )
                         

@@ -75,12 +75,15 @@ struct RootScreen: GPView {
             
         })
         
+        // Full Screen Cover
+        
         .fullScreenCover(isPresented: self.$viewModel.shouldPresentDevSettings) {
             
             let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
             DevSettingsScreen(viewModel: viewModel)
             
         }
+        
         
     }
     

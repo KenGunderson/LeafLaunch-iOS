@@ -15,7 +15,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .system("/legal-information")),
+                apiPath: .init(path: .system("legal-information")),
                 queryParameters: ["context": context]
             )
             
@@ -35,7 +35,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .system("/faq"))
+                apiPath: .init(path: .system("faq"))
             )
             
             let result: [FAQViewModel.FAQItemSection] = try parseData(data: data)
