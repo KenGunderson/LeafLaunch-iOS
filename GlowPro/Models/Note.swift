@@ -19,6 +19,7 @@ struct Note: Identifiable,
     
     let title: String
     let message: String
+    let employeeSignature: String?
     let mediaURLs: [URL]
     
     private var _createdAt: String?
@@ -36,6 +37,7 @@ struct Note: Identifiable,
          employeeId: String,
          title: String,
          message: String,
+         employeeSignature: String?,
          mediaURLs: [URL] = [],
          createdAt: String) {
         
@@ -44,6 +46,7 @@ struct Note: Identifiable,
         self.employeeId = employeeId
         self.title = title
         self.message = message
+        self.employeeSignature = employeeSignature
         self.mediaURLs = mediaURLs
         self._createdAt = createdAt
         
@@ -57,6 +60,7 @@ struct Note: Identifiable,
         
         case title
         case message
+        case employeeSignature = "employee_signature"
         
         case mediaURLs = "media_urls"
         case _createdAt = "created_at"
@@ -75,6 +79,7 @@ extension Note {
             employeeId: "1",
             title: "My First Note",
             message: "This is my first note; I hope it works!",
+            employeeSignature: "Sako Hovaguimian",
             createdAt: Date().dateByAdding(-10, .day).toISO()
         )
         

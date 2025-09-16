@@ -40,6 +40,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     @Published var title: String = ""
     @Published var message: String = ""
+    @Published var employeeSignature: String = ""
     @Published var mediaURLs: [URL] = []
     
     private var context: Context!
@@ -64,7 +65,17 @@ final class NoteCreateEditViewModel: ViewModel {
     }
     
     var isSaveButtonEnabled: Bool {
-        return !self.title.isEmpty && !self.message.isEmpty
+        
+        return (
+            !self.title.isEmpty &&
+            !self.message.isEmpty &&
+            !employeeSignature.isEmpty
+        )
+        
+    }
+    
+    var currentEmployeeName: String {
+        return self.activeDestinationService.locationEmployee?.user.fullName ?? ""
     }
     
     init(apiService: APIServiceProtocol,
@@ -116,6 +127,8 @@ final class NoteCreateEditViewModel: ViewModel {
     
     func loadData() {
         
+        self.employeeSignature = self.currentEmployeeName
+        
         guard self.isEditContext else { return }
         guard let noteId = self.context.noteID else { return }
         
@@ -133,6 +146,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                     self.title = note.title
                     self.message = note.message
+                    self.employeeSignature = note.employeeSignature ?? self.currentEmployeeName
                     self.mediaURLs = note.mediaURLs
                     
                 }
@@ -250,6 +264,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     employeeId: employeeId ?? "",
                     title: self.title,
                     message: self.message,
+                    employeeSignature: self.employeeSignature,
                     createdAt: ""
                 )
                 
@@ -316,6 +331,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     employeeId: employeeId ?? "",
                     title: self.title,
                     message: self.message,
+                    employeeSignature: self.employeeSignature,
                     createdAt: ""
                 )
                 

@@ -1325,6 +1325,7 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My First Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                employeeSignature: "Test Signature",
                 mediaURLs: [
                     MockMedia.media1.url,
                     MockMedia.media2.url
@@ -1341,6 +1342,7 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My Second Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                employeeSignature: "Test Signature",
                 mediaURLs: [
                     MockMedia.media1.url,
                     MockMedia.media2.url
@@ -1357,6 +1359,7 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My Third Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                employeeSignature: "Test Signature",
                 createdAt: Date().addingTimeInterval(-7493).toISO()
             )
         }
@@ -1369,6 +1372,7 @@ struct MockModels {
                 employeeId: ID.employee1,
                 title: "My Fourth Note",
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
+                employeeSignature: "Test Signature",
                 createdAt: Date().addingTimeInterval(-6555656).toISO()
             )
         }

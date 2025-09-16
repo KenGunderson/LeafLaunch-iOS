@@ -13,11 +13,13 @@ struct NoteCreateEditScreen: View {
         
         case title
         case note
+        case signiture
         
         var displayName: String {
             switch self {
             case .title: return "Title"
             case .note: return "Note"
+            case .signiture: return "Employee Signiture (Full Name)"
             }
             
         }
@@ -111,8 +113,9 @@ struct NoteCreateEditScreen: View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
-            textField()
+            textField(.title)
             textEditField()
+            textField(.signiture)
             
         }
         .padding(.horizontal, .medium)
@@ -151,28 +154,28 @@ struct NoteCreateEditScreen: View {
         
     }
     
-    private func textField() -> some View {
+    private func textField(_ focusedField: FocusedField) -> some View {
         
-        let text = self.$viewModel.title
-        let isFocused = self.focusedField == .title
+        let text: Binding<String> = (focusedField == .title) ? self.$viewModel.title : self.$viewModel.employeeSignature
+        let isFocused = self.focusedField == focusedField
         let keyboardType: UIKeyboardType = .default
         
         return TextField("", text: text)
             .titleUnderlineTextFieldStyle(
                 text: text.wrappedValue,
-                title: FocusedField.title.displayName,
+                title: focusedField.displayName,
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
                 textFieldFont: .BODY_3
             )
-            .focused(self.$focusedField, equals: .title)
+            .focused(self.$focusedField, equals: focusedField)
             .keyboardType(keyboardType)
             .submitLabel(.done)
             .textInputAutocapitalization(.words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
-                self.focusedField = .title
+                self.focusedField = focusedField
             }
         
     }
