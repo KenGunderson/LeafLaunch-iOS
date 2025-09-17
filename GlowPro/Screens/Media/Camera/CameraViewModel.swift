@@ -49,7 +49,7 @@ public final class CameraViewModel: ObservableObject {
             
             if !status {
                 
-                await MainActor.run {
+                await MainActor.run { [weak self] in
                     self?.errorMessage = CameraError.permissionDenied.message
                 }
                 
@@ -64,7 +64,7 @@ public final class CameraViewModel: ObservableObject {
                 
             } catch {
                 
-                await MainActor.run {
+                await MainActor.run { [weak self] in
                     self?.errorMessage = error.localizedDescription
                 }
                 
@@ -88,15 +88,13 @@ public final class CameraViewModel: ObservableObject {
         self.cameraService.capturePhoto { [weak self] result in
             
             DispatchQueue.main.async { [weak self] in
-                
-                guard let strongSelf = self else { return }
-                
+                                
                 switch result {
-                case .success(let image): strongSelf.captureMode.addPhoto(image)
-                case .failure(let error): strongSelf.errorMessage = error.localizedDescription
+                case .success(let image): self?.captureMode.addPhoto(image)
+                case .failure(let error): self?.errorMessage = error.localizedDescription
                 }
                 
-                strongSelf.isShutterDisabled = false
+                self?.isShutterDisabled = false
                 
             }
             

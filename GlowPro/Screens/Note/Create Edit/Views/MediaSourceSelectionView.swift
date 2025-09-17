@@ -16,7 +16,7 @@ enum SourceType: String, CaseIterable {
     var displayName: String {
         switch self {
         case .camera: return "Camera"
-        case .gallery: return "Gallery"
+        case .gallery: return "Media Gallery"
         case .applePhotos: return "Apple Photos"
         }
     }

@@ -42,13 +42,6 @@ public struct CameraScreen: View {
         
         ZStack(alignment: .center) {
             
-//            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
-//                
-//                Color.black
-//                    .ignoresSafeArea()
-//                
-//            }
-            
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
