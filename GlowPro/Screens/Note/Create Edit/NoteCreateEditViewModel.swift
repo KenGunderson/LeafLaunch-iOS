@@ -343,33 +343,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                 }
                 
-                let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
-                var newMediaURLs: [URL?] = []
-                
-                try await mediaToUpload.asyncForEach { media in
-                    
-                    switch media.kind {
-                    case .uiImage(let image):
-                        
-                        let newURL = try await self.apiService
-                            .uploadMedia(uploadMedia: .init(
-                                data: image.compressedData(maxMegaBytes: 5) ?? Data(),
-                                businessId: self.activeDestinationService.businessId,
-                                locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
-                                clientId: self.clientId
-                            ))
-                        
-                        newMediaURLs.append(URL(string: newURL))
-                        
-                    case .url(let url):
-                        
-                        newMediaURLs.append(url)
-                    }
-                    
-                }
-                
-                var allURLs = self.mediaFusion.filter({ $0.isUploaded }).compactMap { $0.kind.url }
-                allURLs += newMediaURLs.compactMap({ $0 })
+                let allURLs = try await uploadAndConstructUrlsIfNeeded()
                 
                 let note = Note(
                     id: "",
@@ -439,33 +413,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                 }
                 
-                let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
-                var newMediaURLs: [URL?] = []
-                
-                try await mediaToUpload.asyncForEach { media in
-                    
-                    switch media.kind {
-                    case .uiImage(let image):
-                        
-                        let newURL = try await self.apiService
-                            .uploadMedia(uploadMedia: .init(
-                                data: image.compressedData(maxMegaBytes: 5) ?? Data(),
-                                businessId: self.activeDestinationService.businessId,
-                                locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
-                                clientId: self.clientId
-                            ))
-                        
-                        newMediaURLs.append(URL(string: newURL))
-                        
-                    case .url(let url):
-                        
-                        newMediaURLs.append(url)
-                    }
-                    
-                }
-                
-                var allURLs = self.mediaFusion.filter({ $0.isUploaded }).compactMap { $0.kind.url }
-                allURLs += newMediaURLs.compactMap({ $0 })
+                let allURLs = try await uploadAndConstructUrlsIfNeeded()
                 
                 let note = Note(
                     id: noteId,
@@ -510,6 +458,40 @@ final class NoteCreateEditViewModel: ViewModel {
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    private func uploadAndConstructUrlsIfNeeded() async throws -> [URL] {
+        
+        let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
+        var newMediaURLs: [URL?] = []
+        
+        try await mediaToUpload.asyncForEach { media in
+            
+            switch media.kind {
+            case .uiImage(let image):
+                
+                let newURL = try await self.apiService
+                    .uploadMedia(uploadMedia: .init(
+                        data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                        businessId: self.activeDestinationService.businessId,
+                        locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                        clientId: self.clientId
+                    ))
+                
+                newMediaURLs.append(URL(string: newURL))
+                
+            case .url(let url):
+                
+                newMediaURLs.append(url)
+            }
+            
+        }
+        
+        var allURLs = self.mediaFusion.filter({ $0.isUploaded }).compactMap { $0.kind.url }
+        allURLs += newMediaURLs.compactMap({ $0 })
+        
+        return allURLs
+        
     }
     
 }
