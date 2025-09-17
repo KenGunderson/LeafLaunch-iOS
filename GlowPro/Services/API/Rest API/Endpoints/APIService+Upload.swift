@@ -13,40 +13,32 @@ extension APIService {
     
     func uploadMedia(uploadMedia: UploadMedia) async throws -> String {
         
-        var body = Data()
         let boundary = UUID().uuidString
-
+        
+        var fields: [String: MultipartValue] = [:]
+        
         if let businessId = uploadMedia.businessId {
-            
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"businessId\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(businessId)\r\n".data(using: .utf8)!)
-            
+            fields["businessId"] = .text(businessId)
         }
-
+        
         if let locationId = uploadMedia.locationId {
-            
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"locationId\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(locationId)\r\n".data(using: .utf8)!)
-            
+            fields["locationId"] = .text(locationId)
         }
-
+        
         if let clientId = uploadMedia.clientId {
-            
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"clientId\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(clientId)\r\n".data(using: .utf8)!)
-            
+            fields["clientId"] = .text(clientId)
         }
-
-        // File
-        let fileName = "TEMP_FILE_NAME.jpeg"
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
-        body.append(uploadMedia.data)
-        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        fields["file"] = .file(
+            data: uploadMedia.data,
+            filename: "TEMP_FILE_NAME.jpeg",
+            mimeType: "image/jpeg"
+        )
+        
+        let multipartRequest = MultipartBodyBuilder.makeBody(
+            fields: fields,
+            boundary: boundary
+        )
         
         do {
             
@@ -54,7 +46,7 @@ extension APIService {
                 method: .post,
                 apiPath: .init(path: .uploadMedia("")),
                 boundary: boundary,
-                data: body
+                data: multipartRequest
             )
             
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
