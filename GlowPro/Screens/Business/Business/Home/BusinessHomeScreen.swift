@@ -205,7 +205,10 @@ struct BusinessHomeScreen: GPView {
                 .asButton {
                     
                     self.navigationService
-                        .push(.media(.gallery(.business(businessId: self.viewModel.businessId))))
+                        .push(.media(.gallery(
+                            mediaContext: .business(businessId: self.viewModel.businessId),
+                            mediaSelectionContext: .preview
+                        )))
                     
                 }
                 

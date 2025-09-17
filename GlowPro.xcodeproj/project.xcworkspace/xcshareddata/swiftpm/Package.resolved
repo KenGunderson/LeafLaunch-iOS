@@ -151,7 +151,7 @@
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
         "branch" : "main",
-        "revision" : "442d65a2892abf3188fd375946603658c4e9545f"
+        "revision" : "f239f01240b41955bff377ea7040970e822a2bfb"
       }
     },
     {
@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stripe/stripe-ios-spm",
       "state" : {
-        "revision" : "a5cea99a9b4feac4348d48a120970a32d5054cf1",
-        "version" : "24.23.1"
+        "revision" : "2c89c2766f10bc464b9d955126edcf449fbf4c87",
+        "version" : "24.23.2"
       }
     },
     {

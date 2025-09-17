@@ -111,9 +111,6 @@ final class HomeViewModel: ViewModel {
                                 
                 await MainActor.run { [weak self] in
 
-                    
-                    print(workspaces)
-                    
                     self?.workspaces = workspaces
                     self?.pendingInvites = pendingInvites
                     

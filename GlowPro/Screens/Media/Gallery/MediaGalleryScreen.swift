@@ -235,7 +235,10 @@ struct MediaGalleryScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(MediaGalleryViewModel.self)
-        .setup(context: .business(businessId: MockModels.ID.business1))
+        .setup(
+            mediaContext: .business(businessId: MockModels.ID.business1),
+            mediaSelectionContext: .preview
+        )
     
     MediaGalleryScreen(viewModel: viewModel)
         .withMockServices()

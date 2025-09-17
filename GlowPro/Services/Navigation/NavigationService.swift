@@ -382,10 +382,13 @@ extension View {
                 CameraScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .gallery(let context):
+            case .gallery(let context, let selection):
                 
                 let viewModel = globalResolver.resolve(MediaGalleryViewModel.self)!
-                    .setup(context: context)
+                    .setup(
+                        mediaContext: context,
+                        mediaSelectionContext: selection
+                    )
                 
                 MediaGalleryScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()

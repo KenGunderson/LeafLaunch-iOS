@@ -59,6 +59,10 @@
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		75136AA82E7477E700779BB9 /* LineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75136AA72E7477AD00779BB9 /* LineItemView.swift */; };
 		75136AA92E7477E700779BB9 /* LineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75136AA72E7477AD00779BB9 /* LineItemView.swift */; };
+		7515DA832E7A6DFB00617B06 /* UploadMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DA822E7A6DF800617B06 /* UploadMedia.swift */; };
+		7515DA842E7A6DFB00617B06 /* UploadMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DA822E7A6DF800617B06 /* UploadMedia.swift */; };
+		7515DA862E7A72EF00617B06 /* APIService+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DA852E7A72EA00617B06 /* APIService+Upload.swift */; };
+		7515DA872E7A72EF00617B06 /* APIService+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DA852E7A72EA00617B06 /* APIService+Upload.swift */; };
 		751970142E3D021D007FB142 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751970132E3D021B007FB142 /* HomeScreen.swift */; };
 		751970152E3D021D007FB142 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751970132E3D021B007FB142 /* HomeScreen.swift */; };
 		751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751970162E3D021F007FB142 /* HomeViewModel.swift */; };
@@ -75,6 +79,10 @@
 		7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
 		7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
 		7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
+		753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */; };
+		753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */; };
+		753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420682E7A4F1500DE3BE4 /* MediaFusion.swift */; };
+		7534206A2E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420682E7A4F1500DE3BE4 /* MediaFusion.swift */; };
 		7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -564,6 +572,8 @@
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75136AA72E7477AD00779BB9 /* LineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItemView.swift; sourceTree = "<group>"; };
+		7515DA822E7A6DF800617B06 /* UploadMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadMedia.swift; sourceTree = "<group>"; };
+		7515DA852E7A72EA00617B06 /* APIService+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Upload.swift"; sourceTree = "<group>"; };
 		751970132E3D021B007FB142 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		751970162E3D021F007FB142 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		751F953B2E0B7D26001CAF72 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
@@ -572,6 +582,8 @@
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
+		753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourceSelectionView.swift; sourceTree = "<group>"; };
+		753420682E7A4F1500DE3BE4 /* MediaFusion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFusion.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -1022,6 +1034,22 @@
 			path = Invite;
 			sourceTree = "<group>";
 		};
+		753420622E7A3AEA00DE3BE4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		753420672E7A4F0C00DE3BE4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				753420682E7A4F1500DE3BE4 /* MediaFusion.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7537F3CB2DF661EA0031D9CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1280,6 +1308,7 @@
 				75B731F22E14E52900038AD6 /* Location.swift */,
 				75DBD3192E712E3200032754 /* LocationEmployee.swift */,
 				750990E52E5590D40030DD49 /* Media.swift */,
+				7515DA822E7A6DF800617B06 /* UploadMedia.swift */,
 				75C67E332E764C4300BB29F0 /* Note.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
@@ -1523,7 +1552,6 @@
 		755C98252D9CC8D300437D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				750D23992E786099003E57BE /* Security Pin */,
 				75573AC12DD82E0500C7CA6E /* Auth */,
 				75E0CA712E15F0720081A02A /* Onboarding */,
 				753EC1F62DB8C58100265B2A /* Root */,
@@ -1535,6 +1563,7 @@
 				75C67E392E764F2A00BB29F0 /* Note */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
 				754D29322E07B5AE0065E242 /* Settings */,
+				750D23992E786099003E57BE /* Security Pin */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
 			);
 			path = Screens;
@@ -1764,6 +1793,8 @@
 			children = (
 				75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */,
 				75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */,
+				753420672E7A4F0C00DE3BE4 /* Models */,
+				753420622E7A3AEA00DE3BE4 /* Views */,
 			);
 			path = "Create Edit";
 			sourceTree = "<group>";
@@ -1965,6 +1996,7 @@
 				75F79DA32E18293100E24BD3 /* APIService+Locations.swift */,
 				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
 				75C67E362E764E9000BB29F0 /* APIService+Notes.swift */,
+				7515DA852E7A72EA00617B06 /* APIService+Upload.swift */,
 				75A046522E37BE7300D5EFCD /* APIService+System.swift */,
 				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
@@ -2189,6 +2221,7 @@
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
+				753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
 				750D239E2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */,
@@ -2250,6 +2283,7 @@
 				7537F4652DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				750F9E212E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
+				7515DA872E7A72EF00617B06 /* APIService+Upload.swift in Sources */,
 				7537F4662DF661EA0031D9CF /* APIError.swift in Sources */,
 				75C67E342E764C4400BB29F0 /* Note.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
@@ -2378,6 +2412,7 @@
 				75740B7A2E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B7B2E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
+				7515DA842E7A6DFB00617B06 /* UploadMedia.swift in Sources */,
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
@@ -2389,6 +2424,7 @@
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731F92E14E62400038AD6 /* Employee.swift in Sources */,
 				7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
+				7534206A2E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
 				75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
@@ -2444,6 +2480,7 @@
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
+				753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
 				750D239F2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */,
@@ -2505,6 +2542,7 @@
 				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
 				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
 				750F9E202E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */,
+				7515DA862E7A72EF00617B06 /* APIService+Upload.swift in Sources */,
 				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
 				75C67E352E764C4400BB29F0 /* Note.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
@@ -2633,6 +2671,7 @@
 				75740B782E0A1FB700EF8627 /* FAQViewModel.swift in Sources */,
 				75740B792E0A1FB700EF8627 /* FAQScreen.swift in Sources */,
 				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
+				7515DA832E7A6DFB00617B06 /* UploadMedia.swift in Sources */,
 				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
@@ -2644,6 +2683,7 @@
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				75B731FA2E14E62400038AD6 /* Employee.swift in Sources */,
 				7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
+				753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
 				75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,

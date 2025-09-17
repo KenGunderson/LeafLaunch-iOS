@@ -16,8 +16,6 @@
 
 import Foundation
 
-// TODO: - Make this case iterable to produce errors in dev debug
-
 enum DeeplinkRoutes: String, CaseIterable {
     
     case tab

@@ -198,7 +198,10 @@ struct ClientHomeScreen: GPView {
                 .asButton {
                     
                     self.navigationService
-                        .push(.media(.gallery(.client(clientId: client.id))))
+                        .push(.media(.gallery(
+                            mediaContext: .client(clientId: client.id),
+                            mediaSelectionContext: .preview
+                        )))
                     
                 }
                 
@@ -241,9 +244,10 @@ struct ClientHomeScreen: GPView {
             
             SectionView(leadingTitle: "Recent Media", showDivider: true) {
                 
-                self.navigationService.push(.media(
-                    .gallery(.client(clientId: self.viewModel.clientId))
-                ))
+                self.navigationService.push(.media(.gallery(
+                    mediaContext: .client(clientId: self.viewModel.clientId),
+                    mediaSelectionContext: .preview
+                )))
                 
             }
             .padding(.horizontal, .medium)

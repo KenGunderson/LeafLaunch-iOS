@@ -131,8 +131,10 @@ struct BusinessEmployeeDetailsScreen: GPView {
             SectionView(leadingTitle: "Media", showDivider: true) {
                 
                 self.navigationService.push(.media(
-                    .gallery(.employee(employeeId: self.viewModel.employeeId))
-                ))
+                    .gallery(
+                        mediaContext: .employee(employeeId: self.viewModel.employeeId),
+                        mediaSelectionContext: .preview
+                    )))
                 
             }
             .padding(.horizontal, .medium)

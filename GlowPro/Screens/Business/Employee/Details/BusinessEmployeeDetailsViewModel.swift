@@ -143,9 +143,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     }
     
     func presentDeleteEmployeeAlert() {
-        
-        // TODO: - REMOVE THIS FOR CARD
-        
+                
         self.alertService
             .showAlert(.init(.appAlert(.init(
                 title: Constants.Message.deleteConfirmationTitle("Employee"),

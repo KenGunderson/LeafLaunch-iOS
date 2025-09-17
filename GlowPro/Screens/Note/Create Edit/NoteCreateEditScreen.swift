@@ -65,9 +65,42 @@ struct NoteCreateEditScreen: View {
                 self.focusedField = nil
             }
         
+        // Sheet
+        
+            .adaptiveSheet(
+                isPresented: self.$viewModel.shouldShowMediaSourceSelectionSheet,
+                additionalDetens: [],
+                backgroundStyle: Style.shared.background(.primary)
+            ) {
+                
+                MediaSourceSelectionView(selectedSourceTypeAction: { source in
+                    self.viewModel.handleSourceSelectionAction(source)
+                })
+                .presentationCornerRadius(Style.shared.radius(.large))
+                
+            }
+        
+            .photosPicker(
+                isPresented: self.$viewModel.shouldShowApplePhotosSelectionSheet,
+                selection: self.$viewModel.selectedPhotoPickerItems,
+                maxSelectionCount: 5,
+                selectionBehavior: .ordered,
+                matching: .images
+            )
+        
+        // OnChange
+        
+            .onChange(of: self.viewModel.selectedPhotoPickerItems) { _, newValue in
+                
+                self.viewModel
+                    .handlePHPickerSelectionConverionToUIImage(items: newValue)
+                
+            }
+        
         // Animation
         
             .animation(.smooth, value: self.focusedField)
+            .animation(.smooth, value: self.viewModel.mediaFusion)
         
     }
     
@@ -149,7 +182,8 @@ struct NoteCreateEditScreen: View {
                 maxWidth: .infinity,
                 alignment: .leading
             )
-            
+            .allowsHitTesting(self.viewModel.isOwnerOrManager)
+              
         }
         
     }
@@ -210,8 +244,8 @@ struct NoteCreateEditScreen: View {
             
             HStack {
                 
-                ForEach(self.viewModel.mediaURLs, id: \.self) { url in
-                    mediaItem(url)
+                ForEach(self.viewModel.mediaFusion, id: \.id) { item in
+                    mediaItem(item)
                 }
                 
                 cameraItem()
@@ -236,12 +270,25 @@ struct NoteCreateEditScreen: View {
         
     }
     
-    private func mediaItem(_ url: URL) -> some View {
+    @ViewBuilder
+    private func mediaItem(_ mediaFusion: MediaFusion) -> some View {
+        
+        switch mediaFusion.kind {
+            
+        case .url(let url): urlItem(url: url, mediaFusion: mediaFusion)
+        case .uiImage(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
+        }
+        
+    }
+    
+    private func urlItem(url: URL,
+                         mediaFusion: MediaFusion) -> some View {
         
         ImageSource
             .remote(url: url, placeholder: PlaceholderView().asAnyView())
             .view()
             .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
             .appBorder(
                 cornerRadius: .small,
                 color: Style.shared.accent,
@@ -257,7 +304,44 @@ struct NoteCreateEditScreen: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(AnyShapeStyle(Color.white), Style.shared.background(.error).source())
                     .asButton {
-                        print("Attempt to remove media: \(url)")
+                        
+                        self.viewModel
+                            .deleteMediaFusion(id: mediaFusion.id)
+                        
+                    }
+                    .offset(x: 8, y: -8)
+                
+            }
+        
+    }
+    
+    private func appleMediaItem(uiImage: UIImage,
+                                mediaFusion: MediaFusion) -> some View {
+        
+        Image(uiImage: uiImage)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
+            .appBorder(
+                cornerRadius: .small,
+                color: Style.shared.accent,
+                lineWidth: 3,
+                outerBorder: false
+            )
+            .cornerRadius(.custom(9))
+            .overlay(alignment: .topTrailing) {
+                
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(AnyShapeStyle(Color.white), Style.shared.background(.error).source())
+                    .asButton {
+                        
+                        self.viewModel
+                            .deleteMediaFusion(id: mediaFusion.id)
+                        
                     }
                     .offset(x: 8, y: -8)
                 
@@ -273,6 +357,7 @@ struct NoteCreateEditScreen: View {
             .foregroundStyle(Style.shared.background(.quaternary).source())
             .padding(.large)
             .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
             .appBorder(
                 cornerRadius: .small,
                 color: Style.shared.background(.quaternary),
@@ -281,7 +366,12 @@ struct NoteCreateEditScreen: View {
             )
             .cornerRadius(.custom(9))
             .background(.backgroundTappable)
-            .asButton {}
+            .asButton {
+                
+                self.viewModel
+                    .shouldShowMediaSourceSelectionSheet = true
+                
+            }
         
     }
     

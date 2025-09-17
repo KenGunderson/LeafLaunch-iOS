@@ -122,8 +122,6 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
         self.alertService
             .showAlert(.init(.appAlert(.success(message: "Updated successfully! Your changes have been saved.", action: {
                 
-                print("Updated")
-                
                 self.navigationService?
                     .pop()
                 

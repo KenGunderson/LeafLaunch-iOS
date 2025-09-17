@@ -25,6 +25,24 @@ enum MediaContext: Hashable {
     
 }
 
+enum MediaSelectionContext: Hashable {
+    
+    case singleSelection(completion: (Media?) -> Void)
+    case preview
+    
+    static func == (lhs: MediaSelectionContext, rhs: MediaSelectionContext) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .preview: hasher.combine("preview")
+        case .singleSelection: hasher.combine("singleSelection")
+        }
+    }
+    
+}
+
 final class MediaGalleryViewModel: ViewModel {
     
     struct GroupedMedia: Equatable {
@@ -57,7 +75,8 @@ final class MediaGalleryViewModel: ViewModel {
     private var media: [Media] = []
     private(set) var mediaTags: [MediaTag] = []
     
-    private var context: MediaContext!
+    private var mediaContext: MediaContext!
+    private var mediaSelectionContext: MediaSelectionContext!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -86,9 +105,12 @@ final class MediaGalleryViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(context: MediaContext) -> Self {
+    func setup(mediaContext: MediaContext,
+               mediaSelectionContext: MediaSelectionContext) -> Self {
         
-        self.context = context
+        self.mediaContext = mediaContext
+        self.mediaSelectionContext = mediaSelectionContext
+        
         return self
         
     }
@@ -123,7 +145,7 @@ final class MediaGalleryViewModel: ViewModel {
                 
                 var media: [Media] = []
                 
-                switch self.context! {
+                switch self.mediaContext! {
                 case .business(let businessId):
                     
                     media = try await self.apiService.getMedia(
@@ -198,23 +220,33 @@ final class MediaGalleryViewModel: ViewModel {
     
     func select(_ selectedMedia: Media) {
         
-        self.navigationService?
-            .push(.media(.preview(
-                selectedMedia: selectedMedia,
-                media: self.media)
-            ))
+        switch self.mediaSelectionContext! {
+        case .singleSelection(let completion):
+            
+            completion(selectedMedia)
+            self.navigationService?.pop()
+            
+        case .preview:
+            
+            self.navigationService?
+                .push(.media(.preview(
+                    selectedMedia: selectedMedia,
+                    media: self.media)
+                ))
+            
+        }
         
     }
     
     func emptyStateConfig() -> EmptyStateConfig {
         
-        let shouldShowAction = self.context.allowsCameraCapability
+        let shouldShowAction = self.mediaContext.allowsCameraCapability
         let actionTitle: String? = shouldShowAction ? "Take A Photo" : nil
         let action: (() -> Void)? = shouldShowAction ? {
         
             self.navigationService?
                 .push(.media(.camera(
-                    context: self.context,
+                    context: self.mediaContext,
                     mode: .multiple([]))
                 ))
             

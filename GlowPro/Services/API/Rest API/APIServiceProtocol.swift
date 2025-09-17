@@ -148,6 +148,10 @@ protocol APIServiceProtocol: APIProtocol {
     func updateNote(note: Note) async throws
     func deleteNote(id: String) async throws
     
+    // Upload Media
+    
+    func uploadMedia(uploadMedia: UploadMedia) async throws -> String
+    
     // System
     
     func getLegalInformation(context: String) async throws -> [LegalItem]
@@ -199,7 +203,7 @@ extension APIProtocol {
                 
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                
+
             }
             
             var customLog: String = """
@@ -242,6 +246,69 @@ extension APIProtocol {
             return data
             
         }
+    
+    func buildMultipartRequest(method: HTTPRequestMethod,
+                               apiPath: APIPath,
+                               boundary: String,
+                               data: Data) async throws -> Data {
+        
+        var apiLogResponse: APILogResponse?
+        
+        defer {
+            
+            if let apiLogResponse {
+                apiLogResponses.append(apiLogResponse)
+            }
+            
+        }
+        
+        guard let urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
+            throw URLError(.badURL)
+        }
+        
+        guard let url = urlComponents.url else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.httpBody = data
+        
+        request.setValue("1.0.0", forHTTPHeaderField: "App-Version")
+        request.setValue("Bearer \(self.accessToken ?? "")", forHTTPHeaderField: "Authorization")
+                
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let customLog: String = """
+            METHOD: \(method.rawValue.uppercased())
+            OUTGOING URL: \(request.url?.absoluteString ?? "No URL Provided")
+            """
+        
+        self.log(message: customLog)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        apiLogResponse = APILogResponse(
+            method: method.rawValue,
+            path: request.url?.absoluteString ?? "No URL Provided",
+            statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
+            headers: request.allHTTPHeaderFields ?? [:],
+            queryParameters: [:],
+            body: [:],
+            responseData: data
+        )
+        
+        if let error = handleErrorResponse(data: data, response: response) {
+            
+            apiLogResponse?.error = error
+            throw error
+            
+        }
+        
+        return data
+        
+    }
     
     func parseData<T: Decodable>(data: Data) throws -> T {
         

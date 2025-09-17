@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import _PhotosUI_SwiftUI
 
 final class NoteCreateEditViewModel: ViewModel {
     
@@ -41,7 +42,12 @@ final class NoteCreateEditViewModel: ViewModel {
     @Published var title: String = ""
     @Published var message: String = ""
     @Published var employeeSignature: String = ""
-    @Published var mediaURLs: [URL] = []
+    
+    @Published var mediaFusion: [MediaFusion] = []
+    @Published var selectedPhotoPickerItems: [PhotosPickerItem] = []
+    
+    @Published var shouldShowMediaSourceSelectionSheet: Bool = false
+    @Published var shouldShowApplePhotosSelectionSheet: Bool = false
     
     private var context: Context!
     private var clientId: String!
@@ -147,7 +153,16 @@ final class NoteCreateEditViewModel: ViewModel {
                     self.title = note.title
                     self.message = note.message
                     self.employeeSignature = note.employeeSignature ?? self.currentEmployeeName
-                    self.mediaURLs = note.mediaURLs
+                    
+                    if self.mediaFusion.isEmpty {
+                        
+                        self.mediaFusion = note.mediaURLs.map { .init(
+                            id: $0.absoluteString,
+                            kind: .url($0),
+                            isUploaded: true
+                        )}
+                        
+                    }
                     
                 }
                 
@@ -178,6 +193,74 @@ final class NoteCreateEditViewModel: ViewModel {
             update()
         }
         
+    }
+    
+    func handleSourceSelectionAction(_ source: SourceType) {
+        
+        switch source {
+        case .applePhotos: self.shouldShowApplePhotosSelectionSheet = true
+        case .gallery:
+            
+            self.navigationService?
+                .push(.media(.gallery(
+                    mediaContext: .client(clientId: self.clientId),
+                    mediaSelectionContext: .singleSelection(completion: { [weak self] media in
+                        
+                        guard let media else { return }
+                        
+                        self?.mediaFusion.append(.init(
+                            kind: .url(media.url),
+                            isUploaded: false
+                        ))
+                        
+                    })
+                )))
+            
+        case .camera:
+            
+            self.navigationService?
+                .push(.media(.camera(
+                    context: .client(clientId: self.clientId),
+                    mode: .single(nil))
+                ))
+            
+        }
+        
+    }
+    
+    func handlePHPickerSelectionConverionToUIImage(items: [PhotosPickerItem]) {
+                        
+        Task {
+            
+            await items.asyncForEach { item in
+                
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    
+                    if let uiImage = UIImage(data: data) {
+                        
+                        await MainActor.run {
+                            
+                            self.mediaFusion.append(.init(
+                                kind: .uiImage(uiImage),
+                                isUploaded: false
+                            ))
+                            
+                            self.selectedPhotoPickerItems = []
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+        
+    func deleteMediaFusion(id: String) {
+        self.mediaFusion.removeAll(where: { $0.id == id })
     }
     
     func presentDeleteNoteAlert() {
@@ -235,6 +318,8 @@ final class NoteCreateEditViewModel: ViewModel {
     }
     
     private func create() {
+        
+        guard let authUser = self.authService.currentUser else { return }
                 
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -252,11 +337,39 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                     employeeId = try await self.apiService
                         .getEmployeeByUserIdForLocation(
-                            userId: self.authService.currentUser?.id ?? "",
+                            userId: authUser.id,
                             locationId: client.locationId ?? ""
                         )
                     
                 }
+                
+                let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
+                var newMediaURLs: [URL?] = []
+                
+                try await mediaToUpload.asyncForEach { media in
+                    
+                    switch media.kind {
+                    case .uiImage(let image):
+                        
+                        let newURL = try await self.apiService
+                            .uploadMedia(uploadMedia: .init(
+                                data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                                businessId: self.activeDestinationService.businessId,
+                                locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                                clientId: self.clientId
+                            ))
+                        
+                        newMediaURLs.append(URL(string: newURL))
+                        
+                    case .url(let url):
+                        
+                        newMediaURLs.append(url)
+                    }
+                    
+                }
+                
+                var allURLs = self.mediaFusion.filter({ $0.isUploaded }).compactMap { $0.kind.url }
+                allURLs += newMediaURLs.compactMap({ $0 })
                 
                 let note = Note(
                     id: "",
@@ -265,6 +378,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     title: self.title,
                     message: self.message,
                     employeeSignature: self.employeeSignature,
+                    mediaURLs: allURLs,
                     createdAt: ""
                 )
                 
@@ -319,11 +433,39 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                     employeeId = try await self.apiService
                         .getEmployeeByUserIdForLocation(
-                            userId: self.authService.currentUser?.id ?? "",
+                            userId: authUser.id,
                             locationId: client.locationId ?? ""
                         )
                     
                 }
+                
+                let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
+                var newMediaURLs: [URL?] = []
+                
+                try await mediaToUpload.asyncForEach { media in
+                    
+                    switch media.kind {
+                    case .uiImage(let image):
+                        
+                        let newURL = try await self.apiService
+                            .uploadMedia(uploadMedia: .init(
+                                data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                                businessId: self.activeDestinationService.businessId,
+                                locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                                clientId: self.clientId
+                            ))
+                        
+                        newMediaURLs.append(URL(string: newURL))
+                        
+                    case .url(let url):
+                        
+                        newMediaURLs.append(url)
+                    }
+                    
+                }
+                
+                var allURLs = self.mediaFusion.filter({ $0.isUploaded }).compactMap { $0.kind.url }
+                allURLs += newMediaURLs.compactMap({ $0 })
                 
                 let note = Note(
                     id: noteId,
@@ -332,6 +474,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     title: self.title,
                     message: self.message,
                     employeeSignature: self.employeeSignature,
+                    mediaURLs: allURLs,
                     createdAt: ""
                 )
                 

@@ -800,6 +800,12 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         return self.activities.filter { $0.clientId == clientId }
     }
     
+    // Upload Media
+    
+    func uploadMedia(uploadMedia: UploadMedia) async throws -> String {
+        return "URL_TO_UPLOADED_MEDIA"
+    }
+    
     // Notes
     
     func getNotes(clientId: String) async throws -> [Note] {

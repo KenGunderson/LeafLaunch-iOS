@@ -3,4 +3,80 @@
    uuid = "1E71E390-4E9D-4DD3-BB40-DC8166E5361A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6BA8E2B7-A21F-4A8D-AA18-64C4C896B57D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GlowPro/Screens/Note/Create Edit/NoteCreateEditViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "update()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6BA8E2B7-A21F-4A8D-AA18-64C4C896B57D - b1a7360481b32b7e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in GlowPro_Dev.NoteCreateEditViewModel.update() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Note/Create%20Edit/NoteCreateEditViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "445"
+                  endingLineNumber = "445">
+               </Location>
+               <Location
+                  uuid = "6BA8E2B7-A21F-4A8D-AA18-64C4C896B57D - 259b1707fb44537a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 () async -&gt; () in GlowPro_Dev.NoteCreateEditViewModel.update() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Note/Create%20Edit/NoteCreateEditViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "445"
+                  endingLineNumber = "445">
+               </Location>
+               <Location
+                  uuid = "6BA8E2B7-A21F-4A8D-AA18-64C4C896B57D - 870ef50ddba197b1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(12) suspend resume partial function for closure #1 () async -&gt; () in GlowPro_Dev.NoteCreateEditViewModel.update() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Note/Create%20Edit/NoteCreateEditViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "445"
+                  endingLineNumber = "445">
+               </Location>
+               <Location
+                  uuid = "6BA8E2B7-A21F-4A8D-AA18-64C4C896B57D - ef0e9daff490d523"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (GlowPro_Dev.MediaFusion) async throws -&gt; () in closure #1 () async -&gt; () in GlowPro_Dev.NoteCreateEditViewModel.update() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Note/Create%20Edit/NoteCreateEditViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "443"
+                  endingLineNumber = "443">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

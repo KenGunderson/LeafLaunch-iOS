@@ -52,7 +52,7 @@ extension APIService {
             "employee_id": note.employeeId,
             "title": note.title,
             "message": note.message,
-            "media_urls": []
+            "media_urls": note.mediaURLs.map({ $0.absoluteString })
         ]
         .compact()
         
@@ -79,7 +79,7 @@ extension APIService {
             "employee_id": note.employeeId,
             "title": note.title,
             "message": note.message,
-            "media_urls": []
+            "media_urls": note.mediaURLs.map({ $0.absoluteString })
         ]
         .compact()
         

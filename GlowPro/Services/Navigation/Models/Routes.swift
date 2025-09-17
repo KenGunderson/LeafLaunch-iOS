@@ -77,7 +77,8 @@ enum Route: Navigation, Hashable, Sendable {
         case preview(selectedMedia: Media?,
                      media: [Media])
         
-        case gallery(MediaContext)
+        case gallery(mediaContext: MediaContext,
+                     mediaSelectionContext: MediaSelectionContext)
         
     }
     
