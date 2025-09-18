@@ -5,7 +5,7 @@
 //  Created by Sako Hovaguimian on 7/16/24.
 //
 
-import Foundation
+import UIKit
 
 protocol Navigation {
     //
@@ -79,6 +79,9 @@ enum Route: Navigation, Hashable, Sendable {
         
         case gallery(mediaContext: MediaContext,
                      mediaSelectionContext: MediaSelectionContext)
+        
+        case review(context: MediaReviewViewModel.Context,
+                    images: [UIImage])
         
     }
     

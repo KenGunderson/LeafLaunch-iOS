@@ -18,6 +18,15 @@ struct MediaFusion: Equatable {
         case uiImage(UIImage)
         case url(URL)
         
+        var image: UIImage? {
+            
+            switch self {
+            case .uiImage(let image): return image
+            case .url: return nil
+            }
+            
+        }
+        
         var url: URL? {
             
             switch self {

@@ -61,14 +61,18 @@ struct BusinessEmployeeInviteListScreen: GPView {
         
         let plusButton = NavBarButton(style: .plus) {
             
-            
+            self.navigationService
+                .push(.business(
+                    .businessEmployeesInvite(businessId: self.viewModel.businessId)
+                ))
             
         }
         .asAnyView()
         
         return NavBarView(
             title: "Pending Invites",
-            leftButtonView: backButton
+            leftButtonView: backButton,
+            rightButtonView: viewModel.shouldShowAddEmployeeButton ? plusButton : nil
         )
         
     }

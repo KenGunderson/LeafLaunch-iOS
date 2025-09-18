@@ -193,10 +193,6 @@ struct MediaPreviewScreen: GPView {
         let tagsTitle = self.viewModel.shouldShowTags ? "Hide Tags" : "Show Tags"
         let tagIcon = self.viewModel.shouldShowTags ? "tag.slash.fill" : "tag.fill"
         
-        let isSelectedMediaFavorited = self.viewModel.selectedMedia?.isFavorited ?? false
-        let favoriteTitle = isSelectedMediaFavorited ? "Remove From Favorites" : "Add To Favorites"
-        let favoriteIcon = isSelectedMediaFavorited ? "star.fill" : "star"
-        
         VStack(spacing: Style.shared.spacing(.none)) {
             
             // Show Tags

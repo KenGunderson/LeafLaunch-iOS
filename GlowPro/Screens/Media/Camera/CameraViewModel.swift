@@ -16,7 +16,11 @@ public final class CameraViewModel: ObservableObject {
     @Published public var errorMessage: String?
     @Published public var isShutterDisabled: Bool = false
     
-    private var context: MediaContext!
+    private(set) var context: MediaContext!
+    
+    var allImages: [UIImage] {
+        return self.captureMode.allPhotos
+    }
     
     public init(cameraService: CameraServiceProtocol) {
         self.cameraService = cameraService
@@ -37,14 +41,13 @@ public final class CameraViewModel: ObservableObject {
         
     }
     
-    public func setup() {
+    func setup() {
         
         guard !ProcessInfo.isPreview,
               !ProcessInfo.isSimulator else { return }
         
         Task { @MainActor [weak self] in
             
-            let errorMessage: String?
             let status = await AVCaptureDevice.requestAccess(for: .video)
             
             if !status {
@@ -74,14 +77,14 @@ public final class CameraViewModel: ObservableObject {
         
     }
     
-    public func teardown() {
+    func teardown() {
         
         self.cameraService
             .teardown()
         
     }
     
-    public func shutter() {
+    func shutter() {
         
         self.isShutterDisabled = true
         
@@ -101,5 +104,5 @@ public final class CameraViewModel: ObservableObject {
         }
         
     }
-    
+
 }

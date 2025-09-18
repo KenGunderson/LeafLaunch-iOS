@@ -146,8 +146,8 @@ struct LocationCardView: View {
 
 #Preview {
     
-    var business: Business = MockModels.MockBusiness.business1
-    var business2: Business = MockModels.MockBusiness.business2
+    let business: Business = MockModels.MockBusiness.business1
+    let business2: Business = MockModels.MockBusiness.business2
     
     AppBaseView {
         

@@ -23,6 +23,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published private(set) var employeeInvites: [EmployeeInvite] = []
@@ -33,16 +34,30 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
+    private var isOwnerOrManager: Bool {
+        return self.activeDestinationService.isOwnerOrManager
+    }
+    
+    var shouldShowAddEmployeeButton: Bool {
+        return self.isOwnerOrManager && self.context != .personal
+    }
+    
+    var businessId: String {
+        return self.activeDestinationService.businessId ?? ""
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()

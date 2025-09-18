@@ -404,6 +404,17 @@ extension View {
                 MediaPreviewScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            case .review(let context, let images):
+                
+                let viewModel = globalResolver.resolve(MediaReviewViewModel.self)!
+                    .setup(
+                        context: context,
+                        images: images
+                    )
+                
+                MediaReviewScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             }
             
         }

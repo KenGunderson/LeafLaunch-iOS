@@ -12,6 +12,8 @@ import Photos
 public struct CameraScreen: View {
         
     @Environment(\.dismiss) private var dismiss
+    @Environment(NavigationService.self) private var navigationService
+    
     @StateObject var viewModel: CameraViewModel
     
     @State private var showTopOverlayDrawer: Bool = false
@@ -133,6 +135,15 @@ public struct CameraScreen: View {
                         
                     )
                     .shadow(radius: 6)
+                    .asButton {
+                        
+                        self.navigationService
+                            .push(.media(.review(
+                                context: .transformFromMediaContext(self.viewModel.context),
+                                images: self.viewModel.allImages
+                            )))
+                        
+                    }
                 
             }
             

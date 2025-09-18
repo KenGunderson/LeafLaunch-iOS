@@ -276,6 +276,10 @@
 		7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
 		7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */; };
 		7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */; };
+		7563087D2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */; };
+		7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */; };
+		756308802E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
+		756308812E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
 		7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */; };
@@ -693,6 +697,8 @@
 		7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeScreen.swift; sourceTree = "<group>"; };
 		7560F8A62E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeViewModel.swift; sourceTree = "<group>"; };
 		7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeScreen.swift; sourceTree = "<group>"; };
+		7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewViewModel.swift; sourceTree = "<group>"; };
+		7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewScreen.swift; sourceTree = "<group>"; };
 		7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientBirthdayView.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeScreen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeViewModel.swift; sourceTree = "<group>"; };
@@ -964,6 +970,7 @@
 				75F135D12E638FAE00BFCD51 /* Camera */,
 				750F9E1B2E56155200C72EA7 /* Gallery */,
 				75F1BBD92E65480300858401 /* Preview */,
+				7563087B2E7BB38E003175A1 /* Review */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -1613,6 +1620,15 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		7563087B2E7BB38E003175A1 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */,
+				7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		75715AD12DB9366700E7994E /* Client Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2231,10 +2247,12 @@
 				750DFBC92DC6E7F400A2AB74 /* DevDeeplinksScreen.swift in Sources */,
 				750DFBCA2DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift in Sources */,
 				751F95442E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */,
+				756308812E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */,
 				753EC19E2DB8BC5E00265B2A /* Query.swift in Sources */,
 				753EC19F2DB8BC5E00265B2A /* AppNumberFormatter.swift in Sources */,
 				753EC1A02DB8BC5E00265B2A /* ViewModel.swift in Sources */,
 				750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
+				7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
 				753EC1A22DB8BC5E00265B2A /* PushNotification.swift in Sources */,
 				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
@@ -2490,10 +2508,12 @@
 				75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */,
 				75D66D1B2DC713C300E51CFC /* DevDeeplinksViewModel.swift in Sources */,
 				751F95432E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */,
+				756308802E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */,
 				75D66D2B2DC713C300E51CFC /* Query.swift in Sources */,
 				75D66D2C2DC713C300E51CFC /* AppNumberFormatter.swift in Sources */,
 				75D66D2D2DC713C300E51CFC /* ViewModel.swift in Sources */,
 				750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
+				7563087D2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
 				75D66D2F2DC713C300E51CFC /* PushNotification.swift in Sources */,
 				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
