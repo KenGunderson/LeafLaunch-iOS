@@ -34,6 +34,7 @@ final class NoteCreateEditViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private let alertService: AlertServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
+    private let mediaTransferService: MediaTransferServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     
@@ -89,6 +90,7 @@ final class NoteCreateEditViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
+         mediaTransferService: MediaTransferServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
         
@@ -97,6 +99,7 @@ final class NoteCreateEditViewModel: ViewModel {
         self.authService = authService
         self.alertService = alertService
         self.activeDestinationService = activeDestinationService
+        self.mediaTransferService = mediaTransferService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
         
@@ -456,10 +459,6 @@ final class NoteCreateEditViewModel: ViewModel {
         
     }
     
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
-    }
-    
     private func uploadAndConstructUrlsIfNeeded() async throws -> [URL] {
         
         let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
@@ -491,6 +490,33 @@ final class NoteCreateEditViewModel: ViewModel {
         allURLs += newMediaURLs.compactMap({ $0 })
         
         return allURLs
+        
+    }
+    
+    
+    private func bindSubscribers() {
+        
+        self.cancelBag = CancelBag()
+        
+        self.mediaTransferService
+            .mediaURLsPublisher
+            .receiveOnMain()
+            .sink { [weak self] urls in
+                
+                let newMediaFusion = urls.map({
+                    
+                    MediaFusion(
+                        kind: .url($0),
+                        isUploaded: true
+                    )
+                    
+                })
+                
+                self?.mediaFusion
+                    .append(contentsOf: newMediaFusion)
+                
+            }
+            .store(in: &self.cancelBag)
         
     }
     

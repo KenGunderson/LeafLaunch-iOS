@@ -200,6 +200,13 @@ class ServiceAssembly: Assembly {
                 CameraService()
             }.inObjectScope(.container)
         
+        // MEDIA TRANSFER
+        
+        container
+            .register(MediaTransferServiceProtocol.self) { r in
+                MediaTransferService()
+            }.inObjectScope(.container)
+        
     }
     
 }

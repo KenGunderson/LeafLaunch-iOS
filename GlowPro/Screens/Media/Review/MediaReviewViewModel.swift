@@ -42,10 +42,6 @@ final class MediaReviewViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    var isSingleMedia: Bool {
-        self.images.count == 1
-    }
-    
     private var context: Context!
     
     init(apiService: APIServiceProtocol,
@@ -150,11 +146,9 @@ final class MediaReviewViewModel: ViewModel {
         
     }
     
-    func delete() {
-        
-        guard let selectedImage = self.selectedImage else { return }
-        
-        self.images.removeAll(where: { $0.id == selectedImage.id })
+    func deleteMediaFusion(_ mediaFusionId: String) {
+                
+        self.images.removeAll(where: { $0.id == mediaFusionId })
         
         if self.images.isEmpty {
             

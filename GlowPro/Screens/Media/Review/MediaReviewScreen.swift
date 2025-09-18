@@ -62,18 +62,9 @@ struct MediaReviewScreen: GPView {
         }
         .asAnyView()
         
-        let trashButton = NavBarButton(style: .trash) {
-        
-            self.viewModel
-                .delete()
-            
-        }
-        .asAnyView()
-        
         return NavBarView(
             title: "Review Media",
-            leftButtonView: backButton,
-            rightButtonView: trashButton
+            leftButtonView: backButton
         )
         
     }
@@ -112,40 +103,10 @@ struct MediaReviewScreen: GPView {
             
             ScrollView(.horizontal) {
                 
-                HStack(spacing: Style.shared.spacing(.custom(2))) {
+                HStack(spacing: Style.shared.spacing(.small)) {
                     
                     ForEach(self.viewModel.images, id: \.id) { image in
-                        
-                        if let uiImage = image.kind.image {
-                            
-                            let isSelected = (self.viewModel.selectedImage == image)
-                            
-                            ImageSource
-                                .uiImage(uiImage, renderingMode: .original)
-                                .view()
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 65, height: 65)
-                                .clipped()
-                                .appBorder(
-                                    cornerRadius: .small,
-                                    color: .color(isSelected ? GPColor.green : .clear),
-                                    lineWidth: 3,
-                                    outerBorder: false
-                                )
-                                .cornerRadius(.custom(9))
-                                .appOnTapGesture {
-                                    
-                                    self.viewModel
-                                        .select(image: image)
-                                    
-                                }
-                                .transition(.asymmetric(
-                                    insertion: .opacity,
-                                    removal: .scale.combined(with: .opacity)
-                                ))
-                            
-                        }
-                        
+                        mediaItem(image)
                     }
                     
                 }
@@ -176,15 +137,65 @@ struct MediaReviewScreen: GPView {
     }
     
     @ViewBuilder
+    private func mediaItem(_ image: MediaFusion) -> some View {
+        
+        if let uiImage = image.kind.image {
+            
+            let isSelected = (self.viewModel.selectedImage == image)
+            
+            ImageSource
+                .uiImage(uiImage, renderingMode: .original)
+                .view()
+                .aspectRatio(1, contentMode: .fit)
+                .background(Style.shared.background(.primary).source())
+                .frame(width: 65, height: 65)
+                .appBorder(
+                    cornerRadius: .small,
+                    color: isSelected ? Style.shared.accent : Style.shared.background(.border),
+                    lineWidth: 3,
+                    outerBorder: false
+                )
+                .cornerRadius(.custom(9))
+                .appOnTapGesture {
+                    
+                    self.viewModel
+                        .select(image: image)
+                    
+                }
+                .overlay(alignment: .topTrailing) {
+                    
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(AnyShapeStyle(Color.white), Style.shared.background(.error).source())
+                        .asButton {
+                            
+                            self.viewModel
+                                .deleteMediaFusion(image.id)
+                            
+                        }
+                        .padding([.top, .trailing], -8)
+                    
+                }
+                .padding(.top, 8)
+                .transition(.asymmetric(
+                    insertion: .opacity,
+                    removal: .scale.combined(with: .opacity)
+                ))
+            
+        }
+        
+    }
+    
+    @ViewBuilder
     private func bottomBar() -> some View {
         
         if !self.hideBottomBar {
             
             VStack(spacing: Style.shared.spacing(.small2)) {
                 
-                if !self.viewModel.isSingleMedia {
-                    mediaList()
-                }
+                mediaList()
                 
                 CommonButton(title: "Save Media (\(self.viewModel.images.count))") {
                     

@@ -421,6 +421,7 @@ class MockViewModelAssembly: Assembly {
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    mediaTransferService: r.resolve(MediaTransferServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )

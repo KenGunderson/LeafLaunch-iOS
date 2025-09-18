@@ -356,6 +356,10 @@
 		75B731F72E14E58A00038AD6 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F52E14E58800038AD6 /* Address.swift */; };
 		75B731F92E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
 		75B731FA2E14E62400038AD6 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B731F82E14E62200038AD6 /* Employee.swift */; };
+		75C481E12E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C481E02E7C96C70046DB88 /* MediaTransferServiceProtocol.swift */; };
+		75C481E22E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C481E02E7C96C70046DB88 /* MediaTransferServiceProtocol.swift */; };
+		75C481E42E7C96D70046DB88 /* MediaTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C481E32E7C96D20046DB88 /* MediaTransferService.swift */; };
+		75C481E52E7C96D70046DB88 /* MediaTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C481E32E7C96D20046DB88 /* MediaTransferService.swift */; };
 		75C67E342E764C4400BB29F0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E332E764C4300BB29F0 /* Note.swift */; };
 		75C67E352E764C4400BB29F0 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E332E764C4300BB29F0 /* Note.swift */; };
 		75C67E372E764E9300BB29F0 /* APIService+Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E362E764E9000BB29F0 /* APIService+Notes.swift */; };
@@ -738,6 +742,8 @@
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		75C481E02E7C96C70046DB88 /* MediaTransferServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTransferServiceProtocol.swift; sourceTree = "<group>"; };
+		75C481E32E7C96D20046DB88 /* MediaTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTransferService.swift; sourceTree = "<group>"; };
 		75C67E332E764C4300BB29F0 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		75C67E362E764E9000BB29F0 /* APIService+Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Notes.swift"; sourceTree = "<group>"; };
 		75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCreateEditScreen.swift; sourceTree = "<group>"; };
@@ -1579,20 +1585,21 @@
 		755C98262D9CC8E000437D5D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				75D6C2662E63C55800F8A336 /* Camera */,
-				750B85F22E48DD9400417BA5 /* DesignSystem */,
+				7550767F2E26C30D0041021C /* ActiveDestination */,
 				7537F3CC2DF661EA0031D9CF /* Analytics */,
 				7537F3D72DF661EA0031D9CF /* API */,
 				7537F3DA2DF661EA0031D9CF /* AppDelegate */,
 				7537F3DD2DF661EA0031D9CF /* Auth */,
+				75D6C2662E63C55800F8A336 /* Camera */,
 				7537F3E02DF661EA0031D9CF /* Connectivity */,
 				7537F3E32DF661EA0031D9CF /* Deeplink */,
-				7550767F2E26C30D0041021C /* ActiveDestination */,
+				750B85F22E48DD9400417BA5 /* DesignSystem */,
 				7537F3E62DF661EA0031D9CF /* Environment */,
 				7537F3E92DF661EA0031D9CF /* Firebase */,
 				7537F3EC2DF661EA0031D9CF /* Impersonate */,
 				7537F3EF2DF661EA0031D9CF /* Launch */,
 				7537F3F32DF661EA0031D9CF /* Logger */,
+				75C481DF2E7C96AB0046DB88 /* MediaTransfer */,
 				7537F3FE2DF661EA0031D9CF /* Navigation */,
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
@@ -1793,6 +1800,15 @@
 				75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */,
 			);
 			path = Update;
+			sourceTree = "<group>";
+		};
+		75C481DF2E7C96AB0046DB88 /* MediaTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				75C481E02E7C96C70046DB88 /* MediaTransferServiceProtocol.swift */,
+				75C481E32E7C96D20046DB88 /* MediaTransferService.swift */,
+			);
+			path = MediaTransfer;
 			sourceTree = "<group>";
 		};
 		75C67E392E764F2A00BB29F0 /* Note */ = {
@@ -2275,6 +2291,7 @@
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
 				75D6C26E2E63C6EC00F8A336 /* CameraError.swift in Sources */,
 				758C3CE02E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */,
+				75C481E52E7C96D70046DB88 /* MediaTransferService.swift in Sources */,
 				758C3CE12E14AF8100BC1A43 /* BusinessLocationListScreen.swift in Sources */,
 				750DFBCE2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift in Sources */,
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
@@ -2325,6 +2342,7 @@
 				7537F4762DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7537F4772DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
+				75C481E22E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4782DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31A2E712E3400032754 /* LocationEmployee.swift in Sources */,
@@ -2536,6 +2554,7 @@
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
 				75D6C26F2E63C6EC00F8A336 /* CameraError.swift in Sources */,
 				758C3CDE2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */,
+				75C481E42E7C96D70046DB88 /* MediaTransferService.swift in Sources */,
 				758C3CDF2E14AF8100BC1A43 /* BusinessLocationListScreen.swift in Sources */,
 				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
@@ -2586,6 +2605,7 @@
 				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
+				75C481E12E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31B2E712E3400032754 /* LocationEmployee.swift in Sources */,

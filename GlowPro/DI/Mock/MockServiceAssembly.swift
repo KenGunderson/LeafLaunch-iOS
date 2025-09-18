@@ -1324,6 +1324,24 @@ final class MockViewLifecycleService: ViewLifecycleServiceProtocol {
     
 }
 
+final class MockMediaTransferService: MediaTransferServiceProtocol {
+ 
+    internal let loggerName: String = "MEDIA_TRANSFER_SERVICE"
+    internal let loggerEmoji: String = "🚛"
+    
+    var mediaPublisher = PassthroughSubject<[Media], Never>()
+    var mediaURLsPublisher = PassthroughSubject<[URL], Never>()
+    
+    func sendMedia(_ media: [Media]) {
+        self.mediaPublisher.send(media)
+    }
+    
+    func sendURLs(_ url: [URL]) {
+        self.mediaURLsPublisher.send(url)
+    }
+    
+}
+
 // MARK: - Mock Service Assembly
 
 final class MockServiceAssembly: Assembly {
@@ -1351,7 +1369,7 @@ final class MockServiceAssembly: Assembly {
         container.register(ImpersonateServiceProtocol.self.self) { _ in MockImpersonateService() }.inObjectScope(.container)
         container.register(ActiveDestinationServiceProtocol.self.self) { _ in MockActiveDestinationService() }.inObjectScope(.container)
         container.register(CameraServiceProtocol.self.self) { _ in MockCameraService() }.inObjectScope(.transient)
-        
+        container.register(MediaTransferServiceProtocol.self.self) { _ in MediaTransferService() }.inObjectScope(.transient)
     }
     
 }
