@@ -12,6 +12,8 @@ struct MediaReviewScreen: GPView {
     @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
+    @State private var hideBottomBar: Bool = false
+    
     @StateObject var viewModel: MediaReviewViewModel
     
     var body: some View {
@@ -42,6 +44,13 @@ struct MediaReviewScreen: GPView {
         }
         .safeAreaInset(edge: .bottom) {
             bottomBar()
+        }
+        .onTapGesture {
+            
+            withAnimation(.snappy) {
+                self.hideBottomBar.toggle()
+            }
+            
         }
         
     }
@@ -169,19 +178,24 @@ struct MediaReviewScreen: GPView {
     @ViewBuilder
     private func bottomBar() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        if !self.hideBottomBar {
             
-            if !self.viewModel.isSingleMedia {
-                mediaList()
-            }
-            
-            CommonButton(title: "Save Media (\(self.viewModel.images.count))") {
+            VStack(spacing: Style.shared.spacing(.small2)) {
+                
+                if !self.viewModel.isSingleMedia {
+                    mediaList()
+                }
+                
+                CommonButton(title: "Save Media (\(self.viewModel.images.count))") {
+                    
+                }
+                .padding(.horizontal, .medium)
                 
             }
-            .padding(.horizontal, .medium)
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .animation(.snappy, value: self.viewModel.selectedImage)
             
         }
-        .animation(.snappy, value: self.viewModel.selectedImage)
         
     }
     
