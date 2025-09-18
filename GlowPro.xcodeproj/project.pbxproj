@@ -1318,9 +1318,9 @@
 				7515DA822E7A6DF800617B06 /* UploadMedia.swift */,
 				75C67E332E764C4300BB29F0 /* Note.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
+				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
-				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
