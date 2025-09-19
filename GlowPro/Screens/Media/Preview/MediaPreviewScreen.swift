@@ -29,6 +29,14 @@ struct MediaPreviewScreen: GPView {
                     .setup(navigationService: self.navigationService)
                 
             }
+            
+            .onTapGesture {
+                
+                withAnimation(.snappy) {
+                    self.viewModel.showTopBottomContent.toggle()
+                }
+                
+            }
         
         // Sheets
         
@@ -54,7 +62,7 @@ struct MediaPreviewScreen: GPView {
         }
         .safeAreaInset(edge: .bottom) {
             
-            if !self.viewModel.isSingleMedia {
+            if self.viewModel.showTopBottomContent {
                 mediaList()
             }
             
@@ -119,7 +127,9 @@ struct MediaPreviewScreen: GPView {
                 
             }
             
-            mediaTagsList()
+            if self.viewModel.showTopBottomContent {
+                mediaTagsList()
+            }
             
         }
         
@@ -166,7 +176,7 @@ struct MediaPreviewScreen: GPView {
             .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
             .scrollTargetBehavior(.viewAligned(limitBehavior: .never))
             .padding(.top, .medium)
-            .background(Style.shared.background(.quaternary).source())
+            .background(Style.shared.background(.primary).source())
             .ignoresSafeArea()
             .onAppear {
                 
@@ -184,30 +194,21 @@ struct MediaPreviewScreen: GPView {
             }
             
         }
+        .overlay(alignment: .top) {
+            
+            Rectangle()
+                .fill(Style.shared.background(.quaternary).source())
+                .frame(height: 1)
+            
+        }
+        .transition(.move(edge: .bottom).combined(with: .opacity))
         
     }
     
     @ViewBuilder
     private func optionsSheet() -> some View {
         
-        let tagsTitle = self.viewModel.shouldShowTags ? "Hide Tags" : "Show Tags"
-        let tagIcon = self.viewModel.shouldShowTags ? "tag.slash.fill" : "tag.fill"
-        
         VStack(spacing: Style.shared.spacing(.none)) {
-            
-            // Show Tags
-            
-            lineItem(
-                title: tagsTitle,
-                icon: tagIcon,
-                tintColor: Style.shared.accent.source()
-            )
-            .appOnTapGesture {
-                
-                self.viewModel
-                    .shouldShowTags.toggle()
-                
-            }
             
             // Update Tags
             
@@ -279,8 +280,7 @@ struct MediaPreviewScreen: GPView {
         
         let tags = self.viewModel.selectedMedia?.tags ?? []
         
-        if self.viewModel.selectedMedia != nil,
-           self.viewModel.shouldShowTags {
+        if self.viewModel.selectedMedia != nil {
             
             ScrollView(.horizontal) {
                 
@@ -313,8 +313,8 @@ struct MediaPreviewScreen: GPView {
         
         return TokenView(
             text: mediaTag.name,
-            foregroundStyle: isEditTag ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
-            backgroundStyle: isEditTag ? Style.shared.accent : .color(.clear),
+            foregroundStyle: Style.shared.textColor(.button),
+            backgroundStyle: Style.shared.accent,
             verticalPadding: .extraSmall,
             clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
         )

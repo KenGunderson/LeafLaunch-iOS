@@ -24,7 +24,7 @@ final class MediaPreviewViewModel: ViewModel {
     @Published var selectedMedia: Media?
     private(set) var selectedMediaId: String = ""
     
-    @Published var shouldShowTags: Bool = true
+    @Published var showTopBottomContent: Bool = true
     @Published var shouldShowOptionsSheet: Bool = false
 
     private var navigationService: NavigationService?

@@ -217,8 +217,8 @@ struct BusinessLocationHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
-                    title: "Photo Gallery",
-                    subtitle: "View All Photos",
+                    title: "Media Gallery",
+                    subtitle: "View All Media",
                     prominentSubtitle: false
                 )
                 .appShadow(.subtle)

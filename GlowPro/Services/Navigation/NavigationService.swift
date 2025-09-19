@@ -38,6 +38,16 @@ class NavigationService: NavigationServiceProtocol, Equatable {
         
     }
     
+    func popLast(count: Int) {
+        
+        guard count > 0 else { return }
+        guard !self.routes.isEmpty else { return }
+        
+        let safeCount = min(count, self.routes.count)
+        self.routes.removeLast(safeCount)
+        
+    }
+    
     func popToRoot() {
         self.routes = []
     }

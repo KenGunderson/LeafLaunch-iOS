@@ -32,6 +32,7 @@ final class MediaReviewViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
+    private let mediaTransferService: MediaTransferServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
@@ -49,6 +50,7 @@ final class MediaReviewViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
+         mediaTransferService: MediaTransferServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol) {
         
@@ -57,6 +59,7 @@ final class MediaReviewViewModel: ViewModel {
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.activeDestinationService = activeDestinationService
+        self.mediaTransferService = mediaTransferService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
         
@@ -123,7 +126,8 @@ final class MediaReviewViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Media Saved Successfully!",
                         action: {
-                            self.navigationService?.pop()
+                            
+                            self.navigationService?.popLast(count: 2)
                         }
                     ))))
                 
@@ -167,13 +171,14 @@ final class MediaReviewViewModel: ViewModel {
                                 clientId: String?) async throws {
         
         let mediaToUpload = self.images.filter({ $0.isUploaded == false })
+        var uploadedURLs: [URL] = []
         
         try await mediaToUpload.asyncForEach { media in
             
             switch media.kind {
             case .uiImage(let image):
                 
-                _ = try await self.apiService
+                let newURL = try await self.apiService
                     .uploadMedia(uploadMedia: .init(
                         data: image.compressedData(maxMegaBytes: 5) ?? Data(),
                         businessId: businessId,
@@ -181,10 +186,15 @@ final class MediaReviewViewModel: ViewModel {
                         clientId: clientId
                     ))
                 
+                uploadedURLs.append(URL(string: newURL)!)
+                
             case .url: print("Not Needed")
             }
             
         }
+        
+        self.mediaTransferService
+            .sendURLs(uploadedURLs)
         
     }
     

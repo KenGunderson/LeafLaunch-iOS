@@ -63,7 +63,7 @@ struct MediaGalleryScreen: GPView {
         .asAnyView()
         
         NavBarView(
-            title: "Photo Gallery",
+            title: "Media Gallery",
             leftButtonView: backButton,
             rightButtonView: filterButton
         )

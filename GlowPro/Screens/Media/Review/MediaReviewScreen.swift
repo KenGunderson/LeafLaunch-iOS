@@ -130,7 +130,7 @@ struct MediaReviewScreen: GPView {
                 }
                 
             }
-            .animation(.snappy, value: self.viewModel.selectedImage)
+            .animation(.snappy, value: self.viewModel.images)
             
         }
         
@@ -199,12 +199,24 @@ struct MediaReviewScreen: GPView {
                 
                 CommonButton(title: "Save Media (\(self.viewModel.images.count))") {
                     
+                    self.viewModel
+                        .create()
+                    
                 }
                 .padding(.horizontal, .medium)
                 
             }
+            .background(Style.shared.background(.primary).source())
+            .overlay(alignment: .top) {
+                
+                Rectangle()
+                    .fill(Style.shared.background(.quaternary).source())
+                    .frame(height: 1)
+                
+            }
             .transition(.move(edge: .bottom).combined(with: .opacity))
             .animation(.snappy, value: self.viewModel.selectedImage)
+            .animation(.snappy, value: self.viewModel.images)
             
         }
         

@@ -393,6 +393,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    mediaTransferService: r.resolve(MediaTransferServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
