@@ -83,10 +83,13 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
+            logoutDetached()
+            
             self.logError(
                 title: "Sign Up Error",
                 message: error.getMessageForError()
             )
+            
             
             throw error
             
@@ -109,6 +112,8 @@ final class AuthService: AuthServiceProtocol {
             
         }
         catch {
+            
+            logoutDetached()
             
             self.logError(
                 title: "Login Error",
@@ -221,6 +226,14 @@ final class AuthService: AuthServiceProtocol {
             
             throw error
             
+        }
+        
+    }
+    
+    func logoutDetached() {
+        
+        Task {
+            try await logout()
         }
         
     }
