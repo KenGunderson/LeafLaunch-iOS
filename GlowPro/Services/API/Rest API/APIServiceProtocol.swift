@@ -196,7 +196,7 @@ extension APIProtocol {
             
             var request = URLRequest(url: url)
             request.httpMethod = method.rawValue
-            request.setValue("1.0.0", forHTTPHeaderField: "App-Version")
+            request.setValue("0.0.1", forHTTPHeaderField: "App-Version")
             request.setValue("Bearer \(self.accessToken ?? "")", forHTTPHeaderField: "Authorization")
             
             if !parameters.isEmpty {
