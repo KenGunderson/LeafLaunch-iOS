@@ -10,12 +10,12 @@ import SwiftUI
 struct WelcomeScreen: GPView {
     
     @StateObject var viewModel: WelcomeViewModel
-    @State private var navigationService = NavigationService()
+    @Environment(NavigationService.self) private var navigationService
         
     var body: some View {
         
         AppRootView(
-            navigationService: self.$navigationService,
+            navigationService: Bindable(navigationService),
             alertService: self.viewModel.alertService
         ) {
             
@@ -64,19 +64,6 @@ struct WelcomeScreen: GPView {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding(.top, .custom(48))
             .background(Style.shared.background(.primary).source())
-//            .background {
-//                
-//                LinearGradient(
-//                    colors: [
-//                        Style.shared.accent.asColor!.opacity(1),
-//                        Color(hex: "#A9D0B5"),
-////                        Color(hex: "#A9D0B5").opacity(0.01)
-//                    ],
-//                    startPoint: .top,
-//                    endPoint: .bottom
-//                )
-//                
-//            }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

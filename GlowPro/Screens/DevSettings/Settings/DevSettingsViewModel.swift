@@ -16,7 +16,7 @@ final class DevSettingsViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private(set) var authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let firebaseService: FirebaseServiceProtocol
+    private(set) var firebaseService: FirebaseServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     

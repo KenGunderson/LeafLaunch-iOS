@@ -204,7 +204,7 @@ struct DevSettingsScreen: GPView {
                     
                 }
                 
-                if self.viewModel.authService.currentUser != nil {
+                if self.viewModel.firebaseService.user != nil {
                     
                     listSectionItemView(
                         title: "Logout",
