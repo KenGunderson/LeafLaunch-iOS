@@ -90,7 +90,6 @@ final class AuthService: AuthServiceProtocol {
                 message: error.getMessageForError()
             )
             
-            
             throw error
             
         }
