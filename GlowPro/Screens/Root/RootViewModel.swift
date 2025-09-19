@@ -79,7 +79,7 @@ final class RootViewModel: ViewModel {
             await MainActor.run {
                 UITabBar.appearance().isHidden = true
             }
-            
+                        
         }
         
     }
