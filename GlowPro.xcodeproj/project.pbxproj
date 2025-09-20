@@ -306,6 +306,8 @@
 		758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivitiesView.swift */; };
 		758DAEC62E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
 		758DAEC72E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
+		75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
+		75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
 		759B64792E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647A2E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
@@ -717,6 +719,7 @@
 		758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeesScreen.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCarouselView.swift; sourceTree = "<group>"; };
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
@@ -1905,6 +1908,7 @@
 		75D6C2622E63C53300F8A336 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */,
 				750A18AB2E6513740087B427 /* GhostOverlayView.swift */,
 				75D6C2702E63C75500F8A336 /* ShutterButton.swift */,
 				75D6C2762E63C79300F8A336 /* CameraPreviewView.swift */,
@@ -1981,9 +1985,9 @@
 			isa = PBXGroup;
 			children = (
 				75D6C2602E63C51B00F8A336 /* Models */,
-				75D6C2622E63C53300F8A336 /* Views */,
 				75D6C2732E63C78800F8A336 /* CameraViewModel.swift */,
 				75F135D22E638FB000BFCD51 /* CameraScreen.swift */,
+				75D6C2622E63C53300F8A336 /* Views */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -2349,6 +2353,7 @@
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
+				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */,
@@ -2612,6 +2617,7 @@
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
+				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */,

@@ -16,9 +16,8 @@ public struct CameraScreen: View {
     
     @StateObject var viewModel: CameraViewModel
     
-    @State private var showTopOverlayDrawer: Bool = false
     @State private var showBottomOverlayDrawer: Bool = true
-    
+    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .grid
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     
     public var body: some View {
@@ -33,9 +32,7 @@ public struct CameraScreen: View {
         
         // Animations
         
-        .animation(.snappy, value: self.showTopOverlayDrawer)
         .animation(.snappy, value: self.showBottomOverlayDrawer)
-        .animation(.snappy, value: self.selectedGhostOverlayItem)
         
     }
     
@@ -44,18 +41,19 @@ public struct CameraScreen: View {
         
         ZStack(alignment: .center) {
             
+            Color.indigo
+                .opacity(0.50)
+                .ignoresSafeArea()
+            
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    
                     self.showBottomOverlayDrawer = false
-                    self.showTopOverlayDrawer = false
-                    
                 }
             
+            topBarView()
             selectedOverlay()
-            topOverlay()
             bottomOverlay()
             
         }
@@ -65,51 +63,45 @@ public struct CameraScreen: View {
     @ViewBuilder
     private func topBarView() -> some View {
         
-        HStack {
+        VStack {
             
-            CircularIconView(
-                foregroundColor: .color(.white),
-                backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("slider.horizontal.below.sun.max"),
-                size: 36
-            )
-            .asButton {
+            HStack {
                 
-                self.showTopOverlayDrawer.toggle()
+                CircularIconView(
+                    foregroundColor: .color(.white),
+                    backgroundColor: .material(.ultraThinMaterial),
+                    imageSource: .systemImage("person.crop.square.on.square.angled"),
+                    size: 40
+                )
+                .asButton {
+                    
+                    self.showBottomOverlayDrawer.toggle()
+                    
+                }
+                
+                Spacer()
+                
+                CircularIconView(
+                    foregroundColor: .color(.white),
+                    backgroundColor: .material(.ultraThinMaterial),
+                    imageSource: .systemImage("xmark"),
+                    size: 40
+                )
+                .asButton {
+                    
+                    self.viewModel.teardown()
+                    dismiss()
+                    
+                }
                 
             }
-            
-            CircularIconView(
-                foregroundColor: .color(.white),
-                backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("slider.horizontal.below.rectangle"),
-                size: 36
-            )
-            .asButton {
-                
-                self.showBottomOverlayDrawer.toggle()
-                
-            }
+            .padding(.top, .medium)
+            .padding(.horizontal, .medium)
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
             
-            CircularIconView(
-                foregroundColor: .color(.white),
-                backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("xmark"),
-                size: 36
-            )
-            .asButton {
-                
-                self.viewModel.teardown()
-                dismiss()
-                
-            }
-            
         }
-        .padding(.top, .medium)
-        .padding(.horizontal, .medium)
-        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     
@@ -162,35 +154,6 @@ public struct CameraScreen: View {
     }
     
     @ViewBuilder
-    private func topOverlay() -> some View {
-        
-        VStack {
-        
-            ZStack(alignment: .top) {
-                
-                topBarView()
-                
-                if self.showTopOverlayDrawer {
-                    
-                    Rectangle()
-                        .fill(Style.shared.background(.quaternary).source())
-                        .frame(height: 350)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .ignoresSafeArea()
-                    
-                }
-                
-            }
-            .background(.backgroundTappable)
-            
-            Spacer()
-            
-        }
-        .frame(maxHeight: .infinity)
-        
-    }
-    
-    @ViewBuilder
     private func bottomOverlay() -> some View {
         
         VStack {
@@ -199,26 +162,47 @@ public struct CameraScreen: View {
             
             ZStack(alignment: .bottom) {
                 
+                let backgroundColor = Style.shared.background(.primary)
+                
                 bottomBarView()
                 
                 if self.showBottomOverlayDrawer {
                     
-                    VStack {
-
-                        GhostOverlayView(selectedGhostOverlayItem: self.$selectedGhostOverlayItem)
+                    VStack(spacing: -0.5) {
+                        
+                        VStack {
+                            
+                            GhostOverlayView(
+                                selectedGhostOverlayItem: self.$selectedGhostOverlayItem,
+                                images: .constant(selectedGhostOverlayCategory?.images ?? [])
+                            )
                             .padding(.bottom, .small)
+                            
+                            GhostOverlayCarouselView(selectedGhostOverlayCategory: self.$selectedGhostOverlayCategory)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(backgroundColor.source())
+                        .clipShape(.rect(cornerRadii: .init(
+                            topLeading: Style.shared.radius(.small2),
+                            topTrailing: Style.shared.radius(.small2))
+                        ))
+                        
+                        backgroundColor
+                            .view()
+                            .ignoresSafeArea()
                         
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(Style.shared.background(.quaternary).source())
+                    .compositingGroup()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
-                    
+ 
                 }
                 
             }
-            .background(.backgroundTappable)
+            .fixedSize(horizontal: false, vertical: true)
             
         }
+        .animation(.snappy, value: self.selectedGhostOverlayItem)
         
     }
     
@@ -232,7 +216,7 @@ public struct CameraScreen: View {
             
             selectedGhostOverlayItem
                 .image
-                .view()
+                .view(renderingMode: .original)
                 .aspectRatio(contentMode: .fit)
                 .frame(
                     width: UIScreen.main.bounds.width * 0.85
@@ -245,7 +229,7 @@ public struct CameraScreen: View {
                 .padding(.bottom, 44)
                 .background(.backgroundTappable)
                 .appOnTapGesture {
-                    self.showBottomOverlayDrawer = true
+                    self.showBottomOverlayDrawer.toggle()
                 }
             
         }

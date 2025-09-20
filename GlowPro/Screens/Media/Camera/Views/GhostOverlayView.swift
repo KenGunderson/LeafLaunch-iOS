@@ -27,25 +27,34 @@ struct GhostOverlayView: View {
     }
     
     @Binding var selectedGhostOverlayItem: GhostOverlayItem?
+    @Binding private var images: [GhostOverlayItem]
+    
     @State private var selectedOpacity: Double = 0.5
     @State private var selectedScale: Double = 0.5
     
-    @State private var images: [GhostOverlayItem] = [
-        .init(id: "1", image: .image(.appIcon)),
-        .init(id: "2", image: .systemImage("person.fill"))
-    ]
+    init(selectedGhostOverlayItem: Binding<GhostOverlayItem?>,
+         images: Binding<[GhostOverlayItem]>) {
+        
+        self._selectedGhostOverlayItem = selectedGhostOverlayItem
+        self._images = images
+        
+        let initialOpacity = selectedGhostOverlayItem.wrappedValue?.opacity ?? 0.5
+        let initialScale = Double(selectedGhostOverlayItem.wrappedValue?.scale ?? 0.5)
+        
+        self._selectedOpacity = State(initialValue: initialOpacity)
+        self._selectedScale = State(initialValue: initialScale)
+        
+    }
     
     var body: some View {
         
         VStack(alignment: .leading) {
             
-            title()
-            
-            scrollView()
-            
             if selectedGhostOverlayItem != nil {
                 slidersView()
             }
+            
+            scrollView()
             
         }
         .padding(.top, .large)
@@ -57,7 +66,7 @@ struct GhostOverlayView: View {
             // Reset
             
             guard newValue == nil else { return }
-            
+            print("Resetting Selected Ghost Overlay Item")
             self.selectedOpacity = 0.5
             self.selectedScale = 0.5
             
@@ -70,6 +79,7 @@ struct GhostOverlayView: View {
             item.scale = CGFloat(newValue)
             
             if let index = self.images.firstIndex(where: { $0.id == item.id }) {
+                print("SCALE Selected Ghost Overlay Item at index: \(index)")
                 self.images[index] = item
             }
             
@@ -85,6 +95,7 @@ struct GhostOverlayView: View {
             
             if let index = self.images.firstIndex(where: { $0.id == item.id }) {
                 self.images[index] = item
+                print("OPACITY Selected Ghost Overlay Item at index: \(index)")
             }
             
             self.selectedGhostOverlayItem = item
@@ -94,53 +105,56 @@ struct GhostOverlayView: View {
         
     }
     
-    private func title() -> some View {
-        
-        Text("Select Ghost Overlay:")
-            .appFont(with: .TITLE_5)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .padding(.leading, .medium)
-        
-    }
-    
     private func scrollView() -> some View {
         
         ScrollView(.horizontal) {
             
-            HStack(spacing: Style.shared.spacing(.medium)) {
+            HStack(spacing: Style.shared.spacing(.small2)) {
                 
-                ForEach(self.images, id: \.id) { image in
+                ForEach(self.images, id: \.id) { item in
                     
-                    image
-                        .image
-                        .view()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .scaleEffect(image.image.isSystemImage ? 0.9 : 1)
-                        .appOnTapGesture {
-                            
-                            let isAlreadySelected = (self.selectedGhostOverlayItem?.id == image.id)
-                            var newItem = image
-                            newItem.opacity = self.selectedOpacity
-                            newItem.scale = self.selectedScale
-                            
-                            self.selectedGhostOverlayItem = isAlreadySelected ? nil : newItem
-                            
-                        }
-                        .appBorder(
-                            cornerRadius: .small,
-                            color: .color(self.selectedGhostOverlayItem?.id == image.id ? .white : .clear),
-                            lineWidth: 5,
-                            outerBorder: true
-                        )
-                        .cornerRadius(.small)
+                    ghostOverlayItem(item)
+                        .id(item.id)
+                        .transition(.scale.combined(with: .opacity))
                     
                 }
                 
             }
             
         }
+        .animation(.smooth, value: self.images)
         .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+        
+    }
+    
+    private func ghostOverlayItem(_ item: GhostOverlayView.GhostOverlayItem) -> some View {
+        
+        item
+            .image
+            .view(renderingMode: .original)
+            .scaledToFit()
+            .frame(width: 48, height: 48)
+            .scaleEffect(item.image.isSystemImage ? 0.9 : 1)
+            .appOnTapGesture {
+                
+                let isAlreadySelected = (self.selectedGhostOverlayItem?.id == item.id)
+                var newItem = item
+                newItem.opacity = self.selectedOpacity
+                newItem.scale = self.selectedScale
+                
+                self.selectedGhostOverlayItem = isAlreadySelected ? nil : newItem
+                
+            }
+            .padding(8)
+            .appBorder(
+                cornerRadius: .small2,
+                color: (self.selectedGhostOverlayItem?.id == item.id) ? Style.shared.accent : ColorSource.color(.clear),
+                lineWidth: 5,
+                outerBorder: true
+            )
+            .background(Style.shared.background(.tertiary).source())
+            .cornerRadius(.small2)
+            .appShadow(.subtle)
         
     }
     
@@ -168,7 +182,33 @@ struct GhostOverlayView: View {
         }
         .padding(.top, .small)
         .padding(.horizontal, .medium)
-        .transition(.move(edge: .bottom).combined(with: .opacity))
+        .transition(.opacity)
+        
+    }
+    
+}
+
+#Preview {
+    
+    @Previewable @State var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
+    @Previewable @State var images: [GhostOverlayView.GhostOverlayItem] = [
+        .init(id: "1", image: .systemImage("person.fill")),
+        .init(id: "2", image: .systemImage("house.fill")),
+        .init(id: "3", image: .systemImage("person.2.fill")),
+        .init(id: "4", image: .systemImage("circle.fill")),
+    ]
+    
+    ZStack {
+        
+        Style.shared
+            .background(.primary)
+            .view()
+            .ignoresSafeArea()
+        
+        GhostOverlayView(
+            selectedGhostOverlayItem: $selectedGhostOverlayItem,
+            images: (selectedGhostOverlayItem?.id == "2") ? .constant(Array(images.suffix(2))) : $images
+        )
         
     }
     

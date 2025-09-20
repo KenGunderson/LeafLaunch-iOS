@@ -5,7 +5,7 @@
 //  Created by Sako Hovaguimian on 8/30/25.
 //
 
-import Photos
+@preconcurrency import Photos
 import UIKit
 
 final class CameraService: NSObject, CameraServiceProtocol {
