@@ -8,26 +8,45 @@
 import AVFoundation
 import SwiftUI
 
-public final class CameraViewModel: ObservableObject {
+final class CameraViewModel: ViewModel {
+    
+    internal let loggerName: String = "CAMERA_VIEW_MODEL"
+    internal let loggerEmoji: String = "📸"
     
     private let cameraService: CameraServiceProtocol
+    private let analyticsService: AnalyticsServiceProtocol
     
-    @Published public var captureMode: CameraCaptureMode = .single(nil)
-    @Published public var errorMessage: String?
-    @Published public var isShutterDisabled: Bool = false
+    @Published private(set) var captureMode: CameraCaptureMode = .single(nil)
+    @Published private(set) var errorMessage: String?
+    @Published private(set) var isShutterDisabled: Bool = false
+    
+    @Published private(set) var cameraFlashMode: CameraFlashMode = .off
+    @Published var zoomFactor: CGFloat = 1.0
     
     private(set) var context: MediaContext!
+    private var cancelBag: CancelBag!
     
     var allImages: [UIImage] {
         return self.captureMode.allPhotos
     }
     
-    public init(cameraService: CameraServiceProtocol) {
+    public init(cameraService: CameraServiceProtocol,
+                analyticsService: AnalyticsServiceProtocol) {
+        
         self.cameraService = cameraService
+        self.analyticsService = analyticsService
+        
+        self.logInit()
+        bindSubscribers()
+        
     }
     
     public var session: AVCaptureSession {
         self.cameraService.session
+    }
+    
+    deinit {
+        self.logDeinit()
     }
     
     @discardableResult
@@ -104,5 +123,59 @@ public final class CameraViewModel: ObservableObject {
         }
         
     }
+    
+    func toggleFlash() {
+        
+        self.cameraService
+            .toggleFlash()
+        
+    }
+    
+    func setCameraFlashMode(_ mode: CameraFlashMode) {
+        
+        self.cameraService
+            .setFlashMode(mode)
+        
+    }
+    
+    func zoom(scale: CGFloat) {
+        
+        self.cameraService
+            .zoom(by: scale, animated: true)
+        
+    }
+    
+    private func bindSubscribers() {
+        
+        self.cancelBag = CancelBag()
+     
+        self.cameraService
+            .flashModePublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.cameraFlashMode = $0
+            }
+            .store(in: &self.cancelBag)
+        
+        self.cameraService
+            .zoomFactorPublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.zoomFactor = $0
+            }
+            .store(in: &self.cancelBag)
+        
+    }
 
+}
+
+extension CameraViewModel {
+    
+    func track() {
+        
+        self.analyticsService
+            .track(screen: .media(.camera))
+        
+    }
+    
 }

@@ -308,6 +308,10 @@
 		758DAEC72E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
 		75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
 		75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
+		7599A95B2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */; };
+		7599A95C2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */; };
+		7599A95F2E7E641800E7CBF0 /* CameraFlashMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599A95E2E7E641800E7CBF0 /* CameraFlashMode.swift */; };
+		7599A9602E7E641800E7CBF0 /* CameraFlashMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599A95E2E7E641800E7CBF0 /* CameraFlashMode.swift */; };
 		759B64792E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647A2E04A75F006F4995 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B64782E04A75E006F4995 /* Client.swift */; };
 		759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */; };
@@ -720,6 +724,8 @@
 		758DAEC22E0514FA00311C7C /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCarouselView.swift; sourceTree = "<group>"; };
+		7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCategory.swift; sourceTree = "<group>"; };
+		7599A95E2E7E641800E7CBF0 /* CameraFlashMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFlashMode.swift; sourceTree = "<group>"; };
 		759B64782E04A75E006F4995 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		759B647C2E04A8ED006F4995 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		759B647F2E04A8F1006F4995 /* ClientListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListScreen.swift; sourceTree = "<group>"; };
@@ -1710,6 +1716,24 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		7599A9592E7E5F8E00E7CBF0 /* GhostOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */,
+				750A18AB2E6513740087B427 /* GhostOverlayView.swift */,
+				75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */,
+			);
+			path = GhostOverlay;
+			sourceTree = "<group>";
+		};
+		7599A95D2E7E641400E7CBF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7599A95E2E7E641800E7CBF0 /* CameraFlashMode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		759B64762E04A751006F4995 /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -1908,8 +1932,7 @@
 		75D6C2622E63C53300F8A336 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */,
-				750A18AB2E6513740087B427 /* GhostOverlayView.swift */,
+				7599A9592E7E5F8E00E7CBF0 /* GhostOverlay */,
 				75D6C2702E63C75500F8A336 /* ShutterButton.swift */,
 				75D6C2762E63C79300F8A336 /* CameraPreviewView.swift */,
 			);
@@ -1919,6 +1942,7 @@
 		75D6C2662E63C55800F8A336 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				7599A95D2E7E641400E7CBF0 /* Models */,
 				75D6C26A2E63C58C00F8A336 /* CameraService.swift */,
 				75D6C2672E63C55F00F8A336 /* CameraServiceProtocol.swift */,
 			);
@@ -2335,6 +2359,7 @@
 				7537F46B2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F46D2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F46E2DF661EA0031D9CF /* NavigationService.swift in Sources */,
+				7599A95F2E7E641800E7CBF0 /* CameraFlashMode.swift in Sources */,
 				7537F4702DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4712DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				75B731F42E14E52A00038AD6 /* Location.swift in Sources */,
@@ -2392,6 +2417,7 @@
 				7537F48C2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				75B429A82E70061500DE7852 /* PlaceholderView.swift in Sources */,
 				7508433A2E5C04850039B06B /* APIService+Activity.swift in Sources */,
+				7599A95C2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift in Sources */,
 				75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */,
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
@@ -2599,6 +2625,7 @@
 				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
 				7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */,
 				7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */,
+				7599A9602E7E641800E7CBF0 /* CameraFlashMode.swift in Sources */,
 				7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */,
 				7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
 				75B731F32E14E52A00038AD6 /* Location.swift in Sources */,
@@ -2656,6 +2683,7 @@
 				7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				75B429A92E70061500DE7852 /* PlaceholderView.swift in Sources */,
 				750843392E5C04850039B06B /* APIService+Activity.swift in Sources */,
+				7599A95B2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift in Sources */,
 				75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */,
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,

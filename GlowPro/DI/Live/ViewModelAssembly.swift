@@ -336,7 +336,8 @@ class ViewModelAssembly: Assembly {
         container
             .register(CameraViewModel.self) { r in
                 CameraViewModel(
-                    cameraService: r.resolve(CameraServiceProtocol.self)!
+                    cameraService: r.resolve(CameraServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                 )
             }.inObjectScope(.transient)
         

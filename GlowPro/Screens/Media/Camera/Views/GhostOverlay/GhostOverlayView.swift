@@ -66,7 +66,6 @@ struct GhostOverlayView: View {
             // Reset
             
             guard newValue == nil else { return }
-            print("Resetting Selected Ghost Overlay Item")
             self.selectedOpacity = 0.5
             self.selectedScale = 0.5
             
@@ -79,7 +78,6 @@ struct GhostOverlayView: View {
             item.scale = CGFloat(newValue)
             
             if let index = self.images.firstIndex(where: { $0.id == item.id }) {
-                print("SCALE Selected Ghost Overlay Item at index: \(index)")
                 self.images[index] = item
             }
             
@@ -95,7 +93,6 @@ struct GhostOverlayView: View {
             
             if let index = self.images.firstIndex(where: { $0.id == item.id }) {
                 self.images[index] = item
-                print("OPACITY Selected Ghost Overlay Item at index: \(index)")
             }
             
             self.selectedGhostOverlayItem = item

@@ -19,6 +19,7 @@ public struct CameraScreen: View {
     @State private var showBottomOverlayDrawer: Bool = true
     @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .grid
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
+    @State private var zoomScale: CGFloat = 1.0
     
     public var body: some View {
         
@@ -41,9 +42,13 @@ public struct CameraScreen: View {
         
         ZStack(alignment: .center) {
             
-            Color.indigo
-                .opacity(0.50)
-                .ignoresSafeArea()
+            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
+                
+                Color.indigo
+                    .opacity(0.50)
+                    .ignoresSafeArea()
+                
+            }
             
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -51,7 +56,19 @@ public struct CameraScreen: View {
                 .onTapGesture {
                     self.showBottomOverlayDrawer = false
                 }
-            
+                .gesture(
+                    MagnificationGesture()
+                        .onChanged { value in
+                            
+                            self.viewModel.zoom(scale: value / self.zoomScale)
+                            self.zoomScale = value
+                            
+                        }
+                        .onEnded { _ in
+                            self.zoomScale = self.viewModel.zoomFactor
+                        }
+                )
+                
             topBarView()
             selectedOverlay()
             bottomOverlay()
@@ -66,6 +83,43 @@ public struct CameraScreen: View {
         VStack {
             
             HStack {
+                
+                let isAutoFlashMode = (self.viewModel.cameraFlashMode == .auto)
+                let isFlastOn = (self.viewModel.cameraFlashMode == .on)
+                let onColor = GPColor.iconYellow
+                let offColor: Color = .white
+                
+                let flashIcon = isAutoFlashMode
+                    ? CameraFlashMode.off.icon
+                    : viewModel.cameraFlashMode.icon
+                
+                CircularIconView(
+                    foregroundColor: .color(isFlastOn ? onColor : offColor),
+                    backgroundColor: .material(.ultraThinMaterial),
+                    imageSource: .systemImage(flashIcon),
+                    size: 40
+                )
+                .asButton {
+                    
+                    self.viewModel
+                        .toggleFlash()
+                    
+                }
+                .contentTransition(.symbolEffect(.replace))
+                                
+                CircularIconView(
+                    foregroundColor: .color(isAutoFlashMode ? onColor : offColor),
+                    backgroundColor: .material(.ultraThinMaterial),
+                    imageSource: .systemImage(CameraFlashMode.auto.icon),
+                    size: 40
+                )
+                .asButton {
+                    
+                    self.viewModel
+                        .setCameraFlashMode(.auto)
+                    
+                }
+                .contentTransition(.symbolEffect(.replace))
                 
                 CircularIconView(
                     foregroundColor: .color(.white),
@@ -98,6 +152,7 @@ public struct CameraScreen: View {
             .padding(.top, .medium)
             .padding(.horizontal, .medium)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .animation(.spring, value: self.viewModel.cameraFlashMode)
             
             Spacer()
             

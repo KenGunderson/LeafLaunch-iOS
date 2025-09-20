@@ -1293,6 +1293,16 @@ final class MockCameraService: CameraServiceProtocol {
     
     var session: AVCaptureSession = .init()
     
+    @Published internal var flashMode: CameraFlashMode = .on
+    var flashModePublisher: AnyPublisher<CameraFlashMode, Never>  {
+        return self.$flashMode.eraseToAnyPublisher()
+    }
+    
+    @Published internal var zoomFactor: CGFloat = 1
+    var zoomFactorPublisher: AnyPublisher<CGFloat, Never>  {
+        return self.$zoomFactor.eraseToAnyPublisher()
+    }
+    
     func configure() throws {
         //
     }
@@ -1303,6 +1313,31 @@ final class MockCameraService: CameraServiceProtocol {
     
     func capturePhoto(_ completion: @escaping (Result<UIImage, any Error>) -> Void) {}
     
+    func setFlashMode(_ mode: CameraFlashMode) {
+        flashMode = mode
+    }
+    
+    func toggleFlash() {
+        
+        let shouldTurnOn = self.flashMode == .auto || self.flashMode == .off
+        self.flashMode = shouldTurnOn ? .on : .off
+        
+    }
+    
+    func zoom(by multiplier: CGFloat,
+              animated: Bool) {
+        
+        self.zoomFactor += multiplier
+        
+    }
+    
+    func setZoom(factor: CGFloat,
+                 animated: Bool,
+                 rampRate: Float) {
+        
+        self.zoomFactor = factor
+        
+    }
     
 }
 

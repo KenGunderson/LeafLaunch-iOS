@@ -7,6 +7,7 @@
 
 @preconcurrency import Photos
 import UIKit
+import Combine
 
 final class CameraService: NSObject, CameraServiceProtocol {
     
@@ -21,6 +22,23 @@ final class CameraService: NSObject, CameraServiceProtocol {
     private var captureCompletion: ((Result<UIImage, Error>) -> Void)?
     
     private var isConfigured: Bool = false
+    
+    @Published internal var flashMode: CameraFlashMode = .off
+    var flashModePublisher: AnyPublisher<CameraFlashMode, Never> {
+        return self.$flashMode.eraseToAnyPublisher()
+    }
+    
+    @Published internal var zoomFactor: CGFloat = 1.0
+    var zoomFactorPublisher: AnyPublisher<CGFloat, Never> {
+        return self.$zoomFactor.eraseToAnyPublisher()
+    }
+    
+    var maxZoomFactor: CGFloat {
+        
+        guard let device = self.videoDeviceInput?.device else { return 1.0 }
+        return min(8.0, device.activeFormat.videoMaxZoomFactor)
+        
+    }
     
     override init() {
         
@@ -218,6 +236,14 @@ final class CameraService: NSObject, CameraServiceProtocol {
             guard let strongSelf = self else { return }
             
             let settings = AVCapturePhotoSettings()
+        
+            if let device = self?.videoDeviceInput?.device,
+               device.hasFlash {
+                
+                settings.flashMode = self?.flashMode.captureDeviceMode ?? .off
+                
+            }
+            
             strongSelf.captureCompletion = completion
             
             strongSelf.photoOutput.capturePhoto(
@@ -226,6 +252,94 @@ final class CameraService: NSObject, CameraServiceProtocol {
             )
             
             strongSelf.log(message: "Capturing photo...")
+            
+        }
+        
+    }
+    
+    // **************************************
+    // MARK: - CAMERA FLASH MODE
+    // **************************************
+    
+    func setFlashMode(_ mode: CameraFlashMode) {
+        
+        self.sessionQueue.async { [weak self, mode] in
+            
+            self?.flashMode = mode
+            self?.log(message: "Flash is now \(mode.displayName)")
+            
+        }
+        
+    }
+
+    func toggleFlash() {
+        
+        self.sessionQueue.async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            let shouldTurnOn = (self.flashMode == .auto) || (self.flashMode == .off)
+            self.flashMode = shouldTurnOn ? .on : .off
+            
+            self.log(message: "Flash toggled to \(self.flashMode.displayName)")
+            
+        }
+        
+    }
+    
+    // **************************************
+    // MARK: - ZOOM MODE
+    // **************************************
+    
+    func setZoom(factor: CGFloat,
+                 animated: Bool = true,
+                 rampRate: Float = 8.0) {
+        
+        self.sessionQueue.async { [weak self] in
+            
+            guard let self = self,
+                  let device = self.videoDeviceInput?.device else { return }
+            
+            let clamped = max(1, min(factor, self.maxZoomFactor))
+
+            do {
+                
+                try device.lockForConfiguration()
+                
+                if animated,
+                   device.responds(to: #selector(getter: AVCaptureDevice.isRampingVideoZoom)) {
+                    
+                    device.ramp(toVideoZoomFactor: clamped, withRate: max(1.0, rampRate))
+                    
+                } else {
+                    device.videoZoomFactor = clamped
+                }
+                
+                device.unlockForConfiguration()
+                self.log(message: "Zoom set to \(clamped)")
+                
+            } catch {
+                self.logError(message: "Failed to set zoom: \(error.localizedDescription)")
+            }
+            
+        }
+        
+    }
+    
+    func zoom(by multiplier: CGFloat,
+              animated: Bool = false) {
+        
+        self.sessionQueue.async { [weak self] in
+            
+            guard let self = self,
+                  let device = self.videoDeviceInput?.device else { return }
+            
+            let target = device.videoZoomFactor * multiplier
+            
+            self.setZoom(
+                factor: target,
+                animated: animated
+            )
             
         }
         
