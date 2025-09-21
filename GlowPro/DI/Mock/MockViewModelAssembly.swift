@@ -449,11 +449,27 @@ class MockViewModelAssembly: Assembly {
             .register(SettingsViewModel.self) { r in
                 SettingsViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - SECURITY
+        
+        container
+            .register(SecurityViewModel.self) { r in
+                SecurityViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)
         

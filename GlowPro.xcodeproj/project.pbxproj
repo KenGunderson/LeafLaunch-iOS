@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
+		75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
+		75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
+		75027FE22E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
 		7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
@@ -553,6 +557,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
+		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
@@ -873,6 +879,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75027FDC2E7FAEEB00E10640 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */,
+				75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		750843312E5BDD6E0039B06B /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1448,6 +1463,7 @@
 			isa = PBXGroup;
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
+				75027FDC2E7FAEEB00E10640 /* Security */,
 				75F131292E74B2CD00E7636B /* AboutUs */,
 				75F131302E74B6C700E7636B /* FeatureRequest */,
 				75740B752E0A1FA900EF8627 /* FAQ */,
@@ -2410,6 +2426,7 @@
 				75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
+				75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2782E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
@@ -2422,6 +2439,7 @@
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
+				75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */,
 				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
@@ -2676,6 +2694,7 @@
 				75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
+				75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2772E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
 				7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
@@ -2688,6 +2707,7 @@
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
+				75027FE22E7FAEFE00E10640 /* SecurityScreen.swift in Sources */,
 				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,

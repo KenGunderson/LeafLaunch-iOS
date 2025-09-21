@@ -4,7 +4,7 @@
 //
 //  Created by Sako Hovaguimian on 8/30/25.
 //
-
+    
 import SwiftUI
 import AVFoundation
 import Photos
@@ -45,7 +45,7 @@ public struct CameraScreen: View {
             if ProcessInfo.isPreview || ProcessInfo.isSimulator {
                 
                 Color.indigo
-                    .opacity(0.50)
+                    .opacity(1)
                     .ignoresSafeArea()
                 
             }

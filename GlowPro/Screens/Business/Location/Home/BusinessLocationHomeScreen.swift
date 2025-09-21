@@ -56,15 +56,17 @@ struct BusinessLocationHomeScreen: GPView {
             guard newValue else { return }
             
             self.navigationService
-                .modal(sheet: .securityPin(businessId: self.viewModel.business?.id ?? "") { success in
-                    
-                    guard success else { return }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.viewModel.dismiss()
-                    }
-                    
-                })
+                .modal(sheet: .securityPin(
+                    context: .validate,
+                    businessId: self.viewModel.business?.id ?? "") { success in
+                        
+                        guard success else { return }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            self.viewModel.dismiss()
+                        }
+                        
+                    })
             
         }
         

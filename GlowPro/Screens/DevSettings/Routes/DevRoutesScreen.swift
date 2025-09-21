@@ -74,6 +74,7 @@ struct DevRoutesScreen: GPView {
             route(
                 title: "Security Pin",
                 sheet: .securityPin(
+                    context: .validate,
                     businessId: "1",
                     completion: nil
                 )

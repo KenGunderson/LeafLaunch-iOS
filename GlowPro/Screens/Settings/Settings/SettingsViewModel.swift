@@ -14,6 +14,7 @@ final class SettingsViewModel: ViewModel {
     internal let loggerEmoji: String = "⚙️"
     
     private let authService: AuthServiceProtocol
+    private let apiService: APIServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
@@ -23,7 +24,12 @@ final class SettingsViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
+    @Published var workspaces: [Workspace] = []
+    
     @Published var shouldDismiss: Bool = false
+    
+    @Published private(set)var isLoading: Bool = true
+    
     @Published var shouldShowRateAppAlert: Bool = false
     @Published var shouldShowMailComposer: Bool = false
     
@@ -46,7 +52,12 @@ final class SettingsViewModel: ViewModel {
         
     }
     
+    var shouldShowSecuritySetting: Bool {
+        return self.workspaces.filter({ $0.isOwner }).first != nil
+    }
+    
     init(authService: AuthServiceProtocol,
+         apiService: APIServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
@@ -54,6 +65,7 @@ final class SettingsViewModel: ViewModel {
          impersonateService: ImpersonateServiceProtocol) {
         
         self.authService = authService
+        self.apiService = apiService
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.environmentService = environmentService
@@ -95,7 +107,49 @@ final class SettingsViewModel: ViewModel {
     }
     
     func loadData() {
+        
+        self.isLoading = true
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
 
+        Task {
+            
+            do {
+                
+                let workspaces = try await self.apiService
+                    .getWorkspaces()
+                
+                await MainActor.run { [weak self] in
+                    
+                    self?.workspaces = workspaces
+                    self?.isLoading = false
+                    
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage("workspaces"),
+                            action: {
+                                
+                                self.navigationService?
+                                    .pop()
+                                
+                            })
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
     }
     
     private func bindSubscribers() {

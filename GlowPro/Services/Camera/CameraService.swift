@@ -300,7 +300,7 @@ final class CameraService: NSObject, CameraServiceProtocol {
             guard let self = self,
                   let device = self.videoDeviceInput?.device else { return }
             
-            let clamped = max(1, min(factor, self.maxZoomFactor))
+            let clamped = max(0.5, min(factor, self.maxZoomFactor))
 
             do {
                 

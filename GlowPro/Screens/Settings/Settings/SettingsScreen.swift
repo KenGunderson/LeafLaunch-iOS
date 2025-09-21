@@ -15,8 +15,6 @@ struct SettingsScreen: GPView {
     
     @StateObject var viewModel: SettingsViewModel
     @State private var navigationService = NavigationService()
-    
-    @State private var onAppearAnimation: Bool = false
         
     var body: some View {
         
@@ -41,16 +39,11 @@ struct SettingsScreen: GPView {
                 self.viewModel
                     .setup(navigationService: self.navigationService)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.onAppearAnimation = true
-                }
-                
             }
             .task {
                 
                 self.viewModel
                     .loadData()
-                
                 
             }
             
@@ -96,16 +89,21 @@ struct SettingsScreen: GPView {
         
     }
     
-    @ViewBuilder
+    
     private func content() -> some View {
         
-        let groups = Dictionary(grouping: Route.Setting.allCases, by: { $0.category })
+        var settings: [Route.Setting] = Route.Setting.allCases
         
+        if !self.viewModel.shouldShowSecuritySetting {
+            settings.removeAll { $0 == .security }
+        }
+        
+        let groups = Dictionary(grouping: settings, by: { $0.category })
         let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
         
-        StaggeredView(config: config) {
+        return StaggeredView(config: config) {
             
-            if self.onAppearAnimation {
+            if !self.viewModel.isLoading {
                 
                 ForEach(groups.keys.sorted(), id: \.self) { category in
                     

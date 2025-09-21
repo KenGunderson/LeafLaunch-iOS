@@ -1328,6 +1328,8 @@ final class MockCameraService: CameraServiceProtocol {
               animated: Bool) {
         
         self.zoomFactor += multiplier
+        self.log(message: "Zoomed by multiplier: \(multiplier)")
+        self.log(message: "Total Zoom Factor: \(self.zoomFactor)")
         
     }
     
@@ -1336,6 +1338,8 @@ final class MockCameraService: CameraServiceProtocol {
                  rampRate: Float) {
         
         self.zoomFactor = factor
+        self.log(message: "Zoomed by factor: \(factor)")
+        self.log(message: "Total Zoom Factor: \(self.zoomFactor)")
         
     }
     

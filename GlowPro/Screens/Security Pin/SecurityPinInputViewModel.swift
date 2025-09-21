@@ -9,6 +9,28 @@ import Foundation
 
 final class SecurityPinInputViewModel: ViewModel {
     
+    enum Context {
+        
+        case create
+        case validate
+        
+        var title: String {
+            switch self {
+            case .create: return "Create Your Business Pin"
+            case .validate: return "Enter Your Business Pin"
+            }
+        }
+        
+        var message: String {
+            switch self {
+            case .create: return "Create a 4 digit code that you will use to secure your business account."
+                
+            case .validate: return "Use the 4 digit code the owner created for the business to move forward."
+            }
+        }
+        
+    }
+    
     internal let loggerName: String = "SECURITY_PIN_INPUT_VIEW_MODEL"
     internal let loggerEmoji: String = "👮🏻‍♂️"
     
@@ -28,6 +50,7 @@ final class SecurityPinInputViewModel: ViewModel {
         return true
     }
 
+    private(set) var context: Context!
     private var businessId: String!
     private var completion: ((Bool) -> Void)?
     
@@ -57,9 +80,11 @@ final class SecurityPinInputViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String,
+    func setup(context: Context,
+               businessId: String,
                completion: ((Bool) -> Void)?) -> Self {
         
+        self.context = context
         self.businessId = businessId
         self.completion = completion
         
@@ -79,6 +104,8 @@ final class SecurityPinInputViewModel: ViewModel {
             self.currentPin = pin
         } else {
             
+            guard self.context == .validate else { return }
+            
             self.alertService.showAlert(.init(
                 .appAlert(
                     .error(
@@ -92,6 +119,28 @@ final class SecurityPinInputViewModel: ViewModel {
     }
     
     func handleContinue() {
+        
+        switch self.context! {
+        case .create: create()
+        case .validate: validate()
+        }
+        
+    }
+    
+    private func create() {
+        
+        self.userDefaultsService
+            .set(
+                securityPin: self.pinText,
+                businessId: self.businessId
+            )
+        
+        self.completion?(true)
+        self.shouldDismiss = true
+        
+    }
+    
+    private func validate() {
         
         guard self.pinText == self.currentPin else {
             

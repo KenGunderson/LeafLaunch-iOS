@@ -88,8 +88,14 @@ struct SecurityPinInputScreen: GPView {
     
     private func navBar() -> some View {
         
+        let closeButton = NavBarButton(style: .close) {
+            dismiss()
+        }
+        .asAnyView()
+        
         return NavBarView(
-            title: "Security"
+            title: "Security",
+            rightButtonView: closeButton
         )
         .padding(.top, self.isPresented ? .medium : .none)
         
@@ -134,7 +140,7 @@ struct SecurityPinInputScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
-            Text("Enter Your Business Pin")
+            Text(self.viewModel.context.title)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .appFont(with: .TITLE_6)
                 .frame(
@@ -142,7 +148,7 @@ struct SecurityPinInputScreen: GPView {
                     alignment: .leading
                 )
             
-            Text("Use the 4 digit code the owner created for the business to move forward.")
+            Text(self.viewModel.context.message)
                 .foregroundStyle(Style.shared.textColor(.body).source())
                 .appFont(with: .BODY_4)
                 .frame(
@@ -159,9 +165,11 @@ struct SecurityPinInputScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(SecurityPinInputViewModel.self)
-        .setup(businessId: MockModels.ID.business1) { success in
-            
-        }
+        .setup(
+            context: .validate,
+            businessId: MockModels.ID.business1) { success in
+                
+            }
     
     SecurityPinInputScreen(viewModel: viewModel)
         .withMockServices()

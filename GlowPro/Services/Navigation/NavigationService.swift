@@ -188,6 +188,13 @@ extension View {
             switch route {
             case .profile: EmptyView()
             case .subscription: EmptyView()
+            case .security:
+                
+                let viewModel = globalResolver.resolve(SecurityViewModel.self)!
+                
+                SecurityScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .aboutUs:
                 
                 let viewModel = globalResolver.resolve(AboutUsViewModel.self)!
@@ -519,10 +526,13 @@ extension View {
         return sheet(item: customSheet) { sheet in
             
             switch sheet {
-            case .securityPin(let businessId, let completion):
+            case .securityPin(let context,
+                              let businessId,
+                              let completion):
                 
                 let viewModel = globalResolver.resolve(SecurityPinInputViewModel.self)!
                     .setup(
+                        context: context,
                         businessId: businessId,
                         completion: completion
                     )
