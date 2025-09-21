@@ -51,7 +51,6 @@ struct SecurityPinInputScreen: GPView {
         
         // Sheet
         
-            .presentationDetents([.fraction(0.75)])
             .presentationCornerRadius(Style.shared.radius(.medium))
             .presentationDragIndicator(.hidden)
             .presentationBackground(Style.shared.background(.primary).source())
