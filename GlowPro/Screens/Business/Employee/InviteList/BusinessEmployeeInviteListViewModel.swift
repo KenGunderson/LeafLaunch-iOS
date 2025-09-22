@@ -28,6 +28,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     
     @Published private(set) var employeeInvites: [EmployeeInvite] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published private(set) var isFirstLoad: Bool = true
     
     private(set) var context: Context!
 
@@ -80,12 +81,16 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
         guard let currentUser = self.authService.currentUser else { return }
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -107,10 +112,11 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 default: break
                 }
                 
-                await MainActor.run { [employeeInvites] in
+                await MainActor.run { [weak self, employeeInvites] in
                     
-                    self.employeeInvites = employeeInvites
-                    self.shouldShowEmptyState = employeeInvites.isEmpty
+                    self?.isFirstLoad = false
+                    self?.employeeInvites = employeeInvites
+                    self?.shouldShowEmptyState = employeeInvites.isEmpty
                     
                 }
                 
@@ -132,8 +138,12 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         

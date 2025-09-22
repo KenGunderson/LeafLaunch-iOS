@@ -96,7 +96,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
         
     }
     
-    func loadData(showsLoadingIndicator: Bool = true) {
+    func loadData(showHud: Bool = true) {
         
         guard let currentUser = self.authService.currentUser?.id else { return }
         
@@ -238,7 +238,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
             self.alertService
                 .dismissLoadingIndicator()
             
-            loadData(showsLoadingIndicator: false)
+            loadData(showHud: false)
             
         }
         

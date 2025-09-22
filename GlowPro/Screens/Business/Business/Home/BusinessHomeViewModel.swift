@@ -86,9 +86,9 @@ final class BusinessHomeViewModel: ViewModel {
         
     }
     
-    func loadData(showsLoadingIndicator: Bool = true) {
+    func loadData(showHud: Bool = true) {
         
-        if showsLoadingIndicator {
+        if showHud {
             
             self.alertService
                 .showAlert(.init(.simpleLoadingIndicator))
@@ -159,7 +159,7 @@ final class BusinessHomeViewModel: ViewModel {
                 
             }
             
-            if showsLoadingIndicator {
+            if showHud {
                 
                 self.alertService
                     .dismissLoadingIndicator()
@@ -269,7 +269,7 @@ final class BusinessHomeViewModel: ViewModel {
             self.alertService
                 .dismissLoadingIndicator()
             
-            loadData(showsLoadingIndicator: false)
+            loadData(showHud: false)
             
         }
         

@@ -46,6 +46,7 @@ final class ClientListViewModel: ViewModel {
     
     @Published private(set) var groupedClientsDict: [Character: [Client]] = [:]
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published private(set) var isFirstLoad: Bool = true
     
     private(set) var context: Context!
     
@@ -124,6 +125,7 @@ final class ClientListViewModel: ViewModel {
                 
                 await MainActor.run { [weak self, clients] in
                     
+                    self?.isFirstLoad = false
                     self?.groupedClientsDict = usersByFirstLetter
                     self?.shouldShowEmptyState = clients.isEmpty
                     

@@ -25,6 +25,7 @@ final class HomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var pendingInvites: [EmployeeInvite] = []
     @Published private(set) var workspaces: [Workspace] = []
+    @Published private(set) var isFirstLoad: Bool = true
     
     var hasActiveBusiness: Bool {
         return self.workspaces.contains(where: { $0.isOwner })
@@ -91,7 +92,7 @@ final class HomeViewModel: ViewModel {
         
     }
     
-    func loadData(showHud: Bool = false) {
+    func loadData(showHud: Bool = true) {
         
         guard let currentUser else { return }
                 
@@ -111,6 +112,7 @@ final class HomeViewModel: ViewModel {
                                 
                 await MainActor.run { [weak self] in
 
+                    self?.isFirstLoad = false
                     self?.workspaces = workspaces
                     self?.pendingInvites = pendingInvites
                     

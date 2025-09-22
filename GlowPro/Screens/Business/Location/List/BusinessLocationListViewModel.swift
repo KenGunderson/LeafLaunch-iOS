@@ -66,7 +66,7 @@ final class BusinessLocationListViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))

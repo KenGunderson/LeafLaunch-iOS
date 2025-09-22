@@ -207,8 +207,8 @@ class ViewModelAssembly: Assembly {
         // Business Employees
         
         container
-            .register(BusinessEmployeesViewModel.self) { r in
-                BusinessEmployeesViewModel(
+            .register(BusinessEmployeeListViewModel.self) { r in
+                BusinessEmployeeListViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

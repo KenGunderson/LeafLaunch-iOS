@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class BusinessEmployeesViewModel: ViewModel {
+final class BusinessEmployeeListViewModel: ViewModel {
     
     public enum Context: Hashable {
         
@@ -185,7 +185,7 @@ final class BusinessEmployeesViewModel: ViewModel {
     
 }
 
-extension BusinessEmployeesViewModel {
+extension BusinessEmployeeListViewModel {
     
     func track() {
         self.analyticsService.track(screen: .business(.businessEmployees(context: self.context)))

@@ -302,10 +302,10 @@
 		758C3CDF2E14AF8100BC1A43 /* BusinessLocationListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */; };
 		758C3CE02E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */; };
 		758C3CE12E14AF8100BC1A43 /* BusinessLocationListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */; };
-		758C3CE52E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */; };
-		758C3CE62E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */; };
-		758C3CE72E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */; };
-		758C3CE82E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */; };
+		758C3CE52E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift */; };
+		758C3CE62E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift */; };
+		758C3CE72E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE32E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift */; };
+		758C3CE82E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CE42E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift */; };
 		758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivitiesView.swift */; };
 		758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivitiesView.swift */; };
 		758DAEC62E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
@@ -725,8 +725,8 @@
 		7582A2D82E48145A0020BA28 /* PendingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInviteView.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
 		758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListScreen.swift; sourceTree = "<group>"; };
-		758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeesViewModel.swift; sourceTree = "<group>"; };
-		758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeesScreen.swift; sourceTree = "<group>"; };
+		758C3CE32E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeListViewModel.swift; sourceTree = "<group>"; };
+		758C3CE42E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeListScreen.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCarouselView.swift; sourceTree = "<group>"; };
@@ -1701,8 +1701,8 @@
 		758C3CE22E14B0C700BC1A43 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				758C3CE32E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift */,
-				758C3CE42E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift */,
+				758C3CE32E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift */,
+				758C3CE42E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -2523,8 +2523,8 @@
 				753EC1A92DB8BC6400265B2A /* GPUser.swift in Sources */,
 				75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
 				753EC1AA2DB8BC6400265B2A /* Gender.swift in Sources */,
-				758C3CE72E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */,
-				758C3CE82E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */,
+				758C3CE72E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */,
+				758C3CE82E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */,
 				7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				75F131332E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,
@@ -2791,8 +2791,8 @@
 				75D66D842DC713C300E51CFC /* GPUser.swift in Sources */,
 				75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
 				75D66D852DC713C300E51CFC /* Gender.swift in Sources */,
-				758C3CE52E14B0CB00BC1A43 /* BusinessEmployeesViewModel.swift in Sources */,
-				758C3CE62E14B0CB00BC1A43 /* BusinessEmployeesScreen.swift in Sources */,
+				758C3CE52E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */,
+				758C3CE62E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
 				7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */,
 				75F131322E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,

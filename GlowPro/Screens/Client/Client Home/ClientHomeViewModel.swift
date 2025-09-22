@@ -26,6 +26,7 @@ final class ClientHomeViewModel: ViewModel {
     @Published private(set) var media: [Media] = []
         
     @Published private(set) var shouldDismiss: Bool = false
+    @Published private(set) var isFirstLoad: Bool = true
     
     private(set) var clientId: String!
     
@@ -77,10 +78,14 @@ final class ClientHomeViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -104,6 +109,7 @@ final class ClientHomeViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
                     
+                    self?.isFirstLoad = false
                     self?.location = location
                     self?.activities = activities
                     self?.media = media
@@ -128,8 +134,12 @@ final class ClientHomeViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         

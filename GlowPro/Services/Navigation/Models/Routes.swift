@@ -47,7 +47,7 @@ enum Route: Navigation, Hashable, Sendable {
                                         locationId: String? = nil)
                 
         case businessEmployees(businessId: String,
-                               context: BusinessEmployeesViewModel.Context)
+                               context: BusinessEmployeeListViewModel.Context)
         
         case businessEmployeesInvite(businessId: String)
         case businessEmployeeInviteList(context: BusinessEmployeeInviteListViewModel.Context)
