@@ -99,7 +99,7 @@ final class BusinessHomeViewModel: ViewModel {
             
             do {
                 
-                self.activeDestinationService.refresh()
+//                self.activeDestinationService.refresh()
                 
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 let activities = try await self.apiService.getActivitiy(businessId: self.businessId)
