@@ -60,7 +60,7 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
         self.activeDestination = destination
         loadData()
-        self.log(message: "Set active destination: \(destination)")
+        self.log(message: "Set active destination: \(destination.prettyLog)")
         
     }
     
@@ -87,55 +87,33 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         guard let activeDestination else { return }
         guard let currentUserId = self.authService?.currentUser?.id else { return }
         
-        Task { [weak self] in
+        var business: Business?
+        var locationEmployee: LocationEmployee?
+        
+        switch activeDestination {
+        case .business(_, let fetchedBusiness):
+            business = fetchedBusiness
+        case .location(_, _, let fetchedLocationEmployee, let fetchedBusiness):
+            locationEmployee = fetchedLocationEmployee
+            business = fetchedBusiness
+        }
+        
+        // THIS IS NIL BECAUSE WE DON"T HAVE BUSINESS OWNER IN LOCAITON OBJECT
+        self.isOwner = (business?.owner.id == currentUserId)
+        self.locationEmployee = locationEmployee
+        
+        if let business {
             
-            var business: Business?
-            var locationEmployee: LocationEmployee?
-            
-            switch activeDestination {
-            case .business(let businessId):
-                
-                business = try await self?.apiService.getBusiness(id: businessId)
-                
-            case .location(let locationId):
-                
-                let location = try await self?.apiService.getLocation(id: locationId)
-                business = try await self?.apiService.getBusiness(id: location?.businessId ?? "")
-                                
-                let employeeId = try await self?.apiService.getEmployeeByUserIdForLocation(
-                    userId: currentUserId,
-                    locationId: location?.id ?? ""
-                )
-                
-                locationEmployee = try await self?.apiService
-                    .getLocationEmployee(
-                        employeeId: employeeId ?? "",
-                        locationId: locationId
-                    )
-                
-            }
-            
-            await MainActor.run { [weak self, business, locationEmployee] in
-                
-                self?.isOwner = (business?.owner.id == currentUserId)
-                self?.locationEmployee = locationEmployee
-                
-                if let business {
-                    
-                    self?.log(message: "Loaded Business: \(business.id)")
-                    self?.business = business
-                    self?.businessId = business.id
-                    
-                }
-                
-                if let locationEmployee {
-                    self?.log(message: "Loaded Employee: \(locationEmployee.id)")
-                }
-                
-            }
+            self.log(message: "Loaded Business: \(business.id)")
+            self.business = business
+            self.businessId = business.id
             
         }
         
+        if let locationEmployee {
+            self.log(message: "Loaded Employee: \(locationEmployee.id)")
+        }
+        
     }
-    
+
 }

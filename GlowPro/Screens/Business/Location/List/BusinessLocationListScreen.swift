@@ -163,14 +163,18 @@ struct BusinessLocationListScreen: GPView {
                     CommonButton(title: "View Dashboard",
                                  verticalPadding: .small) {
                         
-                        self.viewModel
-                            .setActiveDestination(.location(locationId: location.id))
-                        
                         self.navigationService
                             .push(.business(.businessLocationHome(locationId: location.id) {
                                 
-                                self.viewModel
-                                    .setActiveDestination(.business(businessId: self.viewModel.businessId))
+                                if let business = self.viewModel.business {
+                                    
+                                    self.viewModel
+                                        .setActiveDestination(.business(
+                                            businessId: self.viewModel.businessId,
+                                            business: business
+                                        ))
+                                    
+                                }
                                 
                             }))
                         
@@ -189,8 +193,15 @@ struct BusinessLocationListScreen: GPView {
                 locationId: location.id,
                 completion: nil)) {
                 
-                self.viewModel
-                    .setActiveDestination(.business(businessId: self.viewModel.businessId))
+                if let business = self.viewModel.business {
+                    
+                    self.viewModel
+                        .setActiveDestination(.business(
+                            businessId: self.viewModel.businessId,
+                            business: business
+                        ))
+                    
+                }
                 
             }
             

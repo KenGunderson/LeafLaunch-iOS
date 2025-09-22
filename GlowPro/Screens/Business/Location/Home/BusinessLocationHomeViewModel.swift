@@ -98,25 +98,49 @@ final class BusinessLocationHomeViewModel: ViewModel {
     
     func loadData(showsLoadingIndicator: Bool = true) {
         
+        guard let currentUser = self.authService.currentUser?.id else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
         Task {
             
             do {
-                
-//                activeDestinationService.refresh()
-                
+                                
+                async let activities = self.apiService.getActivitiy(locationId: self.locationId)
+                async let employeeId = self.apiService.getEmployeeByUserIdForLocation(
+                    userId: currentUser.id,
+                    locationId: self.locationId
+                )
+
                 let location = try await self.apiService.getLocation(id: self.locationId)
-                let business = try await self.apiService.getBusiness(id: location.businessId)
-                let activities = try await self.apiService.getActivitiy(locationId: self.locationId)
+
+                async let business = self.apiService.getBusiness(id: location.businessId)
+
+                let resolvedEmployeeId = try await employeeId
+                let locationEmployee = try await self.apiService.getLocationEmployee(
+                    employeeId: resolvedEmployeeId,
+                    locationId: self.locationId
+                )
+
+                let resolvedBusiness = try await business
+                let resolvedActivities = try await activities
+
+                self.activeDestinationService.setActiveDestination(
+                    .location(
+                        locationId: self.locationId,
+                        location: location,
+                        locationEmployee: locationEmployee,
+                        business: resolvedBusiness
+                    )
+                )
                 
                 await MainActor.run { [weak self] in
                     
                     self?.isFirstLoad = false
-                    self?.business = business
-                    self?.activities = activities
-                    self?.pendingInvites = business.employeeInvites
+                    self?.business = resolvedBusiness
+                    self?.activities = resolvedActivities
+                    self?.pendingInvites = resolvedBusiness.employeeInvites
                     self?.location = location
                     
                 }

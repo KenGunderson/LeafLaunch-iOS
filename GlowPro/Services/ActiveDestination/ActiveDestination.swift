@@ -7,8 +7,12 @@
 
 enum ActiveDestination: Sendable {
     
-    case business(businessId: String)
-    case location(locationId: String)
+    case business(businessId: String, business: Business)
+    
+    case location(locationId: String,
+                  location: Location,
+                  locationEmployee: LocationEmployee,
+                  business: Business)
     
     var isBusiness: Bool {
         switch self {
@@ -26,8 +30,15 @@ enum ActiveDestination: Sendable {
     
     var destinationId: String {
         switch self {
-        case .business(let businessId): return businessId
-        case .location(let locationId): return locationId
+        case .business(let businessId, _): return businessId
+        case .location(let locationId, _, _, _): return locationId
+        }
+    }
+    
+    var prettyLog: String {
+        switch self {
+        case .business(let businessId, _): return "Business: \(businessId)"
+        case .location(let locationId, _, _, _): return "Location: \(locationId)"
         }
     }
     

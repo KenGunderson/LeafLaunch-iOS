@@ -107,7 +107,6 @@ struct HomeScreen: GPView {
                         
                         if let business = self.viewModel.workspaces.first(where: { $0.isOwner }) {
                             
-                            self.viewModel.setActiveDestination(.business(businessId: business.id))
                             self.navigationService.push(.business(.businessHome(businessId: business.id)))
                             
                         }
@@ -189,7 +188,6 @@ struct HomeScreen: GPView {
                     )
                     .asButton {
                         
-                        self.viewModel.setActiveDestination(.location(locationId: roleLocation.location.id))
                         self.navigationService.push(.business(.businessLocationHome(locationId: roleLocation.location.id)))
                         
                     }

@@ -98,9 +98,7 @@ final class BusinessHomeViewModel: ViewModel {
         Task {
             
             do {
-                
-//                self.activeDestinationService.refresh()
-                
+                                
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 let activities = try await self.apiService.getActivitiy(businessId: self.businessId)
                 
@@ -121,6 +119,12 @@ final class BusinessHomeViewModel: ViewModel {
                     ]
                     
                     self?.business = business
+                    
+                    self?.activeDestinationService
+                        .setActiveDestination(.business(
+                            businessId: business.id,
+                            business: business)
+                        )
                     
                     if let didView = self?.userDefaultsService.didViewChecklistCompletionSheet,
                        !didView,
