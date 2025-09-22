@@ -38,6 +38,16 @@ class NavigationService: NavigationServiceProtocol, Equatable {
         
     }
     
+    func popWithDelay(_ delay: TimeInterval = 0.2) {
+        
+        guard !self.routes.isEmpty else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.routes.removeLast()
+        }
+        
+    }
+    
     func popLast(count: Int) {
         
         guard count > 0 else { return }

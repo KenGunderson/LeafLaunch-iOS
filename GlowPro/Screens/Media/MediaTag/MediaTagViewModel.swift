@@ -100,7 +100,7 @@ final class MediaTagViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

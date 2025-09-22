@@ -98,7 +98,7 @@ final class NoteListViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

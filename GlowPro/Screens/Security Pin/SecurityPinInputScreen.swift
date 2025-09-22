@@ -88,7 +88,12 @@ struct SecurityPinInputScreen: GPView {
     private func navBar() -> some View {
         
         let closeButton = NavBarButton(style: .close) {
+            
+            self.viewModel
+                .completion?(false)
+            
             dismiss()
+            
         }
         .asAnyView()
         

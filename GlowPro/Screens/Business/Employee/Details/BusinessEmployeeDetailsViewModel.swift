@@ -127,7 +127,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

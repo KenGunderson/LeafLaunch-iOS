@@ -99,7 +99,7 @@ final class BusinessLocationListViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

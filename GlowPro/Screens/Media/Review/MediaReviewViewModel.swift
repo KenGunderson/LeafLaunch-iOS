@@ -127,7 +127,10 @@ final class MediaReviewViewModel: ViewModel {
                         message: "Media Saved Successfully!",
                         action: {
                             
-                            self.navigationService?.popLast(count: 2)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
+                                self.navigationService?.popLast(count: 2)
+                            }
+                            
                         }
                     ))))
                 

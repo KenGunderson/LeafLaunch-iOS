@@ -150,7 +150,7 @@ final class BusinessActivityListViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

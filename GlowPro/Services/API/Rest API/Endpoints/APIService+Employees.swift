@@ -164,7 +164,7 @@ extension APIService {
             
             let _ = try await buildRequest(
                 method: .delete,
-                apiPath: .init(path: .employee("/\(id)"))
+                apiPath: .init(path: .employee("\(id)"))
             )
             
         }

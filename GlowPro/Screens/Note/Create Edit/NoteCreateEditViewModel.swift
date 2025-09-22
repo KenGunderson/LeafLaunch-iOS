@@ -366,7 +366,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Note Created Successfully!",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 
@@ -436,7 +436,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Note Updated Successfully!",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 

@@ -18,6 +18,7 @@ protocol NavigationServiceProtocol {
     func push(_ route: Route)
     func push(_ routes: [Route])
     func pop()
+    func popWithDelay(_ delay: TimeInterval)
     func popLast(count: Int)
     func popToRoot()
     func swap(_ route: Route)

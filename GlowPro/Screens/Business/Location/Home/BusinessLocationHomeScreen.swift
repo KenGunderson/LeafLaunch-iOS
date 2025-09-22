@@ -60,6 +60,8 @@ struct BusinessLocationHomeScreen: GPView {
                     context: .validate,
                     businessId: self.viewModel.business?.id ?? "") { success in
                         
+                        self.viewModel.shouldShowSecurityScreen = false
+                        
                         guard success else { return }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

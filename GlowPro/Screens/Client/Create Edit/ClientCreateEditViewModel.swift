@@ -123,7 +123,7 @@ final class ClientCreateEditViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -212,8 +212,12 @@ final class ClientCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Client created successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            
+                            self.navigationService?
+                                .popWithDelay()
+                            
                         }
+                        
                     ))))
                 
             }
@@ -286,7 +290,10 @@ final class ClientCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Client updated successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            
+                            self.navigationService?
+                                .popWithDelay()
+                            
                         }
                     ))))
                 

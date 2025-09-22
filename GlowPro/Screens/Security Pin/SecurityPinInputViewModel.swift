@@ -51,8 +51,8 @@ final class SecurityPinInputViewModel: ViewModel {
     }
 
     private(set) var context: Context!
+    private(set) var completion: ((Bool) -> Void)?
     private var businessId: String!
-    private var completion: ((Bool) -> Void)?
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!

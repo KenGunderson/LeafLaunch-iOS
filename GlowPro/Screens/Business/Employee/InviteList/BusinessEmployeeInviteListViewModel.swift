@@ -124,7 +124,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))

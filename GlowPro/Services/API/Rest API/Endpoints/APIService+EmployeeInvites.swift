@@ -13,7 +13,7 @@ extension APIService {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employeeInvite("/businesses/\(businessId)"))
+                apiPath: .init(path: .employeeInvite("businesses/\(businessId)"))
             )
             
             let result: [EmployeeInvite] = try parseData(data: data)

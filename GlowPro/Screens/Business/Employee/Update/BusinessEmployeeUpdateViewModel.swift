@@ -102,7 +102,7 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -123,7 +123,7 @@ final class BusinessEmployeeUpdateViewModel: ViewModel {
             .showAlert(.init(.appAlert(.success(message: "Updated successfully! Your changes have been saved.", action: {
                 
                 self.navigationService?
-                    .pop()
+                    .popWithDelay()
                 
             }))))
         

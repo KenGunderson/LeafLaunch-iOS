@@ -118,7 +118,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -237,7 +237,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
             .init(.card(.invitationAlert(
                 name: self.name,
                 businessName: self.business?.name ?? "") { [weak self] in
-                    self?.navigationService?.pop()
+                    
+                    self?.navigationService?
+                        .popWithDelay()
+                    
                 }
             )))
         

@@ -81,7 +81,7 @@ final class FeatureRequestViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Request Submitted Successfully!",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 

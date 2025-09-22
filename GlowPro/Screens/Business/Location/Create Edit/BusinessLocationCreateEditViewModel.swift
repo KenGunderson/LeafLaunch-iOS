@@ -143,7 +143,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -249,7 +249,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Location created successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 
@@ -303,7 +303,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Location updated successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 

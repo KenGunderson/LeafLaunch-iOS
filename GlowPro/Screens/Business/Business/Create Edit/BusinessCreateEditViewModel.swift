@@ -134,7 +134,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -207,7 +207,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Business created successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 
@@ -278,7 +278,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                     .showAlert(.init(.appAlert(.success(
                         message: "Business updated successfully.",
                         action: {
-                            self.navigationService?.pop()
+                            self.navigationService?.popWithDelay()
                         }
                     ))))
                 

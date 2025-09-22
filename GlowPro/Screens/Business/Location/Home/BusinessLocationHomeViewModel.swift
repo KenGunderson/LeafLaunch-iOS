@@ -131,7 +131,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
                             action: {
                                 
                                 self.navigationService?
-                                    .pop()
+                                    .popWithDelay()
                                 
                             })
                     ))
@@ -155,7 +155,7 @@ final class BusinessLocationHomeViewModel: ViewModel {
             
         }
         
-        shouldShowSecurityScreen = true
+        self.shouldShowSecurityScreen = true
         
     }
     
