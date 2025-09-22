@@ -23,8 +23,9 @@ struct Address: Codable,
         var string = ""
         string += "\(self.street),"
         
-        if let street = self.street2 {
-            string += " \(street),"
+        if let street2 = self.street2,
+           !street2.isEmpty {
+            string += " \(street2),"
         }
         
         return string + " \(self.city), \(self.state) \(self.zip)"
@@ -36,8 +37,9 @@ struct Address: Codable,
         var string = ""
         string += "\(self.street),"
         
-        if let street = self.street2 {
-            string += " \(street),"
+        if let street2 = self.street2,
+           !street2.isEmpty {
+            string += " \(street2),"
         }
         
         string += "\n\(self.city), \(self.zip) \(self.state)"
