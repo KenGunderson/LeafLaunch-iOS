@@ -29,6 +29,7 @@ final class SettingsViewModel: ViewModel {
     @Published var shouldDismiss: Bool = false
     
     @Published private(set)var isLoading: Bool = true
+    @Published private(set) var isFirstLoad: Bool = true
     
     @Published var shouldShowRateAppAlert: Bool = false
     @Published var shouldShowMailComposer: Bool = false
@@ -106,12 +107,16 @@ final class SettingsViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
         self.isLoading = true
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if self.isFirstLoad {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
 
         Task {
             
@@ -136,8 +141,12 @@ final class SettingsViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if self.isFirstLoad {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         
