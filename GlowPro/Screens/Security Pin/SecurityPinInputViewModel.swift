@@ -16,19 +16,20 @@ final class SecurityPinInputViewModel: ViewModel {
         
         var title: String {
             switch self {
-            case .create: return "Create Your Business Pin"
-            case .validate: return "Enter Your Business Pin"
+            case .create: return "Create Your Business PIN"
+            case .validate: return "Enter Your Business PIN"
             }
         }
         
         var message: String {
             switch self {
-            case .create: return "Create a 4 digit code that you will use to secure your business account."
+            case .create:
+                return "Choose a 4-digit PIN to protect your business account."
                 
-            case .validate: return "Use the 4 digit code the owner created for the business to move forward."
+            case .validate:
+                return "Enter the 4-digit PIN set by your business owner to continue."
             }
         }
-        
     }
     
     internal let loggerName: String = "SECURITY_PIN_INPUT_VIEW_MODEL"

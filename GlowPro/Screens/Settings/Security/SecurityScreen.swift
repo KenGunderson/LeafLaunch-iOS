@@ -98,13 +98,13 @@ struct SecurityScreen: GPView {
     @ViewBuilder
     private func titleSubtitle() -> some View {
         
-        Text("Your security is our top priority.")
-            .appFont(with: .TITLE_6)
+        Text("Secure Your Business Access")
+            .appFont(with: .TITLE_5)
             .foregroundStyle(Style.shared.textColor(.title).source())
             .frame(maxWidth: .infinity, alignment: .leading)
-        
-        Text("This feature allows you to set a 4 digit pin for your business. This pin will be used to navigate back to the main menu when you are in your business dashboard.")
-            .appFont(with: .BODY_4)
+
+        Text("Set up a secure 4-digit PIN to protect your business. This PIN is required to return to the main menu from your dashboard, ensuring only authorized users can exit.")
+            .appFont(with: .BODY_3)
             .foregroundStyle(Style.shared.textColor(.body).source())
             .frame(maxWidth: .infinity, alignment: .leading)
         
@@ -135,7 +135,7 @@ struct SecurityScreen: GPView {
     @ViewBuilder
     private func setChangePinButton() -> some View {
         
-        let buttonTitle = self.viewModel.hasBusinessPin ? "Change Pin" : "Set Pin"
+        let buttonTitle = self.viewModel.hasBusinessPin ? "Change PIN" : "Set PIN"
         
         CommonButton(title: buttonTitle,
                      icon: .systemImage("lock.fill")) {
@@ -181,9 +181,13 @@ struct SecurityScreen: GPView {
 
 #Preview {
     
-    SecurityScreen(
-        viewModel: mockResolve(SecurityViewModel.self)
-    )
+    AppRootView(navigationService: .constant(NavigationService())) {
+            
+        SecurityScreen(
+            viewModel: mockResolve(SecurityViewModel.self)
+        )
+        
+    }
     .withMockServices()
     
 }
