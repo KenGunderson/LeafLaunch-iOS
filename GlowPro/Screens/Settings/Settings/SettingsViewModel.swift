@@ -130,18 +130,9 @@ final class SettingsViewModel: ViewModel {
             }
             catch {
                 
-                self.alertService.showAlert(.init(
-                    .appAlert(
-                        .error(
-                            message: Constants.Message.errorMessage("workspaces"),
-                            action: {
-                                
-                                self.navigationService?
-                                    .popWithDelay()
-                                
-                            })
-                    ))
-                )
+                await MainActor.run { [weak self] in
+                    self?.isLoading = false
+                }
                 
             }
             

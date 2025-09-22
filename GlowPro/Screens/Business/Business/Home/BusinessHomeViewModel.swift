@@ -104,14 +104,14 @@ final class BusinessHomeViewModel: ViewModel {
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 let activities = try await self.apiService.getActivitiy(businessId: self.businessId)
                 
-                await MainActor.run { [weak self] in
+                await MainActor.run { [weak self, business] in
                     
                     self?.isFirstLoad = false
                     self?.activities = activities
                     
-                    let hasLocations = ((self?.business?.totalLocationCount ?? 0) > 0)
-                    let hasClients = ((self?.business?.totalClientCount ?? 0) > 0)
-                    let hasMedia = ((self?.business?.totalMediaCount ?? 0) > 0)
+                    let hasLocations = ((business.totalLocationCount) > 0)
+                    let hasClients = ((business.totalClientCount) > 0)
+                    let hasMedia = ((business.totalMediaCount) > 0)
                     
                     self?.checklistItems = [
                         .init(type: .completeProfile, isComplete: true),

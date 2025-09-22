@@ -7,17 +7,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EF11A0B4-A3EB-42AD-918B-4983266B78D8"
+            uuid = "6DBF12B5-58DF-410E-8390-8DF74D9A39A4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GlowPro/Screens/Business/Location/Home/BusinessLocationHomeScreen.swift"
+            filePath = "GlowPro/Services/API/Rest API/APIServiceProtocol.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "382"
+            endingLineNumber = "382"
+            landmarkName = "handleErrorResponse(data:response:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

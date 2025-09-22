@@ -121,7 +121,7 @@ struct HomeScreen: GPView {
                     
                 }
             
-            if self.viewModel.hasActiveBusiness {
+            if self.viewModel.hasActiveWorkspace {
                 
                 SectionView(
                     leadingTitle: "Choose Your Location",

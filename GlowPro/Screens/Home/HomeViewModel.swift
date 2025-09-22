@@ -91,7 +91,7 @@ final class HomeViewModel: ViewModel {
         
     }
     
-    func loadData(showHud: Bool = true) {
+    func loadData(showHud: Bool = false) {
         
         guard let currentUser else { return }
                 
