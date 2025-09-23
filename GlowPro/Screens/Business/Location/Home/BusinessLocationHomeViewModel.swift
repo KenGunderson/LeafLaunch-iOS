@@ -100,8 +100,12 @@ final class BusinessLocationHomeViewModel: ViewModel {
         
         guard let currentUser = self.authService.currentUser?.id else { return }
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -163,8 +167,12 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         
