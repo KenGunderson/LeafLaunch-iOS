@@ -26,7 +26,15 @@ struct SettingsScreen: GPView {
             AppHeaderScrollView(horizontalPadding: .medium) {
                 navBar()
             } scrollViewContent: {
-                content()
+                
+                VStack(spacing: 0) {
+                    content()
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity
+                )
+                
             }
             
             // Lifecycle

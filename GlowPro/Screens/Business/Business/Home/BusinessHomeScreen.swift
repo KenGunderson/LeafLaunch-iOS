@@ -67,7 +67,7 @@ struct BusinessHomeScreen: GPView {
     private func navBarView() -> some View {
         
         NavHeader(
-            title: self.viewModel.business?.name ?? "",
+            title: self.viewModel.business?.name ?? " ",
             subtitle: "Business Dashboard",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
