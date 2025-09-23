@@ -56,7 +56,7 @@ struct HomeScreen: GPView {
                 .task {
                     
                     self.viewModel
-                        .loadData(showHud: self.viewModel.isFirstLoad)
+                        .loadData(showHud: false)
                     
                 }
                 
