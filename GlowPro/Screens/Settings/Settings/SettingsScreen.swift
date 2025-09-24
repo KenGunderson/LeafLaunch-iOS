@@ -153,7 +153,7 @@ struct SettingsScreen: GPView {
                     .icon
                     .view(renderingMode: .template)
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
+                    .frame(width: 20, height: 20)
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(item.tintColor.source())
                 

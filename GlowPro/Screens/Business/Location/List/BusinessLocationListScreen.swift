@@ -93,7 +93,10 @@ struct BusinessLocationListScreen: GPView {
         
     }
     
+    @ViewBuilder
     private func locationItem(_ location: Location) -> some View {
+        
+        let locationCategory = ActivityCategory.location
         
         AppCardView {
             
@@ -101,36 +104,59 @@ struct BusinessLocationListScreen: GPView {
                 
                 HStack {
                     
-                    Text(location.name)
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    CircularIconView(
+                        foregroundColor: .color(locationCategory.color),
+                        backgroundColor: .color(locationCategory.color.opacity(0.10)),
+                        imageSource: locationCategory.icon,
+                        size: 32
+                    )
+                    .appBorder(
+                        cornerRadius: .custom(16),
+                        color: .color(locationCategory.color),
+                        lineWidth: 2
+                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Image(systemName: "pencil")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 16)
-                        .padding(9)
-                        .background(.backgroundTappable)
-                        .foregroundStyle(Style.shared.accent.source())
-                        .asButton {
-                            
-                            self.navigationService
-                                .push(.business(
-                                    .businessLocationCreateEdit(
-                                        businessId: self.viewModel.businessId,
-                                        locationId: location.id
-                                    )
-                                ))
-                            
-                        }
+                    HStack(spacing: Style.shared.spacing(.extraSmall)) {
+                        
+                        Text("Edit")
+                            .appFont(with: .TITLE_4)
+                        
+                        Image(systemName: "pencil")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 16, height: 16)
+
+                        
+                    }
+                    .padding(9)
+                    .offset(x: 9, y: 0)
+                    .padding(.trailing, .small)
+                    .background(.backgroundTappable)
+                    .foregroundStyle(Style.shared.accent.source())
+                    .asButton {
+                        
+                        self.navigationService
+                            .push(.business(
+                                .businessLocationCreateEdit(
+                                    businessId: self.viewModel.businessId,
+                                    locationId: location.id
+                                )
+                            ))
+                        
+                    }
                     
                 }
+                
+                Text(location.name)
+                    .appFont(with: .TITLE_5)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(location.address.fullFormattedAddress)
                     .appFont(with: .BODY_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
-                    .padding(.top, -Style.shared.spacing(.small2))
+                    .padding(.top, -Style.shared.spacing(.small))
                 
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 0),
