@@ -23,8 +23,9 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     @Published var street: String = ""
     @Published var street2: String = ""
     @Published var city: String = ""
-    @Published var state: String = ""
     @Published var zip: String = ""
+    
+    @Published var selectedState: Constants.USState?
     
     var isSaveButtonEnabled: Bool {
         
@@ -32,8 +33,8 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
             !self.name.isEmpty &&
             !self.street.isEmpty &&
             !self.city.isEmpty &&
-            !self.state.isEmpty &&
-            !self.zip.isEmpty
+            !self.zip.isEmpty &&
+            self.selectedState != nil
         )
         
     }
@@ -104,6 +105,10 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
+    func set(state: Constants.USState?) {
+        self.selectedState = state
+    }
+    
     func loadData() {
         
         self.alertService
@@ -128,7 +133,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                     self?.street = location?.address.street ?? ""
                     self?.street2 = location?.address.street2 ?? ""
                     self?.city = location?.address.city ?? ""
-                    self?.state = location?.address.state ?? ""
+                    self?.selectedState = Constants.USState(rawValue: location?.address.state ?? "")
                     self?.zip = location?.address.zip ?? ""
                     
                 }
@@ -235,7 +240,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,
                         city: self.city,
-                        state: self.state,
+                        state: self.selectedState?.rawValue ?? Constants.USState.CA.rawValue,
                         zip: self.zip
                     ),
                     employees: [],
@@ -289,7 +294,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,
                         city: self.city,
-                        state: self.state,
+                        state: self.selectedState?.rawValue ?? Constants.USState.CA.rawValue,
                         zip: self.zip
                     ),
                     employees: [],

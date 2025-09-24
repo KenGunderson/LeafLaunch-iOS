@@ -26,11 +26,12 @@ final class BusinessCreateEditViewModel: ViewModel {
     @Published var street: String = ""
     @Published var street2: String = ""
     @Published var city: String = ""
-    @Published var state: String = ""
     @Published var zip: String = ""
     
     @Published var selectedCategories: [BusinessCategory] = []
     @Published var selectedSubcategories: [BusinessSubcategory] = []
+    
+    @Published var selectedState: Constants.USState?
     
     private var businessId: String?
 
@@ -49,8 +50,8 @@ final class BusinessCreateEditViewModel: ViewModel {
             self.email.isValidEmail() &&
             !self.street.isEmpty &&
             !self.city.isEmpty &&
-            !self.state.isEmpty &&
-            !self.zip.isEmpty
+            !self.zip.isEmpty &&
+            self.selectedState != nil
         )
         
     }
@@ -117,7 +118,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                     self?.street = business.address?.street ?? ""
                     self?.street2 = business.address?.street2 ?? ""
                     self?.city = business.address?.city ?? ""
-                    self?.state = business.address?.state ?? ""
+                    self?.selectedState = Constants.USState(rawValue: business.address?.state ?? "")
                     self?.zip = business.address?.zip ?? ""
                     self?.selectedCategories = business.categories.compactMap({ BusinessCategory(rawValue: $0) })
                     self?.selectedSubcategories = business.subcategories.compactMap({ BusinessSubcategory(rawValue: $0) })
@@ -189,7 +190,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,
                         city: self.city,
-                        state: self.state,
+                        state: self.selectedState?.rawValue ?? Constants.USState.CA.rawValue,
                         zip: self.zip
                     ),
                     owner: authUser,
@@ -260,7 +261,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                         street: self.street,
                         street2: self.street2.isEmpty ? nil : self.street2,
                         city: self.city,
-                        state: self.state,
+                        state: self.selectedState?.rawValue ?? Constants.USState.CA.rawValue,
                         zip: self.zip
                     ),
                     owner: self.business?.owner ?? .DUMMY_DATA(),
@@ -325,6 +326,10 @@ final class BusinessCreateEditViewModel: ViewModel {
             self.selectedSubcategories.append(subcategory)
         }
         
+    }
+    
+    func set(state: Constants.USState?) {
+        self.selectedState = state
     }
     
     private func bindSubscribers() {

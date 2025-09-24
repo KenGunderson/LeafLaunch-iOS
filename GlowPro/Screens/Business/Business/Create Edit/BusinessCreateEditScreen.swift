@@ -17,7 +17,6 @@ struct BusinessCreateEditScreen: GPView {
         case street
         case street2
         case city
-        case state
         case zip
         
         var displayName: String {
@@ -28,7 +27,6 @@ struct BusinessCreateEditScreen: GPView {
             case .street: return "Street"
             case .street2: return "Street 2"
             case .city: return "City"
-            case .state: return "State"
             case .zip: return "Zip"
             }
         }
@@ -41,6 +39,9 @@ struct BusinessCreateEditScreen: GPView {
     @StateObject var viewModel: BusinessCreateEditViewModel
     
     @FocusState private var focusedField: FocusedField?
+    
+    @State private var selectedState: Constants.USState?
+    @State private var isStateDropDownPresented: Bool = false
     
     var body: some View {
         
@@ -64,10 +65,39 @@ struct BusinessCreateEditScreen: GPView {
                 
             }
         
+            // Animations
+        
+            .animation(.spring, value: self.isStateDropDownPresented)
+            .animation(.spring, value: self.viewModel.selectedState)
+        
             // Tap
         
             .onTapGesture {
+                
                 self.focusedField = nil
+                self.isStateDropDownPresented = false
+                
+            }
+        
+            // OnChange
+        
+            .onChange(of: self.selectedState) { oldValue, newValue in
+                
+                if newValue != self.viewModel.selectedState {
+                    
+                    self.viewModel
+                        .set(state: newValue)
+                    
+                }
+                
+            }
+        
+            .onChange(of: self.viewModel.selectedState) { oldValue, newValue in
+                
+                if newValue != self.selectedState {
+                    selectedState = newValue
+                }
+                
             }
         
     }
@@ -153,10 +183,12 @@ struct BusinessCreateEditScreen: GPView {
                     textField(fieldToFocus: .street2)
                     textField(fieldToFocus: .city)
                     
-                    HStack {
+                    HStack(alignment: self.isStateDropDownPresented ? .top : .bottom) {
                         
-                        textField(fieldToFocus: .state)
+                        stateDropDown()
+                        
                         textField(fieldToFocus: .zip)
+                            .padding(.top, self.isStateDropDownPresented ? 9.5 : 0)
                         
                     }
                     
@@ -291,13 +323,6 @@ struct BusinessCreateEditScreen: GPView {
             keyboardType = .default
             textContentType = .addressCity
             
-        case .state:
-            
-            text = self.$viewModel.state
-            isFocused = self.focusedField == .state
-            keyboardType = .default
-            textContentType = .addressState
-            
         case .zip:
             
             text = self.$viewModel.zip
@@ -347,6 +372,39 @@ struct BusinessCreateEditScreen: GPView {
             .background(Style.shared.background(.primary).source())
             
         }
+        
+    }
+    
+    @ViewBuilder
+    private func stateDropDown() -> some View {
+                
+        VStack(spacing: Style.shared.spacing(.custom(8))) {
+            
+            Text("State")
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            CommonDropDownMenu(
+                options: Constants.USState.allCases,
+                buttonHeight: 44.5,
+                maxItemDisplayed: 3,
+                backgroundStyle: .color(.minimumOpacity),
+                shadow: .none,
+                textHorizontalPadding: .small,
+                shouldPushContentDown: true,
+                animation: .spring,
+                selectedOption: self.$selectedState,
+                showDropDown: self.$isStateDropDownPresented
+            )
+            .appBorder(
+                cornerRadius: .custom(6),
+                color: Style.shared.background(.quaternary),
+                lineWidth: 1
+            )
+            
+        }
+        .padding(.top, .small)
         
     }
     
