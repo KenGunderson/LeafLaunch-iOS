@@ -67,14 +67,14 @@ struct AboutUsScreen: GPView {
             
             if self.onAppearAnimation {
                 
-                Image(.appIcon)
+                Image(.illustrationLogo)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 120, height: 120)
-                    .clipShape(.rect(cornerRadius: Style.shared.radius(.medium)))
+                    .frame(height: 48)
+                    .padding(.horizontal, .large)
                 
                 Text(self.viewModel.tagLine())
-                    .appFont(with: .TITLE_7)
+                    .appFont(with: .TITLE_6)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .multilineTextAlignment(.center)
                 
