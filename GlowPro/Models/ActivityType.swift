@@ -11,6 +11,7 @@ enum ActivityType: String, Codable, CaseIterable {
     case locationDeleted = "LOCATION_DELETED"
     
     case employeeInvited = "EMPLOYEE_INVITED"
+    case employeeInviteAutoAccepted = "EMPLOYEE_INVITE_AUTO_ACCEPTED"
     case employeeInivteDeleted = "EMPLOYEE_INVITE_DELETED"
     case employeeCreated = "EMPLOYEE_CREATED"
     case employeeDeleted = "EMPLOYEE_DELETED"
