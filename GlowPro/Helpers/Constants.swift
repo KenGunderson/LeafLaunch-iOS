@@ -50,17 +50,6 @@ struct Constants {
             
         }
         
-        static func analyticsUrlForEnvironment(_ env: AppEnvironment) -> String {
-            
-            switch env {
-            case .custom(let address): return "\(address)"
-            case .localhost: return "http://localhost:4000/api"
-            case .development: return "http://localhost:4000/api"
-            case .production: return "http://localhost:4000/api"
-            }
-            
-        }
-        
     }
     
     // MARK: - ANIMATIONS
