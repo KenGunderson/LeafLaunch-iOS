@@ -120,7 +120,7 @@ struct HomeScreen: GPView {
                     
                 }
             
-            if self.viewModel.hasActiveWorkspace {
+            if self.viewModel.hasActiveWorkspace && self.viewModel.ownerHasRoleLocation {
                 
                 SectionView(
                     leadingTitle: "Choose Your Location",

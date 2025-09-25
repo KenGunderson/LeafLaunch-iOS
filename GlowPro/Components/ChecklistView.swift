@@ -155,6 +155,7 @@ struct ChecklistView: View {
         .padding(.top, .medium)
         .padding(.bottom, isLastItem ? .medium : .none)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.backgroundTappable)
         
     }
     

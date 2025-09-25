@@ -187,7 +187,7 @@ struct BusinessEmployeeInviteScreen: GPView {
             .keyboardType(keyboardType)
             .textContentType(textContentType)
             .submitLabel(.done)
-            .textInputAutocapitalization(.words)
+            .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
@@ -230,27 +230,33 @@ struct BusinessEmployeeInviteScreen: GPView {
     
     @ViewBuilder
     private func rolePicker() -> some View {
+        
+        let locations = self.viewModel.eligibleLocations
+        
+        if !locations.isEmpty {
+            
+            VStack(spacing: Style.shared.spacing(.custom(6))) {
                 
-        VStack(spacing: Style.shared.spacing(.custom(6))) {
-            
-            Text("Role (Optional)")
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            CommonDropDownMenu(
-                options: viewModel.locationRoles,
-                backgroundStyle: .color(.minimumOpacity),
-                shadow: .none,
-                textHorizontalPadding: .small,
-                animation: .spring,
-                selectedOption: self.$selectedRole,
-                showDropDown: self.$isRoleDropdownPresented
-            )
-            .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                Text("Role (Optional)")
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                CommonDropDownMenu(
+                    options: viewModel.locationRoles,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$selectedRole,
+                    showDropDown: self.$isRoleDropdownPresented
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                
+            }
+            .padding(.top, .small)
             
         }
-        .padding(.top, .small)
         
     }
     

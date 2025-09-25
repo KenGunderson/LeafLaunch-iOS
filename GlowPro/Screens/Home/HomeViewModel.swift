@@ -34,6 +34,13 @@ final class HomeViewModel: ViewModel {
     var hasActiveWorkspace: Bool {
         return self.workspaces.count > 0
     }
+    
+    var ownerHasRoleLocation: Bool {
+        
+        let roleLocations = self.workspaces.first(where: { $0.isOwner })?.roleLocations ?? []
+        return !roleLocations.isEmpty
+        
+    }
         
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,

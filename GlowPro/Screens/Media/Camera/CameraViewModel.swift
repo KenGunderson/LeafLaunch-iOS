@@ -133,8 +133,10 @@ final class CameraViewModel: ViewModel {
     
     func setCameraFlashMode(_ mode: CameraFlashMode) {
         
+        let shouldTurnAutoOn = self.cameraFlashMode != .auto
+        
         self.cameraService
-            .setFlashMode(mode)
+            .setFlashMode(shouldTurnAutoOn ? .auto : .off)
         
     }
     

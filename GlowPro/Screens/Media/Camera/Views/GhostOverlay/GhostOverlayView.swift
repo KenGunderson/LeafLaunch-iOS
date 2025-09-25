@@ -57,7 +57,6 @@ struct GhostOverlayView: View {
             scrollView()
             
         }
-        .padding(.top, .large)
         
         // OnChange
         

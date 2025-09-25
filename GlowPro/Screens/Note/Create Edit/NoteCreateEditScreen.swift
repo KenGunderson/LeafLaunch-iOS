@@ -254,6 +254,7 @@ struct NoteCreateEditScreen: View {
             .padding(.top, .small)
             
         }
+        .scrollIndicators(.hidden)
         
     }
     

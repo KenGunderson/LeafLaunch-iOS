@@ -97,36 +97,74 @@ struct NoteListScreen: GPView {
         
         AppCardView(shadow: .subtle) {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            HStack(spacing: Style.shared.spacing(.small)) {
                 
-                Text(note.title)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+                    
+                    Text(note.title)
+                        .appFont(with: .TITLE_5)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text(note.message)
+                        .appFont(with: .BODY_2)
+                        .lineLimit(2)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                }
                 
-                Text(note.message)
-                    .appFont(with: .BODY_2)
-                    .lineLimit(2)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                if !note.mediaURLs.isEmpty {
+                    
+                    VStack {
+                        
+                        HStack(spacing: 3) {
+                            
+                            Image(systemName: "paperclip")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 12, height: 12)
+                                .foregroundStyle(Style.shared.textColor(.body).source())
+                            
+                            Text("\(note.mediaURLs.count)")
+                                .appFont(with: .BODY_2)
+                                .foregroundStyle(Style.shared.textColor(.body).source())
+                            
+                        }
+                        
+                        Spacer()
+                        
+                    }
+                    
+                }
                 
-            }
-            
-            VStack {
-                
-                Text(note.createdAt?.relativeDateStringWithOverride() ?? "")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 12, height: 12)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                
-                Spacer()
+                VStack {
+                    
+                    HStack(spacing: 4) {
+                        
+                        Image(systemName: "clock")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 12, height: 12)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                        Text(note.createdAt?.relativeDateStringWithOverride() ?? "")
+                            .appFont(with: .BODY_2)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 12, height: 12)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                    
+                    Spacer()
+                    
+                }
                 
             }
             

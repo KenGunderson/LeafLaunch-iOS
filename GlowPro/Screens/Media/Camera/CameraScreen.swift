@@ -16,7 +16,7 @@ public struct CameraScreen: View {
     
     @StateObject var viewModel: CameraViewModel
     
-    @State private var showBottomOverlayDrawer: Bool = true
+    @State private var showBottomOverlayDrawer: Bool = false
     @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .grid
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: CGFloat = 1.0
@@ -121,18 +121,6 @@ public struct CameraScreen: View {
                 }
                 .contentTransition(.symbolEffect(.replace))
                 
-                CircularIconView(
-                    foregroundColor: .color(.white),
-                    backgroundColor: .material(.ultraThinMaterial),
-                    imageSource: .systemImage("person.crop.square.on.square.angled"),
-                    size: 40
-                )
-                .asButton {
-                    
-                    self.showBottomOverlayDrawer.toggle()
-                    
-                }
-                
                 Spacer()
                 
                 CircularIconView(
@@ -194,6 +182,20 @@ public struct CameraScreen: View {
                 
             }
             
+            Spacer()
+            
+            CircularIconView(
+                foregroundColor: .color(.white),
+                backgroundColor: .material(.ultraThinMaterial),
+                imageSource: .systemImage("person.crop.square.on.square.angled"),
+                size: 65
+            )
+            .asButton {
+                
+                self.showBottomOverlayDrawer.toggle()
+                
+            }
+            
         }
         .padding(.horizontal, .medium2)
         .frame(height: 80)
@@ -225,18 +227,30 @@ public struct CameraScreen: View {
                     
                     VStack(spacing: -0.5) {
                         
-                        VStack {
+                        VStack(spacing: 0) {
+                            
+                            HStack {
+                                
+                                Spacer()
+                                
+                                NavBarButton(style: .close) {
+                                    self.showBottomOverlayDrawer = false
+                                }
+                                .padding([.top, .horizontal], .medium)
+                                
+                            }
                             
                             GhostOverlayView(
                                 selectedGhostOverlayItem: self.$selectedGhostOverlayItem,
                                 images: .constant(selectedGhostOverlayCategory?.images ?? [])
                             )
                             .padding(.bottom, .small)
+                            .padding(.top, .medium)
                             
                             GhostOverlayCarouselView(selectedGhostOverlayCategory: self.$selectedGhostOverlayCategory)
                             
                         }
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                         .background(backgroundColor.source())
                         .clipShape(.rect(cornerRadii: .init(
                             topLeading: Style.shared.radius(.small2),
@@ -250,6 +264,14 @@ public struct CameraScreen: View {
                     }
                     .compositingGroup()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                        .onEnded({ value in
+                            
+                            if value.translation.height > 50 {
+                                self.showBottomOverlayDrawer = false
+                            }
+                            
+                        }))
  
                 }
                 

@@ -221,7 +221,9 @@ final class FirebaseService: FirebaseServiceProtocol {
             let result = try await user.getIDTokenResult(forcingRefresh: true)
             self.currentAccessToken = result.token
             
-            self.log(message: "Firebase User Token \(result.token)")
+            await MainActor.run { [weak self, result] in
+                self?.log(message: "Firebase User Token \(result.token)")
+            }
             
         } catch let error {
             
