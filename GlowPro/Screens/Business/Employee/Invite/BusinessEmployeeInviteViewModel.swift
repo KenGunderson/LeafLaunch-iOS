@@ -9,6 +9,15 @@ import Foundation
 
 final class BusinessEmployeeInviteViewModel: ViewModel {
     
+    enum Context: Equatable {
+        
+        case newEmployee
+        
+        case updateEmployee(employee: Employee,
+                            roleLocations: [Workspace.RoleLocation])
+        
+    }
+    
     internal let loggerName: String = "BUSINESS_EMPLOYEE_INVITE_VIEW_MODEL"
     internal let loggerEmoji: String = "🏰"
     
@@ -44,7 +53,12 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     var eligibleLocations: [Location] = []
     
     private var businessId: String!
-
+    private var context: Context!
+    
+    var isUpdatingEmployeeContext: Bool {
+        return self.context != .newEmployee
+    }
+    
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
@@ -71,9 +85,12 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(businessId: String) -> Self {
+    func setup(businessId: String,
+               context: Context) -> Self {
         
         self.businessId = businessId
+        self.context = context
+        
         return self
         
     }
@@ -104,7 +121,16 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 await MainActor.run { [weak self] in
                     
                     self?.business = business
-                    self?.setEligableLocations()
+                    
+                    if case let .updateEmployee(employee, roleLocations) = self?.context {
+                        
+                        self?.name = employee.name
+                        self?.email = employee.email
+                        self?.setEligableLocations(roleLocations: roleLocations)
+                        
+                    } else {
+                        self?.setEligableLocations()
+                    }
                     
                 }
                 
@@ -209,9 +235,13 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
-    private func setEligableLocations() {
+    private func setEligableLocations(roleLocations: [Workspace.RoleLocation] = []) {
         
-        let allLocations = self.business?.locations ?? []
+        let roleLocations = roleLocations.map({ $0.location })
+        var allLocations = self.business?.locations ?? []
+        
+        allLocations = allLocations.filter({ !roleLocations.contains($0) })
+        
         let locationId = self.activeDestinationService.activeDestination?.destinationId
         let currentLocationArray = allLocations.filter { $0.id == (locationId ?? "") }
         

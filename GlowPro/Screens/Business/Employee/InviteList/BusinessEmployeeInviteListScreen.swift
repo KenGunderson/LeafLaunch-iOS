@@ -63,8 +63,10 @@ struct BusinessEmployeeInviteListScreen: GPView {
             
             self.navigationService
                 .push(.business(
-                    .businessEmployeesInvite(businessId: self.viewModel.businessId)
-                ))
+                    .businessEmployeesInvite(
+                        businessId: self.viewModel.businessId,
+                        context: .newEmployee
+                    )))
             
         }
         .asAnyView()

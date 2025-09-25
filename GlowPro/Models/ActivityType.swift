@@ -12,7 +12,7 @@ enum ActivityType: String, Codable, CaseIterable {
     
     case employeeInvited = "EMPLOYEE_INVITED"
     case employeeInviteAutoAccepted = "EMPLOYEE_INVITE_AUTO_ACCEPTED"
-    case employeeInivteDeleted = "EMPLOYEE_INVITE_DELETED"
+    case employeeInviteDeleted = "EMPLOYEE_INVITE_DELETED"
     case employeeCreated = "EMPLOYEE_CREATED"
     case employeeDeleted = "EMPLOYEE_DELETED"
     
@@ -45,7 +45,8 @@ enum ActivityType: String, Codable, CaseIterable {
         case .locationDeleted: return "Location Deleted"
             
         case .employeeInvited: return "Employee Invited"
-        case .employeeInivteDeleted: return "Employee Invite Deleted"
+        case .employeeInviteAutoAccepted: return "Employee Location Updated"
+        case .employeeInviteDeleted: return "Employee Invite Deleted"
         case .employeeCreated: return "Employee Created"
         case .employeeDeleted: return "Employee Deleted"
             
@@ -80,7 +81,8 @@ enum ActivityType: String, Codable, CaseIterable {
              .locationDeleted: return ActivityCategory.location.color
             
         case .employeeInvited,
-             .employeeInivteDeleted,
+             .employeeInviteAutoAccepted,
+             .employeeInviteDeleted,
              .employeeCreated,
              .employeeDeleted: return ActivityCategory.employee.color
             
@@ -114,7 +116,8 @@ enum ActivityType: String, Codable, CaseIterable {
              .locationDeleted: return ActivityCategory.location.icon
             
         case .employeeInvited,
-             .employeeInivteDeleted,
+             .employeeInviteAutoAccepted,
+             .employeeInviteDeleted,
              .employeeCreated,
              .employeeDeleted: return ActivityCategory.employee.icon
             

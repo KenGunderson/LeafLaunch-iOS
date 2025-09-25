@@ -49,7 +49,9 @@ enum Route: Navigation, Hashable, Sendable {
         case businessEmployees(businessId: String,
                                context: BusinessEmployeeListViewModel.Context)
         
-        case businessEmployeesInvite(businessId: String)
+        case businessEmployeesInvite(businessId: String,
+                                     context: BusinessEmployeeInviteViewModel.Context)
+        
         case businessEmployeeInviteList(context: BusinessEmployeeInviteListViewModel.Context)
         case businessEmployeesUpdate(businessId: String, employeeId: String)
         case businessEmployeeDetails(businessId: String, employeeId: String)
@@ -275,7 +277,7 @@ extension Route.Business {
             hasher.combine(7)
             hasher.combine(b)
             hasher.combine(c)
-        case let .businessEmployeesInvite(b):
+        case let .businessEmployeesInvite(b, _):
             hasher.combine(8)
             hasher.combine(b)
         case let .businessEmployeeInviteList(c):

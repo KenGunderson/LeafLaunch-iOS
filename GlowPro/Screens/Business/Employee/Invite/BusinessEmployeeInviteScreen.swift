@@ -159,6 +159,7 @@ struct BusinessEmployeeInviteScreen: GPView {
         var isFocused: Bool = false
         var keyboardType: UIKeyboardType = .default
         var textContentType: UITextContentType = .organizationName
+        let isEnabled = !self.viewModel.isUpdatingEmployeeContext
         
         let placeholder: String = fieldToFocus.displayName
         
@@ -185,6 +186,7 @@ struct BusinessEmployeeInviteScreen: GPView {
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
+                backgroundColor: isEnabled ? .color(.clear) : Style.shared.background(.quaternary),
                 textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: fieldToFocus)
@@ -196,6 +198,7 @@ struct BusinessEmployeeInviteScreen: GPView {
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+            .allowsHitTesting(isEnabled)
         
     }
     
@@ -307,7 +310,10 @@ struct BusinessEmployeeInviteScreen: GPView {
 #Preview {
     
     let viewModel = mockResolve(BusinessEmployeeInviteViewModel.self)
-        .setup(businessId: MockModels.ID.business1)
+        .setup(
+            businessId: MockModels.ID.business1,
+            context: .newEmployee
+        )
     
     BusinessEmployeeInviteScreen(viewModel: viewModel)
         .withMockServices()

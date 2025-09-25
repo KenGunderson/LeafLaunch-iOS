@@ -175,7 +175,11 @@ final class BusinessEmployeeListViewModel: ViewModel {
             action: {
                 
                 self.navigationService?
-                    .push(.business(.businessEmployeesInvite(businessId: self.businessId)))
+                    .push(.business(
+                        .businessEmployeesInvite(
+                            businessId: self.businessId,
+                            context: .newEmployee
+                        )))
                 
             }
         )

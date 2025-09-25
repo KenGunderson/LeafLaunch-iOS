@@ -191,11 +191,34 @@ struct BusinessEmployeeDetailsScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
+            let isEmployeeOwnerOrManager = self.viewModel.isEmployeeOwnerOrManager
+            let shouldShow = (!isEmployeeOwnerOrManager && self.viewModel.isOwnerOrManager)
+            
+            let trailingTitle = shouldShow ? "Add Location" : ""
+            
+            let trailingAction: (() -> Void)? = shouldShow ? {
+                    
+                    guard let employee = self.viewModel.employee else { return }
+                    guard let businessId = self.viewModel.businessId else { return }
+                    
+                    self.navigationService
+                        .push(.business(.businessEmployeesInvite(
+                            businessId: businessId,
+                            context: .updateEmployee(
+                                employee: employee,
+                                roleLocations: self.viewModel.activeLocations
+                            )
+                        )))
+                    
+                } : nil
+            
             SectionView(
                 leadingTitle: "Active Locations",
-                showDivider: true
+                showDivider: true,
+                trailingTitle: trailingTitle,
+                trailingAction: trailingAction
             )
-            
+                        
             ForEach(self.viewModel.activeLocations, id: \.self) { location in
                 activeLocation(location)
             }

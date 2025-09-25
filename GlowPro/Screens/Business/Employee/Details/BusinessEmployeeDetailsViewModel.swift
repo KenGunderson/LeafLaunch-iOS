@@ -34,6 +34,10 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
         return self.activeDestinationService.isOwnerOrManager
     }
     
+    var isEmployeeOwnerOrManager: Bool {
+        return self.activeDestinationService.business?.owner.id == self.employee?.userId
+    }
+    
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,

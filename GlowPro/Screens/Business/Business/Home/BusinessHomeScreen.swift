@@ -231,7 +231,11 @@ struct BusinessHomeScreen: GPView {
                 horizontalPadding: .none) {
                     
                     self.navigationService
-                        .push(.business(.businessEmployeesInvite(businessId: self.viewModel.businessId)))
+                        .push(.business(
+                            .businessEmployeesInvite(
+                                businessId: self.viewModel.businessId,
+                                context: .newEmployee
+                            )))
                     
                 }
             
