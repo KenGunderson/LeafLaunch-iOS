@@ -11,6 +11,8 @@ struct WelcomeScreen: GPView {
     
     @StateObject var viewModel: WelcomeViewModel
     @Environment(NavigationService.self) private var navigationService
+    
+    @State private var footerSize: CGSize = .zero
         
     var body: some View {
         
@@ -49,10 +51,11 @@ struct WelcomeScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.large)) {
                 
-                Text("GlowPro")
-                    .appFont(with: .BILLBOARD_1)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                Image(.illustrationLogo)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 50)
+                    .frame(maxWidth: .infinity)
                 
                 Text("Secure records, treatment tracking, and before & after results, all in one place.")
                     .appFont(with: .BODY_4)
@@ -61,9 +64,9 @@ struct WelcomeScreen: GPView {
                     .padding(.horizontal, .custom(48))
                 
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.top, .custom(48))
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(Style.shared.background(.primary).source())
+            .padding(.bottom, self.footerSize.height + Style.shared.spacing(.medium))
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -81,7 +84,12 @@ struct WelcomeScreen: GPView {
         }
         .padding(.horizontal, 32)
         .customSafeAreaPadding()
-        
+        .onGeometryChange(for: CGSize.self) { proxy in
+            return proxy.size
+        } action: { newValue in
+            self.footerSize = newValue
+        }
+
     }
     
     var signUpButton: some View {
