@@ -35,9 +35,9 @@ final class HomeViewModel: ViewModel {
         return self.workspaces.count > 0
     }
     
-    var ownerHasRoleLocation: Bool {
+    var hasRoleLocations: Bool {
         
-        let roleLocations = self.workspaces.first(where: { $0.isOwner })?.roleLocations ?? []
+        let roleLocations = self.workspaces.map { $0.roleLocations }
         return !roleLocations.isEmpty
         
     }
