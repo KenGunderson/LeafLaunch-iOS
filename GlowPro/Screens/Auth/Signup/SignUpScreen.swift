@@ -125,6 +125,7 @@ struct SignUpScreen: GPView {
             .foregroundStyle(Style.shared.textColor(.body).source())
             .appFont(with: .BODY_2)
             .animation(.bouncy, value: self.viewModel.agreedToTerms)
+            .opacity(self.focusedField == nil ? 1 : 0)
                         
             // LoginButton
             
