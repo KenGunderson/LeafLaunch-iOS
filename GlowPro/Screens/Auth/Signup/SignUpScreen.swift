@@ -116,13 +116,15 @@ struct SignUpScreen: GPView {
                 isOn: self.$viewModel.agreedToTerms
             )
             .toggleStyle(.checkmark(
-                height: 24,
-                unselectedColor: Style.shared.background(.border),
+                height: 28,
+                unselectedColor: Style.shared.background(.quaternary),
                 horizontalSpacing: .small,
                 cornerRadius: .extraSmall
             ))
+            .contentTransition(.symbolEffect(.replace))
             .foregroundStyle(Style.shared.textColor(.body).source())
             .appFont(with: .BODY_2)
+            .animation(.bouncy, value: self.viewModel.agreedToTerms)
                         
             // LoginButton
             
