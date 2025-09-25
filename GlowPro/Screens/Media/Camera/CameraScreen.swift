@@ -19,7 +19,7 @@ public struct CameraScreen: View {
     @State private var showBottomOverlayDrawer: Bool = false
     @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .grid
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
-    @State private var zoomScale: CGFloat = 1.0
+    @State private var zoomScale: Double = 1.0
     
     public var body: some View {
         
@@ -31,9 +31,16 @@ public struct CameraScreen: View {
             viewModel.setup()
         }
         
+        // On Change
+        
+        .onChange(of: self.zoomScale) { oldValue, newValue in
+            self.viewModel.zoomFactor = CGFloat(newValue)
+        }
+        
         // Animations
         
         .animation(.snappy, value: self.showBottomOverlayDrawer)
+        .animation(.snappy, value: self.zoomScale)
         
     }
     
@@ -42,13 +49,13 @@ public struct CameraScreen: View {
         
         ZStack(alignment: .center) {
             
-            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
-                
-                Color.indigo
-                    .opacity(1)
-                    .ignoresSafeArea()
-                
-            }
+//            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
+//                
+//                Color.indigo
+//                    .opacity(1)
+//                    .ignoresSafeArea()
+//                
+//            }
             
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -56,21 +63,10 @@ public struct CameraScreen: View {
                 .onTapGesture {
                     self.showBottomOverlayDrawer = false
                 }
-                .gesture(
-                    MagnificationGesture()
-                        .onChanged { value in
-                            
-                            self.viewModel.zoom(scale: value / self.zoomScale)
-                            self.zoomScale = value
-                            
-                        }
-                        .onEnded { _ in
-                            self.zoomScale = self.viewModel.zoomFactor
-                        }
-                )
                 
             topBarView()
             selectedOverlay()
+            zoomSlider()
             bottomOverlay()
             
         }
@@ -145,6 +141,57 @@ public struct CameraScreen: View {
             Spacer()
             
         }
+        
+    }
+    
+    @ViewBuilder
+    private func zoomSlider() -> some View {
+        
+        HStack {
+         
+            Spacer()
+            
+            HStack(spacing: 0) {
+                
+                CircularIconView(
+                    foregroundColor: .color(.white),
+                    backgroundColor: .color(.clear),
+                    imageSource: .systemImage("minus.magnifyingglass"),
+                    size: 40
+                )
+                .rotationEffect(.degrees(90))
+                
+                ProgressSliderTicker(
+                    value: self.$zoomScale,
+                    range: 1...3,
+                    step: 0.25,
+                    trackStyle: .material(.ultraThin),
+                    ticksStyle: .material(.thin),
+                    thumbStyle: Style.shared.accent,
+                    thumbDotStyle: Style.shared.textColor(.button),
+                    thumbCornerRadius: 99,
+                    trackFillCornerRadius: 99,
+                    tickerStyle: .line(lineWidth: 1.5),
+                )
+                .frame(
+                    width: 200,
+                    height: 32
+                )
+                
+                CircularIconView(
+                    foregroundColor: .color(.white),
+                    backgroundColor: .color(.clear),
+                    imageSource: .systemImage("plus.magnifyingglass"),
+                    size: 40
+                )
+                .rotationEffect(.degrees(90))
+                
+            }
+            .rotationEffect(.degrees(270))
+            .offset(x: 200 / 1.85)
+            
+        }
+        .offset(y: 128)
         
     }
     
