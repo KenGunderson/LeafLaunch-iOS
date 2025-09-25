@@ -35,7 +35,6 @@ struct LoginScreen: GPView {
         .safeAreaInset(edge: .bottom) {
             bottomButton()
         }
-        
         .onSubmit {
             handleOnSubmit()
         }
@@ -190,7 +189,7 @@ struct LoginScreen: GPView {
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(fieldToFocus == .email ? .emailAddress : .default)
         .textContentType(fieldToFocus == .email ? .emailAddress : .password)
-        .submitLabel(fieldToFocus == .email ? .next : .done)
+        .submitLabel(fieldToFocus == .password ? .done : .next)
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
         .overlay(alignment: .bottomTrailing) {

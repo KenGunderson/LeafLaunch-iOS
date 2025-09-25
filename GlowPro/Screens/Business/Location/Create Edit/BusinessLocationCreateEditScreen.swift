@@ -68,6 +68,10 @@ struct BusinessLocationCreateEditScreen: GPView {
         
         // Tap
         
+            .onSubmit {
+                handleOnSubmit()
+            }
+        
             .onTapGesture {
                 
                 self.focusedField = nil
@@ -255,12 +259,29 @@ struct BusinessLocationCreateEditScreen: GPView {
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)
             .textContentType(textContentType)
-            .submitLabel(.done)
+            .submitLabel(fieldToFocus == .zip ? .done : .next)
             .textInputAutocapitalization(.words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+        
+    }
+    
+    private func handleOnSubmit() {
+        
+        var nextFocusedField: FocusedField? = nil
+        
+        switch self.focusedField {
+        case .name: nextFocusedField = .street
+        case .street: nextFocusedField = .street2
+        case .street2: nextFocusedField = .city
+        case .city: nextFocusedField = .zip
+        case .zip: nextFocusedField = nil
+        default: nextFocusedField = nil
+        }
+        
+        self.focusedField = nextFocusedField
         
     }
     

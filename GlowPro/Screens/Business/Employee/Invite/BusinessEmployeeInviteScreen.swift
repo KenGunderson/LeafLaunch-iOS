@@ -68,6 +68,10 @@ struct BusinessEmployeeInviteScreen: GPView {
         
         // Tap
         
+            .onSubmit {
+                handleOnSubmit()
+            }
+        
             .onTapGesture {
                 self.focusedField = nil
             }
@@ -186,12 +190,26 @@ struct BusinessEmployeeInviteScreen: GPView {
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)
             .textContentType(textContentType)
-            .submitLabel(.done)
+            .submitLabel(fieldToFocus == .email ? .done : .next)
             .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+        
+    }
+    
+    private func handleOnSubmit() {
+        
+        var nextFocusedField: FocusedField? = nil
+        
+        switch self.focusedField {
+        case .name: nextFocusedField = .email
+        case .email: nextFocusedField = nil
+        default: nextFocusedField = nil
+        }
+        
+        self.focusedField = nextFocusedField
         
     }
     

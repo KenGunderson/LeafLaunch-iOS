@@ -3,4 +3,66 @@
    uuid = "1E71E390-4E9D-4DD3-BB40-DC8166E5361A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D120F63E-D4CE-4D24-8C78-D6B0AB1C3C90"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GlowPro/Services/Firebase/FirebaseService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "signup(email:password:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D120F63E-D4CE-4D24-8C78-D6B0AB1C3C90 - ea826439ab25d655"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GlowPro_Dev.FirebaseService.signup(email: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Firebase/FirebaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89">
+               </Location>
+               <Location
+                  uuid = "D120F63E-D4CE-4D24-8C78-D6B0AB1C3C90 - b14142494426447d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for GlowPro_Dev.FirebaseService.signup(email: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Firebase/FirebaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89">
+               </Location>
+               <Location
+                  uuid = "D120F63E-D4CE-4D24-8C78-D6B0AB1C3C90 - a9121c0786def85a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for GlowPro_Dev.FirebaseService.signup(email: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Firebase/FirebaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -61,6 +61,10 @@ struct NoteCreateEditScreen: View {
         
         // Tap
         
+            .onSubmit {
+                handleOnSubmit()
+            }
+        
             .onTapGesture {
                 self.focusedField = nil
             }
@@ -213,6 +217,25 @@ struct NoteCreateEditScreen: View {
             .appOnTapGesture {
                 self.focusedField = focusedField
             }
+        
+    }
+    
+    private func handleOnSubmit() {
+        
+        var nextFocusedField: FocusedField? = nil
+        
+        switch self.focusedField {
+        case .title: nextFocusedField = .note
+        case .note:
+            
+            let isOwnerOrManager = self.viewModel.isOwnerOrManager
+            nextFocusedField = isOwnerOrManager ? .signiture : nil
+            
+        case .signiture: nextFocusedField = nil
+        default: nextFocusedField = nil
+        }
+        
+        self.focusedField = nextFocusedField
         
     }
     
