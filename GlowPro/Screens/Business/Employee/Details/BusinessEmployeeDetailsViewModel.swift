@@ -101,7 +101,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                     .getActivitiy(employeeId: self.employeeId)
                 
                 let workspaces = try await self.apiService
-                    .getWorkspaces()
+                    .getWorkspaces(userId: employee.userId)
                 
                 await MainActor.run { [weak self] in
 

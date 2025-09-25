@@ -114,7 +114,7 @@ final class HomeViewModel: ViewModel {
                         
             do {
                 
-                let workspaces = try await self.apiService.getWorkspaces()
+                let workspaces = try await self.apiService.getWorkspaces(userId: currentUser.id)
                 let pendingInvites = try await self.apiService.getPendingInvitesForUser(email: currentUser.email)
                                 
                 await MainActor.run { [weak self] in

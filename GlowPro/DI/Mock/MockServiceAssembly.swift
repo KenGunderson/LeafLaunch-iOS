@@ -315,7 +315,7 @@ final class MockAPIService: APIServiceProtocol {
     
     // Workspaces
     
-    func getWorkspaces() async throws -> [Workspace] {
+    func getWorkspaces(userId: String) async throws -> [Workspace] {
         
         var workspaces: [Workspace] = []
         

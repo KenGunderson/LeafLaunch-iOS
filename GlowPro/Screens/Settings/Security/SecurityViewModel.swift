@@ -87,7 +87,7 @@ final class SecurityViewModel: ViewModel {
             do {
                 
                 let workspaces = try await self.apiService
-                    .getWorkspaces()
+                    .getWorkspaces(userId: self.authService.currentUser?.id ?? "")
                 
                 await MainActor.run { [weak self] in
                     

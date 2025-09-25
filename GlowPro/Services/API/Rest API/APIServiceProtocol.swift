@@ -58,7 +58,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Workspaces
     
-    func getWorkspaces() async throws -> [Workspace]
+    func getWorkspaces(userId: String) async throws -> [Workspace]
 
     // Employees
     

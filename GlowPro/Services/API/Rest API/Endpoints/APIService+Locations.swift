@@ -50,13 +50,13 @@ extension APIService {
         
     }
     
-    func getWorkspaces() async throws -> [Workspace] {
+    func getWorkspaces(userId: String) async throws -> [Workspace] {
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .employedLocation(""))
+                apiPath: .init(path: .employedLocation(userId)),
             )
             
             let result: [Workspace] = try parseData(data: data)
