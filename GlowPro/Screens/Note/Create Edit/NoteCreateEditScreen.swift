@@ -76,7 +76,9 @@ struct NoteCreateEditScreen: View {
                 MediaSourceSelectionView(selectedSourceTypeAction: { source in
                     self.viewModel.handleSourceSelectionAction(source)
                 })
+                .frame(maxWidth: .infinity)
                 .presentationCornerRadius(Style.shared.radius(.large))
+                .presentationCompactAdaptation(.popover)
                 
             }
         
