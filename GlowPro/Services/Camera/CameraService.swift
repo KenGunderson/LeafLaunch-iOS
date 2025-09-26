@@ -330,14 +330,9 @@ final class CameraService: NSObject, CameraServiceProtocol {
               animated: Bool = false) {
         
         self.sessionQueue.async { [weak self] in
-            
-            guard let self = self,
-                  let device = self.videoDeviceInput?.device else { return }
-            
-            let factor = max(device.videoZoomFactor, multiplier)
-                        
-            self.setZoom(
-                factor: factor,
+                                                
+            self?.setZoom(
+                factor: multiplier,
                 animated: animated
             )
             
