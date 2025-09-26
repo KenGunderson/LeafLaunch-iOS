@@ -334,10 +334,10 @@ final class CameraService: NSObject, CameraServiceProtocol {
             guard let self = self,
                   let device = self.videoDeviceInput?.device else { return }
             
-            let target = device.videoZoomFactor * multiplier
-            
+            let factor = min(device.videoZoomFactor, multiplier)
+                        
             self.setZoom(
-                factor: target,
+                factor: factor,
                 animated: animated
             )
             

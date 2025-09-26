@@ -34,7 +34,10 @@ public struct CameraScreen: View {
         // On Change
         
         .onChange(of: self.zoomScale) { oldValue, newValue in
-            self.viewModel.zoomFactor = CGFloat(newValue)
+            
+            self.viewModel
+                .zoom(scale: newValue)
+            
         }
         
         // Animations

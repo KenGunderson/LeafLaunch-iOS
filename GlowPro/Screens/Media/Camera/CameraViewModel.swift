@@ -143,7 +143,10 @@ final class CameraViewModel: ViewModel {
     func zoom(scale: CGFloat) {
         
         self.cameraService
-            .zoom(by: scale, animated: true)
+            .zoom(
+                by: scale,
+                animated: true
+            )
         
     }
     
