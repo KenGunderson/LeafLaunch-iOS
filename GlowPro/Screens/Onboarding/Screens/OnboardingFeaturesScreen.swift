@@ -23,7 +23,7 @@ struct OnboardingFeaturesScreen: GPView {
             
             self.onboardingPage
                 .illustration
-                .view()
+                .view(renderingMode: .original)
                 .scaledToFit()
                 .frame(height: UIScreen.main.bounds.height * 0.53)
                 .padding([.top], .large)

@@ -352,6 +352,12 @@ struct NoteCreateEditScreen: View {
                     .offset(x: 8, y: -8)
                 
             }
+            .asButton {
+             
+                self.navigationService
+                    .modal(fullScreenCover: .mediaPreview(url: url))
+                
+            }
         
     }
     

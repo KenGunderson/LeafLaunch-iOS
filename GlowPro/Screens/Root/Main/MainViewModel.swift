@@ -88,13 +88,6 @@ final class MainViewModel: ViewModel {
                 self?.showShouldHomeScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
-                if let user = authServiceCurrentUser,
-                   !isFirebaseUserMissing {
-                    
-                    self?.presentModalsIfNeeded(user: user)
-                    
-                }
-                
             }
             .store(in: &self.cancelBag)
         
@@ -129,23 +122,6 @@ final class MainViewModel: ViewModel {
                 
             }
             .store(in: &self.cancelBag)
-        
-    }
-    
-    private func presentModalsIfNeeded(user: GPUser) {
-                
-        self.navigationService?.popToRoot()
-        
-        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
-        
-        if shouldShowOnboarding {
-            
-            self.logger.debug("Attemping to show onboarding modal")
-            
-            self.navigationService?
-                .modal(fullScreenCover: .onboarding)
-            
-        }
         
     }
 

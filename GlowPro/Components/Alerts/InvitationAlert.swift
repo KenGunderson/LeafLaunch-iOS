@@ -20,7 +20,7 @@ extension AppCardConfig {
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .font(Style.shared.font(.HEADER_1))
             
-            Text(" has been invited to join \(businessName) They will receive an email with next steps.")
+            Text(" has been invited to join \(businessName). They will receive an email with next steps.")
                 .font(Style.shared.font(.BODY_3))
                 .foregroundStyle(Style.shared.textColor(.body).source())
             

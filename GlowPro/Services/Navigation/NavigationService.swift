@@ -220,7 +220,7 @@ extension View {
                     .navigationBarBackButtonHidden()
                 
             case .contactSupport: EmptyView()
-            case .writeAReview: EmptyView()
+            case .rateApp: EmptyView()
             case .featureRequest:
                 
                 let viewModel = globalResolver.resolve(FeatureRequestViewModel.self)!
@@ -604,6 +604,9 @@ extension View {
                 
                 MediaTagScreen(viewModel: viewModel)
                 
+            case .mediaPreview(let url):
+                
+                MediaURLPreviewView(url: url)
             }
             
         }

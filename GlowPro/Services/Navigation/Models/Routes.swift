@@ -32,7 +32,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Business: Hashable {
+    enum Business: Hashable, Sendable {
         
         case businessHome(businessId: String)
         case businessDetails(businessId: String)
@@ -71,7 +71,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum MediaRoute: Hashable {
+    enum MediaRoute: Hashable, Sendable {
         
         case camera(context: MediaContext,
                     mode: CameraCaptureMode)
@@ -105,7 +105,7 @@ enum Route: Navigation, Hashable, Sendable {
         case frequentlyAskedQuestions
         case contactSupport
         case featureRequest
-        case writeAReview
+        case rateApp
         case privacyPolicy
         case termsOfService
         case logout
@@ -119,7 +119,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .frequentlyAskedQuestions: return "Frequently Asked Questions"
             case .contactSupport: return "Contact Support"
             case .featureRequest: return "Feature Request"
-            case .writeAReview: return "Write a Review"
+            case .rateApp: return "Rate Our App"
             case .privacyPolicy: return "Privacy Policy"
             case .termsOfService: return "Terms of Service"
             case .logout: return "Logout"
@@ -135,7 +135,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
             case .contactSupport: return .image(.iconMail)
             case .featureRequest: return .systemImage("lightbulb.fill")
-            case .writeAReview: return .systemImage("star.fill")
+            case .rateApp: return .systemImage("star.fill")
             case .privacyPolicy: return .image(.iconLock)
             case .termsOfService: return .systemImage("clipboard.fill")
             case .logout: return .image(.iconCloseCircle)
@@ -152,7 +152,7 @@ enum Route: Navigation, Hashable, Sendable {
         var category: String {
             switch self {
             case .profile, .subscription, .security: return "Account"
-            case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .featureRequest, .writeAReview: return "Help & Feedback"
+            case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .featureRequest, .rateApp: return "Help & Feedback"
             case .privacyPolicy, .termsOfService: return "Legal"
             case .logout: return "Logout"
             }

@@ -131,6 +131,8 @@ class ViewModelAssembly: Assembly {
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
+                    launchService: r.resolve(LaunchScreenServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)

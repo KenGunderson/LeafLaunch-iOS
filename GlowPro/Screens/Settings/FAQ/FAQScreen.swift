@@ -82,7 +82,7 @@ struct FAQScreen: GPView {
     
     private func section(item: FAQViewModel.FAQItemSection) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
             SectionView(
                 leadingTitle: item.title,

@@ -92,7 +92,7 @@ final class SettingsViewModel: ViewModel {
             
             self.shouldShowMailComposer = true
             
-        case .writeAReview:
+        case .rateApp:
             
             reviewApp()
             

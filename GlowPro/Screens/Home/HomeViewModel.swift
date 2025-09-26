@@ -17,6 +17,8 @@ final class HomeViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private(set) var alertService: AlertServiceProtocol
+    private let firebaseService: FirebaseServiceProtocol
+    private let launchService: LaunchScreenServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var navigationService: NavigationService?
@@ -47,6 +49,8 @@ final class HomeViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
+         firebaseService: FirebaseServiceProtocol,
+         launchService: LaunchScreenServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
         self.authService = authService
@@ -54,6 +58,8 @@ final class HomeViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.alertService = alertService
         self.activeDestinationService = activeDestinationService
+        self.firebaseService = firebaseService
+        self.launchService = launchService
         self.userDefaultsService = userDefaultsService
         
         self.logInit()
@@ -97,12 +103,29 @@ final class HomeViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
+        self.launchService
+            .onLaunchStateChanged
+            .receiveOnMain()
+            .sink { [weak self] state in
+                
+                guard state == .completed else { return }
+                guard let currentUser = self?.authService.currentUser else { return }
+                
+                self?.presentModalsIfNeeded(user: currentUser)
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
     func loadData(showHud: Bool = true) {
         
         guard let currentUser else { return }
-                
+        
+        if self.firebaseService.isNewUserContext {
+            presentModalsIfNeeded(user: currentUser)
+        }
+                        
         if showHud {
             
             self.alertService
@@ -144,6 +167,27 @@ final class HomeViewModel: ViewModel {
                     .dismissLoadingIndicator()
                 
             }
+            
+        }
+        
+    }
+    
+    private func presentModalsIfNeeded(user: GPUser) {
+                
+        self.navigationService?.popToRoot()
+        
+        let shouldShowOnboarding = !self.userDefaultsService.didCompleteOnboarding
+        
+        if shouldShowOnboarding {
+            
+            self.logger.debug("Attemping to show onboarding modal")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                
+                self.navigationService?
+                    .modal(fullScreenCover: .onboarding)
+                
+            })
             
         }
         

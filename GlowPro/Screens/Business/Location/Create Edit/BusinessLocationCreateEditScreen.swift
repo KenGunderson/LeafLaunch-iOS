@@ -209,6 +209,28 @@ struct BusinessLocationCreateEditScreen: GPView {
         var textContentType: UITextContentType = .organizationName
         
         let placeholder: String = fieldToFocus.displayName
+        let isEditMode = self.viewModel.isEditMode
+        let isOwner = self.viewModel.isOwner
+        
+        var isEnabled: Bool {
+            
+            if isEditMode {
+                return isOwner ? true : false
+            }
+            
+            return true
+            
+        }
+        
+        var backgroundColor: ColorSource {
+            
+            if isEditMode {
+                return isOwner ? .color(.clear) : Style.shared.background(.quaternary)
+            }
+            
+            return .color(.clear)
+            
+        }
         
         switch fieldToFocus {
         case .name:
@@ -254,6 +276,7 @@ struct BusinessLocationCreateEditScreen: GPView {
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
+                backgroundColor: backgroundColor,
                 textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: fieldToFocus)
@@ -265,6 +288,7 @@ struct BusinessLocationCreateEditScreen: GPView {
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+            .allowsHitTesting(isEnabled)
         
     }
     
@@ -288,7 +312,7 @@ struct BusinessLocationCreateEditScreen: GPView {
     @ViewBuilder
     private func bottomBar() -> some View {
         
-        if self.focusedField == nil {
+        if self.focusedField == nil && self.viewModel.isOwner {
             
             CommonButton(title: self.viewModel.saveButtonTitle,
                          isEnabled: self.viewModel.isSaveButtonEnabled) {
@@ -311,6 +335,16 @@ struct BusinessLocationCreateEditScreen: GPView {
     
     @ViewBuilder
     private func stateDropDown() -> some View {
+        
+        var backgroundColor: ColorSource {
+            
+            if self.viewModel.isEditMode {
+                return self.viewModel.isOwner ? .color(.minimumOpacity) : Style.shared.background(.quaternary)
+            }
+            
+            return .color(.minimumOpacity)
+            
+        }
                 
         VStack(spacing: Style.shared.spacing(.custom(8))) {
             
@@ -323,7 +357,7 @@ struct BusinessLocationCreateEditScreen: GPView {
                 options: Constants.USState.allCases,
                 buttonHeight: 44.5,
                 maxItemDisplayed: 3,
-                backgroundStyle: .color(.minimumOpacity),
+                backgroundStyle: backgroundColor,
                 shadow: .none,
                 textHorizontalPadding: .small,
                 shouldPushContentDown: true,
@@ -336,6 +370,7 @@ struct BusinessLocationCreateEditScreen: GPView {
                 color: Style.shared.background(.quaternary),
                 lineWidth: 1
             )
+            .allowsHitTesting(self.viewModel.isOwner)
             
         }
         .padding(.top, .small)

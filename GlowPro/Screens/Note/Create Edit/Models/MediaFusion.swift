@@ -41,14 +41,17 @@ struct MediaFusion: Equatable {
     let id: String
     let kind: Kind
     let isUploaded: Bool
+    let media: Media?
     
     init(id: String = UUID().uuidString,
          kind: Kind,
-         isUploaded: Bool) {
+         isUploaded: Bool,
+         media: Media? = nil) {
         
         self.id = id
         self.kind = kind
         self.isUploaded = isUploaded
+        self.media = media
         
     }
     

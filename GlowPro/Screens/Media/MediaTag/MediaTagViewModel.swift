@@ -33,7 +33,7 @@ final class MediaTagViewModel: ViewModel {
         
     }
     
-    private(set) var selectedMedia: Media!
+    private(set) var selectedMedia: Media?
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -63,7 +63,7 @@ final class MediaTagViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(media: Media) -> Self {
+    func setup(media: Media?) -> Self {
         
         self.selectedMedia = media
         return self
@@ -133,6 +133,17 @@ final class MediaTagViewModel: ViewModel {
                     businessId: self.activeDestinationService.businessId ?? ""
                 )
                 
+                if selectedMedia != nil {
+                    
+                    let mediaTags = try await self.apiService
+                        .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
+                    
+                    if let tag = mediaTags.first(where: { $0.name == trimmedNewMediaTag }) {
+                        addOrDeleteMediaTagForMedia(tag)
+                    }
+                    
+                }
+                
                 await MainActor.run { [weak self] in
                     self?.newMediaTag = ""
                 }
@@ -161,7 +172,7 @@ final class MediaTagViewModel: ViewModel {
     
     func addOrDeleteMediaTagForMedia(_ mediaTag: MediaTag) {
         
-        if self.selectedMedia.tags.contains(mediaTag) {
+        if self.selectedMedia?.tags.contains(mediaTag) ?? false {
             deleteMediaTagForMedia(mediaTag)
         } else {
             addMediaTagForMedia(mediaTag)
@@ -229,6 +240,8 @@ final class MediaTagViewModel: ViewModel {
     
     private func addMediaTagForMedia(_ mediaTag: MediaTag) {
         
+        guard let selectedMedia else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -237,12 +250,12 @@ final class MediaTagViewModel: ViewModel {
             do {
                 
                 try await self.apiService.createMediaTagForMedia(
-                    mediaId: self.selectedMedia.id,
+                    mediaId: selectedMedia.id,
                     mediaTagId: mediaTag.id
                 )
                 
                 await MainActor.run { [weak self] in
-                    self?.selectedMedia.tags.append(mediaTag)
+                    self?.selectedMedia?.tags.append(mediaTag)
                 }
                 
             }
@@ -272,6 +285,8 @@ final class MediaTagViewModel: ViewModel {
     
     private func deleteMediaTagForMedia(_ mediaTag: MediaTag) {
         
+        guard let selectedMedia else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
@@ -280,12 +295,12 @@ final class MediaTagViewModel: ViewModel {
             do {
                 
                 try await self.apiService.deleteMediaTagFromMedia(
-                    mediaId: self.selectedMedia.id,
+                    mediaId: selectedMedia.id,
                     mediaTagId: mediaTag.id
                 )
                 
                 await MainActor.run { [weak self] in
-                    self?.selectedMedia.tags.removeAll(where: { $0.id == mediaTag.id })
+                    self?.selectedMedia?.tags.removeAll(where: { $0.id == mediaTag.id })
                 }
                 
             }

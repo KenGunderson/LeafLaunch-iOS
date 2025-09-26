@@ -123,7 +123,7 @@ struct MediaTagScreen: GPView {
     @ViewBuilder
     private func mediaTag(_ mediaTag: MediaTag) -> some View {
         
-        let isSelected = self.viewModel.selectedMedia.tags.contains(mediaTag)
+        let isSelected = self.viewModel.selectedMedia?.tags.contains(mediaTag) ?? false
         
         let foregroundStyle = isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title)
         let backgroundStyle = isSelected ? Style.shared.accent : Style.shared.background(.secondary)
