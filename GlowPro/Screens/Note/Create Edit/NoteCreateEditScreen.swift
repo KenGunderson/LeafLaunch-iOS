@@ -154,7 +154,9 @@ struct NoteCreateEditScreen: View {
             
             textField(.title)
             textEditField()
+            
             textField(.signiture)
+                .allowsHitTesting(self.viewModel.isOwnerOrManager)
             
         }
         .padding(.horizontal, .medium)
@@ -188,13 +190,23 @@ struct NoteCreateEditScreen: View {
                 maxWidth: .infinity,
                 alignment: .leading
             )
-            .allowsHitTesting(self.viewModel.isOwnerOrManager)
               
         }
         
     }
     
     private func textField(_ focusedField: FocusedField) -> some View {
+        
+        let isSignitureEnabled = (self.viewModel.isOwnerOrManager)
+        var backgroundColor: ColorSource {
+            
+            if focusedField == .signiture {
+                return isSignitureEnabled ? .color(.clear) : Style.shared.background(.quaternary)
+            }
+            
+            return .color(.clear)
+            
+        }
         
         let text: Binding<String> = (focusedField == .title) ? self.$viewModel.title : self.$viewModel.employeeSignature
         let isFocused = self.focusedField == focusedField
@@ -207,6 +219,7 @@ struct NoteCreateEditScreen: View {
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
+                backgroundColor: backgroundColor,
                 textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: focusedField)
@@ -217,6 +230,7 @@ struct NoteCreateEditScreen: View {
             .appOnTapGesture {
                 self.focusedField = focusedField
             }
+            .allowsHitTesting(focusedField == .signiture ? isSignitureEnabled : true)
         
     }
     

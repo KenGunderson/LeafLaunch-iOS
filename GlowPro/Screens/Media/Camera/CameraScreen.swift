@@ -17,9 +17,10 @@ public struct CameraScreen: View {
     @StateObject var viewModel: CameraViewModel
     
     @State private var showBottomOverlayDrawer: Bool = false
-    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .grid
+    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .face
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: Double = 1.0
+    @State private var gridDivision: Int = 0
     
     public var body: some View {
         
@@ -44,6 +45,7 @@ public struct CameraScreen: View {
         
         .animation(.snappy, value: self.showBottomOverlayDrawer)
         .animation(.snappy, value: self.zoomScale)
+        .animation(.snappy, value: self.gridDivision)
         
     }
     
@@ -51,14 +53,6 @@ public struct CameraScreen: View {
     private func content() -> some View {
         
         ZStack(alignment: .center) {
-            
-//            if ProcessInfo.isPreview || ProcessInfo.isSimulator {
-//                
-//                Color.indigo
-//                    .opacity(1)
-//                    .ignoresSafeArea()
-//                
-//            }
             
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -68,6 +62,7 @@ public struct CameraScreen: View {
                 }
                 
             topBarView()
+            gridOverlay()
             selectedOverlay()
             zoomSlider()
             bottomOverlay()
@@ -83,57 +78,11 @@ public struct CameraScreen: View {
             
             HStack {
                 
-                let isAutoFlashMode = (self.viewModel.cameraFlashMode == .auto)
-                let isFlastOn = (self.viewModel.cameraFlashMode == .on)
-                let onColor = GPColor.iconYellow
-                let offColor: Color = .white
+                flashButton()
+                autoFlashButton()
                 
-                let flashIcon = isAutoFlashMode
-                    ? CameraFlashMode.off.icon
-                    : viewModel.cameraFlashMode.icon
-                
-                CircularIconView(
-                    foregroundColor: .color(isFlastOn ? onColor : offColor),
-                    backgroundColor: .material(.ultraThinMaterial),
-                    imageSource: .systemImage(flashIcon),
-                    size: 40
-                )
-                .asButton {
-                    
-                    self.viewModel
-                        .toggleFlash()
-                    
-                }
-                .contentTransition(.symbolEffect(.replace))
-                                
-                CircularIconView(
-                    foregroundColor: .color(isAutoFlashMode ? onColor : offColor),
-                    backgroundColor: .material(.ultraThinMaterial),
-                    imageSource: .systemImage(CameraFlashMode.auto.icon),
-                    size: 40
-                )
-                .asButton {
-                    
-                    self.viewModel
-                        .setCameraFlashMode(.auto)
-                    
-                }
-                .contentTransition(.symbolEffect(.replace))
-                
-                Spacer()
-                
-                CircularIconView(
-                    foregroundColor: .color(.white),
-                    backgroundColor: .material(.ultraThinMaterial),
-                    imageSource: .systemImage("xmark"),
-                    size: 40
-                )
-                .asButton {
-                    
-                    self.viewModel.teardown()
-                    dismiss()
-                    
-                }
+                closeButton()
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 
             }
             .padding(.top, .medium)
@@ -142,6 +91,250 @@ public struct CameraScreen: View {
             .animation(.spring, value: self.viewModel.cameraFlashMode)
             
             Spacer()
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func bottomBarView() -> some View {
+                
+        HStack {
+            
+            latestPhoto()
+            
+            gridButton()
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            ghostOverlayButton()
+            
+        }
+        .padding(.horizontal, .medium2)
+        .frame(height: 80)
+        .overlay {
+            
+            ShutterButton(disabled: viewModel.isShutterDisabled) {
+                viewModel.shutter()
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func bottomOverlay() -> some View {
+        
+        VStack {
+            
+            Spacer()
+            
+            ZStack(alignment: .bottom) {
+                
+                bottomBarView()
+                bottomDrawerContent()
+                
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            
+        }
+        .animation(.snappy, value: self.selectedGhostOverlayItem)
+        
+    }
+    
+    @ViewBuilder
+    private func gridOverlay() -> some View {
+        
+        if self.gridDivision > 0 {
+            
+            GridOverlay(
+                divisions: self.gridDivision,
+                lineWidth: 2,
+                inset: 24
+            )
+            .transition(.opacity)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func flashButton() -> some View {
+     
+        let isAutoFlashMode = (self.viewModel.cameraFlashMode == .auto)
+        let isFlastOn = (self.viewModel.cameraFlashMode == .on)
+        let onColor = GPColor.iconYellow
+        let offColor: Color = .white
+        
+        let flashIcon = isAutoFlashMode
+            ? CameraFlashMode.off.icon
+            : viewModel.cameraFlashMode.icon
+        
+        CircularIconView(
+            foregroundColor: .color(isFlastOn ? onColor : offColor),
+            backgroundColor: .material(.ultraThinMaterial),
+            imageSource: .systemImage(flashIcon),
+            size: 40
+        )
+        .asButton {
+            
+            self.viewModel
+                .toggleFlash()
+            
+        }
+        .contentTransition(.symbolEffect(.replace))
+        
+    }
+    
+    @ViewBuilder
+    private func autoFlashButton() -> some View {
+     
+        let isAutoFlashMode = (self.viewModel.cameraFlashMode == .auto)
+        let onColor = GPColor.iconYellow
+        let offColor: Color = .white
+        
+        CircularIconView(
+            foregroundColor: .color(isAutoFlashMode ? onColor : offColor),
+            backgroundColor: .material(.ultraThinMaterial),
+            imageSource: .systemImage(CameraFlashMode.auto.icon),
+            size: 40
+        )
+        .asButton {
+            
+            self.viewModel
+                .setCameraFlashMode(.auto)
+            
+        }
+        .contentTransition(.symbolEffect(.replace))
+        
+    }
+    
+    @ViewBuilder
+    private func closeButton() -> some View {
+        
+        CircularIconView(
+            foregroundColor: .color(.white),
+            backgroundColor: .material(.ultraThinMaterial),
+            imageSource: .systemImage("xmark"),
+            size: 40
+        )
+        .asButton {
+            
+            self.viewModel.teardown()
+            dismiss()
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func gridButton() -> some View {
+        
+        let isGridEnabled = self.gridDivision > 0
+        
+        CircularIconView(
+            foregroundColor: isGridEnabled ? Style.shared.accent : .color(.white),
+            backgroundColor: .material(.ultraThinMaterial),
+            imageSource: .systemImage("grid"),
+            size: 48
+        )
+        .asButton {
+            
+            var nextGridDivision: Int {
+                
+                if self.gridDivision == 0 {
+                    return 3
+                }
+                
+                if self.gridDivision == 5 {
+                    return 0
+                }
+                
+                return self.gridDivision + 1
+                
+            }
+            
+            self.gridDivision = nextGridDivision
+
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func ghostOverlayButton() -> some View {
+        
+        CircularIconView(
+            foregroundColor: .color(.white),
+            backgroundColor: .material(.ultraThinMaterial),
+            imageSource: .systemImage("person.crop.square.on.square.angled"),
+            size: 48
+        )
+        .asButton {
+            
+            self.showBottomOverlayDrawer.toggle()
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func latestPhoto() -> some View {
+        
+        if let image = viewModel.captureMode.latestPhoto {
+            
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 65, height: 65)
+                .clipShape(RoundedRectangle(
+                    cornerRadius: Style.shared.radius(.small),
+                    style: .continuous
+                ))
+                .overlay(
+                    
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(.white.opacity(0.8), lineWidth: 2)
+                    
+                )
+                .shadow(radius: 6)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.media(.review(
+                            context: .transformFromMediaContext(self.viewModel.context),
+                            images: self.viewModel.allImages
+                        )))
+                    
+                }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func selectedOverlay() -> some View {
+     
+        if let selectedGhostOverlayItem {
+            
+            let normalized = selectedGhostOverlayItem.scale - 0.5   // -0.5...+0.5
+            let factor = pow(2.0, normalized * 3)
+            
+            selectedGhostOverlayItem
+                .image
+                .view(renderingMode: .original)
+                .aspectRatio(contentMode: .fit)
+                .frame(
+                    width: UIScreen.main.bounds.width * 0.85
+                )
+                .clipped()
+                .cornerRadius(.none)
+                .foregroundStyle(.white)
+                .scaleEffect(factor)
+                .opacity(selectedGhostOverlayItem.opacity)
+                .padding(.bottom, 44)
+                .background(.backgroundTappable)
+                .appOnTapGesture {
+                    self.showBottomOverlayDrawer.toggle()
+                }
             
         }
         
@@ -190,7 +383,7 @@ public struct CameraScreen: View {
                 .rotationEffect(.degrees(90))
                 
             }
-            .rotationEffect(.degrees(270))
+            .rotationEffect(.degrees(-90))
             .offset(x: 200 / 1.85)
             
         }
@@ -199,165 +392,54 @@ public struct CameraScreen: View {
     }
     
     @ViewBuilder
-    private func bottomBarView() -> some View {
+    private func bottomDrawerContent() -> some View {
         
-        HStack {
-            
-            if let image = viewModel.captureMode.latestPhoto {
-                
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 65, height: 65)
-                    .clipShape(RoundedRectangle(
-                        cornerRadius: Style.shared.radius(.small),
-                        style: .continuous
-                    ))
-                    .overlay(
-                        
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(.white.opacity(0.8), lineWidth: 2)
-                        
-                    )
-                    .shadow(radius: 6)
-                    .asButton {
-                        
-                        self.navigationService
-                            .push(.media(.review(
-                                context: .transformFromMediaContext(self.viewModel.context),
-                                images: self.viewModel.allImages
-                            )))
-                        
-                    }
-                
-            }
-            
-            Spacer()
-            
-            CircularIconView(
-                foregroundColor: .color(.white),
-                backgroundColor: .material(.ultraThinMaterial),
-                imageSource: .systemImage("person.crop.square.on.square.angled"),
-                size: 65
-            )
-            .asButton {
-                
-                self.showBottomOverlayDrawer.toggle()
-                
-            }
-            
-        }
-        .padding(.horizontal, .medium2)
-        .frame(height: 80)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .overlay {
-            
-            ShutterButton(disabled: viewModel.isShutterDisabled) {
-                viewModel.shutter()
-            }
-            
-        }
+        let backgroundColor = Style.shared.background(.primary)
         
-    }
-    
-    @ViewBuilder
-    private func bottomOverlay() -> some View {
-        
-        VStack {
+        if self.showBottomOverlayDrawer {
             
-            Spacer()
-            
-            ZStack(alignment: .bottom) {
+            VStack(spacing: -0.5) {
                 
-                let backgroundColor = Style.shared.background(.primary)
-                
-                bottomBarView()
-                
-                if self.showBottomOverlayDrawer {
+                VStack(spacing: 0) {
                     
-                    VStack(spacing: -0.5) {
-                        
-                        VStack(spacing: 0) {
-                            
-                            HStack {
-                                
-                                Spacer()
-                                
-                                NavBarButton(style: .close) {
-                                    self.showBottomOverlayDrawer = false
-                                }
-                                .padding([.top, .horizontal], .medium)
-                                
-                            }
-                            
-                            GhostOverlayView(
-                                selectedGhostOverlayItem: self.$selectedGhostOverlayItem,
-                                images: .constant(selectedGhostOverlayCategory?.images ?? [])
-                            )
-                            .padding(.bottom, .small)
-                            .padding(.top, .medium)
-                            
-                            GhostOverlayCarouselView(selectedGhostOverlayCategory: self.$selectedGhostOverlayCategory)
-                            
-                        }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .background(backgroundColor.source())
-                        .clipShape(.rect(cornerRadii: .init(
-                            topLeading: Style.shared.radius(.small2),
-                            topTrailing: Style.shared.radius(.small2))
-                        ))
-                        
-                        backgroundColor
-                            .view()
-                            .ignoresSafeArea()
-                        
+                    NavBarButton(style: .close) {
+                        self.showBottomOverlayDrawer = false
                     }
-                    .compositingGroup()
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                        .onEnded({ value in
-                            
-                            if value.translation.height > 50 {
-                                self.showBottomOverlayDrawer = false
-                            }
-                            
-                        }))
- 
+                    .padding([.top, .horizontal], .medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    
+                    GhostOverlayView(
+                        selectedGhostOverlayItem: self.$selectedGhostOverlayItem,
+                        images: .constant(selectedGhostOverlayCategory?.images ?? [])
+                    )
+                    .padding(.bottom, .small)
+                    
+                    GhostOverlayCarouselView(selectedGhostOverlayCategory: self.$selectedGhostOverlayCategory)
+                        .padding(.top, .small)
+                    
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .background(backgroundColor.source())
+                .clipShape(.rect(cornerRadii: .init(
+                    topLeading: Style.shared.radius(.large),
+                    topTrailing: Style.shared.radius(.large))
+                ))
+                
+                backgroundColor
+                    .view()
+                    .ignoresSafeArea()
                 
             }
-            .fixedSize(horizontal: false, vertical: true)
-            
-        }
-        .animation(.snappy, value: self.selectedGhostOverlayItem)
-        
-    }
-    
-    @ViewBuilder
-    private func selectedOverlay() -> some View {
-     
-        if let selectedGhostOverlayItem {
-            
-            let normalized = selectedGhostOverlayItem.scale - 0.5   // -0.5...+0.5
-            let factor = pow(2.0, normalized * 3)
-            
-            selectedGhostOverlayItem
-                .image
-                .view(renderingMode: .original)
-                .aspectRatio(contentMode: .fit)
-                .frame(
-                    width: UIScreen.main.bounds.width * 0.85
-                )
-                .clipped()
-                .cornerRadius(.none)
-                .foregroundStyle(.white)
-                .scaleEffect(factor)
-                .opacity(selectedGhostOverlayItem.opacity)
-                .padding(.bottom, 44)
-                .background(.backgroundTappable)
-                .appOnTapGesture {
-                    self.showBottomOverlayDrawer.toggle()
-                }
+            .compositingGroup()
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                .onEnded({ value in
+                    
+                    if value.translation.height > 50 {
+                        self.showBottomOverlayDrawer = false
+                    }
+                    
+                }))
             
         }
         
