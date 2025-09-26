@@ -74,25 +74,20 @@ public struct CameraScreen: View {
     @ViewBuilder
     private func topBarView() -> some View {
         
-        VStack {
+        HStack {
             
-            HStack {
-                
-                flashButton()
-                autoFlashButton()
-                
-                closeButton()
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                
-            }
-            .padding(.top, .medium)
-            .padding(.horizontal, .medium)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .animation(.spring, value: self.viewModel.cameraFlashMode)
+            flashButton()
+            autoFlashButton()
             
-            Spacer()
+            closeButton()
+                .frame(maxWidth: .infinity, alignment: .trailing)
             
         }
+        .padding(.top, .medium)
+        .padding(.horizontal, .medium)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .animation(.spring, value: self.viewModel.cameraFlashMode)
+        .frame(maxHeight: .infinity, alignment: .top)
         
     }
     
