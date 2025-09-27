@@ -127,8 +127,9 @@ struct GhostOverlayView: View {
         
         item
             .image
-            .view(renderingMode: .original)
-            .scaledToFit()
+            .view()
+            .aspectRatio(contentMode: .fit)
+            .foregroundStyle(.white)
             .frame(width: 48, height: 48)
             .scaleEffect(item.image.isSystemImage ? 0.9 : 1)
             .appOnTapGesture {

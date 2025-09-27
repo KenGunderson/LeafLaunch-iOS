@@ -92,7 +92,7 @@ struct GhostOverlayCarouselView: View {
 
 #Preview {
 
-    @Previewable @State var ghostOverlayCategory: GhostOverlayCategory? = .face
+    @Previewable @State var ghostOverlayCategory: GhostOverlayCategory? = .head
     
     GhostOverlayCarouselView(
         selectedGhostOverlayCategory: $ghostOverlayCategory

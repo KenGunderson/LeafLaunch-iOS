@@ -17,7 +17,7 @@ public struct CameraScreen: View {
     @StateObject var viewModel: CameraViewModel
     
     @State private var showBottomOverlayDrawer: Bool = false
-    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .face
+    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .head
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: Double = 1.0
     @State private var gridDivision: Int = 0
@@ -38,6 +38,26 @@ public struct CameraScreen: View {
             
             self.viewModel
                 .zoom(scale: newValue)
+            
+        }
+        
+        .onChange(of: self.selectedGhostOverlayItem) { oldValue, newValue in
+            
+            guard newValue?.id == "CUSTOM" else { return }
+            
+            let isOldValyeASystemImage = oldValue?.image.isSystemImage ?? false
+            let isNewValueARemoteImage = newValue?.image.isRemote ?? false
+            
+            if isOldValyeASystemImage && isNewValueARemoteImage {
+                
+                // We return since we already selected the custom image
+                return
+                
+            }
+            
+            if !isNewValueARemoteImage {
+                handleCustomMediaGallerySelection()
+            }
             
         }
         
@@ -315,7 +335,8 @@ public struct CameraScreen: View {
             
             selectedGhostOverlayItem
                 .image
-                .view(renderingMode: .original)
+                .view(renderingMode: .template)
+                .foregroundStyle(.white)
                 .aspectRatio(contentMode: .fit)
                 .frame(
                     width: UIScreen.main.bounds.width * 0.85
@@ -437,6 +458,28 @@ public struct CameraScreen: View {
                 }))
             
         }
+        
+    }
+    
+    private func handleCustomMediaGallerySelection() {
+        
+        self.navigationService
+            .push(.media(.gallery(
+                mediaContext: self.viewModel.context,
+                mediaSelectionContext: .singleSelection(completion: { selectedMedia in
+                    
+                    if let url = selectedMedia?.url {
+                        
+                        self.selectedGhostOverlayItem = .init(
+                            id: "CUSTOM",
+                            image: .remote(url: url)
+                        )
+                        
+                    }
+                    
+                })
+                
+            )))
         
     }
     
