@@ -193,7 +193,9 @@ final class MediaTagViewModel: ViewModel {
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
                     
-                    self?.deleteMediaTag(mediaTag: mediaTag)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                        self?.deleteMediaTag(mediaTag: mediaTag)
+                    }
                     
                 },
                 primaryButtonBackgroundColor: Style.shared.background(.error),
@@ -203,6 +205,15 @@ final class MediaTagViewModel: ViewModel {
                 secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
                 secondaryButtonTextColor: Style.shared.textColor(.title)
             ))))
+        
+    }
+    
+    func updateBusinessDashboardHomeIfNeeded() {
+        
+        guard !self.isMediaSelected else { return }
+        
+        self.viewLifecycleService
+            .reload(for: .businessHome)
         
     }
     

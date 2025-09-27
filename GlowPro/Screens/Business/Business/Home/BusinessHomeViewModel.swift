@@ -18,6 +18,7 @@ final class BusinessHomeViewModel: ViewModel {
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -42,7 +43,8 @@ final class BusinessHomeViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.authService = authService
         self.apiService = apiService
@@ -50,6 +52,7 @@ final class BusinessHomeViewModel: ViewModel {
         self.alertService = alertService
         self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
         bindSubsribers()
@@ -81,6 +84,13 @@ final class BusinessHomeViewModel: ViewModel {
             .receiveOnMain()
             .sink { [weak self] user in
                 self?.currentUser = user
+            }
+            .store(in: &self.cancelBag)
+        
+        self.viewLifecycleService
+            .publisher(for: .businessHome)
+            .sink { [weak self] in
+                self?.loadData(showHud: false)
             }
             .store(in: &self.cancelBag)
         
