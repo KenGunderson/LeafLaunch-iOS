@@ -81,7 +81,13 @@ struct OnboardingScreen: View {
             ProgressView(
                 value: self.viewModel.progress,
                 label: { Text("") },
-                currentValueLabel: { Text(self.viewModel.formattedProgressPercentage) }
+                currentValueLabel: {
+                    
+                    Text(self.viewModel.formattedProgressPercentage)
+                        .font(Style.shared.font(.TITLE_4))
+                    
+                }
+                
             )
             .tint(Style.shared.accent.source())
             .contentTransition(.numericText())

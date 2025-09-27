@@ -45,16 +45,18 @@ public struct CameraScreen: View {
             
             guard newValue?.id == "CUSTOM" else { return }
             
-            let isOldValyeASystemImage = oldValue?.image.isSystemImage ?? false
+            let isOldValueASystemImage = oldValue?.image.isSystemImage ?? false
             let isNewValueARemoteImage = newValue?.image.isRemote ?? false
             
-            if isOldValyeASystemImage && isNewValueARemoteImage {
+            if isOldValueASystemImage && isNewValueARemoteImage {
                 
                 // We return since we already selected the custom image
                 return
                 
             }
             
+            // Whenever we toggle opacity / scale it created a new item
+            // If the item is remote URL we know it's a custom remote selected image
             if !isNewValueARemoteImage {
                 handleCustomMediaGallerySelection()
             }
