@@ -61,7 +61,8 @@ final class FirebaseService: FirebaseServiceProtocol {
         return self.$currentAccessToken.eraseToAnyPublisher()
     }
     
-    var isNewUserContext: Bool = false
+    var isSignUpContext: Bool = false
+    var isLoginContext: Bool = false
         
     init() {
         
@@ -91,7 +92,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                 password: password
             )
             
-            self.isNewUserContext = true
+            self.isSignUpContext = true
             self.user = result.user
             
             try await self.getAccessTokenForCurrentUser()
@@ -128,7 +129,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                 password: password
             )
             
-            self.isNewUserContext = false
+            self.isLoginContext = true
             self.user = result.user
             
         } catch let error {

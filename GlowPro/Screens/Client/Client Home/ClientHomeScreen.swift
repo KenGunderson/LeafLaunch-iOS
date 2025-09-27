@@ -268,6 +268,15 @@ struct ClientHomeScreen: GPView {
                         .aspectRatio(1, contentMode: .fit)
                         .frame(width: 64)
                         .cornerRadius(.small)
+                        .contentShape(.rect(cornerRadius: Style.shared.radius(.small)))
+                        .asButton {
+                            
+                            self.navigationService
+                                .modal(fullScreenCover: .mediaPreview(
+                                    url: media.url
+                                ))
+                            
+                        }
                         
                     }
                     

@@ -19,7 +19,8 @@ protocol FirebaseServiceProtocol: AnyObject, Sendable, Loggable {
     var currentAccessToken: String? { get }
     var currentAccessTokenPublisher: AnyPublisher<String?, Never> { get }
     
-    var isNewUserContext: Bool { get }
+    var isSignUpContext: Bool { get }
+    var isLoginContext: Bool { get }
     
     func setup() -> Self
     

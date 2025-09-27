@@ -152,6 +152,7 @@ enum ActivityCategory {
     case note
     case camera
     case media
+    case tags
     
     var icon: ImageSource {
         switch self {
@@ -163,6 +164,7 @@ enum ActivityCategory {
         case .note: return .image(.iconNoteOutline)
         case .camera: return .image(.iconCamera)
         case .media: return .systemImage("photo.on.rectangle.fill")
+        case .tags: return .systemImage("tag.fill")
         }
     }
     
@@ -176,6 +178,7 @@ enum ActivityCategory {
         case .note: return GPColor.iconPink
         case .camera: return GPColor.iconTeal
         case .media: return GPColor.iconTeal
+        case .tags: return GPColor.iconOrange
         }
     }
     

@@ -1149,7 +1149,8 @@ final class MockFirebaseService: FirebaseServiceProtocol {
     var currentAccessToken: String? = nil
     var currentAccessTokenPublisher = CurrentValueSubject<String?, Never>(nil).eraseToAnyPublisher()
     
-    var isNewUserContext: Bool = false
+    var isSignUpContext: Bool = false
+    var isLoginContext: Bool = false
     
     func setup() -> Self { self }
     

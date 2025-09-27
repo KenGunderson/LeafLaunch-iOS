@@ -122,7 +122,7 @@ final class HomeViewModel: ViewModel {
         
         guard let currentUser else { return }
         
-        if self.firebaseService.isNewUserContext {
+        if self.firebaseService.isLoginContext || self.firebaseService.isSignUpContext {
             presentModalsIfNeeded(user: currentUser)
         }
                         

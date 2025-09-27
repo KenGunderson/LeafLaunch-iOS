@@ -87,10 +87,14 @@ struct MediaTagScreen: GPView {
     @ViewBuilder
     private func mediaTagsList() -> some View {
         
+        let sectionTitle = self.viewModel.isMediaSelected
+        ? "Select All That Apply"
+        : "All Media Tags"
+        
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             SectionView(
-                leadingTitle: "Select All That Apply",
+                leadingTitle: sectionTitle,
                 leadingTitleFont: .TITLE_5,
                 showDivider: true
             )

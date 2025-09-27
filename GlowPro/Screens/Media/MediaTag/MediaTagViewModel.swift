@@ -33,6 +33,10 @@ final class MediaTagViewModel: ViewModel {
         
     }
     
+    var isMediaSelected: Bool {
+        return self.selectedMedia != nil
+    }
+    
     private(set) var selectedMedia: Media?
 
     private var navigationService: NavigationService?

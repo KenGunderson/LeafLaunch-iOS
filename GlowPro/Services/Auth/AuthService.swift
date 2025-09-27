@@ -375,7 +375,7 @@ final class AuthService: AuthServiceProtocol {
                 
                 guard let self else { return }
                 guard let user else { return }
-                guard !self.firebaseService.isNewUserContext else { return }
+                guard !self.firebaseService.isSignUpContext else { return }
                 
                 loadInitialUser(user)
                 

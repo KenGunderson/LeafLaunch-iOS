@@ -212,6 +212,23 @@ struct BusinessHomeScreen: GPView {
                     
                 }
                 
+                QuickActionTileView(
+                    icon: ActivityCategory.tags.icon,
+                    iconBackgroundColor: .color(ActivityCategory.tags.color),
+                    title: "All Media Tags",
+                    subtitle: "\(self.viewModel.business?.totalMediaTagCount ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .modal(fullScreenCover: .mediaTags(
+                            selectedMedia: nil
+                        ))
+                    
+                }
+                
             }
             
         }
