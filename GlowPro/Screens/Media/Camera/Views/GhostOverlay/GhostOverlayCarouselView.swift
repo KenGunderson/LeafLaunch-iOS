@@ -80,7 +80,7 @@ struct GhostOverlayCarouselView: View {
                 }
                 
             }
-            .onTapGesture {
+            .appOnTapGesture {
                 self.selectedGhostOverlayCategory = category
             }
             .tag(category)

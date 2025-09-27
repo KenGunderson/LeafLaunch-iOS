@@ -73,7 +73,10 @@ struct MediaTagScreen: GPView {
     private func navBar() -> some View {
         
         let closeButton = NavBarButton(style: .close) {
+            
+            self.viewModel.updateBusinessDashboardHomeIfNeeded()
             self.dismiss()
+            
         }
         .asAnyView()
         
@@ -254,7 +257,10 @@ struct MediaTagScreen: GPView {
             if self.focusedField == nil {
                 
                 CommonButton(title: "Done") {
+                    
+                    self.viewModel.updateBusinessDashboardHomeIfNeeded()
                     dismiss()
+                    
                 }
                 
             } else {

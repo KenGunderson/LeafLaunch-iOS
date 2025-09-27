@@ -117,7 +117,7 @@ struct BusinessActivityListScreen: GPView {
             lineWidth: 1.5
         )
         .appShadow(.subtle)
-        .onTapGesture {
+        .appOnTapGesture {
             self.viewModel.set(activityType: activityType)
         }
         
