@@ -129,9 +129,9 @@ struct GhostOverlayView: View {
             .image
             .view()
             .aspectRatio(contentMode: .fit)
-            .foregroundStyle(.white)
+            .foregroundStyle(.black)
             .frame(width: 48, height: 48)
-            .scaleEffect(item.image.isSystemImage ? 0.9 : 1)
+            .scaleEffect(item.image.isSystemImage ? 0.9 : 1.2)
             .appOnTapGesture {
                 
                 let isAlreadySelected = (self.selectedGhostOverlayItem?.id == item.id)
@@ -149,7 +149,7 @@ struct GhostOverlayView: View {
                 lineWidth: 5,
                 outerBorder: true
             )
-            .background(Style.shared.background(.tertiary).source())
+            .background(Style.shared.background(.quaternary).source())
             .cornerRadius(.small2)
             .appShadow(.subtle)
         
@@ -189,6 +189,7 @@ struct GhostOverlayView: View {
     
     @Previewable @State var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @Previewable @State var images: [GhostOverlayView.GhostOverlayItem] = [
+        .init(id: "0", image: .image(.armBentLeft)),
         .init(id: "1", image: .systemImage("person.fill")),
         .init(id: "2", image: .systemImage("house.fill")),
         .init(id: "3", image: .systemImage("person.2.fill")),
@@ -197,8 +198,8 @@ struct GhostOverlayView: View {
     
     ZStack {
         
-        Style.shared
-            .background(.primary)
+        ImageSource
+            .image(.illustrationWelcome, renderingMode: .original)
             .view()
             .ignoresSafeArea()
         
