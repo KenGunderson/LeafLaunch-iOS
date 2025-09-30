@@ -210,7 +210,7 @@ final class BusinessHomeViewModel: ViewModel {
             
             self.navigationService?
                 .push(.media(.camera(
-                    context: .business(businessId: self.businessId),
+                    context: .location(locationId: self.business?.locations.first?.id ?? ""),
                     mode: .multiple([])
                 )))
         }
