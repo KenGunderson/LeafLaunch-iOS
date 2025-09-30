@@ -109,7 +109,7 @@ final class SettingsViewModel: ViewModel {
     
     func loadData(showHud: Bool = true) {
         
-        self.isLoading = true
+        self.isLoading = (self.isFirstLoad)
         
         if self.isFirstLoad {
             

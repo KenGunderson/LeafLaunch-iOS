@@ -170,6 +170,6 @@ struct OnboardingScreen: View {
                 .permission
             ])
     )
-    .withMockServices()
+    .withMockServices(withNaivgationService: false)
     
 }

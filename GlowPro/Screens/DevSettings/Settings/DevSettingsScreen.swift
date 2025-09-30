@@ -279,6 +279,6 @@ struct DevSettingsScreen: GPView {
     DevSettingsScreen(
         viewModel: mockResolve(DevSettingsViewModel.self)
     )
-    .withMockServices()
+    .withMockServices(withNaivgationService: false)
     
 }

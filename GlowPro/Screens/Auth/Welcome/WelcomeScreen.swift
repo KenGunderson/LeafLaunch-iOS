@@ -122,6 +122,6 @@ struct WelcomeScreen: GPView {
     WelcomeScreen(
         viewModel: mockResolve(WelcomeViewModel.self)
     )
-    .withMockServices()
+    .withMockServices(withNaivgationService: false)
     
 }

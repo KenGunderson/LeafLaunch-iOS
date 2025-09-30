@@ -219,6 +219,6 @@ struct SettingsScreen: GPView {
     let viewModel = mockResolve(SettingsViewModel.self)
     
     SettingsScreen(viewModel: viewModel)
-        .withMockServices()
+        .withMockServices(withNaivgationService: false)
     
 }

@@ -48,12 +48,16 @@ private struct PreviewWrapper<Content: View>: View {
 
 extension View {
 
-    func withMockServices() -> some View {
+    func withMockServices(withNaivgationService: Bool = true) -> some View {
+        
         PreviewWrapper {
             self
         }
-        .environment(NavigationService())
+        .if(withNaivgationService) { view in
+            view.environment(NavigationService())
+        }
         .withToastOverlay()
+        
     }
     
 }

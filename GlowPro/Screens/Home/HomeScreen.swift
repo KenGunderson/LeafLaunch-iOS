@@ -207,6 +207,6 @@ struct HomeScreen: GPView {
     let viewModel = mockResolve(HomeViewModel.self)
     
     HomeScreen(viewModel: viewModel)
-        .withMockServices()
+        .withMockServices(withNaivgationService: false)
     
 }
