@@ -11,6 +11,8 @@ struct ClientListScreen: GPView {
     
     @StateObject var viewModel: ClientListViewModel
     @Environment(NavigationService.self) private var navigationService
+    
+    @FocusState private var isFocused: Bool
         
     var body: some View {
         
@@ -32,6 +34,17 @@ struct ClientListScreen: GPView {
                 self.viewModel
                     .loadData(showHud: self.viewModel.isFirstLoad)
                 
+            }
+        
+        // Animations
+        
+            .animation(.smooth, value: self.viewModel.filteredGroupedClientsDict)
+            .animation(.smooth, value: self.viewModel.groupedClientsDict)
+        
+        // Tap
+        
+            .onTapGesture {
+                self.isFocused = false
             }
         
     }
@@ -82,9 +95,16 @@ struct ClientListScreen: GPView {
     @ViewBuilder
     private func clientList() -> some View {
         
-        let dict = self.viewModel.groupedClientsDict
+        let dict = self.viewModel.filteredGroupedClientsDict
         
         VStack {
+            
+            if !self.viewModel.groupedClientsDict.isEmpty {
+                
+                textField()
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                
+            }
             
             ForEach(dict.keys.sorted(), id: \.self) { letter in
                 
@@ -92,6 +112,7 @@ struct ClientListScreen: GPView {
                     title: "\(letter)",
                     clients: dict[letter] ?? []
                 )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
                 
             }
             
@@ -175,11 +196,41 @@ struct ClientListScreen: GPView {
         
     }
     
+    private func textField() -> some View {
+        
+        return TextField(
+            "",
+            text: self.$viewModel.queryString,
+            prompt: Text("Search for a client...").foregroundStyle(Style.shared.textColor(.placeholder).source())
+        )
+            .foregroundColor(.red)
+            .appTextFieldStyle(
+                text: self.$viewModel.queryString.wrappedValue,
+                icon: .systemImage("magnifyingglass"),
+                isFocused: isFocused,
+                foregroundColor: Style.shared.textColor(.title),
+                textFieldFont: .BODY_3,
+                shadow: .none,
+                leadingSpacing: .small2
+            )
+            .focused(self.$isFocused)
+            .keyboardType(.default)
+            .textContentType(.name)
+            .submitLabel(.search)
+            .textInputAutocapitalization(.words)
+            .autocorrectionDisabled(true)
+            .appOnTapGesture {
+                self.isFocused = true
+            }
+        
+    }
+    
 }
 
 #Preview {
     
     let viewModel = mockResolve(ClientListViewModel.self)
+        .setup(context: .business(businessId: MockModels.ID.business1))
     
     ClientListScreen(viewModel: viewModel)
         .withMockServices()

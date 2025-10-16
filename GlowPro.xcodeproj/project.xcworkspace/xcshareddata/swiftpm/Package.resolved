@@ -151,7 +151,7 @@
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
         "branch" : "main",
-        "revision" : "c063b7d9eb5263a13bab142c39d5dd1e8385944e"
+        "revision" : "89d4ce1ac2f9e2d91f0af4209b1138223a6e7ace"
       }
     },
     {
@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stripe/stripe-ios-spm",
       "state" : {
-        "revision" : "4ed1c6a287f840ff250cc659eac1d587b278f449",
-        "version" : "24.23.3"
+        "revision" : "51c2a67246ff06fb0df78d34b665ad1b9cd8489c",
+        "version" : "24.24.3"
       }
     },
     {
@@ -168,8 +168,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "2547102afd04fe49f1b286090f13ebce07284980",
-        "version" : "1.31.1"
+        "revision" : "c6fe6442e6a64250495669325044052e113e990c",
+        "version" : "1.32.0"
       }
     },
     {

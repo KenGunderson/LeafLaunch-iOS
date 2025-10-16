@@ -18,7 +18,6 @@ struct Business: Identifiable,
     let description: String?
     let email: String?
     let phoneNumber: String?
-    let address: Address?
     let owner: GPUser
     let isSubscribed: Bool
     let categories: [String]
@@ -40,7 +39,6 @@ struct Business: Identifiable,
          description: String? = nil,
          email: String? = nil,
          phoneNumber: String? = nil,
-         address: Address? = nil,
          owner: GPUser,
          isSubscribed: Bool = false,
          categories: [String] = [],
@@ -61,7 +59,6 @@ struct Business: Identifiable,
         self.description = description
         self.email = email
         self.phoneNumber = phoneNumber
-        self.address = address
         self.owner = owner
         self.isSubscribed = isSubscribed
         self.categories = categories
@@ -86,7 +83,6 @@ struct Business: Identifiable,
         case description
         case email
         case phoneNumber = "phone_number"
-        case address
         case owner
         case isSubscribed = "is_subscribed"
         case categories
@@ -118,7 +114,6 @@ extension Business {
             description: "This is the business description",
             email: "hallalguy@gmail.com",
             phoneNumber: "818-522-5755",
-            address: .DUMMY_DATA(),
             owner: .DUMMY_DATA(),
             locations: [],
         )

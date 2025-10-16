@@ -109,23 +109,50 @@ struct SignUpScreen: GPView {
         
         VStack(alignment: .leading) {
             
-            // Checkbox
-            
-            Toggle(
-                "By signing up, you agree to our Terms of Service",
-                isOn: self.$viewModel.agreedToTerms
-            )
-            .toggleStyle(.checkmark(
-                height: 28,
-                unselectedColor: Style.shared.background(.quaternary),
-                horizontalSpacing: .small,
-                cornerRadius: .extraSmall
-            ))
-            .contentTransition(.symbolEffect(.replace))
-            .foregroundStyle(Style.shared.textColor(.body).source())
-            .appFont(with: .BODY_2)
-            .animation(.bouncy, value: self.viewModel.agreedToTerms)
-            .opacity(self.focusedField == nil ? 1 : 0)
+            HStack(spacing: Style.shared.spacing(.none)) {
+                
+                // Checkbox
+                
+                Toggle(
+                    "",
+                    isOn: self.$viewModel.agreedToTerms
+                )
+                .toggleStyle(.checkmark(
+                    height: 28,
+                    unselectedColor: Style.shared.background(.quaternary),
+                    horizontalSpacing: .small,
+                    cornerRadius: .extraSmall
+                ))
+                .contentTransition(.symbolEffect(.replace))
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .appFont(with: .BODY_2)
+                .animation(.bouncy, value: self.viewModel.agreedToTerms)
+                
+                // Attributed Text
+                
+                AttributedText {
+                    
+                    Text("By signing up, you agree to our ")
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .font(Style.shared.font(.BODY_2))
+                    
+                    Text("[Terms Of Service](https://apple.com)")
+                        .font(Style.shared.font(.BODY_2))
+                        .foregroundStyle(Style.shared.accent.source())
+                        .underline()
+                    
+                }
+                .environment(\.openURL, .init(handler: { url in
+                    
+                    self.navigationService
+                        .push(.setting(.termsOfService))
+                    
+                    return .handled
+                    
+                }))
+                .tint(Style.shared.accent.source())
+                
+            }
                         
             // LoginButton
             
@@ -138,7 +165,9 @@ struct SignUpScreen: GPView {
                 .padding(.vertical, .small)
             
         }
+        .background(Style.shared.background(.primary).source())
         .padding(.horizontal, .medium)
+        .opacity(self.focusedField == nil ? 1 : 0)
         
     }
 
@@ -259,9 +288,11 @@ struct SignUpScreen: GPView {
                 .foregroundStyle(Style.shared.textColor(.placeholder).source())
                 .frame(width: 24, height: 24)
                 .asButton {
+                    
                     withAnimation(.spring) {
                         self.showPassword.toggle()
                     }
+                    
                 }
                 .padding(.trailing, .medium)
                 .padding(.bottom, .custom(10))

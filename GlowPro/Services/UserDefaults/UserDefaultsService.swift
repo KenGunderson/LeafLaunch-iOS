@@ -211,6 +211,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             
             self.set(impersonatedUser: nil)
             self.set(lastViewedWhatsNewVersion: nil)
+            self.set(didCompleteOnboarding: false)
             
         }
         

@@ -21,6 +21,7 @@ public struct CameraScreen: View {
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: Double = 1.0
     @State private var gridDivision: Int = 0
+    @State private var dragOffsetX: CGFloat = 0
     
     public var body: some View {
         
@@ -353,6 +354,28 @@ public struct CameraScreen: View {
                 .appOnTapGesture {
                     self.showBottomOverlayDrawer.toggle()
                 }
+                .gesture(
+                    DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                    
+                        .onChanged { value in
+                            dragOffsetX = value.translation.width
+                        }
+                        .onEnded { value in
+                            
+                            let translation = value.translation.width
+                            
+                            if translation <= -10 {
+                                findNextGhostOverlayItemFromSwipe(increment: true)
+                            } else if translation >= 10 {
+                                findNextGhostOverlayItemFromSwipe(increment: false)
+                            }
+                            
+                            withAnimation(.smooth(duration: 0.2)) {
+                                dragOffsetX = 0
+                            }
+                            
+                        }
+                )
             
         }
         
@@ -361,12 +384,12 @@ public struct CameraScreen: View {
     @ViewBuilder
     private func zoomSlider() -> some View {
         
-        HStack {
-         
+        HStack(spacing: 0) {
+            
             Spacer()
             
             HStack(spacing: 0) {
-                
+
                 CircularIconView(
                     foregroundColor: .color(.white),
                     backgroundColor: .color(.clear),
@@ -403,9 +426,48 @@ public struct CameraScreen: View {
             }
             .rotationEffect(.degrees(-90))
             .offset(x: 200 / 1.85)
+            .overlay(alignment: .center) {
+                
+                VStack(spacing: 12) {
+                    
+                    zoomOptionControl(factor: 3.0)
+                    zoomOptionControl(factor: 2.0)
+                    zoomOptionControl(factor: 1.5)
+                    zoomOptionControl(factor: 1.0)
+                    
+                }
+                .offset(x: 64)
+                
+            }
             
         }
         .offset(y: 128)
+        
+    }
+    
+    @ViewBuilder
+    private func zoomOptionControl(factor: Double) -> some View {
+        
+        let isSelected = (self.zoomScale == factor)
+        
+        Text(factor, format: .number.precision(.fractionLength(1)))
+            .appFont(with: .TITLE_5)
+            .foregroundStyle(
+                isSelected ? Style.shared.textColor(.titleInverted).source() : Style.shared.accent.source()
+            )
+            .padding(8)
+            .background(
+                isSelected ? Style.shared.accent.source() : ColorSource.material(.ultraThin).source()
+            )
+            .clipShape(.circle)
+            .asButton {
+                
+                self.zoomScale = factor
+                
+                self.viewModel
+                    .zoom(scale: factor)
+                
+            }
         
     }
     
@@ -458,6 +520,30 @@ public struct CameraScreen: View {
                     }
                     
                 }))
+            
+        }
+        
+    }
+    
+    private func findNextGhostOverlayItemFromSwipe(increment: Bool) {
+        
+        guard let item = self.selectedGhostOverlayItem else { return }
+        guard let category = self.selectedGhostOverlayCategory else { return }
+
+        if let index = category.images.firstIndex(where: { $0.id == item.id }) {
+            
+            let isFirst = (category.images.first?.id == item.id)
+            let isLast  = (category.images.last?.id  == item.id)
+            
+            // Stop at bounds
+            if (isFirst && !increment) || (isLast && increment) {
+                return
+            }
+            
+            let newIndex = increment ? (index + 1) : (index - 1)
+            
+            guard category.images.indices.contains(newIndex) else { return }
+            self.selectedGhostOverlayItem = category.images[newIndex]
             
         }
         

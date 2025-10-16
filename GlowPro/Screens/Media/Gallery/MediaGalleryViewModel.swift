@@ -17,7 +17,7 @@ enum MediaContext: Hashable {
     var allowsCameraCapability: Bool {
         switch self {
         case .business: false
-        case .location: true
+        case .location: false
         case .client: true
         case .employee: false
         }
@@ -66,10 +66,9 @@ final class MediaGalleryViewModel: ViewModel {
     
     @Published private(set) var groups: [GroupedMedia] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
-    @Published private(set) var showFilters: Bool = false
     
     @Published var showSortingDropdown: Bool = false
-    @Published var selectedSortingOption: MediaSortingOption? = .newest
+    @Published var selectedSortingOption: MediaSortingOption? = .favorited
     @Published var selectedTags: [MediaTag] = []
     
     private var media: [Media] = []
@@ -117,10 +116,6 @@ final class MediaGalleryViewModel: ViewModel {
     
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
-    }
-    
-    func set(showFilters: Bool) {
-        self.showFilters = showFilters
     }
     
     func set(tag: MediaTag) {

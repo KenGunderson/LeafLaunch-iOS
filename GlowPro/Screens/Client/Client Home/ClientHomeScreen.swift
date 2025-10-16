@@ -93,8 +93,8 @@ struct ClientHomeScreen: GPView {
                 Group {
                     
                     tilesGrid(client: client)
-                    quickActionButtons()
-                    media()
+//                    quickActionButtons()
+//                    media()
                     activities()
                     
                 }
@@ -212,82 +212,82 @@ struct ClientHomeScreen: GPView {
         
     }
     
-    @ViewBuilder
-    private func quickActionButtons() -> some View {
-     
-        HStack {
-            
-            CommonButton(
-                title: "Quick Note",
-                titleFont: .TITLE_4,
-                icon: .image(.iconNoteOutline),
-                verticalPadding: .small2,
-                horizontalPadding: .none) {
-                    
-                    self.navigationService
-                        .push(.note(.noteCreateEdit(
-                            context: .create,
-                            clientId: self.viewModel.clientId)
-                        ))
-                    
-                }
-            
-        }
-        .padding(.horizontal, .medium)
-        
-    }
+//    @ViewBuilder
+//    private func quickActionButtons() -> some View {
+//     
+//        HStack {
+//            
+//            CommonButton(
+//                title: "Quick Note",
+//                titleFont: .TITLE_4,
+//                icon: .image(.iconNoteOutline),
+//                verticalPadding: .small2,
+//                horizontalPadding: .none) {
+//                    
+//                    self.navigationService
+//                        .push(.note(.noteCreateEdit(
+//                            context: .create,
+//                            clientId: self.viewModel.clientId)
+//                        ))
+//                    
+//                }
+//            
+//        }
+//        .padding(.horizontal, .medium)
+//        
+//    }
     
-    @ViewBuilder
-    private func media() -> some View {
-        
-        VStack(spacing: Style.shared.spacing(.small)) {
-            
-            SectionView(leadingTitle: "Recent Media", showDivider: true) {
-                
-                self.navigationService.push(.media(.gallery(
-                    mediaContext: .client(clientId: self.viewModel.clientId),
-                    mediaSelectionContext: .preview
-                )))
-                
-            }
-            .padding(.horizontal, .medium)
-            
-            ScrollView(.horizontal) {
-                
-                LazyHStack {
-                    
-                    let placeholderView = PlaceholderView().asAnyView()
-                    
-                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
-                        
-                        ImageSource.remote(
-                            url: media.url,
-                            placeholder: placeholderView,
-                        )
-                        .view(shouldResize: false)
-                        .aspectRatio(1, contentMode: .fit)
-                        .frame(width: 64)
-                        .cornerRadius(.small)
-                        .contentShape(.rect(cornerRadius: Style.shared.radius(.small)))
-                        .asButton {
-                            
-                            self.navigationService
-                                .modal(fullScreenCover: .mediaPreview(
-                                    url: media.url
-                                ))
-                            
-                        }
-                        
-                    }
-                    
-                }
-                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
-                
-            }
-            
-        }
-        
-    }
+//    @ViewBuilder
+//    private func media() -> some View {
+//        
+//        VStack(spacing: Style.shared.spacing(.small)) {
+//            
+//            SectionView(leadingTitle: "Recent Media", showDivider: true) {
+//                
+//                self.navigationService.push(.media(.gallery(
+//                    mediaContext: .client(clientId: self.viewModel.clientId),
+//                    mediaSelectionContext: .preview
+//                )))
+//                
+//            }
+//            .padding(.horizontal, .medium)
+//            
+//            ScrollView(.horizontal) {
+//                
+//                LazyHStack {
+//                    
+//                    let placeholderView = PlaceholderView().asAnyView()
+//                    
+//                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
+//                        
+//                        ImageSource.remote(
+//                            url: media.url,
+//                            placeholder: placeholderView,
+//                        )
+//                        .view(shouldResize: false)
+//                        .aspectRatio(1, contentMode: .fit)
+//                        .frame(width: 64)
+//                        .cornerRadius(.small)
+//                        .contentShape(.rect(cornerRadius: Style.shared.radius(.small)))
+//                        .asButton {
+//                            
+//                            self.navigationService
+//                                .modal(fullScreenCover: .mediaPreview(
+//                                    url: media.url
+//                                ))
+//                            
+//                        }
+//                        
+//                    }
+//                    
+//                }
+//                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+//                
+//            }
+//            
+//        }
+//        
+//    }
     
     @ViewBuilder
     private func activities() -> some View {

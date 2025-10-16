@@ -128,7 +128,7 @@ struct BusinessHomeScreen: GPView {
                 icon: ActivityCategory.business.icon,
                 iconBackgroundColor: .color(ActivityCategory.business.color),
                 title: self.viewModel.business?.name ?? "Business Information",
-                subtitle: self.viewModel.business?.address?.shortFormattedAddress ?? "No Address",
+                subtitle: "Dashboard",
                 prominentSubtitle: false
             )
             .appShadow(.subtle)

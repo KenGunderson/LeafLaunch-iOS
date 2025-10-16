@@ -53,56 +53,42 @@ struct MediaGalleryScreen: GPView {
             self.dismiss()
         }
         .asAnyView()
-        
-        let filterButton = NavBarButton(style: .filter(isFilled: self.viewModel.showFilters)) {
-            
-            self.viewModel
-                .set(showFilters: !self.viewModel.showFilters)
-            
-        }
-        .asAnyView()
-        
+
         NavBarView(
             title: "Media Gallery",
-            leftButtonView: backButton,
-            rightButtonView: filterButton
+            leftButtonView: backButton
         )
         
     }
     
     @ViewBuilder
     private func filters() -> some View {
-     
-        if self.viewModel.showFilters {
+        
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-            VStack(spacing: Style.shared.spacing(.small2)) {
+            CommonDropDownMenu(
+                options: MediaSortingOption.allCases,
+                backgroundStyle: Style.shared.background(.primary),
+                shadow: .none,
+                textHorizontalPadding: .small,
+                shouldPushContentDown: true,
+                selectedOption: self.$viewModel.selectedSortingOption,
+                showDropDown: self.$viewModel.showSortingDropdown
+            )
+            .appBorder(cornerRadius: .small, lineWidth: 1.5)
+            
+            WStack {
                 
-                CommonDropDownMenu(
-                    options: MediaSortingOption.allCases,
-                    backgroundStyle: Style.shared.background(.primary),
-                    shadow: .none,
-                    textHorizontalPadding: .small,
-                    shouldPushContentDown: true,
-                    selectedOption: self.$viewModel.selectedSortingOption,
-                    showDropDown: self.$viewModel.showSortingDropdown
-                )
-                .appBorder(cornerRadius: .small, lineWidth: 1.5)
-                
-                WStack {
-                    
-                    ForEach(self.viewModel.mediaTags) { tag in
-                        tagView(tag)
-                    }
-                    
+                ForEach(self.viewModel.mediaTags) { tag in
+                    tagView(tag)
                 }
                 
             }
-            .zIndex(5000)
-            .frame(maxWidth: .infinity)
-            .background(Style.shared.background(.primary).source())
-            .transition(.move(edge: .top).combined(with: .opacity))
             
         }
+        .zIndex(5000)
+        .frame(maxWidth: .infinity)
+        .background(Style.shared.background(.primary).source())
         
     }
     
@@ -121,7 +107,6 @@ struct MediaGalleryScreen: GPView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, .medium)
-        .animation(.snappy, value: self.viewModel.showFilters)
         .animation(.snappy, value: self.viewModel.showSortingDropdown)
         .animation(.snappy, value: self.viewModel.selectedTags)
         .animation(.snappy, value: self.viewModel.selectedSortingOption)

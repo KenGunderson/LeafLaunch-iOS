@@ -420,7 +420,6 @@ struct MockModels {
             name: "My First Business",
             email: "business@me.com",
             phoneNumber: "818-522-5755",
-            address: .DUMMY_DATA(),
             owner: MockUser.user1,
             locations: [
                 MockLocation.location1
@@ -438,7 +437,6 @@ struct MockModels {
             name: "My Second Business",
             email: "business2@me.com",
             phoneNumber: "818-522-5755",
-            address: .DUMMY_DATA(),
             owner: MockUser.user2,
             locations: [
                 MockLocation.location2
@@ -451,7 +449,6 @@ struct MockModels {
             name: "Body Sculpting Magic",
             email: "business3@me.com",
             phoneNumber: "818-522-5755",
-            address: .DUMMY_DATA(),
             owner: MockUser.user2,
             locations: [
                 MockLocation.location3,

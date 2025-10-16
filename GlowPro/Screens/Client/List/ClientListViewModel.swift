@@ -48,6 +48,25 @@ final class ClientListViewModel: ViewModel {
     @Published private(set) var shouldShowEmptyState: Bool = false
     @Published private(set) var isFirstLoad: Bool = true
     
+    @Published var queryString: String = ""
+    
+    var filteredGroupedClientsDict: [Character: [Client]] {
+        
+        if !queryString.isEmpty {
+            
+            return self.groupedClientsDict.compactMapValues { clients in
+                
+                let filtered = clients.filter { $0.fullName.localizedCaseInsensitiveContains(self.queryString) }
+                return filtered.isEmpty ? nil : filtered
+                
+            }
+            
+        }
+        
+        return self.groupedClientsDict
+        
+    }
+    
     private(set) var context: Context!
     
     var isLocationContext: Bool {

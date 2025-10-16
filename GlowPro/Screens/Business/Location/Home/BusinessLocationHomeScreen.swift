@@ -201,24 +201,6 @@ struct BusinessLocationHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: ActivityCategory.camera.icon,
-                    iconBackgroundColor: .color(ActivityCategory.camera.color),
-                    title: "Camera",
-                    subtitle: "Quick Photo Capture",
-                    prominentSubtitle: false
-                )
-                .appShadow(.subtle)
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.media(.camera(
-                            context: .location(locationId: self.viewModel.locationId),
-                            mode: .multiple([])
-                        )))
-                    
-                }
-                
-                QuickActionTileView(
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "Media Gallery",

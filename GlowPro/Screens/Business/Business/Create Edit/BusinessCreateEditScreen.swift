@@ -11,23 +11,15 @@ struct BusinessCreateEditScreen: GPView {
     
     enum FocusedField: Hashable {
         
-        case businessName
+        case name
         case email
         case phone
-        case street
-        case street2
-        case city
-        case zip
         
         var displayName: String {
             switch self {
-            case .businessName: return "Business Name"
-            case .email: return "Email"
-            case .phone: return "Phone (Optional)"
-            case .street: return "Street"
-            case .street2: return "Street 2"
-            case .city: return "City"
-            case .zip: return "Zip"
+            case .name: return "Business Name"
+            case .email: return "Business Email"
+            case .phone: return "Business Phone (Optional)"
             }
         }
         
@@ -68,7 +60,6 @@ struct BusinessCreateEditScreen: GPView {
             // Animations
         
             .animation(.spring, value: self.isStateDropDownPresented)
-            .animation(.spring, value: self.viewModel.selectedState)
         
             // Tap
         
@@ -80,27 +71,6 @@ struct BusinessCreateEditScreen: GPView {
                 
                 self.focusedField = nil
                 self.isStateDropDownPresented = false
-                
-            }
-        
-            // OnChange
-        
-            .onChange(of: self.selectedState) { oldValue, newValue in
-                
-                if newValue != self.viewModel.selectedState {
-                    
-                    self.viewModel
-                        .set(state: newValue)
-                    
-                }
-                
-            }
-        
-            .onChange(of: self.viewModel.selectedState) { oldValue, newValue in
-                
-                if newValue != self.selectedState {
-                    selectedState = newValue
-                }
                 
             }
         
@@ -139,7 +109,6 @@ struct BusinessCreateEditScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.large)) {
             
             businessGeneralInformation()
-            businessAddress()
             categoriesView()
             subcategoriesView()
             
@@ -161,40 +130,9 @@ struct BusinessCreateEditScreen: GPView {
                 
                 VStack(spacing: Style.shared.spacing(.small)) {
                     
-                    textField(fieldToFocus: .businessName)
+                    textField(fieldToFocus: .name)
                     textField(fieldToFocus: .email)
                     textField(fieldToFocus: .phone)
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    private func businessAddress() -> some View {
-        
-        VStack(spacing: Style.shared.spacing(.small)) {
-            
-            SectionView(leadingTitle: "Business Address")
-            
-            AppCardView {
-                
-                VStack(spacing: Style.shared.spacing(.small)) {
-                    
-                    textField(fieldToFocus: .street)
-                    textField(fieldToFocus: .street2)
-                    textField(fieldToFocus: .city)
-                    
-                    HStack(alignment: self.isStateDropDownPresented ? .top : .bottom) {
-                        
-                        stateDropDown()
-                        
-                        textField(fieldToFocus: .zip)
-                            .padding(.top, self.isStateDropDownPresented ? 9.5 : 0)
-                        
-                    }
                     
                 }
                 
@@ -285,10 +223,10 @@ struct BusinessCreateEditScreen: GPView {
         let placeholder: String = fieldToFocus.displayName
         
         switch fieldToFocus {
-        case .businessName:
+        case .name:
             
             text = self.$viewModel.name
-            isFocused = self.focusedField == .businessName
+            isFocused = self.focusedField == .name
             keyboardType = .default
             textContentType = .organizationName
             
@@ -305,34 +243,6 @@ struct BusinessCreateEditScreen: GPView {
             isFocused = self.focusedField == .phone
             keyboardType = .phonePad
             textContentType = .telephoneNumber
-            
-        case .street:
-            
-            text = self.$viewModel.street
-            isFocused = self.focusedField == .street
-            keyboardType = .default
-            textContentType = .streetAddressLine1
-            
-        case .street2:
-            
-            text = self.$viewModel.street2
-            isFocused = self.focusedField == .street2
-            keyboardType = .default
-            textContentType = .streetAddressLine2
-            
-        case .city:
-            
-            text = self.$viewModel.city
-            isFocused = self.focusedField == .city
-            keyboardType = .default
-            textContentType = .addressCity
-            
-        case .zip:
-            
-            text = self.$viewModel.zip
-            isFocused = self.focusedField == .zip
-            keyboardType = .default
-            textContentType = .postalCode
         }
         
         return TextField("", text: text)
@@ -347,7 +257,6 @@ struct BusinessCreateEditScreen: GPView {
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)
             .textContentType(textContentType)
-            .submitLabel(fieldToFocus == .zip ? .done : .next)
             .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
@@ -361,12 +270,8 @@ struct BusinessCreateEditScreen: GPView {
         var nextFocusedField: FocusedField? = nil
         
         switch self.focusedField {
-        case .businessName: nextFocusedField = .email
+        case .name: nextFocusedField = .email
         case .email: nextFocusedField = .phone
-        case .street: nextFocusedField = .street2
-        case .street2: nextFocusedField = .city
-        case .city: nextFocusedField = .zip
-        case .zip: nextFocusedField = nil
         default: nextFocusedField = nil
         }
         
