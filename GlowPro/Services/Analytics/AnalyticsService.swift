@@ -208,17 +208,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         
         guard !self.isImpersonating else { return }
         
-        // TODO: - DECIDE WHAT TO DO WITH THIS
-//        if let userId = currentUserId.value {
-//            
-//            self.analyticsAPIService
-//                .logEvent(
-//                    userId: userId,
-//                    event: event
-//                )
-//            
-//        }
-        
         sessionEvents.append(data)
         
         guard self.environmentService.environment == .production else { return }
