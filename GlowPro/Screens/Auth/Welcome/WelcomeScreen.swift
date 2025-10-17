@@ -18,7 +18,7 @@ struct WelcomeScreen: GPView {
         
         AppRootView(
             navigationService: Bindable(navigationService),
-            alertService: self.viewModel.alertService
+            alertService: nil // // Setting Alert Service as Nill so we still use our current AlertService from Root
         ) {
             
             content
