@@ -1,30 +1,39 @@
 //
-//  Collage.swift
+//  CollageView.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 10/17/25.
 //
 
-// TODO: -
-/// Remaining grid sizes
-
 import SwiftUI
 
-enum CollageType {
+enum CollageType: Codable,
+                  Equatable,
+                  Hashable {
     
     case grid(rows: Int, columns: Int)
     case oneLargeTwoSmall
+    case oneLargeOneSmall
+    case oneSmallOneLarge
     case twoLargeTwoSmall
     
     var rowsAndColumns: (rows: Int, columns: Int) {
         
         switch self {
-        case .grid(rows: let rows, columns: let columns):
-            return (rows, columns)
-        case .oneLargeTwoSmall:
-            return (1, 2)
-        case .twoLargeTwoSmall:
-            return (2, 2)
+        case .grid(rows: let rows, columns: let columns): return (rows, columns)
+        case .oneLargeTwoSmall: return (1, 2)
+        case .oneLargeOneSmall: return (1, 1)
+        case .oneSmallOneLarge: return (1, 1)
+        case .twoLargeTwoSmall: return (2, 2)
+        }
+        
+    }
+    
+    var isGrid: Bool {
+        
+        switch self {
+        case .grid: return true
+        default: return false
         }
         
     }
@@ -37,31 +46,37 @@ struct CollageView: View {
     let type: CollageType
     let borderColor: ColorSource
     let cornerRadius: Theme.RadiusKey
-    let height: Int
-    let borderLineWidth: CGFloat = 5
+    let height: CGFloat
+    let borderLineWidth: CGFloat
     
     init(items: [URL],
          type: CollageType,
          borderColor: ColorSource = Style.shared.background(.border),
-         cornerRadius: Theme.RadiusKey,
-         height: Int = 400) {
+         cornerRadius: Theme.RadiusKey = .small,
+         height: CGFloat = 400,
+         borderLineWidth: CGFloat? = nil) {
         
         self.items = items
         self.type = type
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
         self.height = height
+        self.borderLineWidth = borderLineWidth ?? self.height * 0.016
         
     }
     
     var body: some View {
         
         Group {
+            
             switch self.type {
             case .grid: grid()
             case .oneLargeTwoSmall: oneLargeTwoSmall()
+            case .oneLargeOneSmall: oneLargeOneSmall()
+            case .oneSmallOneLarge: oneSmallOneLarge()
             case .twoLargeTwoSmall: twoLargeTwoSmall()
             }
+            
         }
         .background(self.borderColor.source())
         .cornerRadius(self.cornerRadius)
@@ -157,7 +172,10 @@ struct CollageView: View {
                     Image(systemName: "photo.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
+                        .frame(
+                            width: self.height * 0.10,
+                            height: self.height * 0.10
+                        )
                     
                 }
                 .frame(height: maxHeight)
@@ -199,6 +217,66 @@ struct CollageView: View {
                 
                 
             }
+            
+        }
+        .frame(maxHeight: CGFloat(self.height))
+        .appBorder(
+            cornerRadius: self.cornerRadius,
+            color: self.borderColor,
+            lineWidth: 5
+        )
+        
+    }
+    
+    @ViewBuilder
+    private func oneLargeOneSmall() -> some View {
+        
+        let image1 = self.items[safe: 0]
+        let image2 = self.items[safe: 1]
+        
+        VStack(spacing: 0) {
+            
+            image(
+                url: image1,
+                maxHeight: CGFloat(self.height / 2)
+            )
+            
+            border(height: self.borderLineWidth)
+            
+            image(
+                url: image2,
+                maxHeight: CGFloat(self.height / 4)
+            )
+            
+        }
+        .frame(maxHeight: CGFloat(self.height))
+        .appBorder(
+            cornerRadius: self.cornerRadius,
+            color: self.borderColor,
+            lineWidth: 5
+        )
+        
+    }
+    
+    @ViewBuilder
+    private func oneSmallOneLarge() -> some View {
+        
+        let image1 = self.items[safe: 0]
+        let image2 = self.items[safe: 1]
+        
+        VStack(spacing: 0) {
+            
+            image(
+                url: image1,
+                maxHeight: CGFloat(self.height / 4)
+            )
+            
+            border(height: self.borderLineWidth)
+            
+            image(
+                url: image2,
+                maxHeight: CGFloat(self.height / 2)
+            )
             
         }
         .frame(maxHeight: CGFloat(self.height))
@@ -278,6 +356,18 @@ struct CollageView: View {
             CollageView(
                 items: [],
                 type: .oneLargeTwoSmall,
+                cornerRadius: .small
+            )
+            
+            CollageView(
+                items: [],
+                type: .oneLargeOneSmall,
+                cornerRadius: .small
+            )
+            
+            CollageView(
+                items: [],
+                type: .oneSmallOneLarge,
                 cornerRadius: .small
             )
             

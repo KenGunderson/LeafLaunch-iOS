@@ -1,0 +1,109 @@
+//
+//  Collage.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 10/18/25.
+//
+
+import Foundation
+
+struct Collage: Identifiable,
+                Equatable,
+                Hashable,
+                Codable,
+                Mockable {
+    
+    static func == (lhs: Collage, rhs: Collage) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    let id: String
+    let locationId: String
+    let clientId: String
+    let mediaURLs: [URL]
+    let rowCount: Int
+    let columnCount: Int
+    let type: CollageType
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case id
+        case locationId = "location_id"
+        case clientId = "client_id"
+        
+        case mediaURLs = "media_urls"
+        
+        case rowCount = "row_count"
+        case columnCount = "column_count"
+        case type
+        
+    }
+    
+    init(id: String,
+         locationId: String,
+         clientId: String,
+         mediaURLs: [URL],
+         rowCount: Int,
+         columnCount: Int,
+         type: CollageType) {
+        
+        self.id = id
+        self.locationId = locationId
+        self.clientId = clientId
+        self.mediaURLs = mediaURLs
+        self.rowCount = rowCount
+        self.columnCount = columnCount
+        self.type = type
+        
+    }
+    
+    init(from decoder: any Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(String.self, forKey: .id)
+        self.locationId = try container.decode(String.self, forKey: .locationId)
+        self.clientId = try container.decode(String.self, forKey: .clientId)
+        self.mediaURLs = try container.decode([URL].self, forKey: .mediaURLs)
+        
+        self.rowCount = try container.decode(Int.self, forKey: .rowCount)
+        self.columnCount = try container.decode(Int.self, forKey: .columnCount)
+        
+        let typeString = try container.decode(String.self, forKey: .type)
+        
+        let isGrid = typeString == "GRID"
+        let isOneLargeTwoSmall = typeString == "ONE_LARGE_TWO_SMALL"
+        let isTwoLargeTwoSmall = typeString == "TWO_LARGE_TWO_SMALL"
+        let gridType = CollageType.grid(rows: self.rowCount, columns: self.columnCount)
+        
+        if isGrid {
+            self.type = gridType
+        } else if isOneLargeTwoSmall {
+            self.type = .oneLargeTwoSmall
+        } else if isTwoLargeTwoSmall {
+            self.type = .twoLargeTwoSmall
+        } else {
+            self.type = .grid(rows: 1, columns: 1)
+        }
+        
+    }
+    
+}
+
+extension Collage {
+    
+    static func DUMMY_DATA() -> Self {
+    
+        return .init(
+            id: "1",
+            locationId: "1",
+            clientId: "1",
+            mediaURLs: [URL(string: "https://www.google.com")!],
+            rowCount: 1,
+            columnCount: 1,
+            type: .grid(rows: 1, columns: 2)
+        )
+        
+    }
+    
+}

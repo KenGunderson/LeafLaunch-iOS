@@ -120,6 +120,7 @@ extension View {
             case .business(let route): business(route: route)
             case .client(let route): client(route: route)
             case .media(let route): media(route: route)
+            case .collage(let route): collage(route: route)
             case .note(let route): note(route: route)
             }
             
@@ -472,6 +473,32 @@ extension View {
                 NoteCreateEditScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            }
+            
+        }
+        
+        @ViewBuilder
+        func collage(route: Route.CollageRoute) -> some View {
+            
+            switch route {
+            case .list(let context):
+                
+                let viewModel = globalResolver.resolve(CollageListViewModel.self)!
+                    .setup(context: context)
+                
+                CollageListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .createEdit(let clientId, let collageId):
+                
+                let viewModel = globalResolver.resolve(CollageCreateEditViewModel.self)!
+                    .setup(
+                        clientId: clientId,
+                        collageId: collageId
+                    )
+                
+                CollageCreateEditScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }

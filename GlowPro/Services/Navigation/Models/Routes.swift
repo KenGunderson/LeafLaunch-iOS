@@ -87,6 +87,15 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum CollageRoute: Hashable, Sendable {
+        
+        case list(context: MediaContext)
+        
+        case createEdit(clientId: String?,
+                        collageId: String?)
+        
+    }
+    
     enum NoteRoute: Hashable {
         
         case noteList(clientId: String)
@@ -211,6 +220,7 @@ enum Route: Navigation, Hashable, Sendable {
     case business(Business)
     case client(Client)
     case media(MediaRoute)
+    case collage(CollageRoute)
     case note(NoteRoute)
     
 }

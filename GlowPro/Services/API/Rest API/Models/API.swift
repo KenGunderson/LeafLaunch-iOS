@@ -64,6 +64,8 @@ internal enum AppRoute {
     case mediaTags(String, version: Version = .none)
     case mediaTagRelations(String, version: Version = .none)
     
+    case collage(String, version: Version = .none)
+    
     case notes(String, version: Version = .none)
     case activity(String, version: Version = .none)
     
@@ -88,6 +90,7 @@ internal enum AppRoute {
         case .mediaFavorite: return "media-favorites"
         case .mediaTags: return "media-tags"
         case .mediaTagRelations: return "media-tag-relations"
+        case .collage: return "collages"
         case .notes: return "notes"
         case .activity: return "activities"
         case .uploadMedia: return "upload-media"
@@ -117,6 +120,7 @@ internal enum AppRoute {
              .mediaFavorite(let route, let version),
              .mediaTags(let route, let version),
              .mediaTagRelations(let route, let version),
+             .collage(let route, let version),
              .notes(let route, let version),
              .activity(let route, let version),
              .uploadMedia(let route, let version),

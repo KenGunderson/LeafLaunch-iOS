@@ -133,6 +133,15 @@ protocol APIServiceProtocol: APIProtocol {
     func createMediaTagForMedia(mediaId: String, mediaTagId: String) async throws
     func deleteMediaTagFromMedia(mediaId: String, mediaTagId: String) async throws
     
+    // Collage
+    
+    func getCollage(businessId: String) async throws -> [Collage]
+    func getCollage(locationId: String) async throws -> [Collage]
+    func getCollage(clientId: String) async throws -> [Collage]
+    func getCollage(id: String) async throws -> Collage
+    func createCollage(collage: Collage) async throws
+    func deleteCollage(collageId: String) async throws
+    
     // Activity
     
     func getActivitiy(businessId: String) async throws -> [Activity]

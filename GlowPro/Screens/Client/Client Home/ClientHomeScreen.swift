@@ -205,6 +205,23 @@ struct ClientHomeScreen: GPView {
                     
                 }
                 
+                QuickActionTileView(
+                    icon: ActivityCategory.collage.icon,
+                    iconBackgroundColor: .color(ActivityCategory.collage.color),
+                    title: "All Collages",
+                    subtitle: "Show All Collages",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.collage(.list(
+                            context: .client(clientId: self.viewModel.clientId)
+                        )))
+                    
+                }
+                
             }
             
         }

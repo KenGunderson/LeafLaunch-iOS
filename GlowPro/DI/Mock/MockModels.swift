@@ -131,6 +131,17 @@ struct MockModels {
         
     }
     
+    static var allCollages: [Collage] {
+        
+        return [
+            MockCollage.collage1,
+            MockCollage.collage2,
+            MockCollage.collage3,
+            MockCollage.collage4,
+        ]
+        
+    }
+    
     struct ID {
         
         static let user1: String = UUID().uuidString
@@ -223,6 +234,11 @@ struct MockModels {
         static let note2: String = UUID().uuidString
         static let note3: String = UUID().uuidString
         static let note4: String = UUID().uuidString
+        
+        static let collage1: String = UUID().uuidString
+        static let collage2: String = UUID().uuidString
+        static let collage3: String = UUID().uuidString
+        static let collage4: String = UUID().uuidString
     }
     
     struct MockWorkspace {
@@ -1371,6 +1387,64 @@ struct MockModels {
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
                 employeeSignature: "Test Signature",
                 createdAt: Date().addingTimeInterval(-6555656).toISO()
+            )
+        }
+        
+    }
+    
+    struct MockCollage {
+        
+        private static let MOCK_URLS = (1...16).compactMap { URL(string: "https://picsum.photos/id/\($0)/604/1001") }
+        
+        nonisolated(unsafe)
+        static var collage1: Collage {
+            Collage(
+                id: ID.collage1,
+                locationId: ID.location1,
+                clientId: ID.client1,
+                mediaURLs: Array(MOCK_URLS.suffix(from: 12)),
+                rowCount: 1,
+                columnCount: 2,
+                type: .grid(rows: 1, columns: 2),
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var collage2: Collage {
+            Collage(
+                id: ID.collage2,
+                locationId: ID.location1,
+                clientId: ID.client1,
+                mediaURLs: Array(MOCK_URLS.suffix(from: 12)),
+                rowCount: 2,
+                columnCount: 2,
+                type: .grid(rows: 2, columns: 2),
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var collage3: Collage {
+            Collage(
+                id: ID.collage3,
+                locationId: ID.location1,
+                clientId: ID.client1,
+                mediaURLs: Array(MOCK_URLS.suffix(from: 12)),
+                rowCount: 1,
+                columnCount: 1,
+                type: .oneLargeTwoSmall,
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var collage4: Collage {
+            Collage(
+                id: ID.collage4,
+                locationId: ID.location1,
+                clientId: ID.client1,
+                mediaURLs: Array(MOCK_URLS.suffix(from: 12)),
+                rowCount: 1,
+                columnCount: 1,
+                type: .twoLargeTwoSmall,
             )
         }
         

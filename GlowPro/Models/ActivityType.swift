@@ -31,6 +31,10 @@ enum ActivityType: String, Codable, CaseIterable {
     case mediaFavorited = "MEDIA_FAVORITED"
     case mediaDeleted = "MEDIA_DELETED"
     
+    case collageCreated = "COLLAGE_CREATED"
+    case collageUpdated = "COLLAGE_UPDATED"
+    case collageDeleted = "COLLAGE_DELETED"
+    
     case quickNote = "QUICK_NOTE"
     case soapNote = "SOAP_NOTE"
     
@@ -64,6 +68,10 @@ enum ActivityType: String, Codable, CaseIterable {
         case .mediaAdded: return "Media Added"
         case .mediaFavorited: return "Media Favorited"
         case .mediaDeleted: return "Media Deleted"
+            
+        case .collageCreated: return "Collage Created"
+        case .collageUpdated: return "Collage Updated"
+        case .collageDeleted: return "Collage Deleted"
             
         case .quickNote: return "Quick Note"
         case .soapNote: return "SOAP Note"
@@ -102,6 +110,10 @@ enum ActivityType: String, Codable, CaseIterable {
         case .mediaAdded,
              .mediaFavorited,
              .mediaDeleted:  return ActivityCategory.media.color
+            
+        case .collageCreated,
+             .collageUpdated,
+             .collageDeleted:  return ActivityCategory.collage.color
         }
     }
     
@@ -137,6 +149,10 @@ enum ActivityType: String, Codable, CaseIterable {
         case .mediaAdded,
              .mediaFavorited,
              .mediaDeleted:  return ActivityCategory.media.icon
+            
+        case .collageCreated,
+             .collageUpdated,
+             .collageDeleted:  return ActivityCategory.collage.icon
         }
     }
     
@@ -152,6 +168,7 @@ enum ActivityCategory {
     case note
     case camera
     case media
+    case collage
     case tags
     
     var icon: ImageSource {
@@ -164,6 +181,7 @@ enum ActivityCategory {
         case .note: return .image(.iconNoteOutline)
         case .camera: return .image(.iconCamera)
         case .media: return .systemImage("photo.on.rectangle.fill")
+        case .collage: return .systemImage("square.grid.2x2")
         case .tags: return .systemImage("tag.fill")
         }
     }
@@ -178,6 +196,7 @@ enum ActivityCategory {
         case .note: return GPColor.iconPink
         case .camera: return GPColor.iconTeal
         case .media: return GPColor.iconTeal
+        case .collage: return GPColor.iconOrange
         case .tags: return GPColor.iconOrange
         }
     }

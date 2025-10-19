@@ -113,6 +113,7 @@ final class MockAPIService: APIServiceProtocol {
     private var mediaTags: [MediaTag] = []
     private var activities: [Activity]
     private var notes: [Note] = []
+    private var collages: [Collage] = []
     
     init() {
         
@@ -126,6 +127,7 @@ final class MockAPIService: APIServiceProtocol {
         self.mediaTags = MockModels.allMediaTags
         self.activities = MockModels.allActivities
         self.notes = MockModels.allNotes
+        self.collages = MockModels.allCollages
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -804,6 +806,47 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     func uploadMedia(uploadMedia: UploadMedia) async throws -> String {
         return "URL_TO_UPLOADED_MEDIA"
+    }
+    
+    // Collages
+    
+    func getCollage(businessId: String) async throws -> [Collage] {
+        
+        var collages: [Collage] = []
+        
+        self.collages.forEach { collage in
+            
+            let locationId = collage.locationId
+            let location = self.locations.first(where: { $0.id == locationId })
+            
+            if location?.businessId == businessId {
+                collages.append(collage)
+            }
+            
+        }
+        
+        return collages
+        
+    }
+    
+    func getCollage(locationId: String) async throws -> [Collage] {
+        return self.collages.filter { $0.locationId == locationId }
+    }
+    
+    func getCollage(clientId: String) async throws -> [Collage] {
+        return self.collages.filter { $0.clientId == clientId }
+    }
+    
+    func getCollage(id: String) async throws -> Collage {
+        return self.collages.filter { $0.id == id }.first ?? .DUMMY_DATA()
+    }
+    
+    func createCollage(collage: Collage) async throws {
+        
+    }
+    
+    func deleteCollage(collageId: String) async throws {
+        self.collages.removeAll(where: { $0.id == collageId })
     }
     
     // Notes

@@ -250,6 +250,37 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum CollageScreen {
+        
+        case collageList
+        case collageCreateEdit(collageId: String?)
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .collageList: name = "collage_list"
+            case .collageCreateEdit: name = "collage_create_edit"
+            }
+            
+            return "collage.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .collageList: return nil
+            case .collageCreateEdit(let collageId):
+                
+                return ["context": collageId == nil ? "create" : "edit"]
+            }
+            
+        }
+        
+    }
+    
     enum NoteScreen {
         
         case noteList(clientId: String)
@@ -379,6 +410,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case business(BusinessScreen)
     case client(ClientScreen)
     case media(MediaScreen)
+    case collage(CollageScreen)
     case profile(ProfileScreen)
     case note(NoteScreen)
     case whatsNew
@@ -411,6 +443,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.properties
             
         case .media(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
+        case .collage(let screen):
             
             screenName = screen.screenName
             properties = screen.properties

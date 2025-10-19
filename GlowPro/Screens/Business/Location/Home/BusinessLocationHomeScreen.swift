@@ -218,6 +218,25 @@ struct BusinessLocationHomeScreen: GPView {
                     
                 }
                 
+                QuickActionTileView(
+                    icon: ActivityCategory.collage.icon,
+                    iconBackgroundColor: .color(ActivityCategory.collage.color),
+                    title: "Collages",
+                    subtitle: "View All Collages",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.collage(.list(
+                            context: .location(
+                                locationId: self.viewModel.locationId
+                            ))
+                        ))
+                    
+                }
+                
             }
             
         }

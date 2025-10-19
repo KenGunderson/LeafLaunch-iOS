@@ -23,6 +23,15 @@ enum MediaContext: Hashable {
         }
     }
     
+    var analyticsName: String {
+        switch self {
+        case .business: return "business"
+        case .location: return "location"
+        case .employee: return "employee"
+        case .client: return "client"
+        }
+    }
+    
 }
 
 enum MediaSelectionContext: Hashable {
