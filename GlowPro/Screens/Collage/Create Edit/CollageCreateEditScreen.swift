@@ -9,8 +9,7 @@ import SwiftUI
 
 // TODO: -
 /// Handle create call
-/// Fix UI + transitions; matched is no good
-///
+/// Handle load data call
 
 struct CollageCreateEditScreen: View {
     
@@ -51,6 +50,7 @@ struct CollageCreateEditScreen: View {
         // Animations
         
             .animation(.smooth, value: self.viewModel.selectedCollageType)
+            .animation(.smooth, value: self.viewModel.selectedMediaURLs)
         
     }
     
@@ -59,7 +59,7 @@ struct CollageCreateEditScreen: View {
         let backButton = NavBarButton(style: .back) {
             self.dismiss()
         }
-            .asAnyView()
+        .asAnyView()
         
         let trashButton = NavBarButton(style: .trash) {
             
@@ -67,7 +67,7 @@ struct CollageCreateEditScreen: View {
                 .presentDeleteCollageAlert()
             
         }
-            .asAnyView()
+        .asAnyView()
         
         let shouldShowTrashButton = self.viewModel.isOwnerOrManager && !self.viewModel.isCreateContext
         
@@ -87,36 +87,13 @@ struct CollageCreateEditScreen: View {
             
             if let collage = self.viewModel.selectedCollageType {
                 
-                collageOptionsList(height: 72, vertical: false)
-                    .matchedGeometryEffect(id: "collage_list", in: self.animation)
-                
-                collageItem(
-                    collageType: collage,
-                    allowsBorder: false,
-                    height: self.collageWidth
-                )
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.media(.gallery(mediaContext: .client(clientId: self.viewModel.clientId), mediaSelectionContext: .singleSelection(completion: { media in
-                            
-                            self.viewModel
-                                .set(media: media)
-                            
-                        }))))
-                    
-                }
-                .transition(.move(edge: .bottom).combined(with: .scale).combined(with: .opacity).animation(.bouncy.delay(0.3)))
-                .padding(.top, .extraLarge)
+                buildCollageView(collage: collage)
+                    .transition(.scale.combined(with: .opacity))
                 
             } else {
                 
-                collageOptionsList(
-                    height: self.collageWidth,
-                    vertical: true
-                )
-                .opacity(self.viewModel.selectedCollageType == nil ? 1 : 0)
-                .matchedGeometryEffect(id: "collage_list", in: self.animation)
+                collageOptionsList()
+                    .transition(.scale.combined(with: .opacity))
                 
             }
             
@@ -128,58 +105,60 @@ struct CollageCreateEditScreen: View {
     }
     
     @ViewBuilder
-    private func collageOptionsList(height: CGFloat,
-                                    vertical: Bool) -> some View {
+    private func buildCollageView(collage: CollageType) -> some View {
+     
+        VStack(spacing: Style.shared.spacing(.small2)) {
             
-        ScrollView(vertical ? .vertical : .horizontal) {
-            
-            Group {
+            CommonButton(
+                title: "Select A Different Collage Style",
+                icon: .systemImage("questionmark"),
+                iconAlignment: .trailing,
+            ) {
                 
-                if vertical {
-                    
-                    VStack {
-                        collageOptions(height: height)
-                    }
-                    
-                } else {
-                    
-                    HStack {
-                        collageOptions(height: height)
-                    }
-                    
-                }
+                self.viewModel
+                    .set(collageType: nil)
                 
             }
             
+            collageItem(
+                collageType: collage,
+                height: self.collageWidth
+            )
+            
         }
-        .if(!vertical) { view in
-            view.safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
-        }
-        .scrollIndicators(.hidden)
+        .padding(.horizontal, .medium)
         
     }
     
     @ViewBuilder
-    private func collageOptions(height: CGFloat) -> some View {
-        
-        Group {
+    private func collageOptionsList() -> some View {
             
-            ForEach(CollageCreateEditViewModel.CollageTypeOptions.allCases, id: \.self) { option in
+        ScrollView {
+            
+            VStack {
                 
-                collageItem(
-                    collageType: option.collageType,
-                    height: height
-                )
-                .asButton {
+                ForEach(CollageCreateEditViewModel.CollageTypeOptions.allCases, id: \.self) { option in
                     
-                    self.viewModel
-                        .set(collageType: option.collageType)
+                    collageItem(
+                        collageType: option.collageType,
+                        height: self.collageWidth
+                    )
+                    .asButton {
+                        
+                        self.viewModel
+                            .set(collageType: option.collageType)
+                        
+                    }
                     
                 }
                 
             }
+            .scrollTargetLayout()
             
         }
+        .scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))
+        .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+        .scrollIndicators(.hidden)
         
     }
     
@@ -188,8 +167,7 @@ struct CollageCreateEditScreen: View {
                              allowsBorder: Bool = true,
                              height: CGFloat) -> some View {
         
-        let urls = self.viewModel.mediaURLs.compactMap({ $0.media?.url })
-        
+        let urls = self.viewModel.selectedMediaURLs.compactMap({ $0.media?.url })
         let isSelected = (self.viewModel.selectedCollageType == collageType)
         
         CollageView(
@@ -203,7 +181,7 @@ struct CollageCreateEditScreen: View {
             view.appBorder(
                 cornerRadius: isSelected ? .small : .none,
                 color: isSelected ? Style.shared.accent : .color(.clear),
-                lineWidth: 3,
+                lineWidth: 5,
                 outerBorder: false
             )
             
@@ -259,9 +237,8 @@ struct CollageCreateEditScreen: View {
                     .foregroundStyle(AnyShapeStyle(Color.white), Style.shared.background(.error).source())
                     .asButton {
                         
-                        // TODO: - Address this
-//                        self.viewModel
-//                            .deleteMediaFusion(id: mediaFusion.id)
+                        self.viewModel
+                            .deleteMediaURL(id: mediaFusion.id)
                         
                     }
                     .offset(x: 8, y: -8)
@@ -295,10 +272,15 @@ struct CollageCreateEditScreen: View {
             .background(.backgroundTappable)
             .asButton {
                 
-                // TODO: - remove this?
-                
-//                self.viewModel
-//                    .shouldShowMediaSourceSelectionSheet = true
+                self.navigationService
+                    .push(.media(
+                        .gallery(mediaContext: .client(clientId: self.viewModel.clientId),
+                                 mediaSelectionContext: .singleSelection(completion: { media in
+                        
+                        self.viewModel
+                            .set(media: media)
+                        
+                    }))))
                 
             }
         
@@ -307,13 +289,41 @@ struct CollageCreateEditScreen: View {
     @ViewBuilder
     private func bottomBar() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
-
-            saveButton()
-                .padding(.horizontal, .medium)
+        if self.viewModel.selectedCollageType != nil {
+            
+            VStack(spacing: Style.shared.spacing(.medium)) {
+                
+                mediaList()
+                    .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+                
+                saveButton()
+                    .padding(.horizontal, .medium)
+                
+            }
+            .background(Style.shared.background(.primary).source())
+            .transition(.move(edge: .bottom).combined(with: .opacity))
             
         }
-        .background(Style.shared.background(.primary).source())
+        
+    }
+    
+    private func mediaList() -> some View {
+            
+        ScrollView(.horizontal) {
+            
+            HStack {
+                
+                ForEach(self.viewModel.selectedMediaURLs, id: \.id) { item in
+                    mediaItem(item)
+                }
+                
+                cameraItem()
+                
+            }
+            .padding(.top, .small)
+            
+        }
+        .scrollIndicators(.hidden)
         
     }
     

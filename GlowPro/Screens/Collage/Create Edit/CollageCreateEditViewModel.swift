@@ -71,7 +71,7 @@ final class CollageCreateEditViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
         
-    @Published private(set) var mediaURLs: [MediaFusion] = []
+    @Published private(set) var selectedMediaURLs: [MediaFusion] = []
     @Published private(set) var selectedCollageType: CollageType?
     
     var isSaveButtonEnabled: Bool {
@@ -81,9 +81,9 @@ final class CollageCreateEditViewModel: ViewModel {
         let maxNumberOfMedia: Int = maxNumberOfColumns * maxNumberOfRows
         
         return (
-            !self.mediaURLs.isEmpty &&
+            !self.selectedMediaURLs.isEmpty &&
             self.selectedCollageType != nil &&
-            self.mediaURLs.count >= maxNumberOfMedia
+            self.selectedMediaURLs.count >= maxNumberOfMedia
         )
         
     }
@@ -205,7 +205,7 @@ final class CollageCreateEditViewModel: ViewModel {
     
     func set(media: Media?) {
         
-        self.mediaURLs.append(.init(
+        self.selectedMediaURLs.append(.init(
             id: media?.id ?? "",
             kind: .url(media!.url),
             isUploaded: true,
@@ -305,6 +305,13 @@ final class CollageCreateEditViewModel: ViewModel {
 //            self.alertService.dismissLoadingIndicator()
 //            
 //        }
+        
+    }
+    
+    func deleteMediaURL(id: String) {
+        
+        self.selectedMediaURLs
+            .removeAll(where: { $0.id == id })
         
     }
 
