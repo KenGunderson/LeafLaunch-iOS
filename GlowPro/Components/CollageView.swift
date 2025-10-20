@@ -38,6 +38,18 @@ enum CollageType: Codable,
         
     }
     
+    var apiName: String {
+        
+        switch self {
+        case .grid: return "GRID"
+        case .oneLargeOneSmall: return "ONE_LARGE_ONE_SMALL"
+        case .oneLargeTwoSmall: return "ONE_LARGE_TWO_SMALL"
+        case .oneSmallOneLarge: return "ONE_SMALL_ONE_LARGE"
+        case .twoLargeTwoSmall: return "TWO_LARGE_TWO_SMALL"
+        }
+        
+    }
+    
 }
 
 struct CollageView: View {

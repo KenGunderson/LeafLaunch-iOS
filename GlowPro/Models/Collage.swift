@@ -73,7 +73,10 @@ struct Collage: Identifiable,
         
         let isGrid = typeString == "GRID"
         let isOneLargeTwoSmall = typeString == "ONE_LARGE_TWO_SMALL"
+        let isOneLargeOneSmall = typeString == "ONE_LARGE_ONE_SMALL"
+        let isOneSmallOneLarge = typeString == "ONE_SMALL_ONE_LARGE"
         let isTwoLargeTwoSmall = typeString == "TWO_LARGE_TWO_SMALL"
+        
         let gridType = CollageType.grid(rows: self.rowCount, columns: self.columnCount)
         
         if isGrid {
@@ -82,6 +85,10 @@ struct Collage: Identifiable,
             self.type = .oneLargeTwoSmall
         } else if isTwoLargeTwoSmall {
             self.type = .twoLargeTwoSmall
+        } else if isOneLargeOneSmall {
+            self.type = .oneLargeOneSmall
+        } else if isOneSmallOneLarge {
+            self.type = .oneSmallOneLarge
         } else {
             self.type = .grid(rows: 1, columns: 1)
         }

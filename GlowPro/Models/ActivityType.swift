@@ -19,6 +19,7 @@ enum ActivityType: String, Codable, CaseIterable {
     case clientCreated = "CLIENT_CREATED"
     case clientUpdated = "CLIENT_UPDATED"
     case clientDeleted = "CLIENT_DELETED"
+    case clientSummaryUpdated = "CLIENT_SUMMARY_UPDATED"
     
     case formCreated = "FORM_CREATED"
     case formSubmitted = "FORM_SUBMITTED"
@@ -57,6 +58,7 @@ enum ActivityType: String, Codable, CaseIterable {
         case .clientCreated: return "Client Created"
         case .clientUpdated: return "Client Updated"
         case .clientDeleted: return "Client Deleted"
+        case .clientSummaryUpdated: return "Client Summary Updated"
             
         case .formCreated: return "Form Created"
         case .formSubmitted: return "Form Submitted"
@@ -96,7 +98,8 @@ enum ActivityType: String, Codable, CaseIterable {
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return ActivityCategory.client.color
+             .clientDeleted,
+             .clientSummaryUpdated: return ActivityCategory.client.color
             
         case .formCreated,
              .formSubmitted : return ActivityCategory.form.color
@@ -135,7 +138,8 @@ enum ActivityType: String, Codable, CaseIterable {
             
         case .clientCreated,
              .clientUpdated,
-             .clientDeleted: return ActivityCategory.client.icon
+             .clientDeleted,
+             .clientSummaryUpdated: return ActivityCategory.client.icon
             
         case .formCreated,
              .formSubmitted: return ActivityCategory.form.icon

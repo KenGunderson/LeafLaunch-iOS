@@ -92,6 +92,7 @@ protocol APIServiceProtocol: APIProtocol {
     func getClient(id: String) async throws -> Client
     func createClient(client: Client, locationId: String) async throws
     func updateClient(client: Client) async throws
+    func updateClientSummary(clientId: String, summary: String?) async throws
     func deleteClient(id: String) async throws
     
     // Media

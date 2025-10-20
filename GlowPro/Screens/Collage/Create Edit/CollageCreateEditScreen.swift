@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-// TODO: -
-/// Handle create call
-/// Handle load data call
-
 struct CollageCreateEditScreen: View {
     
     @Environment(NavigationService.self) private var navigationService
@@ -109,14 +105,32 @@ struct CollageCreateEditScreen: View {
      
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            CommonButton(
-                title: "Select A Different Collage Style",
-                icon: .systemImage("questionmark"),
-                iconAlignment: .trailing,
-            ) {
+            HStack {
                 
-                self.viewModel
-                    .set(collageType: nil)
+                CommonButton(
+                    title: "Swap Collage",
+                    icon: .systemImage("xmark"),
+                    iconAlignment: .leading,
+                    backgroundStyle: Style.shared.background(.error),
+                    horizontalPadding: .extraSmall
+                ) {
+                    
+                    self.viewModel
+                        .set(collageType: nil)
+                    
+                }
+                
+                CommonButton(
+                    title: "Add Photo",
+                    icon: .image(.iconCamera),
+                    iconAlignment: .leading,
+                    horizontalPadding: .extraSmall
+                ) {
+                    
+                    self.viewModel
+                        .pushMediaSelection()
+                    
+                }
                 
             }
             
@@ -164,11 +178,9 @@ struct CollageCreateEditScreen: View {
     
     @ViewBuilder
     private func collageItem(collageType: CollageType,
-                             allowsBorder: Bool = true,
                              height: CGFloat) -> some View {
         
         let urls = self.viewModel.selectedMediaURLs.compactMap({ $0.media?.url })
-        let isSelected = (self.viewModel.selectedCollageType == collageType)
         
         CollageView(
             items: urls,
@@ -176,16 +188,6 @@ struct CollageCreateEditScreen: View {
             height: height
         )
         .frame(width: height)
-        .if(allowsBorder) { view in
-            
-            view.appBorder(
-                cornerRadius: isSelected ? .small : .none,
-                color: isSelected ? Style.shared.accent : .color(.clear),
-                lineWidth: 5,
-                outerBorder: false
-            )
-            
-        }
         
     }
     
@@ -272,15 +274,8 @@ struct CollageCreateEditScreen: View {
             .background(.backgroundTappable)
             .asButton {
                 
-                self.navigationService
-                    .push(.media(
-                        .gallery(mediaContext: .client(clientId: self.viewModel.clientId),
-                                 mediaSelectionContext: .singleSelection(completion: { media in
-                        
-                        self.viewModel
-                            .set(media: media)
-                        
-                    }))))
+                self.viewModel
+                    .pushMediaSelection()
                 
             }
         
@@ -343,6 +338,7 @@ struct CollageCreateEditScreen: View {
         
         CollageCreateEditScreen(viewModel: viewModel)
             .withMockServices()
+            .environment(navigationService)
         
     }
     

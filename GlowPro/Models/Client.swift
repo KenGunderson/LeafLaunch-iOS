@@ -21,6 +21,7 @@ struct Client: Codable,
     let imageURL: URL?
     let employeeId: String?
     let locationId: String?
+    var summary: String?
     
     private var _dateOfBirth: String?
     
@@ -60,6 +61,7 @@ struct Client: Codable,
          phone: String?,
          dateOfBirth: String? = nil,
          imageURL: URL? = nil,
+         summary: String? = nil,
          locationId: String? = nil,
          employeeId: String? = nil) {
         
@@ -70,6 +72,7 @@ struct Client: Codable,
         self.phoneNumber = phone
         self._dateOfBirth = dateOfBirth
         self.imageURL = imageURL
+        self.summary = summary
         self.locationId = locationId
         self.employeeId = employeeId
         
@@ -87,6 +90,7 @@ struct Client: Codable,
         case email
         case phoneNumber = "phone_number"
         case _dateOfBirth = "date_of_birth"
+        case summary
         case imageURL = "image_url"
         case locationId = "location_id"
         case employeeId = "employee_id"

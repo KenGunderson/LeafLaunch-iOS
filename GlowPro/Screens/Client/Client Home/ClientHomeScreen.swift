@@ -14,6 +14,8 @@ struct ClientHomeScreen: GPView {
     
     @StateObject private var viewModel: ClientHomeViewModel
     
+    @FocusState private var isFocused: Bool
+    
     public init(viewModel: ClientHomeViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
     }
@@ -60,6 +62,12 @@ struct ClientHomeScreen: GPView {
         
         .animation(.snappy(duration: 0.5), value: self.viewModel.client)
         
+        // Tap
+        
+        .onTapGesture {
+            self.isFocused = false
+        }
+        
     }
     
     @ViewBuilder
@@ -93,8 +101,7 @@ struct ClientHomeScreen: GPView {
                 Group {
                     
                     tilesGrid(client: client)
-//                    quickActionButtons()
-//                    media()
+                    summary()
                     activities()
                     
                 }
@@ -229,82 +236,97 @@ struct ClientHomeScreen: GPView {
         
     }
     
-//    @ViewBuilder
-//    private func quickActionButtons() -> some View {
-//     
-//        HStack {
-//            
-//            CommonButton(
-//                title: "Quick Note",
-//                titleFont: .TITLE_4,
-//                icon: .image(.iconNoteOutline),
-//                verticalPadding: .small2,
-//                horizontalPadding: .none) {
-//                    
-//                    self.navigationService
-//                        .push(.note(.noteCreateEdit(
-//                            context: .create,
-//                            clientId: self.viewModel.clientId)
-//                        ))
-//                    
-//                }
-//            
-//        }
-//        .padding(.horizontal, .medium)
-//        
-//    }
-    
-//    @ViewBuilder
-//    private func media() -> some View {
-//        
-//        VStack(spacing: Style.shared.spacing(.small)) {
-//            
-//            SectionView(leadingTitle: "Recent Media", showDivider: true) {
-//                
-//                self.navigationService.push(.media(.gallery(
-//                    mediaContext: .client(clientId: self.viewModel.clientId),
-//                    mediaSelectionContext: .preview
-//                )))
-//                
-//            }
-//            .padding(.horizontal, .medium)
-//            
-//            ScrollView(.horizontal) {
-//                
-//                LazyHStack {
-//                    
-//                    let placeholderView = PlaceholderView().asAnyView()
-//                    
-//                    ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
-//                        
-//                        ImageSource.remote(
-//                            url: media.url,
-//                            placeholder: placeholderView,
-//                        )
-//                        .view(shouldResize: false)
-//                        .aspectRatio(1, contentMode: .fit)
-//                        .frame(width: 64)
-//                        .cornerRadius(.small)
-//                        .contentShape(.rect(cornerRadius: Style.shared.radius(.small)))
-//                        .asButton {
-//                            
-//                            self.navigationService
-//                                .modal(fullScreenCover: .mediaPreview(
-//                                    url: media.url
-//                                ))
-//                            
-//                        }
-//                        
-//                    }
-//                    
-//                }
-//                .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
-//                
-//            }
-//            
-//        }
-//        
-//    }
+    @ViewBuilder
+    private func summary() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.custom(6))) {
+            
+            CollapsableView(isExpanded: self.$viewModel.clientSummaryExpanded,
+                            backgroundColor: .color(.clear),
+                            collapsedView: {
+                
+                VStack(spacing: Style.shared.spacing(.extraSmall)) {
+                    
+                    HStack {
+                        
+                        Text("Summary")
+                            .appFont(with: .TITLE_6)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Image(systemName: "chevron.up")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .frame(width: 16)
+                            .rotationEffect(self.viewModel.clientSummaryExpanded ? .degrees(0) : .degrees(180))
+                        
+                    }
+                    
+                    Capsule()
+                        .fill(Style.shared.background(.quaternary).source())
+                        .frame(height: 1.5)
+                    
+                }
+                .padding(.horizontal, .medium)
+                .background(.clear)
+                
+            }, expandedView: {
+                
+                VStack {
+                    
+                    CommonTextEditView(
+                        text: self.$viewModel.clientSummaryText,
+                        placehoderText: "Client Summary...",
+                        isFocused: self.isFocused,
+                        titleFont: .BODY_3,
+                        unselectedBorderColor: .color(.clear),
+                        backgroundStyle: .color(.clear),
+                        cornerRadius: .small,
+                        shadow: .none,
+                        lineLimit: 8...20,
+                        verticalPadding: .small,
+                        horizontalPadding: .small
+                    )
+                    .focused(self.$isFocused)
+                    .appBorder(
+                        cornerRadius: .small,
+                        color: self.isFocused ? Style.shared.accent : Style.shared.background(.border),
+                        lineWidth: 1.5
+                    )
+                    .onSubmit {
+                        self.viewModel.clientSummaryText += "\n"
+                    }
+                    
+                }
+                .padding(.top, .small)
+                .padding(.horizontal, .medium)
+                .padding(.bottom, .extraSmall)
+                
+            })
+            .background(.clear)
+            
+            if self.viewModel.hasClientSummaryChanged {
+                
+                CommonButton(title: "Update Summary") {
+                    
+                    self.viewModel
+                        .updateClientSummary()
+                    
+                }
+                .transition(.asymmetric(
+                    insertion: .move(edge: .bottom).combined(with: .opacity),
+                    removal: .opacity
+                ))
+                .padding(.horizontal, .medium)
+                
+            }
+            
+        }
+        .animation(.smooth, value: self.viewModel.clientSummaryExpanded)
+        .animation(.smooth, value: self.viewModel.hasClientSummaryChanged)
+
+    }
     
     @ViewBuilder
     private func activities() -> some View {

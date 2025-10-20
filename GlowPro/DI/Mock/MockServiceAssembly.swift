@@ -574,6 +574,15 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func updateClientSummary(clientId: String,
+                             summary: String?) async throws {
+        
+        if let index = self.clients.firstIndex(where: { $0.id == clientId }) {
+            self.clients[index].summary = summary
+        }
+        
+    }
+    
     func deleteClient(id: String) async throws {
         self.clients.removeAll { $0.id == id }
     }

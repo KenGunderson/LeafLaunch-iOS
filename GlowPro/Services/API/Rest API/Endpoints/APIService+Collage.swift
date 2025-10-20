@@ -89,7 +89,11 @@ extension APIService {
         
         let parameters: [String: Any] = [
             "location_id": collage.locationId,
-            "client_id": collage.clientId
+            "client_id": collage.clientId,
+            "row_count": collage.rowCount,
+            "column_count": collage.columnCount,
+            "media_urls": collage.mediaURLs.map({ $0.absoluteString }),
+            "type": collage.type.apiName
         ]
         
         do {

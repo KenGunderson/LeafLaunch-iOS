@@ -97,6 +97,7 @@ extension APIService {
             "last_name": client.lastName,
             "phone_number": client.phoneNumber,
             "email": client.email,
+            "summary": client.summary,
             "location_id": locationId,
             "date_of_birth": client.dateOfBirth?.ISO8601Format()
         ]
@@ -125,6 +126,7 @@ extension APIService {
             "last_name": client.lastName,
             "phone_number": client.phoneNumber,
             "email": client.email,
+            "summary": client.summary,
             "location_id": client.locationId,
             "date_of_birth": client.dateOfBirth?.ISO8601Format()
         ]
@@ -135,6 +137,30 @@ extension APIService {
             let _ = try await buildRequest(
                 method: .put,
                 apiPath: .init(path: .client("\(client.id)")),
+                parameters: parameters
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func updateClientSummary(clientId: String,
+                             summary: String?) async throws {
+        
+        let parameters: [String: Any] = [
+            "id": clientId,
+            "summary": summary ?? ""
+        ]
+        .compact()
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .patch,
+                apiPath: .init(path: .client("\(clientId)/summary")),
                 parameters: parameters
             )
             

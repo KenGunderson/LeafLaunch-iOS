@@ -96,6 +96,7 @@ final class CollageCreateEditViewModel: ViewModel {
         return self.collageId == nil
     }
     
+    private var client: Client?
     private(set) var clientId: String!
     private var collageId: String?
 
@@ -147,48 +148,43 @@ final class CollageCreateEditViewModel: ViewModel {
     
     func loadData() {
         
-//        guard let clientId else { return }
-//        
-//        self.alertService
-//            .showAlert(.init(.simpleLoadingIndicator))
-//        
-//        Task {
-//            
-//            do {
-//                
-//                let client = try await self.apiService.getClient(id: clientId)
-//                
-//                await MainActor.run {
-//                    
-//                    self.firstName = client.firstName
-//                    self.lastName = client.lastName
-//                    self.phone = client.phoneNumber ?? ""
-//                    self.email = client.email ?? ""
-//                    
-//                }
-//                
-//            }
-//            catch {
-//                
-//                self.alertService.showAlert(.init(
-//                    .appAlert(
-//                        .error(
-//                            message: Constants.Message.errorMessage("client"),
-//                            action: {
-//                                
-//                                self.navigationService?
-//                                    .popWithDelay()
-//                                
-//                            })
-//                    ))
-//                )
-//                
-//            }
-//            
-//            self.alertService
-//                .dismissLoadingIndicator()
-//            
-//        }
+        guard let clientId else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let client = try await self.apiService.getClient(id: clientId)
+                
+                await MainActor.run {
+                    self.client = client
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage("client"),
+                            action: {
+                                
+                                self.navigationService?
+                                    .popWithDelay()
+                                
+                            })
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
         
     }
     
@@ -201,6 +197,21 @@ final class CollageCreateEditViewModel: ViewModel {
     
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
+    }
+    
+    func pushMediaSelection() {
+        
+        self.navigationService?
+            .push(.media(
+                .gallery(
+                    mediaContext: .client(clientId: self.clientId),
+                    mediaSelectionContext: .singleSelection(completion: { media in
+                        
+                        self.set(media: media)
+                        
+                    }))
+            ))
+        
     }
     
     func set(media: Media?) {
@@ -230,81 +241,60 @@ final class CollageCreateEditViewModel: ViewModel {
     
     private func save() {
         
-//        guard let currentUser = self.authService.currentUser else { return }
-//        
-//        if !email.isEmpty,
-//           !self.email.isValidEmail() {
-//            
-//            self.alertService
-//                .showAlert(Constants.INVALID_EMAIL_ALERT())
-//            
-//            return
-//            
-//        }
-//        
-//        self.alertService
-//            .showAlert(.init(.simpleLoadingIndicator))
-//        
-//        Task {
-//            
-//            do {
-//                
-//                let employeeId = try await self.apiService.getEmployeeByUserIdForLocation(
-//                    userId: currentUser.id,
-//                    locationId: self.locationId ?? ""
-//                )
-//                
-//                let isValidDateOfBirth = !self.dateOfBirth.isToday
-//                let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
-//                
-//                let newClient = Client(
-//                    id: UUID().uuidString,
-//                    firstName: self.firstName,
-//                    lastName: self.lastName,
-//                    email: self.email.isEmpty ? nil : self.email,
-//                    phone: self.phone.isEmpty ? nil : self.phone,
-//                    dateOfBirth: dateOfBirth,
-//                    locationId: self.locationId ?? "",
-//                    employeeId: employeeId
-//                )
-//                
-//                try await self.apiService
-//                    .createClient(
-//                        client: newClient,
-//                        locationId: self.locationId ?? ""
-//                    )
-//                
-//                self.viewLifecycleService
-//                    .reload(for: .clientList)
-//                
-//                self.alertService
-//                    .showAlert(.init(.appAlert(.success(
-//                        message: "Client created successfully.",
-//                        action: {
-//                            
-//                            self.navigationService?
-//                                .popWithDelay()
-//                            
-//                        }
-//                        
-//                    ))))
-//                
-//            }
-//            catch {
-//                
-//                self.alertService.showAlert(.init(
-//                    .appAlert(
-//                        .error(
-//                            message: "Something went wrong while saving your client. Please try again later.",
-//                            action: {})
-//                    ))
-//                )
-//                
-//            }
-//            
-//            self.alertService.dismissLoadingIndicator()
-//            
-//        }
+        guard let selectedCollageType else { return }
+        guard let client else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let newCollage = Collage(
+                    id: UUID().uuidString,
+                    locationId: client.locationId ?? "",
+                    clientId: self.clientId,
+                    mediaURLs: self.selectedMediaURLs.compactMap({ $0.media?.url }),
+                    rowCount: selectedCollageType.rowsAndColumns.rows,
+                    columnCount: selectedCollageType.rowsAndColumns.columns,
+                    type: selectedCollageType
+                )
+                
+                try await self.apiService
+                    .createCollage(collage: newCollage)
+                
+                self.viewLifecycleService
+                    .reload(for: .collageList)
+                
+                self.alertService
+                    .showAlert(.init(.appAlert(.success(
+                        message: "Collage created successfully.",
+                        action: {
+                            
+                            self.navigationService?
+                                .popWithDelay()
+                            
+                        }
+                        
+                    ))))
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "Something went wrong while saving your collage. Please try again later.",
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService.dismissLoadingIndicator()
+            
+        }
         
     }
     

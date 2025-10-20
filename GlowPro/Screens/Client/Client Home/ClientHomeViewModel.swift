@@ -28,6 +28,9 @@ final class ClientHomeViewModel: ViewModel {
     @Published private(set) var shouldDismiss: Bool = false
     @Published private(set) var isFirstLoad: Bool = true
     
+    @Published var clientSummaryText: String = ""
+    @Published var clientSummaryExpanded: Bool = false
+    
     private(set) var clientId: String!
     
     private var navigationService: NavigationService?
@@ -35,6 +38,15 @@ final class ClientHomeViewModel: ViewModel {
     
     var isOwnerOrManager: Bool {
         return self.activeDestinationService.isOwnerOrManager
+    }
+    
+    var hasClientSummaryChanged: Bool {
+        
+        guard let client = self.client else { return false }
+        
+        let summaryText = client.summary ?? ""
+        return self.clientSummaryText != summaryText
+        
     }
     
     init(apiService: APIServiceProtocol,
@@ -114,6 +126,8 @@ final class ClientHomeViewModel: ViewModel {
                     self?.activities = activities
                     self?.media = media
                     self?.client = client
+                    self?.clientSummaryText = client.summary ?? ""
+                    self?.clientSummaryExpanded = (client.summary != "" || client.summary != nil)
                     
                 }
                 
@@ -168,6 +182,24 @@ final class ClientHomeViewModel: ViewModel {
         }
         
         return formattedString.isEmpty ? "Update Client Information" : formattedString
+        
+    }
+    
+    func updateClientSummary() {
+        
+        guard let client else { return }
+        guard self.hasClientSummaryChanged else { return }
+        
+        Task {
+            
+            try? await self.apiService.updateClientSummary(
+                clientId: client.id,
+                summary: self.clientSummaryText
+            )
+            
+            loadData()
+            
+        }
         
     }
     
