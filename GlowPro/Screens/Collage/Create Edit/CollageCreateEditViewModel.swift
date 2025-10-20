@@ -71,19 +71,24 @@ final class CollageCreateEditViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
         
-    @Published private(set) var selectedMediaURLs: [MediaFusion] = []
-    @Published private(set) var selectedCollageType: CollageType?
+    @Published private(set) var selectedMediaURLs: [MediaFusion?] = [nil, nil, nil, nil]
+    @Published private(set) var selectedCollageType: CollageType = .grid(rows: 1, columns: 2)
+    
+    var maxNumberOfMedia: Int {
+        
+        let maxNumberOfColumns: Int = self.selectedCollageType.rowsAndColumns.columns
+        let maxNumberOfRows: Int = self.selectedCollageType.rowsAndColumns.rows
+        return maxNumberOfColumns * maxNumberOfRows
+        
+    }
     
     var isSaveButtonEnabled: Bool {
         
-        let maxNumberOfColumns: Int = self.selectedCollageType?.rowsAndColumns.columns ?? 0
-        let maxNumberOfRows: Int = self.selectedCollageType?.rowsAndColumns.rows ?? 0
-        let maxNumberOfMedia: Int = maxNumberOfColumns * maxNumberOfRows
+        let validSelectedURLs = self.selectedMediaURLs.compactMap { $0 }
         
         return (
-            !self.selectedMediaURLs.isEmpty &&
-            self.selectedCollageType != nil &&
-            self.selectedMediaURLs.count >= maxNumberOfMedia
+            !validSelectedURLs.isEmpty &&
+            validSelectedURLs.count >= self.maxNumberOfMedia
         )
         
     }
@@ -199,7 +204,7 @@ final class CollageCreateEditViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func pushMediaSelection() {
+    func pushMediaSelection(index: Int) {
         
         self.navigationService?
             .push(.media(
@@ -207,32 +212,20 @@ final class CollageCreateEditViewModel: ViewModel {
                     mediaContext: .client(clientId: self.clientId),
                     mediaSelectionContext: .singleSelection(completion: { media in
                         
-                        self.set(media: media)
+                        self.selectedMediaURLs[index] = .init(
+                            id: media?.id ?? "",
+                            kind: .url(media!.url),
+                            isUploaded: true,
+                            media: media
+                        )
                         
                     }))
             ))
         
     }
     
-    func set(media: Media?) {
-        
-        self.selectedMediaURLs.append(.init(
-            id: media?.id ?? "",
-            kind: .url(media!.url),
-            isUploaded: true,
-            media: media
-        ))
-        
-    }
-    
-    func set(collageType: CollageType?) {
-        
-        if self.selectedCollageType == collageType {
-            self.selectedCollageType = nil
-        } else {
-            self.selectedCollageType = collageType
-        }
-        
+    func set(collageType: CollageType) {
+        self.selectedCollageType = collageType
     }
     
     func saveOrUpdate() {
@@ -241,7 +234,6 @@ final class CollageCreateEditViewModel: ViewModel {
     
     private func save() {
         
-        guard let selectedCollageType else { return }
         guard let client else { return }
         
         self.alertService
@@ -251,12 +243,14 @@ final class CollageCreateEditViewModel: ViewModel {
             
             do {
                 
+                let allMedia = Array(self.selectedMediaURLs.compactMap({ $0?.media?.url }).prefix(self.maxNumberOfMedia))
+                
                 let newCollage = Collage(
                     id: UUID().uuidString,
                     locationId: client.locationId ?? "",
                     clientId: self.clientId,
-                    mediaURLs: self.selectedMediaURLs.compactMap({ $0.media?.url }),
-                    rowCount: selectedCollageType.rowsAndColumns.rows,
+                    mediaURLs: allMedia,
+                    rowCount: self.selectedCollageType.rowsAndColumns.rows,
                     columnCount: selectedCollageType.rowsAndColumns.columns,
                     type: selectedCollageType
                 )
@@ -301,7 +295,7 @@ final class CollageCreateEditViewModel: ViewModel {
     func deleteMediaURL(id: String) {
         
         self.selectedMediaURLs
-            .removeAll(where: { $0.id == id })
+            .removeAll(where: { $0?.id == id })
         
     }
 

@@ -44,8 +44,10 @@ final class ClientHomeViewModel: ViewModel {
         
         guard let client = self.client else { return false }
         
-        let summaryText = client.summary ?? ""
-        return self.clientSummaryText != summaryText
+        let savedText = self.clientSummaryText.trimmingCharacters(in: .whitespaces)
+        let summaryText = (client.summary ?? "").trimmingCharacters(in: .whitespaces)
+        
+        return savedText != summaryText
         
     }
     

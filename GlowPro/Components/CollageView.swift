@@ -54,19 +54,21 @@ enum CollageType: Codable,
 
 struct CollageView: View {
     
-    let items: [URL]
+    let items: [URL?]
     let type: CollageType
     let borderColor: ColorSource
     let cornerRadius: Theme.RadiusKey
     let height: CGFloat
     let borderLineWidth: CGFloat
+    let action: ((Int) -> Void)?
     
-    init(items: [URL],
+    init(items: [URL?],
          type: CollageType,
          borderColor: ColorSource = Style.shared.background(.border),
          cornerRadius: Theme.RadiusKey = .small,
          height: CGFloat = 400,
-         borderLineWidth: CGFloat? = nil) {
+         borderLineWidth: CGFloat? = nil,
+         action: ((Int) -> Void)? = nil) {
         
         self.items = items
         self.type = type
@@ -74,6 +76,7 @@ struct CollageView: View {
         self.cornerRadius = cornerRadius
         self.height = height
         self.borderLineWidth = borderLineWidth ?? self.height * 0.016
+        self.action = action
         
     }
     
@@ -121,12 +124,19 @@ struct CollageView: View {
                         }
                         
                         let linearIndex = (rowIndex * safeColumns) + columnIndex
-                        let url = self.items[safe: linearIndex]
+                        let url = self.items[safe: linearIndex] ?? nil
                         
                         image(
                             url: url,
                             maxHeight: maxHeight
                         )
+                        .if(self.action != nil) { view in
+                            
+                            view.appOnTapGesture {
+                                self.action?(linearIndex)
+                            }
+                            
+                        }
                         
                     }
                     
@@ -200,9 +210,9 @@ struct CollageView: View {
     @ViewBuilder
     private func oneLargeTwoSmall() -> some View {
         
-        let image1 = self.items[safe: 0]
-        let image2 = self.items[safe: 1]
-        let image3 = self.items[safe: 2]
+        let image1 = self.items[safe: 0] ?? nil
+        let image2 = self.items[safe: 1] ?? nil
+        let image3 = self.items[safe: 2] ?? nil
         
         VStack(spacing: 0) {
             
@@ -210,6 +220,13 @@ struct CollageView: View {
                 url: image1,
                 maxHeight: CGFloat(self.height / 2)
             )
+            .if(self.action != nil) { view in
+                
+                view.appOnTapGesture {
+                    self.action?(0)
+                }
+                
+            }
             
             border(height: self.borderLineWidth)
             
@@ -219,6 +236,13 @@ struct CollageView: View {
                     url: image2,
                     maxHeight: CGFloat(self.height / 2)
                 )
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(1)
+                    }
+                    
+                }
                 
                 border(width: self.borderLineWidth)
                 
@@ -226,7 +250,13 @@ struct CollageView: View {
                     url: image3,
                     maxHeight: CGFloat(self.height / 2)
                 )
-                
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(2)
+                    }
+                    
+                }
                 
             }
             
@@ -243,22 +273,36 @@ struct CollageView: View {
     @ViewBuilder
     private func oneLargeOneSmall() -> some View {
         
-        let image1 = self.items[safe: 0]
-        let image2 = self.items[safe: 1]
+        let image1 = self.items[safe: 0] ?? nil
+        let image2 = self.items[safe: 1] ?? nil
         
         VStack(spacing: 0) {
             
             image(
                 url: image1,
-                maxHeight: CGFloat(self.height / 2)
+                maxHeight: CGFloat((self.height) * 2/3)
             )
-            
-            border(height: self.borderLineWidth)
-            
+            .if(self.action != nil) { view in
+                
+                view.appOnTapGesture {
+                    self.action?(0)
+                }
+                
+            }
+
+            border(height: borderLineWidth)
+
             image(
                 url: image2,
-                maxHeight: CGFloat(self.height / 4)
+                maxHeight: CGFloat((self.height) * 1/3)
             )
+            .if(self.action != nil) { view in
+                
+                view.appOnTapGesture {
+                    self.action?(1)
+                }
+                
+            }
             
         }
         .frame(maxHeight: CGFloat(self.height))
@@ -273,22 +317,36 @@ struct CollageView: View {
     @ViewBuilder
     private func oneSmallOneLarge() -> some View {
         
-        let image1 = self.items[safe: 0]
-        let image2 = self.items[safe: 1]
+        let image1 = self.items[safe: 0] ?? nil
+        let image2 = self.items[safe: 1] ?? nil
         
         VStack(spacing: 0) {
             
             image(
                 url: image1,
-                maxHeight: CGFloat(self.height / 4)
+                maxHeight: CGFloat((self.height) * 1/3)
             )
-            
-            border(height: self.borderLineWidth)
-            
+            .if(self.action != nil) { view in
+                
+                view.appOnTapGesture {
+                    self.action?(0)
+                }
+                
+            }
+
+            border(height: borderLineWidth)
+
             image(
                 url: image2,
-                maxHeight: CGFloat(self.height / 2)
+                maxHeight: CGFloat((self.height) * 2/3)
             )
+            .if(self.action != nil) { view in
+                
+                view.appOnTapGesture {
+                    self.action?(1)
+                }
+                
+            }
             
         }
         .frame(maxHeight: CGFloat(self.height))
@@ -303,10 +361,10 @@ struct CollageView: View {
     @ViewBuilder
     private func twoLargeTwoSmall() -> some View {
         
-        let image1 = self.items[safe: 0]
-        let image2 = self.items[safe: 1]
-        let image3 = self.items[safe: 2]
-        let image4 = self.items[safe: 3]
+        let image1 = self.items[safe: 0] ?? nil
+        let image2 = self.items[safe: 1] ?? nil
+        let image3 = self.items[safe: 2] ?? nil
+        let image4 = self.items[safe: 3] ?? nil
         
         VStack(spacing: 0) {
             
@@ -316,6 +374,13 @@ struct CollageView: View {
                     url: image1,
                     maxHeight: CGFloat(self.height / 2)
                 )
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(0)
+                    }
+                    
+                }
                 
                 border(width: self.borderLineWidth)
                 
@@ -323,6 +388,13 @@ struct CollageView: View {
                     url: image2,
                     maxHeight: CGFloat(self.height / 2)
                 )
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(1)
+                    }
+                    
+                }
                 
             }
             
@@ -334,6 +406,13 @@ struct CollageView: View {
                     url: image3,
                     maxHeight: CGFloat(self.height / 2)
                 )
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(2)
+                    }
+                    
+                }
                 
                 border(width: self.borderLineWidth)
                 
@@ -341,7 +420,13 @@ struct CollageView: View {
                     url: image4,
                     maxHeight: CGFloat(self.height / 2)
                 )
-                
+                .if(self.action != nil) { view in
+                    
+                    view.appOnTapGesture {
+                        self.action?(3)
+                    }
+                    
+                }
                 
             }
             
@@ -367,12 +452,6 @@ struct CollageView: View {
             
             CollageView(
                 items: [],
-                type: .oneLargeTwoSmall,
-                cornerRadius: .small
-            )
-            
-            CollageView(
-                items: [],
                 type: .oneLargeOneSmall,
                 cornerRadius: .small
             )
@@ -380,6 +459,12 @@ struct CollageView: View {
             CollageView(
                 items: [],
                 type: .oneSmallOneLarge,
+                cornerRadius: .small
+            )
+            
+            CollageView(
+                items: [],
+                type: .oneLargeTwoSmall,
                 cornerRadius: .small
             )
             
