@@ -310,6 +310,8 @@ struct ClientHomeScreen: GPView {
                 
                 CommonButton(title: "Update Summary") {
                     
+                    self.isFocused = false
+                    
                     self.viewModel
                         .updateClientSummary()
                     

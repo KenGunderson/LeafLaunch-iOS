@@ -106,6 +106,9 @@ struct CollageCreateEditScreen: View {
             
         }
         .padding(.horizontal, .medium)
+        .transition(.opacity)
+        .id(collage.hashValue)
+        .animation(.spring, value: self.viewModel.selectedCollageType)
         
     }
     
@@ -134,10 +137,8 @@ struct CollageCreateEditScreen: View {
                 }
                 
             }
-            .scrollTargetLayout()
             
         }
-        .scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))
         .scrollIndicators(.hidden)
         
     }
@@ -205,21 +206,14 @@ struct CollageCreateEditScreen: View {
 }
 
 #Preview {
-    
-    @Previewable @State var navigationService = NavigationService()
-    
+        
     let viewModel = mockResolve(CollageCreateEditViewModel.self)
         .setup(
             clientId: MockModels.ID.client1,
             collageId: nil
         )
     
-    AppRootView(navigationService: $navigationService, alertService: nil) {
-        
-        CollageCreateEditScreen(viewModel: viewModel)
-            .withMockServices()
-            .environment(navigationService)
-        
-    }
+    CollageCreateEditScreen(viewModel: viewModel)
+        .withMockServices()
     
 }

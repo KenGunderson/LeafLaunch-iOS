@@ -243,7 +243,8 @@ final class CollageCreateEditViewModel: ViewModel {
             
             do {
                 
-                let allMedia = Array(self.selectedMediaURLs.compactMap({ $0?.media?.url }).prefix(self.maxNumberOfMedia))
+                let allMedia = Array(self.selectedMediaURLs.compactMap({ $0?.media?.url })
+                    .prefix(self.maxNumberOfMedia))
                 
                 let newCollage = Collage(
                     id: UUID().uuidString,
