@@ -59,17 +59,7 @@ final class AboutUsViewModel: ViewModel {
     }
     
     func tagLine() -> String {
-        return "We're not just software\nwe're a family."
-    }
-    
-    func aboutUsMessage() -> String {
-        
-        return """
-        GlowPro is the all-in-one mobile platform built for beauty and med-spa professionals who want more than just a booking tool — they want a business partner. Designed with care from the ground up, GlowPro combines seamless client management, beautiful media galleries, and subscription-based tools to help businesses grow, engage, and retain their clients. Every feature, from onboarding to analytics, is designed to feel effortless and polished, empowering professionals to focus on what matters most: creating transformational experiences for their clients.
-        
-        GlowPro isn’t just software — it’s an ecosystem. With secure photo workflows, customizable design themes, and a robust backend built for scalability, GlowPro gives businesses confidence that their data, their brand, and their clients are always supported. Whether you’re running one location or many, GlowPro adapts with you — offering everything from employee management to media favorites, community insights, and even usage-based subscription tiers. We’re here to make sure your business runs beautifully.    
-        """
-        
+        return "Built for the hands that make others glow."
     }
 
     private func bindSubscribers() {
