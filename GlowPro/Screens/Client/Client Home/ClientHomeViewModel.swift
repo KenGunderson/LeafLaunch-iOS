@@ -129,7 +129,7 @@ final class ClientHomeViewModel: ViewModel {
                     self?.media = media
                     self?.client = client
                     self?.clientSummaryText = client.summary ?? ""
-                    self?.clientSummaryExpanded = (client.summary != "" || client.summary != nil)
+                    self?.clientSummaryExpanded = (client.summary == "" || client.summary == nil)
                     
                 }
                 
