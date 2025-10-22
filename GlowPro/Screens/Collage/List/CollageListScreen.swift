@@ -36,6 +36,11 @@ struct CollageListScreen: GPView {
                 
             }
         
+        // Animation
+        
+            .animation(.snappy, value: self.viewModel.collages)
+            .animation(.snappy, value: self.viewModel.shouldShowEmptyState)
+        
     }
     
     private func content() -> some View {
@@ -81,10 +86,16 @@ struct CollageListScreen: GPView {
     
     private func collageList() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2),
+            spacing: 4
+        ) {
             
-            ForEach(self.viewModel.collages, id: \.id) { collage in
-                collageItem(collage)
+            ForEach(self.viewModel.collages.indices, id: \.id) { index in
+                
+                collageItem(self.viewModel.collages[index])
+                    .transition(.offset(y: 500).combined(with: .opacity))
+                
             }
             
         }
@@ -98,7 +109,7 @@ struct CollageListScreen: GPView {
         CollageView(
             items: collage.mediaURLs,
             type: collage.type,
-            height: 350
+            height: UIScreen.main.bounds.width / 2 - (Style.shared.spacing(.medium) * 2)
         )
         
     }
