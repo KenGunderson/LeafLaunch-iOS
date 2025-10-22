@@ -94,6 +94,8 @@ struct Collage: Identifiable,
         
         self.rowCount = try container.decode(Int.self, forKey: .rowCount)
         self.columnCount = try container.decode(Int.self, forKey: .columnCount)
+        self._createdAt = try container.decodeIfPresent(String.self, forKey: ._createdAt)
+        self._updatedAt = try container.decodeIfPresent(String.self, forKey: ._updatedAt)
         
         let typeString = try container.decode(String.self, forKey: .type)
         
