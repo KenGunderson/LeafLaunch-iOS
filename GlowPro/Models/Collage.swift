@@ -25,6 +25,25 @@ struct Collage: Identifiable,
     let columnCount: Int
     let type: CollageType
     
+    private var _createdAt: String?
+    private var _updatedAt: String?
+    
+    var createdAt: Date? {
+
+        self._createdAt?
+            .toDate(region: .local)?
+            .date
+
+    }
+    
+    var updatedAt: Date? {
+
+        self._updatedAt?
+            .toDate(region: .local)?
+            .date
+        
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case id
@@ -37,6 +56,9 @@ struct Collage: Identifiable,
         case columnCount = "column_count"
         case type
         
+        case _createdAt = "created_at"
+        case _updatedAt = "updated_at"
+        
     }
     
     init(id: String,
@@ -45,7 +67,9 @@ struct Collage: Identifiable,
          mediaURLs: [URL],
          rowCount: Int,
          columnCount: Int,
-         type: CollageType) {
+         type: CollageType,
+         createdAt: Date? = nil,
+         updatedAt: Date? = nil) {
         
         self.id = id
         self.locationId = locationId
@@ -54,6 +78,8 @@ struct Collage: Identifiable,
         self.rowCount = rowCount
         self.columnCount = columnCount
         self.type = type
+        self._createdAt = createdAt?.ISO8601Format()
+        self._updatedAt = updatedAt?.ISO8601Format()
         
     }
     

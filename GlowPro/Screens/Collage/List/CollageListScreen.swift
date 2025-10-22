@@ -38,7 +38,7 @@ struct CollageListScreen: GPView {
         
         // Animation
         
-            .animation(.snappy, value: self.viewModel.collages)
+            .animation(.snappy, value: self.viewModel.groupedCollages)
             .animation(.snappy, value: self.viewModel.shouldShowEmptyState)
         
     }
@@ -83,24 +83,69 @@ struct CollageListScreen: GPView {
         
     }
     
-    
+    @ViewBuilder
     private func collageList() -> some View {
         
-        LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2),
-            spacing: 4
-        ) {
+        VStack(spacing: Style.shared.spacing(.large)) {
             
-            ForEach(self.viewModel.collages.indices, id: \.id) { index in
+            ForEach(self.viewModel.groupedCollages, id: \.id) { group in
                 
-                collageItem(self.viewModel.collages[index])
-                    .transition(.offset(y: 500).combined(with: .opacity))
+                groupSection(group)
+                    .transition(.offset(y: 300).combined(with: .opacity))
+                
+            }
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
+    private func groupSection(_ groupedMedia: CollageListViewModel.GroupedCollages) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            
+            sectionHeader(groupedMedia)
+            
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2),
+                spacing: 4
+            ) {
+                
+                ForEach(groupedMedia.collages.indices, id: \.id) { index in
+                    collageItem(groupedMedia.collages[index])
+                }
                 
             }
             
         }
         .padding(.horizontal, .medium)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .compositingGroup()
+        .geometryGroup()
+        
+    }
+        
+    private func sectionHeader(_ groupedMedia: CollageListViewModel.GroupedCollages) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            
+            HStack {
+                
+                Text(groupedMedia.title)
+                    .appFont(with: .HEADER_2)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                let plural = groupedMedia.collages.count == 1 ? "" : "s"
+                Text("\(groupedMedia.collages.count) collage\(plural)")
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                
+            }
+            
+            Divider()
+                .foregroundStyle(Style.shared.background(.quaternary).source())
+            
+        }
         
     }
     

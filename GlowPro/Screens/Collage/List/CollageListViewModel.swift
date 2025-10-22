@@ -9,6 +9,15 @@ import Foundation
 
 final class CollageListViewModel: ViewModel {
     
+    struct GroupedCollages: Equatable {
+        
+        let id: String = UUID().uuidString
+        let collageKey: String
+        let title: String
+        let collages: [Collage]
+        
+    }
+    
     internal let loggerName: String = "COLLAGE_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "🎞️"
     
@@ -23,7 +32,8 @@ final class CollageListViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    @Published private(set) var collages: [Collage] = []
+    @Published private(set) var groupedCollages: [GroupedCollages] = []
+    @Published private var collages: [Collage] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
     
     private(set) var context: MediaContext!
@@ -115,9 +125,12 @@ final class CollageListViewModel: ViewModel {
                     collages = []
                 }
                 
+                let groupedMedia = self.groupedByMonth(collages: collages)
+                
                 await MainActor.run { [weak self, collages] in
                     
                     self?.collages = collages
+                    self?.groupedCollages = groupedMedia
                     self?.shouldShowEmptyState = collages.isEmpty
                     
                 }
@@ -187,6 +200,83 @@ final class CollageListViewModel: ViewModel {
 //                    )
                 
             })
+        
+    }
+    
+    private func monthComponents(from date: Date,
+                                 calendar: Calendar) -> (year: Int, month: Int)? {
+        
+        let comps = calendar.dateComponents([.year, .month], from: date)
+        
+        if let year = comps.year,
+           let month = comps.month {
+            
+            return (year, month)
+        }
+        
+        return nil
+        
+    }
+
+    private func monthKey(year: Int,
+                          month: Int) -> String {
+        
+        String(format: "%04d-%02d", year, month) // e.g., "2025-01"
+        
+    }
+
+    private func monthTitle(year: Int,
+                            month: Int,
+                            calendar: Calendar) -> String {
+        
+        var c = DateComponents()
+        c.year = year
+        c.month = month
+        
+        let date = calendar.date(from: c) ?? .distantPast
+        return date.formatted(.dateTime.month(.abbreviated).year()) // "Jan 2025"
+        
+    }
+
+    private func groupedByMonth(collages: [Collage], calendar: Calendar = .current) -> [GroupedCollages] {
+        
+        typealias Keyed = (key: String, year: Int, month: Int, item: Collage)
+        
+        let keyed: [Keyed] = collages.compactMap { m in
+            
+            guard let d = m.createdAt,
+                  let (y, mo) = monthComponents(from: d, calendar: calendar) else { return nil }
+            
+            return (monthKey(year: y, month: mo), y, mo, m)
+            
+        }
+
+        // 2) Group by stable key
+        let buckets = Dictionary(grouping: keyed, by: { $0.key })
+
+        // 3) Build sections (sorted newest-first inside each)
+        var sections: [GroupedCollages] = []
+        sections.reserveCapacity(buckets.count)
+
+        for (_, group) in buckets {
+            
+            guard let any = group.first else { continue }
+            
+            let title = monthTitle(year: any.year, month: any.month, calendar: calendar)
+            
+            let items = group
+                .map { $0.item }
+                .sorted { return ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
+
+            sections.append(.init(
+                collageKey: any.key,
+                title: title,
+                collages: items
+            ))
+            
+        }
+
+        return sections.sorted { return ($0.collageKey > $1.collageKey) }
         
     }
     

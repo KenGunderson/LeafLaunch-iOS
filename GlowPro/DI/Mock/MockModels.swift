@@ -138,6 +138,7 @@ struct MockModels {
             MockCollage.collage2,
             MockCollage.collage3,
             MockCollage.collage4,
+            MockCollage.collage5
         ]
         
     }
@@ -1419,6 +1420,8 @@ struct MockModels {
                 rowCount: 2,
                 columnCount: 2,
                 type: .grid(rows: 2, columns: 2),
+                createdAt: .now.addingTimeInterval(-7438934),
+                updatedAt: .now.addingTimeInterval(-437843)
             )
         }
         
@@ -1432,6 +1435,8 @@ struct MockModels {
                 rowCount: 1,
                 columnCount: 1,
                 type: .oneLargeTwoSmall,
+                createdAt: .now.addingTimeInterval(-34534654),
+                updatedAt: .now.addingTimeInterval(-34534654)
             )
         }
         
@@ -1445,6 +1450,23 @@ struct MockModels {
                 rowCount: 1,
                 columnCount: 1,
                 type: .twoLargeTwoSmall,
+                createdAt: .now.addingTimeInterval(-123456),
+                updatedAt: .now.addingTimeInterval(-123456)
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var collage5: Collage {
+            Collage(
+                id: ID.collage4,
+                locationId: ID.location1,
+                clientId: ID.client1,
+                mediaURLs: Array(MOCK_URLS.suffix(from: 10)),
+                rowCount: 1,
+                columnCount: 1,
+                type: .oneSmallOneLarge,
+                createdAt: .now.addingTimeInterval(-123455),
+                updatedAt: .now.addingTimeInterval(-123455)
             )
         }
         
