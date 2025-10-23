@@ -11,10 +11,12 @@ extension APIService {
     
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
+                  filterOption: MediaType?,
                   tags: [MediaTag]) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
-            "order_by": sortingOption?.queryParameter
+            "order_by": sortingOption?.queryParameter,
+            "media_type": filterOption?.queryParameter
         ]
         .compact()
         
@@ -44,10 +46,12 @@ extension APIService {
     
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
+                  filterOption: MediaType?,
                   tags: [MediaTag]) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
-            "order_by": sortingOption?.queryParameter
+            "order_by": sortingOption?.queryParameter,
+            "media_type": filterOption?.queryParameter
         ]
         .compact()
         
@@ -77,10 +81,12 @@ extension APIService {
     
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
+                  filterOption: MediaType?,
                   tags: [MediaTag]) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
-            "order_by": sortingOption?.queryParameter
+            "order_by": sortingOption?.queryParameter,
+            "media_type": filterOption?.queryParameter
         ]
         .compact()
         
@@ -110,10 +116,12 @@ extension APIService {
     
     func getMedia(authorId: String,
                   sortingOption: MediaSortingOption?,
+                  filterOption: MediaType?,
                   tags: [MediaTag]) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
-            "order_by": sortingOption?.queryParameter
+            "order_by": sortingOption?.queryParameter,
+            "media_type": filterOption?.queryParameter
         ]
         .compact()
         

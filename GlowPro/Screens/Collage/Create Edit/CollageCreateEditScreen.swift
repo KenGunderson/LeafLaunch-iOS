@@ -15,6 +15,9 @@ struct CollageCreateEditScreen: View {
     @StateObject private var viewModel: CollageCreateEditViewModel
     @Namespace private var animation
     
+    @State private var uiImageToSave: UIImage?
+    @State private var collageView: AnyView?
+    
     let collageWidth: CGFloat = UIScreen.main.bounds.width - 32
         
     init(viewModel: CollageCreateEditViewModel) {
@@ -43,6 +46,15 @@ struct CollageCreateEditScreen: View {
                 
             }
         
+        // On Change
+        
+            .onChange(of: self.uiImageToSave) { oldValue, newValue in
+                
+                guard let image = newValue else { return }
+                self.viewModel.save(image: image)
+                
+            }
+        
         // Animations
         
             .animation(.smooth, value: self.viewModel.selectedCollageType)
@@ -57,20 +69,9 @@ struct CollageCreateEditScreen: View {
         }
         .asAnyView()
         
-        let trashButton = NavBarButton(style: .trash) {
-            
-            self.viewModel
-                .presentDeleteCollageAlert()
-            
-        }
-        .asAnyView()
-        
-        let shouldShowTrashButton = self.viewModel.isOwnerOrManager && !self.viewModel.isCreateContext
-        
         return NavBarView(
             title: self.viewModel.navTitle,
             leftButtonView: backButton,
-            rightButtonView: shouldShowTrashButton ? trashButton : nil
         )
         
     }
@@ -92,10 +93,9 @@ struct CollageCreateEditScreen: View {
         
     }
     
-    @ViewBuilder
     private func buildCollageView(collage: CollageType) -> some View {
         
-        collageItem(
+        return collageItem(
             collageType: collage,
             useBorderAccent: false,
             height: self.collageWidth
@@ -109,7 +109,8 @@ struct CollageCreateEditScreen: View {
         .transition(.opacity)
         .id(collage.hashValue)
         .animation(.spring, value: self.viewModel.selectedCollageType)
-        
+        .asAnyView()
+                
     }
     
     @ViewBuilder
@@ -147,6 +148,7 @@ struct CollageCreateEditScreen: View {
     private func collageItem(collageType: CollageType,
                              useBorderAccent: Bool,
                              height: CGFloat,
+                             cornerRadius: Theme.RadiusKey = .small,
                              action: ((Int) -> ())? = nil) -> some View {
         
         let urls = self.viewModel.selectedMediaURLs.map({ $0?.media?.url })
@@ -166,6 +168,7 @@ struct CollageCreateEditScreen: View {
             items: urls,
             type: collageType,
             borderColor: borderColor,
+            cornerRadius: cornerRadius,
             height: height,
             borderLineWidth: 2.5,
             action: action
@@ -180,8 +183,7 @@ struct CollageCreateEditScreen: View {
             title: self.viewModel.saveButtonTitle,
             isEnabled: self.viewModel.isSaveButtonEnabled) {
                 
-                self.viewModel
-                    .saveOrUpdate()
+                saveButtonTapped()
                 
             }
         
@@ -200,6 +202,30 @@ struct CollageCreateEditScreen: View {
             
         }
         .background(Style.shared.background(.primary).source())
+        
+    }
+    
+    private func saveButtonTapped() {
+        
+        let view = collageItem(
+            collageType: self.viewModel.selectedCollageType,
+            useBorderAccent: false,
+            height: self.collageWidth,
+            cornerRadius: .none
+        )
+            .background(.clear)
+                
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = UIScreen.main.scale
+        renderer.proposedSize = .init(
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.width
+        )
+        renderer.isOpaque = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.uiImageToSave = renderer.uiImage
+        }
         
     }
     

@@ -80,7 +80,8 @@ enum Route: Navigation, Hashable, Sendable {
                      media: [Media])
         
         case gallery(mediaContext: MediaContext,
-                     mediaSelectionContext: MediaSelectionContext)
+                     mediaSelectionContext: MediaSelectionContext,
+                     mediaFilterOptions: MediaType = .image)
         
         case review(context: MediaReviewViewModel.Context,
                     images: [UIImage])
@@ -88,9 +89,7 @@ enum Route: Navigation, Hashable, Sendable {
     }
     
     enum CollageRoute: Hashable, Sendable {
-        
-        case list(context: MediaContext)
-        
+                
         case createEdit(clientId: String?,
                         collageId: String?)
         

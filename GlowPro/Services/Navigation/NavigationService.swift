@@ -413,12 +413,13 @@ extension View {
                 CameraScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .gallery(let context, let selection):
+            case .gallery(let context, let selection, let mediaType):
                 
                 let viewModel = globalResolver.resolve(MediaGalleryViewModel.self)!
                     .setup(
                         mediaContext: context,
-                        mediaSelectionContext: selection
+                        mediaSelectionContext: selection,
+                        mediaFilterOptions: mediaType
                     )
                 
                 MediaGalleryScreen(viewModel: viewModel)
@@ -481,14 +482,6 @@ extension View {
         func collage(route: Route.CollageRoute) -> some View {
             
             switch route {
-            case .list(let context):
-                
-                let viewModel = globalResolver.resolve(CollageListViewModel.self)!
-                    .setup(context: context)
-                
-                CollageListScreen(viewModel: viewModel)
-                    .navigationBarBackButtonHidden()
-                
             case .createEdit(let clientId, let collageId):
                 
                 let viewModel = globalResolver.resolve(CollageCreateEditViewModel.self)!

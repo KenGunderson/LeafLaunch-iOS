@@ -53,10 +53,26 @@ struct MediaGalleryScreen: GPView {
             self.dismiss()
         }
         .asAnyView()
+        
+        let addCollageButton = NavBarButton(style: .plus) {
+            
+            if let clientId = self.viewModel.mediaContext.clientId {
+                
+                self.navigationService
+                    .push(.collage(.createEdit(
+                        clientId: clientId,
+                        collageId: nil
+                    )))
+                
+            }
+            
+        }
+        .asAnyView()
 
         NavBarView(
-            title: "Media Gallery",
-            leftButtonView: backButton
+            title: self.viewModel.navTitle,
+            leftButtonView: backButton,
+            rightButtonView: self.viewModel.mediaContext.allowsCollageCapability ? addCollageButton : nil
         )
         
     }

@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 final class CollageCreateEditViewModel: ViewModel {
     
@@ -73,7 +73,7 @@ final class CollageCreateEditViewModel: ViewModel {
         
     @Published private(set) var selectedMediaURLs: [MediaFusion?] = [nil, nil, nil, nil]
     @Published private(set) var selectedCollageType: CollageType = .grid(rows: 1, columns: 2)
-    
+        
     var maxNumberOfMedia: Int {
         
         let (rows, columns) = self.selectedCollageType.rowsAndColumns
@@ -118,7 +118,7 @@ final class CollageCreateEditViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     var navTitle: String {
-        return self.isCreateContext ? "Create Collage" : "Edit Collage"
+        return self.isCreateContext ? "Create Collage" : "Collage"
     }
     
     var saveButtonTitle: String {
@@ -237,13 +237,10 @@ final class CollageCreateEditViewModel: ViewModel {
         self.selectedCollageType = collageType
     }
     
-    func saveOrUpdate() {
-        save()
-    }
-    
-    private func save() {
+    func save(image: UIImage?) {
         
-        guard let client else { return }
+        guard let client = self.client else { return }
+        guard let image else { return }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -252,24 +249,14 @@ final class CollageCreateEditViewModel: ViewModel {
             
             do {
                 
-                let allMedia = Array(self.selectedMediaURLs.compactMap({ $0?.media?.url })
-                    .prefix(self.maxNumberOfMedia))
-                
-                let newCollage = Collage(
-                    id: UUID().uuidString,
-                    locationId: client.locationId ?? "",
-                    clientId: self.clientId,
-                    mediaURLs: allMedia,
-                    rowCount: self.selectedCollageType.rowsAndColumns.rows,
-                    columnCount: selectedCollageType.rowsAndColumns.columns,
-                    type: selectedCollageType
-                )
-                
-                try await self.apiService
-                    .createCollage(collage: newCollage)
-                
-                self.viewLifecycleService
-                    .reload(for: .collageList)
+                let _ = try await self.apiService
+                    .uploadMedia(uploadMedia: .init(
+                        data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                        businessId: self.activeDestinationService.businessId,
+                        locationId: client.locationId,
+                        clientId: client.id,
+                        mediaType: .collage
+                    ))
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
@@ -297,68 +284,6 @@ final class CollageCreateEditViewModel: ViewModel {
             }
             
             self.alertService.dismissLoadingIndicator()
-            
-        }
-        
-    }
-    
-    func deleteMediaURL(id: String) {
-        
-        self.selectedMediaURLs
-            .removeAll(where: { $0?.id == id })
-        
-    }
-
-    func presentDeleteCollageAlert() {
-        
-        self.alertService
-            .showAlert(.init(.appAlert(.init(
-                title: Constants.Message.deleteConfirmationTitle("Collage"),
-                message: Constants.Message.deleteConfirmationMessage("collage"),
-                primaryButtonTitle: "Yes",
-                primaryButtonAction: { [weak self] in
-                    self?.deleteCollage()
-                },
-                primaryButtonBackgroundColor: Style.shared.background(.error),
-                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
-                secondaryButtonTitle: "No",
-                secondaryButtonAction: {},
-                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
-                secondaryButtonTextColor: Style.shared.textColor(.title)
-            ))))
-        
-    }
-    
-    private func deleteCollage() {
-        
-        Task {
-            
-            do {
-                
-                try await self.apiService
-                    .deleteCollage(collageId: self.collageId ?? "")
-                
-                await MainActor.run { [weak self] in
-                    
-                    self?.viewLifecycleService
-                        .reload(for: .collageList)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self?.navigationService?.pop()
-                    }
-                    
-                }
-                
-            }
-            catch {
-                
-                self.alertService
-                    .showAlert(.init(.appAlert(.error(
-                        message: Constants.Message.errorMessage(context: .delete, "collage"),
-                        action: {})
-                    )))
-                
-            }
             
         }
         

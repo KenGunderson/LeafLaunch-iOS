@@ -23,6 +23,24 @@ enum MediaContext: Hashable {
         }
     }
     
+    var allowsCollageCapability: Bool {
+        switch self {
+        case .business: false
+        case .location: false
+        case .client: true
+        case .employee: false
+        }
+    }
+    
+    var clientId: String? {
+        switch self {
+        case .business: return nil
+        case .location: return nil
+        case .client(clientId: let clientId): return clientId
+        case .employee: return nil
+        }
+    }
+    
     var analyticsName: String {
         switch self {
         case .business: return "business"
@@ -77,17 +95,22 @@ final class MediaGalleryViewModel: ViewModel {
     @Published private(set) var shouldShowEmptyState: Bool = false
     
     @Published var showSortingDropdown: Bool = false
-    @Published var selectedSortingOption: MediaSortingOption? = .favorited
+    @Published var selectedSortingOption: MediaSortingOption? = .newest
     @Published var selectedTags: [MediaTag] = []
     
     private var media: [Media] = []
     private(set) var mediaTags: [MediaTag] = []
     
-    private var mediaContext: MediaContext!
+    private(set) var mediaContext: MediaContext!
     private var mediaSelectionContext: MediaSelectionContext!
+    private var mediaFilterOptions: MediaType!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    
+    var navTitle: String {
+        self.mediaFilterOptions == .collage ? "Collages" : "Media Gallery"
+    }
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -114,10 +137,12 @@ final class MediaGalleryViewModel: ViewModel {
     
     @discardableResult
     func setup(mediaContext: MediaContext,
-               mediaSelectionContext: MediaSelectionContext) -> Self {
+               mediaSelectionContext: MediaSelectionContext,
+               mediaFilterOptions: MediaType = .image) -> Self {
         
         self.mediaContext = mediaContext
         self.mediaSelectionContext = mediaSelectionContext
+        self.mediaFilterOptions = mediaFilterOptions
         
         return self
         
@@ -155,6 +180,7 @@ final class MediaGalleryViewModel: ViewModel {
                     media = try await self.apiService.getMedia(
                         businessId: businessId,
                         sortingOption: self.selectedSortingOption,
+                        filterOption: self.mediaFilterOptions,
                         tags: self.selectedTags
                     )
                     
@@ -163,6 +189,7 @@ final class MediaGalleryViewModel: ViewModel {
                     media = try await self.apiService.getMedia(
                         locationId: locationId,
                         sortingOption: self.selectedSortingOption,
+                        filterOption: self.mediaFilterOptions,
                         tags: self.selectedTags
                     )
                     
@@ -171,6 +198,7 @@ final class MediaGalleryViewModel: ViewModel {
                     media = try await self.apiService.getMedia(
                         clientId: clientId,
                         sortingOption: self.selectedSortingOption,
+                        filterOption: self.mediaFilterOptions,
                         tags: self.selectedTags
                     )
                     
@@ -179,6 +207,7 @@ final class MediaGalleryViewModel: ViewModel {
                     media = try await self.apiService.getMedia(
                         authorId: employeeId,
                         sortingOption: self.selectedSortingOption,
+                        filterOption: self.mediaFilterOptions,
                         tags: self.selectedTags
                     )
                 }
@@ -244,7 +273,11 @@ final class MediaGalleryViewModel: ViewModel {
     
     func emptyStateConfig() -> EmptyStateConfig {
         
-        let shouldShowAction = self.mediaContext.allowsCameraCapability
+        let isCollageContext = self.mediaFilterOptions == .collage
+        let shouldShowAction = (self.mediaContext.allowsCameraCapability && !isCollageContext)
+        
+        let title: String = isCollageContext ? "No Collages Found" : "No Photos Found"
+        let message: String = isCollageContext ? "Add a collage or adjust your filters to see results." : "Add a photo or adjust your filters to see results."
         let actionTitle: String? = shouldShowAction ? "Take A Photo" : nil
         let action: (() -> Void)? = shouldShowAction ? {
         
@@ -257,8 +290,8 @@ final class MediaGalleryViewModel: ViewModel {
         } : nil
                 
         return .init(
-            title: "No Photos Found",
-            message: "Add a photo or adjust your filters to see results.",
+            title: title,
+            message: message,
             image: .systemImage("magnifyingglass"),
             actionTitle: actionTitle,
             action: action
@@ -386,7 +419,11 @@ final class MediaGalleryViewModel: ViewModel {
 extension MediaGalleryViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .media(.gallery))
+        
+        self.analyticsService.track(screen: .media(.gallery(
+            mediaType: self.mediaFilterOptions
+        )))
+        
     }
     
 }

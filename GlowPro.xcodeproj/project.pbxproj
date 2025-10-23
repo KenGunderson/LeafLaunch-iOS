@@ -77,6 +77,8 @@
 		751F95412E0B7EB5001CAF72 /* BusinessCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */; };
 		751F95432E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
 		751F95442E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
+		752325E52EA9F4CF00A3230F /* ViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752325E42EA9F4CB00A3230F /* ViewReader.swift */; };
+		752325E62EA9F4CF00A3230F /* ViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752325E42EA9F4CB00A3230F /* ViewReader.swift */; };
 		75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
@@ -298,8 +300,6 @@
 		75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */; };
 		7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
 		7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
-		7585FA092EA49AB800AD6DC2 /* APIService+Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA082EA49AB300AD6DC2 /* APIService+Collage.swift */; };
-		7585FA0A2EA49AB800AD6DC2 /* APIService+Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA082EA49AB300AD6DC2 /* APIService+Collage.swift */; };
 		7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
@@ -549,12 +549,6 @@
 		75F79DA82E18299C00E24BD3 /* APIService+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */; };
 		75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
 		75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
-		75FF13C22EA492E600A94C2F /* CollageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C12EA492E000A94C2F /* CollageListViewModel.swift */; };
-		75FF13C32EA492E600A94C2F /* CollageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C12EA492E000A94C2F /* CollageListViewModel.swift */; };
-		75FF13C52EA492EA00A94C2F /* CollageListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C42EA492E800A94C2F /* CollageListScreen.swift */; };
-		75FF13C62EA492EA00A94C2F /* CollageListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C42EA492E800A94C2F /* CollageListScreen.swift */; };
-		75FF13C82EA4945900A94C2F /* Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C72EA4945800A94C2F /* Collage.swift */; };
-		75FF13C92EA4945900A94C2F /* Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FF13C72EA4945800A94C2F /* Collage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -617,6 +611,7 @@
 		751F953B2E0B7D26001CAF72 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditScreen.swift; sourceTree = "<group>"; };
 		751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditViewModel.swift; sourceTree = "<group>"; };
+		752325E42EA9F4CB00A3230F /* ViewReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReader.swift; sourceTree = "<group>"; };
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
@@ -741,7 +736,6 @@
 		75795D272E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsViewModel.swift; sourceTree = "<group>"; };
 		75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsScreen.swift; sourceTree = "<group>"; };
 		7582A2D82E48145A0020BA28 /* PendingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInviteView.swift; sourceTree = "<group>"; };
-		7585FA082EA49AB300AD6DC2 /* APIService+Collage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Collage.swift"; sourceTree = "<group>"; };
 		7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditViewModel.swift; sourceTree = "<group>"; };
 		7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditScreen.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
@@ -839,9 +833,6 @@
 		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
 		75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Employees.swift"; sourceTree = "<group>"; };
 		75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Clients.swift"; sourceTree = "<group>"; };
-		75FF13C12EA492E000A94C2F /* CollageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageListViewModel.swift; sourceTree = "<group>"; };
-		75FF13C42EA492E800A94C2F /* CollageListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageListScreen.swift; sourceTree = "<group>"; };
-		75FF13C72EA4945800A94C2F /* Collage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1365,7 +1356,6 @@
 				75A1ACF62E55519900AFCECD /* BusinessCategory.swift */,
 				75A1ACF92E5551A300AFCECD /* BusinessSubcategory.swift */,
 				759B64782E04A75E006F4995 /* Client.swift */,
-				75FF13C72EA4945800A94C2F /* Collage.swift */,
 				75B731F82E14E62200038AD6 /* Employee.swift */,
 				753CC0AE2E40FDD30024C776 /* EmployeeInvite.swift */,
 				753EC1A82DB8BC6400265B2A /* Gender.swift */,
@@ -1763,6 +1753,7 @@
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
+				752325E42EA9F4CB00A3230F /* ViewReader.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				75F32AFA2E615327003D904B /* Sheets */,
@@ -2105,7 +2096,6 @@
 				750843382E5C047D0039B06B /* APIService+Activity.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
-				7585FA082EA49AB300AD6DC2 /* APIService+Collage.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
 				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
 				75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */,
@@ -2124,19 +2114,9 @@
 		75FF13BF2EA492D300A94C2F /* Collage */ = {
 			isa = PBXGroup;
 			children = (
-				75FF13C02EA492DD00A94C2F /* List */,
 				7585FA0B2EA49F1300AD6DC2 /* Create Edit */,
 			);
 			path = Collage;
-			sourceTree = "<group>";
-		};
-		75FF13C02EA492DD00A94C2F /* List */ = {
-			isa = PBXGroup;
-			children = (
-				75FF13C12EA492E000A94C2F /* CollageListViewModel.swift */,
-				75FF13C42EA492E800A94C2F /* CollageListScreen.swift */,
-			);
-			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2355,6 +2335,7 @@
 				75715AD02DB9365F00E7994E /* ClientHomeViewModel.swift in Sources */,
 				759B64792E04A75F006F4995 /* Client.swift in Sources */,
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
+				752325E62EA9F4CF00A3230F /* ViewReader.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
 				753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
@@ -2371,7 +2352,6 @@
 				753EC19E2DB8BC5E00265B2A /* Query.swift in Sources */,
 				753EC19F2DB8BC5E00265B2A /* AppNumberFormatter.swift in Sources */,
 				753EC1A02DB8BC5E00265B2A /* ViewModel.swift in Sources */,
-				75FF13C82EA4945900A94C2F /* Collage.swift in Sources */,
 				750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
@@ -2459,7 +2439,6 @@
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
-				75FF13C32EA492E600A94C2F /* CollageListViewModel.swift in Sources */,
 				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
@@ -2532,7 +2511,6 @@
 				754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */,
 				7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
-				75FF13C52EA492EA00A94C2F /* CollageListScreen.swift in Sources */,
 				75EEA4162E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -2551,7 +2529,6 @@
 				75D6C2742E63C78800F8A336 /* CameraViewModel.swift in Sources */,
 				75C67E462E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
 				75C67E472E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
-				7585FA092EA49AB800AD6DC2 /* APIService+Collage.swift in Sources */,
 				75F4DF612E4C4518003308CF /* Workspace.swift in Sources */,
 				75795D292E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
 				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
@@ -2632,6 +2609,7 @@
 				75D66D102DC713C300E51CFC /* ClientHomeViewModel.swift in Sources */,
 				759B647A2E04A75F006F4995 /* Client.swift in Sources */,
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
+				752325E52EA9F4CF00A3230F /* ViewReader.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
 				753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
@@ -2648,7 +2626,6 @@
 				75D66D2B2DC713C300E51CFC /* Query.swift in Sources */,
 				75D66D2C2DC713C300E51CFC /* AppNumberFormatter.swift in Sources */,
 				75D66D2D2DC713C300E51CFC /* ViewModel.swift in Sources */,
-				75FF13C92EA4945900A94C2F /* Collage.swift in Sources */,
 				750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087D2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
@@ -2736,7 +2713,6 @@
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
-				75FF13C22EA492E600A94C2F /* CollageListViewModel.swift in Sources */,
 				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
@@ -2809,7 +2785,6 @@
 				754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */,
 				7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
-				75FF13C62EA492EA00A94C2F /* CollageListScreen.swift in Sources */,
 				75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
@@ -2828,7 +2803,6 @@
 				75D6C2752E63C78800F8A336 /* CameraViewModel.swift in Sources */,
 				75C67E442E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
 				75C67E452E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
-				7585FA0A2EA49AB800AD6DC2 /* APIService+Collage.swift in Sources */,
 				75F4DF602E4C4518003308CF /* Workspace.swift in Sources */,
 				75795D2B2E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift in Sources */,
 				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,

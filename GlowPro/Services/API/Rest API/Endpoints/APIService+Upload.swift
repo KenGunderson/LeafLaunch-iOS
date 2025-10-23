@@ -29,6 +29,8 @@ extension APIService {
             fields["clientId"] = .text(clientId)
         }
         
+        fields["mediaType"] = .text(uploadMedia.mediaType.queryParameter)
+        
         fields["file"] = .file(
             data: uploadMedia.data,
             filename: "TEMP_FILE_NAME.jpeg",

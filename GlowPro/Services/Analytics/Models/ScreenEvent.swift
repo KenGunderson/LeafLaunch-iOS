@@ -211,7 +211,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     
     enum MediaScreen {
         
-        case gallery
+        case gallery(mediaType: MediaType)
         case camera
         case preview
         case photoEdit
@@ -238,7 +238,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         var properties: [String: Any]? {
             
             switch self {
-            case .gallery: return nil
+            case .gallery(let mediaType): return ["media_type": mediaType.queryParameter]
             case .camera: return nil
             case .preview: return nil
             case .photoEdit: return nil

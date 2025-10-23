@@ -209,8 +209,10 @@ struct ClientHomeScreen: GPView {
                 .asButton {
                     
                     self.navigationService
-                        .push(.collage(.list(
-                            context: .client(clientId: self.viewModel.clientId)
+                        .push(.media(.gallery(
+                            mediaContext: .client(clientId: client.id),
+                            mediaSelectionContext: .preview,
+                            mediaFilterOptions: .collage
                         )))
                     
                 }

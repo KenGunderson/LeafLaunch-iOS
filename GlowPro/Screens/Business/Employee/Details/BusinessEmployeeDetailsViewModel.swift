@@ -98,6 +98,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                     .getMedia(
                         authorId: self.employeeId,
                         sortingOption: .newest,
+                        filterOption: .image,
                         tags: []
                     )
                 

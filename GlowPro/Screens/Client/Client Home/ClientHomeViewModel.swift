@@ -118,6 +118,7 @@ final class ClientHomeViewModel: ViewModel {
                     .getMedia(
                         clientId: self.clientId,
                         sortingOption: .newest,
+                        filterOption: .image,
                         tags: []
                     )
                 

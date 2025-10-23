@@ -229,11 +229,11 @@ struct BusinessLocationHomeScreen: GPView {
                 .asButton {
                     
                     self.navigationService
-                        .push(.collage(.list(
-                            context: .location(
-                                locationId: self.viewModel.locationId
-                            ))
-                        ))
+                        .push(.media(.gallery(
+                            mediaContext: .location(locationId: self.viewModel.locationId),
+                            mediaSelectionContext: .preview,
+                            mediaFilterOptions: .collage
+                        )))
                     
                 }
                 

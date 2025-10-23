@@ -401,21 +401,6 @@ class MockViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
-        // Collage List
-        
-        container
-            .register(CollageListViewModel.self) { r in
-                CollageListViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                )
-            }.inObjectScope(.transient)
-        
         // Collage Create Edit
         
         container

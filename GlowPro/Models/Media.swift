@@ -37,6 +37,37 @@ enum MediaSortingOption: String,
     
 }
 
+enum MediaType: String,
+                        CaseIterable,
+                        Codable,
+                        Selectable {
+    
+    var id: String {
+        return self.rawValue
+    }
+    
+    case image = "IMAGE"
+    case collage = "COLLAGE"
+    case diagram = "DIAGRAM"
+    
+    var description: String {
+        switch self {
+        case .image: return "Image"
+        case .collage: return "Collage"
+        case .diagram: return "Diagram"
+        }
+    }
+    
+    var queryParameter: String {
+        switch self {
+        case .image: return "IMAGE"
+        case .collage: return "COLLAGE"
+        case .diagram: return "DIAGRAM"
+        }
+    }
+    
+}
+
 struct MediaTag: Identifiable,
                  Equatable,
                  Codable,
@@ -76,6 +107,7 @@ struct Media: Identifiable,
     let url: URL
     var isFavorited: Bool
     var tags: [MediaTag]
+    var mediaType: MediaType
     
     private var _createdAt: String?
     private var _updatedAt: String?
@@ -104,6 +136,7 @@ struct Media: Identifiable,
          url: URL,
          isFavorited: Bool,
          tags: [MediaTag] = [],
+         mediaType: MediaType = .image,
          createdAt: Date? = nil,
          updatedAt: Date? = nil) {
         
@@ -115,6 +148,7 @@ struct Media: Identifiable,
         self.url = url
         self.isFavorited = isFavorited
         self.tags = tags
+        self.mediaType = mediaType
         self._createdAt = createdAt?.ISO8601Format()
         self._updatedAt = updatedAt?.ISO8601Format()
         
@@ -129,9 +163,28 @@ struct Media: Identifiable,
         case authorId = "author_id"
         case url
         case tags
+        case mediaType = "media_type"
         case isFavorited = "is_favorited"
         case _createdAt = "created_at"
         case _updatedAt = "updated_at"
+        
+    }
+    
+    init(from decoder: any Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(String.self, forKey: .id)
+        self.clientId = try container.decodeIfPresent(String.self, forKey: .clientId)
+        self.businessId = try container.decode(String.self, forKey: .businessId)
+        self.locationId = try container.decode(String.self, forKey: .locationId)
+        self.authorId = try container.decode(String.self, forKey: .authorId)
+        self.url = try container.decode(URL.self, forKey: .url)
+        self.tags = try container.decode([MediaTag].self, forKey: .tags)
+        self.mediaType = try container.decodeIfPresent(MediaType.self, forKey: .mediaType) ?? .image
+        self.isFavorited = try container.decode(Bool.self, forKey: .isFavorited)
+        self._createdAt = try container.decodeIfPresent(String.self, forKey: ._createdAt)
+        self._updatedAt = try container.decodeIfPresent(String.self, forKey: ._updatedAt)
         
     }
     
