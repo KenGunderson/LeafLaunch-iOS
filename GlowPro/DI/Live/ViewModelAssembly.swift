@@ -354,7 +354,8 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)
         
@@ -377,6 +378,21 @@ class ViewModelAssembly: Assembly {
         container
             .register(MediaTagViewModel.self) { r in
                 MediaTagViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Media Multi Tags
+        
+        container
+            .register(MediaMultiTagViewModel.self) { r in
+                MediaMultiTagViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,

@@ -1,0 +1,321 @@
+//
+//  MediaMultiTagViewModel.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 9/3/25.
+//
+
+import Combine
+import Foundation
+
+final class MediaMultiTagViewModel: ViewModel {
+    
+    internal let loggerName: String = "MEDIA_MULTI_TAG_VIEW_MODEL"
+    internal let loggerEmoji: String = "📸"
+    
+    private let apiService: APIServiceProtocol
+    private let authService: AuthServiceProtocol
+    private(set) var alertService: AlertServiceProtocol
+    private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
+    
+    @Published private(set) var mediaTags: [MediaTag] = []
+    @Published private(set) var selectedMediaTags: [MediaTag] = []
+    @Published var newMediaTag: String = ""
+    
+    var isNewMediaTagValid: Bool {
+        
+        guard !newMediaTag.isEmpty else { return false }
+        
+        let trimmedNewMediaTag = newMediaTag.trimmed()
+        return !trimmedNewMediaTag.isEmpty
+        
+    }
+    
+    var isMediaSelected: Bool {
+        return !self.selectedMedia.isEmpty
+    }
+    
+    var isSaveButtonEnabled: Bool {
+        
+        return (
+            !self.selectedMediaTags.isEmpty &&
+            !self.selectedMedia.isEmpty
+        )
+        
+    }
+    
+    private(set) var selectedMedia: [Media] = []
+
+    private var navigationService: NavigationService?
+    private var cancelBag: CancelBag!
+    
+    init(apiService: APIServiceProtocol,
+         authService: AuthServiceProtocol,
+         alertService: AlertServiceProtocol,
+         analyticsService: AnalyticsServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
+        
+        self.apiService = apiService
+        self.authService = authService
+        self.alertService = alertService
+        self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
+        self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
+        
+        self.logInit()
+        
+    }
+    
+    deinit {
+        self.logDeinit()
+    }
+    
+    @discardableResult
+    func setup(media: [Media]) -> Self {
+        
+        self.selectedMedia = media
+        return self
+        
+    }
+    
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
+    }
+    
+    func loadData() {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let mediaTags = try await self.apiService
+                    .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
+                
+                await MainActor.run { [weak self] in
+                    self?.mediaTags = mediaTags
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage("media tags"),
+                            action: {
+                                
+                                self.navigationService?
+                                    .popWithDelay()
+                                
+                            })
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func set(mediaTag: MediaTag) {
+        
+        if self.selectedMediaTags.contains(mediaTag) {
+            self.selectedMediaTags.removeAll(where: { $0 == mediaTag })
+        } else {
+            self.selectedMediaTags.append(mediaTag)
+        }
+        
+    }
+    
+    func createMediaTag() {
+        
+        guard self.isNewMediaTagValid else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let trimmedNewMediaTag = self.newMediaTag.trimmed()
+                
+                try await self.apiService.createTag(
+                    tag: trimmedNewMediaTag,
+                    businessId: self.activeDestinationService.businessId ?? ""
+                )
+                
+                let mediaTags = try await self.apiService
+                    .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
+                
+                if let tag = mediaTags.first(where: { $0.name == trimmedNewMediaTag }) {
+                    self.selectedMediaTags.append(tag)
+                }
+                
+                await MainActor.run { [weak self] in
+                    self?.newMediaTag = ""
+                }
+                
+                loadData()
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .create, "media tags"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func presentMediaTagAlert(mediaTag: MediaTag) {
+                
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: Constants.Message.deleteConfirmationTitle("Media Tag"),
+                message: Constants.Message.deleteConfirmationMessage("media tag"),
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                        self?.deleteMediaTag(mediaTag: mediaTag)
+                    }
+                    
+                },
+                primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            ))))
+        
+    }
+    
+    func updateBusinessDashboardHomeIfNeeded() {
+        
+        guard !self.isMediaSelected else { return }
+        
+        self.viewLifecycleService
+            .reload(for: .businessHome)
+        
+    }
+    
+    private func deleteMediaTag(mediaTag: MediaTag) {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService.deleteTag(mediaTagId: mediaTag.id)
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .delete, "media tags"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.viewLifecycleService
+                .reload(for: .mediaPreview)
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            loadData()
+            
+        }
+        
+    }
+    
+    func addMediaTagsForMedia() {
+        
+        guard !selectedMedia.isEmpty else { return }
+        guard !self.selectedMediaTags.isEmpty else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService.createMediaMutliTagForMedia(
+                    mediaIds: self.selectedMedia.map({ $0.id }),
+                    mediaTagIds: self.selectedMediaTags.map({ $0.id })
+                )
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .update, "media tags"),
+                            action: {})
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            updateBusinessDashboardHomeIfNeeded()
+            
+            self.viewLifecycleService
+                .reload(for: .mediaPreview)
+            
+            self.viewLifecycleService
+                .reload(for: .mediaGallery)
+            
+            self.navigationService?.dismissFullScreenCover()
+            
+        }
+        
+    }
+    
+    private func bindSubscribers() {
+        self.cancelBag = CancelBag()
+    }
+    
+}
+
+extension MediaMultiTagViewModel {
+    
+    func track() {
+        self.analyticsService.track(screen: .media(.mediaMultiTags))
+    }
+    
+}

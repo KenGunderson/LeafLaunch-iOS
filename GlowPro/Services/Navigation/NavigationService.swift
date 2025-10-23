@@ -624,6 +624,13 @@ extension View {
                 
                 MediaTagScreen(viewModel: viewModel)
                 
+            case .mediaMultiTags(let selectedMedia):
+                
+                let viewModel = globalResolver.resolve(MediaMultiTagViewModel.self)!
+                    .setup(media: selectedMedia)
+                
+                MediaMultiTagScreen(viewModel: viewModel)
+                
             case .mediaPreview(let url):
                 
                 MediaURLPreviewView(url: url)

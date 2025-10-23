@@ -314,6 +314,29 @@ extension APIService {
         
     }
     
+    func createMediaMutliTagForMedia(mediaIds: [String],
+                                     mediaTagIds: [String]) async throws {
+        
+        let parameters: [String: Any] = [
+            "media_ids": mediaIds,
+            "tag_ids": mediaTagIds
+        ]
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .mediaTagRelations("bulk")),
+                parameters: parameters
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func deleteMediaTagFromMedia(mediaId: String,
                                  mediaTagId: String) async throws {
         

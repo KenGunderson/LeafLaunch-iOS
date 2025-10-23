@@ -90,9 +90,13 @@ final class MediaGalleryViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     @Published private(set) var groups: [GroupedMedia] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    
+    @Published private(set) var isEditMode: Bool = false
+    @Published private(set) var editingMedia: [Media] = []
     
     @Published var showSortingDropdown: Bool = false
     @Published var selectedSortingOption: MediaSortingOption? = .newest
@@ -117,7 +121,8 @@ final class MediaGalleryViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
@@ -125,6 +130,7 @@ final class MediaGalleryViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         
         self.logInit()
         self.bindSubscribers()
@@ -253,21 +259,40 @@ final class MediaGalleryViewModel: ViewModel {
     
     func select(_ selectedMedia: Media) {
         
-        switch self.mediaSelectionContext! {
-        case .singleSelection(let completion):
+        if self.isEditMode {
             
-            completion(selectedMedia)
-            self.navigationService?.pop()
+            if self.editingMedia.contains(selectedMedia) {
+                self.editingMedia.removeAll { $0 == selectedMedia }
+            } else {
+                self.editingMedia.append(selectedMedia)
+            }
             
-        case .preview:
+        } else {
             
-            self.navigationService?
-                .push(.media(.preview(
-                    selectedMedia: selectedMedia,
-                    media: self.media)
-                ))
+            switch self.mediaSelectionContext! {
+            case .singleSelection(let completion):
+                
+                completion(selectedMedia)
+                self.navigationService?.pop()
+                
+            case .preview:
+                
+                self.navigationService?
+                    .push(.media(.preview(
+                        selectedMedia: selectedMedia,
+                        media: self.media)
+                    ))
+                
+            }
             
         }
+        
+    }
+    
+    func set(isEditMode: Bool) {
+        
+        self.isEditMode = isEditMode
+        self.editingMedia.removeAll()
         
     }
     
@@ -408,6 +433,13 @@ final class MediaGalleryViewModel: ViewModel {
             .receiveOnMain()
             .dropFirst()
             .sink { [weak self] _ in
+                self?.loadData()
+            }
+            .store(in: &self.cancelBag)
+        
+        self.viewLifecycleService
+            .publisher(for: .mediaGallery)
+            .sink { [weak self] in
                 self?.loadData()
             }
             .store(in: &self.cancelBag)

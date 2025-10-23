@@ -272,6 +272,10 @@
 		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
+		755D3FE92EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */; };
+		755D3FEA2EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE82EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift */; };
+		755D3FEB2EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */; };
+		755D3FEC2EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE82EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */; };
@@ -721,6 +725,8 @@
 		755C97E92D9CC86900437D5D /* GlowPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GlowProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GlowProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMultiTagViewModel.swift; sourceTree = "<group>"; };
+		755D3FE82EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMultiTagScreen.swift; sourceTree = "<group>"; };
 		7560ACD82E2835ED00A30E55 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
 		7560F89F2E4D3944002BA9D6 /* BusinessHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeViewModel.swift; sourceTree = "<group>"; };
 		7560F8A22E4D399A002BA9D6 /* BusinessHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeScreen.swift; sourceTree = "<group>"; };
@@ -1014,6 +1020,7 @@
 		750F9E1A2E56154B00C72EA7 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				755D3FE62EAAAC0F00F3D0D3 /* MultiMediaTag */,
 				75D0887F2E690B76000B06B2 /* MediaTag */,
 				75F135D12E638FAE00BFCD51 /* Camera */,
 				750F9E1B2E56155200C72EA7 /* Gallery */,
@@ -1652,6 +1659,15 @@
 				7537F4182DF661EA0031D9CF /* ViewLifecycle */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		755D3FE62EAAAC0F00F3D0D3 /* MultiMediaTag */ = {
+			isa = PBXGroup;
+			children = (
+				755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */,
+				755D3FE82EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift */,
+			);
+			path = MultiMediaTag;
 			sourceTree = "<group>";
 		};
 		7560F89D2E4D38E1002BA9D6 /* Home */ = {
@@ -2527,6 +2543,8 @@
 				750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D6C2742E63C78800F8A336 /* CameraViewModel.swift in Sources */,
+				755D3FE92EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */,
+				755D3FEA2EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift in Sources */,
 				75C67E462E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
 				75C67E472E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
 				75F4DF612E4C4518003308CF /* Workspace.swift in Sources */,
@@ -2801,6 +2819,8 @@
 				750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */,
 				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75D6C2752E63C78800F8A336 /* CameraViewModel.swift in Sources */,
+				755D3FEB2EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */,
+				755D3FEC2EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift in Sources */,
 				75C67E442E764F5200BB29F0 /* NoteCreateEditScreen.swift in Sources */,
 				75C67E452E764F5200BB29F0 /* NoteCreateEditViewModel.swift in Sources */,
 				75F4DF602E4C4518003308CF /* Workspace.swift in Sources */,

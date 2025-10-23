@@ -136,6 +136,7 @@ protocol APIServiceProtocol: APIProtocol {
     // Media Tag Relations
     
     func createMediaTagForMedia(mediaId: String, mediaTagId: String) async throws
+    func createMediaMutliTagForMedia(mediaIds: [String], mediaTagIds: [String]) async throws
     func deleteMediaTagFromMedia(mediaId: String, mediaTagId: String) async throws
     
     // Activity

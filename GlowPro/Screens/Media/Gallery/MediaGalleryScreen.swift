@@ -21,6 +21,9 @@ struct MediaGalleryScreen: GPView {
         } scrollViewContent: {
             content()
         }
+        .safeAreaInset(edge: .bottom) {
+            editModeBottomBar()
+        }
         .emptyStateOverlay(
             shouldShow: self.viewModel.shouldShowEmptyState,
             config: self.viewModel.emptyStateConfig()
@@ -44,6 +47,11 @@ struct MediaGalleryScreen: GPView {
             
         }
         
+        // Animation
+        
+        .animation(.bouncy, value: self.viewModel.isEditMode)
+        .animation(.bouncy, value: self.viewModel.editingMedia)
+        
     }
     
     @ViewBuilder
@@ -54,15 +62,33 @@ struct MediaGalleryScreen: GPView {
         }
         .asAnyView()
         
-        let addCollageButton = NavBarButton(style: .plus) {
+        let trailingButtons = HStack {
             
-            if let clientId = self.viewModel.mediaContext.clientId {
+            TokenView(text: "Edit")
+                .asButton {
+                    
+                    let isEditMode = self.viewModel.isEditMode
+                    
+                    self.viewModel
+                        .set(isEditMode: !isEditMode)
+                    
+                }
+            
+            if self.viewModel.mediaContext.allowsCollageCapability {
                 
-                self.navigationService
-                    .push(.collage(.createEdit(
-                        clientId: clientId,
-                        collageId: nil
-                    )))
+                NavBarButton(style: .plus) {
+                    
+                    if let clientId = self.viewModel.mediaContext.clientId {
+                        
+                        self.navigationService
+                            .push(.collage(.createEdit(
+                                clientId: clientId,
+                                collageId: nil
+                            )))
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -72,7 +98,7 @@ struct MediaGalleryScreen: GPView {
         NavBarView(
             title: self.viewModel.navTitle,
             leftButtonView: backButton,
-            rightButtonView: self.viewModel.mediaContext.allowsCollageCapability ? addCollageButton : nil
+            rightButtonView: trailingButtons
         )
         
     }
@@ -157,20 +183,20 @@ struct MediaGalleryScreen: GPView {
                             .select(item)
                         
                     }
+                    .overlay(alignment: .topTrailing) {
+                        
+                        if self.viewModel.isEditMode {
+                            
+                            let isSelected = self.viewModel.editingMedia.contains(where: { $0.id == item.id })
+                            editingView(isSelected: isSelected)
+                            
+                        }
+                        
+                    }
                     .overlay(alignment: .bottomTrailing) {
                         
-                        if item.isFavorited {
-                            
-                            Image(systemName: "star.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 18, height: 18)
-                                .foregroundStyle(GPColor.iconYellow)
-                                .padding(6)
-                                .background(.ultraThinMaterial, in: .circle)
-                                .padding([.bottom, .trailing], .small)
-                                .transition(.scale.combined(with: .opacity))
-                            
+                        if item.isFavorited && !self.viewModel.isEditMode {
+                            favoriteView()
                         }
                         
                     }
@@ -227,6 +253,83 @@ struct MediaGalleryScreen: GPView {
         .appShadow(.subtle)
         .appOnTapGesture {
             self.viewModel.set(tag: tag)
+        }
+        
+    }
+    
+    private func favoriteView() -> some View {
+        
+        Image(systemName: "star.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 18, height: 18)
+            .foregroundStyle(GPColor.iconYellow)
+            .padding(6)
+            .background(.ultraThinMaterial, in: .circle)
+            .padding([.bottom, .trailing], .small)
+            .transition(.scale.combined(with: .opacity))
+        
+    }
+    
+    private func editingView(isSelected: Bool) -> some View {
+        
+        ZStack {
+            
+            Circle()
+                .fill(.ultraThinMaterial)
+                .appBorder(cornerRadius: .extraLarge, color: .color(.white))
+            
+            if isSelected {
+                
+                Circle()
+                    .fill(Style.shared.accent.source())
+                    .overlay {
+                        
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundStyle(.white)
+                            .frame(width: 12, height: 12)
+                        
+                    }
+                    .transition(.scale.combined(with: .opacity))
+                
+            }
+            
+        }
+        .frame(width: 24, height: 24)
+        .clipShape(.circle)
+        .padding([.top, .trailing], .small)
+        .transition(.scale.combined(with: .opacity))
+        
+    }
+    
+    @ViewBuilder
+    private func editModeBottomBar() -> some View {
+        
+        if self.viewModel.isEditMode && !self.viewModel.editingMedia.isEmpty {
+            
+            let pluralText = self.viewModel.editingMedia.count > 1 ? "s" : ""
+            let title = "Edit Item\(pluralText) (\(self.viewModel.editingMedia.count))"
+            
+            CommonButton(title: title) {
+                
+                self.navigationService
+                    .modal(fullScreenCover: .mediaMultiTags(
+                        selectedMedia: self.viewModel.editingMedia)
+                    )
+                
+                self.viewModel.set(isEditMode: false)
+                
+            }
+            .padding(.top, .small)
+            .padding(.horizontal, .medium)
+            .transition(.move(edge: .bottom)
+                .combined(with: .opacity)
+                .animation(.smooth(duration: 0.3))
+            )
+            .background(Style.shared.background(.primary).source())
+            
         }
         
     }

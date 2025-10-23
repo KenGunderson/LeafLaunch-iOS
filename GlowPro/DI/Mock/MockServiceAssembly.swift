@@ -758,6 +758,27 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func createMediaMutliTagForMedia(mediaIds: [String],
+                                     mediaTagIds: [String]) async throws {
+        
+        mediaIds.forEach { mediaId in
+            
+            if let index = self.media.firstIndex(where: { $0.id == mediaId }) {
+                
+                mediaTagIds.forEach { tagId in
+                    
+                    if let mediaTag = self.mediaTags.first(where: { $0.id == tagId }) {
+                        self.media[index].tags.append(mediaTag)
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     func deleteMediaTagFromMedia(mediaId: String,
                                  mediaTagId: String) async throws {
         

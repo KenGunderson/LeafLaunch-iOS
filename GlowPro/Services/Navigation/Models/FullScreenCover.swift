@@ -13,6 +13,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     case devSettings
     case onboarding
     case mediaTags(selectedMedia: Media?)
+    case mediaMultiTags(selectedMedia: [Media])
     case mediaPreview(url: URL)
 
     var id: String {
@@ -30,6 +31,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .onboarding: return hasher.combine(1)
         case .settings: return hasher.combine(2)
         case .mediaTags(let selectedMedia): return hasher.combine(selectedMedia?.id)
+        case .mediaMultiTags(let selectedMedia): return hasher.combine(selectedMedia.first?.id)
         case .mediaPreview(let url): return hasher.combine(url.absoluteString)
         }
         
