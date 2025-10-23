@@ -163,20 +163,6 @@ struct ClientHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: ActivityCategory.form.icon,
-                    iconBackgroundColor: .color(ActivityCategory.form.color),
-                    title: "All Forms",
-                    subtitle: "Show All Forms",
-                    prominentSubtitle: false
-                )
-                .appShadow(.subtle)
-                .asButton {
-                    
-                    // TODO: - FILL OUT
-                    
-                }
-                
-                QuickActionTileView(
                     icon: ActivityCategory.camera.icon,
                     iconBackgroundColor: .color(ActivityCategory.camera.color),
                     title: "Camera",

@@ -106,6 +106,7 @@ public struct CameraScreen: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             
         }
+        .zIndex(10)
         .padding(.top, .medium)
         .padding(.horizontal, .medium)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -558,9 +559,13 @@ public struct CameraScreen: View {
                     
                     if let url = selectedMedia?.url {
                         
+                        let currentItem = self.selectedGhostOverlayItem
+                        
                         self.selectedGhostOverlayItem = .init(
-                            id: "CUSTOM",
-                            image: .remote(url: url)
+                            id: "CUSTOM_PHOTO",
+                            image: .remote(url: url),
+                            opacity: currentItem?.opacity ?? 0.5,
+                            scale: currentItem?.scale ?? 0.5
                         )
                         
                     }

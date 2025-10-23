@@ -76,9 +76,18 @@ final class CollageCreateEditViewModel: ViewModel {
     
     var maxNumberOfMedia: Int {
         
-        let maxNumberOfColumns: Int = self.selectedCollageType.rowsAndColumns.columns
-        let maxNumberOfRows: Int = self.selectedCollageType.rowsAndColumns.rows
-        return maxNumberOfColumns * maxNumberOfRows
+        let (rows, columns) = self.selectedCollageType.rowsAndColumns
+        let base = rows * columns
+        
+        if self.selectedCollageType.isGrid { return base }
+        
+        switch self.selectedCollageType {
+        case .oneLargeTwoSmall:   return base + 1   // 1x2 → 3
+        case .oneLargeOneSmall:   return base + 1   // 1x1 → 2
+        case .oneSmallOneLarge:   return base + 1   // 1x1 → 2
+        case .twoLargeTwoSmall:   return base       // 2x2 → 4 (no extra)
+        case .grid:               return base       // defensive, already handled
+        }
         
     }
     

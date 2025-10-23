@@ -115,6 +115,7 @@ struct AboutUsScreen: GPView {
 
             Text("Robert")
                 .font(Style.shared.font(.TITLE_5))
+                .foregroundStyle(Style.shared.accent.source())
 
             Text(", owned and operated a successful med-spa and experienced first-hand the daily challenges that come with running a growing practice—juggling clients, photos, notes, and follow-ups across disconnected tools. He saw how much time was lost to technology that didn’t quite fit the unique workflow of aestheticians and injectors.\n\nWe came together to build ")
 
@@ -132,7 +133,7 @@ struct AboutUsScreen: GPView {
 
             Text("GlowPro")
                 .foregroundStyle(Style.shared.accent.source())
-                .font(Style.shared.font(.BODY_4))
+                .font(Style.shared.font(.TITLE_5))
 
             Text(" saves time, streamlines operations, and elevates client trust—so you can focus on what matters most: making your clients glow.")
 
