@@ -13,7 +13,9 @@ struct SubscriptionPaywallScreen: GPView {
     @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
     
-    @State private var shouldAnimate: Bool = false
+    @State private var shouldAnimateHeader: Bool = false
+    @State private var shouldAnimateContent: Bool = false
+    @State private var shouldAnimateFooter: Bool = false
     
     @StateObject var viewModel: SubscriptionPaywallViewModel
     
@@ -38,10 +40,20 @@ struct SubscriptionPaywallScreen: GPView {
                     .loadData()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.shouldAnimate = true
+                    self.shouldAnimateHeader = true
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.shouldAnimateContent = true
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    self.shouldAnimateFooter = true
                 }
                 
             }
+        
+        // On Change
         
             .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
              
@@ -52,7 +64,7 @@ struct SubscriptionPaywallScreen: GPView {
 
         // Sheet
         
-            .presentationCornerRadius(Style.shared.radius(.medium))
+            .presentationCornerRadius(Style.shared.radius(.large))
             .presentationDragIndicator(.hidden)
             .presentationBackground(Style.shared.background(.primary).source())
             .interactiveDismissDisabled(true)
@@ -63,7 +75,9 @@ struct SubscriptionPaywallScreen: GPView {
         
         // Animations
         
-            .animation(.snappy, value: self.shouldAnimate)
+            .animation(.snappy, value: self.shouldAnimateHeader)
+            .animation(.snappy, value: self.shouldAnimateContent)
+            .animation(.snappy, value: self.shouldAnimateFooter)
         
     }
     
@@ -75,13 +89,17 @@ struct SubscriptionPaywallScreen: GPView {
                 
                 VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                     
-                    if self.shouldAnimate {
+                    if self.shouldAnimateHeader {
                         
                         header()
-                            .transition(.offset(y: 300).combined(with: .opacity))
+                            .transition(.offset(x: 500).combined(with: .opacity))
+                        
+                    }
+                    
+                    if self.shouldAnimateContent {
                         
                         benefitsView()
-                            .transition(.opacity.animation(.smooth.delay(0.50)))
+                            .transition(.offset(y: 300).combined(with: .opacity))
                         
                     }
                     
@@ -151,11 +169,15 @@ struct SubscriptionPaywallScreen: GPView {
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .appBorder(
-            cornerRadius: .medium,
-            color: Style.shared.accent,
-            lineWidth: 2.5
-        )
+        .background(.white)
+        .cornerRadius(.medium)
+        .appShadow(.card)
+//        .appBorder(
+//            cornerRadius: .medium,
+//            color: Style.shared.accent,
+//            lineWidth: 2
+//        )
+        .compositingGroup()
         
     }
     
@@ -194,7 +216,7 @@ struct SubscriptionPaywallScreen: GPView {
     @ViewBuilder
     private func bottomBar() -> some View {
         
-        if self.shouldAnimate {
+        if self.shouldAnimateFooter {
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
