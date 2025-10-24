@@ -13,6 +13,8 @@ enum Sheet: Identifiable, Hashable, Equatable {
                      businessId: String,
                      completion: ((Bool) -> Void)?)
     
+    case subscriptionPaywall
+    
     case whatsNew(WhatsNewItem)
     case permissions
     
@@ -28,8 +30,9 @@ enum Sheet: Identifiable, Hashable, Equatable {
         
         switch self {
         case .securityPin(_, let businessId, _): return hasher.combine(businessId)
-        case .whatsNew: return hasher.combine(0)
-        case .permissions: return hasher.combine(1)
+        case .subscriptionPaywall: return hasher.combine(0)
+        case .whatsNew: return hasher.combine(1)
+        case .permissions: return hasher.combine(2)
         }
         
     }

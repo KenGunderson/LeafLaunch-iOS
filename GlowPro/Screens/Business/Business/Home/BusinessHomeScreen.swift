@@ -99,9 +99,9 @@ struct BusinessHomeScreen: GPView {
                 
                 Group {
                     
+                    checklist()
                     tilesGrid()
                     quickActionButtons()
-                    checklist()
                     pendingInvitesList()
                     clientBirthdayList()
                     activitiesList()

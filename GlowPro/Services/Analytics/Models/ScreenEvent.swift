@@ -331,6 +331,32 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum SubscriptionScreen {
+        
+        case paywall
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .paywall: name = "paywall"
+            }
+            
+            return "subscription.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .paywall: return [:]
+            }
+            
+        }
+        
+    }
+    
     enum Settings {
         
         case settings
@@ -416,6 +442,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case collage(CollageScreen)
     case profile(ProfileScreen)
     case note(NoteScreen)
+    case subscription(SubscriptionScreen)
     case whatsNew
     case settings(Settings)
     case devSettings(DevSettings)
@@ -456,6 +483,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.properties
             
         case .note(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
+        case .subscription(let screen):
             
             screenName = screen.screenName
             properties = screen.properties
