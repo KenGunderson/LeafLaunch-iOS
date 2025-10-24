@@ -90,8 +90,10 @@ final class MediaTagViewModel: ViewModel {
                 let mediaTags = try await self.apiService
                     .getMediaTags(businessId: self.activeDestinationService.businessId ?? "")
                 
+                let sortedMediaTags = mediaTags.sorted(by: { $0.name < $1.name })
+                
                 await MainActor.run { [weak self] in
-                    self?.mediaTags = mediaTags
+                    self?.mediaTags = sortedMediaTags
                 }
                 
             }

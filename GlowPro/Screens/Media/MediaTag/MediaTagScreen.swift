@@ -102,7 +102,7 @@ struct MediaTagScreen: GPView {
                 showDivider: true
             )
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            WStack {
                 
                 ForEach(self.viewModel.mediaTags, id: \.self) { tag in
                     
@@ -135,21 +135,25 @@ struct MediaTagScreen: GPView {
         let foregroundStyle = isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title)
         let backgroundStyle = isSelected ? Style.shared.accent : Style.shared.background(.secondary)
         
-        AppCardView(backgroundStyle: backgroundStyle, shadow: .subtle) {
+        AppCardView(backgroundStyle: backgroundStyle, cornerRadius: .small, shadow: .subtle) {
             
-            Text(mediaTag.name.capitalized)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(foregroundStyle.source())
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Image(systemName: "trash")
-                .foregroundStyle(foregroundStyle.source())
-                .asButton {
-                    
-                    self.viewModel
-                        .presentMediaTagAlert(mediaTag: mediaTag)
-                    
-                }
+            HStack(spacing: Style.shared.spacing(.small)) {
+                
+                Text(mediaTag.name.capitalized)
+                    .appFont(with: .TITLE_4)
+                    .foregroundStyle(foregroundStyle.source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Image(systemName: "trash")
+                    .foregroundStyle(foregroundStyle.source())
+                    .asButton {
+                        
+                        self.viewModel
+                            .presentMediaTagAlert(mediaTag: mediaTag)
+                        
+                    }
+                
+            }
             
         }
         .asButton {
