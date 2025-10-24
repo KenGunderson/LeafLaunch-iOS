@@ -572,13 +572,6 @@ extension View {
                 
                 SecurityPinInputScreen(viewModel: viewModel)
                 
-            case .subscriptionPaywall:
-                
-                let viewModel = globalResolver.resolve(SubscriptionPaywallViewModel.self)!
-                    .setup()
-                
-                SubscriptionPaywallScreen(viewModel: viewModel)
-                
             case .whatsNew:
                 
                 let viewModel = globalResolver.resolve(WhatsNewViewModel.self)!
@@ -641,6 +634,13 @@ extension View {
             case .mediaPreview(let url):
                 
                 MediaURLPreviewView(url: url)
+                
+            case .subscriptionPaywall:
+                
+                let viewModel = globalResolver.resolve(SubscriptionPaywallViewModel.self)!
+                    .setup()
+                
+                SubscriptionPaywallScreen(viewModel: viewModel)
             }
             
         }

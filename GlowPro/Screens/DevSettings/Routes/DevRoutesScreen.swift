@@ -80,11 +80,6 @@ struct DevRoutesScreen: GPView {
                 )
             )
             
-            route(
-                title: "Paywall",
-                sheet: .subscriptionPaywall
-            )
-            
             // Full Screen Covers
             
             section(title: "Full Screen")
@@ -92,6 +87,11 @@ struct DevRoutesScreen: GPView {
             route(
                 title: "Settings",
                 fullScreenCover: .settings
+            )
+            
+            route(
+                title: "Paywall",
+                fullScreenCover: .subscriptionPaywall
             )
             
             route(
