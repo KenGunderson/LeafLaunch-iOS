@@ -13,7 +13,6 @@ struct SubscriptionPaywallScreen: GPView {
     @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
     
-    @State private var shouldAnimateHeader: Bool = false
     @State private var shouldAnimateContent: Bool = false
     @State private var shouldAnimateFooter: Bool = false
     
@@ -40,14 +39,10 @@ struct SubscriptionPaywallScreen: GPView {
                     .loadData()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.shouldAnimateHeader = true
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.shouldAnimateContent = true
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     self.shouldAnimateFooter = true
                 }
                 
@@ -75,7 +70,6 @@ struct SubscriptionPaywallScreen: GPView {
         
         // Animations
         
-            .animation(.snappy, value: self.shouldAnimateHeader)
             .animation(.snappy, value: self.shouldAnimateContent)
             .animation(.snappy, value: self.shouldAnimateFooter)
         
@@ -83,60 +77,87 @@ struct SubscriptionPaywallScreen: GPView {
     
     private func content() -> some View {
         
-        AppBaseView(alignment: .top) {
+        ScrollView {
             
-            ScrollView {
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.none)) {
                 
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+                header()
+                
+                if self.shouldAnimateContent {
                     
-                    if self.shouldAnimateHeader {
-                        
-                        header()
-                            .transition(.offset(x: 500).combined(with: .opacity))
-                        
-                    }
-                    
-                    if self.shouldAnimateContent {
-                        
-                        benefitsView()
-                            .transition(.offset(y: 300).combined(with: .opacity))
-                        
-                    }
+                    benefitsView()
+                        .offset(y: -24)
+                        .transition(.offset(y: 300).combined(with: .opacity))
                     
                 }
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity,
-                    alignment: .top
-                )
-                .padding(.horizontal, .medium)
                 
             }
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity,
+                alignment: .top
+            )
+            .background(Style.shared.background(.secondary).source())
+            .padding(.bottom, 86)
+            
+        }
+        .ignoresSafeArea()
+        .background(alignment: .top) {
+            
+            Color(hex: "a5d5b5")
+                .frame(height: 300)
+                .offset(y: 0)
+                .ignoresSafeArea()
             
         }
         .safeAreaInset(edge: .bottom) {
             bottomBar()
         }
+        .background(Style.shared.background(.secondary).source())
         
     }
     
     @ViewBuilder
     private func header() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
-            
-            Image(.illustrationLogo)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 32)
-            
-            Text("Capture. Organize. Grow.")
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .appFont(with: .HEADER_2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-        }
-        .padding(.top, .large)
+        Image(.illustrationWelcome)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .ignoresSafeArea()
+            .overlay(alignment: .bottom) {
+                                
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        
+                    Image(.illustrationLogo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 32)
+        
+                    Text("Capture. Organize. Grow.")
+                        .foregroundStyle(Style.shared.textColor(.titleInverted).source())
+                        .appFont(with: .HEADER_2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+        
+                }
+                .padding(.horizontal, .medium)
+                .padding(.bottom, .custom(28))
+                .background {
+                    
+                    LinearGradient(
+                        colors: [
+                            
+                            Color(hex: "a5d5b5"),
+                            Color(hex: "a5d5b5").opacity(0.9),
+                            Color.clear
+                            
+                        ],
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
+                    
+                }
+                
+            }
         
     }
     
@@ -147,9 +168,18 @@ struct SubscriptionPaywallScreen: GPView {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
                 
-                Text("Premium Access")
-                    .foregroundStyle(Style.shared.accent.source())
-                    .appFont(with: .HEADER_3)
+                HStack {
+                    
+                    Text("Premium Access")
+                        .foregroundStyle(Style.shared.accent.source())
+                        .appFont(with: .HEADER_3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("$29.99")
+                        .foregroundStyle(Style.shared.accent.source())
+                        .appFont(with: .HEADER_4)
+                    
+                }
                 
                 Text("Get exclusive access to all features, including ad-free browsing, offline listening, and early access to new releases.")
                     .foregroundStyle(Style.shared.textColor(.body).source())
@@ -168,15 +198,18 @@ struct SubscriptionPaywallScreen: GPView {
             .padding(.medium)
             
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.white)
-        .cornerRadius(.medium)
-        .appShadow(.card)
-//        .appBorder(
-//            cornerRadius: .medium,
-//            color: Style.shared.accent,
-//            lineWidth: 2
-//        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .background(Style.shared.background(.secondary).source())
+        .clipShape(
+            .rect(
+                cornerRadii: .init(
+                    topLeading: 24,
+                    bottomLeading: 0,
+                    bottomTrailing: 0,
+                    topTrailing: 24
+                )
+            )
+        )
         .compositingGroup()
         
     }
@@ -235,8 +268,10 @@ struct SubscriptionPaywallScreen: GPView {
                     }
                 
             }
-            .background(Style.shared.background(.primary).source())
             .padding(.horizontal, .large)
+            .padding(.top, .small)
+            .frame(maxWidth: .infinity)
+            .background(Style.shared.background(.secondary).source())
             .transition(.move(edge: .bottom).combined(with: .opacity))
             
         }
@@ -260,7 +295,7 @@ struct SubscriptionPaywallScreen: GPView {
         .padding(.horizontal, .large)
         
     }
-    .sheet(isPresented: $showPaywall) {
+    .fullScreenCover(isPresented: $showPaywall) {
         
         SubscriptionPaywallScreen(viewModel: viewModel)
             .withMockServices()

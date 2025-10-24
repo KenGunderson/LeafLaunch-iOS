@@ -77,8 +77,6 @@
 		751F95412E0B7EB5001CAF72 /* BusinessCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */; };
 		751F95432E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
 		751F95442E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
-		752325E52EA9F4CF00A3230F /* ViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752325E42EA9F4CB00A3230F /* ViewReader.swift */; };
-		752325E62EA9F4CF00A3230F /* ViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752325E42EA9F4CB00A3230F /* ViewReader.swift */; };
 		75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
@@ -619,7 +617,6 @@
 		751F953B2E0B7D26001CAF72 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditScreen.swift; sourceTree = "<group>"; };
 		751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditViewModel.swift; sourceTree = "<group>"; };
-		752325E42EA9F4CB00A3230F /* ViewReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReader.swift; sourceTree = "<group>"; };
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
@@ -1776,7 +1773,6 @@
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
-				752325E42EA9F4CB00A3230F /* ViewReader.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				75F32AFA2E615327003D904B /* Sheets */,
@@ -2375,7 +2371,6 @@
 				75715AD02DB9365F00E7994E /* ClientHomeViewModel.swift in Sources */,
 				759B64792E04A75F006F4995 /* Client.swift in Sources */,
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
-				752325E62EA9F4CF00A3230F /* ViewReader.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
 				753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
@@ -2653,7 +2648,6 @@
 				75D66D102DC713C300E51CFC /* ClientHomeViewModel.swift in Sources */,
 				759B647A2E04A75F006F4995 /* Client.swift in Sources */,
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
-				752325E52EA9F4CF00A3230F /* ViewReader.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
 				753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
