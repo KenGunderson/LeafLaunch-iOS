@@ -10,13 +10,16 @@ import SwiftUI
 struct SubscriptionPaywallScreen: GPView {
     
     @Environment(NavigationService.self) private var navigationService
-    @Environment(\.isPresented) private var isPresented
     @Environment(\.dismiss) private var dismiss
+    
+    @StateObject var viewModel: SubscriptionPaywallViewModel
     
     @State private var shouldAnimateContent: Bool = false
     @State private var shouldAnimateFooter: Bool = false
     
-    @StateObject var viewModel: SubscriptionPaywallViewModel
+    @State private var extractedColors: [Color] = []
+    
+    let backgroundColor = Style.shared.background(.secondary).source()
     
     var body: some View {
         
@@ -38,6 +41,8 @@ struct SubscriptionPaywallScreen: GPView {
                 self.viewModel
                     .loadData()
                 
+                self.extractColor()
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.shouldAnimateContent = true
                 }
@@ -56,13 +61,6 @@ struct SubscriptionPaywallScreen: GPView {
                 self.dismiss()
                 
             }
-
-        // Sheet
-        
-            .presentationCornerRadius(Style.shared.radius(.large))
-            .presentationDragIndicator(.hidden)
-            .presentationBackground(Style.shared.background(.primary).source())
-            .interactiveDismissDisabled(true)
         
         // Alerts
         
@@ -85,9 +83,13 @@ struct SubscriptionPaywallScreen: GPView {
                 
                 if self.shouldAnimateContent {
                     
-                    benefitsView()
-                        .offset(y: -24)
-                        .transition(.offset(y: 300).combined(with: .opacity))
+                    if let paywallItem = self.viewModel.paywallItem {
+                        
+                        benefitsView(item: paywallItem)
+                            .offset(y: -24)
+                            .transition(.offset(y: 300).combined(with: .opacity))
+                        
+                    }
                     
                 }
                 
@@ -97,33 +99,34 @@ struct SubscriptionPaywallScreen: GPView {
                 maxHeight: .infinity,
                 alignment: .top
             )
-            .background(Style.shared.background(.secondary).source())
+            .background(self.backgroundColor)
             .padding(.bottom, 86)
             
         }
         .ignoresSafeArea()
-        .background(alignment: .top) {
-            
-            Color(hex: "a5d5b5")
-                .frame(height: 300)
-                .offset(y: 0)
-                .ignoresSafeArea()
-            
-        }
         .safeAreaInset(edge: .bottom) {
             bottomBar()
         }
-        .background(Style.shared.background(.secondary).source())
+        .background(self.backgroundColor)
         
     }
     
     @ViewBuilder
     private func header() -> some View {
         
-        Image(.illustrationWelcome)
-            .resizable()
+        self.viewModel
+            .paywallItem
+            .illustration
+            .view()
             .aspectRatio(contentMode: .fill)
-            .ignoresSafeArea()
+            .stretchy()
+            .gradientBlur(
+                color: extractedColors.first ?? .red,
+                alignment: .bottom,
+                gradientDirection: .topToBottom,
+                mask: .preset(.medium),
+                heightStyle: .fixed(150)
+            )
             .overlay(alignment: .bottom) {
                                 
                 VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
@@ -133,7 +136,7 @@ struct SubscriptionPaywallScreen: GPView {
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 32)
         
-                    Text("Capture. Organize. Grow.")
+                    Text(self.viewModel.paywallItem.tagline)
                         .foregroundStyle(Style.shared.textColor(.titleInverted).source())
                         .appFont(with: .HEADER_2)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -141,55 +144,36 @@ struct SubscriptionPaywallScreen: GPView {
                 }
                 .padding(.horizontal, .medium)
                 .padding(.bottom, .custom(28))
-                .background {
-                    
-                    LinearGradient(
-                        colors: [
-                            
-                            Color(hex: "a5d5b5"),
-                            Color(hex: "a5d5b5").opacity(0.9),
-                            Color.clear
-                            
-                        ],
-                        startPoint: .bottom,
-                        endPoint: .top
-                    )
-                    
-                }
                 
             }
         
     }
     
     @ViewBuilder
-    private func benefitsView() -> some View {
-        
+    private func benefitsView(item: SubscriptionPaywallItem) -> some View {
+                
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
                 
                 HStack {
                     
-                    Text("Premium Access")
+                    Text(item.title)
                         .foregroundStyle(Style.shared.accent.source())
                         .appFont(with: .HEADER_3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("$29.99")
+                    Text(item.price, format: .currency(code: "USD"))
                         .foregroundStyle(Style.shared.accent.source())
                         .appFont(with: .HEADER_4)
                     
                 }
                 
-                Text("Get exclusive access to all features, including ad-free browsing, offline listening, and early access to new releases.")
+                Text(item.description)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .appFont(with: .BODY_3)
                 
-                let allBenefits = SubscriptionPaywallViewModel
-                    .SubscriptionBenefit
-                    .allCases
-                
-                ForEach(allBenefits, id: \.rawValue) { benefit in
+                ForEach(item.benefits, id: \.title) { benefit in
                     benefitView(benefit)
                 }
                 .padding(.top, .small2)
@@ -199,7 +183,7 @@ struct SubscriptionPaywallScreen: GPView {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .background(Style.shared.background(.secondary).source())
+        .background(self.backgroundColor)
         .clipShape(
             .rect(
                 cornerRadii: .init(
@@ -215,7 +199,7 @@ struct SubscriptionPaywallScreen: GPView {
     }
     
     @ViewBuilder
-    private func benefitView(_ benefit: SubscriptionPaywallViewModel.SubscriptionBenefit) -> some View {
+    private func benefitView(_ benefit: SubscriptionPaywallItem.BenefitItem) -> some View {
         
         HStack(spacing: Style.shared.spacing(.small2)) {
             
@@ -271,8 +255,42 @@ struct SubscriptionPaywallScreen: GPView {
             .padding(.horizontal, .large)
             .padding(.top, .small)
             .frame(maxWidth: .infinity)
-            .background(Style.shared.background(.secondary).source())
+            .background(self.backgroundColor)
             .transition(.move(edge: .bottom).combined(with: .opacity))
+            
+        }
+        
+    }
+    
+    private func extractColor() {
+        
+        // Heavy work off the main thread
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            do {
+                
+                switch self.viewModel.paywallItem.illustration {
+                case .image(let image, _):
+                    
+                    let image = UIImage(resource: image)
+                    
+                    let uiColors = try image.extractColors(
+                        numberOfColors: 2,
+                        sortByProminence: true
+                    )
+                    
+                    let swiftUIColors = uiColors.map { Color($0) }
+                    
+                    DispatchQueue.main.async {
+                        extractedColors = swiftUIColors
+                    }
+                    
+                default: break
+                }
+                
+            } catch {
+                print("Failed to extract colors:", error)
+            }
             
         }
         
@@ -285,7 +303,7 @@ struct SubscriptionPaywallScreen: GPView {
     @Previewable @State var showPaywall: Bool = true
     
     let viewModel = mockResolve(SubscriptionPaywallViewModel.self)
-        .setup()
+        .setup(paywallItem: .GLOWPRO_ADD_LOCATION_MONTHLY)
     
     AppBaseView {
     
@@ -303,3 +321,4 @@ struct SubscriptionPaywallScreen: GPView {
     }
     
 }
+

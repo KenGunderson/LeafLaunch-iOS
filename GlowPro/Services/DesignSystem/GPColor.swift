@@ -33,5 +33,7 @@ struct GPColor {
     
     static let gray = Color(hex: "#dee2e6")
     static let lightGray = Color(hex: "#f4f6f7")
+    
+    static let illustrationGreen = Color(hex: "#a5d5b5")
         
 }

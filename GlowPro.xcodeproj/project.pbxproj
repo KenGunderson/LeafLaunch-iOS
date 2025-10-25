@@ -288,6 +288,12 @@
 		7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */; };
 		756308802E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
 		756308812E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
+		756687292EAC873600C3DC8E /* SubscriptionPaywallItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756687282EAC872F00C3DC8E /* SubscriptionPaywallItem.swift */; };
+		7566872A2EAC873600C3DC8E /* SubscriptionPaywallItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756687282EAC872F00C3DC8E /* SubscriptionPaywallItem.swift */; };
+		7566872C2EAC89E800C3DC8E /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566872B2EAC89E500C3DC8E /* Ext+View.swift */; };
+		7566872D2EAC89E800C3DC8E /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566872B2EAC89E500C3DC8E /* Ext+View.swift */; };
+		756687332EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756687322EAC8C1C00C3DC8E /* GradientBlurMask.swift */; };
+		756687342EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756687322EAC8C1C00C3DC8E /* GradientBlurMask.swift */; };
 		7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */; };
@@ -735,6 +741,9 @@
 		7560F8A72E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationHomeScreen.swift; sourceTree = "<group>"; };
 		7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewViewModel.swift; sourceTree = "<group>"; };
 		7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewScreen.swift; sourceTree = "<group>"; };
+		756687282EAC872F00C3DC8E /* SubscriptionPaywallItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaywallItem.swift; sourceTree = "<group>"; };
+		7566872B2EAC89E500C3DC8E /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
+		756687322EAC8C1C00C3DC8E /* GradientBlurMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBlurMask.swift; sourceTree = "<group>"; };
 		7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientBirthdayView.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeScreen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeViewModel.swift; sourceTree = "<group>"; };
@@ -1377,6 +1386,7 @@
 				7515DA822E7A6DF800617B06 /* UploadMedia.swift */,
 				75C67E332E764C4300BB29F0 /* Note.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
+				756687282EAC872F00C3DC8E /* SubscriptionPaywallItem.swift */,
 				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
@@ -1608,6 +1618,7 @@
 				753EC1E62DB8C4E800265B2A /* DI */,
 				755C98262D9CC8E000437D5D /* Services */,
 				758DAEA12E0514F100311C7C /* Components */,
+				756687312EAC8C1500C3DC8E /* ViewModifiers */,
 				75A46EF52E5EB4540057EF72 /* Extensions */,
 				753EC1922DB8BC0B00265B2A /* Models */,
 				755C98252D9CC8D300437D5D /* Screens */,
@@ -1699,6 +1710,14 @@
 				7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		756687312EAC8C1500C3DC8E /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				756687322EAC8C1C00C3DC8E /* GradientBlurMask.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		75715AD12DB9366700E7994E /* Client Home */ = {
@@ -1839,6 +1858,7 @@
 		75A46EF52E5EB4540057EF72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7566872B2EAC89E500C3DC8E /* Ext+View.swift */,
 				75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */,
 				754241CE2E71CA9C00848F6F /* Ext+String.swift */,
 			);
@@ -2431,6 +2451,7 @@
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */,
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
+				7566872C2EAC89E800C3DC8E /* Ext+View.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
@@ -2512,6 +2533,7 @@
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
+				7566872A2EAC873600C3DC8E /* SubscriptionPaywallItem.swift in Sources */,
 				7537F48C2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				75B429A82E70061500DE7852 /* PlaceholderView.swift in Sources */,
 				75B1A51F2EAB20B90052F067 /* SubscriptionPaywallScreen.swift in Sources */,
@@ -2554,6 +2576,7 @@
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				753CC0B02E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
+				756687332EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
@@ -2708,6 +2731,7 @@
 				7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */,
 				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
+				7566872D2EAC89E800C3DC8E /* Ext+View.swift in Sources */,
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
@@ -2789,6 +2813,7 @@
 				7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
+				756687292EAC873600C3DC8E /* SubscriptionPaywallItem.swift in Sources */,
 				7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				75B429A92E70061500DE7852 /* PlaceholderView.swift in Sources */,
 				75B1A51E2EAB20B90052F067 /* SubscriptionPaywallScreen.swift in Sources */,
@@ -2831,6 +2856,7 @@
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				753CC0AF2E40FDD30024C776 /* EmployeeInvite.swift in Sources */,
+				756687342EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
