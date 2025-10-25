@@ -59,6 +59,7 @@ final class EnvironmentService: EnvironmentServiceProtocol {
         switch env {
         case "DEVELOPMENT": return .development
         case "PRODUCTION": return .production
+        case "LOCALHOST": return .localhost
         default: return nil
         }
         
