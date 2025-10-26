@@ -94,12 +94,10 @@ struct NoteCreateEditScreen: View {
                 matching: .images
             )
         
-        // PDF Sheet
+        // PDF Screen
         
-            .adaptiveSheet(
-                isPresented: self.$viewModel.shouldShowPDFEditorSheet,
-                additionalDetens: [],
-                backgroundStyle: Style.shared.background(.primary)
+            .fullScreenCover(
+                isPresented: self.$viewModel.shouldShowPDFEditorSheet
             ) {
                 
                 PDFEditorView(
