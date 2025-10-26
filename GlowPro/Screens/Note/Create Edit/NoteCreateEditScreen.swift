@@ -69,7 +69,7 @@ struct NoteCreateEditScreen: View {
                 self.focusedField = nil
             }
         
-        // Sheet
+        // Media Sheet
         
             .adaptiveSheet(
                 isPresented: self.$viewModel.shouldShowMediaSourceSelectionSheet,
@@ -93,6 +93,29 @@ struct NoteCreateEditScreen: View {
                 selectionBehavior: .ordered,
                 matching: .images
             )
+        
+        // PDF Sheet
+        
+            .adaptiveSheet(
+                isPresented: self.$viewModel.shouldShowPDFEditorSheet,
+                additionalDetens: [],
+                backgroundStyle: Style.shared.background(.primary)
+            ) {
+                
+                PDFEditorView(
+                    pdfItems: [
+                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
+                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
+                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
+                    ]
+                ) { editedData in
+                    
+                    // TODO: Need to handle the data how ever we want
+                    print("Edited PDF size: \(editedData.count) bytes")
+                    
+                }
+                
+            }
         
         // OnChange
         
@@ -289,6 +312,8 @@ struct NoteCreateEditScreen: View {
                 
                 cameraItem()
                 
+                documentItem()
+                
             }
             .padding(.top, .small)
             
@@ -416,6 +441,32 @@ struct NoteCreateEditScreen: View {
                 
                 self.viewModel
                     .shouldShowMediaSourceSelectionSheet = true
+                
+            }
+        
+    }
+    
+    private func documentItem() -> some View {
+        
+        Image(systemName: "long.text.page.and.pencil.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundStyle(Style.shared.background(.quaternary).source())
+            .padding(EdgeInsets(top: 26, leading: 28, bottom: 22, trailing: 22))
+            .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
+            .appBorder(
+                cornerRadius: .small,
+                color: Style.shared.background(.quaternary),
+                lineWidth: 3,
+                outerBorder: false
+            )
+            .cornerRadius(.custom(9))
+            .background(.backgroundTappable)
+            .asButton {
+                
+                self.viewModel
+                    .shouldShowPDFEditorSheet = true
                 
             }
         

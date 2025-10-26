@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC352EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
+		4A4BDC362EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
+		4A4BDC372EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
+		4A4BDC392EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
+		4A4BDC3A2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
+		4A4BDC3B2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
+		4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
+		4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
+		4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
 		75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
 		75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
 		75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
@@ -857,6 +872,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
+		4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFThumbnailView.swift; sourceTree = "<group>"; };
+		4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitCanvasView.swift; sourceTree = "<group>"; };
+		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
+		4ADEEB522EADCE000092678C /* PDFInkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInkView.swift; sourceTree = "<group>"; };
 		75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
 		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
@@ -1216,6 +1236,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4BDC3C2EADAB8F002D0DD2 /* PDFs */ = {
+			isa = PBXGroup;
+			children = (
+				4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */,
+			);
+			path = PDFs;
+			sourceTree = "<group>";
+		};
 		75027FDC2E7FAEEB00E10640 /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,6 +1392,7 @@
 		7510A3C82D9D8AAF000A93CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A4BDC3C2EADAB8F002D0DD2 /* PDFs */,
 				75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */,
 				75D8EDEE2DF600D6004D1E25 /* Info.plist */,
 				75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */,
@@ -1413,6 +1442,10 @@
 		753420622E7A3AEA00DE3BE4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4ADEEB522EADCE000092678C /* PDFInkView.swift */,
+				4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */,
+				4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */,
+				4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */,
 				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
 			);
 			path = Views;
@@ -2693,6 +2726,7 @@
 			files = (
 				75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
 				7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */,
+				4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */,
 			);
@@ -2720,6 +2754,7 @@
 				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
 				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
 				75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
+				4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2732,6 +2767,7 @@
 				75DD84CC2EAD731300DD8850 /* GlowPro-Localhost-Info.plist in Resources */,
 				75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */,
 				75DD84C02EAD728600DD8850 /* GoogleService-Info.plist in Resources */,
+				4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75DD84C12EAD728600DD8850 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2853,6 +2889,7 @@
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31A2E712E3400032754 /* LocationEmployee.swift in Sources */,
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
+				4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -2938,6 +2975,7 @@
 				756687332EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26C2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -2968,6 +3006,7 @@
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
+				4A4BDC392EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
@@ -2986,6 +3025,7 @@
 				75A0357A2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */,
 				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
+				4A4BDC372EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				753EC1A92DB8BC6400265B2A /* GPUser.swift in Sources */,
 				75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
@@ -3133,6 +3173,7 @@
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31B2E712E3400032754 /* LocationEmployee.swift in Sources */,
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
+				4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -3218,6 +3259,7 @@
 				756687342EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26B2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -3248,6 +3290,7 @@
 				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
+				4A4BDC3B2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
 				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
@@ -3266,6 +3309,7 @@
 				75A0357B2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75D66D7A2DC713C300E51CFC /* ClientHomeScreen.swift in Sources */,
 				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
+				4A4BDC362EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				75D66D842DC713C300E51CFC /* GPUser.swift in Sources */,
 				75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
@@ -3396,6 +3440,7 @@
 				75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */,
 				75DD84192EAD728600DD8850 /* LocationEmployee.swift in Sources */,
 				75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */,
+				4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */,
 				75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */,
 				75DD841C2EAD728600DD8850 /* EnvironmentService.swift in Sources */,
 				75DD841D2EAD728600DD8850 /* GhostOverlayCarouselView.swift in Sources */,
@@ -3481,6 +3526,7 @@
 				75DD846D2EAD728600DD8850 /* GradientBlurMask.swift in Sources */,
 				75DD846E2EAD728600DD8850 /* ActivitiesView.swift in Sources */,
 				75DD846F2EAD728600DD8850 /* SettingsScreen.swift in Sources */,
+				4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75DD84702EAD728600DD8850 /* MediaPreviewViewModel.swift in Sources */,
 				75DD84712EAD728600DD8850 /* CameraService.swift in Sources */,
 				75DD84722EAD728600DD8850 /* ActiveDestination.swift in Sources */,
@@ -3511,6 +3557,7 @@
 				75DD848B2EAD728600DD8850 /* BaseAppCardConfigView.swift in Sources */,
 				75DD848C2EAD728600DD8850 /* NoteListScreen.swift in Sources */,
 				75DD848D2EAD728600DD8850 /* SignUpScreen.swift in Sources */,
+				4A4BDC3A2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				75DD848E2EAD728600DD8850 /* DevImpersonateScreen.swift in Sources */,
 				75DD848F2EAD728600DD8850 /* DevRoutesViewModel.swift in Sources */,
 				75DD84902EAD728600DD8850 /* DevRoutesScreen.swift in Sources */,
@@ -3529,6 +3576,7 @@
 				75DD849D2EAD728600DD8850 /* FAQItemView.swift in Sources */,
 				75DD849E2EAD728600DD8850 /* ClientHomeScreen.swift in Sources */,
 				75DD849F2EAD728600DD8850 /* WelcomeScreen.swift in Sources */,
+				4A4BDC352EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75DD84A02EAD728600DD8850 /* GPTheme.swift in Sources */,
 				75DD84A12EAD728600DD8850 /* GPUser.swift in Sources */,
 				75DD84A22EAD728600DD8850 /* OnboardingPermissionsViewModel.swift in Sources */,

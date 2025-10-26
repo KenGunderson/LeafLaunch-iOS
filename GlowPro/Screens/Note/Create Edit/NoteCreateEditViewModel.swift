@@ -49,6 +49,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     @Published var shouldShowMediaSourceSelectionSheet: Bool = false
     @Published var shouldShowApplePhotosSelectionSheet: Bool = false
+    @Published var shouldShowPDFEditorSheet: Bool = false
     
     private var context: Context!
     private var clientId: String!
