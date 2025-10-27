@@ -127,25 +127,28 @@ struct OnboardingScreen: View {
     }
     
     private var bottomButtonView: some View {
-
-        let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
         
+        let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
+                
         return HStack(spacing: Style.shared.spacing(.small)) {
             
-            CommonButton(title: self.viewModel.isLastPage ? "Finish" : "Next", isEnabled: isButtonEnabled) {
-                
-                if self.viewModel.isLastPage {
+            CommonButton(
+                title: self.viewModel.isLastPage ? "Finish" : "Next",
+                isEnabled: isButtonEnabled) {
                     
-                    self.viewModel.finish()
-                    dismiss()
+                    if self.viewModel.isLastPage {
+                        
+                        self.viewModel.finish()
+                        dismiss()
+                        
+                    } else {
+                        self.viewModel.nextPage()
+                    }
                     
-                } else {
-                    self.viewModel.nextPage()
                 }
-                
-            }
-            .contentTransition(.numericText())
-            .transition(.move(edge: .trailing).combined(with: .opacity))
+                .opacity(isButtonEnabled ? 1 : 0.85)
+                .contentTransition(.numericText())
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             
         }
         .foregroundStyle(.black)

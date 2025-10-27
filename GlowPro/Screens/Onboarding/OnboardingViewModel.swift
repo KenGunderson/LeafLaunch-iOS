@@ -26,9 +26,7 @@ final class OnboardingViewModel: ViewModel {
     
     @Published var currentPage: OnboardingPage!
     
-    var didAcknowledgePermissions: Bool {
-        return !self.permissionService.shouldShowPermissionView
-    }
+    var didAcknowledgePermissions: Bool = false
     
     var progress: CGFloat {
         return CGFloat(Double(self.currentPageIndex + 1) / Double(self.pages.count))
@@ -63,6 +61,8 @@ final class OnboardingViewModel: ViewModel {
         self.permissionService = permissionService
         
         self.logInit()
+        self.didAcknowledgePermissions = !self.permissionService.shouldShowPermissionView
+        
         bindSubscribers()
         
     }
@@ -178,7 +178,18 @@ final class OnboardingViewModel: ViewModel {
     }
     
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.permissionService
+            .shouldShowPermissionViewPublisher
+            .sink { [weak self] shouldShowPermissionView in
+                
+                self?.didAcknowledgePermissions = !shouldShowPermissionView
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
 }
