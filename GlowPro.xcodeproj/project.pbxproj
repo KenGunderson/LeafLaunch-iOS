@@ -10,12 +10,6 @@
 		4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
 		4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
 		4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
-		4A4BDC352EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
-		4A4BDC362EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
-		4A4BDC372EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */; };
-		4A4BDC392EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
-		4A4BDC3A2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
-		4A4BDC3B2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */; };
 		4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
 		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
 		4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
@@ -873,8 +867,6 @@
 
 /* Begin PBXFileReference section */
 		4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
-		4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFThumbnailView.swift; sourceTree = "<group>"; };
-		4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitCanvasView.swift; sourceTree = "<group>"; };
 		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
 		4ADEEB522EADCE000092678C /* PDFInkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInkView.swift; sourceTree = "<group>"; };
 		75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
@@ -1442,10 +1434,6 @@
 		753420622E7A3AEA00DE3BE4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4ADEEB522EADCE000092678C /* PDFInkView.swift */,
-				4A4BDC382EADAAA6002D0DD2 /* PDFKitCanvasView.swift */,
-				4A4BDC342EADAA6B002D0DD2 /* PDFThumbnailView.swift */,
-				4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */,
 				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
 			);
 			path = Views;
@@ -2111,6 +2099,15 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		758D461D2EAF32CC002EEC64 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				4ADEEB522EADCE000092678C /* PDFInkView.swift */,
+				4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */,
+			);
+			path = PDF;
+			sourceTree = "<group>";
+		};
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2133,6 +2130,7 @@
 				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
+				758D461D2EAF32CC002EEC64 /* PDF */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3006,7 +3004,6 @@
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
-				4A4BDC392EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
@@ -3025,7 +3022,6 @@
 				75A0357A2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */,
 				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
-				4A4BDC372EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				753EC1A92DB8BC6400265B2A /* GPUser.swift in Sources */,
 				75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
@@ -3290,7 +3286,6 @@
 				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
-				4A4BDC3B2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
 				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
@@ -3309,7 +3304,6 @@
 				75A0357B2E4D6AD600F29417 /* FAQItemView.swift in Sources */,
 				75D66D7A2DC713C300E51CFC /* ClientHomeScreen.swift in Sources */,
 				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
-				4A4BDC362EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				75D66D842DC713C300E51CFC /* GPUser.swift in Sources */,
 				75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
@@ -3557,7 +3551,6 @@
 				75DD848B2EAD728600DD8850 /* BaseAppCardConfigView.swift in Sources */,
 				75DD848C2EAD728600DD8850 /* NoteListScreen.swift in Sources */,
 				75DD848D2EAD728600DD8850 /* SignUpScreen.swift in Sources */,
-				4A4BDC3A2EADAAB0002D0DD2 /* PDFKitCanvasView.swift in Sources */,
 				75DD848E2EAD728600DD8850 /* DevImpersonateScreen.swift in Sources */,
 				75DD848F2EAD728600DD8850 /* DevRoutesViewModel.swift in Sources */,
 				75DD84902EAD728600DD8850 /* DevRoutesScreen.swift in Sources */,
@@ -3576,7 +3569,6 @@
 				75DD849D2EAD728600DD8850 /* FAQItemView.swift in Sources */,
 				75DD849E2EAD728600DD8850 /* ClientHomeScreen.swift in Sources */,
 				75DD849F2EAD728600DD8850 /* WelcomeScreen.swift in Sources */,
-				4A4BDC352EADAA74002D0DD2 /* PDFThumbnailView.swift in Sources */,
 				75DD84A02EAD728600DD8850 /* GPTheme.swift in Sources */,
 				75DD84A12EAD728600DD8850 /* GPUser.swift in Sources */,
 				75DD84A22EAD728600DD8850 /* OnboardingPermissionsViewModel.swift in Sources */,
@@ -3965,7 +3957,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -4005,7 +3997,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;

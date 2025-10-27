@@ -10,11 +10,12 @@ import PDFKit
 
 extension Notification.Name {
     
-//    static let pdfEditorSaveRequest = Notification.Name("pdfEditorSaveRequest")
-//    static let pdfEditorUndoRequest = Notification.Name("pdfEditorUndoRequest")
-//    static let pdfEditorRedoRequest = Notification.Name("pdfEditorRedoRequest")
-    static let pdfEditorColorChanged = Notification.Name("pdfEditorColorChanged") // object: UIColor
-    static let pdfEditorWidthChanged = Notification.Name("pdfEditorWidthChanged") // object: CGFloat
+    static let pdfEditorSaveRequest = Notification.Name("pdfEditorSaveRequest")
+    static let pdfEditorReplaceDocument = Notification.Name("pdfEditorReplaceDocument")
+    static let pdfEditorUndoRequest = Notification.Name("pdfEditorUndoRequest")
+    static let pdfEditorRedoRequest = Notification.Name("pdfEditorRedoRequest")
+    static let pdfEditorColorChanged = Notification.Name("pdfEditorColorChanged")
+    static let pdfEditorWidthChanged = Notification.Name("pdfEditorWidthChanged")
     
 }
 
@@ -24,12 +25,15 @@ struct PDFInkView: UIViewRepresentable {
     let onSave: (Data) -> Void
 
     func makeUIView(context: Context) -> InkContainer {
+        
         let v = InkContainer()
         v.configure(document: document, onSave: onSave)
+        
         return v
+        
     }
 
-    func updateUIView(_ uiView: InkContainer, context: Context) { }
+    func updateUIView(_ uiView: InkContainer, context: Context) {}
     
 }
 
@@ -44,7 +48,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     private var currentPath = UIBezierPath()
     private var currentPoints: [CGPoint] = []
     private var strokeColor: UIColor = .black
-    private var strokeWidth: CGFloat = 2.5
+    private var strokeWidth: Double = 2.5
     
     private var liveLayer = CAShapeLayer()
     private var pathViewSpace = UIBezierPath()
@@ -58,28 +62,29 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         super.init(frame: frame)
 
-        pdfView.translatesAutoresizingMaskIntoConstraints = false
-        pdfView.autoScales = true
-        pdfView.displayMode = .singlePageContinuous
-        pdfView.displayDirection = .vertical
-        pdfView.displaysPageBreaks = true
-        pdfView.displayBox = .cropBox   // pick ONE box and stick to it
+        self.pdfView.translatesAutoresizingMaskIntoConstraints = false
+        self.pdfView.autoScales = true
+        self.pdfView.displayMode = .singlePageContinuous
+        self.pdfView.displayDirection = .vertical
+        self.pdfView.displaysPageBreaks = true
+        self.pdfView.displayBox = .cropBox
+        self.pdfView.backgroundColor = .clear
 
         // Live stroke layer sits above the PDF content
-        liveLayer.strokeColor = strokeColor.cgColor
-        liveLayer.fillColor = UIColor.clear.cgColor
-        liveLayer.lineWidth = strokeWidth
-        liveLayer.lineCap = .round
-        liveLayer.lineJoin = .round
+        self.liveLayer.strokeColor = self.strokeColor.cgColor
+        self.liveLayer.fillColor = UIColor.clear.cgColor
+        self.liveLayer.lineWidth = self.strokeWidth
+        self.liveLayer.lineCap = .round
+        self.liveLayer.lineJoin = .round
         
-        pdfView.layer.addSublayer(liveLayer)
-        addSubview(pdfView)
+        self.pdfView.layer.addSublayer(self.liveLayer)
+        addSubview(self.pdfView)
 
         NSLayoutConstraint.activate([
-            pdfView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            pdfView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pdfView.topAnchor.constraint(equalTo: topAnchor),
-            pdfView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.pdfView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.pdfView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.pdfView.topAnchor.constraint(equalTo: topAnchor),
+            self.pdfView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
 
         // Pan = drawing
@@ -90,14 +95,16 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         pan.delaysTouchesBegan = false
         addGestureRecognizer(pan)
 
-        if let scrollPan = pdfView.subviews.compactMap({ $0 as? UIScrollView }).first?.panGestureRecognizer {
+        if let scrollPan = self.pdfView.subviews.compactMap({ $0 as? UIScrollView }).first?.panGestureRecognizer {
+            
             scrollPan.minimumNumberOfTouches = 2   // two fingers to scroll
             scrollPan.require(toFail: pan)         // scroll waits for draw to fail
+            
         }
 
         // Optional nicety: let the scroll view react quicker when not drawing
-        pdfScrollView?.delaysContentTouches = false
-        pdfScrollView?.canCancelContentTouches = true
+        self.pdfScrollView?.delaysContentTouches = false
+        self.pdfScrollView?.canCancelContentTouches = true
 
         // Observe UI actions
         NotificationCenter.default.addObserver(self, selector: #selector(saveRequested), name: .pdfEditorSaveRequest, object: nil)
@@ -106,12 +113,11 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(colorChanged(_:)), name: .pdfEditorColorChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(widthChanged(_:)), name: .pdfEditorWidthChanged, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(pageChanged), name: Notification.Name.PDFViewPageChanged, object: pdfView)
+        NotificationCenter.default.addObserver(self, selector: #selector(pageChanged), name: Notification.Name.PDFViewPageChanged, object: self.pdfView)
         
     }
     
     private var pdfScrollView: UIScrollView? {
-        // PDFView embeds a UIScrollView internally
         return pdfView.subviews.compactMap { $0 as? UIScrollView }.first
     }
 
@@ -120,7 +126,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     func configure(document: PDFDocument, onSave: @escaping (Data) -> Void) {
         
         self.onSave = onSave
-        pdfView.document = document
+        self.pdfView.document = document
         DispatchQueue.main.async { [weak self] in
             
             guard let self else { return }
@@ -335,7 +341,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
     @objc private func widthChanged(_ note: Notification) {
         
-        if let w = note.object as? CGFloat {
+        if let w = note.object as? Double {
             
             strokeWidth = max(0.5, min(w, 20))
             liveLayer.lineWidth = strokeWidth
@@ -371,4 +377,3 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     }
     
 }
-

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 
 struct NoteCreateEditScreen: View {
     
@@ -93,27 +94,6 @@ struct NoteCreateEditScreen: View {
                 selectionBehavior: .ordered,
                 matching: .images
             )
-        
-        // PDF Screen
-        
-            .fullScreenCover(
-                isPresented: self.$viewModel.shouldShowPDFEditorSheet
-            ) {
-                
-                PDFEditorView(
-                    pdfItems: [
-                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
-                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
-                        Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!,
-                    ]
-                ) { editedData in
-                    
-                    // TODO: Need to handle the data how ever we want
-                    print("Edited PDF size: \(editedData.count) bytes")
-                    
-                }
-                
-            }
         
         // OnChange
         
@@ -340,6 +320,7 @@ struct NoteCreateEditScreen: View {
             
         case .url(let url): urlItem(url: url, mediaFusion: mediaFusion)
         case .uiImage(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
+        case .pdf(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
         }
         
     }
@@ -446,11 +427,11 @@ struct NoteCreateEditScreen: View {
     
     private func documentItem() -> some View {
         
-        Image(systemName: "long.text.page.and.pencil.fill")
+        Image(systemName: "heart.text.clipboard.fill")
             .resizable()
             .scaledToFit()
             .foregroundStyle(Style.shared.background(.quaternary).source())
-            .padding(EdgeInsets(top: 26, leading: 28, bottom: 22, trailing: 22))
+            .padding(.large)
             .frame(width: 75, height: 75)
             .background(Style.shared.background(.primary).source())
             .appBorder(
@@ -463,8 +444,20 @@ struct NoteCreateEditScreen: View {
             .background(.backgroundTappable)
             .asButton {
                 
-                self.viewModel
-                    .shouldShowPDFEditorSheet = true
+                // TODO: - REMOVE THIS WHEN WE HAVE REAL DIAGRAMS
+                if let pdfURL = Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf"),
+                   let pdfDoc = PDFDocument(url: pdfURL) {
+                    
+                    
+                    self.navigationService
+                        .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDoc) { data in
+                            
+                            self.viewModel
+                                .handlePDFDocumentSelection(data: data)
+                            
+                        })
+                    
+                }
                 
             }
         

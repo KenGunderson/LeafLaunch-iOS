@@ -641,6 +641,14 @@ extension View {
                     .setup(paywallItem: paywallItem)
                 
                 SubscriptionPaywallScreen(viewModel: viewModel)
+                
+            case .pdfEditor(let pdfDocument, let completion):
+                
+                PDFEditorView(
+                    pdfDocument: pdfDocument,
+                    onSave: completion
+                )
+                
             }
             
         }
