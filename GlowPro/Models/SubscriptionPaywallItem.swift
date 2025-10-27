@@ -27,9 +27,9 @@ struct SubscriptionPaywallItem {
     
 }
 
+@MainActor
 extension SubscriptionPaywallItem {
     
-    @MainActor
     static let GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION = SubscriptionPaywallItem(
         id: "glowpro_premium_monthly_subscription",
         title: "Premium Access",
@@ -67,15 +67,14 @@ extension SubscriptionPaywallItem {
         ]
         
     )
-    
-    @MainActor
+
     static let GLOWPRO_ADD_LOCATION_MONTHLY = SubscriptionPaywallItem(
         id: "glowpro_add_location_monthly",
         title: "Add Additional Location",
         description: "Expand your workspace with a new location and keep everything neatly separated.",
         tagline: "Grow your practice the right way.",
         price: 19.99,
-        illustration: .image(.illustrationWelcome, renderingMode: .original),
+        illustration: .image(.illustrationStorefront, renderingMode: .original),
         benefits: [
 
             .init(

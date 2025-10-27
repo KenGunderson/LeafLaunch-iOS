@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class SubscriptionPaywallViewModel: ViewModel {
     
@@ -21,7 +22,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
 
     @Published private(set) var shouldDismiss: Bool = false
     
-    @Published var paywallItem: SubscriptionPaywallItem!
+    @Published private(set) var paywallItem: SubscriptionPaywallItem!
+    @Published private(set) var extractedColors: [Color] = []
         
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -61,7 +63,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
     }
     
     func loadData() {
-        
+        extractColor()
     }
     
     func subscribe() {
@@ -70,6 +72,40 @@ final class SubscriptionPaywallViewModel: ViewModel {
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    
+    private func extractColor() {
+        
+        Task(priority: .userInitiated) {
+            
+            do {
+                
+                switch self.paywallItem.illustration {
+                case .image(let image, _):
+                    
+                    let image = UIImage(resource: image)
+                    
+                    let uiColors = try image.extractColors(
+                        numberOfColors: 2,
+                        sortByProminence: true
+                    )
+                    
+                    let swiftUIColors = uiColors.map { Color($0) }
+                    
+                    await MainActor.run { [weak self] in
+                        self?.extractedColors = swiftUIColors
+                    }
+                    
+                default: break
+                }
+                
+            } catch {
+                print("Failed to extract colors:", error)
+            }
+            
+        }
+        
     }
     
 }

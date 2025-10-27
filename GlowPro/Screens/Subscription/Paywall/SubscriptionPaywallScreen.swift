@@ -16,9 +16,7 @@ struct SubscriptionPaywallScreen: GPView {
     
     @State private var shouldAnimateContent: Bool = false
     @State private var shouldAnimateFooter: Bool = false
-    
-    @State private var extractedColors: [Color] = []
-    
+        
     let backgroundColor = Style.shared.background(.secondary).source()
     
     var body: some View {
@@ -40,9 +38,7 @@ struct SubscriptionPaywallScreen: GPView {
                 
                 self.viewModel
                     .loadData()
-                
-                self.extractColor()
-                
+                                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.shouldAnimateContent = true
                 }
@@ -121,7 +117,7 @@ struct SubscriptionPaywallScreen: GPView {
             .aspectRatio(contentMode: .fill)
             .stretchy()
             .gradientBlur(
-                color: extractedColors.first ?? .red,
+                color: self.viewModel.extractedColors.first ?? .red,
                 alignment: .bottom,
                 gradientDirection: .topToBottom,
                 mask: .preset(.medium),
@@ -257,40 +253,6 @@ struct SubscriptionPaywallScreen: GPView {
             .frame(maxWidth: .infinity)
             .background(self.backgroundColor)
             .transition(.move(edge: .bottom).combined(with: .opacity))
-            
-        }
-        
-    }
-    
-    private func extractColor() {
-        
-        // Heavy work off the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            do {
-                
-                switch self.viewModel.paywallItem.illustration {
-                case .image(let image, _):
-                    
-                    let image = UIImage(resource: image)
-                    
-                    let uiColors = try image.extractColors(
-                        numberOfColors: 2,
-                        sortByProminence: true
-                    )
-                    
-                    let swiftUIColors = uiColors.map { Color($0) }
-                    
-                    DispatchQueue.main.async {
-                        extractedColors = swiftUIColors
-                    }
-                    
-                default: break
-                }
-                
-            } catch {
-                print("Failed to extract colors:", error)
-            }
             
         }
         
