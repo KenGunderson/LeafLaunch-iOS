@@ -50,11 +50,6 @@ extension SubscriptionPaywallItem {
                 icon: .systemImage("person.3.fill")
             ),
             .init(
-                title: "Custom Security Settings",
-                message: "Control access, roles, and visibility with advanced security configuration.",
-                icon: .systemImage("shield.lefthalf.fill")
-            ),
-            .init(
                 title: "HIPAA-Compliant Storage",
                 message: "Your media is stored using HIPAA-compliant infrastructure and safeguards.",
                 icon: .systemImage("lock.shield.fill")
