@@ -386,8 +386,8 @@ final class MediaGalleryViewModel: ViewModel {
                             .uploadMedia(uploadMedia: .init(
                                 data: uiImage.compressedData(maxMegaBytes: 5) ?? Data(),
                                 businessId: self.activeDestinationService.businessId,
-                                locationId: self.activeDestinationService.locationEmployee?.locationId,
-                                clientId: self.mediaContext.clientId
+                                locationId: locationId,
+                                clientId: clientId
                             ))
                         
                     }
