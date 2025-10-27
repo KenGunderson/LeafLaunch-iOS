@@ -169,8 +169,8 @@ struct BusinessLocationHomeScreen: GPView {
                     icon: ActivityCategory.employee.icon,
                     iconBackgroundColor: .color(ActivityCategory.employee.color),
                     title: "Employees",
-                    subtitle: "View All Employees",
-                    prominentSubtitle: false
+                    subtitle: "\(self.viewModel.location?.totalEmployeeCount ?? 0)",
+                    prominentSubtitle: true
                 )
                 .appShadow(.subtle)
                 .asButton {
@@ -189,8 +189,8 @@ struct BusinessLocationHomeScreen: GPView {
                     icon: ActivityCategory.client.icon,
                     iconBackgroundColor: .color(ActivityCategory.client.color),
                     title: "Clients",
-                    subtitle: "View All Clients",
-                    prominentSubtitle: false
+                    subtitle: "\(self.viewModel.location?.totalClientCount ?? 0)",
+                    prominentSubtitle: true
                 )
                 .appShadow(.subtle)
                 .asButton {
@@ -204,8 +204,8 @@ struct BusinessLocationHomeScreen: GPView {
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "Media Gallery",
-                    subtitle: "View All Media",
-                    prominentSubtitle: false
+                    subtitle: "\(self.viewModel.location?.totalMediaCount ?? 0)",
+                    prominentSubtitle: true
                 )
                 .appShadow(.subtle)
                 .asButton {
@@ -222,8 +222,8 @@ struct BusinessLocationHomeScreen: GPView {
                     icon: ActivityCategory.collage.icon,
                     iconBackgroundColor: .color(ActivityCategory.collage.color),
                     title: "Collages",
-                    subtitle: "View All Collages",
-                    prominentSubtitle: false
+                    subtitle: "\(self.viewModel.location?.totalCollageCount ?? 0)",
+                    prominentSubtitle: true
                 )
                 .appShadow(.subtle)
                 .asButton {

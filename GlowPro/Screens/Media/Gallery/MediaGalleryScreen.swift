@@ -47,6 +47,46 @@ struct MediaGalleryScreen: GPView {
             
         }
         
+        // On Change
+        
+        .onChange(of: self.viewModel.selectedPhotoPickerItems) { _, newValue in
+            
+            guard !newValue.isEmpty else { return }
+            
+            self.viewModel
+                .handlePHPickerSelectionConverionToUIImage(items: newValue)
+            
+        }
+        
+        // Media Sheet
+        
+            .adaptiveSheet(
+                isPresented: self.$viewModel.shouldShowMediaSourceSelectionSheet,
+                additionalDetens: [],
+                backgroundStyle: Style.shared.background(.primary)
+            ) {
+                
+                MediaSourceSelectionView(sourceTypes: [.camera, .applePhotos],
+                                         selectedSourceTypeAction: { source in
+                    
+                    self.viewModel
+                        .handleSourceSelectionAction(source)
+                    
+                })
+                .frame(maxWidth: .infinity)
+                .presentationCornerRadius(Style.shared.radius(.large))
+                .presentationCompactAdaptation(.popover)
+                
+            }
+        
+            .photosPicker(
+                isPresented: self.$viewModel.shouldShowApplePhotosSelectionSheet,
+                selection: self.$viewModel.selectedPhotoPickerItems,
+                maxSelectionCount: 5,
+                selectionBehavior: .ordered,
+                matching: .images
+            )
+        
         // Animation
         
         .animation(.bouncy, value: self.viewModel.isEditMode)
@@ -74,17 +114,23 @@ struct MediaGalleryScreen: GPView {
                     
                 }
             
-            if self.viewModel.mediaContext.allowsCollageCapability {
+            if self.viewModel.shouldShowPlusButton {
                 
                 NavBarButton(style: .plus) {
                     
                     if let clientId = self.viewModel.mediaContext.clientId {
                         
-                        self.navigationService
-                            .push(.collage(.createEdit(
-                                clientId: clientId,
-                                collageId: nil
-                            )))
+                        if self.viewModel.mediaFilterOptions == .collage {
+                            
+                            self.navigationService
+                                .push(.collage(.createEdit(
+                                    clientId: clientId,
+                                    collageId: nil
+                                )))
+                            
+                        } else {
+                            self.viewModel.shouldShowMediaSourceSelectionSheet = true
+                        }
                         
                     }
                     

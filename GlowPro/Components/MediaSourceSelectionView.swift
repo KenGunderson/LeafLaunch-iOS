@@ -35,17 +35,22 @@ struct MediaSourceSelectionView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    private let sourceTypes: [SourceType]
     private let selectedSourceTypeAction: (SourceType) -> Void
     
-    init(selectedSourceTypeAction: @escaping (SourceType) -> Void) {
+    init(sourceTypes: [SourceType] = [.camera, .gallery, .applePhotos],
+         selectedSourceTypeAction: @escaping (SourceType) -> Void) {
+        
+        self.sourceTypes = sourceTypes
         self.selectedSourceTypeAction = selectedSourceTypeAction
+        
     }
     
     var body: some View {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            ForEach(SourceType.allCases, id: \.rawValue) { source in
+            ForEach(self.sourceTypes, id: \.rawValue) { source in
                 sourceItemView(source)
             }
             

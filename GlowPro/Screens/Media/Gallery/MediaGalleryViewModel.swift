@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import _PhotosUI_SwiftUI
 
 enum MediaContext: Hashable {
     
@@ -102,18 +103,27 @@ final class MediaGalleryViewModel: ViewModel {
     @Published var selectedSortingOption: MediaSortingOption? = .newest
     @Published var selectedTags: [MediaTag] = []
     
+    @Published var selectedPhotoPickerItems: [PhotosPickerItem] = []
+
+    @Published var shouldShowMediaSourceSelectionSheet: Bool = false
+    @Published var shouldShowApplePhotosSelectionSheet: Bool = false
+    
     private var media: [Media] = []
     private(set) var mediaTags: [MediaTag] = []
     
     private(set) var mediaContext: MediaContext!
     private var mediaSelectionContext: MediaSelectionContext!
-    private var mediaFilterOptions: MediaType!
+    private(set) var mediaFilterOptions: MediaType!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     var navTitle: String {
         self.mediaFilterOptions == .collage ? "Collages" : "Media Gallery"
+    }
+    
+    var shouldShowPlusButton: Bool {
+        return self.mediaContext.allowsCameraCapability || self.mediaContext.allowsCollageCapability
     }
     
     init(apiService: APIServiceProtocol,
@@ -322,6 +332,69 @@ final class MediaGalleryViewModel: ViewModel {
             action: action
             
         )
+        
+    }
+    
+    func handleSourceSelectionAction(_ source: SourceType) {
+        
+        switch source {
+        case .applePhotos: self.shouldShowApplePhotosSelectionSheet = true
+        case .gallery: break
+            
+        case .camera:
+            
+            if let clientId = self.mediaContext.clientId {
+                
+                self.navigationService?
+                    .push(.media(.camera(
+                        context: .client(clientId: clientId),
+                        mode: .single(nil))
+                    ))
+                
+            }
+            
+        }
+        
+    }
+    
+    func handlePHPickerSelectionConverionToUIImage(items: [PhotosPickerItem]) {
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+                        
+        Task {
+            
+            try await items.asyncForEach { item in
+                
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    
+                    if let uiImage = UIImage(data: data) {
+                        
+                        let _ = try await self.apiService
+                            .uploadMedia(uploadMedia: .init(
+                                data: uiImage.compressedData(maxMegaBytes: 5) ?? Data(),
+                                businessId: self.activeDestinationService.businessId,
+                                locationId: self.activeDestinationService.locationEmployee?.locationId,
+                                clientId: self.mediaContext.clientId
+                            ))
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+            await MainActor.run { [weak self] in
+                
+                self?.selectedPhotoPickerItems = []
+                self?.loadData()
+                
+            }
+            
+        }
         
     }
     

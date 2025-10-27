@@ -1434,7 +1434,6 @@
 		753420622E7A3AEA00DE3BE4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2121,6 +2120,7 @@
 				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				75136AA72E7477AD00779BB9 /* LineItemView.swift */,
 				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
+				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,

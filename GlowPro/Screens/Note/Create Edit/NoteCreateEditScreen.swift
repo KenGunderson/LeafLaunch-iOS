@@ -14,13 +14,13 @@ struct NoteCreateEditScreen: View {
         
         case title
         case note
-        case signiture
+        case signature
         
         var displayName: String {
             switch self {
             case .title: return "Title"
             case .note: return "Note"
-            case .signiture: return "Employee Signiture (Full Name)"
+            case .signature: return "Employee Signature (Full Name)"
             }
             
         }
@@ -156,7 +156,7 @@ struct NoteCreateEditScreen: View {
             textField(.title)
             textEditField()
             
-            textField(.signiture)
+            textField(.signature)
                 .allowsHitTesting(self.viewModel.isOwnerOrManager)
             
         }
@@ -198,11 +198,11 @@ struct NoteCreateEditScreen: View {
     
     private func textField(_ focusedField: FocusedField) -> some View {
         
-        let isSignitureEnabled = (self.viewModel.isOwnerOrManager)
+        let isSignatureEnabled = (self.viewModel.isOwnerOrManager)
         var backgroundColor: ColorSource {
             
-            if focusedField == .signiture {
-                return isSignitureEnabled ? .color(.clear) : Style.shared.background(.quaternary)
+            if focusedField == .signature {
+                return isSignatureEnabled ? .color(.clear) : Style.shared.background(.quaternary)
             }
             
             return .color(.clear)
@@ -231,7 +231,7 @@ struct NoteCreateEditScreen: View {
             .appOnTapGesture {
                 self.focusedField = focusedField
             }
-            .allowsHitTesting(focusedField == .signiture ? isSignitureEnabled : true)
+            .allowsHitTesting(focusedField == .signature ? isSignatureEnabled : true)
         
     }
     
@@ -244,9 +244,9 @@ struct NoteCreateEditScreen: View {
         case .note:
             
             let isOwnerOrManager = self.viewModel.isOwnerOrManager
-            nextFocusedField = isOwnerOrManager ? .signiture : nil
+            nextFocusedField = isOwnerOrManager ? .signature : nil
             
-        case .signiture: nextFocusedField = nil
+        case .signature: nextFocusedField = nil
         default: nextFocusedField = nil
         }
         

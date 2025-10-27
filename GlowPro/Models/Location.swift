@@ -25,6 +25,8 @@ struct Location: Identifiable,
     var totalClientCount: Int
     var totalEmployeeCount: Int
     var totalMediaCount: Int
+    var totalCollageCount: Int
+    var totalDiagramCount: Int
     
     init(id: String,
          businessId: String,
@@ -36,6 +38,8 @@ struct Location: Identifiable,
          totalClientCount: Int = 0,
          totalEmployeeCount: Int = 0,
          totalMediaCount: Int = 0,
+         totalCollageCount: Int = 0,
+         totalDiagramCount: Int = 0,
          clientsWithBirthdaysThisMonth: [Client] = []) {
         
         self.id = id
@@ -48,6 +52,8 @@ struct Location: Identifiable,
         self.totalClientCount = totalClientCount
         self.totalEmployeeCount = totalEmployeeCount
         self.totalMediaCount = totalMediaCount
+        self.totalCollageCount = totalCollageCount
+        self.totalDiagramCount = totalDiagramCount
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
         
     }
@@ -65,6 +71,9 @@ struct Location: Identifiable,
         case totalClientCount = "total_clients"
         case totalEmployeeCount = "total_employees"
         case totalMediaCount = "total_media"
+        case totalCollageCount = "total_collages"
+        case totalDiagramCount = "total_diagrams"
+        
         case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"
         
     }

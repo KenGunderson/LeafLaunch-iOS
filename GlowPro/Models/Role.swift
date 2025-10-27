@@ -26,7 +26,7 @@ enum Role: String,
         case .owner: return "Owner"
         case .manager: return "Manager"
         case .employee: return "Employee"
-        case .receptionist: return "Receptionist"
+        case .receptionist: return "Assistant"
         }
     }
     
