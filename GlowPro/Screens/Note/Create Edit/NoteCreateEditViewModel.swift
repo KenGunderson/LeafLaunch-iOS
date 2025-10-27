@@ -352,6 +352,7 @@ final class NoteCreateEditViewModel: ViewModel {
             do {
                 
                 var employeeId = self.activeDestinationService.locationEmployee?.employeeId
+                var locationId = self.activeDestinationService.locationEmployee?.locationId
                 
                 if employeeId == nil {
                     
@@ -364,9 +365,11 @@ final class NoteCreateEditViewModel: ViewModel {
                             locationId: client.locationId ?? ""
                         )
                     
+                    locationId = client.locationId
+                    
                 }
                 
-                let allURLs = try await uploadAndConstructUrlsIfNeeded()
+                let allURLs = try await uploadAndConstructUrlsIfNeeded(locationId: locationId ?? "")
                 
                 let note = Note(
                     id: "",
@@ -422,6 +425,7 @@ final class NoteCreateEditViewModel: ViewModel {
             do {
                 
                 var employeeId = self.activeDestinationService.locationEmployee?.employeeId
+                var locationId = self.activeDestinationService.locationEmployee?.locationId
                 
                 if employeeId == nil {
                     
@@ -434,9 +438,11 @@ final class NoteCreateEditViewModel: ViewModel {
                             locationId: client.locationId ?? ""
                         )
                     
+                    locationId = client.locationId
+                    
                 }
                 
-                let allURLs = try await uploadAndConstructUrlsIfNeeded()
+                let allURLs = try await uploadAndConstructUrlsIfNeeded(locationId: locationId ?? "")
                 
                 let note = Note(
                     id: noteId,
@@ -479,7 +485,7 @@ final class NoteCreateEditViewModel: ViewModel {
         
     }
     
-    private func uploadAndConstructUrlsIfNeeded() async throws -> [URL] {
+    private func uploadAndConstructUrlsIfNeeded(locationId: String) async throws -> [URL] {
         
         let mediaToUpload = self.mediaFusion.filter({ $0.isUploaded == false })
         var newMediaURLs: [URL?] = []
@@ -493,7 +499,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     .uploadMedia(uploadMedia: .init(
                         data: image.compressedData(maxMegaBytes: 5) ?? Data(),
                         businessId: self.activeDestinationService.businessId,
-                        locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                        locationId: locationId,
                         clientId: self.clientId
                     ))
                 
@@ -505,7 +511,7 @@ final class NoteCreateEditViewModel: ViewModel {
                     .uploadMedia(uploadMedia: .init(
                         data: image.compressedData(maxMegaBytes: 5) ?? Data(),
                         businessId: self.activeDestinationService.businessId,
-                        locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                        locationId: locationId,
                         clientId: self.clientId,
                         mediaType: .diagram
                     ))
