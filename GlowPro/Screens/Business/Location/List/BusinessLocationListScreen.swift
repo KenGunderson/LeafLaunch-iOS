@@ -117,24 +117,12 @@ struct BusinessLocationListScreen: GPView {
                     )
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    HStack(spacing: Style.shared.spacing(.extraSmall)) {
-                        
-                        Text("Edit")
-                            .appFont(with: .TITLE_4)
-                        
-                        Image(systemName: "pencil")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 16, height: 16)
-
-                        
-                    }
-                    .padding(9)
-                    .offset(x: 9, y: 0)
-                    .padding(.trailing, .small)
-                    .background(.backgroundTappable)
-                    .foregroundStyle(Style.shared.accent.source())
-                    .asButton {
+                    CommonButton(
+                        style: .outline(lineWidth: 2.5),
+                        title: "Edit",
+                        titleColor: Style.shared.accent,
+                        verticalPadding: .extraSmall,
+                        horizontalPadding: .none) {
                         
                         self.navigationService
                             .push(.business(
@@ -145,6 +133,7 @@ struct BusinessLocationListScreen: GPView {
                             ))
                         
                     }
+                        .frame(maxWidth: 60)
                     
                 }
                 
