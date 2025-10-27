@@ -359,10 +359,22 @@ final class MediaGalleryViewModel: ViewModel {
     
     func handlePHPickerSelectionConverionToUIImage(items: [PhotosPickerItem]) {
         
+        // This flow is only for client
+        guard let clientId = self.mediaContext.clientId else { return }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
                         
         Task {
+            
+            var locationId = self.activeDestinationService.locationEmployee?.locationId
+            
+            if locationId == nil {
+                
+                let client = try await self.apiService.getClient(id: clientId)
+                locationId = client.locationId
+                
+            }
             
             try await items.asyncForEach { item in
                 
