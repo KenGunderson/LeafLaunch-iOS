@@ -191,6 +191,19 @@ final class MediaReviewViewModel: ViewModel {
                 
                 uploadedURLs.append(URL(string: newURL)!)
                 
+            case .pdf(let image):
+                
+                let newURL = try await self.apiService
+                    .uploadMedia(uploadMedia: .init(
+                        data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                        businessId: businessId,
+                        locationId: locationId,
+                        clientId: clientId,
+                        mediaType: .diagram
+                    ))
+                
+                uploadedURLs.append(URL(string: newURL)!)
+                
             case .url: print("Not Needed")
             }
             

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 
 struct NoteCreateEditScreen: View {
     
@@ -69,7 +70,7 @@ struct NoteCreateEditScreen: View {
                 self.focusedField = nil
             }
         
-        // Sheet
+        // Media Sheet
         
             .adaptiveSheet(
                 isPresented: self.$viewModel.shouldShowMediaSourceSelectionSheet,
@@ -289,6 +290,8 @@ struct NoteCreateEditScreen: View {
                 
                 cameraItem()
                 
+                documentItem()
+                
             }
             .padding(.top, .small)
             
@@ -317,6 +320,7 @@ struct NoteCreateEditScreen: View {
             
         case .url(let url): urlItem(url: url, mediaFusion: mediaFusion)
         case .uiImage(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
+        case .pdf(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
         }
         
     }
@@ -416,6 +420,44 @@ struct NoteCreateEditScreen: View {
                 
                 self.viewModel
                     .shouldShowMediaSourceSelectionSheet = true
+                
+            }
+        
+    }
+    
+    private func documentItem() -> some View {
+        
+        Image(systemName: "heart.text.clipboard.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundStyle(Style.shared.background(.quaternary).source())
+            .padding(.large)
+            .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
+            .appBorder(
+                cornerRadius: .small,
+                color: Style.shared.background(.quaternary),
+                lineWidth: 3,
+                outerBorder: false
+            )
+            .cornerRadius(.custom(9))
+            .background(.backgroundTappable)
+            .asButton {
+                
+                // TODO: - REMOVE THIS WHEN WE HAVE REAL DIAGRAMS
+                if let pdfURL = Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf"),
+                   let pdfDoc = PDFDocument(url: pdfURL) {
+                    
+                    
+                    self.navigationService
+                        .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDoc) { data in
+                            
+                            self.viewModel
+                                .handlePDFDocumentSelection(data: data)
+                            
+                        })
+                    
+                }
                 
             }
         

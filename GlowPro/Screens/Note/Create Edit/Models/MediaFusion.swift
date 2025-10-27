@@ -16,12 +16,14 @@ struct MediaFusion: Equatable {
     enum Kind {
         
         case uiImage(UIImage)
+        case pdf(UIImage)
         case url(URL)
         
         var image: UIImage? {
             
             switch self {
             case .uiImage(let image): return image
+            case .pdf(let image): return image
             case .url: return nil
             }
             
@@ -31,7 +33,18 @@ struct MediaFusion: Equatable {
             
             switch self {
             case .uiImage: return nil
+            case .pdf: return nil
             case .url(let url): return url
+            }
+            
+        }
+        
+        var isPDF: Bool {
+            
+            switch self {
+            case .pdf: return true
+            case .uiImage: return false
+            case .url: return false
             }
             
         }

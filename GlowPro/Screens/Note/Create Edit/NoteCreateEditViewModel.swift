@@ -7,6 +7,7 @@
 
 import SwiftUI
 import _PhotosUI_SwiftUI
+import PDFKit
 
 final class NoteCreateEditViewModel: ViewModel {
     
@@ -49,6 +50,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     @Published var shouldShowMediaSourceSelectionSheet: Bool = false
     @Published var shouldShowApplePhotosSelectionSheet: Bool = false
+    @Published var shouldShowPDFEditorSheet: Bool = false
     
     private var context: Context!
     private var clientId: String!
@@ -259,6 +261,24 @@ final class NoteCreateEditViewModel: ViewModel {
             }
             
         }
+        
+    }
+    
+    func handlePDFDocumentSelection(data: Data) {
+        
+        guard let document = PDFDocument(data: data),
+              let page = document.page(at: 0) else { return }
+        
+        // TODO: - Handle Width / Height with Page Rect
+        let pdfImage = page.thumbnail(of: .init(
+            width: 1080, height: 1080
+        ), for: .cropBox
+        )
+        
+        self.mediaFusion.append(.init(
+            kind: .pdf(pdfImage),
+            isUploaded: false
+        ))
         
     }
         
@@ -479,6 +499,19 @@ final class NoteCreateEditViewModel: ViewModel {
                 
                 newMediaURLs.append(URL(string: newURL))
                 
+            case .pdf(let image):
+                
+                let newURL = try await self.apiService
+                    .uploadMedia(uploadMedia: .init(
+                        data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                        businessId: self.activeDestinationService.businessId,
+                        locationId: self.activeDestinationService.locationEmployee?.locationId ?? "",
+                        clientId: self.clientId,
+                        mediaType: .diagram
+                    ))
+                
+                newMediaURLs.append(URL(string: newURL))
+                
             case .url(let url):
                 
                 newMediaURLs.append(url)
@@ -492,7 +525,6 @@ final class NoteCreateEditViewModel: ViewModel {
         return allURLs
         
     }
-    
     
     private func bindSubscribers() {
         

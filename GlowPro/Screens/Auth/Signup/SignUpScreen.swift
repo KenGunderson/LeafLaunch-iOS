@@ -48,6 +48,12 @@ struct SignUpScreen: GPView {
                 
         ))
         
+        // Tap
+    
+        .onSubmit {
+            handleOnSubmit()
+        }
+        
         .onFirstAppear {
             
             self.viewModel

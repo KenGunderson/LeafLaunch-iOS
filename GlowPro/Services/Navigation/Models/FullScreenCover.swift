@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PDFKit
 
 enum FullScreenCover: Identifiable, Hashable, Equatable {
 
@@ -18,6 +19,9 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     case mediaPreview(url: URL)
 
     case subscriptionPaywall(paywallItem: SubscriptionPaywallItem)
+    
+    case pdfEditor(pdfDocument: PDFDocument,
+                   completion: (Data) -> Void)
 
     var id: String {
         return String(self.hashValue)
@@ -37,6 +41,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .mediaMultiTags(let selectedMedia): return hasher.combine(selectedMedia.first?.id)
         case .mediaPreview(let url): return hasher.combine(url.absoluteString)
         case .subscriptionPaywall(let item): return hasher.combine(item.id)
+        case .pdfEditor(let pdfDocument, _): return hasher.combine(pdfDocument.documentURL?.absoluteString ?? "")
         }
         
     }

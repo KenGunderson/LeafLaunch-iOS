@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
+		4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
+		4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
+		4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
 		75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
 		75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
 		75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
@@ -857,6 +866,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
+		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
+		4ADEEB522EADCE000092678C /* PDFInkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInkView.swift; sourceTree = "<group>"; };
 		75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
 		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
@@ -1216,6 +1228,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4BDC3C2EADAB8F002D0DD2 /* PDFs */ = {
+			isa = PBXGroup;
+			children = (
+				4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */,
+			);
+			path = PDFs;
+			sourceTree = "<group>";
+		};
 		75027FDC2E7FAEEB00E10640 /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,6 +1384,7 @@
 		7510A3C82D9D8AAF000A93CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A4BDC3C2EADAB8F002D0DD2 /* PDFs */,
 				75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */,
 				75D8EDEE2DF600D6004D1E25 /* Info.plist */,
 				75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */,
@@ -2078,6 +2099,15 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		758D461D2EAF32CC002EEC64 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				4ADEEB522EADCE000092678C /* PDFInkView.swift */,
+				4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */,
+			);
+			path = PDF;
+			sourceTree = "<group>";
+		};
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2100,6 +2130,7 @@
 				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
+				758D461D2EAF32CC002EEC64 /* PDF */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2693,6 +2724,7 @@
 			files = (
 				75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
 				7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */,
+				4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */,
 			);
@@ -2720,6 +2752,7 @@
 				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
 				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
 				75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
+				4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2732,6 +2765,7 @@
 				75DD84CC2EAD731300DD8850 /* GlowPro-Localhost-Info.plist in Resources */,
 				75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */,
 				75DD84C02EAD728600DD8850 /* GoogleService-Info.plist in Resources */,
+				4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75DD84C12EAD728600DD8850 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2853,6 +2887,7 @@
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31A2E712E3400032754 /* LocationEmployee.swift in Sources */,
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
+				4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -2938,6 +2973,7 @@
 				756687332EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26C2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -3133,6 +3169,7 @@
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75DBD31B2E712E3400032754 /* LocationEmployee.swift in Sources */,
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
+				4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -3218,6 +3255,7 @@
 				756687342EAC8C1C00C3DC8E /* GradientBlurMask.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
+				4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26B2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -3396,6 +3434,7 @@
 				75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */,
 				75DD84192EAD728600DD8850 /* LocationEmployee.swift in Sources */,
 				75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */,
+				4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */,
 				75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */,
 				75DD841C2EAD728600DD8850 /* EnvironmentService.swift in Sources */,
 				75DD841D2EAD728600DD8850 /* GhostOverlayCarouselView.swift in Sources */,
@@ -3481,6 +3520,7 @@
 				75DD846D2EAD728600DD8850 /* GradientBlurMask.swift in Sources */,
 				75DD846E2EAD728600DD8850 /* ActivitiesView.swift in Sources */,
 				75DD846F2EAD728600DD8850 /* SettingsScreen.swift in Sources */,
+				4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75DD84702EAD728600DD8850 /* MediaPreviewViewModel.swift in Sources */,
 				75DD84712EAD728600DD8850 /* CameraService.swift in Sources */,
 				75DD84722EAD728600DD8850 /* ActiveDestination.swift in Sources */,
@@ -3917,7 +3957,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -3957,7 +3997,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
