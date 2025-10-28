@@ -11,12 +11,21 @@ import SwiftUI
 public struct CameraPreviewView: UIViewRepresentable {
     
     public let session: AVCaptureSession
+    public let aspectRatio: AVLayerVideoGravity
+    
+    init(session: AVCaptureSession,
+         aspectRatio: AVLayerVideoGravity = .resizeAspect) {
+        
+        self.session = session
+        self.aspectRatio = aspectRatio
+        
+    }
     
     public func makeUIView(context: Context) -> Preview {
         
         let view = Preview()
         view.videoPreviewLayer.session = session
-        view.videoPreviewLayer.videoGravity = .resizeAspectFill
+        view.videoPreviewLayer.videoGravity = self.aspectRatio
         
         return view
         
