@@ -1431,13 +1431,6 @@
 			path = Invite;
 			sourceTree = "<group>";
 		};
-		753420622E7A3AEA00DE3BE4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		753420672E7A4F0C00DE3BE4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2290,7 +2283,6 @@
 				75C67E422E764F5200BB29F0 /* NoteCreateEditViewModel.swift */,
 				75C67E412E764F5200BB29F0 /* NoteCreateEditScreen.swift */,
 				753420672E7A4F0C00DE3BE4 /* Models */,
-				753420622E7A3AEA00DE3BE4 /* Views */,
 			);
 			path = "Create Edit";
 			sourceTree = "<group>";
