@@ -12,6 +12,7 @@ struct NavHeader: View {
     private let title: String
     private let subtitle: String
     private let avatar: AvatarView.AvatarStyle?
+    private let backgroundStyle: ColorSource
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> ())?
     private let trailingNavButtons: [NavBarButton.Style]
@@ -20,6 +21,7 @@ struct NavHeader: View {
     init(title: String,
          subtitle: String,
          avatar: AvatarView.AvatarStyle? = nil,
+         backgroundStyle: ColorSource = Style.shared.background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
@@ -28,6 +30,7 @@ struct NavHeader: View {
         self.title = title
         self.subtitle = subtitle
         self.avatar = avatar
+        self.backgroundStyle = backgroundStyle
         self.leadingNavButtons = leadingNavButtons
         self.leadingNavButtonsAction = leadingNavButtonsAction
         self.trailingNavButtons = trailingNavButtons
@@ -66,11 +69,11 @@ struct NavHeader: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        .background(Style.shared.background(.primary).source())
+        .background(self.backgroundStyle.source())
         .background {
             
             Rectangle()
-                .fill(Style.shared.background(.primary).source())
+                .fill(self.backgroundStyle.source())
                 .blur(radius: 2)
                 .offset(y: 10)
             

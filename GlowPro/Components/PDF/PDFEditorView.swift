@@ -15,13 +15,15 @@ struct PDFEditorView: View {
     
     private let onSave: (Data) -> Void
 
+    @StateObject private var pdfEditorViewModel: PDFEditorViewModel
+    
+    @State private var pdfCommand: PDFCommand?
     @State private var pdfDocument: PDFDocument
-    @State private var selectedToolbarLineWidth: Double = 0.25
-    @State private var selectedToolbarColor: Color = .black
 
     init(pdfDocument: PDFDocument,
          onSave: @escaping (Data) -> Void) {
         
+        self._pdfEditorViewModel = .init(wrappedValue: .init())
         self.pdfDocument = pdfDocument
         self.onSave = onSave
         
@@ -61,12 +63,18 @@ struct PDFEditorView: View {
     
     private func buildPDFView() -> some View {
         
-        PDFInkView(document: self.pdfDocument) { data in
+        PDFInkView(document: self.pdfDocument, viewModel: .init(), onAction: { action in
             
-            onSave(data)
-            dismiss()
+            switch action {
+            case .didSave(let data):
+                
+                onSave(data)
+                dismiss()
+                
+            default: break
+            }
             
-        }
+        }, command: self.$pdfCommand)
         
     }
     
@@ -87,65 +95,111 @@ struct PDFEditorView: View {
     
     private func toolBar() -> some View {
         
-        HStack(spacing: 10) {
+        HStack(spacing: Style.shared.spacing(.small)) {
             
-            ColorPicker("", selection: self.$selectedToolbarColor)
-                .labelsHidden()
-                .frame(width: 32, height: 32)
-                .onChange(of: self.selectedToolbarColor) { _, new in
-                    NotificationCenter.default.post(name: .pdfEditorColorChanged, object: UIColor(new))
+            HStack {
+                
+                ColorPicker("", selection: self.$pdfEditorViewModel.strokeColor)
+                    .labelsHidden()
+                    .frame(width: 32, height: 32)
+                    .onChange(of: self.pdfEditorViewModel.strokeColor) { _, new in
+                        self.pdfCommand = .setStroke(color: UIColor(new))
+                    }
+                
+                let eraserTool = PDFTool.eraser(mode: .byHitTest)
+                let highlighterTool = PDFTool.highlighter(alpha: 0.35)
+                
+                let unselectedForegroundColor = Style.shared.textColor(.title)
+                let unselectedBackgroundColor = Style.shared.background(.quaternary)
+                
+                let selectedBackgroundColor = Style.shared.accent
+                let selectedForegroundColor = Style.shared.textColor(.titleInverted)
+                
+                CircularIconView(
+                    foregroundColor: self.pdfEditorViewModel.currentTool == .pen ? selectedForegroundColor : unselectedForegroundColor,
+                    backgroundColor: self.pdfEditorViewModel.currentTool == .pen ? selectedBackgroundColor : unselectedBackgroundColor,
+                    imageSource: .systemImage("pencil"),
+                    size: 32
+                )
+                .asButton {
+                    
+                    self.pdfEditorViewModel.currentTool = .pen
+                    self.pdfCommand = .setTool(.pen)
+                    
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            VStack(alignment: .leading, spacing: -12) {
+                
+                CircularIconView(
+                    foregroundColor: self.pdfEditorViewModel.currentTool == highlighterTool ? selectedForegroundColor : unselectedForegroundColor,
+                    backgroundColor: self.pdfEditorViewModel.currentTool == highlighterTool ? selectedBackgroundColor : unselectedBackgroundColor,
+                    imageSource: .systemImage("highlighter"),
+                    size: 32
+                )
+                .asButton {
+                    
+                    self.pdfEditorViewModel.currentTool = highlighterTool
+                    self.pdfCommand = .setTool(highlighterTool)
+                    
+                }
+                
+                CircularIconView(
+                    foregroundColor: self.pdfEditorViewModel.currentTool == eraserTool ? selectedForegroundColor : unselectedForegroundColor,
+                    backgroundColor: self.pdfEditorViewModel.currentTool == eraserTool ? selectedBackgroundColor : unselectedBackgroundColor,
+                    imageSource: .systemImage("eraser"),
+                    size: 32
+                )
+                .asButton {
+                    
+                    self.pdfEditorViewModel.currentTool = eraserTool
+                    self.pdfCommand = .setTool(eraserTool)
+                    
+                }
+                
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            VStack(alignment: .leading, spacing: -6) {
                 
                 Text("Line Width")
                     .appFont(with: .TITLE_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
-                ProgressSlider(value: self.$selectedToolbarLineWidth, thumbHeight: 24)
-                    .frame(width: UIScreen.main.bounds.width * 0.33)
-                    .onChange(of: self.selectedToolbarLineWidth) { _, new in
+                ProgressSlider(value: self.$pdfEditorViewModel.strokeWidth, thumbHeight: 24)
+                    .onChange(of: self.pdfEditorViewModel.strokeWidth) { _, new in
                         
                         let finalValue = Double(10 * new)
-                        NotificationCenter.default.post(name: .pdfEditorWidthChanged, object: Double(finalValue))
+                        self.pdfCommand = .setWidth(finalValue)
                         
                     }
                 
             }
-            .frame(maxWidth: .infinity, alignment: .bottomLeading)
+            .frame(maxWidth: .infinity, alignment: .center)
             .offset(y: 5)
             
-            Button {
-                
-                NotificationCenter
-                    .default
-                    .post(
-                        name: .pdfEditorUndoRequest,
-                        object: nil
-                    )
-                
-            } label: {
-                Image(systemName: "arrow.uturn.backward")
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .foregroundStyle(Style.shared.accent.source())
-            .appFont(with: .HEADER_1)
+            Spacer(minLength: 24)
             
-            Button {
+            HStack {
                 
-                NotificationCenter
-                    .default
-                    .post(
-                        name: .pdfEditorRedoRequest,
-                        object: nil
-                    )
+                Button {
+                    
+                    self.pdfCommand = .undo
+                    
+                } label: {
+                    Image(systemName: "arrow.uturn.backward")
+                }
+                .foregroundStyle(Style.shared.accent.source())
+                .appFont(with: .HEADER_1)
                 
-            } label: {
-                Image(systemName: "arrow.uturn.forward")
+                Button {
+                    
+                    self.pdfCommand = .redo
+                    
+                } label: {
+                    Image(systemName: "arrow.uturn.forward")
+                }
+                .foregroundStyle(Style.shared.accent.source())
+                .appFont(with: .HEADER_1)
+                
             }
-            .foregroundStyle(Style.shared.accent.source())
-            .appFont(with: .HEADER_1)
             
         }
         .padding(.small)
@@ -157,14 +211,7 @@ struct PDFEditorView: View {
         CommonButton(
             title: "Save"
         ) {
-                
-            NotificationCenter
-                .default
-                .post(
-                    name: .pdfEditorSaveRequest,
-                    object: nil
-                )
- 
+            self.pdfCommand = .save
         }
         
     }
@@ -173,15 +220,11 @@ struct PDFEditorView: View {
 
 #Preview {
     
-    let url = Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")
+    let url = Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf")!
+    let pdfDoucment = PDFDocument(url: url)!
     
-    if let pdfURL = url,
-       let pdfDocument = PDFDocument(url: pdfURL) {
-        
-        PDFEditorView(pdfDocument: pdfDocument) { editedData in
-            print("Edited PDF size: \(editedData.count) bytes")
-        }
-        
+    PDFEditorView(pdfDocument: pdfDoucment) { editedData in
+        print("Edited PDF size: \(editedData.count) bytes")
     }
     
 }

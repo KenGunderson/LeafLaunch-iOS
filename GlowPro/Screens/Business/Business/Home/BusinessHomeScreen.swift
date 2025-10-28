@@ -124,14 +124,22 @@ struct BusinessHomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
+            let businessColor = ActivityCategory.business.color
+            
             QuickActionTileView(
                 icon: ActivityCategory.business.icon,
-                iconBackgroundColor: .color(ActivityCategory.business.color),
+                iconBackgroundColor: .color(businessColor),
                 title: self.viewModel.business?.name ?? "Business Information",
                 subtitle: "Dashboard",
-                prominentSubtitle: false
+                prominentSubtitle: false,
+                backgroundStyle: .color(businessColor.opacity(0.10))
             )
             .appShadow(.subtle)
+            .appBorder(
+                cornerRadius: .small,
+                color: .color(businessColor),
+                lineWidth: 2
+            )
             .asButton {
                 
                 self.navigationService

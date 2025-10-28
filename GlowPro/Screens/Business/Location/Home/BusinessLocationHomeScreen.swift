@@ -142,14 +142,22 @@ struct BusinessLocationHomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
+            let locationColor = ActivityCategory.location.color
+            
             QuickActionTileView(
                 icon: ActivityCategory.location.icon,
-                iconBackgroundColor: .color(ActivityCategory.location.color),
+                iconBackgroundColor: .color(locationColor),
                 title: location?.name ?? "Location Information",
                 subtitle: location?.address.shortFormattedAddress ?? "No Address",
-                prominentSubtitle: false
+                prominentSubtitle: false,
+                backgroundStyle: .color(locationColor.opacity(0.10))
             )
             .appShadow(.subtle)
+            .appBorder(
+                cornerRadius: .small,
+                color: .color(locationColor),
+                lineWidth: 2
+            )
             .asButton {
                 
                 self.navigationService

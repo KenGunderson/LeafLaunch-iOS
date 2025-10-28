@@ -8,73 +8,129 @@
 import SwiftUI
 import PDFKit
 
-extension Notification.Name {
-    
-    static let pdfEditorSaveRequest = Notification.Name("pdfEditorSaveRequest")
-    static let pdfEditorReplaceDocument = Notification.Name("pdfEditorReplaceDocument")
-    static let pdfEditorUndoRequest = Notification.Name("pdfEditorUndoRequest")
-    static let pdfEditorRedoRequest = Notification.Name("pdfEditorRedoRequest")
-    static let pdfEditorColorChanged = Notification.Name("pdfEditorColorChanged")
-    static let pdfEditorWidthChanged = Notification.Name("pdfEditorWidthChanged")
-    
-}
-
 struct PDFInkView: UIViewRepresentable {
     
-    let document: PDFDocument
-    let onSave: (Data) -> Void
-
-    func makeUIView(context: Context) -> InkContainer {
+    public init(document: PDFDocument,
+                viewModel: PDFEditorViewModel,
+                onAction: @escaping (PDFAction) -> Void,
+                command: Binding<PDFCommand?>) {
         
-        let v = InkContainer()
-        v.configure(document: document, onSave: onSave)
+        self.document = document
+        self._viewModel = .init(wrappedValue: viewModel)
+        self.onAction = onAction
+        self._command = command
+    }
+    
+    private let document: PDFDocument
+    @ObservedObject private var viewModel: PDFEditorViewModel
+    
+    private let onAction: (PDFAction) -> Void
+    @Binding private var command: PDFCommand?
+    
+    public func makeUIView(context: Context) -> InkContainer {
+        
+        let v = InkContainer(onAction: { action in
+            
+            self.onAction(action)
+            
+            switch action {
+            case .didChangeTool(let tool):
+                self.viewModel.currentTool = tool
+                
+            case .didChangeStroke(let color, let width):
+                
+                self.viewModel.strokeColor = Color(uiColor: color)
+                self.viewModel.strokeWidth = width
+                
+            case .undoAvailability(let canUndo, let canRedo):
+                
+                self.viewModel.canUndo = canUndo
+                self.viewModel.canRedo = canRedo
+                
+            case .didJumpToPage(let index, let count):
+                
+                self.viewModel.pageIndex = index
+                self.viewModel.pageCount = count
+                
+            case .didSave, .error:
+                break
+            }
+            
+        })
+        
+        v.configure(
+            document: self.document,
+            initialTool: self.viewModel.currentTool,
+            color: UIColor(self.viewModel.strokeColor),
+            width: self.viewModel.strokeWidth * 10
+        )
         
         return v
+    }
+    
+    public func updateUIView(_ uiView: InkContainer, context: Context) {
+        
+        if let cmd = self.command {
+            uiView.handle(command: cmd)
+            DispatchQueue.main.async {
+                self.command = nil
+            }
+        }
         
     }
-
-    func updateUIView(_ uiView: InkContainer, context: Context) {}
     
 }
 
 @MainActor
 final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
+    // MARK: Core
+    
     private let pdfView = PDFView()
-    private var onSave: ((Data) -> Void)?
-
+    private let onAction: (PDFAction) -> Void
+    
     // Drawing state
     private var currentPage: PDFPage?
-    private var currentPath = UIBezierPath()
-    private var currentPoints: [CGPoint] = []
-    private var strokeColor: UIColor = .black
-    private var strokeWidth: Double = 2.5
-    
-    private var liveLayer = CAShapeLayer()
     private var pathViewSpace = UIBezierPath()
     private var pathPageSpace = UIBezierPath()
-
-    // Undo/redo stacks per page index
+    
+    // Settings
+    private var currentTool: PDFTool = .pen
+    private var strokeColor: UIColor = .black
+    private var strokeWidth: CGFloat = 2.5
+    
+    // Layers
+    private var liveLayer = CAShapeLayer()
+    
+    // Undo/redo (per page)
     private var undoStacks: [Int: [PDFAnnotation]] = [:]
     private var redoStacks: [Int: [PDFAnnotation]] = [:]
-
-    override init(frame: CGRect) {
+    
+    // MARK: Init
+    
+    init(onAction: @escaping (PDFAction) -> Void) {
         
-        super.init(frame: frame)
-        setupSubviews()
+        self.onAction = onAction
+        super.init(frame: .zero)
+        
+        self.setupSubviews()
         
     }
     
-    private var pdfScrollView: UIScrollView? {
-        return pdfView.subviews.compactMap { $0 as? UIScrollView }.first
-    }
-
     required init?(coder: NSCoder) { fatalError() }
-
-    func configure(document: PDFDocument, onSave: @escaping (Data) -> Void) {
+    
+    // MARK: Configure
+    
+    func configure(document: PDFDocument,
+                   initialTool: PDFTool,
+                   color: UIColor,
+                   width: CGFloat) {
         
-        self.onSave = onSave
         self.pdfView.document = document
+        self.currentTool = initialTool
+        self.strokeColor = color
+        self.strokeWidth = width
+        
         DispatchQueue.main.async { [weak self] in
             
             guard let self else { return }
@@ -84,15 +140,20 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             self.pdfView.maxScaleFactor = fit * 8.0
             self.pdfView.scaleFactor = fit
             
+            self.emitPageChange()
+            self.emitUndoAvailability()
+            self.onAction(.didChangeTool(self.currentTool))
+            self.onAction(.didChangeStroke(color: self.strokeColor, width: self.strokeWidth))
+            
         }
         
     }
     
-    // MARK: - Subviews
+    // MARK: Subviews
     
     private func setupSubviews() {
         
-        // PDF VIEW
+        // PDF View
         self.pdfView.translatesAutoresizingMaskIntoConstraints = false
         self.pdfView.autoScales = true
         self.pdfView.displayMode = .singlePageContinuous
@@ -100,8 +161,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         self.pdfView.displaysPageBreaks = true
         self.pdfView.displayBox = .cropBox
         self.pdfView.backgroundColor = .clear
-
-        // LIVE LAYER
+        
+        // Live Layer
         self.liveLayer.strokeColor = self.strokeColor.cgColor
         self.liveLayer.fillColor = UIColor.clear.cgColor
         self.liveLayer.lineWidth = self.strokeWidth
@@ -109,87 +170,154 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         self.liveLayer.lineJoin = .round
         
         self.pdfView.layer.addSublayer(self.liveLayer)
-        addSubview(self.pdfView)
-
+        self.addSubview(self.pdfView)
+        
         NSLayoutConstraint.activate([
-            self.pdfView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            self.pdfView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            self.pdfView.topAnchor.constraint(equalTo: topAnchor),
-            self.pdfView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.pdfView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.pdfView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.pdfView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.pdfView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
-
-        // PAN GESTURE
-        let pan = UIPanGestureRecognizer(
-            target: self,
-            action: #selector(handlePan(_:))
-        )
+        
+        // Gestures
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         pan.maximumNumberOfTouches = 1
         pan.minimumNumberOfTouches = 1
         pan.cancelsTouchesInView = true
         pan.delaysTouchesBegan = false
-        addGestureRecognizer(pan)
-
+        self.addGestureRecognizer(pan)
+        
         if let scrollPan = self.pdfView.subviews.compactMap({ $0 as? UIScrollView }).first?.panGestureRecognizer {
-            
-            scrollPan.minimumNumberOfTouches = 2 // two fingers to scroll
-            scrollPan.require(toFail: pan) // scroll waits for draw to fail
-            
+            scrollPan.minimumNumberOfTouches = 2
+            scrollPan.require(toFail: pan)
         }
-
+        
         self.pdfScrollView?.delaysContentTouches = false
         self.pdfScrollView?.canCancelContentTouches = true
-
-        NotificationCenter.default.addObserver(self, selector: #selector(saveRequested), name: .pdfEditorSaveRequest, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(undoRequested), name: .pdfEditorUndoRequest, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(redoRequested), name: .pdfEditorRedoRequest, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(colorChanged(_:)), name: .pdfEditorColorChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(widthChanged(_:)), name: .pdfEditorWidthChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pageChanged), name: Notification.Name.PDFViewPageChanged, object: self.pdfView)
+        
+        // Page change (internal only)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.pageChanged),
+                                               name: Notification.Name.PDFViewPageChanged,
+                                               object: self.pdfView)
         
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name.PDFViewPageChanged,
+                                                  object: self.pdfView)
+    }
+    
+    private var pdfScrollView: UIScrollView? {
+        return self.pdfView.subviews.compactMap { $0 as? UIScrollView }.first
+    }
+    
+    // MARK: Commands
+    
+    func handle(command: PDFCommand) {
         
-        NotificationCenter.default.removeObserver(self, name: .pdfEditorSaveRequest, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .pdfEditorUndoRequest, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .pdfEditorRedoRequest, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .pdfEditorColorChanged, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .pdfEditorWidthChanged, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.PDFViewPageChanged, object: self.pdfView)
+        switch command {
+        case .save:
+            if let data = self.pdfView.document?.dataRepresentation() {
+                self.onAction(.didSave(data: data))
+            }
+            
+        case .undo:
+            self.undoRequested()
+            
+        case .redo:
+            self.redoRequested()
+            
+        case .setTool(let tool):
+            self.currentTool = tool
+            self.onAction(.didChangeTool(tool))
+            
+        case .setStroke(let color):
+            self.strokeColor = color
+            self.liveLayer.strokeColor = color.cgColor
+            self.onAction(.didChangeStroke(color: color, width: self.strokeWidth))
+            
+        case .setWidth(let width):
+            self.strokeWidth = max(0.5, min(width, 20))
+            self.liveLayer.lineWidth = self.strokeWidth
+            self.onAction(.didChangeStroke(color: self.strokeColor, width: self.strokeWidth))
+            
+        case .replaceDocument(let doc):
+            self.configure(document: doc,
+                           initialTool: self.currentTool,
+                           color: self.strokeColor,
+                           width: self.strokeWidth)
+            
+        case .jumpToPage(let index):
+            if let page = self.pdfView.document?.page(at: index) {
+                self.pdfView.go(to: page)
+                self.emitPageChange()
+            }
+            
+        case .clearCurrentPage:
+            self.clearAnnotationsOnCurrentPage()
+            
+        case .export(let mode):
+            switch mode {
+            case .originalWithAnnotations:
+                if let data = self.pdfView.document?.dataRepresentation() {
+                    self.onAction(.didSave(data: data))
+                }
+            }
+        }
+        
+        self.emitUndoAvailability()
         
     }
-
-    // MARK: - Drawing
-
+    
+    // MARK: Gestures (Pen / Highlighter / Eraser)
+    
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
+        
+        switch self.currentTool {
+        case .pen, .highlighter:
+            self.handleDrawPan(gesture)
+            
+        case .eraser(let mode):
+            switch mode {
+            case .lastStroke:
+                if gesture.state == .ended {
+                    self.eraseLastStroke()
+                }
+            case .byHitTest:
+                self.handleEraseHitTestPan(gesture)
+            }
+        }
+        
+    }
+    
+    // MARK: Drawing
+    
+    private func handleDrawPan(_ gesture: UIPanGestureRecognizer) {
         
         switch gesture.state {
         case .began:
             
             guard gesture.numberOfTouches == 1 else { return }
+            self.pdfScrollView?.isScrollEnabled = false
             
-            self.pdfViewScroll()?.isScrollEnabled = false
-
-            // Start fresh paths
             self.pathViewSpace.removeAllPoints()
             self.pathPageSpace.removeAllPoints()
-
-            let viewPoint = gesture.location(in: self.pdfView)
             
+            let viewPoint = gesture.location(in: self.pdfView)
             guard let page = self.pdfView.page(for: viewPoint, nearest: true) else { return }
             self.currentPage = page
-
-            // page-space point
+            
             let pagePoint = self.pdfView.convert(viewPoint, to: page)
-
-            // init paths
             self.pathViewSpace.move(to: viewPoint)
             self.pathPageSpace.move(to: pagePoint)
-
-            // update live layer
-            self.liveLayer.path = self.pathViewSpace.cgPath
+            
+            let (color, width, alpha) = self.strokeForCurrentTool()
+            self.liveLayer.strokeColor = color.withAlphaComponent(alpha).cgColor
+            self.liveLayer.lineWidth = width
             self.liveLayer.isHidden = false
-
+            
         case .changed:
             
             if let page = self.currentPage,
@@ -197,79 +325,77 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
                 
                 let viewPoint = gesture.location(in: self.pdfView)
                 let pagePoint = self.pdfView.convert(viewPoint, to: page)
-
+                
                 self.pathViewSpace.addLine(to: viewPoint)
                 self.pathPageSpace.addLine(to: pagePoint)
-
                 self.liveLayer.path = self.pathViewSpace.cgPath
-                
             }
-
+            
         case .ended, .cancelled, .failed:
             
-            endStroke()
-            
+            self.commitStroke()
             self.liveLayer.isHidden = true
             self.liveLayer.path = nil
-            self.pdfViewScroll()?.isScrollEnabled = true
-
-        default: break
+            self.pdfScrollView?.isScrollEnabled = true
+            
+        default:
+            break
         }
         
     }
     
-    private func pdfViewScroll() -> UIScrollView? {
-        self.pdfView.subviews.compactMap { $0 as? UIScrollView }.first
-    }
-
-    private func beginStroke(at viewPoint: CGPoint) {
+    private func strokeForCurrentTool() -> (UIColor, CGFloat, CGFloat) {
         
-        guard let page = pdfView.page(for: viewPoint, nearest: true) else { return }
-        
-        self.currentPage = page
-        self.currentPath = UIBezierPath()
-        self.currentPath.lineWidth = self.strokeWidth
-        self.currentPoints = []
-
-        let pagePoint = pdfView.convert(viewPoint, to: page)
-        
-        self.currentPoints.append(pagePoint)
-        self.currentPath.move(to: pagePoint)
-        
-    }
-
-    private func continueStroke(at viewPoint: CGPoint) {
-        
-        guard let page = self.currentPage else { return }
-        
-        let pagePoint = self.pdfView.convert(viewPoint, to: page)
-        
-        self.currentPoints.append(pagePoint)
-        self.currentPath.addLine(to: pagePoint)
+        switch self.currentTool {
+        case .pen:
+            return (self.strokeColor, self.strokeWidth, 1.0)
+            
+        case .highlighter(let alpha):
+            
+            let strokeColor = self.strokeColor
+            let strokeWidth = self.strokeWidth * 3
+            let strokeAlpha = max(0.1, min(alpha, 0.6))
+            
+            return (strokeColor, strokeWidth * 2, strokeAlpha)
+            
+        case .eraser:
+            return (self.strokeColor, self.strokeWidth, 1.0) // unused
+        }
         
     }
-
-    private func endStroke() {
+    
+    private func commitStroke() {
         
-        guard let page = self.currentPage else { return }
-
-        // If the path is too small, ignore
-        if self.pathPageSpace.isEmpty || self.pathPageSpace.bounds.size == .zero { cleanupAfterStroke(); return }
-
-        // 1) Try INK (vector) annotation
-        let ink = self.makeInkAnnotation(for: page, path: self.pathPageSpace, color: self.strokeColor, width: self.strokeWidth)
+        guard let page = self.currentPage else {
+            self.cleanupAfterStroke()
+            return
+        }
+        
+        guard self.pathPageSpace.isEmpty == false,
+              self.pathPageSpace.bounds.size != .zero else {
+            self.cleanupAfterStroke()
+            return
+        }
+        
+        let (color, width, alpha) = self.strokeForCurrentTool()
+        let ink = self.makeInkAnnotation(
+            for: page,
+            path: self.pathPageSpace,
+            color: color.withAlphaComponent(alpha),
+            width: width
+        )
         
         page.addAnnotation(ink)
-        pushUndo(annotation: ink, on: page)
-
-        // Force refresh
+        self.pushUndo(annotation: ink, on: page)
+        
         self.pdfView.setNeedsDisplay()
         self.pdfView.documentView?.setNeedsDisplay()
         
-        cleanupAfterStroke()
+        self.cleanupAfterStroke()
+        self.emitUndoAvailability()
         
     }
-
+    
     private func cleanupAfterStroke() {
         
         self.currentPage = nil
@@ -277,147 +403,230 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         self.pathPageSpace.removeAllPoints()
         
     }
-
-    // MARK: - Annotations
-
-    private func makeInkAnnotation(for page: PDFPage,
-                                   path pageSpacePath: UIBezierPath,
-                                   color: UIColor,
-                                   width: CGFloat) -> PDFAnnotation {
+    
+    // MARK: Eraser (by-hit-test)
+    
+    private func handleEraseHitTestPan(_ gesture: UIPanGestureRecognizer) {
         
-        let box = self.pdfView.displayBox                       // be consistent everywhere
-        let bounds = page.bounds(for: box)                 // page rect (may not start at 0,0)
-
-        // Translate the path from page space → annotation local space
-        let localPath = UIBezierPath(cgPath: pageSpacePath.cgPath)
-        localPath.apply(CGAffineTransform(translationX: -bounds.origin.x,
-                                          y: -bounds.origin.y))
-
-        let ink = PDFAnnotation(bounds: bounds, forType: .ink, withProperties: nil)
-        ink.color = color
-        ink.backgroundColor = .clear
-        ink.shouldDisplay = true
-        ink.shouldPrint = true
-
-        let border = PDFBorder()
-        border.lineWidth = width
-        ink.border = border
-
-        // iOS API
-        ink.add(localPath)
-        return ink
+        guard let page = self.pdfView.currentPage else { return }
+        
+        let viewPoint = gesture.location(in: self.pdfView)
+        let pagePoint = self.pdfView.convert(viewPoint, to: page)
+        
+        if gesture.state == .ended {
+            self.eraseNearestAnnotation(at: pagePoint, on: page)
+        }
         
     }
-
-    private func pushUndo(annotation: PDFAnnotation, on page: PDFPage) {
+    
+    private func eraseNearestAnnotation(at point: CGPoint, on page: PDFPage) {
         
-        guard let doc = self.pdfView.document else { return }
+        let annotations = page.annotations
+        guard annotations.isEmpty == false else { return }
         
-        let pageIndex = doc.index(for: page)
-        self.redoStacks[pageIndex] = [] // clear redo on new action
+        let tolerance: CGFloat = 14.0
+        let candidates = annotations.filter {
+            $0.bounds.insetBy(dx: -tolerance, dy: -tolerance).contains(point)
+        }
         
-        var stack = self.undoStacks[pageIndex] ?? []
-        stack.append(annotation)
+        let target = candidates.first ?? annotations.min {
+            $0.bounds.center.distance(to: point) < $1.bounds.center.distance(to: point)
+        }
         
-        self.undoStacks[pageIndex] = stack
+        guard let hit = target else { return }
+        
+        page.removeAnnotation(hit)
+        self.pushRedoAfterRemoval(hit, on: page)
+        
+        self.emitUndoAvailability()
+        self.pdfView.setNeedsDisplay()
         
     }
-
-    // MARK: - Undo / Redo
-
-    @objc private func undoRequested() {
+    
+    private func eraseLastStroke() {
         
         guard let page = self.pdfView.currentPage,
               let doc = self.pdfView.document else { return }
         
         let idx = doc.index(for: page)
-        
         guard var stack = self.undoStacks[idx], let last = stack.popLast() else { return }
         
         page.removeAnnotation(last)
         self.undoStacks[idx] = stack
         
-        var r = self.redoStacks[idx] ?? []
-        r.append(last)
-        self.redoStacks[idx] = r
+        var redo = self.redoStacks[idx] ?? []
+        redo.append(last)
+        self.redoStacks[idx] = redo
+        
+        self.emitUndoAvailability()
+        self.pdfView.setNeedsDisplay()
         
     }
-
-    @objc private func redoRequested() {
+    
+    // MARK: Annotations
+    
+    private func makeInkAnnotation(for page: PDFPage,
+                                   path pageSpacePath: UIBezierPath,
+                                   color: UIColor,
+                                   width: CGFloat) -> PDFAnnotation {
+        
+        let box = self.pdfView.displayBox
+        let bounds = page.bounds(for: box)
+        
+        let localPath = UIBezierPath(cgPath: pageSpacePath.cgPath)
+        localPath.apply(CGAffineTransform(
+            translationX: -bounds.origin.x,
+            y: -bounds.origin.y
+        ))
+        
+        let ink = PDFAnnotation(bounds: bounds, forType: .ink, withProperties: nil)
+        ink.color = color
+        ink.backgroundColor = .clear
+        ink.shouldDisplay = true
+        ink.shouldPrint = true
+        
+        let border = PDFBorder()
+        border.lineWidth = width
+        ink.border = border
+        
+        ink.add(localPath)
+        return ink
+        
+    }
+    
+    private func pushUndo(annotation: PDFAnnotation, on page: PDFPage) {
+        
+        guard let doc = self.pdfView.document else { return }
+        
+        let pageIndex = doc.index(for: page)
+        self.redoStacks[pageIndex] = []
+        
+        var stack = self.undoStacks[pageIndex] ?? []
+        stack.append(annotation)
+        self.undoStacks[pageIndex] = stack
+        
+    }
+    
+    private func pushRedoAfterRemoval(_ removed: PDFAnnotation, on page: PDFPage) {
+        
+        guard let doc = self.pdfView.document else { return }
+        
+        let idx = doc.index(for: page)
+        var redo = self.redoStacks[idx] ?? []
+        redo.append(removed)
+        self.redoStacks[idx] = redo
+        
+    }
+    
+    // MARK: Undo / Redo
+    
+    private func undoRequested() {
         
         guard let page = self.pdfView.currentPage,
               let doc = self.pdfView.document else { return }
         
         let idx = doc.index(for: page)
+        guard var stack = self.undoStacks[idx], let last = stack.popLast() else { return }
         
-        guard var r = self.redoStacks[idx], let last = r.popLast() else { return }
+        page.removeAnnotation(last)
+        self.undoStacks[idx] = stack
+        
+        var redo = self.redoStacks[idx] ?? []
+        redo.append(last)
+        self.redoStacks[idx] = redo
+        
+        self.emitUndoAvailability()
+        
+    }
+    
+    private func redoRequested() {
+        
+        guard let page = self.pdfView.currentPage,
+              let doc = self.pdfView.document else { return }
+        
+        let idx = doc.index(for: page)
+        guard var redo = self.redoStacks[idx], let last = redo.popLast() else { return }
         
         page.addAnnotation(last)
-        self.redoStacks[idx] = r
+        self.redoStacks[idx] = redo
         
-        var u = self.undoStacks[idx] ?? []
-        u.append(last)
-        self.undoStacks[idx] = u
+        var undo = self.undoStacks[idx] ?? []
+        undo.append(last)
+        self.undoStacks[idx] = undo
         
-    }
-
-    // MARK: - Save
-
-    @objc private func saveRequested() {
-        
-        guard let data = self.pdfView.document?.dataRepresentation() else { return }
-        onSave?(data)
+        self.emitUndoAvailability()
         
     }
-
-    // MARK: - Tools
-
-    @objc private func colorChanged(_ note: Notification) {
+    
+    private func emitUndoAvailability() {
         
-        if let c = note.object as? UIColor {
-            
-            self.strokeColor = c
-            self.liveLayer.strokeColor = strokeColor.cgColor
-            
+        guard let doc = self.pdfView.document,
+              let page = self.pdfView.currentPage else { return }
+        
+        let idx = doc.index(for: page)
+        let canUndo = (self.undoStacks[idx]?.isEmpty == false)
+        let canRedo = (self.redoStacks[idx]?.isEmpty == false)
+        
+        self.onAction(.undoAvailability(canUndo: canUndo, canRedo: canRedo))
+        
+    }
+    
+    // MARK: Save / Page
+    
+    @objc private func pageChanged() {
+        self.emitPageChange()
+    }
+    
+    private func emitPageChange() {
+        
+        if let doc = self.pdfView.document,
+           let page = self.pdfView.currentPage {
+            self.onAction(.didJumpToPage(index: doc.index(for: page), count: doc.pageCount))
         }
         
     }
     
-    @objc private func widthChanged(_ note: Notification) {
+    private func clearAnnotationsOnCurrentPage() {
         
-        if let w = note.object as? Double {
-            
-            self.strokeWidth = max(0.5, min(w, 20))
-            self.liveLayer.lineWidth = strokeWidth
-            
+        guard let page = self.pdfView.currentPage else { return }
+        
+        for ann in page.annotations {
+            page.removeAnnotation(ann)
         }
         
+        self.emitUndoAvailability()
+        self.pdfView.setNeedsDisplay()
+        
     }
-
-    @objc private func pageChanged() {
-        // no-op; annotations are on the page and move/zoom automatically
-    }
-
+    
+    // MARK: Gesture Delegate
+    
     func gestureRecognizer(_ g: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
-        other is UIPinchGestureRecognizer
+        return other is UIPinchGestureRecognizer
     }
-
+    
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Only begin our draw pan when it’s a single-finger gesture
+        
         if let pan = gestureRecognizer as? UIPanGestureRecognizer {
             return pan.numberOfTouches <= 1
         }
         return true
-    }
-
-    override func willMove(toWindow newWindow: UIWindow?) {
-        
-        super.willMove(toWindow: newWindow)
-        if newWindow == nil {
-            NotificationCenter.default.removeObserver(self)
-        }
         
     }
     
+}
+
+// MARK: - Small Geometry Helpers
+
+private extension CGRect {
+    var center: CGPoint { CGPoint(x: self.midX, y: self.midY) }
+}
+
+private extension CGPoint {
+    func distance(to other: CGPoint) -> CGFloat {
+        let dx = self.x - other.x
+        let dy = self.y - other.y
+        return sqrt(dx*dx + dy*dy)
+    }
 }

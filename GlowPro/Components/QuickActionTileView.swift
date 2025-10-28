@@ -14,18 +14,21 @@ struct QuickActionTileView: View {
     let title: String
     let subtitle: String
     let prominentSubtitle: Bool
+    let backgroundStyle: ColorSource
     
     init(icon: ImageSource,
          iconBackgroundColor: ColorSource,
          title: String,
          subtitle: String,
-         prominentSubtitle: Bool = false) {
+         prominentSubtitle: Bool = false,
+         backgroundStyle: ColorSource = Style.shared.background(.secondary)) {
         
         self.icon = icon
         self.iconBackgroundColor = iconBackgroundColor
         self.title = title
         self.subtitle = subtitle
         self.prominentSubtitle = prominentSubtitle
+        self.backgroundStyle = backgroundStyle
         
     }
     
@@ -79,7 +82,7 @@ struct QuickActionTileView: View {
         .padding(.vertical, .large)
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 152)
-        .background(Style.shared.background(.secondary).source())
+        .background(self.backgroundStyle.source())
         .cornerRadius(.small)
         
     }

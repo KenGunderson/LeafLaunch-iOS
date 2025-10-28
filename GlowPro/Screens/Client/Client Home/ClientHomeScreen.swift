@@ -134,14 +134,22 @@ struct ClientHomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small)) {
             
+            let clientColor = ActivityCategory.client.color
+            
             QuickActionTileView(
                 icon: ActivityCategory.client.icon,
-                iconBackgroundColor: .color(ActivityCategory.client.color),
+                iconBackgroundColor: .color(clientColor),
                 title: client.fullName,
                 subtitle: viewModel.buildSubtitleString(client: client),
-                prominentSubtitle: false
+                prominentSubtitle: false,
+                backgroundStyle: .color(clientColor.opacity(0.10))
             )
             .appShadow(.subtle)
+            .appBorder(
+                cornerRadius: .small,
+                color: .color(clientColor),
+                lineWidth: 2
+            )
             .asButton {
                 
                 self.navigationService
