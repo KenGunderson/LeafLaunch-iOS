@@ -18,6 +18,36 @@
             endingLineNumber = "561"
             landmarkName = "withSheetDestination(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B8BFA4C2-FE6A-4C7F-871A-FB62D4B58569 - 26159fb9ac3cad96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (GlowPro_Localhost.Sheet) -&gt; SwiftUI._ConditionalContent&lt;SwiftUI._ConditionalContent&lt;GlowPro_Localhost.SecurityPinInputScreen, GlowPro_Localhost.WhatsNewScreen&gt;, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0&gt; in SwiftUI.View.withSheetDestination(SwiftUI.Binding&lt;Swift.Optional&lt;GlowPro_Localhost.Sheet&gt;&gt;) -&gt; some"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Navigation/NavigationService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "562"
+                  endingLineNumber = "562">
+               </Location>
+               <Location
+                  uuid = "B8BFA4C2-FE6A-4C7F-871A-FB62D4B58569 - fdf6dfb9e5c00c55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (GlowPro_Dev.Sheet) -&gt; SwiftUI._ConditionalContent&lt;SwiftUI._ConditionalContent&lt;GlowPro_Dev.SecurityPinInputScreen, GlowPro_Dev.WhatsNewScreen&gt;, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0&gt; in SwiftUI.View.withSheetDestination(SwiftUI.Binding&lt;Swift.Optional&lt;GlowPro_Dev.Sheet&gt;&gt;) -&gt; some"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Navigation/NavigationService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "562"
+                  endingLineNumber = "562">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -34,6 +64,36 @@
             endingLineNumber = "93"
             landmarkName = "impersonate()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D667C693-305E-407D-887C-5584729A852A - 7434ced0bcbb7092"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in GlowPro_Localhost.DevImpersonateViewModel.impersonate() -&gt; ()"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/DevSettings/Impersonate/DevImpersonateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93">
+               </Location>
+               <Location
+                  uuid = "D667C693-305E-407D-887C-5584729A852A - a1b20082da0c2b6f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in GlowPro_Dev.DevImpersonateViewModel.impersonate() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/DevSettings/Impersonate/DevImpersonateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -50,6 +110,36 @@
             endingLineNumber = "80"
             landmarkName = "impersonateUser(email:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "970AEF7E-519E-4C84-83BC-E20DCB164FC8 - fe0134d7171622e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GlowPro_Localhost.ImpersonateService.impersonateUser(email: Swift.String) async throws -&gt; ()"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Impersonate/ImpersonateService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80">
+               </Location>
+               <Location
+                  uuid = "970AEF7E-519E-4C84-83BC-E20DCB164FC8 - 2fc9330b50f62f1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GlowPro_Dev.ImpersonateService.impersonateUser(email: Swift.String) async throws -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/Impersonate/ImpersonateService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,6 +156,36 @@
             endingLineNumber = "62"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "5D028E3E-C478-43D6-B094-4BEC19385595 - 7dee461c11c46191"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Optional&lt;GlowPro_Localhost.GhostOverlayView.GhostOverlayItem&gt;, Swift.Optional&lt;GlowPro_Localhost.GhostOverlayView.GhostOverlayItem&gt;) -&gt; () in GlowPro_Localhost.CameraScreen.body.getter : some"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62">
+               </Location>
+               <Location
+                  uuid = "5D028E3E-C478-43D6-B094-4BEC19385595 - a7c50929abfdac87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Optional&lt;GlowPro_Dev.GhostOverlayView.GhostOverlayItem&gt;, Swift.Optional&lt;GlowPro_Dev.GhostOverlayView.GhostOverlayItem&gt;) -&gt; () in GlowPro_Dev.CameraScreen.body.getter : some"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -82,6 +202,36 @@
             endingLineNumber = "47"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "7D787C8C-F010-4E8E-9CC3-0075050FFAD0 - 7dee461c11c46380"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Optional&lt;GlowPro_Localhost.GhostOverlayView.GhostOverlayItem&gt;, Swift.Optional&lt;GlowPro_Localhost.GhostOverlayView.GhostOverlayItem&gt;) -&gt; () in GlowPro_Localhost.CameraScreen.body.getter : some"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+               <Location
+                  uuid = "7D787C8C-F010-4E8E-9CC3-0075050FFAD0 - a7c50929abfdae96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Optional&lt;GlowPro_Dev.GhostOverlayView.GhostOverlayItem&gt;, Swift.Optional&lt;GlowPro_Dev.GhostOverlayView.GhostOverlayItem&gt;) -&gt; () in GlowPro_Dev.CameraScreen.body.getter : some"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -98,6 +248,36 @@
             endingLineNumber = "564"
             landmarkName = "handleCustomMediaGallerySelection()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "54A1858D-A07E-45F3-859B-3E721BD7E372 - 228ab837ee414dd8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;GlowPro_Localhost.Media&gt;) -&gt; () in GlowPro_Localhost.CameraScreen.handleCustomMediaGallerySelection() -&gt; ()"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "564"
+                  endingLineNumber = "564">
+               </Location>
+               <Location
+                  uuid = "54A1858D-A07E-45F3-859B-3E721BD7E372 - 8644127841c4fe2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;GlowPro_Dev.Media&gt;) -&gt; () in GlowPro_Dev.CameraScreen.handleCustomMediaGallerySelection() -&gt; ()"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Screens/Media/Camera/CameraScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "564"
+                  endingLineNumber = "564">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -114,6 +294,36 @@
             endingLineNumber = "32"
             landmarkName = "uploadMedia(uploadMedia:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "923C2ED7-1167-48FF-9364-5CD638C84F90 - 77fbc84bc8fd3311"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GlowPro_Localhost.APIService.uploadMedia(uploadMedia: GlowPro_Localhost.UploadMedia) async throws -&gt; Swift.String"
+                  moduleName = "GlowPro Localhost.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/API/Rest%20API/Endpoints/APIService+Upload.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32">
+               </Location>
+               <Location
+                  uuid = "923C2ED7-1167-48FF-9364-5CD638C84F90 - f1c3bcc1e0d28ed5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GlowPro_Dev.APIService.uploadMedia(uploadMedia: GlowPro_Dev.UploadMedia) async throws -&gt; Swift.String"
+                  moduleName = "GlowPro Dev.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakohovaguimian/Desktop/Personal/GlowPro/GlowPro/Services/API/Rest%20API/Endpoints/APIService+Upload.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

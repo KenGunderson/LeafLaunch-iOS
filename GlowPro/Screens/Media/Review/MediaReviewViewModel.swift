@@ -108,17 +108,27 @@ final class MediaReviewViewModel: ViewModel {
             do {
                 
                 let businessId = self.activeDestinationService.businessId ?? ""
-                var locationId = self.activeDestinationService.locationEmployee?.locationId ?? ""
+                var locationId = self.activeDestinationService.locationEmployee?.locationId
                 var clientId: String?
                 
                 switch self.context! {
                 case .location(let contextLocationId): locationId = contextLocationId
-                case .client(let contextClientId): clientId = contextClientId
+                case .client(let contextClientId):
+                    
+                    if locationId == nil {
+                    
+                        let client = try await self.apiService.getClient(id: contextClientId)
+                        locationId = client.locationId ?? ""
+                        
+                    }
+                    
+                    clientId = contextClientId
+                    
                 }
                 
                 _ = try await createAllMedia(
                     businessId: businessId,
-                    locationId: locationId,
+                    locationId: locationId ?? "",
                     clientId: clientId
                 )
                 
