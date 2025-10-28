@@ -131,6 +131,7 @@ final class ClientHomeViewModel: ViewModel {
                     self?.client = client
                     self?.clientSummaryText = client.summary ?? ""
                     self?.clientSummaryExpanded = (client.summary == "" || client.summary == nil)
+                    self?.setEmployeeLocationActiveDestinationIfNeeded()
                     
                 }
                 
@@ -159,6 +160,24 @@ final class ClientHomeViewModel: ViewModel {
             }
             
         }
+        
+    }
+    
+    func setEmployeeLocationActiveDestinationIfNeeded() {
+        
+        guard let client = self.client,
+              let locationId = client.locationId,
+              self.activeDestinationService.locationEmployee == nil else { return }
+        
+        self.activeDestinationService
+            .setTemporaryLocationEmployee(locationId)
+        
+    }
+    
+    func removeEmployeeLocationActiveDestinationIfNeeded() {
+    
+        self.activeDestinationService
+            .removeTemporaryLocationEmployee()
         
     }
     

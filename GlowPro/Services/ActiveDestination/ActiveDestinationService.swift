@@ -24,6 +24,8 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     @Published private(set) var isOwner: Bool = false
     @Published internal var locationEmployee: LocationEmployee?
     
+    internal var isTemporaryLocationEmployee: Bool = false
+    
     var role: Role? {
         return self.locationEmployee?.role
     }
@@ -71,6 +73,45 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
     }
     
+    func setTemporaryLocationEmployee(_ locationId: String) {
+        
+        guard let userId = self.business?.owner.id else { return }
+        
+        Task {
+            
+            let employeeId = try await self.apiService.getEmployeeByUserIdForLocation(
+                userId: userId,
+                locationId: locationId
+            )
+            
+            let locationEmployee = try await self.apiService.getLocationEmployee(
+                employeeId: employeeId,
+                locationId: locationId
+            )
+            
+            await MainActor.run {
+                
+                self.isTemporaryLocationEmployee = true
+                self.locationEmployee = locationEmployee
+                self.log(message: "Set Temporary Location Employee: \(locationEmployee.id)")
+                
+            }
+            
+        }
+        
+    }
+    
+    func removeTemporaryLocationEmployee() {
+        
+        guard self.isTemporaryLocationEmployee else { return }
+        
+        self.isTemporaryLocationEmployee = false
+        self.locationEmployee = nil
+        
+        self.log(message: "Removed Temporary Location Employee")
+        
+    }
+    
     func logout() {
         
         self.activeDestination = nil
@@ -92,13 +133,18 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
         switch activeDestination {
         case .business(_, let fetchedBusiness):
+            
             business = fetchedBusiness
+            
         case .location(_, _, let fetchedLocationEmployee, let fetchedBusiness):
+            
             locationEmployee = fetchedLocationEmployee
             business = fetchedBusiness
         }
         
-        // THIS IS NIL BECAUSE WE DON"T HAVE BUSINESS OWNER IN LOCAITON OBJECT
+        self.isTemporaryLocationEmployee = false
+        
+        // THIS IS NIL BECAUSE WE DON"T HAVE BUSINESS OWNER IN LOCATION OBJECT
         self.isOwner = (business?.owner.id == currentUserId)
         self.locationEmployee = locationEmployee
         

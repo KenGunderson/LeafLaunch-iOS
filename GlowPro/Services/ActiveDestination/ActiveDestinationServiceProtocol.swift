@@ -22,9 +22,14 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     var businessId: String? { get set }
     
     var locationEmployee: LocationEmployee? { get set }
+    var isTemporaryLocationEmployee: Bool { get set }
     
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
+    
+    func setTemporaryLocationEmployee(_ locationId: String)
+    func removeTemporaryLocationEmployee()
+    
     func refresh()
     func logout()
     

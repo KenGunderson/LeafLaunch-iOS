@@ -15,11 +15,13 @@ final class MediaReviewViewModel: ViewModel {
         case client(clientId: String)
         
         static func transformFromMediaContext(_ mediaContext: MediaContext) -> Self {
+            
             switch mediaContext {
             case .location(locationId: let locationId): return .location(locationId: locationId)
             case .client(clientId: let clientId): return .client(clientId: clientId)
             default: fatalError("This context does not support business / employee")
             }
+            
         }
         
     }
@@ -113,17 +115,7 @@ final class MediaReviewViewModel: ViewModel {
                 
                 switch self.context! {
                 case .location(let contextLocationId): locationId = contextLocationId
-                case .client(let contextClientId):
-                    
-                    if locationId == nil {
-                    
-                        let client = try await self.apiService.getClient(id: contextClientId)
-                        locationId = client.locationId ?? ""
-                        
-                    }
-                    
-                    clientId = contextClientId
-                    
+                case .client(let contextClientId): clientId = contextClientId
                 }
                 
                 _ = try await createAllMedia(

@@ -351,23 +351,8 @@ final class NoteCreateEditViewModel: ViewModel {
             
             do {
                 
-                var employeeId = self.activeDestinationService.locationEmployee?.employeeId
-                var locationId = self.activeDestinationService.locationEmployee?.locationId
-                
-                if employeeId == nil {
-                    
-                    let client = try await self.apiService
-                        .getClient(id: self.clientId)
-                    
-                    employeeId = try await self.apiService
-                        .getEmployeeByUserIdForLocation(
-                            userId: authUser.id,
-                            locationId: client.locationId ?? ""
-                        )
-                    
-                    locationId = client.locationId
-                    
-                }
+                let employeeId = self.activeDestinationService.locationEmployee?.employeeId
+                let locationId = self.activeDestinationService.locationEmployee?.locationId
                 
                 let allURLs = try await uploadAndConstructUrlsIfNeeded(locationId: locationId ?? "")
                 

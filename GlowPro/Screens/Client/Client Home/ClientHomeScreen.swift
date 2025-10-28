@@ -58,6 +58,17 @@ struct ClientHomeScreen: GPView {
             
         }
         
+        .onChange(of: self.navigationService.routes) { oldValue, newValue in
+            
+            let previousNavigationRoute: Route = .client(.clientHome(clientId: self.viewModel.clientId))
+            let isBackwardNavigation: Bool = oldValue.count > newValue.count
+         
+            if oldValue.last == previousNavigationRoute && isBackwardNavigation {
+                self.viewModel.removeEmployeeLocationActiveDestinationIfNeeded()
+            }
+            
+        }
+        
         // Animation
         
         .animation(.snappy(duration: 0.5), value: self.viewModel.client)

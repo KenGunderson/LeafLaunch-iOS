@@ -367,14 +367,7 @@ final class MediaGalleryViewModel: ViewModel {
                         
         Task {
             
-            var locationId = self.activeDestinationService.locationEmployee?.locationId
-            
-            if locationId == nil {
-                
-                let client = try await self.apiService.getClient(id: clientId)
-                locationId = client.locationId
-                
-            }
+            let locationId = self.activeDestinationService.locationEmployee?.locationId
             
             try await items.asyncForEach { item in
                 

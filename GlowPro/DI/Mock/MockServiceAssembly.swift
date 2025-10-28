@@ -1071,12 +1071,50 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
         return self.$activeDestination.eraseToAnyPublisher()
     }
     
+    var isTemporaryLocationEmployee: Bool = false
+    
     func setActiveDestination(_ destination: ActiveDestination) {
         self.activeDestination = destination
     }
     
     func removeActiveDestination() {
         self.activeDestination = nil
+    }
+    
+    func setTemporaryLocationEmployee(_ locationId: String) {
+        
+        guard let userId = self.business?.owner.id else { return }
+        
+        Task {
+            
+            let employeeId = try await self.apiService.getEmployeeByUserIdForLocation(
+                userId: userId,
+                locationId: locationId
+            )
+            
+            let locationEmployee = try await self.apiService.getLocationEmployee(
+                employeeId: employeeId,
+                locationId: locationId
+            )
+            
+            await MainActor.run {
+                
+                self.isTemporaryLocationEmployee = true
+                self.locationEmployee = locationEmployee
+                
+            }
+            
+        }
+        
+    }
+    
+    func removeTemporaryLocationEmployee() {
+        
+        guard self.isTemporaryLocationEmployee else { return }
+        
+        self.isTemporaryLocationEmployee = false
+        self.locationEmployee = nil
+        
     }
     
     func logout() {
