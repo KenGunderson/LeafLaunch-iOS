@@ -7,7 +7,6 @@
 
 import SwiftUI
 import _PhotosUI_SwiftUI
-import PDFKit
 
 final class NoteCreateEditViewModel: ViewModel {
     
@@ -264,19 +263,20 @@ final class NoteCreateEditViewModel: ViewModel {
         
     }
     
+    func removeOldPDFMediaFusion(mediaFusion: MediaFusion) {
+        
+        if let index = self.mediaFusion.firstIndex(of: mediaFusion) {
+            
+            self.mediaFusion.remove(at: index)
+            
+        }
+        
+    }
+    
     func handlePDFDocumentSelection(data: Data) {
         
-        guard let document = PDFDocument(data: data),
-              let page = document.page(at: 0) else { return }
-        
-        // TODO: - Handle Width / Height with Page Rect
-        let pdfImage = page.thumbnail(of: .init(
-            width: 1080, height: 1080
-        ), for: .cropBox
-        )
-        
         self.mediaFusion.append(.init(
-            kind: .pdf(pdfImage),
+            kind: .pdf(data),
             isUploaded: false
         ))
         
@@ -490,11 +490,11 @@ final class NoteCreateEditViewModel: ViewModel {
                 
                 newMediaURLs.append(URL(string: newURL))
                 
-            case .pdf(let image):
+            case .pdf(_):
                 
                 let newURL = try await self.apiService
                     .uploadMedia(uploadMedia: .init(
-                        data: image.compressedData(maxMegaBytes: 5) ?? Data(),
+                        data: media.kind.image?.compressedData(maxMegaBytes: 5) ?? Data(),
                         businessId: self.activeDestinationService.businessId,
                         locationId: locationId,
                         clientId: self.clientId,

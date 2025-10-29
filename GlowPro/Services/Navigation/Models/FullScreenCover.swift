@@ -16,7 +16,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     
     case mediaTags(selectedMedia: Media?)
     case mediaMultiTags(selectedMedia: [Media])
-    case mediaPreview(url: URL)
+    case mediaPreview(context: MediaURLPreviewView.Context)
 
     case subscriptionPaywall(paywallItem: SubscriptionPaywallItem)
     
@@ -39,7 +39,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .settings: return hasher.combine(2)
         case .mediaTags(let selectedMedia): return hasher.combine(selectedMedia?.id)
         case .mediaMultiTags(let selectedMedia): return hasher.combine(selectedMedia.first?.id)
-        case .mediaPreview(let url): return hasher.combine(url.absoluteString)
+        case .mediaPreview(let ctx): return hasher.combine(ctx)
         case .subscriptionPaywall(let item): return hasher.combine(item.id)
         case .pdfEditor(let pdfDocument, _): return hasher.combine(pdfDocument.documentURL?.absoluteString ?? "")
         }
