@@ -141,10 +141,21 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Activity
     
-    func getActivitiy(businessId: String) async throws -> [Activity]
-    func getActivitiy(locationId: String) async throws -> [Activity]
-    func getActivitiy(employeeId: String) async throws -> [Activity]
-    func getActivitiy(clientId: String) async throws -> [Activity]
+    func getActivitiy(businessId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity]
+    
+    func getActivitiy(locationId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity]
+    
+    func getActivitiy(employeeId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity]
+    
+    func getActivitiy(clientId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity]
     
     // Notes
     

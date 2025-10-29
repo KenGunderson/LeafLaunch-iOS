@@ -47,7 +47,11 @@ struct BusinessActivityListScreen: GPView {
         }
         .emptyStateOverlay(
             shouldShow: self.viewModel.shouldShowEmptyState,
-            config: self.viewModel.emptyStateConfig()
+            config: self.viewModel.emptyStateConfig(),
+            transition: .asymmetric(
+                insertion: .move(edge: .bottom).combined(with: .opacity),
+                removal: .opacity.animation(.bouncy(duration: 0.1))
+            )
         )
         .safeAreaInset(edge: .bottom) {
             bottomBar()
@@ -72,12 +76,18 @@ struct BusinessActivityListScreen: GPView {
     
     private func contentCards() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             filersView()
+                .id("Filters")
             
-            ActivitiesView(activities: self.viewModel.filteredActivities)
-                .padding(.horizontal, .medium)
+            ActivitiesView(activities: self.viewModel.activities) {
+                
+                self.viewModel
+                    .loadData()
+                
+            }
+            .padding(.horizontal, .medium)
             
         }
         
@@ -144,6 +154,8 @@ struct BusinessActivityListScreen: GPView {
                 .move(edge: .bottom)
                 .combined(with: .opacity)
             )
+            .frame(maxWidth: .infinity)
+            .background(Style.shared.background(.primary).source())
             
         }
         

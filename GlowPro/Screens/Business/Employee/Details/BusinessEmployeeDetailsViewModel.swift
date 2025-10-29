@@ -103,7 +103,11 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                     )
                 
                 let activities = try await self.apiService
-                    .getActivitiy(employeeId: self.employeeId)
+                    .getActivitiy(
+                        employeeId: self.employeeId,
+                        query: .init(),
+                        activityTypeFilters: []
+                    )
                 
                 let workspaces = try await self.apiService
                     .getWorkspaces(userId: employee.userId)

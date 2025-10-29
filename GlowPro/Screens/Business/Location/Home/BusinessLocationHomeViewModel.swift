@@ -111,7 +111,12 @@ final class BusinessLocationHomeViewModel: ViewModel {
             
             do {
                                 
-                async let activities = self.apiService.getActivitiy(locationId: self.locationId)
+                async let activities = self.apiService.getActivitiy(
+                    locationId: self.locationId,
+                    query: .init(),
+                    activityTypeFilters: []
+                )
+                
                 async let employeeId = self.apiService.getEmployeeByUserIdForLocation(
                     userId: currentUser.id,
                     locationId: self.locationId

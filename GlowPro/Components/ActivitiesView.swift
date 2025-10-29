@@ -10,13 +10,17 @@ import SwiftUI
 struct ActivitiesView: View {
     
     private let activityDict: [Date: [Activity]]
+    private let loadNextBatch: (() -> Void)?
     
-    init(activities: [Activity]) {
+    init(activities: [Activity],
+         loadNextBatch: (() -> Void)? = nil) {
                 
         self.activityDict = Dictionary(
             grouping: activities,
             by: \.createdAtNoTimestamp
         )
+        
+        self.loadNextBatch = loadNextBatch
         
     }
     
@@ -44,7 +48,7 @@ struct ActivitiesView: View {
     private func section(date: String,
                          activities: [Activity]) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text(date)
                 .appFont(with: .TITLE_4)
@@ -58,10 +62,19 @@ struct ActivitiesView: View {
     
     private func activityList(activities: [Activity]) -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small)) {
+        LazyVStack(spacing: Style.shared.spacing(.small)) {
             
             ForEach(activities, id: \.id) { activity in
+                
                 ActivityView(activity: activity)
+                    .onAppear {
+                        
+                        if activity.id == activities.last?.id {
+                            loadNextBatch?()
+                        }
+                        
+                    }
+                
             }
             
         }
@@ -89,7 +102,7 @@ struct ActivitiesView: View {
                 authorId: "",
                 businessId: MockModels.ID.business1,
                 locationId: MockModels.ID.location1,
-                activityType: .formSubmitted,
+                activityType: .formCreated,
                 createdAt: Date().addingTimeInterval(-4379743).toISO()
             ),
             .init(

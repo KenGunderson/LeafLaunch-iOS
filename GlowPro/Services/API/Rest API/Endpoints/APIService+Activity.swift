@@ -9,13 +9,25 @@ extension APIService {
     
     // MARK: - ACTIVITIES
     
-    func getActivitiy(businessId: String) async throws -> [Activity] {
+    func getActivitiy(businessId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity] {
+        
+        var queryParameters: [String: String] = [:]
+        
+        queryParameters["limit"] = "\(query.limit)"
+        queryParameters["offset"] = "\(query.offset)"
+        
+        if !activityTypeFilters.isEmpty {
+            queryParameters["filters"] = activityTypeFilters.map({ $0.rawValue }).joined(separator: ",")
+        }
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity("business/\(businessId)"))
+                apiPath: .init(path: .activity("business/\(businessId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -28,13 +40,25 @@ extension APIService {
         
     }
     
-    func getActivitiy(locationId: String) async throws -> [Activity] {
+    func getActivitiy(locationId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity] {
+        
+        var queryParameters: [String: String] = [:]
+        
+        queryParameters["limit"] = "\(query.limit)"
+        queryParameters["offset"] = "\(query.offset)"
+        
+        if !activityTypeFilters.isEmpty {
+            queryParameters["filters"] = activityTypeFilters.map({ $0.rawValue }).joined(separator: ",")
+        }
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity("location/\(locationId)"))
+                apiPath: .init(path: .activity("location/\(locationId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -47,13 +71,24 @@ extension APIService {
         
     }
     
-    func getActivitiy(employeeId: String) async throws -> [Activity] {
+    func getActivitiy(employeeId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity] {
+        
+        var queryParameters: [String: String] = [:]
+        
+        queryParameters["limit"] = "\(query.limit)"
+        queryParameters["offset"] = "\(query.offset)"
+        
+        if !activityTypeFilters.isEmpty {
+            queryParameters["filters"] = activityTypeFilters.map({ $0.rawValue }).joined(separator: ",")
+        }
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .activity("author/\(employeeId)"))
+                apiPath: .init(path: .activity("author/\(employeeId)")),
             )
             
             let result: [Activity] = try parseData(data: data)
@@ -66,16 +101,25 @@ extension APIService {
         
     }
     
-    func getActivitiy(clientId: String) async throws -> [Activity] {
+    func getActivitiy(clientId: String,
+                      query: Query,
+                      activityTypeFilters: [ActivityType]) async throws -> [Activity] {
         
-        let queryParameter: [String: String] = ["client_id": clientId]
+        var queryParameters: [String: String] = ["client_id": clientId]
+        
+        queryParameters["limit"] = "\(query.limit)"
+        queryParameters["offset"] = "\(query.offset)"
+        
+        if !activityTypeFilters.isEmpty {
+            queryParameters["filters"] = activityTypeFilters.map({ $0.rawValue }).joined(separator: ",")
+        }
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
                 apiPath: .init(path: .activity("")),
-                queryParameters: queryParameter
+                queryParameters: queryParameters
             )
             
             let result: [Activity] = try parseData(data: data)

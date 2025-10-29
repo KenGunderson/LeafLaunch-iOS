@@ -10,7 +10,7 @@ import Foundation
 final class BusinessActivityListViewModel: ViewModel {
     
     enum Context: Hashable {
-
+        
         case business(businessId: String)
         case location(locationId: String)
         case employee(employeeId: String)
@@ -45,24 +45,15 @@ final class BusinessActivityListViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private var activities: [Activity] = []
+    @Published private(set) var activities: [Activity] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
     @Published private(set) var selectedActivityTypes: [ActivityType] = []
     
-    var filteredActivities: [Activity] {
-        
-        guard !self.selectedActivityTypes.isEmpty else {
-            return self.activities
-        }
-        
-        return self.activities.filter { activity in
-            self.selectedActivityTypes.contains(activity.activityType)
-        }
-        
-    }
+    private var isLoading: Bool = false
+    private var isPagingComplete: Bool = false
     
     private(set) var context: Context!
-
+    
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
@@ -98,10 +89,19 @@ final class BusinessActivityListViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showsHUD: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        guard !self.isLoading else { return }
+        guard !self.isPagingComplete else { return }
+        
+        self.isLoading = true
+        
+        if showsHUD {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -109,33 +109,55 @@ final class BusinessActivityListViewModel: ViewModel {
                 
                 var activities: [Activity] = []
                 
+                let query = Query(
+                    limit: Query.defaultLimit,
+                    offset: self.activities.count
+                )
+                
                 switch context {
                 case .business(let businessId):
                     
                     activities = try await self.apiService
-                        .getActivitiy(businessId: businessId)
+                        .getActivitiy(
+                            businessId: businessId,
+                            query: query,
+                            activityTypeFilters: self.selectedActivityTypes
+                        )
                     
                 case .location(let locationId):
                     
                     activities = try await self.apiService
-                        .getActivitiy(locationId: locationId)
-                
+                        .getActivitiy(
+                            locationId: locationId,
+                            query: query,
+                            activityTypeFilters: self.selectedActivityTypes
+                        )
+                    
                 case .employee(let employeeId):
                     
                     activities = try await self.apiService
-                        .getActivitiy(employeeId: employeeId)
+                        .getActivitiy(
+                            employeeId: employeeId,
+                            query: query,
+                            activityTypeFilters: self.selectedActivityTypes
+                        )
                     
                 case .client(let clientId):
                     
                     activities = try await self.apiService
-                        .getActivitiy(clientId: clientId)
+                        .getActivitiy(
+                            clientId: clientId,
+                            query: query,
+                            activityTypeFilters: self.selectedActivityTypes
+                        )
                     
                 default: break
                 }
-      
+                
                 await MainActor.run { [activities] in
                     
-                    self.activities = activities
+                    self.activities += activities
+                    self.isPagingComplete = activities.count < Query.defaultLimit
                     self.shouldShowEmptyState = activities.isEmpty
                     
                 }
@@ -158,15 +180,23 @@ final class BusinessActivityListViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showsHUD {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
+            
+            await MainActor.run {
+                self.isLoading = false
+            }
             
         }
         
     }
     
     func set(activityType: ActivityType) {
-     
+        
         if self.selectedActivityTypes.contains(activityType) {
             self.selectedActivityTypes.removeAll { $0 == activityType }
         }
@@ -174,10 +204,17 @@ final class BusinessActivityListViewModel: ViewModel {
             self.selectedActivityTypes.append(activityType)
         }
         
+        self.resetPagingState()
+        self.loadData(showsHUD: false)
+        
     }
     
     func clearFilters() {
+        
         self.selectedActivityTypes.removeAll()
+        self.resetPagingState()
+        self.loadData(showsHUD: false)
+        
     }
     
     func emptyStateConfig() -> EmptyStateConfig {
@@ -189,6 +226,13 @@ final class BusinessActivityListViewModel: ViewModel {
             actionTitle: nil,
             action: nil
         )
+        
+    }
+    
+    private func resetPagingState() {
+        
+        self.isPagingComplete = false
+        self.activities = []
         
     }
     

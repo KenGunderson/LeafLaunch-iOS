@@ -1220,7 +1220,7 @@ struct MockModels {
                 authorId: ID.employee1,
                 businessId: MockModels.ID.business1,
                 locationId: MockModels.ID.location1,
-                activityType: .formSubmitted,
+                activityType: .formCreated,
                 createdAt: Date().addingTimeInterval(-23984).toISO()
             )
         }

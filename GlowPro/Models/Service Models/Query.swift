@@ -28,6 +28,8 @@ struct Query {
     var order: Order?
     var inviteCode: String?
     
+    static let defaultLimit: Int = 25
+    
     init(limit: Int = 1000,
          offset: Int = 0,
          query: String? = nil,

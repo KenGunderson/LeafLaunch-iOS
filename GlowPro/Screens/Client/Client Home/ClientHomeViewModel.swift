@@ -112,7 +112,11 @@ final class ClientHomeViewModel: ViewModel {
                     .getLocation(id: client.locationId ?? "")
                 
                 let activities = try await self.apiService
-                    .getActivitiy(clientId: self.clientId)
+                    .getActivitiy(
+                        clientId: self.clientId,
+                        query: .init(),
+                        activityTypeFilters: []
+                    )
                 
                 let media = try await self.apiService
                     .getMedia(

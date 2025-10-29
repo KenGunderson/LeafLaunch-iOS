@@ -110,7 +110,11 @@ final class BusinessHomeViewModel: ViewModel {
             do {
                                 
                 let business = try await self.apiService.getBusiness(id: self.businessId)
-                let activities = try await self.apiService.getActivitiy(businessId: self.businessId)
+                let activities = try await self.apiService.getActivitiy(
+                    businessId: self.businessId,
+                    query: .init(),
+                    activityTypeFilters: []
+                )
                 
                 await MainActor.run { [weak self, business] in
                     
