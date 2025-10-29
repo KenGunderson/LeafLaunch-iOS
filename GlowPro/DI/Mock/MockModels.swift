@@ -475,7 +475,8 @@ struct MockModels {
             name: "Sako Hovaguimian",
             email: "naruto@me.com",
             businessId: MockModels.ID.business1,
-            businessName: "My First Business"
+            businessName: "My First Business",
+            createdAt: Date().toISO()
         )
         
         nonisolated(unsafe)
@@ -488,6 +489,7 @@ struct MockModels {
             locationIds: [
                 MockLocation.location2.id
             ],
+            createdAt: Date().toISO()
         )
         
         nonisolated(unsafe)
@@ -500,6 +502,7 @@ struct MockModels {
             locationIds: [
                 MockLocation.location3.id
             ],
+            createdAt: Date().toISO()
         )
         
         nonisolated(unsafe)
@@ -512,7 +515,8 @@ struct MockModels {
             locationIds: [
                 MockLocation.location4.id
             ],
-            role: .manager
+            role: .manager,
+            createdAt: Date().toISO()
         )
         
     }

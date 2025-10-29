@@ -16,6 +16,28 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
     let businessName: String
     let locationIds: [String]
     let role: Role?
+    let _createdAt: String?
+    let _updatedAt: String?
+    
+    var createdAt: Date? {
+        
+        self._createdAt?
+            .toDate(region: .local)?
+            .date
+        
+    }
+    
+    var updatedAt: Date? {
+        
+        self._createdAt?
+            .toDate(region: .local)?
+            .date
+        
+    }
+    
+    var createdAtNoTimestamp: Date {
+        return createDateWithTimestamp()
+    }
     
     init(id: String,
          name: String,
@@ -23,7 +45,8 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
          businessId: String,
          businessName: String,
          locationIds: [String] = [],
-         role: Role? = nil) {
+         role: Role? = nil,
+         createdAt: String?) {
         
         self.id = id
         self.name = name
@@ -32,6 +55,8 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
         self.businessName = businessName
         self.locationIds = locationIds
         self.role = role
+        self._createdAt = createdAt
+        self._updatedAt = createdAt
         
     }
     
@@ -44,6 +69,19 @@ struct EmployeeInvite: Identifiable, Hashable, Codable, Mockable {
         case businessName = "business_name"
         case locationIds = "location_ids"
         case role
+        case _createdAt = "created_at"
+        case _updatedAt = "updated_at"
+        
+    }
+    
+    private func createDateWithTimestamp() -> Date {
+        
+        guard let createdAt else { return .now }
+        guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: createdAt)) else {
+            return .now
+        }
+        
+        return date
         
     }
     
@@ -58,7 +96,8 @@ extension EmployeeInvite {
             name: "Sako Hovaguimian",
             email: "sako@hovaguimian.com",
             businessId: "1",
-            businessName: "My Awesome Business"
+            businessName: "My Awesome Business",
+            createdAt: Date().toISO()
         )
         
     }

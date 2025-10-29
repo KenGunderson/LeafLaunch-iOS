@@ -78,11 +78,12 @@ struct EmployeeInviteView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(2))) {
+            VStack(alignment: .trailing, spacing: Style.shared.spacing(.custom(2))) {
                 
-                Text("2 hours ago")
+                Text(self.employeeInvitation.createdAt?.formatted(.relative(presentation: .numeric, unitsStyle: .narrow)) ?? "")
                     .appFont(with: .BODY_1)
                     .foregroundStyle(bodyColor)
+                    .padding(.trailing, 2)
                 
                 TokenView(
                     text: "Remove",
@@ -117,7 +118,8 @@ struct EmployeeInviteView: View {
                 businessId: MockModels.ID.business1,
                 businessName: "Yolo Bros",
                 locationIds: [],
-                role: .admin
+                role: .admin,
+                createdAt: Date().toISO()
             )) {}
             
             EmployeeInviteView(employeeInvitation: .init(
@@ -127,7 +129,8 @@ struct EmployeeInviteView: View {
                 businessId: MockModels.ID.business1,
                 businessName: "Yolo Bros",
                 locationIds: [Location.DUMMY_DATA().id],
-                role: .admin
+                role: .admin,
+                createdAt: Date().toISO()
             )) {}
                                
             EmployeeInviteView(employeeInvitation: .DUMMY_DATA()) {}

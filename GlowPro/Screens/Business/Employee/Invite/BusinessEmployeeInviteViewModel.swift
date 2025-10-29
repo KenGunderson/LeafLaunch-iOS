@@ -204,7 +204,8 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                     businessId: self.businessId,
                     businessName: self.business?.name ?? "",
                     locationIds: self.selectedLocations.map { $0.id },
-                    role: self.selectedRole
+                    role: self.selectedRole,
+                    createdAt: Date().toISO()
                 )
                 
                 try await self.apiService.createEmployeeInvite(invite: invite)
