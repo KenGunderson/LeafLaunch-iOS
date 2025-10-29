@@ -157,7 +157,11 @@ struct SettingsScreen: GPView {
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(item.tintColor.source())
                 
-                Text(item.displayName)
+                let isSubscriptionSetting = (item == .subscription)
+                let subscriptionTitle = self.viewModel.isSubscribed ? item.displayName : "Subscribe"
+                let title = isSubscriptionSetting ? subscriptionTitle : item.displayName
+                
+                Text(title)
                     .appFont(with: .TITLE_4)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

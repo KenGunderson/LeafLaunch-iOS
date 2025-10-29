@@ -24,7 +24,8 @@ final class SettingsViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    @Published var workspaces: [Workspace] = []
+    @Published private(set) var workspaces: [Workspace] = []
+    @Published private(set) var isSubscribed: Bool = false
     
     @Published var shouldDismiss: Bool = false
     
@@ -81,12 +82,18 @@ final class SettingsViewModel: ViewModel {
         self.logDeinit()
     }
     
+    @MainActor
     func selectSetting(_ setting: Route.Setting) {
         
         switch setting {
         case .logout:
             
             presentLogoutAlert()
+            
+        case .subscription:
+            
+            self.navigationService?
+                .modal(fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION))
             
         case .contactSupport:
             

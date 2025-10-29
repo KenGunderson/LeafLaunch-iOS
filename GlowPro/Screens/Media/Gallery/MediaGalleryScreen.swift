@@ -221,7 +221,7 @@ struct MediaGalleryScreen: GPView {
                         placeholder: placeholderView,
                     )
                     .view(shouldResize: false)
-                    .aspectRatio(1, contentMode: .fit)
+                    .aspectRatio(1, contentMode: .fill)
                     .cornerRadius(.small)
                     .appOnTapGesture {
                         

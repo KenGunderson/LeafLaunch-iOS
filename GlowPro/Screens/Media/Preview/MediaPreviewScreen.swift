@@ -146,7 +146,7 @@ struct MediaPreviewScreen: GPView {
                     
                     ForEach(self.viewModel.media, id: \.id) { media in
                         
-                        let isSelected = (self.viewModel.selectedMedia == media)
+                        let isSelected = (self.viewModel.selectedMedia?.id == media.id)
                         
                         ImageSource.remote(url: media.url)
                             .view()

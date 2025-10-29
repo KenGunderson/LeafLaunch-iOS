@@ -68,6 +68,14 @@ final class SubscriptionPaywallViewModel: ViewModel {
     
     func subscribe() {
         
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Coming Soon 🥳",
+                message: "You’re looking at a sneak-peek of the paywall! The full feature is in beta and will be live soon — stay tuned.",
+                primaryButtonTitle: "Okay",
+                primaryButtonAction: {}
+            ))))
+        
     }
     
     private func bindSubscribers() {
