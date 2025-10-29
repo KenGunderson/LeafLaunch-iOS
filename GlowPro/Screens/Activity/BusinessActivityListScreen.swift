@@ -51,7 +51,8 @@ struct BusinessActivityListScreen: GPView {
             transition: .asymmetric(
                 insertion: .move(edge: .bottom).combined(with: .opacity),
                 removal: .opacity.animation(.bouncy(duration: 0.1))
-            )
+            ),
+            animation: .smooth
         )
         .safeAreaInset(edge: .bottom) {
             bottomBar()
@@ -75,7 +76,7 @@ struct BusinessActivityListScreen: GPView {
     
     private func contentCards() -> some View {
         
-        VStack {
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             filersView()
             

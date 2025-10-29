@@ -14,7 +14,7 @@ public struct EmptyStateOverlayModifier: ViewModifier {
     let config: EmptyStateConfig
     
     let transition: AnyTransition
-    let animation: Animation
+    let animation: Animation?
     
     public func body(content: Content) -> some View {
         
@@ -41,7 +41,7 @@ extension View {
     func emptyStateOverlay(shouldShow: Bool,
                            config: EmptyStateConfig,
                            transition: AnyTransition = .move(edge: .bottom).combined(with: .opacity),
-                           animation: Animation = .bouncy.delay(0.3)) -> some View {
+                           animation: Animation? = .bouncy.delay(0.3)) -> some View {
         
         modifier(
             EmptyStateOverlayModifier(

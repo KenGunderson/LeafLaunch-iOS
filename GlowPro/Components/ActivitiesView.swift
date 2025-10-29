@@ -34,8 +34,10 @@ struct ActivitiesView: View {
                     date: key.formatted(date: .abbreviated, time: .omitted),
                     activities: activityDict[key] ?? []
                 )
+                .transition(.opacity)
                 
             }
+            .transition(.opacity)
             
         }
         .frame(
@@ -57,6 +59,7 @@ struct ActivitiesView: View {
             activityList(activities: activities)
             
         }
+        .transition(.opacity)
         
     }
     
@@ -74,10 +77,13 @@ struct ActivitiesView: View {
                         }
                         
                     }
+                    .transition(.opacity)
                 
             }
+            .transition(.opacity)
             
         }
+        .transition(.opacity)
         
     }
     
