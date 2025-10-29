@@ -508,6 +508,21 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // Settings - PROFILE
+        
+        container
+            .register(ProfileViewModel.self) { r in
+                ProfileViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
         // Settings - SECURITY
         
         container

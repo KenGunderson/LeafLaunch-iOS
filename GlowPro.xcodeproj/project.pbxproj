@@ -329,6 +329,12 @@
 		75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */; };
 		7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
 		7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7582A2D82E48145A0020BA28 /* PendingInviteView.swift */; };
+		75837A002EB19422004C2DB5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */; };
+		75837A012EB19422004C2DB5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */; };
+		75837A022EB19422004C2DB5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */; };
+		75837A042EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
+		75837A052EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
+		75837A062EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
 		7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
@@ -1056,6 +1062,8 @@
 		75795D272E1731A4008BD44A /* BusinessEmployeeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsViewModel.swift; sourceTree = "<group>"; };
 		75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeDetailsScreen.swift; sourceTree = "<group>"; };
 		7582A2D82E48145A0020BA28 /* PendingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInviteView.swift; sourceTree = "<group>"; };
+		758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		75837A032EB19424004C2DB5 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditViewModel.swift; sourceTree = "<group>"; };
 		7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditScreen.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
@@ -1842,6 +1850,7 @@
 			isa = PBXGroup;
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
+				758379FE2EB19414004C2DB5 /* Profile */,
 				75027FDC2E7FAEEB00E10640 /* Security */,
 				75F131292E74B2CD00E7636B /* AboutUs */,
 				75F131302E74B6C700E7636B /* FeatureRequest */,
@@ -2088,6 +2097,15 @@
 				75795D282E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		758379FE2EB19414004C2DB5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */,
+				75837A032EB19424004C2DB5 /* ProfileScreen.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		7585FA0B2EA49F1300AD6DC2 /* Create Edit */ = {
@@ -2900,9 +2918,11 @@
 				7537F4732DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4742DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4752DF661EA0031D9CF /* EventType.swift in Sources */,
+				75837A052EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
 				7537F4762DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7524E25E2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
+				75837A022EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				7537F4772DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E22E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4782DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
@@ -3186,9 +3206,11 @@
 				7537F4342DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
 				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4362DF661EA0031D9CF /* EventType.swift in Sources */,
+				75837A042EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
 				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7524E25F2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
+				75837A002EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E12E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
@@ -3455,9 +3477,11 @@
 				75DD84102EAD728600DD8850 /* UserDefaultsServiceProtocol.swift in Sources */,
 				75DD84112EAD728600DD8850 /* AppDelegateService.swift in Sources */,
 				75DD84122EAD728600DD8850 /* EventType.swift in Sources */,
+				75837A062EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
 				75DD84132EAD728600DD8850 /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75DD84142EAD728600DD8850 /* AboutUsScreen.swift in Sources */,
 				7524E25D2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
+				75837A012EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				75DD84152EAD728600DD8850 /* ConnectivityServiceProtocol.swift in Sources */,
 				75DD84162EAD728600DD8850 /* MediaTransferServiceProtocol.swift in Sources */,
 				75DD84172EAD728600DD8850 /* DeeplinkService.swift in Sources */,

@@ -197,7 +197,11 @@ extension View {
         func settings(route: Route.Setting) -> some View {
             
             switch route {
-            case .profile: EmptyView()
+            case .profile:
+                
+                let viewModel = globalResolver.resolve(ProfileViewModel.self)!
+                ProfileScreen(viewModel: viewModel)
+                
             case .subscription: EmptyView()
             case .security:
                 

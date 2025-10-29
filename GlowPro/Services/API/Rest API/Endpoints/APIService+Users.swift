@@ -109,6 +109,7 @@ extension APIService {
         
         let parameters: [String : Any] = [
             "id": user.id,
+            "external_id": user.externalId,
             "first_name": user.firstName,
             "last_name": user.lastName,
             "email": user.email,
