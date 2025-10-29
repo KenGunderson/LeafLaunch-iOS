@@ -57,6 +57,8 @@ struct LazyActivitiesView: View {
             activityList(activities: activities)
             
         }
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+        .animation(.interpolatingSpring, value: self.activityDict)
         
     }
     
