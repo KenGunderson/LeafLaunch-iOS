@@ -35,7 +35,7 @@ struct BusinessActivityListScreen: GPView {
                     .loadData()
                 
             }
-        
+                
     }
     
     private func content() -> some View {
@@ -56,7 +56,6 @@ struct BusinessActivityListScreen: GPView {
         .safeAreaInset(edge: .bottom) {
             bottomBar()
         }
-        .animation(.smooth(duration: 0.3), value: self.viewModel.selectedActivityTypes)
         
     }
     
@@ -76,20 +75,25 @@ struct BusinessActivityListScreen: GPView {
     
     private func contentCards() -> some View {
         
-        LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        VStack {
             
             filersView()
-                .id("Filters")
             
-            ActivitiesView(activities: self.viewModel.activities) {
+            LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                 
-                self.viewModel
-                    .loadData()
+                ActivitiesView(activities: self.viewModel.activities) {
+                    
+                    self.viewModel
+                        .loadData()
+                    
+                }
+                .padding(.horizontal, .medium)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
             }
-            .padding(.horizontal, .medium)
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         
     }
     
