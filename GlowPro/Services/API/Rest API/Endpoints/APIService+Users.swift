@@ -83,7 +83,7 @@ extension APIService {
             "phone_number": user.phoneNumber,
             "external_id": user.externalId,
             "image_url": user.imageURL?.absoluteString,
-            "birthday": user.birthday?.toISO()
+            "date_of_birth": user.dateOfBirth?.toISO()
         ]
         .compact()
         
@@ -115,7 +115,7 @@ extension APIService {
             "email": user.email,
             "phone_number": user.phoneNumber,
             "image_url": user.imageURL?.absoluteString,
-            "birthday": user.birthday?.toISO(),
+            "date_of_birth": user.dateOfBirth?.toISO(),
         ]
         .compact()
         

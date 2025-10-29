@@ -86,7 +86,7 @@ final class ProfileViewModel: ViewModel {
                     self?.firstName = user.firstName
                     self?.lastName = user.lastName
                     self?.email = user.email
-                    self?.dateOfBirth = user.birthday ?? .now
+                    self?.dateOfBirth = user.dateOfBirth ?? .now
                     
                     self?.isLoading = false
                     
@@ -145,7 +145,7 @@ final class ProfileViewModel: ViewModel {
                     email: user.email,
                     phoneNumber: user.phoneNumber,
                     externalId: user.externalId,
-                    birthday: dateOfBirth,
+                    dateOfBirth: dateOfBirth,
                     imageURL: user.imageURL
                 )
                 
@@ -202,7 +202,7 @@ final class ProfileViewModel: ViewModel {
         var hasDateChanged: Bool {
             
             let defaultDate = Date().formatted(date: .complete, time: .omitted)
-            let dateOfBirth = self.authService.currentUser?.birthday?.formatted(date: .complete, time: .omitted) ?? defaultDate
+            let dateOfBirth = self.authService.currentUser?.dateOfBirth?.formatted(date: .complete, time: .omitted) ?? defaultDate
             return dateOfBirth != self.dateOfBirth.formatted(date: .complete, time: .omitted)
             
         }

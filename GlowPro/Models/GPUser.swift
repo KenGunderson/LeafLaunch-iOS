@@ -28,11 +28,11 @@ struct GPUser: Codable,
     let imageURL: URL?
     var businesses: [Business]?
     
-    private var _birthday: String?
+    private var _dateOfBirth: String?
     
-    var birthday: Date? {
+    var dateOfBirth: Date? {
 
-        self._birthday?
+        self._dateOfBirth?
             .toDate(region: .local)?
             .date
 
@@ -48,7 +48,7 @@ struct GPUser: Codable,
          email: String,
          phoneNumber: String? = nil,
          externalId: String,
-         birthday: String? = nil,
+         dateOfBirth: String? = nil,
          imageURL: URL? = nil,
          businesses: [Business]? = []) {
         
@@ -58,14 +58,14 @@ struct GPUser: Codable,
         self.email = email
         self.phoneNumber = phoneNumber
         self.externalId = externalId
-        self._birthday = birthday
+        self._dateOfBirth = dateOfBirth
         self.imageURL = imageURL
         self.businesses = businesses
         
     }
     
-    mutating func setBirthday(dateString: String) {
-        self._birthday = dateString
+    mutating func setDateOfBirth(dateString: String) {
+        self._dateOfBirth = dateString
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -76,7 +76,7 @@ struct GPUser: Codable,
         case email
         case phoneNumber = "phone_number"
         case externalId = "external_id"
-        case _birthday = "birthday"
+        case _dateOfBirth = "date_of_birth"
         case imageURL = "image_url"
         case businesses = "businesses"
         
@@ -95,7 +95,7 @@ extension GPUser {
             email: "sako@me.com",
             phoneNumber: "8185225755",
             externalId: "1",
-            birthday: nil,
+            dateOfBirth: nil,
             imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA"),
             businesses: []
         )

@@ -286,7 +286,7 @@ struct MockModels {
             email: "sako@me.com",
             phoneNumber: "8185225755",
             externalId: "1",
-            birthday: Date().addingTimeInterval(-34587).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-34587).ISO8601Format(),
             imageURL: nil,
             businesses: [
                 
@@ -301,7 +301,7 @@ struct MockModels {
             email: "kc@me.com",
             phoneNumber: "8185225755",
             externalId: "2",
-            birthday: Date().addingTimeInterval(-123903).ISO8601Format(),
+            dateOfBirth: Date().addingTimeInterval(-123903).ISO8601Format(),
             imageURL: nil,
             businesses: [
                 

@@ -20,7 +20,7 @@ struct ProfileScreen: GPView {
             switch self {
             case .firstName: return "First Name"
             case .lastName: return "Last Name"
-            case .email: return "Email"
+            case .email: return "Email (Uneditable)"
             }
         }
         
@@ -96,7 +96,7 @@ struct ProfileScreen: GPView {
                 textField(fieldToFocus: .firstName)
                 textField(fieldToFocus: .lastName)
                 textField(fieldToFocus: .email)
-//                dateOfBirthPicker()
+                dateOfBirthPicker()
                 
             }
             

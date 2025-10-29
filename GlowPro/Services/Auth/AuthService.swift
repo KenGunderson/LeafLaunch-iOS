@@ -74,7 +74,7 @@ final class AuthService: AuthServiceProtocol {
                     lastName: lastName.capitalized.trimmed(),
                     email: email,
                     externalId: self.firebaseService.user?.uid ?? "",
-                    birthday: nil,
+                    dateOfBirth: nil,
                     imageURL: nil
                 ))
             
@@ -304,7 +304,7 @@ final class AuthService: AuthServiceProtocol {
                                         lastName: name.lastName,
                                         email: email,
                                         externalId: self.firebaseService.user?.uid ?? "",
-                                        birthday: nil,
+                                        dateOfBirth: nil,
                                         imageURL: nil
                                     ))
                                 
