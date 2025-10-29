@@ -10,13 +10,15 @@ import SwiftUI
 enum SourceType: String, CaseIterable {
     
     case camera
-    case gallery
+    case mediaGallery
+    case collageGallery
     case applePhotos
     
     var displayName: String {
         switch self {
         case .camera: return "Camera"
-        case .gallery: return "Media Gallery"
+        case .mediaGallery: return "Media Gallery"
+        case .collageGallery: return "Collage Gallery"
         case .applePhotos: return "Apple Gallery"
         }
     }
@@ -24,7 +26,8 @@ enum SourceType: String, CaseIterable {
     var image: ImageSource {
         switch self {
         case .camera: return .image(.iconCamera)
-        case .gallery: return .image(.iconAlbum)
+        case .mediaGallery: return .image(.iconAlbum)
+        case .collageGallery: return .systemImage("square.grid.2x2")
         case .applePhotos: return .systemImage("photo")
         }
     }
@@ -38,7 +41,7 @@ struct MediaSourceSelectionView: View {
     private let sourceTypes: [SourceType]
     private let selectedSourceTypeAction: (SourceType) -> Void
     
-    init(sourceTypes: [SourceType] = [.camera, .gallery, .applePhotos],
+    init(sourceTypes: [SourceType] = [.camera, .mediaGallery, .applePhotos],
          selectedSourceTypeAction: @escaping (SourceType) -> Void) {
         
         self.sourceTypes = sourceTypes

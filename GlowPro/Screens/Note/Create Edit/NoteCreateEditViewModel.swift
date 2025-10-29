@@ -203,7 +203,7 @@ final class NoteCreateEditViewModel: ViewModel {
         
         switch source {
         case .applePhotos: self.shouldShowApplePhotosSelectionSheet = true
-        case .gallery:
+        case .mediaGallery:
             
             self.navigationService?
                 .push(.media(.gallery(
@@ -218,6 +218,24 @@ final class NoteCreateEditViewModel: ViewModel {
                         ))
                         
                     })
+                )))
+            
+        case .collageGallery:
+            
+            self.navigationService?
+                .push(.media(.gallery(
+                    mediaContext: .client(clientId: self.clientId),
+                    mediaSelectionContext: .singleSelection(completion: { [weak self] media in
+                        
+                        guard let media else { return }
+                        
+                        self?.mediaFusion.append(.init(
+                            kind: .url(media.url),
+                            isUploaded: false
+                        ))
+                        
+                    }),
+                    mediaFilterOptions: .collage
                 )))
             
         case .camera:

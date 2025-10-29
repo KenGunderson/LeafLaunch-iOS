@@ -339,8 +339,8 @@ final class MediaGalleryViewModel: ViewModel {
         
         switch source {
         case .applePhotos: self.shouldShowApplePhotosSelectionSheet = true
-        case .gallery: break
-            
+        case .mediaGallery: break
+        case .collageGallery: break
         case .camera:
             
             if let clientId = self.mediaContext.clientId {

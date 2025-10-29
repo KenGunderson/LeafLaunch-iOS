@@ -3942,7 +3942,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
@@ -3983,7 +3983,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
@@ -4024,7 +4024,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Localhost/GlowPro-Localhost-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
@@ -4065,7 +4065,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GlowPro-Localhost/GlowPro-Localhost-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
