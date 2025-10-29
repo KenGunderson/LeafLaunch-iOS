@@ -226,7 +226,7 @@ struct BusinessEmployeeInviteScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.custom(6))) {
                 
-                Text("Eligable Locations (Optional)")
+                Text("Eligible Locations (Optional)")
                     .appFont(with: .TITLE_3)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)

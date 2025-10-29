@@ -256,7 +256,7 @@ struct ClientHomeScreen: GPView {
                     
                     HStack {
                         
-                        Text("Summary")
+                        Text("Client Insights")
                             .appFont(with: .TITLE_6)
                             .foregroundStyle(Style.shared.textColor(.title).source())
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -284,7 +284,7 @@ struct ClientHomeScreen: GPView {
                     
                     CommonTextEditView(
                         text: self.$viewModel.clientSummaryText,
-                        placehoderText: "Client Summary...",
+                        placehoderText: "Jot down some insights here…",
                         isFocused: self.isFocused,
                         titleFont: .BODY_3,
                         unselectedBorderColor: .color(.clear),

@@ -185,21 +185,23 @@ final class ClientHomeViewModel: ViewModel {
         
         var formattedString = ""
         
+        if let dateOfBirth = client.dateOfBirth {
+            
+            let age = Calendar.current.dateComponents([.year], from: dateOfBirth, to: Date()).year ?? 0
+            let ageString = age == 0 ? "" : "\(age) years old"
+            
+            formattedString += ageString
+            
+        }
+        
         if let email = client.email {
-            formattedString += "\(email)"
+            formattedString += (formattedString.isEmpty ? "\(email)" : " • \(email)")
         }
         
         if let phoneNumber = client.phoneNumber {
             
             let phoneNumber = phoneNumber.formatted(.phone(usesParentheses: true, defaultCountryCode: nil))
             formattedString += (formattedString.isEmpty ? "\(phoneNumber)" : " • \(phoneNumber)")
-            
-        }
-        
-        if let dateOfBirth = client.dateOfBirth {
-            
-            let dateString = dateOfBirth.formatted(date: .abbreviated, time: .omitted)
-            formattedString += (formattedString.isEmpty ? "\(dateString)" : " • \(dateString)")
             
         }
         

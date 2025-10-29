@@ -126,10 +126,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                         
                         self?.name = employee.name
                         self?.email = employee.email
-                        self?.setEligableLocations(roleLocations: roleLocations)
+                        self?.setEligibleLocations(roleLocations: roleLocations)
                         
                     } else {
-                        self?.setEligableLocations()
+                        self?.setEligibleLocations()
                     }
                     
                 }
@@ -235,7 +235,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
-    private func setEligableLocations(roleLocations: [Workspace.RoleLocation] = []) {
+    private func setEligibleLocations(roleLocations: [Workspace.RoleLocation] = []) {
         
         let roleLocations = roleLocations.map({ $0.location })
         var allLocations = self.business?.locations ?? []
