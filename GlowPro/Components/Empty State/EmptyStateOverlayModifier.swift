@@ -21,15 +21,19 @@ public struct EmptyStateOverlayModifier: ViewModifier {
         content
             .overlay {
                 
-                if self.shouldShow {
+                Group {
                     
-                    EmptyStateView(config: self.config)
-                        .transition(self.transition)
+                    if self.shouldShow {
+                        
+                        EmptyStateView(config: self.config)
+                            .transition(self.transition)
+                        
+                    }
                     
                 }
+                .animation(self.animation, value: self.shouldShow)
                 
             }
-            .animation(self.animation, value: self.shouldShow)
         
     }
     

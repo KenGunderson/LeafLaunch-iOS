@@ -48,11 +48,8 @@ struct BusinessActivityListScreen: GPView {
         .emptyStateOverlay(
             shouldShow: self.viewModel.shouldShowEmptyState,
             config: self.viewModel.emptyStateConfig(),
-            transition: .asymmetric(
-                insertion: .move(edge: .bottom).combined(with: .opacity),
-                removal: .opacity.animation(.bouncy(duration: 0.1))
-            ),
-            animation: .smooth
+            transition: .move(edge: .bottom).combined(with: .opacity),
+            animation: .spring
         )
         .safeAreaInset(edge: .bottom) {
             bottomBar()
@@ -82,7 +79,7 @@ struct BusinessActivityListScreen: GPView {
             
             LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                 
-                ActivitiesView(activities: self.viewModel.activities) {
+                LazyActivitiesView(activities: self.viewModel.activities) {
                     
                     self.viewModel
                         .loadData()

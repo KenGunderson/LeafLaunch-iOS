@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActivitiesView: View {
+struct LazyActivitiesView: View {
     
     private let activityDict: [Date: [Activity]]
     private let loadNextBatch: (() -> Void)?
@@ -34,10 +34,8 @@ struct ActivitiesView: View {
                     date: key.formatted(date: .abbreviated, time: .omitted),
                     activities: activityDict[key] ?? []
                 )
-                .transition(.opacity)
                 
             }
-            .transition(.opacity)
             
         }
         .frame(
@@ -59,7 +57,6 @@ struct ActivitiesView: View {
             activityList(activities: activities)
             
         }
-        .transition(.opacity)
         
     }
     
@@ -77,13 +74,86 @@ struct ActivitiesView: View {
                         }
                         
                     }
-                    .transition(.opacity)
                 
             }
-            .transition(.opacity)
             
         }
-        .transition(.opacity)
+        
+    }
+    
+}
+
+struct ActivitiesView: View {
+    
+    private let activityDict: [Date: [Activity]]
+    private let loadNextBatch: (() -> Void)?
+    
+    init(activities: [Activity],
+         loadNextBatch: (() -> Void)? = nil) {
+                
+        self.activityDict = Dictionary(
+            grouping: activities,
+            by: \.createdAtNoTimestamp
+        )
+        
+        self.loadNextBatch = loadNextBatch
+        
+    }
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            
+            ForEach(activityDict.keys.sorted(by: { $0 > $1}), id: \.date) { key in
+                
+                section(
+                    date: key.formatted(date: .abbreviated, time: .omitted),
+                    activities: activityDict[key] ?? []
+                )
+                
+            }
+            
+        }
+        .frame(
+            maxWidth: .infinity,
+            alignment: .leading
+        )
+        
+    }
+    
+    private func section(date: String,
+                         activities: [Activity]) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            
+            Text(date)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            activityList(activities: activities)
+            
+        }
+        
+    }
+    
+    private func activityList(activities: [Activity]) -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            ForEach(activities, id: \.id) { activity in
+                
+                ActivityView(activity: activity)
+                    .onAppear {
+                        
+                        if activity.id == activities.last?.id {
+                            loadNextBatch?()
+                        }
+                        
+                    }
+                
+            }
+            
+        }
         
     }
     
