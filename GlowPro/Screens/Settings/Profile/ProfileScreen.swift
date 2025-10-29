@@ -14,11 +14,13 @@ struct ProfileScreen: GPView {
         
         case firstName
         case lastName
+        case email
         
         var displayName: String {
             switch self {
             case .firstName: return "First Name"
-            case .lastName: return "Last Email"
+            case .lastName: return "Last Name"
+            case .email: return "Email"
             }
         }
         
@@ -93,6 +95,7 @@ struct ProfileScreen: GPView {
                 
                 textField(fieldToFocus: .firstName)
                 textField(fieldToFocus: .lastName)
+                textField(fieldToFocus: .email)
 //                dateOfBirthPicker()
                 
             }
@@ -125,6 +128,13 @@ struct ProfileScreen: GPView {
             isFocused = self.focusedField == .lastName
             keyboardType = .default
             textContentType = .familyName
+            
+        case .email:
+            
+            text = self.$viewModel.email
+            isFocused = self.focusedField == .email
+            keyboardType = .default
+            textContentType = .emailAddress
         }
         
         return TextField("", text: text)
@@ -134,6 +144,7 @@ struct ProfileScreen: GPView {
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
                 foregroundColor: Style.shared.textColor(.title),
+                backgroundColor: fieldToFocus == .email ? Style.shared.background(.quaternary) : .color(.clear),
                 textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: fieldToFocus)
@@ -144,6 +155,7 @@ struct ProfileScreen: GPView {
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }
+            .allowsHitTesting(fieldToFocus != .email)
         
     }
     

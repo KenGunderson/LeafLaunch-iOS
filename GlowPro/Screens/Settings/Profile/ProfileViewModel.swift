@@ -24,6 +24,7 @@ final class ProfileViewModel: ViewModel {
     
     @Published var firstName: String = ""
     @Published var lastName: String = ""
+    @Published var email: String = ""
     @Published var dateOfBirth: Date = .now
     
     @Published private(set) var isLoading: Bool = true
@@ -84,6 +85,7 @@ final class ProfileViewModel: ViewModel {
                     
                     self?.firstName = user.firstName
                     self?.lastName = user.lastName
+                    self?.email = user.email
                     self?.dateOfBirth = user.birthday ?? .now
                     
                     self?.isLoading = false
