@@ -9,9 +9,16 @@ import SwiftUI
 
 struct MediaURLPreviewView: View {
     
+    public enum Context: Hashable {
+        
+        case url(url: URL)
+        case uiImage(uiImage: UIImage)
+        
+    }
+    
     @Environment(\.dismiss) private var dismiss
     
-    let url: URL
+    let ctx: Context
     
     var body: some View {
         
@@ -19,9 +26,21 @@ struct MediaURLPreviewView: View {
             
             ZoomView {
                 
-                ImageSource.remote(url: url)
-                    .view()
-                    .aspectRatio(contentMode: .fit)
+                switch ctx {
+                    
+                case .url(let url):
+                    
+                    ImageSource.remote(url: url)
+                        .view()
+                        .aspectRatio(contentMode: .fit)
+                    
+                case .uiImage(let uiImage):
+                    
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                }
 
             }
             

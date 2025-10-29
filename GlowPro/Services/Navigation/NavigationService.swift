@@ -635,9 +635,9 @@ extension View {
                 
                 MediaMultiTagScreen(viewModel: viewModel)
                 
-            case .mediaPreview(let url):
+            case .mediaPreview(let ctx):
                 
-                MediaURLPreviewView(url: url)
+                MediaURLPreviewView(ctx: ctx)
                 
             case .subscriptionPaywall(let paywallItem):
                 

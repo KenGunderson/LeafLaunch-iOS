@@ -6,6 +6,8 @@
 //
 
 import _PhotosUI_SwiftUI
+import PDFKit
+
 
 struct MediaFusion: Equatable {
     
@@ -16,14 +18,14 @@ struct MediaFusion: Equatable {
     enum Kind {
         
         case uiImage(UIImage)
-        case pdf(UIImage)
+        case pdf(Data)
         case url(URL)
         
         var image: UIImage? {
             
             switch self {
             case .uiImage(let image): return image
-            case .pdf(let image): return image
+            case .pdf(let data): return getImageFromPDF()
             case .url: return nil
             }
             
@@ -39,6 +41,16 @@ struct MediaFusion: Equatable {
             
         }
         
+        var data: Data? {
+            
+            switch self {
+            case .uiImage: return nil
+            case .pdf(let data): return data
+            case .url: return nil
+            }
+            
+        }
+        
         var isPDF: Bool {
             
             switch self {
@@ -46,6 +58,21 @@ struct MediaFusion: Equatable {
             case .uiImage: return false
             case .url: return false
             }
+            
+        }
+        
+        func getImageFromPDF() -> UIImage? {
+            
+            guard let data = self.data, let document = PDFDocument(data: data),
+                  let page = document.page(at: 0) else { return nil }
+            
+            // TODO: - Handle Width / Height with Page Rect
+            let pdfImage = page.thumbnail(of: .init(
+                width: 1080, height: 1080
+            ), for: .cropBox
+            )
+            
+            return pdfImage
             
         }
         

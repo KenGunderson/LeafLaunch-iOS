@@ -320,7 +320,7 @@ struct NoteCreateEditScreen: View {
             
         case .url(let url): urlItem(url: url, mediaFusion: mediaFusion)
         case .uiImage(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
-        case .pdf(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
+        case .pdf(let data): pdfMediaItem(pdfData: data, mediaFusion: mediaFusion)
         }
         
     }
@@ -359,7 +359,7 @@ struct NoteCreateEditScreen: View {
             .asButton {
              
                 self.navigationService
-                    .modal(fullScreenCover: .mediaPreview(url: url))
+                    .modal(fullScreenCover: .mediaPreview(context: .url(url: url)))
                 
             }
         
@@ -394,6 +394,64 @@ struct NoteCreateEditScreen: View {
                         
                     }
                     .offset(x: 8, y: -8)
+                
+            }
+            .asButton {
+                
+                self.navigationService
+                    .modal(fullScreenCover: .mediaPreview(context: .uiImage(uiImage: uiImage)))
+                
+            }
+        
+    }
+    
+    private func pdfMediaItem(pdfData: Data,
+                                mediaFusion: MediaFusion) -> some View {
+        
+        Image(uiImage: mediaFusion.kind.image ?? UIImage(systemName: "photo.badge.exclamationmark.fill")!)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 75, height: 75)
+            .background(Style.shared.background(.primary).source())
+            .appBorder(
+                cornerRadius: .small,
+                color: Style.shared.accent,
+                lineWidth: 3,
+                outerBorder: false
+            )
+            .cornerRadius(.custom(9))
+            .overlay(alignment: .topTrailing) {
+                
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(AnyShapeStyle(Color.white), Style.shared.background(.error).source())
+                    .asButton {
+                        
+                        self.viewModel
+                            .deleteMediaFusion(id: mediaFusion.id)
+                        
+                    }
+                    .offset(x: 8, y: -8)
+                
+            }
+            .asButton {
+                
+                if let pdfDoc = PDFDocument(data: pdfData) {
+                    
+                    self.navigationService
+                        .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDoc) { data in
+                            
+                            self.viewModel
+                                .removeOldPDFMediaFusion(mediaFusion: mediaFusion)
+                            
+                            self.viewModel
+                                .handlePDFDocumentSelection(data: data)
+                            
+                        })
+                    
+                }
                 
             }
         
