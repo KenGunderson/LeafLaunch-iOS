@@ -3,10 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>aps-environment</key>
-	<string>localhost</string>
-	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.com.glowpro.app</string>
-	</array>
+	<string>development</string>
 </dict>
 </plist>

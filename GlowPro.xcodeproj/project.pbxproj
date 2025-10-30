@@ -1112,6 +1112,9 @@
 		75B1A51A2EAB20A80052F067 /* SubscriptionPaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaywallViewModel.swift; sourceTree = "<group>"; };
 		75B1A51D2EAB20B60052F067 /* SubscriptionPaywallScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaywallScreen.swift; sourceTree = "<group>"; };
 		75B429A72E70061100DE7852 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		75B5D51F2EB4310D00B52F9E /* GlowPro Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Localhost.entitlements"; sourceTree = "<group>"; };
+		75B5D5202EB431C900B52F9E /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
+		75B5D5212EB431D000B52F9E /* GlowPro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlowPro.entitlements; sourceTree = "<group>"; };
 		75B731F22E14E52900038AD6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		75B731F52E14E58800038AD6 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		75B731F82E14E62200038AD6 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -1132,7 +1135,6 @@
 		75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagViewModel.swift; sourceTree = "<group>"; };
 		75D088832E690B85000B06B2 /* MediaTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagScreen.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		75D66DC72DC7141A00E51CFC /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
 		75D66DCD2DC7179600E51CFC /* GlowProUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		75D66DD12DC7179600E51CFC /* GrimoireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireTests.swift; sourceTree = "<group>"; };
@@ -1149,7 +1151,6 @@
 		75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75DBD3192E712E3200032754 /* LocationEmployee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEmployee.swift; sourceTree = "<group>"; };
 		75DD84C62EAD728600DD8850 /* GlowPro Localhost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Localhost.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		75DD84C82EAD731300DD8850 /* GlowPro Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Localhost.entitlements"; sourceTree = "<group>"; };
 		75DD84C92EAD731300DD8850 /* GlowPro-Localhost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Localhost-Info.plist"; sourceTree = "<group>"; };
 		75E0CA752E1604090081A02A /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		75E0CA762E1604090081A02A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -1420,11 +1421,11 @@
 		7510A3C82D9D8AAF000A93CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4A4BDC3C2EADAB8F002D0DD2 /* PDFs */,
-				75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */,
-				75D8EDEE2DF600D6004D1E25 /* Info.plist */,
 				75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */,
+				75D8EDEE2DF600D6004D1E25 /* Info.plist */,
 				7510A3C72D9D8AAF000A93CA /* Assets.xcassets */,
+				75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */,
+				4A4BDC3C2EADAB8F002D0DD2 /* PDFs */,
 				7510A3C62D9D8AAF000A93CA /* Preview Content */,
 			);
 			path = Resources;
@@ -1976,6 +1977,7 @@
 		755C981F2D9CC89000437D5D /* GlowPro */ = {
 			isa = PBXGroup;
 			children = (
+				75B5D5212EB431D000B52F9E /* GlowPro.entitlements */,
 				753EC2082DB8CBBB00265B2A /* App.swift */,
 				753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */,
 				75573AB92DD82B4A00C7CA6E /* Helpers */,
@@ -2377,7 +2379,7 @@
 		75D66DC92DC7141A00E51CFC /* GlowPro-Dev */ = {
 			isa = PBXGroup;
 			children = (
-				75D66DC72DC7141A00E51CFC /* GlowPro Dev.entitlements */,
+				75B5D5202EB431C900B52F9E /* GlowPro Dev.entitlements */,
 				7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */,
 			);
 			path = "GlowPro-Dev";
@@ -2442,7 +2444,7 @@
 		75DD84CA2EAD731300DD8850 /* GlowPro-Localhost */ = {
 			isa = PBXGroup;
 			children = (
-				75DD84C82EAD731300DD8850 /* GlowPro Localhost.entitlements */,
+				75B5D51F2EB4310D00B52F9E /* GlowPro Localhost.entitlements */,
 				75DD84C92EAD731300DD8850 /* GlowPro-Localhost-Info.plist */,
 			);
 			path = "GlowPro-Localhost";
@@ -3805,6 +3807,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GlowPro/GlowPro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
@@ -3845,6 +3848,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GlowPro/GlowPro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
@@ -3958,6 +3962,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "GlowPro-Dev/GlowPro Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
@@ -3999,6 +4004,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "GlowPro-Dev/GlowPro Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
@@ -4040,6 +4046,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "GlowPro-Localhost/GlowPro Localhost.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
@@ -4081,6 +4088,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "GlowPro-Localhost/GlowPro Localhost.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
