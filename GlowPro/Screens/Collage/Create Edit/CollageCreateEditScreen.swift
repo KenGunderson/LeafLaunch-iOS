@@ -22,7 +22,7 @@ struct CollageCreateEditScreen: View {
         
         let screen = UIScreen.main.bounds
         let inset: CGFloat = 32
-        let verticalInsets: CGFloat = (88 + 90 + 16 + 32)
+        let verticalInsets: CGFloat = (88 + 90 + 16 + 32 + 44 + 16 + 32)
         
         switch self.orientation {
         case .portrait, .portraitUpsideDown: return screen.width - inset
@@ -75,6 +75,7 @@ struct CollageCreateEditScreen: View {
         
             .animation(.smooth, value: self.viewModel.selectedCollageType)
             .animation(.smooth, value: self.viewModel.selectedMediaURLs)
+            .animation(.smooth, value: self.viewModel.selectedCollageContentMode)
         
     }
     
@@ -98,9 +99,17 @@ struct CollageCreateEditScreen: View {
             navBar()
         } scrollViewContent: {
             
-            buildCollageView(
-                collage: self.viewModel.selectedCollageType
-            )
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                buildCollageView(
+                    collage: self.viewModel.selectedCollageType
+                )
+                
+                segmentedControlView()
+                colorPickerView()
+                
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
         }
         .safeAreaInset(edge: .bottom) {
@@ -127,6 +136,34 @@ struct CollageCreateEditScreen: View {
         .animation(.spring, value: self.viewModel.selectedCollageType)
         .asAnyView()
                 
+    }
+    
+    private func segmentedControlView() -> some View {
+        
+        CommonSegmentedControl(
+            selectedOption: self.$viewModel.selectedCollageContentMode,
+            options: CollageCreateEditViewModel.CollageContentMode.allCases,
+            selectedTextColor: Style.shared.textColor(.titleInverted)
+        )
+        .frame(maxWidth: 360)
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func colorPickerView() -> some View {
+        
+        HStack(spacing: Style.shared.spacing(.small)) {
+            
+            Text("Background Color:")
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .appFont(with: .TITLE_4)
+            
+            ColorPicker("", selection: self.$viewModel.selectedBackgroundColor)
+                .fixedSize(horizontal: true, vertical: false)
+            
+        }
+        .padding(.horizontal, .medium)
+        
     }
     
     @ViewBuilder
@@ -187,6 +224,8 @@ struct CollageCreateEditScreen: View {
             cornerRadius: cornerRadius,
             height: height,
             borderLineWidth: 2.5,
+            backgroundColor: .color(self.viewModel.selectedBackgroundColor),
+            scaleToFill: self.viewModel.selectedCollageContentMode == .fill,
             action: action
         )
         .frame(width: height)

@@ -60,6 +60,24 @@ final class CollageCreateEditViewModel: ViewModel {
         
     }
     
+    enum CollageContentMode: Selectable, CaseIterable {
+        
+        var id: String {
+            return self.description
+        }
+        
+        case fit
+        case fill
+        
+        var description: String {
+            switch self {
+            case .fit: return "Fit"
+            case .fill: return "Fill"
+            }
+        }
+        
+    }
+    
     internal let loggerName: String = "COLLAGE_CREATE_EDIT_VIEW_MODEL"
     internal let loggerEmoji: String = "🎞️"
     
@@ -73,6 +91,8 @@ final class CollageCreateEditViewModel: ViewModel {
         
     @Published private(set) var selectedMediaURLs: [MediaFusion?] = [nil, nil, nil, nil]
     @Published private(set) var selectedCollageType: CollageType = .grid(rows: 1, columns: 2)
+    @Published var selectedCollageContentMode: CollageContentMode? = .fit
+    @Published var selectedBackgroundColor: Color = .black
         
     var maxNumberOfMedia: Int {
         

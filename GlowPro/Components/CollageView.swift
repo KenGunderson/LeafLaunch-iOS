@@ -60,6 +60,8 @@ struct CollageView: View {
     let cornerRadius: Theme.RadiusKey
     let height: CGFloat
     let borderLineWidth: CGFloat
+    let backgroundColor: ColorSource
+    let scaleToFill: Bool
     let action: ((Int) -> Void)?
     
     init(items: [URL?],
@@ -68,6 +70,8 @@ struct CollageView: View {
          cornerRadius: Theme.RadiusKey = .small,
          height: CGFloat = 400,
          borderLineWidth: CGFloat? = nil,
+         backgroundColor: ColorSource = .color(.black),
+         scaleToFill: Bool = false,
          action: ((Int) -> Void)? = nil) {
         
         self.items = items
@@ -76,6 +80,8 @@ struct CollageView: View {
         self.cornerRadius = cornerRadius
         self.height = height
         self.borderLineWidth = borderLineWidth ?? height * 0.016
+        self.backgroundColor = backgroundColor
+        self.scaleToFill = scaleToFill
         self.action = action
         
     }
@@ -93,9 +99,10 @@ struct CollageView: View {
             }
             
         }
-        .background(self.borderColor.source())
+        .background(self.backgroundColor.source())
         .cornerRadius(self.cornerRadius)
         .frame(maxWidth: self.height, maxHeight: self.height)
+        .compositingGroup()
         
     }
     
@@ -126,7 +133,7 @@ struct CollageView: View {
                     placeholder: PlaceholderView().asAnyView()
                 )
                 .view(renderingMode: .original)
-                .scaledToFill()
+                .aspectRatio(nil, contentMode: self.scaleToFill ? .fill : .fit)
                 .frame(width: size.width, height: size.height)
                 .frame(maxWidth: size.width, maxHeight: size.height)
                 .contentShape(.rect)
@@ -237,7 +244,7 @@ struct CollageView: View {
             
             border(height: self.borderLineWidth)
             
-            HStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
                 
                 image(
                     url: imageTwo,
@@ -247,7 +254,10 @@ struct CollageView: View {
                     view.appOnTapGesture { self.action?(1) }
                 }
                 
-                border(width: self.borderLineWidth)
+                border(
+                    height: halfHeight,
+                    width: self.borderLineWidth
+                )
                 
                 image(
                     url: imageThree,
@@ -372,7 +382,10 @@ struct CollageView: View {
                     view.appOnTapGesture { self.action?(0) }
                 }
                 
-                border(width: self.borderLineWidth)
+                border(
+                    height: halfHeight,
+                    width: self.borderLineWidth
+                )
                 
                 image(
                     url: imageTwo,
@@ -396,7 +409,10 @@ struct CollageView: View {
                     view.appOnTapGesture { self.action?(2) }
                 }
                 
-                border(width: self.borderLineWidth)
+                border(
+                    height: halfHeight,
+                    width: self.borderLineWidth
+                )
                 
                 image(
                     url: imageFour,
