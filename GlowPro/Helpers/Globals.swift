@@ -13,9 +13,3 @@ nonisolated(unsafe) public var globalResolver: Resolver!
 
 /// For fun; not actually keeping
 nonisolated(unsafe) var globalNavigationService: NavigationService!
-
-/// For fun; not actually keeping
-nonisolated(unsafe) public var loggedEvents: [LogEvent] = []
-
-/// For fun; not actually keeping
-nonisolated(unsafe) public var apiLogResponses: [APILogResponse] = []

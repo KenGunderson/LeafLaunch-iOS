@@ -42,12 +42,13 @@ final class DevAnalyticsViewModel: ViewModel {
         
         if let selectedOSLogType {
             
-            return loggedEvents
+            return LoggedEventsStore.shared
+                .snapshot()
                 .filter { $0.level == selectedOSLogType}
             
         }
         
-        return loggedEvents
+        return LoggedEventsStore.shared.snapshot()
         
     }
     
@@ -56,7 +57,7 @@ final class DevAnalyticsViewModel: ViewModel {
     }
     
     var allAPILogResponses: [APILogResponse] {
-        return apiLogResponses
+        return APILogResponseStore.shared.snapshot()
     }
     
     init(analyticsService: AnalyticsServiceProtocol,

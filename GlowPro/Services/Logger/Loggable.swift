@@ -64,7 +64,7 @@ public extension Loggable {
             line: line
         )
         
-        loggedEvents.append(.init(
+        LoggedEventsStore.shared.append(.init(
             title: "Init",
             message: formattedString,
             source: loggerName,
@@ -91,7 +91,7 @@ public extension Loggable {
             line: line
         )
         
-        loggedEvents.append(.init(
+        LoggedEventsStore.shared.append(.init(
             title: "Deinit",
             message: formattedString,
             source: loggerName,
@@ -121,7 +121,7 @@ public extension Loggable {
                 line: line
             )
             
-            loggedEvents.append(.init(
+            LoggedEventsStore.shared.append(.init(
                 title: "Log",
                 message: formattedString,
                 source: loggerName,
@@ -151,7 +151,7 @@ public extension Loggable {
             line: line
         )
         
-        loggedEvents.append(.init(
+        LoggedEventsStore.shared.append(.init(
             title: "Error",
             message: formattedString,
             source: loggerName,

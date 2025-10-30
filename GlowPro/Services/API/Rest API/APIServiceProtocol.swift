@@ -194,7 +194,7 @@ extension APIProtocol {
             defer {
                 
                 if let apiLogResponse {
-                    apiLogResponses.append(apiLogResponse)
+                    APILogResponseStore.shared.append(apiLogResponse)
                 }
                 
             }
@@ -274,7 +274,7 @@ extension APIProtocol {
         defer {
             
             if let apiLogResponse {
-                apiLogResponses.append(apiLogResponse)
+                APILogResponseStore.shared.append(apiLogResponse)
             }
             
         }
