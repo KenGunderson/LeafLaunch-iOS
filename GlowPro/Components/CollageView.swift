@@ -75,7 +75,7 @@ struct CollageView: View {
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
         self.height = height
-        self.borderLineWidth = borderLineWidth ?? self.height * 0.016
+        self.borderLineWidth = borderLineWidth ?? height * 0.016
         self.action = action
         
     }
@@ -95,8 +95,60 @@ struct CollageView: View {
         }
         .background(self.borderColor.source())
         .cornerRadius(self.cornerRadius)
+        .frame(maxWidth: self.height, maxHeight: self.height)
         
     }
+    
+    // MARK: - Image + Border Helpers
+    
+    @ViewBuilder
+    private func border(height: CGFloat? = nil,
+                        width: CGFloat? = nil) -> some View {
+        
+        Rectangle()
+            .fill(self.borderColor.source())
+            .frame(
+                width: width,
+                height: height
+            )
+        
+    }
+    
+    @ViewBuilder
+    private func image(url: URL?,
+                       size: CGSize) -> some View {
+        
+        if let url {
+            
+            CollageImageView(
+                source: .remote(
+                    url: url,
+                    placeholder: PlaceholderView().asAnyView()
+                ),
+                targetSize: size,
+                placeholderView: PlaceholderView().asAnyView()
+            )
+            
+        } else {
+            
+            Rectangle()
+                .fill(Style.shared.background(.quaternary).source())
+                .overlay {
+                    ImageSource
+                        .systemImage("photo.fill")
+                        .view(shouldResize: true, renderingMode: .original)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(
+                            width: self.height * 0.10,
+                            height: self.height * 0.10
+                        )
+                }
+                .frame(width: size.width,
+                       height: size.height)
+        }
+    }
+    
+    // MARK: - Layouts
     
     @ViewBuilder
     private func grid() -> some View {
@@ -105,8 +157,13 @@ struct CollageView: View {
         
         let safeRows = max(1, rowsAndColumns.rows)
         let safeColumns = max(1, rowsAndColumns.columns)
-        let maxHeight = CGFloat(self.height) / CGFloat(safeRows)
-                
+        
+        let totalHorizontalBorderThickness = CGFloat(safeRows - 1) * self.borderLineWidth
+        let totalVerticalBorderThickness = CGFloat(safeColumns - 1) * self.borderLineWidth
+        
+        let cellHeight = (self.height - totalHorizontalBorderThickness) / CGFloat(safeRows)
+        let cellWidth  = (self.height - totalVerticalBorderThickness) / CGFloat(safeColumns)
+        
         VStack(spacing: 0) {
             
             ForEach(0..<safeRows, id: \.self) { rowIndex in
@@ -128,7 +185,7 @@ struct CollageView: View {
                         
                         image(
                             url: url,
-                            maxHeight: maxHeight
+                            size: .init(width: cellWidth, height: cellHeight)
                         )
                         .if(self.action != nil) { view in
                             
@@ -145,7 +202,7 @@ struct CollageView: View {
             }
             
         }
-        .frame(maxHeight: CGFloat(self.height))
+        .frame(maxHeight: self.height)
         .appBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor,
@@ -155,113 +212,52 @@ struct CollageView: View {
     }
     
     @ViewBuilder
-    private func border(height: CGFloat? = nil,
-                        width: CGFloat? = nil) -> some View {
-        
-        Rectangle()
-            .fill(self.borderColor.source())
-            .frame(
-                width: width,
-                height: height
-            )
-        
-    }
-    
-    @ViewBuilder
-    private func image(url: URL?,
-                       maxHeight: CGFloat) -> some View {
-        
-        if let url {
-            
-            ImageSource
-                .remote(
-                    url: url,
-                    placeholder: PlaceholderView().asAnyView()
-                )
-                .view(renderingMode: .original)
-                .frame(height: maxHeight)
-                .frame(maxHeight: maxHeight)
-//                .scaledToFill()
-                .contentShape(.rect)
-                .clipShape(.rect)
-            
-        } else {
-            
-            Rectangle()
-                .fill(Style.shared.background(.quaternary).source())
-                .overlay {
-                    
-                    Image(systemName: "photo.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(
-                            width: self.height * 0.10,
-                            height: self.height * 0.10
-                        )
-                    
-                }
-                .frame(height: maxHeight)
-                .frame(maxHeight: maxHeight)
-            
-        }
-        
-    }
-    
-    @ViewBuilder
     private func oneLargeTwoSmall() -> some View {
         
-        let image1 = self.items[safe: 0] ?? nil
-        let image2 = self.items[safe: 1] ?? nil
-        let image3 = self.items[safe: 2] ?? nil
+        let imageOne = self.items[safe: 0] ?? nil
+        let imageTwo = self.items[safe: 1] ?? nil
+        let imageThree = self.items[safe: 2] ?? nil
+        
+        let fullWidth = self.height
+        let halfHeight = self.height / 2
+        let halfWidth = (self.height - self.borderLineWidth) / 2
         
         VStack(spacing: 0) {
             
             image(
-                url: image1,
-                maxHeight: CGFloat(self.height / 2)
+                url: imageOne,
+                size: .init(width: fullWidth, height: halfHeight)
             )
             .if(self.action != nil) { view in
-                
-                view.appOnTapGesture {
-                    self.action?(0)
-                }
-                
+                view.appOnTapGesture { self.action?(0) }
             }
             
             border(height: self.borderLineWidth)
             
             HStack(spacing: 0) {
-               
+                
                 image(
-                    url: image2,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageTwo,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(1)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(1) }
                 }
                 
                 border(width: self.borderLineWidth)
                 
                 image(
-                    url: image3,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageThree,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(2)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(2) }
                 }
                 
             }
             
         }
-        .frame(maxHeight: CGFloat(self.height))
+        .frame(maxHeight: self.height)
         .appBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor,
@@ -273,39 +269,35 @@ struct CollageView: View {
     @ViewBuilder
     private func oneLargeOneSmall() -> some View {
         
-        let image1 = self.items[safe: 0] ?? nil
-        let image2 = self.items[safe: 1] ?? nil
+        let imageOne = self.items[safe: 0] ?? nil
+        let imageTwo = self.items[safe: 1] ?? nil
+        
+        let fullWidth = self.height
+        let largeHeight = (self.height) * 2 / 3
+        let smallHeight = (self.height) * 1 / 3
         
         VStack(spacing: 0) {
             
             image(
-                url: image1,
-                maxHeight: CGFloat((self.height) * 2/3)
+                url: imageOne,
+                size: .init(width: fullWidth, height: largeHeight)
             )
             .if(self.action != nil) { view in
-                
-                view.appOnTapGesture {
-                    self.action?(0)
-                }
-                
+                view.appOnTapGesture { self.action?(0) }
             }
-
-            border(height: borderLineWidth)
-
+            
+            border(height: self.borderLineWidth)
+            
             image(
-                url: image2,
-                maxHeight: CGFloat((self.height) * 1/3)
+                url: imageTwo,
+                size: .init(width: fullWidth, height: smallHeight)
             )
             .if(self.action != nil) { view in
-                
-                view.appOnTapGesture {
-                    self.action?(1)
-                }
-                
+                view.appOnTapGesture { self.action?(1) }
             }
             
         }
-        .frame(maxHeight: CGFloat(self.height))
+        .frame(maxHeight: self.height)
         .appBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor,
@@ -317,39 +309,35 @@ struct CollageView: View {
     @ViewBuilder
     private func oneSmallOneLarge() -> some View {
         
-        let image1 = self.items[safe: 0] ?? nil
-        let image2 = self.items[safe: 1] ?? nil
+        let imageOne = self.items[safe: 0] ?? nil
+        let imageTwo = self.items[safe: 1] ?? nil
+        
+        let fullWidth = self.height
+        let smallHeight = (self.height) * 1 / 3
+        let largeHeight = (self.height) * 2 / 3
         
         VStack(spacing: 0) {
             
             image(
-                url: image1,
-                maxHeight: CGFloat((self.height) * 1/3)
+                url: imageOne,
+                size: .init(width: fullWidth, height: smallHeight)
             )
             .if(self.action != nil) { view in
-                
-                view.appOnTapGesture {
-                    self.action?(0)
-                }
-                
+                view.appOnTapGesture { self.action?(0) }
             }
-
-            border(height: borderLineWidth)
-
+            
+            border(height: self.borderLineWidth)
+            
             image(
-                url: image2,
-                maxHeight: CGFloat((self.height) * 2/3)
+                url: imageTwo,
+                size: .init(width: fullWidth, height: largeHeight)
             )
             .if(self.action != nil) { view in
-                
-                view.appOnTapGesture {
-                    self.action?(1)
-                }
-                
+                view.appOnTapGesture { self.action?(1) }
             }
             
         }
-        .frame(maxHeight: CGFloat(self.height))
+        .frame(maxHeight: self.height)
         .appBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor,
@@ -361,39 +349,34 @@ struct CollageView: View {
     @ViewBuilder
     private func twoLargeTwoSmall() -> some View {
         
-        let image1 = self.items[safe: 0] ?? nil
-        let image2 = self.items[safe: 1] ?? nil
-        let image3 = self.items[safe: 2] ?? nil
-        let image4 = self.items[safe: 3] ?? nil
+        let imageOne = self.items[safe: 0] ?? nil
+        let imageTwo = self.items[safe: 1] ?? nil
+        let imageThree = self.items[safe: 2] ?? nil
+        let imageFour = self.items[safe: 3] ?? nil
+        
+        let halfHeight = self.height / 2
+        let halfWidth = (self.height - self.borderLineWidth) / 2
         
         VStack(spacing: 0) {
             
             HStack(spacing: 0) {
                 
                 image(
-                    url: image1,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageOne,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(0)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(0) }
                 }
                 
                 border(width: self.borderLineWidth)
                 
                 image(
-                    url: image2,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageTwo,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(1)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(1) }
                 }
                 
             }
@@ -401,42 +384,140 @@ struct CollageView: View {
             border(height: self.borderLineWidth)
             
             HStack(spacing: 0) {
-               
+                
                 image(
-                    url: image3,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageThree,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(2)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(2) }
                 }
                 
                 border(width: self.borderLineWidth)
                 
                 image(
-                    url: image4,
-                    maxHeight: CGFloat(self.height / 2)
+                    url: imageFour,
+                    size: .init(width: halfWidth, height: halfHeight)
                 )
                 .if(self.action != nil) { view in
-                    
-                    view.appOnTapGesture {
-                        self.action?(3)
-                    }
-                    
+                    view.appOnTapGesture { self.action?(3) }
                 }
                 
             }
             
         }
-        .frame(maxHeight: CGFloat(self.height))
+        .frame(maxHeight: self.height)
         .appBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor,
             lineWidth: 5
         )
+        
+    }
+    
+}
+
+fileprivate struct CollageImageView: View {
+    
+    let source: ImageSource
+    let targetSize: CGSize
+    let placeholderView: AnyView
+    
+    private let initialAspectRatio: CGFloat?
+    @State private var capturedAspectRatio: CGFloat?
+    
+    init(source: ImageSource,
+         targetSize: CGSize,
+         placeholderView: AnyView,
+         onAspectRatioAvailable: ((CGFloat) -> Void)? = nil) {
+        
+        self.source = source
+        self.targetSize = targetSize
+        self.placeholderView = placeholderView
+        
+        switch source {
+            
+        case .uiImage(let image, _):
+            
+            let width = max(1, image.size.width)
+            let height = max(1, image.size.height)
+            
+            self.initialAspectRatio = width / height
+            
+        default:
+            self.initialAspectRatio = nil
+        }
+        
+    }
+    
+    var body: some View {
+        
+        let resolvedSource: ImageSource = {
+            
+            switch self.source {
+            case .remote(let url, let placeholder, _, let onFailure):
+                
+                return .remote(
+                    url: url,
+                    placeholder: placeholder ?? self.placeholderView,
+                    onSuccess: { result in
+                        
+                        let width = max(1, result.image.size.width)
+                        let height = max(1, result.image.size.height)
+                        let ratio = width / height
+                        
+                        self.capturedAspectRatio = ratio
+                        
+                    },
+                    onFailure: onFailure
+                )
+                
+            default: return self.source
+            }
+            
+        }()
+        
+        resolvedSource
+            .view(shouldResize: true, renderingMode: .original)
+            .scaledToFill()
+            .frame(
+                width: self.targetSize.width,
+                height: self.targetSize.height
+            )
+            .clipped()
+            .contentShape(.rect)
+            .clipShape(.rect)
+            .overlay(alignment: .center) {
+
+                if self.needsPlaceholderOverlay {
+                    
+                    self.placeholderView
+                        .frame(
+                            width: self.targetSize.width,
+                            height: self.targetSize.height
+                        )
+                    
+                }
+                
+            }
+            .onAppear {
+                
+                // Report initial ratio if we already have it (e.g., .uiImage case)
+                if let initialAspectRatio {
+                    self.capturedAspectRatio = initialAspectRatio
+                }
+                
+            }
+    }
+    
+    // Only overlay our placeholder when the source does not already supply one (non-remote),
+    // and we do not have a captured ratio yet (likely loading/empty scenarios).
+    private var needsPlaceholderOverlay: Bool {
+        
+        switch self.source {
+        case .remote: return false
+        default: return self.capturedAspectRatio == nil && self.initialAspectRatio == nil
+        }
         
     }
     
@@ -522,49 +603,57 @@ struct CollageView: View {
             CollageView(
                 items: demo.suffix(3),
                 type: .oneLargeTwoSmall,
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: demo.suffix(4),
                 type: .twoLargeTwoSmall,
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(4)),
                 type: .grid(rows: 1, columns: 1),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(4)),
                 type: .grid(rows: 1, columns: 2),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(4)),
                 type: .grid(rows: 2, columns: 1),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(4)),
                 type: .grid(rows: 1, columns: 3),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(8)),
                 type: .grid(rows: 2, columns: 4),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
             CollageView(
                 items: Array(demo.prefix(10)),
                 type: .grid(rows: 2, columns: 2),
-                cornerRadius: .small
+                cornerRadius: .small,
+                height: UIScreen.main.bounds.width - 32
             )
             
         }

@@ -26,6 +26,7 @@ public struct CameraScreen: View {
     public var body: some View {
         
         content()
+            .preferredColorScheme(.dark)
         
         // Lifecycle
         
