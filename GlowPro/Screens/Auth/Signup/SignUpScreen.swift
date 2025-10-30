@@ -48,6 +48,22 @@ struct SignUpScreen: GPView {
                 
         ))
         
+        // Sheets
+        
+        .adaptiveSheet(
+            isPresented: self.$viewModel.showEmailVerificationSheet,
+            backgroundStyle: Style.shared.background(.primary)
+        ) {
+            
+            EmailVerificationSheet(email: self.viewModel.email) {
+                
+                self.viewModel
+                    .handleSignUp()
+                
+            }
+            
+        }
+        
         // Tap
     
         .onSubmit {
@@ -166,7 +182,10 @@ struct SignUpScreen: GPView {
                 title: "Create Account",
                 titleColor: Style.shared.textColor(.button),
                 isEnabled: self.viewModel.isButtonEnabled) {
-                    self.viewModel.handleSignUp()
+                
+                    self.viewModel
+                        .confirmEmail()
+                    
                 }
                 .padding(.vertical, .small)
             

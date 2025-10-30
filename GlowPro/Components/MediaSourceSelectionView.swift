@@ -41,7 +41,7 @@ struct MediaSourceSelectionView: View {
     private let sourceTypes: [SourceType]
     private let selectedSourceTypeAction: (SourceType) -> Void
     
-    init(sourceTypes: [SourceType] = [.camera, .mediaGallery, .applePhotos],
+    init(sourceTypes: [SourceType] = [.camera, .mediaGallery, .collageGallery, .applePhotos],
          selectedSourceTypeAction: @escaping (SourceType) -> Void) {
         
         self.sourceTypes = sourceTypes

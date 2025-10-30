@@ -31,6 +31,8 @@ final class SignUpViewModel: ViewModel {
     @Published private var currentNonce: String?
     @Published var error: Error?
     
+    @Published var showEmailVerificationSheet: Bool = false
+    
     var isButtonEnabled: Bool {
         
         return (
@@ -80,6 +82,10 @@ final class SignUpViewModel: ViewModel {
         case .failure(let error): self.error = error
         }
         
+    }
+    
+    func confirmEmail() {
+        self.showEmailVerificationSheet = true
     }
     
     @MainActor

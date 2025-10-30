@@ -291,7 +291,7 @@ struct ClientHomeScreen: GPView {
                         backgroundStyle: .color(.clear),
                         cornerRadius: .small,
                         shadow: .none,
-                        lineLimit: 8...20,
+                        lineLimit: 4...20,
                         verticalPadding: .small,
                         horizontalPadding: .small
                     )
@@ -308,7 +308,6 @@ struct ClientHomeScreen: GPView {
                 }
                 .padding(.top, .small)
                 .padding(.horizontal, .medium)
-                .padding(.bottom, .extraSmall)
                 
             })
             .background(.clear)

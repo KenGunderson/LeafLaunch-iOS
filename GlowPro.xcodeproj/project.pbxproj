@@ -838,6 +838,9 @@
 		75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EEA4152E865E1900F33B9B /* GridOverlayView.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		75F111082EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */; };
+		75F111092EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */; };
+		75F1110A2EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */; };
 		75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */; };
 		75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */; };
 		75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */; };
@@ -1158,6 +1161,7 @@
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75EEA4152E865E1900F33B9B /* GridOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlayView.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationSheet.swift; sourceTree = "<group>"; };
 		75F1312A2E74B2D400E7636B /* AboutUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewModel.swift; sourceTree = "<group>"; };
 		75F1312D2E74B2DA00E7636B /* AboutUsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsScreen.swift; sourceTree = "<group>"; };
 		75F131312E74B6CF00E7636B /* FeatureRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestViewModel.swift; sourceTree = "<group>"; };
@@ -2532,6 +2536,7 @@
 		75F32AFA2E615327003D904B /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
+				75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */,
 				75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */,
 			);
 			path = Sheets;
@@ -2913,6 +2918,7 @@
 				75ACC7532EA2E2B6006200F6 /* CollageView.swift in Sources */,
 				7537F4672DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4682DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
+				75F111082EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
@@ -3203,6 +3209,7 @@
 				75ACC7542EA2E2B6006200F6 /* CollageView.swift in Sources */,
 				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
 				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
+				75F1110A2EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
 				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
@@ -3476,6 +3483,7 @@
 				75DD83FF2EAD728600DD8850 /* CollageView.swift in Sources */,
 				75DD84002EAD728600DD8850 /* APIService+Device.swift in Sources */,
 				75DD84012EAD728600DD8850 /* APIServiceProtocol.swift in Sources */,
+				75F111092EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				75DD84022EAD728600DD8850 /* ClientListViewModel.swift in Sources */,
 				75DD84032EAD728600DD8850 /* PushNotificationService.swift in Sources */,
 				75DD84042EAD728600DD8850 /* BusinessEmployeeUpdateViewModel.swift in Sources */,

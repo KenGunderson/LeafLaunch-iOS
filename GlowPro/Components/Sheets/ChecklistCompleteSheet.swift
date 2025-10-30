@@ -100,6 +100,7 @@ struct ChecklistCompleteSheet: View {
             dismiss()
         }
         .padding(.horizontal, .large)
+        .padding(.bottom, UIDevice.isIpad ? .large : .none)
         .frame(maxWidth: .infinity)
         .background(Style.shared.background(.primary).source())
         
