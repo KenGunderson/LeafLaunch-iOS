@@ -14,7 +14,7 @@ struct EmailVerificationSheet: View {
     @State private var isOn = false
     
     var title: String {
-        return "Is your email correct? ✉️"
+        return "Is Your Email Correct? ✉️"
     }
     
     var message: String {
@@ -76,21 +76,29 @@ struct EmailVerificationSheet: View {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
             Text(self.title)
-                .appFont(with: .HEADER_4)
+                .appFont(with: .HEADER_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             Text(self.message)
-                .appFont(with: .BODY_3)
+                .appFont(with: .BODY_2)
                 .foregroundStyle(Style.shared.textColor(.title).source())
                 .lineLimit(nil)
             
-            Text(self.email)
-                .appFont(with: .HEADER_5)
-                .foregroundStyle(Style.shared.accent.source())
+            HStack(spacing: Style.shared.spacing(.extraSmall)) {
+                
+                Text("Email: ")
+                    .appFont(with: .HEADER_1)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+                Text(self.email)
+                    .appFont(with: .HEADER_1)
+                    .foregroundStyle(Style.shared.accent.source())
+                
+            }
             
         }
         .padding(.top, .large)
-        .padding(.bottom, .custom(80))
+        .padding(.bottom, .extraLarge)
         .padding(.horizontal, .medium)
         .frame(maxWidth: .infinity, alignment: .leading)
         

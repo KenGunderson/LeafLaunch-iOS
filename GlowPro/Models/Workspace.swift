@@ -40,5 +40,5 @@ struct Workspace: Codable,
         case roleLocations = "role_with_locations"
         
     }
-    
+
 }
