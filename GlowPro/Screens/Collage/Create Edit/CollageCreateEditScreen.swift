@@ -109,7 +109,6 @@ struct CollageCreateEditScreen: View {
                 colorPickerView()
                 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             
         }
         .safeAreaInset(edge: .bottom) {
