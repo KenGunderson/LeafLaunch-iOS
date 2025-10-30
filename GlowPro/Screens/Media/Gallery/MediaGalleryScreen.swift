@@ -75,7 +75,7 @@ struct MediaGalleryScreen: GPView {
                 })
                 .frame(maxWidth: .infinity)
                 .presentationCornerRadius(Style.shared.radius(.large))
-                .presentationCompactAdaptation(.popover)
+                .presentationCompactAdaptation(.sheet)
                 
             }
         
@@ -214,14 +214,23 @@ struct MediaGalleryScreen: GPView {
                 
                 let placeholderView = PlaceholderView().asAnyView()
                 
+                let width = (UIScreen.main.bounds.width - 32 - 8) / 3
+                
                 ForEach(groupedMedia.media) { item in
                     
                     ImageSource.remote(
                         url: item.url,
                         placeholder: placeholderView,
                     )
-                    .view(shouldResize: false)
-                    .aspectRatio(1, contentMode: .fill)
+                    .view(shouldResize: true)
+                    .scaledToFill()
+                    .frame(
+                        width: width,
+                        height: width
+                    )
+                    .clipped()
+                    .contentShape(.rect)
+                    .clipShape(.rect)
                     .cornerRadius(.small)
                     .appOnTapGesture {
                         

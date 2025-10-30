@@ -53,6 +53,7 @@ struct ChecklistCompleteSheet: View {
             vertical: true
         )
         .presentationCornerRadius(Style.shared.radius(.extraLarge))
+        .presentationCompactAdaptation(.sheet)
         
     }
     

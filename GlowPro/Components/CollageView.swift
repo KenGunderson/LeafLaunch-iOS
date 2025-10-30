@@ -120,14 +120,17 @@ struct CollageView: View {
         
         if let url {
             
-            CollageImageView(
-                source: .remote(
+            ImageSource
+                .remote(
                     url: url,
                     placeholder: PlaceholderView().asAnyView()
-                ),
-                targetSize: size,
-                placeholderView: PlaceholderView().asAnyView()
-            )
+                )
+                .view(renderingMode: .original)
+                .scaledToFill()
+                .frame(width: size.width, height: size.height)
+                .frame(maxWidth: size.width, maxHeight: size.height)
+                .contentShape(.rect)
+                .clipShape(.rect)
             
         } else {
             
@@ -412,112 +415,6 @@ struct CollageView: View {
             color: self.borderColor,
             lineWidth: 5
         )
-        
-    }
-    
-}
-
-fileprivate struct CollageImageView: View {
-    
-    let source: ImageSource
-    let targetSize: CGSize
-    let placeholderView: AnyView
-    
-    private let initialAspectRatio: CGFloat?
-    @State private var capturedAspectRatio: CGFloat?
-    
-    init(source: ImageSource,
-         targetSize: CGSize,
-         placeholderView: AnyView,
-         onAspectRatioAvailable: ((CGFloat) -> Void)? = nil) {
-        
-        self.source = source
-        self.targetSize = targetSize
-        self.placeholderView = placeholderView
-        
-        switch source {
-            
-        case .uiImage(let image, _):
-            
-            let width = max(1, image.size.width)
-            let height = max(1, image.size.height)
-            
-            self.initialAspectRatio = width / height
-            
-        default:
-            self.initialAspectRatio = nil
-        }
-        
-    }
-    
-    var body: some View {
-        
-        let resolvedSource: ImageSource = {
-            
-            switch self.source {
-            case .remote(let url, let placeholder, _, let onFailure):
-                
-                return .remote(
-                    url: url,
-                    placeholder: placeholder ?? self.placeholderView,
-                    onSuccess: { result in
-                        
-                        let width = max(1, result.image.size.width)
-                        let height = max(1, result.image.size.height)
-                        let ratio = width / height
-                        
-                        self.capturedAspectRatio = ratio
-                        
-                    },
-                    onFailure: onFailure
-                )
-                
-            default: return self.source
-            }
-            
-        }()
-        
-        resolvedSource
-            .view(shouldResize: true, renderingMode: .original)
-            .scaledToFill()
-            .frame(
-                width: self.targetSize.width,
-                height: self.targetSize.height
-            )
-            .clipped()
-            .contentShape(.rect)
-            .clipShape(.rect)
-            .overlay(alignment: .center) {
-
-                if self.needsPlaceholderOverlay {
-                    
-                    self.placeholderView
-                        .frame(
-                            width: self.targetSize.width,
-                            height: self.targetSize.height
-                        )
-                    
-                }
-                
-            }
-            .onAppear {
-                
-                // Report initial ratio if we already have it (e.g., .uiImage case)
-                if let initialAspectRatio {
-                    self.capturedAspectRatio = initialAspectRatio
-                }
-                
-            }
-    }
-    
-    // Only overlay our placeholder when the source does not already supply one (non-remote),
-    // and we do not have a captured ratio yet (likely loading/empty scenarios).
-    private var needsPlaceholderOverlay: Bool {
-        
-        switch self.source {
-        case .remote: return false
-        default: return self.capturedAspectRatio == nil && self.initialAspectRatio == nil
-        }
         
     }
     

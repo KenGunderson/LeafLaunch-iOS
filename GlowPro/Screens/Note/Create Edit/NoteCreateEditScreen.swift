@@ -83,7 +83,7 @@ struct NoteCreateEditScreen: View {
                 })
                 .frame(maxWidth: .infinity)
                 .presentationCornerRadius(Style.shared.radius(.large))
-                .presentationCompactAdaptation(.popover)
+                .presentationCompactAdaptation(.sheet)
                 
             }
         
