@@ -13,12 +13,24 @@ struct CollageCreateEditScreen: View {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel: CollageCreateEditViewModel
-    @Namespace private var animation
     
     @State private var uiImageToSave: UIImage?
     @State private var collageView: AnyView?
+    @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
     
-    let collageWidth: CGFloat = UIScreen.main.bounds.width - 32
+    var collageWidth: CGFloat {
+        
+        let screen = UIScreen.main.bounds
+        let inset: CGFloat = 32
+        let verticalInsets: CGFloat = (88 + 90 + 16 + 32)
+        
+        switch self.orientation {
+        case .portrait, .portraitUpsideDown: return screen.width - inset
+        case .landscapeLeft, .landscapeRight: return screen.height - inset - verticalInsets
+        default: return screen.width - inset
+        }
+        
+    }
         
     init(viewModel: CollageCreateEditViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
@@ -53,6 +65,10 @@ struct CollageCreateEditScreen: View {
                 guard let image = newValue else { return }
                 self.viewModel.save(image: image)
                 
+            }
+        
+            .detectRotation { orientation in
+                self.orientation = orientation
             }
         
         // Animations

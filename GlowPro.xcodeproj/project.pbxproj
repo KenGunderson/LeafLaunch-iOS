@@ -339,6 +339,9 @@
 		7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
 		7585FA112EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
+		758681D42EB325F6004F9F6E /* OrientationChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758681D32EB325F6004F9F6E /* OrientationChange.swift */; };
+		758681D52EB325F6004F9F6E /* OrientationChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758681D32EB325F6004F9F6E /* OrientationChange.swift */; };
+		758681D62EB325F6004F9F6E /* OrientationChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758681D32EB325F6004F9F6E /* OrientationChange.swift */; };
 		758C3CDE2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */; };
 		758C3CDF2E14AF8100BC1A43 /* BusinessLocationListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */; };
 		758C3CE02E14AF8100BC1A43 /* BusinessLocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */; };
@@ -1066,6 +1069,7 @@
 		75837A032EB19424004C2DB5 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditViewModel.swift; sourceTree = "<group>"; };
 		7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditScreen.swift; sourceTree = "<group>"; };
+		758681D32EB325F6004F9F6E /* OrientationChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationChange.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
 		758C3CDD2E14AF8100BC1A43 /* BusinessLocationListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListScreen.swift; sourceTree = "<group>"; };
 		758C3CE32E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeListViewModel.swift; sourceTree = "<group>"; };
@@ -2066,6 +2070,7 @@
 		756687312EAC8C1500C3DC8E /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				758681D32EB325F6004F9F6E /* OrientationChange.swift */,
 				756687322EAC8C1C00C3DC8E /* GradientBlurMask.swift */,
 			);
 			path = ViewModifiers;
@@ -2889,6 +2894,7 @@
 				75B731F62E14E58A00038AD6 /* Address.swift in Sources */,
 				75F1BBDF2E65481D00858401 /* MediaPreviewScreen.swift in Sources */,
 				75D6C2682E63C56300F8A336 /* CameraServiceProtocol.swift in Sources */,
+				758681D42EB325F6004F9F6E /* OrientationChange.swift in Sources */,
 				7537F4642DF661EA0031D9CF /* APIService.swift in Sources */,
 				75A3917A2E8753D70081391A /* MediaURLPreviewView.swift in Sources */,
 				75F287802E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
@@ -3177,6 +3183,7 @@
 				75B731F72E14E58A00038AD6 /* Address.swift in Sources */,
 				75F1BBDE2E65481D00858401 /* MediaPreviewScreen.swift in Sources */,
 				75D6C2692E63C56300F8A336 /* CameraServiceProtocol.swift in Sources */,
+				758681D52EB325F6004F9F6E /* OrientationChange.swift in Sources */,
 				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
 				75A3917B2E8753D70081391A /* MediaURLPreviewView.swift in Sources */,
 				75F287812E4FFD110045097D /* ClientCreateEditScreen.swift in Sources */,
@@ -3448,6 +3455,7 @@
 				75DD83F32EAD728600DD8850 /* Address.swift in Sources */,
 				75DD83F42EAD728600DD8850 /* MediaPreviewScreen.swift in Sources */,
 				75DD83F52EAD728600DD8850 /* CameraServiceProtocol.swift in Sources */,
+				758681D62EB325F6004F9F6E /* OrientationChange.swift in Sources */,
 				75DD83F62EAD728600DD8850 /* APIService.swift in Sources */,
 				75DD83F72EAD728600DD8850 /* MediaURLPreviewView.swift in Sources */,
 				75DD83F82EAD728600DD8850 /* ClientCreateEditScreen.swift in Sources */,
