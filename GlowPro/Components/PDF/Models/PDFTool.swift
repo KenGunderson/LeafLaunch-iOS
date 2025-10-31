@@ -16,6 +16,7 @@ public enum PDFTool: Equatable {
         
     }
     
+    case none
     case pen
     case highlighter(alpha: CGFloat = 0.35)
     case eraser(mode: EraserMode)

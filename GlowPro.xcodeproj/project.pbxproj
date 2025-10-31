@@ -101,6 +101,9 @@
 		7524E2652EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
 		7524E2662EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
 		7524E2672EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
+		75260F5A2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
+		75260F5B2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
+		75260F5C2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
 		75263AEA2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		75263AEB2E61FD4F004008B5 /* BusinessDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */; };
 		7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
@@ -943,6 +946,7 @@
 		7524E25C2EB1153A003EB9AF /* PDFCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCommand.swift; sourceTree = "<group>"; };
 		7524E2602EB11565003EB9AF /* PDFAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAction.swift; sourceTree = "<group>"; };
 		7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorViewModel.swift; sourceTree = "<group>"; };
+		75260F592EB468BD00318960 /* Sample.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Sample.pdf; sourceTree = "<group>"; };
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
@@ -1269,6 +1273,7 @@
 			isa = PBXGroup;
 			children = (
 				4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */,
+				75260F592EB468BD00318960 /* Sample.pdf */,
 			);
 			path = PDFs;
 			sourceTree = "<group>";
@@ -2780,6 +2785,7 @@
 				75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
 				7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */,
 				4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
+				75260F5A2EB468BD00318960 /* Sample.pdf in Resources */,
 				75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */,
 			);
@@ -2806,6 +2812,7 @@
 				75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */,
 				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
 				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
+				75260F5B2EB468BD00318960 /* Sample.pdf in Resources */,
 				75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */,
@@ -2819,6 +2826,7 @@
 				75DD84BE2EAD728600DD8850 /* Preview Assets.xcassets in Resources */,
 				75DD84CC2EAD731300DD8850 /* GlowPro-Localhost-Info.plist in Resources */,
 				75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */,
+				75260F5C2EB468BD00318960 /* Sample.pdf in Resources */,
 				75DD84C02EAD728600DD8850 /* GoogleService-Info.plist in Resources */,
 				4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75DD84C12EAD728600DD8850 /* PrivacyInfo.xcprivacy in Resources */,

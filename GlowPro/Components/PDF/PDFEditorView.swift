@@ -63,7 +63,9 @@ struct PDFEditorView: View {
     
     private func buildPDFView() -> some View {
         
-        PDFInkView(document: self.pdfDocument, viewModel: .init(), onAction: { action in
+        PDFInkView(document: self.pdfDocument,
+                   viewModel: .init(),
+                   onAction: { action in
             
             switch action {
             case .didSave(let data):
@@ -98,111 +100,179 @@ struct PDFEditorView: View {
         HStack(spacing: Style.shared.spacing(.small)) {
             
             HStack {
-                
-                ColorPicker("", selection: self.$pdfEditorViewModel.strokeColor)
-                    .labelsHidden()
-                    .frame(width: 32, height: 32)
-                    .onChange(of: self.pdfEditorViewModel.strokeColor) { _, new in
-                        self.pdfCommand = .setStroke(color: UIColor(new))
-                    }
-                
-                let eraserTool = PDFTool.eraser(mode: .byHitTest)
-                let highlighterTool = PDFTool.highlighter(alpha: 0.35)
-                
-                let unselectedForegroundColor = Style.shared.textColor(.title)
-                let unselectedBackgroundColor = Style.shared.background(.quaternary)
-                
-                let selectedBackgroundColor = Style.shared.accent
-                let selectedForegroundColor = Style.shared.textColor(.titleInverted)
-                
-                CircularIconView(
-                    foregroundColor: self.pdfEditorViewModel.currentTool == .pen ? selectedForegroundColor : unselectedForegroundColor,
-                    backgroundColor: self.pdfEditorViewModel.currentTool == .pen ? selectedBackgroundColor : unselectedBackgroundColor,
-                    imageSource: .systemImage("pencil"),
-                    size: 32
-                )
-                .asButton {
-                    
-                    self.pdfEditorViewModel.currentTool = .pen
-                    self.pdfCommand = .setTool(.pen)
-                    
-                }
-                
-                CircularIconView(
-                    foregroundColor: self.pdfEditorViewModel.currentTool == highlighterTool ? selectedForegroundColor : unselectedForegroundColor,
-                    backgroundColor: self.pdfEditorViewModel.currentTool == highlighterTool ? selectedBackgroundColor : unselectedBackgroundColor,
-                    imageSource: .systemImage("highlighter"),
-                    size: 32
-                )
-                .asButton {
-                    
-                    self.pdfEditorViewModel.currentTool = highlighterTool
-                    self.pdfCommand = .setTool(highlighterTool)
-                    
-                }
-                
-                CircularIconView(
-                    foregroundColor: self.pdfEditorViewModel.currentTool == eraserTool ? selectedForegroundColor : unselectedForegroundColor,
-                    backgroundColor: self.pdfEditorViewModel.currentTool == eraserTool ? selectedBackgroundColor : unselectedBackgroundColor,
-                    imageSource: .systemImage("eraser"),
-                    size: 32
-                )
-                .asButton {
-                    
-                    self.pdfEditorViewModel.currentTool = eraserTool
-                    self.pdfCommand = .setTool(eraserTool)
-                    
-                }
+
+                colorPicker()
+                pencilTool()
+                highlighterTool()
+                eraserTool()
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
-            VStack(alignment: .leading, spacing: -6) {
-                
-                Text("Line Width")
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                
-                ProgressSlider(value: self.$pdfEditorViewModel.strokeWidth, thumbHeight: 24)
-                    .onChange(of: self.pdfEditorViewModel.strokeWidth) { _, new in
-                        
-                        let finalValue = Double(10 * new)
-                        self.pdfCommand = .setWidth(finalValue)
-                        
-                    }
-                
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .offset(y: 5)
+            
+            lineWidthSlider()
+                .offset(y: 5)
             
             Spacer(minLength: 24)
             
-            HStack {
-                
-                Button {
-                    
-                    self.pdfCommand = .undo
-                    
-                } label: {
-                    Image(systemName: "arrow.uturn.backward")
-                }
-                .foregroundStyle(Style.shared.accent.source())
-                .appFont(with: .HEADER_1)
-                
-                Button {
-                    
-                    self.pdfCommand = .redo
-                    
-                } label: {
-                    Image(systemName: "arrow.uturn.forward")
-                }
-                .foregroundStyle(Style.shared.accent.source())
-                .appFont(with: .HEADER_1)
-                
-            }
+            undoRedo()
             
         }
         .padding(.small)
+        
+    }
+    
+    @ViewBuilder
+    private func colorPicker() -> some View {
+        
+        ColorPicker("", selection: self.$pdfEditorViewModel.strokeColor)
+            .labelsHidden()
+            .frame(width: 32, height: 32)
+            .onChange(of: self.pdfEditorViewModel.strokeColor) { _, new in
+                self.pdfCommand = .setStroke(color: UIColor(new))
+            }
+        
+    }
+    
+    @ViewBuilder
+    private func pencilTool() -> some View {
+        
+        toolButton(
+            systemImage: "pencil",
+            isSelected: self.pdfEditorViewModel.currentTool == .pen
+        )
+        .asButton {
+            
+            if self.pdfEditorViewModel.currentTool == .pen {
+                
+                resetTool()
+                return
+                
+            }
+            
+            self.pdfEditorViewModel.currentTool = .pen
+            self.pdfCommand = .setTool(.pen)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func highlighterTool() -> some View {
+        
+        let highlighterTool = PDFTool.highlighter(alpha: 0.35)
+                
+        toolButton(
+            systemImage: "highlighter",
+            isSelected: self.pdfEditorViewModel.currentTool == highlighterTool
+        )
+        .asButton {
+            
+            if self.pdfEditorViewModel.currentTool == highlighterTool {
+                
+                resetTool()
+                return
+                
+            }
+            
+            self.pdfEditorViewModel.currentTool = highlighterTool
+            self.pdfCommand = .setTool(highlighterTool)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func eraserTool() -> some View {
+        
+        let eraserTool = PDFTool.eraser(mode: .byHitTest)
+
+        toolButton(
+            systemImage: "eraser",
+            isSelected: self.pdfEditorViewModel.currentTool == eraserTool
+        )
+        .asButton {
+            
+            if self.pdfEditorViewModel.currentTool == eraserTool {
+                
+                resetTool()
+                return
+                
+            }
+            
+            self.pdfEditorViewModel.currentTool = eraserTool
+            self.pdfCommand = .setTool(eraserTool)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func lineWidthSlider() -> some View {
+        
+        VStack(alignment: .leading, spacing: -6) {
+            
+            Text("Line Width")
+                .appFont(with: .TITLE_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
+            ProgressSlider(value: self.$pdfEditorViewModel.strokeWidth, thumbHeight: 24)
+                .onChange(of: self.pdfEditorViewModel.strokeWidth) { _, new in
+                    
+                    let finalValue = Double(10 * new)
+                    self.pdfCommand = .setWidth(finalValue)
+                    
+                }
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        
+    }
+    
+    @ViewBuilder
+    private func toolButton(systemImage: String,
+                            isSelected: Bool) -> some View {
+        
+        let unselectedForegroundColor = Style.shared.textColor(.title)
+        let unselectedBackgroundColor = Style.shared.background(.quaternary)
+        
+        let selectedBackgroundColor = Style.shared.accent
+        let selectedForegroundColor = Style.shared.textColor(.titleInverted)
+        
+        CircularIconView(
+            foregroundColor: isSelected ? selectedForegroundColor : unselectedForegroundColor,
+            backgroundColor: isSelected ? selectedBackgroundColor : unselectedBackgroundColor,
+            imageSource: .systemImage(systemImage),
+            size: 32
+        )
+        
+    }
+    
+    @ViewBuilder
+    private func undoRedo() -> some View {
+        
+        HStack {
+            
+            Button {
+                
+                self.pdfCommand = .undo
+                
+            } label: {
+                Image(systemName: "arrow.uturn.backward")
+            }
+            .foregroundStyle(Style.shared.accent.source())
+            .appFont(with: .HEADER_1)
+            
+            Button {
+                
+                self.pdfCommand = .redo
+                
+            } label: {
+                Image(systemName: "arrow.uturn.forward")
+            }
+            .foregroundStyle(Style.shared.accent.source())
+            .appFont(with: .HEADER_1)
+            
+        }
         
     }
     
@@ -213,6 +283,13 @@ struct PDFEditorView: View {
         ) {
             self.pdfCommand = .save
         }
+        
+    }
+    
+    private func resetTool() {
+        
+        self.pdfEditorViewModel.currentTool = .none
+        self.pdfCommand = .setTool(.none)
         
     }
     

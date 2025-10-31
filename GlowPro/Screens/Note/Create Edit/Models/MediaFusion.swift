@@ -25,7 +25,7 @@ struct MediaFusion: Equatable {
             
             switch self {
             case .uiImage(let image): return image
-            case .pdf(let data): return getImageFromPDF()
+            case .pdf: return getImageFromPDF()
             case .url: return nil
             }
             

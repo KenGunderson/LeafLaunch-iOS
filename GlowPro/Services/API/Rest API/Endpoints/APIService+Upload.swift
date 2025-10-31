@@ -34,7 +34,7 @@ extension APIService {
         fields["file"] = .file(
             data: uploadMedia.data,
             filename: "TEMP_FILE_NAME.jpeg",
-            mimeType: "image/jpeg"
+            mimeType: uploadMedia.contentType.mimeType
         )
         
         let multipartRequest = MultipartBodyBuilder.makeBody(

@@ -10,31 +10,47 @@ import PDFKit
 
 struct PDFInkView: UIViewRepresentable {
     
-    public init(document: PDFDocument,
-                viewModel: PDFEditorViewModel,
-                onAction: @escaping (PDFAction) -> Void,
-                command: Binding<PDFCommand?>) {
-        
+    // MARK: Init
+    
+    public init(
+        document: PDFDocument,
+        viewModel: PDFEditorViewModel,
+        onAction: @escaping (PDFAction) -> Void,
+        command: Binding<PDFCommand?>
+    ) {
         self.document = document
         self._viewModel = .init(wrappedValue: viewModel)
         self.onAction = onAction
         self._command = command
     }
     
+    // MARK: Stored Properties
+    
     private let document: PDFDocument
-    @ObservedObject private var viewModel: PDFEditorViewModel
+    
+    @ObservedObject
+    private var viewModel: PDFEditorViewModel
     
     private let onAction: (PDFAction) -> Void
-    @Binding private var command: PDFCommand?
+    
+    @Binding
+    private var command: PDFCommand?
+    
+    var pages: [PDFPage] {
+        return self.document.pages
+    }
+    
+    // MARK: UIViewRepresentable
     
     public func makeUIView(context: Context) -> InkContainer {
         
-        let v = InkContainer(onAction: { action in
+        let container = InkContainer { action in
             
             self.onAction(action)
             
             switch action {
             case .didChangeTool(let tool):
+                
                 self.viewModel.currentTool = tool
                 
             case .didChangeStroke(let color, let width):
@@ -56,30 +72,32 @@ struct PDFInkView: UIViewRepresentable {
                 break
             }
             
-        })
+        }
         
-        v.configure(
+        container.configure(
             document: self.document,
             initialTool: self.viewModel.currentTool,
             color: UIColor(self.viewModel.strokeColor),
             width: self.viewModel.strokeWidth * 10
         )
         
-        return v
+        return container
+        
     }
     
     public func updateUIView(_ uiView: InkContainer, context: Context) {
         
         if let cmd = self.command {
             uiView.handle(command: cmd)
+            
             DispatchQueue.main.async {
                 self.command = nil
             }
         }
-        
     }
-    
 }
+
+// MARK: - InkContainer
 
 @MainActor
 final class InkContainer: UIView, UIGestureRecognizerDelegate {
@@ -89,22 +107,42 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     private let pdfView = PDFView()
     private let onAction: (PDFAction) -> Void
     
-    // Drawing state
+    // MARK: Drawing State
+    
     private var currentPage: PDFPage?
     private var pathViewSpace = UIBezierPath()
     private var pathPageSpace = UIBezierPath()
     
-    // Settings
+    // MARK: Settings
+    
     private var currentTool: PDFTool = .pen
     private var strokeColor: UIColor = .black
     private var strokeWidth: CGFloat = 2.5
     
-    // Layers
+    // MARK: Layers
+    
     private var liveLayer = CAShapeLayer()
     
-    // Undo/redo (per page)
+    // MARK: Undo / Redo (per page)
+    
     private var undoStacks: [Int: [PDFAnnotation]] = [:]
     private var redoStacks: [Int: [PDFAnnotation]] = [:]
+    
+    // MARK: Gestures
+    
+    private lazy var drawPan: UIPanGestureRecognizer = {
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
+        pan.maximumNumberOfTouches = 1
+        pan.minimumNumberOfTouches = 1
+        pan.cancelsTouchesInView = true
+        pan.delaysTouchesBegan = false
+        pan.delegate = self
+        return pan
+        
+    }()
+    
+    private weak var scrollPan: UIPanGestureRecognizer?
     
     // MARK: Init
     
@@ -112,12 +150,13 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         self.onAction = onAction
         super.init(frame: .zero)
-        
         self.setupSubviews()
         
     }
     
-    required init?(coder: NSCoder) { fatalError() }
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     // MARK: Configure
     
@@ -139,6 +178,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             self.pdfView.minScaleFactor = fit * 1.0
             self.pdfView.maxScaleFactor = fit * 8.0
             self.pdfView.scaleFactor = fit
+            
+            self.configureGestures(for: self.currentTool)
             
             self.emitPageChange()
             self.emitUndoAvailability()
@@ -176,41 +217,44 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             self.pdfView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.pdfView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.pdfView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.pdfView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.pdfView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
-        // Gestures
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
-        pan.maximumNumberOfTouches = 1
-        pan.minimumNumberOfTouches = 1
-        pan.cancelsTouchesInView = true
-        pan.delaysTouchesBegan = false
-        self.addGestureRecognizer(pan)
+        // PDF Scroll Pan
+        self.scrollPan = self.pdfScrollView?.panGestureRecognizer
         
-        if let scrollPan = self.pdfView.subviews.compactMap({ $0 as? UIScrollView }).first?.panGestureRecognizer {
-            scrollPan.minimumNumberOfTouches = 2
-            scrollPan.require(toFail: pan)
-        }
+        // Our Drawing Recognizer
+        self.addGestureRecognizer(self.drawPan)
         
+        // Touch Behavior
         self.pdfScrollView?.delaysContentTouches = false
         self.pdfScrollView?.canCancelContentTouches = true
         
-        // Page change (internal only)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.pageChanged),
-                                               name: Notification.Name.PDFViewPageChanged,
-                                               object: self.pdfView)
+        // Default Mode: no tool → natural scrolling
+        self.configureGestures(for: .none)
+        
+        // Page Change
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.pageChanged),
+            name: Notification.Name.PDFViewPageChanged,
+            object: self.pdfView
+        )
         
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name.PDFViewPageChanged,
-                                                  object: self.pdfView)
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name.PDFViewPageChanged,
+            object: self.pdfView
+        )
+        
     }
     
     private var pdfScrollView: UIScrollView? {
-        return self.pdfView.subviews.compactMap { $0 as? UIScrollView }.first
+        self.pdfView.subviews.compactMap { $0 as? UIScrollView }.first
     }
     
     // MARK: Commands
@@ -219,75 +263,136 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         switch command {
         case .save:
+            
             if let data = self.pdfView.document?.dataRepresentation() {
                 self.onAction(.didSave(data: data))
             }
             
         case .undo:
+            
             self.undoRequested()
             
         case .redo:
+            
             self.redoRequested()
             
         case .setTool(let tool):
+            
             self.currentTool = tool
             self.onAction(.didChangeTool(tool))
+            self.liveLayer.opacity = (tool == .none) ? 0 : 1
+            self.configureGestures(for: tool)
             
         case .setStroke(let color):
+            
             self.strokeColor = color
             self.liveLayer.strokeColor = color.cgColor
             self.onAction(.didChangeStroke(color: color, width: self.strokeWidth))
             
         case .setWidth(let width):
+            
             self.strokeWidth = max(0.5, min(width, 20))
             self.liveLayer.lineWidth = self.strokeWidth
             self.onAction(.didChangeStroke(color: self.strokeColor, width: self.strokeWidth))
             
         case .replaceDocument(let doc):
-            self.configure(document: doc,
-                           initialTool: self.currentTool,
-                           color: self.strokeColor,
-                           width: self.strokeWidth)
+            
+            self.configure(
+                document: doc,
+                initialTool: self.currentTool,
+                color: self.strokeColor,
+                width: self.strokeWidth
+            )
             
         case .jumpToPage(let index):
+            
             if let page = self.pdfView.document?.page(at: index) {
+                
                 self.pdfView.go(to: page)
                 self.emitPageChange()
+                
             }
             
         case .clearCurrentPage:
             self.clearAnnotationsOnCurrentPage()
             
         case .export(let mode):
+            
             switch mode {
+                
             case .originalWithAnnotations:
+                
                 if let data = self.pdfView.document?.dataRepresentation() {
                     self.onAction(.didSave(data: data))
                 }
+                
             }
+            
         }
         
         self.emitUndoAvailability()
         
     }
     
-    // MARK: Gestures (Pen / Highlighter / Eraser)
+    // MARK: Gesture Mode Switching
     
-    @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
+    private func configureGestures(for tool: PDFTool) {
+        
+        let drawingActive: Bool
+        
+        switch tool {
+        case .pen, .highlighter, .eraser: drawingActive = true
+        case .none: drawingActive = false
+        }
+        
+        // Our drawing: 1-finger when active; disabled when no tool
+        self.drawPan.isEnabled = drawingActive
+        
+        // PDF scroll: always enabled; 1-finger when no tool, 2-finger when drawing
+        self.pdfScrollView?.isScrollEnabled = true
+        self.scrollPan?.isEnabled = true
+        self.scrollPan?.minimumNumberOfTouches = drawingActive ? 2 : 1
+        
+        // When drawing, make scroll wait for drawPan
+        if drawingActive {
+            
+            if let scrollPan { scrollPan.require(toFail: self.drawPan) }
+            self.liveLayer.isHidden = false
+            self.liveLayer.opacity = 1
+            
+        } else {
+            
+            self.liveLayer.isHidden = true
+            self.liveLayer.opacity = 0
+            
+        }
+        
+    }
+    
+    // MARK: Gesture Handling
+    
+    @objc
+    private func handlePan(_ gesture: UIPanGestureRecognizer) {
         
         switch self.currentTool {
         case .pen, .highlighter:
+            
             self.handleDrawPan(gesture)
             
         case .eraser(let mode):
+            
             switch mode {
             case .lastStroke:
+                
                 if gesture.state == .ended {
                     self.eraseLastStroke()
                 }
-            case .byHitTest:
-                self.handleEraseHitTestPan(gesture)
+                
+            case .byHitTest: self.handleEraseHitTestPan(gesture)
             }
+            
+        case .none:
+            break
         }
         
     }
@@ -299,7 +404,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         switch gesture.state {
         case .began:
             
+            guard self.currentTool != .none else { return }
             guard gesture.numberOfTouches == 1 else { return }
+            
             self.pdfScrollView?.isScrollEnabled = false
             
             self.pathViewSpace.removeAllPoints()
@@ -320,8 +427,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
         case .changed:
             
-            if let page = self.currentPage,
-               gesture.numberOfTouches == 1 {
+            guard self.currentTool != .none else { return }
+            
+            if let page = self.currentPage, gesture.numberOfTouches == 1 {
                 
                 let viewPoint = gesture.location(in: self.pdfView)
                 let pagePoint = self.pdfView.convert(viewPoint, to: page)
@@ -329,6 +437,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
                 self.pathViewSpace.addLine(to: viewPoint)
                 self.pathPageSpace.addLine(to: pagePoint)
                 self.liveLayer.path = self.pathViewSpace.cgPath
+                
             }
             
         case .ended, .cancelled, .failed:
@@ -348,18 +457,21 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         switch self.currentTool {
         case .pen:
+
             return (self.strokeColor, self.strokeWidth, 1.0)
             
         case .highlighter(let alpha):
             
-            let strokeColor = self.strokeColor
-            let strokeWidth = self.strokeWidth * 3
-            let strokeAlpha = max(0.1, min(alpha, 0.6))
-            
-            return (strokeColor, strokeWidth * 2, strokeAlpha)
+            let clamped = max(0.1, min(alpha, 0.6))
+            let width = self.strokeWidth * 3 * 2
+            return (self.strokeColor, width, clamped)
             
         case .eraser:
+            
             return (self.strokeColor, self.strokeWidth, 1.0) // unused
+            
+        case .none:
+            return (.red, 0, 0)
         }
         
     }
@@ -367,17 +479,22 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     private func commitStroke() {
         
         guard let page = self.currentPage else {
+            
             self.cleanupAfterStroke()
             return
+            
         }
         
         guard self.pathPageSpace.isEmpty == false,
               self.pathPageSpace.bounds.size != .zero else {
+            
             self.cleanupAfterStroke()
             return
+            
         }
         
         let (color, width, alpha) = self.strokeForCurrentTool()
+        
         let ink = self.makeInkAnnotation(
             for: page,
             path: self.pathPageSpace,
@@ -425,6 +542,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         guard annotations.isEmpty == false else { return }
         
         let tolerance: CGFloat = 14.0
+        
         let candidates = annotations.filter {
             $0.bounds.insetBy(dx: -tolerance, dy: -tolerance).contains(point)
         }
@@ -449,7 +567,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
               let doc = self.pdfView.document else { return }
         
         let idx = doc.index(for: page)
-        guard var stack = self.undoStacks[idx], let last = stack.popLast() else { return }
+        
+        guard var stack = self.undoStacks[idx],
+              let last = stack.popLast() else { return }
         
         page.removeAnnotation(last)
         self.undoStacks[idx] = stack
@@ -526,7 +646,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
               let doc = self.pdfView.document else { return }
         
         let idx = doc.index(for: page)
-        guard var stack = self.undoStacks[idx], let last = stack.popLast() else { return }
+        
+        guard var stack = self.undoStacks[idx],
+              let last = stack.popLast() else { return }
         
         page.removeAnnotation(last)
         self.undoStacks[idx] = stack
@@ -545,7 +667,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
               let doc = self.pdfView.document else { return }
         
         let idx = doc.index(for: page)
-        guard var redo = self.redoStacks[idx], let last = redo.popLast() else { return }
+        
+        guard var redo = self.redoStacks[idx],
+              let last = redo.popLast() else { return }
         
         page.addAnnotation(last)
         self.redoStacks[idx] = redo
@@ -573,7 +697,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
     // MARK: Save / Page
     
-    @objc private func pageChanged() {
+    @objc
+    private func pageChanged() {
         self.emitPageChange()
     }
     
@@ -603,7 +728,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ g: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
-        return other is UIPinchGestureRecognizer
+        other is UIPinchGestureRecognizer
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -611,6 +736,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         if let pan = gestureRecognizer as? UIPanGestureRecognizer {
             return pan.numberOfTouches <= 1
         }
+        
         return true
         
     }
@@ -620,13 +746,27 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
 // MARK: - Small Geometry Helpers
 
 private extension CGRect {
-    var center: CGPoint { CGPoint(x: self.midX, y: self.midY) }
+    
+    var center: CGPoint {
+        CGPoint(x: self.midX, y: self.midY)
+    }
+    
 }
 
 private extension CGPoint {
+    
     func distance(to other: CGPoint) -> CGFloat {
         let dx = self.x - other.x
         let dy = self.y - other.y
-        return sqrt(dx*dx + dy*dy)
+        return sqrt(dx * dx + dy * dy)
     }
+    
+}
+
+extension PDFDocument {
+    
+    var pages: [PDFPage] {
+        (0..<self.pageCount).compactMap { self.page(at: $0) }
+    }
+    
 }
