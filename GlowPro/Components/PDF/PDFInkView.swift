@@ -12,16 +12,16 @@ struct PDFInkView: UIViewRepresentable {
     
     // MARK: Init
     
-    public init(
-        document: PDFDocument,
-        viewModel: PDFEditorViewModel,
-        onAction: @escaping (PDFAction) -> Void,
-        command: Binding<PDFCommand?>
-    ) {
+    public init(document: PDFDocument,
+                viewModel: PDFEditorViewModel,
+                onAction: @escaping (PDFAction) -> Void,
+                command: Binding<PDFCommand?>) {
+        
         self.document = document
         self._viewModel = .init(wrappedValue: viewModel)
         self.onAction = onAction
         self._command = command
+        
     }
     
     // MARK: Stored Properties
