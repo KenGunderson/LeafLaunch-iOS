@@ -135,17 +135,19 @@ struct NoteListScreen: GPView {
     private func filterView(_ noteType: NoteType) -> some View {
         
         let isSelected = self.viewModel.selectedNoteType == noteType
+        let selectedBackgroundColor = noteType.backgroundColor
+        let opacityBackgroundColor: ColorSource = .color(selectedBackgroundColor.asColor!.opacity(0.15))
         
         return TokenView(
             text: noteType.displayName,
-            foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
-            backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
+            foregroundStyle: isSelected ? selectedBackgroundColor : Style.shared.textColor(.title),
+            backgroundStyle: isSelected ? opacityBackgroundColor : .color(.clear),
             verticalPadding: .small,
             clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
         )
         .appBorder(
             cornerRadius: .extraSmall,
-            color: isSelected ? Style.shared.accent : Style.shared.background(.border),
+            color: isSelected ? selectedBackgroundColor : Style.shared.background(.border),
             lineWidth: 1.5
         )
         .appShadow(.subtle)
@@ -223,7 +225,16 @@ struct NoteListScreen: GPView {
         
         HStack {
             
-            TokenView(text: note.type.displayName)
+            TokenView(
+                text: note.type.displayName,
+                foregroundStyle: note.type.backgroundColor,
+                backgroundStyle: .color(note.type.backgroundColor.asColor!.opacity(0.15))
+            )
+            .appBorder(
+                cornerRadius: .extraLarge,
+                color: note.type.backgroundColor,
+                lineWidth: 1.5
+            )
             
             Spacer()
             

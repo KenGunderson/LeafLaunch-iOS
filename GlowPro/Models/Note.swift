@@ -33,6 +33,16 @@ enum NoteType: String, Codable, CaseIterable {
         
     }
     
+    var backgroundColor: ColorSource {
+        
+        switch self {
+        case .quick: return .color(GPColor.iconBlue)
+        case .soap: return .color(GPColor.iconGreen)
+        case .advanced: return .color(GPColor.iconAmber)
+        }
+        
+    }
+    
 }
 
 struct NoteMetadata: Codable, Equatable, Hashable {
