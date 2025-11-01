@@ -24,6 +24,9 @@
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		7505AFB02EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
+		7505AFB12EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
+		7505AFB22EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
 		750843332E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
 		750843342E5BDD830039B06B /* BusinessActivityListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */; };
 		750843362E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */; };
@@ -894,6 +897,7 @@
 		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTypeSelectionView.swift; sourceTree = "<group>"; };
 		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
 		750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListViewModel.swift; sourceTree = "<group>"; };
 		750843382E5C047D0039B06B /* APIService+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Activity.swift"; sourceTree = "<group>"; };
@@ -1273,6 +1277,14 @@
 				75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		7505AFAE2EB5BF1F00AB2F73 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		750843312E5BDD6E0039B06B /* Activity */ = {
@@ -2325,6 +2337,7 @@
 			children = (
 				75C67E482E765CC400BB29F0 /* List */,
 				75C67E432E764F5200BB29F0 /* Create Edit */,
+				7505AFAE2EB5BF1F00AB2F73 /* Views */,
 			);
 			path = Note;
 			sourceTree = "<group>";
@@ -2961,6 +2974,7 @@
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
+				7505AFB22EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046512E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				75A46EF02E5EB1C30057EF72 /* ActivityView.swift in Sources */,
@@ -3249,6 +3263,7 @@
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
+				7505AFB02EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */,
 				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
 				75A046502E37BD8A00D5EFCD /* LegalItem.swift in Sources */,
 				75A46EF12E5EB1C30057EF72 /* ActivityView.swift in Sources */,
@@ -3520,6 +3535,7 @@
 				75DD842C2EAD728600DD8850 /* AppDelegateServiceProtocol.swift in Sources */,
 				75DD842D2EAD728600DD8850 /* AnalyticsService.swift in Sources */,
 				75DD842E2EAD728600DD8850 /* AboutUsViewModel.swift in Sources */,
+				7505AFB12EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */,
 				75DD842F2EAD728600DD8850 /* MockModels.swift in Sources */,
 				75DD84302EAD728600DD8850 /* LegalItem.swift in Sources */,
 				75DD84312EAD728600DD8850 /* ActivityView.swift in Sources */,

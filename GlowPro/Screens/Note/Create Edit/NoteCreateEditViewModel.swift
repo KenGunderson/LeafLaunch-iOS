@@ -44,6 +44,18 @@ final class NoteCreateEditViewModel: ViewModel {
     @Published var message: String = ""
     @Published var employeeSignature: String = ""
     
+    @Published var treatmentType: String = ""
+    @Published var sessionNumber: String = ""
+    @Published var productDeviceUsed: String = ""
+    @Published var dosage: String = ""
+    @Published var treatmentNotes: String = ""
+    @Published var outcome: String = ""
+    
+    @Published var soapS: String = ""
+    @Published var soapO: String = ""
+    @Published var soapA: String = ""
+    @Published var soapP: String = ""
+    
     @Published var mediaFusion: [MediaFusion] = []
     @Published var selectedPhotoPickerItems: [PhotosPickerItem] = []
     
@@ -52,6 +64,7 @@ final class NoteCreateEditViewModel: ViewModel {
     @Published var shouldShowPDFEditorSheet: Bool = false
     
     private var context: Context!
+    private(set) var noteType: NoteType?
     private var clientId: String!
     
     private var cancelBag: CancelBag!
@@ -73,13 +86,7 @@ final class NoteCreateEditViewModel: ViewModel {
     }
     
     var isSaveButtonEnabled: Bool {
-        
-        return (
-            !self.title.isEmpty &&
-            !self.message.isEmpty &&
-            !employeeSignature.isEmpty
-        )
-        
+        return areFieldsValidForNoteType()
     }
     
     var currentEmployeeName: String {
@@ -111,9 +118,11 @@ final class NoteCreateEditViewModel: ViewModel {
     
     @discardableResult
     func setup(context: Context,
+               noteType: NoteType? = nil,
                clientId: String) -> Self {
         
         self.context = context
+        self.noteType = noteType
         self.clientId = clientId
         
         return self
@@ -156,7 +165,21 @@ final class NoteCreateEditViewModel: ViewModel {
                     
                     self.title = note.title
                     self.message = note.message
+                    self.noteType = note.type
                     self.employeeSignature = note.employeeSignature ?? self.currentEmployeeName
+                    
+                    let metaData = note.metadata
+                    self.soapS = metaData?.soapS ?? ""
+                    self.soapO = metaData?.soapO ?? ""
+                    self.soapA = metaData?.soapA ?? ""
+                    self.soapP = metaData?.soapP ?? ""
+                    
+                    self.treatmentType = metaData?.treatmentType ?? ""
+                    self.sessionNumber = metaData?.sessionNumber ?? ""
+                    self.productDeviceUsed = metaData?.productDevicesUsed ?? ""
+                    self.dosage = metaData?.dosage ?? ""
+                    self.treatmentNotes = metaData?.treatmentNotes ?? ""
+                    self.outcome = metaData?.outcome ?? ""
                     
                     if self.mediaFusion.isEmpty {
                         
@@ -360,7 +383,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     private func create() {
         
-        guard let authUser = self.authService.currentUser else { return }
+        guard self.authService.currentUser != nil else { return }
                 
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -380,6 +403,19 @@ final class NoteCreateEditViewModel: ViewModel {
                     employeeId: employeeId ?? "",
                     title: self.title,
                     message: self.message,
+                    type: self.noteType ?? .quick,
+                    metadata: .init(
+                        treatmentType: self.treatmentType,
+                        sessionNumber: self.sessionNumber,
+                        productDevicesUsed: self.productDeviceUsed,
+                        dosage: self.dosage,
+                        treatmentNotes: self.treatmentNotes,
+                        outcome: self.outcome,
+                        soapS: self.soapS,
+                        soapO: self.soapO,
+                        soapA: self.soapA,
+                        soapP: self.soapP
+                    ),
                     employeeSignature: self.employeeSignature,
                     mediaURLs: allURLs,
                     createdAt: ""
@@ -453,6 +489,19 @@ final class NoteCreateEditViewModel: ViewModel {
                     employeeId: employeeId ?? "",
                     title: self.title,
                     message: self.message,
+                    type: self.noteType ?? .quick,
+                    metadata: .init(
+                        treatmentType: self.treatmentType,
+                        sessionNumber: self.sessionNumber,
+                        productDevicesUsed: self.productDeviceUsed,
+                        dosage: self.dosage,
+                        treatmentNotes: self.treatmentNotes,
+                        outcome: self.outcome,
+                        soapS: self.soapS,
+                        soapO: self.soapO,
+                        soapA: self.soapA,
+                        soapP: self.soapP
+                    ),
                     employeeSignature: self.employeeSignature,
                     mediaURLs: allURLs,
                     createdAt: ""
@@ -558,6 +607,41 @@ final class NoteCreateEditViewModel: ViewModel {
                 
             }
             .store(in: &self.cancelBag)
+        
+    }
+    
+    private func areFieldsValidForNoteType() -> Bool {
+        
+        guard let noteType else { return false }
+        
+        switch noteType {
+        case .quick:
+            
+            return (
+                !self.title.isEmpty &&
+                !self.message.isEmpty &&
+                !employeeSignature.isEmpty
+            )
+            
+        case .soap:
+            
+            return (
+                !self.title.isEmpty &&
+                !self.soapS.isEmpty &&
+                !self.soapO.isEmpty &&
+                !self.soapA.isEmpty &&
+                !self.soapP.isEmpty
+            )
+            
+        case .advanced:
+            
+            return (
+                !self.title.isEmpty &&
+                !self.treatmentType.isEmpty &&
+                !self.sessionNumber.isEmpty
+            )
+            
+        }
         
     }
     

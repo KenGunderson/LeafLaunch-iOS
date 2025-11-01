@@ -75,7 +75,7 @@ struct BusinessActivityListScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.medium)) {
             
-            filersView()
+            filtersView()
             
             LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                 
@@ -95,7 +95,7 @@ struct BusinessActivityListScreen: GPView {
         
     }
     
-    private func filersView() -> some View {
+    private func filtersView() -> some View {
         
         ScrollView(.horizontal) {
             

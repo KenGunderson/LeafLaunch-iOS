@@ -467,11 +467,12 @@ extension View {
                 NoteListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .noteCreateEdit(let context, let clientId):
+            case .noteCreateEdit(let context, let noteType, let clientId):
                 
                 let viewModel = globalResolver.resolve(NoteCreateEditViewModel.self)!
                     .setup(
                         context: context,
+                        noteType: noteType,
                         clientId: clientId
                     )
                 

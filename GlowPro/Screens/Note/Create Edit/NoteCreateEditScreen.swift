@@ -16,11 +16,36 @@ struct NoteCreateEditScreen: View {
         case note
         case signature
         
+        case treatmentType
+        case sessionNumber
+        case productDeviceUsed
+        case dosage
+        case treatmentNotes
+        case outcome
+        
+        case soapS
+        case soapO
+        case soapA
+        case soapP
+        
         var displayName: String {
+            
             switch self {
             case .title: return "Title"
             case .note: return "Note"
             case .signature: return "Employee Signature (Full Name)"
+                
+            case .treatmentType: return "Treatment Type"
+            case .sessionNumber: return "Session Number"
+            case .productDeviceUsed: return "Product/Device Used"
+            case .dosage: return "Dosage"
+            case .treatmentNotes: return "Treatment Notes"
+            case .outcome: return "Outcome"
+                
+            case .soapS: return "Subjective"
+            case .soapO: return "Objective"
+            case .soapA: return "Assessment"
+            case .soapP: return "Plan"
             }
             
         }
@@ -149,12 +174,37 @@ struct NoteCreateEditScreen: View {
         
     }
     
+    @ViewBuilder
     private func fields() -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+            
+            if let noteType = self.viewModel.noteType {
+                
+                Text(noteType.longDisplayName)
+                    .appFont(with: .HEADER_2)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .padding(.horizontal, .medium)
+                
+            }
+            
+            switch self.viewModel.noteType {
+            case .quick: quickEditFields()
+            case .soap: soapFields()
+            case .advanced: advancedFields()
+            default: EmptyView()
+            }
+            
+        }
+        
+    }
+    
+    private func quickEditFields() -> some View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
             textField(.title)
-            textEditField()
+            textEditField(.note)
             
             textField(.signature)
                 .allowsHitTesting(self.viewModel.isOwnerOrManager)
@@ -164,18 +214,75 @@ struct NoteCreateEditScreen: View {
         
     }
     
-    private func textEditField() -> some View {
+    private func soapFields() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
             
-            Text("Note")
+            textField(.title)
+            
+            textEditField(.soapS)
+            textEditField(.soapO)
+            textEditField(.soapA)
+            textEditField(.soapP)
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func advancedFields() -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            
+            textField(.title)
+            
+            HStack {
+                
+                textField(.treatmentType)
+                textField(.sessionNumber)
+                
+            }
+            
+            HStack {
+                
+                textField(.productDeviceUsed)
+                textField(.dosage)
+                
+            }
+            
+            textEditField(.treatmentNotes)
+            textEditField(.outcome)
+            
+        }
+        .padding(.horizontal, .medium)
+        
+    }
+    
+    private func textEditField(_ focusedField: FocusedField) -> some View {
+        
+        var binding: Binding<String> {
+            switch focusedField {
+            case .note: return self.$viewModel.message
+            case .soapS: return self.$viewModel.soapS
+            case .soapO: return self.$viewModel.soapO
+            case .soapA: return self.$viewModel.soapA
+            case .soapP: return self.$viewModel.soapP
+            case .treatmentNotes: return self.$viewModel.treatmentNotes
+            case .outcome: return self.$viewModel.outcome
+            default: return .constant("")
+            }
+        }
+        
+        return VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
+            
+            Text(focusedField.displayName)
                 .appFont(with: .TITLE_3)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             CommonTextEditView(
-                text: self.$viewModel.message,
+                text: binding,
                 placehoderText: "...",
-                isFocused: self.focusedField == .note,
+                isFocused: self.focusedField == focusedField,
                 titleFont: .BODY_3,
                 unselectedBorderColor: .color(.clear),
                 backgroundStyle: .color(.clear),
@@ -185,7 +292,7 @@ struct NoteCreateEditScreen: View {
                 verticalPadding: .small,
                 horizontalPadding: .small
             )
-            .focused(self.$focusedField, equals: .note)
+            .focused(self.$focusedField, equals: focusedField)
             .appBorder(cornerRadius: .small, lineWidth: 1)
             .frame(
                 maxWidth: .infinity,
@@ -208,14 +315,25 @@ struct NoteCreateEditScreen: View {
             return .color(.clear)
             
         }
+                
+        var binding: Binding<String> {
+            switch focusedField {
+            case .title: return self.$viewModel.title
+            case .signature: return self.$viewModel.employeeSignature
+            case .treatmentType: return self.$viewModel.treatmentType
+            case .sessionNumber: return self.$viewModel.sessionNumber
+            case .productDeviceUsed: return self.$viewModel.productDeviceUsed
+            case .dosage: return self.$viewModel.dosage
+            default: return .constant("")
+            }
+        }
         
-        let text: Binding<String> = (focusedField == .title) ? self.$viewModel.title : self.$viewModel.employeeSignature
         let isFocused = self.focusedField == focusedField
         let keyboardType: UIKeyboardType = .default
         
-        return TextField("", text: text)
+        return TextField("", text: binding)
             .titleUnderlineTextFieldStyle(
-                text: text.wrappedValue,
+                text: binding.wrappedValue,
                 title: focusedField.displayName,
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
@@ -239,15 +357,45 @@ struct NoteCreateEditScreen: View {
         
         var nextFocusedField: FocusedField? = nil
         
-        switch self.focusedField {
-        case .title: nextFocusedField = .note
-        case .note:
+        switch self.viewModel.noteType {
+        case .quick:
             
-            let isOwnerOrManager = self.viewModel.isOwnerOrManager
-            nextFocusedField = isOwnerOrManager ? .signature : nil
+            switch self.focusedField {
+            case .title: nextFocusedField = .note
+            case .note:
+                
+                let isOwnerOrManager = self.viewModel.isOwnerOrManager
+                nextFocusedField = isOwnerOrManager ? .signature : nil
+                
+            case .signature: nextFocusedField = nil
+            default: nextFocusedField = nil
+            }
             
-        case .signature: nextFocusedField = nil
-        default: nextFocusedField = nil
+        case .soap:
+            
+            switch self.focusedField {
+            case .title: nextFocusedField = .soapS
+            case .soapS: nextFocusedField = .soapO
+            case .soapO: nextFocusedField = .soapA
+            case .soapA: nextFocusedField = .soapP
+            case .soapP: nextFocusedField = nil
+            default: nextFocusedField = nil
+            }
+            
+        case .advanced:
+            
+            switch self.focusedField {
+            case .title: nextFocusedField = .treatmentType
+            case .treatmentType: nextFocusedField = .sessionNumber
+            case .sessionNumber: nextFocusedField = .productDeviceUsed
+            case .productDeviceUsed: nextFocusedField = .dosage
+            case .dosage: nextFocusedField = .treatmentNotes
+            case .treatmentNotes: nextFocusedField = .outcome
+            case .outcome: nextFocusedField = nil
+            default: nextFocusedField = nil
+            }
+            
+        case .none: break
         }
         
         self.focusedField = nextFocusedField

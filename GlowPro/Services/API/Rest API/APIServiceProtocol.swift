@@ -159,7 +159,10 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Notes
     
-    func getNotes(clientId: String) async throws -> [Note]
+    func getNotes(clientId: String,
+                  query: Query,
+                  noteTypeFilter: NoteType?) async throws -> [Note]
+    
     func getNote(id: String) async throws -> Note
     func createNote(note: Note) async throws
     func updateNote(note: Note) async throws

@@ -24,7 +24,13 @@ final class NoteListViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     @Published private(set) var notes: [Note] = []
+    @Published private(set) var selectedNoteType: NoteType? = nil
+    
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published var shouldShowNoteTypeSelectionView: Bool = false
+    
+    private var isLoading: Bool = false
+    private var isPagingComplete: Bool = false
     
     private(set) var clientId: String!
     
@@ -65,7 +71,17 @@ final class NoteListViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData(showHud: Bool = true) {
+    func loadData(showHud: Bool = true,
+                  offset: Int = 0) {
+        
+        if offset == 0 {
+            self.isPagingComplete = false
+        }
+        
+        guard !self.isLoading else { return }
+        guard !self.isPagingComplete else { return }
+        
+        self.isLoading = true
         
         if showHud {
             
@@ -78,12 +94,22 @@ final class NoteListViewModel: ViewModel {
             
             do {
                 
+                let query = Query(
+                    limit: Query.defaultLimit,
+                    offset: offset
+                )
+                
                 let notes = try await self.apiService
-                    .getNotes(clientId: self.clientId)
+                    .getNotes(
+                        clientId: self.clientId,
+                        query: query,
+                        noteTypeFilter: self.selectedNoteType
+                    )
                 
                 await MainActor.run { [weak self, notes] in
                     
                     self?.notes = notes
+                    self?.isPagingComplete = notes.count < Query.defaultLimit
                     self?.shouldShowEmptyState = notes.isEmpty
                     
                 }
@@ -113,6 +139,10 @@ final class NoteListViewModel: ViewModel {
                 
             }
             
+            await MainActor.run {
+                self.isLoading = false
+            }
+            
         }
         
     }
@@ -121,6 +151,25 @@ final class NoteListViewModel: ViewModel {
         
         self.navigationService?
             .push(.client(.clientHome(clientId: client.id)))
+        
+    }
+    
+    func set(shouldShowNoteTypeSelectionView: Bool) {
+        self.shouldShowNoteTypeSelectionView = shouldShowNoteTypeSelectionView
+    }
+    
+    func set(noteTypeFilter: NoteType?) {
+        
+        if self.selectedNoteType == noteTypeFilter {
+            self.selectedNoteType = nil
+        } else {
+            self.selectedNoteType = noteTypeFilter
+        }
+        
+        self.notes = []
+        self.isPagingComplete = false
+        
+        self.loadData(showHud: false)
         
     }
     
@@ -140,13 +189,7 @@ final class NoteListViewModel: ViewModel {
             actionTitle: "Add Your First Note",
             action: { [weak self] in
                 
-                self?.navigationService?
-                    .push(
-                        .note(.noteCreateEdit(
-                            context: .create,
-                            clientId: self?.clientId ?? ""
-                        ))
-                    )
+                self?.set(shouldShowNoteTypeSelectionView: true)
                 
             })
         

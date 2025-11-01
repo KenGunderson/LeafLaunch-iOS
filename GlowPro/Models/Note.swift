@@ -7,6 +7,87 @@
 
 import Foundation
 
+enum NoteType: String, Codable, CaseIterable {
+    
+    case quick = "QUICK"
+    case soap = "SOAP"
+    case advanced = "ADVANCED"
+    
+    var displayName: String {
+        
+        switch self {
+        case .quick: return "Quick"
+        case .soap: return "SOAP"
+        case .advanced: return "Advanced"
+        }
+        
+    }
+    
+    var longDisplayName: String {
+        
+        switch self {
+        case .quick: return "Quick Note"
+        case .soap: return "SOAP Note"
+        case .advanced: return "Advanced Note"
+        }
+        
+    }
+    
+}
+
+struct NoteMetadata: Codable, Equatable, Hashable {
+    
+    // ADVANCED
+    
+    let treatmentType: String?
+    let sessionNumber: String?
+    let productDevicesUsed: String?
+    let dosage: String?
+    let treatmentNotes: String?
+    let outcome: String?
+    
+    // SOAP
+    
+    let soapS: String?
+    let soapO: String?
+    let soapA: String?
+    let soapP: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case treatmentType = "treatment_type"
+        case sessionNumber = "session_number"
+        case productDevicesUsed = "product_devices_used"
+        case dosage
+        case treatmentNotes = "treatment_notes"
+        case outcome
+        case soapS = "soap_s"
+        case soapO = "soap_o"
+        case soapA = "soap_a"
+        case soapP = "soap_p"
+        
+    }
+    
+    func toDictionary() -> [String: Any] {
+        
+        return [
+            "treatment_type": self.treatmentType,
+            "session_number": self.sessionNumber,
+            "product_devices_used": self.productDevicesUsed,
+            "dosage": self.dosage,
+            "treatment_notes": self.treatmentNotes,
+            "outcome": self.outcome,
+            "soap_s": self.soapS,
+            "soap_o": self.soapO,
+            "soap_a": self.soapA,
+            "soap_p": self.soapP,
+        ]
+            .compact()
+        
+    }
+    
+}
+
 struct Note: Identifiable,
              Codable,
              Hashable,
@@ -19,6 +100,10 @@ struct Note: Identifiable,
     
     let title: String
     let message: String
+    
+    let type: NoteType
+    let metadata: NoteMetadata?
+    
     let employeeSignature: String?
     let mediaURLs: [URL]
     
@@ -37,6 +122,8 @@ struct Note: Identifiable,
          employeeId: String,
          title: String,
          message: String,
+         type: NoteType = .quick,
+         metadata: NoteMetadata? = nil,
          employeeSignature: String?,
          mediaURLs: [URL] = [],
          createdAt: String) {
@@ -46,6 +133,8 @@ struct Note: Identifiable,
         self.employeeId = employeeId
         self.title = title
         self.message = message
+        self.type = type
+        self.metadata = metadata
         self.employeeSignature = employeeSignature
         self.mediaURLs = mediaURLs
         self._createdAt = createdAt
@@ -60,6 +149,10 @@ struct Note: Identifiable,
         
         case title
         case message
+        
+        case type
+        case metadata
+        
         case employeeSignature = "employee_signature"
         
         case mediaURLs = "media_urls"

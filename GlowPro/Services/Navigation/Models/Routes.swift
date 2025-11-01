@@ -100,6 +100,7 @@ enum Route: Navigation, Hashable, Sendable {
         case noteList(clientId: String)
         
         case noteCreateEdit(context: NoteCreateEditViewModel.Context,
+                            noteType: NoteType? = nil,
                             clientId: String)
         
     }

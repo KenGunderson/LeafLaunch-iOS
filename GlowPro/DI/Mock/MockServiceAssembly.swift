@@ -854,8 +854,12 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     // Notes
     
-    func getNotes(clientId: String) async throws -> [Note] {
+    func getNotes(clientId: String,
+                  query: Query,
+                  noteTypeFilter: NoteType?) async throws -> [Note] {
+        
         return self.notes.filter { $0.clientId == clientId }
+        
     }
     
     func getNote(id: String) async throws -> Note {

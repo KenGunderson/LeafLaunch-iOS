@@ -6,14 +6,26 @@
 //
 
 extension APIService {
-
-    func getNotes(clientId: String) async throws -> [Note] {
+    
+    func getNotes(clientId: String,
+                  query: Query,
+                  noteTypeFilter: NoteType?) async throws -> [Note] {
+        
+        var queryParameters: [String: String] = [
+            "limit": "\(query.limit)",
+            
+        ]
+        
+        if let filter = noteTypeFilter {
+            queryParameters["type"] = filter.rawValue
+        }
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .notes("clients/\(clientId)"))
+                apiPath: .init(path: .notes("clients/\(clientId)")),
+                queryParameters: queryParameters
             )
             
             let result: [Note] = try parseData(data: data)
@@ -52,6 +64,8 @@ extension APIService {
             "employee_id": note.employeeId,
             "title": note.title,
             "message": note.message,
+            "type": note.type.rawValue,
+            "metadata": note.metadata?.toDictionary(),
             "media_urls": note.mediaURLs.map({ $0.absoluteString })
         ]
         .compact()
@@ -79,6 +93,8 @@ extension APIService {
             "employee_id": note.employeeId,
             "title": note.title,
             "message": note.message,
+            "type": note.type.rawValue,
+            "metadata": note.metadata?.toDictionary(),
             "media_urls": note.mediaURLs.map({ $0.absoluteString })
         ]
         .compact()

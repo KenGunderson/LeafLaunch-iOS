@@ -32,7 +32,28 @@ struct NoteListScreen: GPView {
             .task {
                 
                 self.viewModel
-                    .loadData()
+                    .loadData(offset: 0)
+                
+            }
+        
+        // Sheets
+        
+            .adaptiveSheet(
+                isPresented: self.$viewModel.shouldShowNoteTypeSelectionView,
+                additionalDetens: [],
+                backgroundStyle: Style.shared.background(.primary)
+            ) {
+                
+                NoteTypeSelectionView { type in
+                    
+                    self.navigationService
+                        .push(.note(.noteCreateEdit(
+                            context: .create,
+                            noteType: type,
+                            clientId: self.viewModel.clientId)
+                        ))
+                    
+                }
                 
             }
         
@@ -47,7 +68,9 @@ struct NoteListScreen: GPView {
         }
         .emptyStateOverlay(
             shouldShow: self.viewModel.shouldShowEmptyState,
-            config: self.viewModel.emptyStateConfig()
+            config: self.viewModel.emptyStateConfig(),
+            transition: .move(edge: .bottom).combined(with: .opacity),
+            animation: .spring
         )
         
     }
@@ -61,11 +84,8 @@ struct NoteListScreen: GPView {
         
         let plusButton = NavBarButton(style: .plus) {
             
-            self.navigationService
-                .push(.note(.noteCreateEdit(
-                    context: .create,
-                    clientId: self.viewModel.clientId)
-                ))
+            self.viewModel
+                .set(shouldShowNoteTypeSelectionView: true)
             
         }
         .asAnyView()
@@ -83,13 +103,58 @@ struct NoteListScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
+            filtersView()
+            
             ForEach(self.viewModel.notes, id: \.id) { note in
                 noteItem(note)
             }
+            .padding(.horizontal, .medium)
             
         }
-        .padding(.horizontal, .medium)
         .frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
+    private func filtersView() -> some View {
+        
+        ScrollView(.horizontal) {
+            
+            HStack {
+                
+                ForEach(NoteType.allCases, id: \.rawValue) { noteType in
+                    filterView(noteType)
+                }
+                
+            }
+            
+        }
+        .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
+        
+    }
+    
+    private func filterView(_ noteType: NoteType) -> some View {
+        
+        let isSelected = self.viewModel.selectedNoteType == noteType
+        
+        return TokenView(
+            text: noteType.displayName,
+            foregroundStyle: isSelected ? Style.shared.textColor(.button) : Style.shared.textColor(.title),
+            backgroundStyle: isSelected ? Style.shared.accent : .color(.clear),
+            verticalPadding: .small,
+            clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
+        )
+        .appBorder(
+            cornerRadius: .extraSmall,
+            color: isSelected ? Style.shared.accent : Style.shared.background(.border),
+            lineWidth: 1.5
+        )
+        .appShadow(.subtle)
+        .appOnTapGesture {
+            
+            self.viewModel
+                .set(noteTypeFilter: noteType)
+            
+        }
         
     }
     
@@ -99,72 +164,44 @@ struct NoteListScreen: GPView {
             
             HStack(spacing: Style.shared.spacing(.small)) {
                 
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
                     
                     Text(note.title)
                         .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text(note.message)
-                        .appFont(with: .BODY_2)
-                        .lineLimit(2)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
-                
-                if !note.mediaURLs.isEmpty {
-                    
-                    VStack {
+                    if !note.message.isEmpty {
                         
-                        HStack(spacing: 3) {
-                            
-                            Image(systemName: "paperclip")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 12, height: 12)
-                                .foregroundStyle(Style.shared.textColor(.body).source())
-                            
-                            Text("\(note.mediaURLs.count)")
-                                .appFont(with: .BODY_2)
-                                .foregroundStyle(Style.shared.textColor(.body).source())
-                            
-                        }
-                        
-                        Spacer()
-                        
-                    }
-                    
-                }
-                
-                VStack {
-                    
-                    HStack(spacing: 4) {
-                        
-                        Image(systemName: "clock")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 12, height: 12)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
-                        
-                        Text(note.createdAt?.relativeDateStringWithOverride() ?? "")
+                        Text(note.message)
                             .appFont(with: .BODY_2)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .lineLimit(2)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                     }
                     
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 12, height: 12)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                    
-                    Spacer()
+                    statItems(note: note)
+                        .padding(.top, .custom(6))
                     
                 }
+                
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                
+            }
+            
+        }
+        .onAppear {
+         
+            if note.id == self.viewModel.notes.last?.id {
+                
+                self.viewModel.loadData(
+                    offset: self.viewModel.notes.count
+                )
                 
             }
             
@@ -176,6 +213,52 @@ struct NoteListScreen: GPView {
                     context: .update(noteId: note.id),
                     clientId: note.clientId.id)
                 ))
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func statItems(note: Note) -> some View {
+        
+        HStack {
+            
+            TokenView(text: note.type.displayName)
+            
+            Spacer()
+            
+            if !note.mediaURLs.isEmpty {
+                
+                statItem(
+                    icon: "paperclip",
+                    value: "\(note.mediaURLs.count)"
+                )
+                
+            }
+            
+            statItem(
+                icon: "clock",
+                value: note.createdAt?.relativeDateStringWithOverride() ?? ""
+            )
+                        
+        }
+        
+    }
+    
+    private func statItem(icon: String,
+                          value: String) -> some View {
+        
+        HStack(spacing: Style.shared.spacing(.extraSmall)) {
+            
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 12, height: 12)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
+            Text(value)
+                .appFont(with: .BODY_3)
+                .foregroundStyle(Style.shared.textColor(.body).source())
             
         }
         
