@@ -196,6 +196,7 @@ struct NoteCreateEditScreen: View {
             }
             
         }
+        .frameInfinity()
         
     }
     
@@ -210,6 +211,7 @@ struct NoteCreateEditScreen: View {
                 .allowsHitTesting(self.viewModel.isOwnerOrManager)
             
         }
+        .frameInfinity()
         .padding(.horizontal, .medium)
         
     }
@@ -226,6 +228,7 @@ struct NoteCreateEditScreen: View {
             textEditField(.soapP)
             
         }
+        .frameInfinity()
         .padding(.horizontal, .medium)
         
     }
@@ -254,6 +257,7 @@ struct NoteCreateEditScreen: View {
             textEditField(.outcome)
             
         }
+        .frameInfinity()
         .padding(.horizontal, .medium)
         
     }
