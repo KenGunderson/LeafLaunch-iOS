@@ -32,7 +32,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
             .task {
                 
                 self.viewModel
-                    .loadData()
+                    .loadData(showHud: self.viewModel.isFirstLoad)
                 
             }
         

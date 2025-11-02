@@ -82,7 +82,7 @@ struct BusinessActivityListScreen: GPView {
                 LazyActivitiesView(activities: self.viewModel.activities) {
                     
                     self.viewModel
-                        .loadData()
+                        .loadData(showsHUD: false)
                     
                 }
                 .padding(.horizontal, .medium)

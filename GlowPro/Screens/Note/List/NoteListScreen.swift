@@ -48,7 +48,7 @@ struct NoteListScreen: GPView {
                     
                     self.navigationService
                         .push(.note(.noteCreateEdit(
-                            context: .create,
+                            context: .create(),
                             noteType: type,
                             clientId: self.viewModel.clientId)
                         ))
@@ -105,12 +105,18 @@ struct NoteListScreen: GPView {
             
             filtersView()
             
-            ForEach(self.viewModel.notes, id: \.id) { note in
-                noteItem(note)
+            if !self.viewModel.notes.isEmpty {
+                
+                ForEach(self.viewModel.notes, id: \.id) { note in
+                    noteItem(note)
+                }
+                .transition(.offset(y: 400).combined(with: .opacity))
+                .padding(.horizontal, .medium)
+                
             }
-            .padding(.horizontal, .medium)
             
         }
+        .animation(.bouncy, value: self.viewModel.notes)
         .frame(maxWidth: .infinity, alignment: .leading)
         
     }
@@ -166,12 +172,42 @@ struct NoteListScreen: GPView {
             
             HStack(spacing: Style.shared.spacing(.small)) {
                 
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(0))) {
                     
-                    Text(note.title)
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack {
+                        
+                        Text(note.title)
+                            .appFont(with: .TITLE_5)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Menu {
+                            
+                            Button("Duplicate") {
+                                
+                                self.navigationService
+                                    .push(.note(.noteCreateEdit(
+                                        context: .create(noteId: note.id),
+                                        noteType: note.type,
+                                        clientId: self.viewModel.clientId)
+                                    ))
+                                
+                            }
+                            
+                        } label: {
+                            
+                            Image(systemName: "ellipsis")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(Style.shared.textColor(.body).source())
+                                .padding(8)
+                                .background(.backgroundTappable)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            
+                        }
+                        
+                    }
                     
                     if !note.message.isEmpty {
                         
@@ -187,12 +223,6 @@ struct NoteListScreen: GPView {
                         .padding(.top, .custom(6))
                     
                 }
-                
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 12, height: 12)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
                 
             }
             

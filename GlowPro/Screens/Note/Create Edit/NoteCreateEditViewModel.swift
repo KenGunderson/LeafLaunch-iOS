@@ -12,16 +12,24 @@ final class NoteCreateEditViewModel: ViewModel {
     
     enum Context: Hashable {
         
-        case create
+        case create(noteId: String? = nil)
         case update(noteId: String)
         
         var noteID: String? {
             
             switch self {
+            case .create(let noteId): return noteId
             case .update(noteId: let noteID): return noteID
             default: return nil
             }
             
+        }
+        
+        var isCreateContext: Bool {
+            switch self {
+            case .create: return true
+            case .update: return false
+            }
         }
         
     }
@@ -70,11 +78,11 @@ final class NoteCreateEditViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     var navTitle: String {
-        return self.context == .create ? "Create Note" : "Edit Note"
+        return self.context.isCreateContext ? "Create Note" : "Edit Note"
     }
     
     var isEditContext: Bool {
-        return self.context != .create
+        return !self.context.isCreateContext
     }
     
     var isOwnerOrManager: Bool {
@@ -82,7 +90,7 @@ final class NoteCreateEditViewModel: ViewModel {
     }
     
     var saveButtonTitle: String {
-        return self.context == .create ? "Create" : "Update"
+        return self.context.isCreateContext ? "Create" : "Update"
     }
     
     var isSaveButtonEnabled: Bool {
@@ -148,7 +156,6 @@ final class NoteCreateEditViewModel: ViewModel {
         
         self.employeeSignature = self.currentEmployeeName
         
-        guard self.isEditContext else { return }
         guard let noteId = self.context.noteID else { return }
         
         self.alertService
@@ -214,7 +221,7 @@ final class NoteCreateEditViewModel: ViewModel {
     
     func saveOrUpdate() {
         
-        if self.context == .create {
+        if self.context.isCreateContext {
             create()
         } else {
             update()

@@ -24,12 +24,14 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     @Published private(set) var activities: [Activity] = []
     @Published private(set) var media: [Media] = []
     
+    @Published private(set) var isFirstLoad: Bool = true
+    
     private(set) var businessId: String!
     private(set) var employeeId: String!
 
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
-    
+        
     var isOwnerOrManager: Bool {
         return self.activeDestinationService.isOwnerOrManager
     }
@@ -37,7 +39,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
     var isEmployeeOwnerOrManager: Bool {
         return self.activeDestinationService.business?.owner.id == self.employee?.userId
     }
-    
+        
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
@@ -82,10 +84,14 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -117,6 +123,7 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                     self?.employee = employee
                     self?.media = media
                     self?.activities = activities
+                    self?.isFirstLoad = false
                     
                     let roleLocations =  workspaces
                         .filter({ $0.id == self?.businessId })
@@ -144,8 +151,12 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         
