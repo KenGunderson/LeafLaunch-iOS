@@ -11,7 +11,7 @@ final class OnboardingPermissionsViewModel: ViewModel {
     internal let loggerName: String = "ONBOARDING_PERMISSION_VIEW_MODEL"
     internal let loggerEmoji: String = "🛹"
     
-    @Published var count: Int = 0
+    @Published private(set) var count: Int = 0
     
     private let analyticsService: AnalyticsServiceProtocol
     var permissionService: PermissionsServiceProtocol
