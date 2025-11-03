@@ -88,4 +88,9 @@ iOSInjectionProject/
 # Ignore macOS Finder metadata
 .DS_Store
 
+# Xcode user-specific data
+*.xcuserstate
+*.xcuserdatad
+xcuserdata/
+
 # End of https://www.toptal.com/developers/gitignore/api/swift
