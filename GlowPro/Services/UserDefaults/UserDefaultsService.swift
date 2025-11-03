@@ -27,6 +27,7 @@ enum Setting: String, CaseIterable {
     case didRateMyAppAlertShow
     case impersonatedUser
     case securityPinsDictionaryData
+    case shouldHideScreenshots
     case shouldReportScreenshots
         
 }
@@ -84,6 +85,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
+    @AppStorage(Setting.shouldHideScreenshots.rawValue) private(set) var shouldHideScreenshots: Bool = false {
+        didSet {
+            self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
+        }
+    }
+    
     @AppStorage(Setting.shouldReportScreenshots.rawValue) private(set) var shouldReportScreenshots: Bool = false {
         didSet {
             self.shouldReportScreenshotsPublisher.send(self.shouldReportScreenshots)
@@ -99,6 +106,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
+    var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     var shouldReportScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
     init() {
@@ -114,6 +122,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
         self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
+        self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
         self.shouldReportScreenshotsPublisher.send(self.shouldReportScreenshots)
         
     }
@@ -190,6 +199,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
     }
     
+    func set(shouldHideScreenshots: Bool) {
+        self.shouldHideScreenshots = shouldHideScreenshots
+    }
+    
     func set(shouldReportScreenshots: Bool) {
         self.shouldReportScreenshots = shouldReportScreenshots
     }
@@ -226,6 +239,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             self.set(lastViewedWhatsNewVersion: nil)
             self.set(didCompleteOnboarding: false)
             self.set(shouldReportScreenshots: false)
+            self.set(shouldHideScreenshots: false)
             
         }
         

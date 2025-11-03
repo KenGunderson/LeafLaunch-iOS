@@ -192,7 +192,7 @@ struct ClientCreateEditScreen: GPView {
             .keyboardType(keyboardType)
             .textContentType(textContentType)
             .submitLabel(fieldToFocus == .phone ? .done : .next)
-            .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
+            .textInputAutocapitalization(fieldToFocus == .email ? .never : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus

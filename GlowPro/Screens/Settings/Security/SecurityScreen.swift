@@ -42,11 +42,18 @@ struct SecurityScreen: GPView {
         // On Change
         
         .onChange(of: self.viewModel.shouldReportScreenshots) { oldValue, newValue in
+                        
+            self.viewModel
+                .set(shouldReportScreenshots: newValue)
             
-            guard !self.viewModel.firstReportScreenshotUpdate else { return }
+        }
+        
+        .onChange(of: self.viewModel.shouldHideScreenshots) { oldValue, newValue in
+            
+            guard !self.viewModel.firstHideScreenshotUpdate else { return }
             
             self.viewModel
-                .toggleShouldReportScreenshots(shouldReportScreenshots: newValue)
+                .set(shouldHideScreenshots: newValue)
             
         }
         
@@ -104,25 +111,57 @@ struct SecurityScreen: GPView {
                 showDivider: true
             )
             
-            HStack {
+            // Hide Screenshots
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
                 
-                Text("Report Screenshots")
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                HStack {
+                    
+                    Text("Hide Screenshots")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Toggle(
+                        "",
+                        isOn: self.$viewModel.shouldHideScreenshots
+                    )
+                    
+                }
+                
+                Text("Restrict the use of screenshots in the app for this device. This will prevent sensitive information from being saved to device.")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Toggle(
-                    "",
-                    isOn: self.$viewModel.shouldReportScreenshots
-                )
+                    .padding(.top, -8)
                 
             }
             
-            Text("Restrict all screenshots & get emailed whenever someone tries to take a screenshot while in the app.")
-                .appFont(with: .BODY_2)
-                .foregroundStyle(Style.shared.textColor(.body).source())
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, -8)
+            // Report Screenshots
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                HStack {
+                    
+                    Text("Report Screenshots")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Toggle(
+                        "",
+                        isOn: self.$viewModel.shouldReportScreenshots
+                    )
+                    
+                }
+                
+                Text("Receive an email whenever someone tries to take a screenshot while in the app.")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, -8)
+                
+            }
             
         }
         

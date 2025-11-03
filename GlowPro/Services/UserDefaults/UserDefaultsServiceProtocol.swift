@@ -18,6 +18,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var didRateMyAppAlertShow: Bool { get }
     var impersonatingUserData: Data? { get }
     var securityPinsDictionaryData: Data? { get }
+    var shouldHideScreenshots: Bool { get }
     var shouldReportScreenshots: Bool { get }
     
     var themePublisher: PassthroughSubject<AvailableTheme, Never> { get }
@@ -28,6 +29,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var didRateMyAppAlertShowPublisher: PassthroughSubject<Bool, Never> { get }
     var impersonatingUserDataPublisher: PassthroughSubject<Data?, Never> { get }
     var securityPinsDictionaryDataPublisher: PassthroughSubject<Data?, Never> { get }
+    var shouldHideScreenshotsPublisher: PassthroughSubject<Bool, Never> { get }
     var shouldReportScreenshotsPublisher: PassthroughSubject<Bool, Never> { get }
     
     func set(theme: AvailableTheme)
@@ -38,6 +40,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     func set(didRateMyAppAlertShow: Bool)
     func set(impersonatedUser: ImpersonatingUser?)
     func set(securityPin: String?, businessId: String)
+    func set(shouldHideScreenshots: Bool)
     func set(shouldReportScreenshots: Bool)
     func logout() async
     

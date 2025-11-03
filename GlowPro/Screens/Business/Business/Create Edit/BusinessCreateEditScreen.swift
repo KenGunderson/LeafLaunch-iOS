@@ -257,7 +257,7 @@ struct BusinessCreateEditScreen: GPView {
             .focused(self.$focusedField, equals: fieldToFocus)
             .keyboardType(keyboardType)
             .textContentType(textContentType)
-            .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
+            .textInputAutocapitalization(fieldToFocus == .email ? .never : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus

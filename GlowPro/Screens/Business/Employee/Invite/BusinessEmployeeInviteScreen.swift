@@ -193,8 +193,8 @@ struct BusinessEmployeeInviteScreen: GPView {
             .keyboardType(keyboardType)
             .textContentType(textContentType)
             .submitLabel(fieldToFocus == .email ? .done : .next)
-            .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
-            .autocorrectionDisabled(true)
+            .textInputAutocapitalization(fieldToFocus == .email ? .never : .words)
+            .autocorrectionDisabled(fieldToFocus == .email)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus
             }

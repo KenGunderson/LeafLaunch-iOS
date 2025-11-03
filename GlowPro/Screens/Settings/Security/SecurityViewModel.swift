@@ -25,8 +25,9 @@ final class SecurityViewModel: ViewModel {
     @Published private(set) var isLoading: Bool = true
     @Published private(set) var businessPin: String = ""
     
+    @Published var shouldHideScreenshots: Bool = false
     @Published var shouldReportScreenshots: Bool = false
-    @Published private(set) var firstReportScreenshotUpdate: Bool = true
+    @Published private(set) var firstHideScreenshotUpdate: Bool = true
     
     private(set) var businessId: String?
     private var cancelBag: CancelBag!
@@ -66,11 +67,14 @@ final class SecurityViewModel: ViewModel {
     
     func loadDataIfNeeded() {
         
+        self.shouldHideScreenshots = self.userDefaultsService
+            .shouldHideScreenshots
+        
         self.shouldReportScreenshots = self.userDefaultsService
             .shouldReportScreenshots
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.firstReportScreenshotUpdate = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.firstHideScreenshotUpdate = false
         }
         
         if let businessId {
@@ -156,10 +160,10 @@ final class SecurityViewModel: ViewModel {
         
     }
     
-    func toggleShouldReportScreenshots(shouldReportScreenshots: Bool) {
+    func set(shouldHideScreenshots: Bool) {
         
         self.userDefaultsService
-            .set(shouldReportScreenshots: shouldReportScreenshots)
+            .set(shouldHideScreenshots: shouldHideScreenshots)
         
         self.alertService
             .showAlert(.init(.appAlert(.init(
@@ -168,6 +172,13 @@ final class SecurityViewModel: ViewModel {
                 primaryButtonTitle: "Okay",
                 primaryButtonAction: {}
             ))))
+        
+    }
+    
+    func set(shouldReportScreenshots: Bool) {
+        
+        self.userDefaultsService
+            .set(shouldReportScreenshots: shouldReportScreenshots)
         
     }
 
@@ -181,6 +192,16 @@ final class SecurityViewModel: ViewModel {
                 
                 guard shouldReport != self?.shouldReportScreenshots else { return }
                 self?.shouldReportScreenshots = shouldReport
+                
+            }
+            .store(in: &self.cancelBag)
+        
+        self.userDefaultsService
+            .shouldHideScreenshotsPublisher
+            .sink { [weak self] shouldHide in
+                
+                guard shouldHide != self?.shouldHideScreenshots else { return }
+                self?.shouldReportScreenshots = shouldHide
                 
             }
             .store(in: &self.cancelBag)

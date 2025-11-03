@@ -197,7 +197,7 @@ struct BusinessEmployeeUpdateScreen: GPView {
             .keyboardType(keyboardType)
             .textContentType(textContentType)
             .submitLabel(.done)
-            .textInputAutocapitalization(fieldToFocus == .email ? .none : .words)
+            .textInputAutocapitalization(fieldToFocus == .email ? .never : .words)
             .autocorrectionDisabled(true)
             .appOnTapGesture {
                 self.focusedField = fieldToFocus

@@ -108,7 +108,7 @@ struct RootScreen: GPView {
                 }
                 
                 MainScreen(viewModel: self.viewModel.mainViewModel)
-                    .restrictCapture(self.viewModel.userDefaultsService.shouldReportScreenshots)
+                    .restrictCapture(self.viewModel.userDefaultsService.shouldHideScreenshots)
                 
             }
             
