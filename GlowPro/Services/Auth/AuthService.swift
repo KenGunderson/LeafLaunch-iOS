@@ -209,6 +209,7 @@ final class AuthService: AuthServiceProtocol {
         
         do {
             
+            globalNavigationService.popToRoot()
             try self.firebaseService.logout()
             await self.userDefaultsService.logout()
             self.analyticsService.logout()
