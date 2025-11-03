@@ -8,7 +8,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.sakohovaguimian.glowpro</string>
+			<string>com.glowpro.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>glowpro</string>

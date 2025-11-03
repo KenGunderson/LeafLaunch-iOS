@@ -11,6 +11,7 @@ struct RootScreen: GPView {
     
     @StateObject var viewModel: RootViewModel    
     @State private var shouldShowHealthCheckView: Bool = false
+    @State var navigationService = NavigationService()
     
     var body: some View {
      
@@ -31,7 +32,7 @@ struct RootScreen: GPView {
         }
         .withAlertService(self.viewModel.observableAlertServiceWrapper)
         .environmentObject(self.viewModel.observableAlertServiceWrapper)
-        .environment(self.viewModel.navigationService)
+        .environment(self.navigationService)
         .withToastOverlay()
         
         // Lifecycle
@@ -46,9 +47,9 @@ struct RootScreen: GPView {
         .onAppear {
             
             self.viewModel
-                .setNavigationService(self.viewModel.navigationService)
+                .setNavigationService(self.navigationService)
             
-            globalNavigationService = self.viewModel.navigationService
+            globalNavigationService = self.navigationService
             
         }
         
