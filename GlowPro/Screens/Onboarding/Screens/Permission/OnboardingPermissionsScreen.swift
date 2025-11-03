@@ -146,6 +146,7 @@ struct OnboardingPermissionsScreen: GPView {
             
         }
         .compositingGroup()
+        .geometryGroup()
         
     }
     

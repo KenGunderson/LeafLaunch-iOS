@@ -31,13 +31,16 @@ struct WelcomeScreen: GPView {
                     self.viewModel
                         .track()
                     
-                    self.viewModel
-                        .setup(navigationService: self.navigationService)
-                    
                 }
             
         }
         .preferredColorScheme(.light)
+        .task {
+            
+            self.viewModel
+                .setup(navigationService: self.navigationService)
+            
+        }
         
     }
     
