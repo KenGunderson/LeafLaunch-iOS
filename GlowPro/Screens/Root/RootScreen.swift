@@ -11,7 +11,7 @@ struct RootScreen: GPView {
     
     @StateObject var viewModel: RootViewModel    
     @State private var shouldShowHealthCheckView: Bool = false
-    @State var navigationService = NavigationService()
+    @State private var navigationService = NavigationService()
     
     var body: some View {
      
