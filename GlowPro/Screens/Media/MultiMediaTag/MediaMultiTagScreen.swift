@@ -102,7 +102,7 @@ struct MediaMultiTagScreen: GPView {
                 showDivider: true
             )
             
-            WStack {
+            VStack {
                 
                 ForEach(self.viewModel.mediaTags, id: \.self) { tag in
                     

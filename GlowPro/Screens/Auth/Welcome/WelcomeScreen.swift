@@ -51,6 +51,7 @@ struct WelcomeScreen: GPView {
             Image(.illustrationWelcome)
                 .resizable()
                 .frame(height: UIScreen.main.bounds.height / 1.95)
+                .ignoresSafeArea()
             
             VStack(spacing: Style.shared.spacing(.large)) {
                 

@@ -55,6 +55,8 @@ struct NoteMetadata: Codable, Equatable, Hashable {
     let dosage: String?
     let treatmentNotes: String?
     let outcome: String?
+    let treatedBy: String?
+    let reviewedBy: String?
     
     // SOAP
     
@@ -71,6 +73,9 @@ struct NoteMetadata: Codable, Equatable, Hashable {
         case dosage
         case treatmentNotes = "treatment_notes"
         case outcome
+        case treatedBy = "treated_by"
+        case reviewedBy = "reviewed_by"
+        
         case soapS = "soap_s"
         case soapO = "soap_o"
         case soapA = "soap_a"
@@ -91,6 +96,8 @@ struct NoteMetadata: Codable, Equatable, Hashable {
             "soap_o": self.soapO,
             "soap_a": self.soapA,
             "soap_p": self.soapP,
+            "treated_by": self.treatedBy,
+            "reviewed_by": self.reviewedBy
         ]
             .compact()
         

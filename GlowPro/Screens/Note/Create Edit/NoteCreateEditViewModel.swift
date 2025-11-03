@@ -20,7 +20,6 @@ final class NoteCreateEditViewModel: ViewModel {
             switch self {
             case .create(let noteId): return noteId
             case .update(noteId: let noteID): return noteID
-            default: return nil
             }
             
         }
@@ -58,6 +57,8 @@ final class NoteCreateEditViewModel: ViewModel {
     @Published var dosage: String = ""
     @Published var treatmentNotes: String = ""
     @Published var outcome: String = ""
+    @Published var treatedBy: String = ""
+    @Published var reviewedBy: String = ""
     
     @Published var soapS: String = ""
     @Published var soapO: String = ""
@@ -187,6 +188,8 @@ final class NoteCreateEditViewModel: ViewModel {
                     self.dosage = metaData?.dosage ?? ""
                     self.treatmentNotes = metaData?.treatmentNotes ?? ""
                     self.outcome = metaData?.outcome ?? ""
+                    self.treatedBy = metaData?.treatedBy ?? ""
+                    self.reviewedBy = metaData?.reviewedBy ?? ""
                     
                     if self.mediaFusion.isEmpty {
                         
@@ -418,6 +421,8 @@ final class NoteCreateEditViewModel: ViewModel {
                         dosage: self.dosage,
                         treatmentNotes: self.treatmentNotes,
                         outcome: self.outcome,
+                        treatedBy: self.treatedBy,
+                        reviewedBy: self.reviewedBy,
                         soapS: self.soapS,
                         soapO: self.soapO,
                         soapA: self.soapA,
@@ -504,6 +509,8 @@ final class NoteCreateEditViewModel: ViewModel {
                         dosage: self.dosage,
                         treatmentNotes: self.treatmentNotes,
                         outcome: self.outcome,
+                        treatedBy: self.treatedBy,
+                        reviewedBy: self.reviewedBy,
                         soapS: self.soapS,
                         soapO: self.soapO,
                         soapA: self.soapA,

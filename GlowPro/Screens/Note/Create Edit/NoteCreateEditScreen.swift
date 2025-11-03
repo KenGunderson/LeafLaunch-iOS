@@ -22,6 +22,8 @@ struct NoteCreateEditScreen: View {
         case dosage
         case treatmentNotes
         case outcome
+        case treatedBy
+        case reviewedBy
         
         case soapS
         case soapO
@@ -41,6 +43,8 @@ struct NoteCreateEditScreen: View {
             case .dosage: return "Dosage"
             case .treatmentNotes: return "Treatment Notes"
             case .outcome: return "Outcome"
+            case .treatedBy: return "Treated By"
+            case .reviewedBy: return "Reviewed By"
                 
             case .soapS: return "Subjective"
             case .soapO: return "Objective"
@@ -246,15 +250,17 @@ struct NoteCreateEditScreen: View {
                 
             }
             
-            HStack {
-                
-                textField(.productDeviceUsed)
-                textField(.dosage)
-                
-            }
-            
+            textField(.dosage)
+            textEditField(.productDeviceUsed)
             textEditField(.treatmentNotes)
             textEditField(.outcome)
+            
+            HStack {
+                
+                textField(.treatedBy)
+                textField(.reviewedBy)
+                
+            }
             
         }
         .frameInfinity()
@@ -272,8 +278,23 @@ struct NoteCreateEditScreen: View {
             case .soapA: return self.$viewModel.soapA
             case .soapP: return self.$viewModel.soapP
             case .treatmentNotes: return self.$viewModel.treatmentNotes
+            case .productDeviceUsed: return self.$viewModel.productDeviceUsed
             case .outcome: return self.$viewModel.outcome
             default: return .constant("")
+            }
+        }
+        
+        var numberOfLinesStarting: Int {
+            switch focusedField {
+            case .note: return 5
+            case .soapS: return 3
+            case .soapO: return 3
+            case .soapA: return 3
+            case .soapP: return 3
+            case .treatmentNotes: return 3
+            case .productDeviceUsed: return 3
+            case .outcome: return 3
+            default: return 5
             }
         }
         
@@ -292,7 +313,7 @@ struct NoteCreateEditScreen: View {
                 backgroundStyle: .color(.clear),
                 cornerRadius: .small,
                 shadow: .none,
-                lineLimit: 5...20,
+                lineLimit: numberOfLinesStarting...20,
                 verticalPadding: .small,
                 horizontalPadding: .small
             )
@@ -326,8 +347,9 @@ struct NoteCreateEditScreen: View {
             case .signature: return self.$viewModel.employeeSignature
             case .treatmentType: return self.$viewModel.treatmentType
             case .sessionNumber: return self.$viewModel.sessionNumber
-            case .productDeviceUsed: return self.$viewModel.productDeviceUsed
             case .dosage: return self.$viewModel.dosage
+            case .treatedBy: return self.$viewModel.treatedBy
+            case .reviewedBy: return self.$viewModel.reviewedBy
             default: return .constant("")
             }
         }
@@ -395,7 +417,9 @@ struct NoteCreateEditScreen: View {
             case .productDeviceUsed: nextFocusedField = .dosage
             case .dosage: nextFocusedField = .treatmentNotes
             case .treatmentNotes: nextFocusedField = .outcome
-            case .outcome: nextFocusedField = nil
+            case .outcome: nextFocusedField = .treatedBy
+            case .treatedBy: nextFocusedField = .reviewedBy
+            case .reviewedBy: nextFocusedField = nil
             default: nextFocusedField = nil
             }
             

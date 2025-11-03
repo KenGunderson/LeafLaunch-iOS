@@ -116,7 +116,7 @@ struct NoteListScreen: GPView {
             }
             
         }
-        .animation(.bouncy, value: self.viewModel.notes)
+        .animation(.smooth, value: self.viewModel.notes)
         .frame(maxWidth: .infinity, alignment: .leading)
         
     }

@@ -89,6 +89,7 @@ struct HomeScreen: GPView {
             }
             
         }
+        .padding(.top, 1)
         .padding(.bottom, .custom(4))
         
     }
