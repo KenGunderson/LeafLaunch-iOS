@@ -27,6 +27,7 @@ enum Setting: String, CaseIterable {
     case didRateMyAppAlertShow
     case impersonatedUser
     case securityPinsDictionaryData
+    case shouldReportScreenshots
         
 }
 
@@ -83,6 +84,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
+    @AppStorage(Setting.shouldReportScreenshots.rawValue) private(set) var shouldReportScreenshots: Bool = false {
+        didSet {
+            self.shouldReportScreenshotsPublisher.send(self.shouldReportScreenshots)
+        }
+    }
+    
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
     var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
@@ -92,6 +99,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
+    var shouldReportScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
     init() {
         
@@ -106,6 +114,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
         self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
+        self.shouldReportScreenshotsPublisher.send(self.shouldReportScreenshots)
         
     }
     
@@ -181,6 +190,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
     }
     
+    func set(shouldReportScreenshots: Bool) {
+        self.shouldReportScreenshots = shouldReportScreenshots
+    }
+    
     func getSecurityPinForBusinessId(_ businessId: String) -> String? {
         
         let key = self.securityPinsDictionaryData
@@ -212,6 +225,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             self.set(impersonatedUser: nil)
             self.set(lastViewedWhatsNewVersion: nil)
             self.set(didCompleteOnboarding: false)
+            self.set(shouldReportScreenshots: false)
             
         }
         

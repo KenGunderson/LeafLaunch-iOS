@@ -29,6 +29,8 @@ class ViewModelAssembly: Assembly {
                     connectivityService: r.resolve(ConnectivityServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     pushNotificationService: r.resolve(PushNotificationServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     deeplinkService: r.resolve(DeeplinkServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)

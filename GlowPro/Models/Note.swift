@@ -16,7 +16,7 @@ enum NoteType: String, Codable, CaseIterable {
     var displayName: String {
         
         switch self {
-        case .quick: return "Quick"
+        case .quick: return "Basic"
         case .soap: return "SOAP"
         case .advanced: return "Advanced"
         }
@@ -26,7 +26,7 @@ enum NoteType: String, Codable, CaseIterable {
     var longDisplayName: String {
         
         switch self {
-        case .quick: return "Quick Note"
+        case .quick: return "Basic Note"
         case .soap: return "SOAP Note"
         case .advanced: return "Advanced Note"
         }

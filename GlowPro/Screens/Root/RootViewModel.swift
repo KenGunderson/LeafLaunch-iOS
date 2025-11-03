@@ -25,6 +25,8 @@ final class RootViewModel: ViewModel {
     private let connectivityService: ConnectivityServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationService: PushNotificationServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
+    private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let deeplinkService: DeeplinkServiceProtocol
     
     private(set) var mainViewModel = globalResolver.resolve(MainViewModel.self)!
@@ -54,6 +56,8 @@ final class RootViewModel: ViewModel {
          connectivityService: ConnectivityServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationService: PushNotificationServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol,
          deeplinkService: DeeplinkServiceProtocol) {
         
         self.environmentService = environmentService
@@ -68,6 +72,8 @@ final class RootViewModel: ViewModel {
         self.connectivityService = connectivityService
         self.viewLifecycleService = viewLifecycleService
         self.pushNotificationService = pushNotificationService
+        self.activeDestinationService = activeDestinationService
+        self.userDefaultsService = userDefaultsService
         self.deeplinkService = deeplinkService
         self.observableAlertServiceWrapper = ObservableAlertServiceWrapper(alertService: alertService)
         
@@ -283,6 +289,21 @@ final class RootViewModel: ViewModel {
             .receiveOnMain()
             .sink { impersonatingUser in
                 self.isImpersonatingUser = (impersonatingUser != nil)
+            }
+            .store(in: &self.cancelBag)
+        
+        NotificationCenter
+            .default
+            .publisher(for: UIApplication.userDidTakeScreenshotNotification)
+            .sink { [weak self] _ in
+                
+                guard let businessId = self?.activeDestinationService.businessId else { return }
+                guard (self?.userDefaultsService.shouldReportScreenshots ?? false) else { return }
+                
+                Task { [weak self] in
+                    try await self?.apiService.reportScreenshot(businessId: businessId)
+                }
+                
             }
             .store(in: &self.cancelBag)
 

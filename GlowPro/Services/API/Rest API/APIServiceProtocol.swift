@@ -176,6 +176,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getLegalInformation(context: String) async throws -> [LegalItem]
     func getFrequentlyAskedQuestions() async throws -> [FAQViewModel.FAQItemSection]
+    func reportScreenshot(businessId: String) async throws
     
     // Feature Request
     

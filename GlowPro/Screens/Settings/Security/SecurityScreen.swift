@@ -39,6 +39,17 @@ struct SecurityScreen: GPView {
             
         }
         
+        // On Change
+        
+        .onChange(of: self.viewModel.shouldReportScreenshots) { oldValue, newValue in
+            
+            guard !self.viewModel.firstReportScreenshotUpdate else { return }
+            
+            self.viewModel
+                .toggleShouldReportScreenshots(shouldReportScreenshots: newValue)
+            
+        }
+        
         // Animations
         
         .animation(.spring, value: self.viewModel.hasBusinessPin)
@@ -62,25 +73,14 @@ struct SecurityScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small)) {
+        VStack(spacing: Style.shared.spacing(.large)) {
             
             Group {
                 
                 if !self.viewModel.isLoading {
                     
-                    titleSubtitle()
-                        .background(Style.shared.background(.primary).source())
-                    
-                    if self.viewModel.hasBusinessPin {
-                        businessPin()
-                    }
-                    
-                    setChangePinButton()
-                        .padding(.top, .extraSmall)
-                    
-                    if self.viewModel.hasBusinessPin {
-                        removePinButton()
-                    }
+                    generalSection()
+                    pinSection()
                     
                 }
                 
@@ -95,16 +95,83 @@ struct SecurityScreen: GPView {
         
     }
     
-    @ViewBuilder
-    private func titleSubtitle() -> some View {
+    private func generalSection() -> some View {
         
-        Text("Secure Your Business Access")
-            .appFont(with: .TITLE_5)
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "General",
+                showDivider: true
+            )
+            
+            HStack {
+                
+                Text("Report Screenshots")
+                    .appFont(with: .TITLE_4)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Toggle(
+                    "",
+                    isOn: self.$viewModel.shouldReportScreenshots
+                )
+                
+            }
+            
+            Text("Restrict all screenshots & get emailed whenever someone tries to take a screenshot while in the app.")
+                .appFont(with: .BODY_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, -8)
+            
+        }
+        
+    }
+    
+    private func pinSection() -> some View {
+        
+        let title = "Secure Your Business Access"
+        let subtitle = "Set up a secure 4-digit PIN to protect your business. This PIN is required to return to the main menu from your dashboard, ensuring only authorized users can exit."
+        
+        return VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Limiting Access",
+                showDivider: true
+            )
+            
+            titleSubtitle(
+                title: title,
+                subtitle: subtitle
+            )
+            .background(Style.shared.background(.primary).source())
+            
+            if self.viewModel.hasBusinessPin {
+                businessPin()
+            }
+            
+            setChangePinButton()
+                .padding(.top, .extraSmall)
+            
+            if self.viewModel.hasBusinessPin {
+                removePinButton()
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func titleSubtitle(title: String,
+                               subtitle: String) -> some View {
+        
+        Text(title)
+            .appFont(with: .TITLE_4)
             .foregroundStyle(Style.shared.textColor(.title).source())
             .frame(maxWidth: .infinity, alignment: .leading)
 
-        Text("Set up a secure 4-digit PIN to protect your business. This PIN is required to return to the main menu from your dashboard, ensuring only authorized users can exit.")
-            .appFont(with: .BODY_3)
+        Text(subtitle)
+            .appFont(with: .BODY_2)
             .foregroundStyle(Style.shared.textColor(.body).source())
             .frame(maxWidth: .infinity, alignment: .leading)
         

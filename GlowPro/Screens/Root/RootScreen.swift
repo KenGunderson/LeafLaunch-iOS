@@ -25,7 +25,7 @@ struct RootScreen: GPView {
                 
             }
             
-            mainView()
+            mainView()            
             splashScreenView()
             
         }
@@ -107,6 +107,7 @@ struct RootScreen: GPView {
                 }
                 
                 MainScreen(viewModel: self.viewModel.mainViewModel)
+                    .restrictCapture(self.viewModel.userDefaultsService.shouldReportScreenshots)
                 
             }
             

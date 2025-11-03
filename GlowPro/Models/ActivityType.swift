@@ -73,7 +73,7 @@ enum ActivityType: String, Codable, CaseIterable {
         case .collageUpdated: return "Collage Updated"
         case .collageDeleted: return "Collage Deleted"
             
-        case .quickNote: return "Quick Note"
+        case .quickNote: return "Basic Note"
         case .soapNote: return "SOAP Note"
         }
     }

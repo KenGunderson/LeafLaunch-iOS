@@ -978,6 +978,12 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         ]
     }
     
+    // Report Screenshot
+    
+    func reportScreenshot(businessId: String) async throws {
+        return
+    }
+    
     // Feature Requests
     
     func submitFeatureRequest(userId: String,
@@ -1348,6 +1354,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShow: Bool = false
     var impersonatingUserData: Data?
     var securityPinsDictionaryData: Data?
+    var shouldReportScreenshots: Bool = false
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
@@ -1357,6 +1364,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
+    var shouldReportScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
     func set(theme: AvailableTheme) {}
     func set(didCompleteOnboarding: Bool) {}
@@ -1366,6 +1374,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     func set(didRateMyAppAlertShow: Bool) {}
     func set(impersonatedUser: ImpersonatingUser?) {}
     func set(securityPin: String?, businessId: String) {}
+    func set(shouldReportScreenshots: Bool) {}
     
     func getSecurityPinForBusinessId(_ businessId: String) -> String? { return nil }
     

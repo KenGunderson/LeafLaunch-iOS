@@ -25,6 +25,9 @@ final class SecurityViewModel: ViewModel {
     @Published private(set) var isLoading: Bool = true
     @Published private(set) var businessPin: String = ""
     
+    @Published var shouldReportScreenshots: Bool = false
+    @Published private(set) var firstReportScreenshotUpdate: Bool = true
+    
     private(set) var businessId: String?
     private var cancelBag: CancelBag!
     
@@ -62,6 +65,13 @@ final class SecurityViewModel: ViewModel {
     }
     
     func loadDataIfNeeded() {
+        
+        self.shouldReportScreenshots = self.userDefaultsService
+            .shouldReportScreenshots
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.firstReportScreenshotUpdate = false
+        }
         
         if let businessId {
             
@@ -145,9 +155,36 @@ final class SecurityViewModel: ViewModel {
             .pop()
         
     }
+    
+    func toggleShouldReportScreenshots(shouldReportScreenshots: Bool) {
+        
+        self.userDefaultsService
+            .set(shouldReportScreenshots: shouldReportScreenshots)
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "One More Step!",
+                message: "To finish setting up this feature, please restart your app.",
+                primaryButtonTitle: "Okay",
+                primaryButtonAction: {}
+            ))))
+        
+    }
 
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.userDefaultsService
+            .shouldReportScreenshotsPublisher
+            .sink { [weak self] shouldReport in
+                
+                guard shouldReport != self?.shouldReportScreenshots else { return }
+                self?.shouldReportScreenshots = shouldReport
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
 }

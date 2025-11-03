@@ -48,4 +48,23 @@ extension APIService {
         
     }
     
+    func reportScreenshot(businessId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .post,
+                apiPath: .init(path: .system("report/screenshot")),
+                parameters: ["business_id": businessId]
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }

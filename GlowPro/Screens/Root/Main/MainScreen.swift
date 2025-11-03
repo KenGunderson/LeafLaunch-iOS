@@ -28,6 +28,7 @@ struct MainScreen: GPView {
             if self.viewModel.shouldShowWelcomeScreen {
                 
                 WelcomeScreen(viewModel: self.viewModel.welcomeViewModel)
+                    .environment(self.navigationService)
                     .transition(.opacity)
                 
             }
