@@ -78,6 +78,8 @@ public struct CameraScreen: View {
         
         ZStack(alignment: .center) {
             
+            Color.black.ignoresSafeArea()
+            
             CameraPreviewView(session: viewModel.session)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea()
