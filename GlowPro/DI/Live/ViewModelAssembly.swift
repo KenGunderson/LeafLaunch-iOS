@@ -82,6 +82,7 @@ class ViewModelAssembly: Assembly {
         container
             .register(SignUpViewModel.self) { r in
                 SignUpViewModel(
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,

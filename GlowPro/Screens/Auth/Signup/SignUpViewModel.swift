@@ -14,6 +14,7 @@ final class SignUpViewModel: ViewModel {
     internal let loggerName: String = "SIGN_UP_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
     
+    private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -39,17 +40,18 @@ final class SignUpViewModel: ViewModel {
             self.email.count > 3 &&
             self.password.count >= 6 &&
             self.firstName.count >= 2 &&
-            self.lastName.count >= 2 &&
-            self.agreedToTerms
+            self.lastName.count >= 2
         )
         
     }
     
-    init(analyticsService: AnalyticsServiceProtocol,
+    init(alertService: AlertServiceProtocol,
+         analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
         
+        self.alertService = alertService
         self.analyticsService = analyticsService
         self.authService = authService
         self.viewLifecycleService = viewLifecycleService
@@ -85,7 +87,17 @@ final class SignUpViewModel: ViewModel {
     }
     
     func confirmEmail() {
+        
+        
+        guard self.agreedToTerms else {
+            
+            presentAgreeToTermsError()
+            return
+            
+        }
+        
         self.showEmailVerificationSheet = true
+        
     }
     
     @MainActor
@@ -159,6 +171,20 @@ final class SignUpViewModel: ViewModel {
         catch(let error) {
             self.error = error
         }
+        
+    }
+    
+    private func presentAgreeToTermsError() {
+        
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .success(
+                    title: "Hold Up!",
+                    message: "Please agree to the Terms and Conditions before proceeding by clicking the checkbox below.",
+                    buttonTitle: "Okay",
+                    action: {}
+            )))
+        )
         
     }
     

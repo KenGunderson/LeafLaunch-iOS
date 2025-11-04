@@ -181,13 +181,15 @@ struct SignUpScreen: GPView {
             CommonButton(
                 title: "Create Account",
                 titleColor: Style.shared.textColor(.button),
-                isEnabled: self.viewModel.isButtonEnabled) {
+                isEnabled: self.viewModel.isButtonEnabled,
+                disabledOpacity: 0.7
+            ) {
                 
-                    self.viewModel
-                        .confirmEmail()
-                    
-                }
-                .padding(.vertical, .small)
+                self.viewModel
+                    .confirmEmail()
+                
+            }
+            .padding(.vertical, .small)
             
         }
         .background(Style.shared.background(.primary).source())

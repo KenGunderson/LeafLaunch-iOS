@@ -134,15 +134,17 @@ struct LoginScreen: GPView {
     }
     
     private func bottomButton() -> some View {
-                
+        
         CommonButton(
             title: "Login",
             titleColor: Style.shared.textColor(.button),
-            isEnabled: self.viewModel.isButtonEnabled) {
-                self.viewModel.handleLogin()
-            }
-            .padding(.vertical, .small)
-            .padding(.horizontal, .medium)
+            isEnabled: self.viewModel.isButtonEnabled,
+            disabledOpacity: 0.75
+        ) {
+            self.viewModel.handleLogin()
+        }
+        .padding(.vertical, .small)
+        .padding(.horizontal, .medium)
         
     }
     
