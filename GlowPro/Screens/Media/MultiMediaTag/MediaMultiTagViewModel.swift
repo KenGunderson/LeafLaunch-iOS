@@ -34,10 +34,6 @@ final class MediaMultiTagViewModel: ViewModel {
         
     }
     
-    var isMediaSelected: Bool {
-        return !self.selectedMedia.isEmpty
-    }
-    
     var isSaveButtonEnabled: Bool {
         
         return (
@@ -214,15 +210,6 @@ final class MediaMultiTagViewModel: ViewModel {
         
     }
     
-    func updateBusinessDashboardHomeIfNeeded() {
-        
-        guard !self.isMediaSelected else { return }
-        
-        self.viewLifecycleService
-            .reload(for: .businessHome)
-        
-    }
-    
     private func deleteMediaTag(mediaTag: MediaTag) {
         
         self.alertService
@@ -247,11 +234,11 @@ final class MediaMultiTagViewModel: ViewModel {
                 
             }
             
-            self.viewLifecycleService
-                .reload(for: .mediaPreview)
-            
             self.alertService
                 .dismissLoadingIndicator()
+            
+            self.viewLifecycleService
+                .reload(for: .mediaPreview)
             
             loadData()
             
@@ -292,15 +279,14 @@ final class MediaMultiTagViewModel: ViewModel {
             self.alertService
                 .dismissLoadingIndicator()
             
-            updateBusinessDashboardHomeIfNeeded()
-            
             self.viewLifecycleService
                 .reload(for: .mediaPreview)
             
             self.viewLifecycleService
                 .reload(for: .mediaGallery)
             
-            self.navigationService?.dismissFullScreenCover()
+            self.navigationService?
+                .dismissFullScreenCover()
             
         }
         

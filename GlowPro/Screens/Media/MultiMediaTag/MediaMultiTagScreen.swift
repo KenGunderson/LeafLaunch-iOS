@@ -73,10 +73,7 @@ struct MediaMultiTagScreen: GPView {
     private func navBar() -> some View {
         
         let closeButton = NavBarButton(style: .close) {
-            
-            self.viewModel.updateBusinessDashboardHomeIfNeeded()
             self.dismiss()
-            
         }
         .asAnyView()
         
@@ -90,9 +87,7 @@ struct MediaMultiTagScreen: GPView {
     @ViewBuilder
     private func mediaTagsList() -> some View {
         
-        let sectionTitle = self.viewModel.isMediaSelected
-        ? "Select All That Apply"
-        : "All Media Tags"
+        let sectionTitle = "Select All That Apply"
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
