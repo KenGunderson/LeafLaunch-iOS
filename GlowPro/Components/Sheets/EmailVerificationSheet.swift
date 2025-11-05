@@ -91,13 +91,14 @@ struct EmailVerificationSheet: View {
                     .foregroundStyle(Style.shared.textColor(.body).source())
                 
                 Text(self.email)
-                    .appFont(with: .HEADER_1)
+                    .appFont(with: .HEADER_2)
                     .foregroundStyle(Style.shared.accent.source())
                 
             }
+            .padding(.top, .extraLarge)
             
         }
-        .padding(.top, .large)
+        .padding(.top, .extraLarge)
         .padding(.bottom, .extraLarge)
         .padding(.horizontal, .medium)
         .frame(maxWidth: .infinity, alignment: .leading)

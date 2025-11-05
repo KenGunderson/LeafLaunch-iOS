@@ -139,16 +139,17 @@ struct SignUpScreen: GPView {
                     "",
                     isOn: self.$viewModel.agreedToTerms
                 )
-                .toggleStyle(.checkmark(
-                    height: 28,
+                .toggleStyle(.checkmarkFilled(
+                    height: 30,
                     unselectedColor: Style.shared.background(.quaternary),
                     horizontalSpacing: .small,
-                    cornerRadius: .extraSmall
+                    cornerRadius: .extraSmall,
+                    animation: .bouncy(duration: 0.3, extraBounce: 0.2)
                 ))
+                .foregroundStyle(Style.shared.textColor(.titleInverted).source())
+                .appFont(with: .TITLE_5)
                 .contentTransition(.symbolEffect(.replace))
-                .foregroundStyle(Style.shared.textColor(.body).source())
-                .appFont(with: .BODY_2)
-                .animation(.bouncy, value: self.viewModel.agreedToTerms)
+//                .animation(.bouncy(duration: 0.10), value: self.viewModel.agreedToTerms)
                 
                 // Attributed Text
                 
