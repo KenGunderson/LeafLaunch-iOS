@@ -149,6 +149,10 @@ final class ClientCreateEditViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
+    func formatPhoneNumber(_ input: String) -> String {
+        return input.formatted(.phone(defaultCountryCode: nil))
+    }
+    
     func saveOrUpdate() {
         
         if self.clientId == nil {

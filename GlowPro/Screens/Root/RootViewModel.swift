@@ -275,7 +275,10 @@ final class RootViewModel: ViewModel {
                 guard let strongSelf = self else { return }
                 
                 Task {
-                    try await strongSelf.authService.fetchUserInfoWithToken()
+                    
+                    try await strongSelf
+                        .authService.fetchUserInfoWithToken()
+                    
                 }
                 
             }

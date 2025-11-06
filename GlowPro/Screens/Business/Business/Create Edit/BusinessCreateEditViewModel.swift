@@ -145,6 +145,10 @@ final class BusinessCreateEditViewModel: ViewModel {
         
     }
     
+    func formatPhoneNumber(_ input: String) -> String {
+        return input.formatted(.phone(defaultCountryCode: nil))
+    }
+    
     private func create() {
         
         guard let authUser = self.authService.currentUser else { return }

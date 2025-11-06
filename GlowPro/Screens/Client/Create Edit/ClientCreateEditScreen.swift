@@ -31,6 +31,7 @@ struct ClientCreateEditScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel: ClientCreateEditViewModel
+    @State private var phone: String = ""
     
     @FocusState private var focusedField: FocusedField?
         
@@ -64,6 +65,37 @@ struct ClientCreateEditScreen: GPView {
         
             .onTapGesture {
                 self.focusedField = nil
+            }
+        
+        // On Change
+        
+            .onChange(of: self.phone) { oldValue, newValue in
+                
+                guard oldValue != newValue else { return }
+                
+                var updatedValue = newValue
+                
+                let isDelete = newValue.count < oldValue.count
+                
+                if isDelete && oldValue.last == ")" {
+                    updatedValue = String(updatedValue.dropLast())
+                }
+                
+                let formattedNumber = self.viewModel.formatPhoneNumber(updatedValue)
+                self.phone = formattedNumber
+                
+                let trimmedNumber = try? formattedNumber.parsedPhoneDigits()
+                self.viewModel.phone = trimmedNumber ?? ""
+                
+            }
+            .onChange(of: self.viewModel.phone) { oldValue, newValue in
+                
+                let formattedNewValue = self.viewModel.formatPhoneNumber(newValue)
+                let currentFormattedValue = self.viewModel.formatPhoneNumber(self.phone)
+                
+                guard formattedNewValue != currentFormattedValue else { return }
+                self.phone = formattedNewValue
+                
             }
         
     }
@@ -173,7 +205,7 @@ struct ClientCreateEditScreen: GPView {
             
         case .phone:
             
-            text = self.$viewModel.phone
+            text = self.$phone
             isFocused = self.focusedField == .phone
             keyboardType = .phonePad
             textContentType = .telephoneNumber
