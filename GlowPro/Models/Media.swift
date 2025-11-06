@@ -38,9 +38,9 @@ enum MediaSortingOption: String,
 }
 
 enum MediaType: String,
-                        CaseIterable,
-                        Codable,
-                        Selectable {
+                CaseIterable,
+                Codable,
+                Selectable {
     
     var id: String {
         return self.rawValue

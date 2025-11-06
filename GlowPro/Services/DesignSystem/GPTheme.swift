@@ -39,7 +39,8 @@ public extension Theme {
         radius:  .default,
         fonts:   .sfDisplay,
         shadow:  .default,
-        buttonBounceStyle: .default
+        buttonBounceStyle: .default,
+        alertStyle: .default
     )
     
 }

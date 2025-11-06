@@ -130,12 +130,13 @@ extension APIService {
         }
         
         let favoritePrefix = sortingOption == .favorited ? "favorites/" : ""
+        let employeePrefix = sortingOption == .favorited ? "author" : "employee"
         
         do {
             
             let data = try await buildRequest(
                 method: .get,
-                apiPath: .init(path: .media("\(favoritePrefix)employee/\(authorId)")),
+                apiPath: .init(path: .media("\(favoritePrefix)\(employeePrefix)/\(authorId)")),
                 queryParameters: queryParameters
             )
             

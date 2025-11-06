@@ -271,7 +271,7 @@ final class MediaGalleryViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: Constants.Message.errorMessage("business details"),
+                            message: Constants.Message.errorMessage("media"),
                             action: {
                                 self.navigationService?
                                     .popWithDelay()

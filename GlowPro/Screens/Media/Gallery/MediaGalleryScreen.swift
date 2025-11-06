@@ -368,37 +368,37 @@ struct MediaGalleryScreen: GPView {
     private func editModeBottomBar() -> some View {
 
         if self.viewModel.isEditMode && !self.viewModel.editingMedia.isEmpty {
-            
+
             HStack(spacing: Style.shared.spacing(.small)) {
-                
+
                 let pluralText = self.viewModel.editingMedia.count > 1 ? "s" : ""
                 let editTitle = "Edit Item\(pluralText) (\(self.viewModel.editingMedia.count))"
                 let deleteTitle = "Delete Media"
-                
+
                 if self.viewModel.allowsDelete {
-                    
+
                     CommonButton(title: deleteTitle, backgroundStyle: Style.shared.background(.error)) {
-                        
+
                         self.viewModel
                             .presentDeleteMediaAlert()
-                        
+
                     }
                     .contentTransition(.numericText())
-                    
+
                 }
-                
+
                 CommonButton(title: editTitle) {
-                    
+
                     self.navigationService
                         .modal(fullScreenCover: .mediaMultiTags(
                             selectedMedia: self.viewModel.editingMedia)
                         )
-                    
+
                     self.viewModel.set(isEditMode: false)
-                    
+
                 }
                 .contentTransition(.numericText())
-                
+
             }
             .padding(.top, .small)
             .padding(.horizontal, .medium)

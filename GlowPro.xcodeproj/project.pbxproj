@@ -873,6 +873,9 @@
 		75F79DA82E18299C00E24BD3 /* APIService+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */; };
 		75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
 		75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */; };
+		75F81F552EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F81F542EBCF7A500A94897 /* DownsampledRemoteImage.swift */; };
+		75F81F562EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F81F542EBCF7A500A94897 /* DownsampledRemoteImage.swift */; };
+		75F81F572EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F81F542EBCF7A500A94897 /* DownsampledRemoteImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1179,6 +1182,7 @@
 		75F79DA32E18293100E24BD3 /* APIService+Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Locations.swift"; sourceTree = "<group>"; };
 		75F79DA62E18299C00E24BD3 /* APIService+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Employees.swift"; sourceTree = "<group>"; };
 		75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Clients.swift"; sourceTree = "<group>"; };
+		75F81F542EBCF7A500A94897 /* DownsampledRemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownsampledRemoteImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2180,6 +2184,7 @@
 				75ACC7522EA2E2B6006200F6 /* CollageView.swift */,
 				7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */,
 				753B113A2E60D8FA0080C9FF /* ChecklistView.swift */,
+				75F81F542EBCF7A500A94897 /* DownsampledRemoteImage.swift */,
 				75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */,
 				75136AA72E7477AD00779BB9 /* LineItemView.swift */,
 				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
@@ -2997,6 +3002,7 @@
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
 				75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2782E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
+				75F81F552EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
@@ -3287,6 +3293,7 @@
 				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
 				75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2772E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
+				75F81F572EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
@@ -3560,6 +3567,7 @@
 				75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */,
 				75DD843D2EAD728600DD8850 /* SecurityViewModel.swift in Sources */,
 				75DD843E2EAD728600DD8850 /* CameraPreviewView.swift in Sources */,
+				75F81F562EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				75DD843F2EAD728600DD8850 /* AppTrackingPermissionService.swift in Sources */,
 				75DD84402EAD728600DD8850 /* LaunchScreenService.swift in Sources */,
 				75DD84412EAD728600DD8850 /* AuthServiceProtocol.swift in Sources */,

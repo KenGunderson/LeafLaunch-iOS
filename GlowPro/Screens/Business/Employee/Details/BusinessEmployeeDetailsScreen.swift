@@ -152,7 +152,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
                             placeholder: placeholderView,
                         )
                         .view(shouldResize: false)
-                        .aspectRatio(1, contentMode: .fit)
+                        .scaledToFill()
                         .frame(width: 64)
                         .cornerRadius(.small)
                         
