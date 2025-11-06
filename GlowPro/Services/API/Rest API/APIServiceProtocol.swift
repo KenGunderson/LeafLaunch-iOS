@@ -400,7 +400,11 @@ extension APIProtocol {
                                      response: URLResponse) -> APIError? {
         
         let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        
+        let zodErrorMessage = zodErrorDescription(errorJson)
+        
         let errorMessage = errorJson?["error"] as? String
+        
         let errorDescription = errorJson?["message"] as? String
         
         if let httpResponse = response as? HTTPURLResponse {
@@ -410,7 +414,7 @@ extension APIProtocol {
             
             if badStatusCodes.contains(statusCode) {
                 
-                let message = errorMessage ?? errorDescription
+                let message = zodErrorMessage ?? errorDescription ?? errorMessage
                 
                 self.logError(
                         title: "API Service Error",
@@ -428,6 +432,25 @@ extension APIProtocol {
         
         return nil
         
+    }
+    
+    private func zodErrorDescription(_ errorDict: [String : Any]?) -> String? {
+        
+        guard let errorDict,
+              let error = errorDict["error"] as? [String : Any],
+              let issues = error["issues"] as? [Any],
+              let first = issues.first as? [String: Any]
+        else {
+            return nil
+        }
+        
+        let code = first["code"] as? String ?? "unknown_code"
+        let path = (first["path"] as? [String])?.joined(separator: ".") ?? "unknown_field"
+        let message = first["message"] as? String ?? "Invalid value"
+        let expected = first["expected"] as? String ?? "unknown"
+        let received = first["received"] as? String ?? "unknown"
+        
+        return "Field '\(path)': \(message) (expected \(expected), received \(received)) [\(code)]"
     }
     
 }
