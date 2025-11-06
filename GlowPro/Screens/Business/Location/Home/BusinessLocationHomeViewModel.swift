@@ -146,11 +146,13 @@ final class BusinessLocationHomeViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
                     
-                    self?.isFirstLoad = false
-                    self?.business = resolvedBusiness
-                    self?.activities = resolvedActivities
-                    self?.pendingInvites = resolvedBusiness.employeeInvites
-                    self?.location = location
+                    guard let strongSelf = self else { return }
+                    
+                    strongSelf.isFirstLoad = false
+                    strongSelf.business = resolvedBusiness
+                    strongSelf.activities = resolvedActivities
+                    strongSelf.pendingInvites = resolvedBusiness.employeeInvites.filter { $0.locationIds.contains(strongSelf.locationId) }
+                    strongSelf.location = location
                     
                 }
                 
