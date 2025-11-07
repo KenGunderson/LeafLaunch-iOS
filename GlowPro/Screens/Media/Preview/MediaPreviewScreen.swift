@@ -115,11 +115,17 @@ struct MediaPreviewScreen: GPView {
                 
                 ZoomView {
                     
-                    ImageSource.remote(url: media.url)
-                        .view()
-                        .aspectRatio(contentMode: .fit)
-                        .clipped()
-                        .frame(width: UIScreen.main.bounds.width)
+                    DownsampledRemoteImage(
+                        url: media.url,
+                        targetSize: .init(
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height
+                        ),
+                        contentMode: .fit,
+                        placeholder: PlaceholderView().asAnyView()
+                    )
+                    .clipped()
+                    .frame(width: UIScreen.main.bounds.width)
                     
                 }
                 .id(media.id)
@@ -148,24 +154,30 @@ struct MediaPreviewScreen: GPView {
                         
                         let isSelected = (self.viewModel.selectedMedia?.id == media.id)
                         
-                        ImageSource.remote(url: media.url)
-                            .view()
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(width: 65, height: 65)
-                            .clipped()
-                            .appBorder(
-                                cornerRadius: .small,
-                                color: .color(isSelected ? GPColor.green : .clear),
-                                lineWidth: 3,
-                                outerBorder: false
-                            )
-                            .cornerRadius(.custom(9))
-                            .appOnTapGesture {
-                                
-                                self.viewModel
-                                    .select(media: media)
-                                
-                            }
+                        DownsampledRemoteImage(
+                            url: media.url,
+                            targetSize: .init(
+                                width: 65,
+                                height: 65
+                            ),
+                            contentMode: .fill,
+                            placeholder: PlaceholderView().asAnyView()
+                        )
+                        .frame(width: 65, height: 65)
+                        .clipped()
+                        .appBorder(
+                            cornerRadius: .small,
+                            color: .color(isSelected ? GPColor.green : .clear),
+                            lineWidth: 3,
+                            outerBorder: false
+                        )
+                        .cornerRadius(.custom(9))
+                        .appOnTapGesture {
+                            
+                            self.viewModel
+                                .select(media: media)
+                            
+                        }
                         
                     }
                     

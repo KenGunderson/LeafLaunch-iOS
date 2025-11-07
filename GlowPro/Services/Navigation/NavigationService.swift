@@ -209,7 +209,8 @@ extension View {
                 
                 SecurityScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
-                
+            
+            case .updatePermissions: EmptyView()
             case .aboutUs:
                 
                 let viewModel = globalResolver.resolve(AboutUsViewModel.self)!

@@ -223,12 +223,12 @@ struct MediaGalleryScreen: GPView {
 
                 ForEach(groupedMedia.media) { item in
 
-                    ImageSource.remote(
+                    DownsampledRemoteImage(
                         url: item.url,
-                        placeholder: placeholderView,
+                        targetSize: .init(width: width, height: width),
+                        contentMode: .fill,
+                        placeholder: placeholderView
                     )
-                    .view(shouldResize: true)
-                    .scaledToFill()
                     .frame(
                         width: width,
                         height: width

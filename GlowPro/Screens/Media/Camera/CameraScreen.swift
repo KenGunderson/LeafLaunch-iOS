@@ -36,6 +36,13 @@ public struct CameraScreen: View {
         
         // On Change
         
+        .onChange(of: self.viewModel.shouldDismiss) { oldValue, newValue in
+            
+            guard newValue else { return }
+            self.dismiss()
+            
+        }
+        
         .onChange(of: self.zoomScale) { oldValue, newValue in
             
             self.viewModel
@@ -241,8 +248,17 @@ public struct CameraScreen: View {
         )
         .asButton {
             
-            self.viewModel.teardown()
-            dismiss()
+            if self.viewModel.captureMode.allPhotos.isEmpty {
+                
+                self.viewModel.teardown()
+                dismiss()
+                
+            } else {
+                
+                self.viewModel
+                    .presentLeaveCameraAlert()
+                
+            }
             
         }
         

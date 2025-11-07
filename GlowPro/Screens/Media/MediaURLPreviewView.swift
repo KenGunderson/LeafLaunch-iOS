@@ -30,9 +30,15 @@ struct MediaURLPreviewView: View {
                     
                 case .url(let url):
                     
-                    ImageSource.remote(url: url)
-                        .view()
-                        .aspectRatio(contentMode: .fit)
+                    DownsampledRemoteImage(
+                        url: url,
+                        targetSize: .init(
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height
+                        ),
+                        contentMode: .fit,
+                        placeholder: PlaceholderView().asAnyView()
+                    )
                     
                 case .uiImage(let uiImage):
                     

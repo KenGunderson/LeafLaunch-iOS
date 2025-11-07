@@ -95,6 +95,12 @@ final class SettingsViewModel: ViewModel {
             self.navigationService?
                 .modal(fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION))
             
+        case .updatePermissions:
+            
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+            
         case .contactSupport:
             
             self.shouldShowMailComposer = true

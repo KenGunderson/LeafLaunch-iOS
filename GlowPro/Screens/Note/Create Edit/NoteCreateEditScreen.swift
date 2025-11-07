@@ -505,10 +505,12 @@ struct NoteCreateEditScreen: View {
     private func urlItem(url: URL,
                          mediaFusion: MediaFusion) -> some View {
         
-        let imageView = ImageSource
-            .remote(url: url, placeholder: PlaceholderView().asAnyView())
-            .view()
-            .scaledToFill()
+        let imageView = DownsampledRemoteImage(
+            url: url,
+            targetSize: .init(width: 75, height: 75),
+            contentMode: .fill,
+            placeholder: PlaceholderView().asAnyView()
+        )
             .asAnyView()
         
         mediaItem(

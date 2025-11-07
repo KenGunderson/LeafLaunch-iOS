@@ -63,6 +63,19 @@ struct OnboardingPermissionsScreen: GPView {
                         self.viewModel.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
                     }
                 
+                AttributedText {
+                    
+                    Text("Need to update your permissions? You can always update your permissions by navigating to settings and tapping ")
+                        .font(Style.shared.font(.BODY_3))
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                    
+                    Text("Update Permissions.")
+                        .foregroundStyle(Style.shared.accent.source())
+                        .font(Style.shared.font(.HEADER_1))
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                
             }
             .padding(.top, .extraLarge)
             .padding(.horizontal, .medium)

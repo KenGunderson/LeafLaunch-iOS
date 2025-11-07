@@ -142,23 +142,24 @@ struct BusinessEmployeeDetailsScreen: GPView {
             ScrollView(.horizontal) {
                 
                 LazyHStack {
-                    
-                    let placeholderView = PlaceholderView().asAnyView()
-                    
+                                        
                     ForEach(Array(self.viewModel.media.prefix(10)), id: \.id) { media in
                         
-                        ImageSource.remote(
+                        DownsampledRemoteImage(
                             url: media.url,
-                            placeholder: placeholderView,
+                            targetSize: .init(width: 64, height: 64),
+                            contentMode: .fill,
+                            placeholder: PlaceholderView().asAnyView()
                         )
-                        .view(shouldResize: false)
-                        .scaledToFill()
-                        .frame(width: 64)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 64, height: 64)
+                        .frame(maxWidth: 64, maxHeight: 64)
                         .cornerRadius(.small)
                         
                     }
                     
                 }
+                .frame(height: 64)
                 .safeAreaPadding(.horizontal, Style.shared.spacing(.medium))
                 
             }

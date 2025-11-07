@@ -14,6 +14,7 @@ final class CameraViewModel: ViewModel {
     internal let loggerEmoji: String = "📸"
     
     private let cameraService: CameraServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     
     @Published private(set) var captureMode: CameraCaptureMode = .single(nil)
@@ -22,6 +23,7 @@ final class CameraViewModel: ViewModel {
     
     @Published private(set) var cameraFlashMode: CameraFlashMode = .off
     @Published var zoomFactor: CGFloat = 1.0
+    @Published var shouldDismiss: Bool = false
     
     private(set) var context: MediaContext!
     private var cancelBag: CancelBag!
@@ -31,9 +33,11 @@ final class CameraViewModel: ViewModel {
     }
     
     public init(cameraService: CameraServiceProtocol,
+                alertService: AlertServiceProtocol,
                 analyticsService: AnalyticsServiceProtocol) {
         
         self.cameraService = cameraService
+        self.alertService = alertService
         self.analyticsService = analyticsService
         
         self.logInit()
@@ -147,6 +151,30 @@ final class CameraViewModel: ViewModel {
                 by: scale,
                 animated: true
             )
+        
+    }
+    
+    func presentLeaveCameraAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Are You Sure?",
+                message: "You have unsaved changes. Are you sure you want to leave the camera? Click the portrait icon to the left of your shutter button to review and save your media.",
+                primaryButtonTitle: "Yes",
+                primaryButtonAction: { [weak self] in
+                    
+                    self?.teardown()
+                    self?.shouldDismiss = true
+                    
+                },
+                primaryButtonBackgroundColor: Style.shared.accent,
+                primaryButtonTextColor: Style.shared.textColor(.button),
+                secondaryButtonTitle: "No",
+                secondaryButtonAction: {},
+                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
+                secondaryButtonTextColor: Style.shared.textColor(.title)
+            )
+            )))
         
     }
     

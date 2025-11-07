@@ -9,7 +9,7 @@ import Foundation
 import _PhotosUI_SwiftUI
 import Combine
 
-enum MediaContext: Hashable {
+enum MediaContext: Hashable, Sendable {
 
     case business(businessId: String)
     case location(locationId: String)
@@ -54,7 +54,7 @@ enum MediaContext: Hashable {
 
 }
 
-enum MediaSelectionContext: Hashable {
+enum MediaSelectionContext: Hashable, Sendable {
 
     case singleSelection(completion: (Media?) -> Void)
     case preview

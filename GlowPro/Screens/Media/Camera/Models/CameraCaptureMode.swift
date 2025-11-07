@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum CameraCaptureMode: Hashable {
+public enum CameraCaptureMode: Hashable, Sendable {
     
     case single(UIImage?)
     case multiple([UIImage])

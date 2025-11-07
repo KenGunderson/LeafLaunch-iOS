@@ -83,8 +83,10 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            logoutDetached()
-            
+            if self.currentUser != nil {
+                self.logoutDetached()
+            }
+                        
             self.logError(
                 title: "Sign Up Error",
                 message: error.getMessageForError()
@@ -112,8 +114,10 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            logoutDetached()
-            
+            if self.currentUser != nil {
+                self.logoutDetached()
+            }
+                        
             self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()

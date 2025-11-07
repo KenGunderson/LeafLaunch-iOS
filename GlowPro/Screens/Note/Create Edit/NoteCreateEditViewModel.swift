@@ -640,19 +640,13 @@ final class NoteCreateEditViewModel: ViewModel {
         case .soap:
             
             return (
-                !self.title.isEmpty &&
-                !self.soapS.isEmpty &&
-                !self.soapO.isEmpty &&
-                !self.soapA.isEmpty &&
-                !self.soapP.isEmpty
+                !self.title.isEmpty
             )
             
         case .advanced:
             
             return (
-                !self.title.isEmpty &&
-                !self.treatmentType.isEmpty &&
-                !self.sessionNumber.isEmpty
+                !self.title.isEmpty
             )
             
         }

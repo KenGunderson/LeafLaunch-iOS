@@ -341,6 +341,7 @@ class MockViewModelAssembly: Assembly {
             .register(CameraViewModel.self) { r in
                 CameraViewModel(
                     cameraService: r.resolve(CameraServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                 )
             }.inObjectScope(.transient)

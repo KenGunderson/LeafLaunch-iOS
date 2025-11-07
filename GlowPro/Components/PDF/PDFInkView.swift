@@ -88,6 +88,7 @@ struct PDFInkView: UIViewRepresentable {
     public func updateUIView(_ uiView: InkContainer, context: Context) {
         
         if let cmd = self.command {
+            
             uiView.handle(command: cmd)
             
             DispatchQueue.main.async {
@@ -139,6 +140,17 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         pan.delaysTouchesBegan = false
         pan.delegate = self
         return pan
+        
+    }()
+    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+        
+        let press = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressGesture(_:)))
+        press.minimumPressDuration = 0
+        press.allowableMovement = .greatestFiniteMagnitude
+        press.delaysTouchesBegan = false
+        press.delegate = self
+        return press
         
     }()
     
@@ -223,8 +235,11 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         // PDF Scroll Pan
         self.scrollPan = self.pdfScrollView?.panGestureRecognizer
         
-        // Our Drawing Recognizer
+        // Our Eraser / Utility Pan Recognizer
         self.addGestureRecognizer(self.drawPan)
+        
+        // Our Drawing Long Press Recognizer
+        self.addGestureRecognizer(self.longPressGesture)
         
         // Touch Behavior
         self.pdfScrollView?.delaysContentTouches = false
@@ -314,6 +329,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             }
             
         case .clearCurrentPage:
+            
             self.clearAnnotationsOnCurrentPage()
             
         case .export(let mode):
@@ -341,22 +357,49 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         let drawingActive: Bool
         
         switch tool {
-        case .pen, .highlighter, .eraser: drawingActive = true
-        case .none: drawingActive = false
+        case .pen, .highlighter(_), .eraser(_):
+            drawingActive = true
+        case .none:
+            drawingActive = false
         }
         
-        // Our drawing: 1-finger when active; disabled when no tool
-        self.drawPan.isEnabled = drawingActive
+        // Long press drives pen / highlighter drawing
+        switch tool {
+        case .pen, .highlighter(_):
+            
+            self.longPressGesture.isEnabled = true
+            
+        case .eraser(_), .none:
+            
+            self.longPressGesture.isEnabled = true // guarded in handler
+        }
+        
+        // Our pan is only used for eraser now
+        switch tool {
+        case .eraser(_):
+            
+            self.drawPan.isEnabled = true
+            
+        case .pen, .highlighter(_), .none:
+            
+            self.drawPan.isEnabled = false
+            
+        }
         
         // PDF scroll: always enabled; 1-finger when no tool, 2-finger when drawing
         self.pdfScrollView?.isScrollEnabled = true
         self.scrollPan?.isEnabled = true
         self.scrollPan?.minimumNumberOfTouches = drawingActive ? 2 : 1
         
-        // When drawing, make scroll wait for drawPan
+        // When erasing, make scroll wait for drawPan
+        if case .eraser(_) = tool,
+           let scrollPan {
+            scrollPan.require(toFail: self.drawPan)
+        }
+        
+        // Live preview visibility
         if drawingActive {
             
-            if let scrollPan { scrollPan.require(toFail: self.drawPan) }
             self.liveLayer.isHidden = false
             self.liveLayer.opacity = 1
             
@@ -375,9 +418,10 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     private func handlePan(_ gesture: UIPanGestureRecognizer) {
         
         switch self.currentTool {
-        case .pen, .highlighter:
+        case .pen, .highlighter(_):
             
-            self.handleDrawPan(gesture)
+            // Drawing is handled via long press for pen / highlighter
+            break
             
         case .eraser(let mode):
             
@@ -388,7 +432,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
                     self.eraseLastStroke()
                 }
                 
-            case .byHitTest: self.handleEraseHitTestPan(gesture)
+            case .byHitTest:
+                
+                self.handleEraseHitTestPan(gesture)
             }
             
         case .none:
@@ -397,14 +443,21 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    // MARK: Drawing
+    // MARK: Drawing (Long Press – Pen / Highlighter)
     
-    private func handleDrawPan(_ gesture: UIPanGestureRecognizer) {
+    @objc
+    private func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        
+        switch self.currentTool {
+        case .pen, .highlighter(_):
+            break
+        case .eraser(_), .none:
+            return
+        }
         
         switch gesture.state {
         case .began:
             
-            guard self.currentTool != .none else { return }
             guard gesture.numberOfTouches == 1 else { return }
             
             self.pdfScrollView?.isScrollEnabled = false
@@ -429,7 +482,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             guard self.currentTool != .none else { return }
             
-            if let page = self.currentPage, gesture.numberOfTouches == 1 {
+            if let page = self.currentPage,
+               gesture.numberOfTouches == 1 {
                 
                 let viewPoint = gesture.location(in: self.pdfView)
                 let pagePoint = self.pdfView.convert(viewPoint, to: page)
@@ -457,7 +511,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         switch self.currentTool {
         case .pen:
-
+            
             return (self.strokeColor, self.strokeWidth, 1.0)
             
         case .highlighter(let alpha):
@@ -466,7 +520,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             let width = self.strokeWidth * 3 * 2
             return (self.strokeColor, width, clamped)
             
-        case .eraser:
+        case .eraser(_):
             
             return (self.strokeColor, self.strokeWidth, 1.0) // unused
             
@@ -482,6 +536,27 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             self.cleanupAfterStroke()
             return
+            
+        }
+        
+        // If we have a path but zero-sized bounds (tap only),
+        // convert it into a small dot so even the simplest interaction
+        // produces ink.
+        if self.pathPageSpace.isEmpty == false,
+           self.pathPageSpace.bounds.size == .zero {
+            
+            let point = self.pathPageSpace.currentPoint
+            let radius = max(self.strokeWidth, 1.0) / 2.0
+            
+            let dotRect = CGRect(
+                x: point.x - radius,
+                y: point.y - radius,
+                width: radius * 2.0,
+                height: radius * 2.0
+            )
+            
+            let dotPath = UIBezierPath(ovalIn: dotRect)
+            self.pathPageSpace = dotPath
             
         }
         
@@ -536,7 +611,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    private func eraseNearestAnnotation(at point: CGPoint, on page: PDFPage) {
+    private func eraseNearestAnnotation(at point: CGPoint,
+                                        on page: PDFPage) {
         
         let annotations = page.annotations
         guard annotations.isEmpty == false else { return }
@@ -599,7 +675,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             y: -bounds.origin.y
         ))
         
-        let ink = PDFAnnotation(bounds: bounds, forType: .ink, withProperties: nil)
+        let ink = PDFAnnotation(bounds: bounds,
+                                forType: .ink,
+                                withProperties: nil)
         ink.color = color
         ink.backgroundColor = .clear
         ink.shouldDisplay = true
@@ -614,7 +692,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    private func pushUndo(annotation: PDFAnnotation, on page: PDFPage) {
+    private func pushUndo(annotation: PDFAnnotation,
+                          on page: PDFPage) {
         
         guard let doc = self.pdfView.document else { return }
         
@@ -627,7 +706,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    private func pushRedoAfterRemoval(_ removed: PDFAnnotation, on page: PDFPage) {
+    private func pushRedoAfterRemoval(_ removed: PDFAnnotation,
+                                      on page: PDFPage) {
         
         guard let doc = self.pdfView.document else { return }
         
@@ -691,7 +771,8 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         let canUndo = (self.undoStacks[idx]?.isEmpty == false)
         let canRedo = (self.redoStacks[idx]?.isEmpty == false)
         
-        self.onAction(.undoAvailability(canUndo: canUndo, canRedo: canRedo))
+        self.onAction(.undoAvailability(canUndo: canUndo,
+                                        canRedo: canRedo))
         
     }
     
@@ -706,7 +787,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         if let doc = self.pdfView.document,
            let page = self.pdfView.currentPage {
-            self.onAction(.didJumpToPage(index: doc.index(for: page), count: doc.pageCount))
+            
+            self.onAction(.didJumpToPage(index: doc.index(for: page),
+                                         count: doc.pageCount))
         }
         
     }
@@ -728,7 +811,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ g: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
-        other is UIPinchGestureRecognizer
+        return other is UIPinchGestureRecognizer
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -756,6 +839,7 @@ private extension CGRect {
 private extension CGPoint {
     
     func distance(to other: CGPoint) -> CGFloat {
+        
         let dx = self.x - other.x
         let dy = self.y - other.y
         return sqrt(dx * dx + dy * dy)
