@@ -131,6 +131,17 @@ struct MockModels {
         
     }
     
+    static var allForms: [Form] {
+        
+        return [
+            MockForm.form1,
+            MockForm.form2,
+            MockForm.form3,
+            MockForm.form4,
+        ]
+        
+    }
+    
     struct ID {
         
         static let user1: String = UUID().uuidString
@@ -223,6 +234,11 @@ struct MockModels {
         static let note2: String = UUID().uuidString
         static let note3: String = UUID().uuidString
         static let note4: String = UUID().uuidString
+        
+        static let form1: String = UUID().uuidString
+        static let form2: String = UUID().uuidString
+        static let form3: String = UUID().uuidString
+        static let form4: String = UUID().uuidString
         
         static let collage1: String = UUID().uuidString
         static let collage2: String = UUID().uuidString
@@ -1380,6 +1396,50 @@ struct MockModels {
                 message: "This is your first visit. Welcome! Please let me know if you have any questions.",
                 employeeSignature: "Test Signature",
                 createdAt: Date().addingTimeInterval(-6555656).toISO()
+            )
+        }
+        
+    }
+    
+    struct MockForm {
+        
+        nonisolated(unsafe)
+        static var form1: Form {
+            Form(
+                id: ID.form1,
+                locationId: ID.location1,
+                title: "First Form",
+                mediaURL: MockMedia.media25.url
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var form2: Form {
+            Form(
+                id: ID.form2,
+                locationId: ID.location1,
+                title: "Second Form",
+                mediaURL: MockMedia.media26.url
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var form3: Form {
+            Form(
+                id: ID.form3,
+                locationId: ID.location3,
+                title: "Third Form",
+                mediaURL: MockMedia.media27.url
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var form4: Form {
+            Form(
+                id: ID.form4,
+                locationId: ID.location4,
+                title: "Fourth Form",
+                mediaURL: MockMedia.media28.url
             )
         }
         

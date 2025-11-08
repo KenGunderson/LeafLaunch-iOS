@@ -13,7 +13,7 @@ protocol Navigation {
 
 enum Route: Navigation, Hashable, Sendable {
     
-    enum Auth {
+    enum AuthRoute {
         
         case welcome
         case login
@@ -21,7 +21,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Onboarding: Hashable {
+    enum OnboardingRoute: Hashable {
         
         case businessSetup
         case locationControl
@@ -32,7 +32,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Business: Hashable, Sendable {
+    enum BusinessRoute: Hashable, Sendable {
         
         case businessHome(businessId: String)
         case businessDetails(businessId: String)
@@ -60,7 +60,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Client: Hashable {
+    enum ClientRoute: Hashable {
         
         case clientCreate(locationId: String,
                           clientId: String? = nil)
@@ -84,7 +84,8 @@ enum Route: Navigation, Hashable, Sendable {
                      mediaFilterOptions: MediaType = .image)
         
         case review(context: MediaReviewViewModel.Context,
-                    images: [UIImage])
+                    images: [UIImage],
+                    removeAction: (UIImage) -> Void)
         
     }
     
@@ -105,7 +106,17 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum Setting: String, CaseIterable {
+    enum FormRoute: Hashable, Sendable {
+        
+        case formList(context: FormListViewModel.Context,
+                      mode: FormListViewModel.Mode)
+        
+        case formCreateEdit(formId: String?,
+                            mediaURL: URL?)
+        
+    }
+    
+    enum SettingRoute: String, CaseIterable {
         
         case profile
         case subscription
@@ -172,7 +183,7 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    enum DevSetting: String, CaseIterable {
+    enum DevSettingRoute: String, CaseIterable {
         
         case components
         case userDefaults
@@ -216,21 +227,22 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
-    case devSetting(DevSetting)
-    case auth(Auth)
-    case onboarding(Onboarding)
-    case setting(Setting)
-    case business(Business)
-    case client(Client)
+    case devSetting(DevSettingRoute)
+    case auth(AuthRoute)
+    case onboarding(OnboardingRoute)
+    case setting(SettingRoute)
+    case business(BusinessRoute)
+    case client(ClientRoute)
     case media(MediaRoute)
     case collage(CollageRoute)
     case note(NoteRoute)
+    case form(FormRoute)
     
 }
 
-extension Route.Business {
+extension Route.BusinessRoute {
     
-    static func == (lhs: Route.Business, rhs: Route.Business) -> Bool {
+    static func == (lhs: Route.BusinessRoute, rhs: Route.BusinessRoute) -> Bool {
         
         switch (lhs, rhs) {
         case let (.businessHome(id1), .businessHome(id2)):
@@ -248,7 +260,7 @@ extension Route.Business {
             return b1 == b2 && l1 == l2
         case let (.businessEmployees(b1, c1), .businessEmployees(b2, c2)):
             return b1 == b2 && c1 == c2
-        case let (.businessEmployeesInvite(b1), .businessEmployeesInvite(b2)):
+        case let (.businessEmployeesInvite(b1, _), .businessEmployeesInvite(b2, _)):
             return b1 == b2
         case let (.businessEmployeeInviteList(c1), .businessEmployeeInviteList(c2)):
             return c1 == c2
@@ -307,6 +319,60 @@ extension Route.Business {
         case let .businessActivitiesList(c):
             hasher.combine(12)
             hasher.combine(c)
+        }
+        
+    }
+    
+}
+
+extension Route.FormRoute {
+    
+    static func == (lhs: Route.FormRoute, rhs: Route.FormRoute) -> Bool {
+        
+        switch (lhs, rhs) {
+        case let (.formList(_, mode), .formList(_, mode2)): return mode == mode2
+        case let (.formCreateEdit(id, _), .formCreateEdit(id2, _)): return id == id2
+        case (.formCreateEdit(formId: let formId, _), .formList(context: let context, mode: _)): return formId == context.analyticsName
+        case (.formList(context: let context, _), .formCreateEdit(formId: let formId, _)): return formId == context.analyticsName
+        }
+        
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        
+        switch self {
+        case let .formList(_, id):
+            hasher.combine(0)
+            hasher.combine(id)
+        case let .formCreateEdit(formId, _):
+            hasher.combine(formId)
+        }
+        
+    }
+    
+}
+
+extension Route.MediaRoute {
+    
+    static func == (lhs: Route.MediaRoute, rhs: Route.MediaRoute) -> Bool {
+        
+        switch (lhs, rhs) {
+        case (.camera, .camera): return true
+        case (.preview, .preview): return true
+        case (.gallery, .gallery): return true
+        case (.review, .review): return true
+        default: return false
+        }
+        
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        
+        switch self {
+        case .camera: hasher.combine(0)
+        case .preview: hasher.combine(1)
+        case .gallery: hasher.combine(2)
+        case .review: hasher.combine(3)
         }
         
     }

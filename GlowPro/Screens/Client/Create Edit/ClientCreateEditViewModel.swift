@@ -230,7 +230,7 @@ final class ClientCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while saving your client. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .create, "client"),
                             action: {})
                     ))
                 )
@@ -307,7 +307,7 @@ final class ClientCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while updating your client. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .update, "client"),
                             action: {})
                     ))
                 )

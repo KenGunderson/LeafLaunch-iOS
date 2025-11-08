@@ -245,6 +245,24 @@ struct BusinessLocationHomeScreen: GPView {
                     
                 }
                 
+                QuickActionTileView(
+                    icon: ActivityCategory.form.icon,
+                    iconBackgroundColor: .color(ActivityCategory.form.color),
+                    title: "All Forms",
+                    subtitle: "\(self.viewModel.location?.totalFormsCount ?? 0)",
+                    prominentSubtitle: true
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.form(.formList(
+                            context: .location(locationId: self.viewModel.locationId),
+                            mode: .preview
+                        )))
+                    
+                }
+                
             }
             
         }

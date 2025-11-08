@@ -102,6 +102,10 @@ final class NoteCreateEditViewModel: ViewModel {
         return self.activeDestinationService.locationEmployee?.user.fullName ?? ""
     }
     
+    var locationId: String {
+        return self.activeDestinationService.locationEmployee?.locationId ?? ""
+    }
+    
     init(apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,

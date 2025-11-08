@@ -11,13 +11,13 @@ enum GhostOverlayCategory: String,
                            Hashable,
                            CaseIterable {
     
+    case custom
     case head
     case neck
     case chest
     case arms
     case abdomen
     case hips
-    case custom
     
     var displayName: String {
         return self.rawValue.uppercased()
@@ -26,6 +26,10 @@ enum GhostOverlayCategory: String,
     var images: [GhostOverlayView.GhostOverlayItem] {
         
         switch self {
+            
+        case .custom:
+            return [.init(id: "CUSTOM", image: .systemImage("photo"))]
+            
         case .head:
             
             return [
@@ -81,9 +85,6 @@ enum GhostOverlayCategory: String,
                 .init(id: "25", image: .image(.hipProLeft)),
                 .init(id: "26", image: .image(.hipProRight)),
             ]
-            
-        case .custom:
-            return [.init(id: "CUSTOM", image: .systemImage("photo"))]
         }
         
     }

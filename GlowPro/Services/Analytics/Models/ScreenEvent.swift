@@ -331,6 +331,59 @@ indirect enum ScreenEvent: AnalyticsEvent {
         
     }
     
+    enum FormScreen {
+        
+        case formList(context: FormListViewModel.Context,
+                      mode: FormListViewModel.Mode)
+        
+        case formCreateEdit(formId: String?)
+        
+        var screenName: String {
+            
+            var name: String
+            
+            switch self {
+            case .formList: name = "list"
+            case .formCreateEdit: name = "create_edit"
+            }
+            
+            return "form.\(name)"
+            
+        }
+        
+        var properties: [String: Any]? {
+            
+            switch self {
+            case .formList(let context, let locationId):
+                
+                var locationId: String?
+                var businessId: String?
+                
+                switch context {
+                case .business(let contextBusinessId): businessId = contextBusinessId
+                case .location(let contextLocationId): locationId = contextLocationId
+                }
+                
+                return [
+                    "context": context.analyticsName,
+                    "location_id": locationId,
+                    "business_id": businessId
+                ]
+                .compact()
+                
+            case .formCreateEdit(let formId):
+                
+                return [
+                    "context": formId == nil ? "create" : "edit",
+                    "form_id": formId
+                ]
+                .compact()
+            }
+            
+        }
+        
+    }
+    
     enum SubscriptionScreen {
         
         case paywall
@@ -442,6 +495,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case collage(CollageScreen)
     case profile(ProfileScreen)
     case note(NoteScreen)
+    case form(FormScreen)
     case subscription(SubscriptionScreen)
     case whatsNew
     case settings(Settings)
@@ -483,6 +537,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.properties
             
         case .note(let screen):
+            
+            screenName = screen.screenName
+            properties = screen.properties
+            
+        case .form(let screen):
             
             screenName = screen.screenName
             properties = screen.properties

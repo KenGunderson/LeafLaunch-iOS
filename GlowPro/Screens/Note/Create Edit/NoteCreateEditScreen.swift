@@ -611,22 +611,41 @@ struct NoteCreateEditScreen: View {
             deleteAction: nil,
             action: {
                 
-                // TODO: - REMOVE THIS WHEN WE HAVE REAL DIAGRAMS
-                if let pdfURL = Bundle.main.url(forResource: "PainDiagram", withExtension: "pdf"),
-                   let pdfDoc = PDFDocument(url: pdfURL) {
-                    
-                    self.navigationService
-                        .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDoc) { data in
-                            
-                            self.viewModel
-                                .handlePDFDocumentSelection(data: data)
-                            
-                        })
-                    
-                }
+                pushDocumentPicker()
                 
             }
         )
+        
+    }
+    
+    private func pushDocumentPicker() {
+        
+        self.navigationService
+            .push(.form(.formList(
+                context: .location(locationId: self.viewModel.locationId),
+                mode: .singleSelection(completion: { form in
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        presentDocumentEdit(form: form)
+                    }
+                    
+                }))))
+        
+    }
+    
+    private func presentDocumentEdit(form: Form) {
+        
+        if let pdfDocument = PDFDocument(url: form.mediaURL) {
+            
+            self.navigationService
+                .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDocument) { data in
+                    
+                    self.viewModel
+                        .handlePDFDocumentSelection(data: data)
+                    
+                })
+            
+        }
         
     }
     

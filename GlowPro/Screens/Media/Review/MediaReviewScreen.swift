@@ -233,8 +233,9 @@ struct MediaReviewScreen: GPView {
                 .init(named: "illustration_tutorial_1")!,
                 .init(named: "illustration_tutorial_2")!,
                 .init(named: "illustration_tutorial_3")!
-            ]
-        )
+            ]) { _ in
+                
+            }
     
     MediaReviewScreen(viewModel: viewModel)
         .withMockServices()

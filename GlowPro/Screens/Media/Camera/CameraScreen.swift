@@ -339,7 +339,13 @@ public struct CameraScreen: View {
                     self.navigationService
                         .push(.media(.review(
                             context: .transformFromMediaContext(self.viewModel.context),
-                            images: self.viewModel.allImages
+                            images: self.viewModel.allImages,
+                            removeAction: { uiImage in
+                                
+                                self.viewModel
+                                    .removeUIImage(uiImage)
+                                
+                            }
                         )))
                     
                 }

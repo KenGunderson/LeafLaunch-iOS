@@ -168,6 +168,15 @@ protocol APIServiceProtocol: APIProtocol {
     func updateNote(note: Note) async throws
     func deleteNote(id: String) async throws
     
+    // Forms
+    
+    func getForms(businessId: String) async throws -> [Form]
+    func getForms(locationId: String) async throws -> [Form]
+    func getForm(formId: String) async throws -> Form
+    func createForm(form: Form) async throws
+    func updateForm(form: Form) async throws
+    func deleteForm(id: String) async throws
+    
     // Upload Media
     
     func uploadMedia(uploadMedia: UploadMedia) async throws -> String

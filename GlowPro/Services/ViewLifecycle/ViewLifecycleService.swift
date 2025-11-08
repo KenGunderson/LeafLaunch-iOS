@@ -18,6 +18,7 @@ enum ViewLifecycleKey: String, Hashable {
     
     case clientList
     case noteList
+    case formList
     
     case mediaPreview
     case mediaGallery

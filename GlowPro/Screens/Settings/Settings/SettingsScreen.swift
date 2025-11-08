@@ -100,7 +100,7 @@ struct SettingsScreen: GPView {
     
     private func content() -> some View {
         
-        var settings: [Route.Setting] = Route.Setting.allCases
+        var settings: [Route.SettingRoute] = Route.SettingRoute.allCases
         
         if !self.viewModel.shouldShowSecuritySetting {
             settings.removeAll { $0 == .security }
@@ -143,7 +143,7 @@ struct SettingsScreen: GPView {
         
     }
     
-    private func settingItem(_ item: Route.Setting) -> some View {
+    private func settingItem(_ item: Route.SettingRoute) -> some View {
         
         AppCardView(shadow: .subtle) {
             

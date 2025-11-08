@@ -154,6 +154,13 @@ final class CameraViewModel: ViewModel {
         
     }
     
+    func removeUIImage(_ uiImage: UIImage) {
+        
+        self.captureMode
+            .removePhoto(uiImage)
+        
+    }
+    
     func presentLeaveCameraAlert() {
         
         self.alertService

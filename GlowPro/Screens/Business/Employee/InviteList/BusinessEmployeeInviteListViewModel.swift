@@ -255,7 +255,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while deleting your employee invite. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .delete, "employee invite"),
                             action: {})
                     ))
                 )

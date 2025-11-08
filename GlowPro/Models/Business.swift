@@ -33,6 +33,7 @@ struct Business: Identifiable,
     var totalEmployeeCount: Int
     var totalMediaCount: Int
     var totalMediaTagCount: Int
+    var totalFormsCount: Int
     
     init(id: String,
          name: String,
@@ -52,6 +53,7 @@ struct Business: Identifiable,
          totalEmployeeCount: Int = 0,
          totalMediaCount: Int = 0,
          totalMediaTagCount: Int = 0,
+         totalFormsCount: Int = 0,
          clientsWithBirthdaysThisMonth: [Client] = []) {
         
         self.id = id
@@ -72,6 +74,7 @@ struct Business: Identifiable,
         self.totalEmployeeCount = totalEmployeeCount
         self.totalMediaCount = totalMediaCount
         self.totalMediaTagCount = totalMediaTagCount
+        self.totalFormsCount = totalFormsCount
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
         
     }
@@ -96,6 +99,7 @@ struct Business: Identifiable,
         case totalEmployeeCount = "total_employees"
         case totalMediaCount = "total_media"
         case totalMediaTagCount = "total_media_tags"
+        case totalFormsCount = "total_forms"
         case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"
         
     }

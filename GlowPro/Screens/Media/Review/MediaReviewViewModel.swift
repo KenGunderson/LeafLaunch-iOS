@@ -46,6 +46,7 @@ final class MediaReviewViewModel: ViewModel {
     private var cancelBag: CancelBag!
     
     private var context: Context!
+    private var removeAction: ((UIImage) -> Void)!
     
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -76,9 +77,11 @@ final class MediaReviewViewModel: ViewModel {
     
     @discardableResult
     func setup(context: Context,
-               images: [UIImage]) -> Self {
+               images: [UIImage],
+               removeAction: @escaping (UIImage) -> Void) -> Self {
         
         self.context = context
+        self.removeAction = removeAction
         
         let mediaFusion = images.map { MediaFusion(kind: .uiImage($0), isUploaded: false )}
         
@@ -156,8 +159,20 @@ final class MediaReviewViewModel: ViewModel {
     }
     
     func deleteMediaFusion(_ mediaFusionId: String) {
-                
+                        
+        // Remove From CameraViewModel First
+        
+        if let mediaIndex = self.images.firstIndex(where: { $0.id == mediaFusionId }),
+           let image = self.images[safe: mediaIndex]?.kind.image {
+            
+            self.removeAction?(image)
+            
+        }
+        
+        // Remove From Local
+        
         self.images.removeAll(where: { $0.id == mediaFusionId })
+
         
         if self.images.isEmpty {
             

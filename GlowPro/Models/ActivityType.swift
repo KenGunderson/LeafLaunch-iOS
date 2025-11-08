@@ -21,7 +21,10 @@ enum ActivityType: String, Codable, CaseIterable {
     case clientDeleted = "CLIENT_DELETED"
     case clientSummaryUpdated = "CLIENT_SUMMARY_UPDATED"
     
+    case formUploaded = "FORM_UPLOADED"
     case formCreated = "FORM_CREATED"
+    case formUpdated = "FORM_UPDATED"
+    case formDeleted = "FORM_DELETED"
     
     case noteCreated = "NOTE_CREATED"
     case noteUpdated = "NOTE_UPDATED"
@@ -60,6 +63,9 @@ enum ActivityType: String, Codable, CaseIterable {
         case .clientSummaryUpdated: return "Client Summary Updated"
             
         case .formCreated: return "Form Created"
+        case .formUploaded: return "Form Uploaded"
+        case .formUpdated: return "Form Updated"
+        case .formDeleted: return "Form Deleted"
             
         case .noteCreated: return "Note Added"
         case .noteUpdated: return "Note Updated"
@@ -99,7 +105,10 @@ enum ActivityType: String, Codable, CaseIterable {
              .clientDeleted,
              .clientSummaryUpdated: return ActivityCategory.client.color
             
-        case .formCreated : return ActivityCategory.form.color
+        case .formCreated,
+             .formUploaded,
+             .formUpdated,
+             .formDeleted: return ActivityCategory.form.color
             
         case .noteCreated,
              .noteUpdated,
@@ -138,7 +147,10 @@ enum ActivityType: String, Codable, CaseIterable {
              .clientDeleted,
              .clientSummaryUpdated: return ActivityCategory.client.icon
             
-        case .formCreated: return ActivityCategory.form.icon
+        case .formCreated,
+             .formUploaded,
+             .formUpdated,
+             .formDeleted: return ActivityCategory.form.icon
             
         case .noteCreated,
              .noteUpdated,

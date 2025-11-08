@@ -83,7 +83,7 @@ final class SettingsViewModel: ViewModel {
     }
     
     @MainActor
-    func selectSetting(_ setting: Route.Setting) {
+    func selectSetting(_ setting: Route.SettingRoute) {
         
         switch setting {
         case .logout:
@@ -158,6 +158,13 @@ final class SettingsViewModel: ViewModel {
                 
                 self.alertService
                     .dismissLoadingIndicator()
+                
+            }
+            
+            await MainActor.run { [weak self] in
+                
+                self?.isLoading = false
+                self?.isFirstLoad = false
                 
             }
             

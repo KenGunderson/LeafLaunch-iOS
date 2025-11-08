@@ -264,7 +264,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while updating your location. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .create, "location"),
                             action: {})
                     ))
                 )
@@ -318,7 +318,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while updating your location. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .update, "location"),
                             action: {})
                     ))
                 )

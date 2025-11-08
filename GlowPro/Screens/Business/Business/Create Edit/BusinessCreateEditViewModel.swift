@@ -264,7 +264,7 @@ final class BusinessCreateEditViewModel: ViewModel {
                 self.alertService.showAlert(.init(
                     .appAlert(
                         .error(
-                            message: "Something went wrong while updating your business. Please try again later.",
+                            message: Constants.Message.errorMessage(context: .update, "business"),
                             action: {})
                     ))
                 )

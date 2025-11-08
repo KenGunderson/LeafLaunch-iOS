@@ -113,6 +113,7 @@ final class MockAPIService: APIServiceProtocol {
     private var mediaTags: [MediaTag] = []
     private var activities: [Activity]
     private var notes: [Note] = []
+    private var forms: [Form] = []
     
     init() {
         
@@ -126,6 +127,7 @@ final class MockAPIService: APIServiceProtocol {
         self.mediaTags = MockModels.allMediaTags
         self.activities = MockModels.allActivities
         self.notes = MockModels.allNotes
+        self.forms = MockModels.allForms
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -886,6 +888,42 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     func deleteNote(id: String) async throws {
         self.notes.removeAll(where: { $0.id == id })
+    }
+    
+    // Forms
+    
+    func getForms(businessId: String) async throws -> [Form] {
+        
+        let businessLocationIds = Set(
+            businesses.flatMap { $0.locations.map(\.id) }
+        )
+
+        return forms.filter { businessLocationIds.contains($0.locationId) }
+        
+    }
+    
+    func getForms(locationId: String) async throws -> [Form] {
+        return self.forms.filter({ $0.locationId == locationId })
+    }
+    
+    func getForm(formId: String) async throws -> Form {
+        return self.forms.first(where: { $0.id == formId }) ?? .DUMMY_DATA()
+    }
+    
+    func createForm(form: Form) async throws {
+        self.forms.append(form)
+    }
+    
+    func updateForm(form: Form) async throws {
+        
+        if let index = self.forms.firstIndex(where: { $0.id == form.id }) {
+            self.forms[index] = form
+        }
+        
+    }
+    
+    func deleteForm(id: String) async throws {
+        self.forms.removeAll(where: { $0.id == id })
     }
     
     // System

@@ -27,6 +27,27 @@ public enum CameraCaptureMode: Hashable, Sendable {
         
     }
     
+    mutating func removePhoto(_ image: UIImage) {
+        
+        switch self {
+        case .single:
+            
+            self = .single(nil)
+            
+        case .multiple(var images):
+            
+            var newImages = images
+            
+            if let index = images.firstIndex(of: image) {
+                newImages.remove(at: index)
+            }
+
+            self = .multiple(newImages)
+            
+        }
+        
+    }
+    
     var latestPhoto: UIImage? {
         
         switch self {

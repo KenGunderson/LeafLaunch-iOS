@@ -189,7 +189,7 @@ struct DevSettingsScreen: GPView {
             
             VStack {
                 
-                ForEach(Route.DevSetting.allCases, id: \.rawValue) { route in
+                ForEach(Route.DevSettingRoute.allCases, id: \.rawValue) { route in
                     
                     listSectionItemView(
                         title: route.displayName,

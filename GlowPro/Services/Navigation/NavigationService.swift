@@ -122,12 +122,13 @@ extension View {
             case .media(let route): media(route: route)
             case .collage(let route): collage(route: route)
             case .note(let route): note(route: route)
+            case .form(let route): form(route: route)
             }
             
         }
         
         @ViewBuilder
-        func auth(route: Route.Auth) -> some View {
+        func auth(route: Route.AuthRoute) -> some View {
             
             switch route {
             case .welcome:
@@ -155,7 +156,7 @@ extension View {
         }
         
         @ViewBuilder
-        func onboarding(route: Route.Onboarding) -> some View {
+        func onboarding(route: Route.OnboardingRoute) -> some View {
             
             switch route {
             case .businessSetup:
@@ -194,7 +195,7 @@ extension View {
         }
         
         @ViewBuilder
-        func settings(route: Route.Setting) -> some View {
+        func settings(route: Route.SettingRoute) -> some View {
             
             switch route {
             case .profile:
@@ -256,7 +257,7 @@ extension View {
         }
         
         @ViewBuilder
-        func business(route: Route.Business) -> some View {
+        func business(route: Route.BusinessRoute) -> some View {
             
             switch route {
             case .businessHome(let businessId):
@@ -370,7 +371,7 @@ extension View {
         }
         
         @ViewBuilder
-        func client(route: Route.Client) -> some View {
+        func client(route: Route.ClientRoute) -> some View {
             
             switch route {
             case .clientCreate(let locationId, let clientId):
@@ -441,12 +442,13 @@ extension View {
                 MediaPreviewScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
-            case .review(let context, let images):
+            case .review(let context, let images, let removeAction):
                 
                 let viewModel = globalResolver.resolve(MediaReviewViewModel.self)!
                     .setup(
                         context: context,
-                        images: images
+                        images: images,
+                        removeAction: removeAction
                     )
                 
                 MediaReviewScreen(viewModel: viewModel)
@@ -485,6 +487,35 @@ extension View {
         }
         
         @ViewBuilder
+        func form(route: Route.FormRoute) -> some View {
+            
+            switch route {
+            case .formList(let context, let mode):
+                
+                let viewModel = globalResolver.resolve(FormListViewModel.self)!
+                    .setup(
+                        context: context,
+                        mode: mode
+                    )
+                
+                FormListScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .formCreateEdit(let formId, let mediaURL):
+                
+                let viewModel = globalResolver.resolve(FormCreateEditViewModel.self)!
+                    .setup(
+                        formId: formId,
+                        url: mediaURL
+                    )
+                
+                FormCreateEditScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
         func collage(route: Route.CollageRoute) -> some View {
             
             switch route {
@@ -503,7 +534,7 @@ extension View {
         }
         
         @ViewBuilder
-        func devSettings(route: Route.DevSetting) -> some View {
+        func devSettings(route: Route.DevSettingRoute) -> some View {
             
             switch route {
             case .components:
