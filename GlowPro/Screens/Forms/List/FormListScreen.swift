@@ -15,7 +15,7 @@ struct FormListScreen: GPView {
     @State private var showAddFileSheet: Bool = false
     
     var itemsPerRow: Int {
-        return ProcessInfo.processInfo.isIpad ? 4 : 2
+        return ProcessInfo.processInfo.isIpad ? 5 : 2
     }
             
     var body: some View {
@@ -117,30 +117,36 @@ struct FormListScreen: GPView {
         
     }
     
+    @ViewBuilder
     private func list(title: String,
                       forms: [Form]) -> some View {
         
-        VStack(spacing: Style.shared.spacing(.small)) {
+        if !forms.isEmpty {
             
-            SectionView(
-                leadingTitle: title,
-                showDivider: true
-            )
-            
-            LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: self.itemsPerRow),
-                spacing: 8
-            ) {
+            VStack(spacing: Style.shared.spacing(.small2)) {
                 
-                ForEach(forms, id: \.id) { form in
-                    formItem(form)
+                SectionView(
+                    leadingTitle: title,
+                    showDivider: true
+                )
+                
+                LazyVGrid(
+                    columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: self.itemsPerRow),
+                    spacing: 8
+                ) {
+                    
+                    ForEach(forms, id: \.id) { form in
+                        formItem(form)
+                    }
+                    
                 }
                 
             }
+            .compositingGroup()
+            .geometryGroup()
+            .transition(.move(edge: .top).combined(with: .scale).combined(with: .opacity))
             
         }
-        .compositingGroup()
-        .geometryGroup()
         
     }
     
@@ -156,10 +162,9 @@ struct FormListScreen: GPView {
                 contentMode: .fill,
                 placeholder: PlaceholderView().asAnyView()
             )
-            .scaledToFill()
             .frame(
                 width: width,
-                height: width + (width * 0.25)
+                height: width + (width * 0.40)
             )
             .clipped()
             .contentShape(.rect)
@@ -175,7 +180,10 @@ struct FormListScreen: GPView {
             .overlay(alignment: .topTrailing) {
                 
                 if !form.locationId.isEmpty {
+                    
                     contextMenu(form: form)
+                        .preferredColorScheme(.light)
+                    
                 }
                 
             }
@@ -187,6 +195,8 @@ struct FormListScreen: GPView {
                 .lineLimit(1)
             
         }
+        .compositingGroup()
+        .geometryGroup()
         
     }
     
@@ -208,7 +218,7 @@ struct FormListScreen: GPView {
             
             CircularIconView(
                 foregroundColor: .color(.black),
-                backgroundColor: .material(.thinMaterial),
+                backgroundColor: Style.shared.background(.quaternary),
                 imageSource: .systemImage("ellipsis"),
                 size: 32
             )

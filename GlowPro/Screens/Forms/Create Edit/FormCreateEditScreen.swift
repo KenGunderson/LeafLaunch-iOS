@@ -169,15 +169,11 @@ struct FormCreateEditScreen: GPView {
             
             DownsampledRemoteImage(
                 url: url,
-                targetSize: .init(width: 200, height: 240),
+                targetSize: .init(width: 200, height: 200),
                 contentMode: .fill,
                 placeholder: PlaceholderView().asAnyView()
             )
-            .scaledToFill()
-            .frame(
-                width: 200,
-                height: 240
-            )
+            .frame(width: 200)
             .clipped()
             .contentShape(.rect)
             .clipShape(.rect)
@@ -232,7 +228,7 @@ struct FormCreateEditScreen: GPView {
     let viewModel = mockResolve(FormCreateEditViewModel.self)
         .setup(
             formId: nil,
-            url: MockModels.allForms.first?.mediaURL
+            url: GlowProForm.canvas.url
         )
     
     FormCreateEditScreen(viewModel: viewModel)
