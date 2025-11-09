@@ -31,7 +31,10 @@ public struct CameraScreen: View {
         // Lifecycle
         
         .onAppear {
-            viewModel.setup()
+            self.viewModel.setup()
+        }
+        .onDisappear {
+            self.viewModel.teardown()
         }
         
         // On Change
