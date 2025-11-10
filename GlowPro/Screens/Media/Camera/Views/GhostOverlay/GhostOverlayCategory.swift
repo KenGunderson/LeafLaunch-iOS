@@ -11,7 +11,7 @@ enum GhostOverlayCategory: String,
                            Hashable,
                            CaseIterable {
     
-    case custom
+    case ghost
     case head
     case neck
     case chest
@@ -27,7 +27,7 @@ enum GhostOverlayCategory: String,
         
         switch self {
             
-        case .custom:
+        case .ghost:
             return [.init(id: "CUSTOM", image: .systemImage("photo"))]
             
         case .head:

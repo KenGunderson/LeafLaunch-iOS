@@ -17,7 +17,7 @@ public struct CameraScreen: View {
     @StateObject var viewModel: CameraViewModel
     
     @State private var showBottomOverlayDrawer: Bool = false
-    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .head
+    @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .ghost
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: Double = 1.0
     @State private var gridDivision: Int = 0
@@ -511,11 +511,22 @@ public struct CameraScreen: View {
                 
                 VStack(spacing: 0) {
                     
-                    NavBarButton(style: .close) {
-                        self.showBottomOverlayDrawer = false
+                    HStack {
+                        
+                        Text("Ghost Overlay:")
+                            .appFont(with: .TITLE_7)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                        
+                        Spacer()
+                        
+                        NavBarButton(style: .close) {
+                            self.showBottomOverlayDrawer = false
+                        }
+                        
                     }
-                    .padding([.top, .horizontal], .medium)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding([.vertical], .medium)
+                    .padding([.horizontal], .medium)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     GhostOverlayView(
                         selectedGhostOverlayItem: self.$selectedGhostOverlayItem,
@@ -611,6 +622,6 @@ public struct CameraScreen: View {
     let viewModel = mockResolve(CameraViewModel.self)
     
     CameraScreen(viewModel: viewModel)
-        .withMockServices()
+        .withMockServices(withNaivgationService: true)
     
 }
