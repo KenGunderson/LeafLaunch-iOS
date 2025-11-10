@@ -96,6 +96,8 @@ final class MediaGalleryViewModel: ViewModel {
 
     @Published private(set) var groups: [GroupedMedia] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    
+    @Published private(set) var isFirstLoad: Bool = true
 
     @Published private(set) var isEditMode: Bool = false
     @Published private(set) var editingMedia: [Media] = []
@@ -190,12 +192,17 @@ final class MediaGalleryViewModel: ViewModel {
 
     }
 
-    func loadData() {
+    func loadData(showHud: Bool = true) {
+        
         // Cancel any in-flight load
         self.loadTask?.cancel()
-
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
 
         let currentContext = self.mediaContext!
         let currentSorting = self.selectedSortingOption
@@ -203,9 +210,11 @@ final class MediaGalleryViewModel: ViewModel {
         let currentTags = self.selectedTags
 
         self.loadTask = Task { [weak self] in
+            
             guard let self else { return }
 
             do {
+                
                 var media: [Media] = []
 
                 switch currentContext {
@@ -250,6 +259,7 @@ final class MediaGalleryViewModel: ViewModel {
                 let all = self.groupedByMonth(media: media)
 
                 await MainActor.run { [weak self, media] in
+                    
                     guard let self else { return }
 
                     self.media = media
@@ -263,9 +273,13 @@ final class MediaGalleryViewModel: ViewModel {
 
                     self.shouldShowEmptyState = media.isEmpty
                     self.mediaTags = mediaTags
+                    self.isFirstLoad = false
+                    
                 }
+                
             }
             catch {
+                
                 if Task.isCancelled { return }
 
                 self.alertService.showAlert(.init(
@@ -279,26 +293,37 @@ final class MediaGalleryViewModel: ViewModel {
                     ))
                 )
             }
-
-            if !Task.isCancelled {
-                self.alertService
-                    .dismissLoadingIndicator()
+            
+            if showHud {
+                
+                if !Task.isCancelled {
+                    self.alertService
+                        .dismissLoadingIndicator()
+                }
+                
             }
+            
         }
 
     }
 
     func onGroupAppear(_ appearingGroup: GroupedMedia) {
+        
         guard let lastVisible = self.groups.last, lastVisible.id == appearingGroup.id else { return }
         self.loadNextSectionPageIfNeeded()
+        
     }
 
     private func loadNextSectionPageIfNeeded() {
+        
         guard self.nextGroupStartIndex < self.allGroups.count else { return }
+        
         let end = min(self.nextGroupStartIndex + self.sectionPageSize, self.allGroups.count)
         let slice = self.allGroups[self.nextGroupStartIndex..<end]
+        
         self.groups.append(contentsOf: slice)
         self.nextGroupStartIndex = end
+        
     }
 
     func select(_ selectedMedia: Media) {

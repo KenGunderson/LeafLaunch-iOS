@@ -45,7 +45,7 @@ struct MediaGalleryScreen: GPView {
         .task {
 
             self.viewModel
-                .loadData()
+                .loadData(showHud: self.viewModel.isFirstLoad)
 
         }
 
@@ -220,47 +220,51 @@ struct MediaGalleryScreen: GPView {
                 let placeholderView = PlaceholderView().asAnyView()
 
                 let width = (UIScreen.main.bounds.width - 32 - 8) / 3
-
-                ForEach(groupedMedia.media) { item in
-
-                    DownsampledRemoteImage(
-                        url: item.url,
-                        targetSize: .init(width: width, height: width),
-                        contentMode: .fill,
-                        placeholder: placeholderView
-                    )
-                    .frame(
-                        width: width,
-                        height: width
-                    )
-                    .clipped()
-                    .contentShape(.rect)
-                    .clipShape(.rect)
-                    .cornerRadius(.small)
-                    .appOnTapGesture {
-
-                        self.viewModel
-                            .select(item)
-
-                    }
-                    .overlay(alignment: .topTrailing) {
-
-                        if self.viewModel.isEditMode {
-
-                            let isSelected = self.viewModel.editingMedia.contains(where: { $0.id == item.id })
-                            editingView(isSelected: isSelected)
-
+                
+                autoreleasepool {
+                    
+                    ForEach(groupedMedia.media) { item in
+                        
+                        DownsampledRemoteImage(
+                            url: item.url,
+                            targetSize: .init(width: width, height: width),
+                            contentMode: .fill,
+                            placeholder: placeholderView
+                        )
+                        .frame(
+                            width: width,
+                            height: width
+                        )
+                        .clipped()
+                        .contentShape(.rect)
+                        .clipShape(.rect)
+                        .cornerRadius(.small)
+                        .appOnTapGesture {
+                            
+                            self.viewModel
+                                .select(item)
+                            
                         }
-
-                    }
-                    .overlay(alignment: .bottomTrailing) {
-
-                        if item.isFavorited && !self.viewModel.isEditMode {
-                            favoriteView()
+                        .overlay(alignment: .topTrailing) {
+                            
+                            if self.viewModel.isEditMode {
+                                
+                                let isSelected = self.viewModel.editingMedia.contains(where: { $0.id == item.id })
+                                editingView(isSelected: isSelected)
+                                
+                            }
+                            
                         }
-
+                        .overlay(alignment: .bottomTrailing) {
+                            
+                            if item.isFavorited && !self.viewModel.isEditMode {
+                                favoriteView()
+                            }
+                            
+                        }
+                        
                     }
-
+                    
                 }
 
             }

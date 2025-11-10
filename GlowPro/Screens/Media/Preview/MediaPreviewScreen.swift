@@ -150,32 +150,36 @@ struct MediaPreviewScreen: GPView {
                 
                 HStack(spacing: Style.shared.spacing(.custom(2))) {
                     
-                    ForEach(self.viewModel.media, id: \.id) { media in
+                    autoreleasepool {
                         
-                        let isSelected = (self.viewModel.selectedMedia?.id == media.id)
-                        
-                        DownsampledRemoteImage(
-                            url: media.url,
-                            targetSize: .init(
-                                width: 65,
-                                height: 65
-                            ),
-                            contentMode: .fill,
-                            placeholder: PlaceholderView().asAnyView()
-                        )
-                        .frame(width: 65, height: 65)
-                        .clipped()
-                        .appBorder(
-                            cornerRadius: .small,
-                            color: .color(isSelected ? GPColor.green : .clear),
-                            lineWidth: 3,
-                            outerBorder: false
-                        )
-                        .cornerRadius(.custom(9))
-                        .appOnTapGesture {
+                        ForEach(self.viewModel.media, id: \.id) { media in
                             
-                            self.viewModel
-                                .select(media: media)
+                            let isSelected = (self.viewModel.selectedMedia?.id == media.id)
+                            
+                            DownsampledRemoteImage(
+                                url: media.url,
+                                targetSize: .init(
+                                    width: 65,
+                                    height: 65
+                                ),
+                                contentMode: .fill,
+                                placeholder: PlaceholderView().asAnyView()
+                            )
+                            .frame(width: 65, height: 65)
+                            .clipped()
+                            .appBorder(
+                                cornerRadius: .small,
+                                color: .color(isSelected ? GPColor.green : .clear),
+                                lineWidth: 3,
+                                outerBorder: false
+                            )
+                            .cornerRadius(.custom(9))
+                            .appOnTapGesture {
+                                
+                                self.viewModel
+                                    .select(media: media)
+                                
+                            }
                             
                         }
                         
