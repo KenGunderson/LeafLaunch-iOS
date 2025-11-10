@@ -318,7 +318,8 @@ struct BusinessCreateEditScreen: GPView {
             
             CommonButton(
                 title: "Save",
-                isEnabled: self.viewModel.isSubmitButtonEnabled
+                isEnabled: self.viewModel.isSubmitButtonEnabled,
+                disabledOpacity: 0.75
             ) {
                 self.viewModel.createOrUpdate()
             }
