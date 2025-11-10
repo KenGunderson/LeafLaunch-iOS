@@ -199,25 +199,86 @@ final class FormListViewModel: ViewModel {
     func handleUploadURLResult(_ result: Result<[URL], Error>) {
         
         switch result {
-        case .success(let url):
+        case .success(let urls):
             
-            guard let fileURL = url.first else { return }
+            guard let fileURL = urls.first else {
+                return
+            }
+            
+            // Make sure it's a PDF (defensive, even if fileImporter filters)
+            guard fileURL.pathExtension.lowercased() == "pdf" else {
+                
+                presentWrongFileTypeAlert()
+                return
+                
+            }
+            
+            // Required for security-scoped URLs (File Provider / iCloud, etc.)
+            guard fileURL.startAccessingSecurityScopedResource() else {
+                
+                let error = NSError(
+                    domain: "PDFImport",
+                    code: 1,
+                    userInfo: [NSLocalizedDescriptionKey: "Unable to access imported file."]
+                )
+                
+                self.showError(error: error)
+                return
+                
+            }
+            
+            defer {
+                fileURL.stopAccessingSecurityScopedResource()
+            }
+            
+            let localURL: URL
+            
+            do {
+                
+                localURL = try self.persistImportedFile(at: fileURL)
+                
+            } catch {
+                
+                self.showError(error: error)
+                return
+                
+            }
             
             switch self.context! {
-            case .business: return
+            case .business:
+                return
+                
             case .location:
                 
                 self.navigationService?
                     .push(.form(.formCreateEdit(
                         formId: nil,
-                        mediaURL: fileURL
+                        mediaURL: localURL
                     )))
                 
             }
-
+            
         case .failure(let error):
             self.showError(error: error)
         }
+        
+    }
+    
+    private func persistImportedFile(at url: URL) throws -> URL {
+        
+        let fileManager = FileManager.default
+        
+        let destinationURL = fileManager
+            .temporaryDirectory
+            .appendingPathComponent(url.lastPathComponent)
+        
+        if fileManager.fileExists(atPath: destinationURL.path) {
+            try fileManager.removeItem(at: destinationURL)
+        }
+        
+        try fileManager.copyItem(at: url, to: destinationURL)
+        
+        return destinationURL
         
     }
     
@@ -252,6 +313,18 @@ final class FormListViewModel: ViewModel {
                 
             }
             .store(in: &self.cancelBag)
+        
+    }
+    
+    private func presentWrongFileTypeAlert() {
+        
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: "The file type you selected was not a PDF. We only support PDF files. Please select a different file.",
+                    action: {  })
+            ))
+        )
         
     }
     

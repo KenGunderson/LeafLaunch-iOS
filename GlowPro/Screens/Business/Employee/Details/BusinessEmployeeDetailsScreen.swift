@@ -50,6 +50,12 @@ struct BusinessEmployeeDetailsScreen: GPView {
     
     private func navBar() -> some View {
         
+        let shouldShowDeleteButton: Bool = (
+            self.viewModel.isOwnerOrManager &&
+            !self.viewModel.isEmployeeOwnerOrManager &&
+            self.viewModel.isCurrentEmployeeActiveEmployee
+        )
+        
         let backButton = NavBarButton(style: .back) {
             self.dismiss()
         }
@@ -66,7 +72,7 @@ struct BusinessEmployeeDetailsScreen: GPView {
         return NavBarView(
             title: "Employee Details",
             leftButtonView: backButton,
-            rightButtonView: self.viewModel.isOwnerOrManager ? deleteButton : nil
+            rightButtonView: shouldShowDeleteButton ? deleteButton : nil
         )
         
     }

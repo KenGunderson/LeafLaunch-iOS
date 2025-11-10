@@ -35,6 +35,10 @@ final class FormCreateEditViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
+    var isCreateContext: Bool {
+        return self.formId == nil
+    }
+    
     var navTitle: String {
         return self.formId == nil ? "Create Form" : "Edit Client"
     }

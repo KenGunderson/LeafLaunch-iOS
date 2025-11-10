@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 
 struct FormCreateEditScreen: GPView {
     
@@ -165,20 +166,54 @@ struct FormCreateEditScreen: GPView {
     @ViewBuilder
     private func mediaURLPreview() -> some View {
         
-        if let url = self.viewModel.url {
+        let targetSize: CGFloat = 200
+        
+        if self.viewModel.isCreateContext {
             
-            DownsampledRemoteImage(
-                url: url,
-                targetSize: .init(width: 200, height: 200),
-                contentMode: .fill,
-                placeholder: PlaceholderView().asAnyView()
-            )
-            .frame(width: 200)
-            .clipped()
-            .contentShape(.rect)
-            .clipShape(.rect)
-            .cornerRadius(.small)
-            .appShadow(.card)
+            if let url = self.viewModel.url,
+               let uiImage = makePDFPreviewImage(
+                from: url,
+                targetSize: .init(
+                    width: targetSize,
+                    height: targetSize
+                )) {
+                
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(
+                        width: targetSize,
+                        height: targetSize + (targetSize * 0.40)
+                    )
+                    .clipped()
+                    .contentShape(.rect)
+                    .clipShape(.rect)
+                    .cornerRadius(.small)
+                    .appShadow(.card)
+                
+            }
+            
+        } else {
+            
+            if let url = self.viewModel.url {
+                
+                DownsampledRemoteImage(
+                    url: url,
+                    targetSize: .init(width: targetSize, height: targetSize),
+                    contentMode: .fill,
+                    placeholder: PlaceholderView().asAnyView()
+                )
+                .frame(
+                    width: targetSize,
+                    height: targetSize + (targetSize * 0.40)
+                )
+                .clipped()
+                .contentShape(.rect)
+                .clipShape(.rect)
+                .cornerRadius(.small)
+                .appShadow(.card)
+                
+            }
             
         }
         
@@ -219,6 +254,51 @@ struct FormCreateEditScreen: GPView {
             
         }
         
+    }
+    
+    private func makePDFPreviewImage(from url: URL,
+                                     targetSize: CGSize) -> UIImage? {
+        
+        guard let document = PDFDocument(url: url),
+              let page = document.page(at: 0) else {
+            return nil
+        }
+        
+        let pageRect = page.bounds(for: .mediaBox)
+        
+        // Scale to fit targetSize while keeping aspect ratio
+        let scale = min(targetSize.width  / pageRect.width,
+                        targetSize.height / pageRect.height)
+        
+        let renderSize = CGSize(width: pageRect.width * scale,
+                                height: pageRect.height * scale)
+        
+        UIGraphicsBeginImageContextWithOptions(renderSize,
+                                               false,
+                                               0.0)
+        
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        
+        context.saveGState()
+        
+        // Flip coordinate system
+        context.translateBy(x: 0, y: renderSize.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        
+        // Scale PDF page into our context
+        context.scaleBy(x: scale, y: scale)
+        
+        page.draw(with: .mediaBox, to: context)
+        
+        context.restoreGState()
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
     }
     
 }

@@ -465,6 +465,9 @@
 		75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */; };
 		75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
 		75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
+		75C6F81C2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
+		75C6F81D2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
+		75C6F81E2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
 		75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
 		75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
 		75CB87732E4F84AB00FB7D78 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
@@ -1165,6 +1168,7 @@
 		75C67E492E765DA000BB29F0 /* NoteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewModel.swift; sourceTree = "<group>"; };
 		75C67E4C2E765DA500BB29F0 /* NoteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListScreen.swift; sourceTree = "<group>"; };
 		75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
+		75C6F81B2EC199EB0059DE9B /* Lined.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Lined.pdf; sourceTree = "<group>"; };
 		75CB876F2E4F81F400FB7D78 /* GPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTheme.swift; sourceTree = "<group>"; };
 		75CB87722E4F84A800FB7D78 /* GPFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPFont.swift; sourceTree = "<group>"; };
 		75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditViewModel.swift; sourceTree = "<group>"; };
@@ -1311,6 +1315,7 @@
 				7562BBA82EBF0AA000B84E4E /* Body.pdf */,
 				7562BBA92EBF0AA000B84E4E /* Canvas.pdf */,
 				7562BBAA2EBF0AA000B84E4E /* Face.pdf */,
+				75C6F81B2EC199EB0059DE9B /* Lined.pdf */,
 				4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */,
 				75260F592EB468BD00318960 /* Sample.pdf */,
 			);
@@ -2860,6 +2865,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
+				75C6F81D2EC199EB0059DE9B /* Lined.pdf in Resources */,
 				7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */,
 				4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
 				75260F5A2EB468BD00318960 /* Sample.pdf in Resources */,
@@ -2892,6 +2898,7 @@
 				75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */,
 				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
 				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
+				75C6F81C2EC199EB0059DE9B /* Lined.pdf in Resources */,
 				7562BBB12EBF0AA000B84E4E /* Face.pdf in Resources */,
 				7562BBB22EBF0AA000B84E4E /* Body.pdf in Resources */,
 				7562BBB32EBF0AA000B84E4E /* Canvas.pdf in Resources */,
@@ -2909,6 +2916,7 @@
 				75DD84BE2EAD728600DD8850 /* Preview Assets.xcassets in Resources */,
 				75DD84CC2EAD731300DD8850 /* GlowPro-Localhost-Info.plist in Resources */,
 				75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */,
+				75C6F81E2EC199EB0059DE9B /* Lined.pdf in Resources */,
 				7562BBAB2EBF0AA000B84E4E /* Face.pdf in Resources */,
 				7562BBAC2EBF0AA000B84E4E /* Body.pdf in Resources */,
 				7562BBAD2EBF0AA000B84E4E /* Canvas.pdf in Resources */,
@@ -3921,7 +3929,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GlowPro/GlowPro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -3962,7 +3970,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GlowPro/GlowPro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -4076,7 +4084,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "GlowPro-Dev/GlowPro Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -4118,7 +4126,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "GlowPro-Dev/GlowPro Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -4160,7 +4168,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "GlowPro-Localhost/GlowPro Localhost.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;
@@ -4202,7 +4210,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "GlowPro-Localhost/GlowPro Localhost.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"GlowPro/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = LAQ8XTJZM7;
 				ENABLE_PREVIEWS = YES;

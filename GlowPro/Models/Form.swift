@@ -14,11 +14,9 @@ enum GlowProForm: String,
     var id: String { self.rawValue }
     
     case canvas
+    case lined
     case face
     case body
-    
-    case painDiagram
-    case sample
     
     var displayName: String {
         
@@ -26,10 +24,9 @@ enum GlowProForm: String,
         
         switch self {
         case .canvas: name = "Canvas"
+        case .lined: name = "Lined Page"
         case .face: name = "Face"
         case .body: name = "Body Diagram"
-        case .painDiagram: name = "Pain Diagram"
-        case .sample: name = "Sample"
         }
         
         return name
@@ -42,10 +39,9 @@ enum GlowProForm: String,
         
         switch self {
         case .canvas: name = "Canvas"
+        case .lined: name = "Lined"
         case .face: name = "Face"
         case .body: name = "Body"
-        case .painDiagram: name = "PainDiagram"
-        case .sample: name = "Sample"
         }
         
         return Bundle.main
