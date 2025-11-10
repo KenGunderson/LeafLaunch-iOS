@@ -27,6 +27,7 @@ final class HomeViewModel: ViewModel {
     @Published private(set) var currentUser: GPUser?
     @Published private(set) var pendingInvites: [EmployeeInvite] = []
     @Published private(set) var workspaces: [Workspace] = []
+    @Published private(set) var simpleWorkspaces: [SimpleWorkspace] = []
     @Published private(set) var isFirstLoad: Bool = true
     
     var hasActiveBusiness: Bool {
@@ -138,12 +139,14 @@ final class HomeViewModel: ViewModel {
             do {
                 
                 let workspaces = try await self.apiService.getWorkspaces(userId: currentUser.id)
+                let simpleWorkspaces = try await self.apiService.getWorkspacesWhereNoLocationsAreAssignedToUser(userId: currentUser.id)
                 let pendingInvites = try await self.apiService.getPendingInvitesForUser(email: currentUser.email)
                                 
                 await MainActor.run { [weak self] in
 
                     self?.isFirstLoad = false
                     self?.workspaces = workspaces
+                    self?.simpleWorkspaces = simpleWorkspaces
                     self?.pendingInvites = pendingInvites
                     
                 }

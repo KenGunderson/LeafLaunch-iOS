@@ -197,6 +197,12 @@ struct HomeScreen: GPView {
                 
             }
             
+            ForEach(self.viewModel.simpleWorkspaces, id: \.id) { workspace in
+                
+                PendingLocationView(simpleWorkspace: workspace)
+                
+            }
+            
         }
         
     }

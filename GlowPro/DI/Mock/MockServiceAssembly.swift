@@ -363,6 +363,14 @@ final class MockAPIService: APIServiceProtocol {
         
     }
     
+    func getWorkspacesWhereNoLocationsAreAssignedToUser(userId: String) async throws -> [SimpleWorkspace] {
+        
+        return [
+            .init(id: "1", name: "Test Business Name")
+        ]
+        
+    }
+    
     // Employees
     
     func getEmployees(businessId: String) async throws -> [Employee] {

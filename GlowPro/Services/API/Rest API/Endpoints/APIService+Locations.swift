@@ -69,6 +69,25 @@ extension APIService {
         
     }
     
+    func getWorkspacesWhereNoLocationsAreAssignedToUser(userId: String) async throws -> [SimpleWorkspace] {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .location("businesses/\(userId)"))
+            )
+            
+            let result: [SimpleWorkspace] = try parseData(data: data)
+            return result
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func getLocation(id: String) async throws -> Location {
         
         do {

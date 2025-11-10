@@ -864,6 +864,9 @@
 		75E7B50C2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
+		75EAC4CF2EC2450900C7FEE1 /* PendingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EAC4CE2EC2450300C7FEE1 /* PendingLocationView.swift */; };
+		75EAC4D02EC2450900C7FEE1 /* PendingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EAC4CE2EC2450300C7FEE1 /* PendingLocationView.swift */; };
+		75EAC4D12EC2450900C7FEE1 /* PendingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EAC4CE2EC2450300C7FEE1 /* PendingLocationView.swift */; };
 		75EEA4162E865E1C00F33B9B /* GridOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EEA4152E865E1900F33B9B /* GridOverlayView.swift */; };
 		75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EEA4152E865E1900F33B9B /* GridOverlayView.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
@@ -1203,6 +1206,7 @@
 		75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppCardConfigView.swift; sourceTree = "<group>"; };
 		75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictCapture.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
+		75EAC4CE2EC2450300C7FEE1 /* PendingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingLocationView.swift; sourceTree = "<group>"; };
 		75EEA4152E865E1900F33B9B /* GridOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlayView.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
 		75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationSheet.swift; sourceTree = "<group>"; };
@@ -2254,6 +2258,7 @@
 				750B85EB2E48376C00417BA5 /* LocationCardView.swift */,
 				753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */,
 				7582A2D82E48145A0020BA28 /* PendingInviteView.swift */,
+				75EAC4CE2EC2450300C7FEE1 /* PendingLocationView.swift */,
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
@@ -3073,6 +3078,7 @@
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				751970142E3D021D007FB142 /* HomeScreen.swift in Sources */,
 				75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */,
+				75EAC4D02EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
@@ -3370,6 +3376,7 @@
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				751970152E3D021D007FB142 /* HomeScreen.swift in Sources */,
 				75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */,
+				75EAC4D12EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
 				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
@@ -3650,6 +3657,7 @@
 				75DD84292EAD728600DD8850 /* ImpersonateServiceProtocol.swift in Sources */,
 				75DD842A2EAD728600DD8850 /* HomeScreen.swift in Sources */,
 				75DD842B2EAD728600DD8850 /* NavHeader.swift in Sources */,
+				75EAC4CF2EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
 				75DD842C2EAD728600DD8850 /* AppDelegateServiceProtocol.swift in Sources */,
 				75DD842D2EAD728600DD8850 /* AnalyticsService.swift in Sources */,
 				75DD842E2EAD728600DD8850 /* AboutUsViewModel.swift in Sources */,
