@@ -144,7 +144,7 @@ struct FormListScreen: GPView {
             }
             .compositingGroup()
             .geometryGroup()
-            .transition(.move(edge: .top).combined(with: .scale).combined(with: .opacity))
+            .transition(.move(edge: .bottom).combined(with: .opacity))
             
         }
         
@@ -153,6 +153,12 @@ struct FormListScreen: GPView {
     private func formItem(_ form: Form) -> some View {
         
         let width = (UIScreen.main.bounds.width - 32 - 32) / CGFloat(self.itemsPerRow)
+        
+        let shouldShowContextMenu: Bool = (
+            !form.locationId.isEmpty &&
+            self.viewModel.mode == .preview &&
+            self.viewModel.context.isLocationContext
+        )
         
         return VStack {
             
@@ -179,7 +185,7 @@ struct FormListScreen: GPView {
             }
             .overlay(alignment: .topTrailing) {
                 
-                if !form.locationId.isEmpty {
+                if shouldShowContextMenu {
                     
                     contextMenu(form: form)
                         .preferredColorScheme(.light)
