@@ -20,7 +20,15 @@ enum GhostOverlayCategory: String,
     case hips
     
     var displayName: String {
-        return self.rawValue.uppercased()
+        switch self {
+        case .ghost: return "Ghost Photo"
+        case .head: return "Head"
+        case .neck: return "Neck"
+        case .chest: return "Chest"
+        case .arms: return "Arms"
+        case .abdomen: return "Abdomen"
+        case .hips: return "Hips"
+        }
     }
     
     var images: [GhostOverlayView.GhostOverlayItem] {
