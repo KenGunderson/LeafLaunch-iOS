@@ -104,7 +104,7 @@ struct PDFEditorView: View {
                 colorPicker()
                 pencilTool()
                 highlighterTool()
-                eraserTool()
+//                eraserTool()
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)

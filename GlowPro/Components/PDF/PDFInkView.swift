@@ -188,7 +188,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             let fit = self.pdfView.scaleFactorForSizeToFit
             self.pdfView.minScaleFactor = fit * 1.0
-            self.pdfView.maxScaleFactor = fit * 8.0
+            self.pdfView.maxScaleFactor = fit * 3.0
             self.pdfView.scaleFactor = fit
             
             self.configureGestures(for: self.currentTool)
