@@ -35,6 +35,8 @@ struct Business: Identifiable,
     var totalMediaTagCount: Int
     var totalFormsCount: Int
     
+    var businessSettings: BusinessSetting?
+    
     init(id: String,
          name: String,
          description: String? = nil,
@@ -76,6 +78,7 @@ struct Business: Identifiable,
         self.totalMediaTagCount = totalMediaTagCount
         self.totalFormsCount = totalFormsCount
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
+        self.businessSettings = nil
         
     }
     
@@ -101,6 +104,7 @@ struct Business: Identifiable,
         case totalMediaTagCount = "total_media_tags"
         case totalFormsCount = "total_forms"
         case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"
+        case businessSettings = "business_setting"
         
     }
     

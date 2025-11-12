@@ -24,6 +24,12 @@
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		7504EB882EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */; };
+		7504EB892EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */; };
+		7504EB8A2EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */; };
+		7504EB8C2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB8B2EC39CF8008C7A3C /* BusinessSetting.swift */; };
+		7504EB8D2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB8B2EC39CF8008C7A3C /* BusinessSetting.swift */; };
+		7504EB8E2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504EB8B2EC39CF8008C7A3C /* BusinessSetting.swift */; };
 		7505AFB02EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
 		7505AFB12EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
 		7505AFB22EB5BF2500AB2F73 /* NoteTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */; };
@@ -936,6 +942,8 @@
 		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+BusinessSettings.swift"; sourceTree = "<group>"; };
+		7504EB8B2EC39CF8008C7A3C /* BusinessSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSetting.swift; sourceTree = "<group>"; };
 		7505AFAF2EB5BF2500AB2F73 /* NoteTypeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTypeSelectionView.swift; sourceTree = "<group>"; };
 		750843322E5BDD780039B06B /* BusinessActivityListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListScreen.swift; sourceTree = "<group>"; };
 		750843352E5BDD860039B06B /* BusinessActivityListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessActivityListViewModel.swift; sourceTree = "<group>"; };
@@ -1813,6 +1821,7 @@
 				75A46EEC2E5E9F0D0057EF72 /* ActivityType.swift */,
 				75B731F52E14E58800038AD6 /* Address.swift */,
 				751F953B2E0B7D26001CAF72 /* Business.swift */,
+				7504EB8B2EC39CF8008C7A3C /* BusinessSetting.swift */,
 				75A1ACF62E55519900AFCECD /* BusinessCategory.swift */,
 				75A1ACF92E5551A300AFCECD /* BusinessSubcategory.swift */,
 				759B64782E04A75E006F4995 /* Client.swift */,
@@ -2640,6 +2649,7 @@
 			children = (
 				750843382E5C047D0039B06B /* APIService+Activity.swift */,
 				75F79D9F2E18263700E24BD3 /* APIService+Businesses.swift */,
+				7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */,
 				75F79DAC2E182A5D00E24BD3 /* APIService+Clients.swift */,
 				7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */,
 				750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */,
@@ -3097,6 +3107,7 @@
 				75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				753B7C4E2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
+				7504EB8D2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */,
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
 				75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2782E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
@@ -3130,6 +3141,7 @@
 				7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
+				7504EB8A2EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
 				75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				75A1ACFA2E5551A800AFCECD /* BusinessSubcategory.swift in Sources */,
@@ -3395,6 +3407,7 @@
 				75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				753B7C4D2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
+				7504EB8E2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */,
 				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
 				75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
 				75D6C2772E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
@@ -3428,6 +3441,7 @@
 				7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
+				7504EB882EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
 				75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				75A1ACFB2E5551A800AFCECD /* BusinessSubcategory.swift in Sources */,
@@ -3676,6 +3690,7 @@
 				75DD843A2EAD728600DD8850 /* EmptyStateOverlayModifier.swift in Sources */,
 				753B7C4F2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */,
+				7504EB8C2EC39CFB008C7A3C /* BusinessSetting.swift in Sources */,
 				75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */,
 				75DD843D2EAD728600DD8850 /* SecurityViewModel.swift in Sources */,
 				75DD843E2EAD728600DD8850 /* CameraPreviewView.swift in Sources */,
@@ -3709,6 +3724,7 @@
 				75DD84592EAD728600DD8850 /* BusinessLocationHomeScreen.swift in Sources */,
 				75DD845A2EAD728600DD8850 /* OnboardingPage.swift in Sources */,
 				75DD845B2EAD728600DD8850 /* OnboardingViewModel.swift in Sources */,
+				7504EB892EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
 				75DD845C2EAD728600DD8850 /* EmptyStateView.swift in Sources */,
 				75DD845D2EAD728600DD8850 /* OnboardingScreen.swift in Sources */,
 				75DD845E2EAD728600DD8850 /* BusinessSubcategory.swift in Sources */,

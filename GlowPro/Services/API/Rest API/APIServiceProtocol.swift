@@ -47,6 +47,13 @@ protocol APIServiceProtocol: APIProtocol {
     func updateBusiness(business: Business) async throws
     func deleteBusiness(id: String) async throws
     
+    // Business Settings
+    
+    func getBusinessSettings(businessId: String) async throws -> BusinessSetting
+    
+    func updateShouldReportScreenshot(businessId: String,
+                                      shouldReportScreenshot: Bool) async throws
+    
     // Locations
     
     func getLocations() async throws -> [Location]

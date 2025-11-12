@@ -298,7 +298,8 @@ final class RootViewModel: ViewModel {
             .sink { [weak self] _ in
                 
                 guard let businessId = self?.activeDestinationService.businessId else { return }
-                guard (self?.userDefaultsService.shouldReportScreenshots ?? false) else { return }
+                guard let business = self?.activeDestinationService.business else { return }
+                guard (business.businessSettings?.shouldReportScreenshot ?? false) else { return }
                 
                 Task { [weak self] in
                     try await self?.apiService.reportScreenshot(businessId: businessId)

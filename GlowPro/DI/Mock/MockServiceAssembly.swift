@@ -268,6 +268,17 @@ final class MockAPIService: APIServiceProtocol {
         return self.locations.removeAll { $0.id == id }
     }
     
+    // Business Settings
+    
+    func getBusinessSettings(businessId: String) async throws -> BusinessSetting {
+        return .DUMMY_DATA()
+    }
+    
+    func updateShouldReportScreenshot(businessId: String,
+                                      shouldReportScreenshot: Bool) async throws {
+        
+    }
+    
     // Locations
     
     func getLocations() async throws -> [Location] {
@@ -1401,7 +1412,6 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var impersonatingUserData: Data?
     var securityPinsDictionaryData: Data?
     var shouldHideScreenshots: Bool = false
-    var shouldReportScreenshots: Bool = false
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
@@ -1412,7 +1422,6 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
-    var shouldReportScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
     func set(theme: AvailableTheme) {}
     func set(didCompleteOnboarding: Bool) {}
@@ -1423,8 +1432,6 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
     func set(impersonatedUser: ImpersonatingUser?) {}
     func set(securityPin: String?, businessId: String) {}
     func set(shouldHideScreenshots: Bool) {}
-
-    func set(shouldReportScreenshots: Bool) {}
     
     func getSecurityPinForBusinessId(_ businessId: String) -> String? { return nil }
     

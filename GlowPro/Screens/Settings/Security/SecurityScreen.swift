@@ -35,7 +35,7 @@ struct SecurityScreen: GPView {
         .task {
             
             self.viewModel
-                .loadDataIfNeeded()
+                .loadData()
             
         }
         
@@ -255,7 +255,7 @@ struct SecurityScreen: GPView {
                         if success {
                             
                             self.viewModel
-                                .loadDataIfNeeded()
+                                .loadData()
                             
                         }
                         
