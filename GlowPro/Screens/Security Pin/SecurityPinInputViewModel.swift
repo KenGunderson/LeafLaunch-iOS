@@ -99,21 +99,25 @@ final class SecurityPinInputViewModel: ViewModel {
     
     func loadData() {
         
-        let pin = self.userDefaultsService.getSecurityPinForBusinessId(self.businessId)
-
-        if let pin  {
-            self.currentPin = pin
-        } else {
+        Task {
             
-            guard self.context == .validate else { return }
+            let pin = self.userDefaultsService.getSecurityPinForBusinessId(self.businessId)
             
-            self.alertService.showAlert(.init(
-                .appAlert(
-                    .error(
-                        message: "There is no pin set on this account; please contact support for assistance.",
-                        action: {})
-                ))
-            )
+            if let pin {
+                self.currentPin = pin
+            } else {
+                
+                guard self.context == .validate else { return }
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: "There is no pin set on this account; please contact support for assistance.",
+                            action: {})
+                    ))
+                )
+                
+            }
             
         }
         

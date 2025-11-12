@@ -19,7 +19,6 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var impersonatingUserData: Data? { get }
     var securityPinsDictionaryData: Data? { get }
     var shouldHideScreenshots: Bool { get }
-    var shouldReportScreenshots: Bool { get }
     
     var themePublisher: PassthroughSubject<AvailableTheme, Never> { get }
     var didCompleteOnboardingPublisher: PassthroughSubject<Bool, Never> { get }
@@ -30,7 +29,6 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var impersonatingUserDataPublisher: PassthroughSubject<Data?, Never> { get }
     var securityPinsDictionaryDataPublisher: PassthroughSubject<Data?, Never> { get }
     var shouldHideScreenshotsPublisher: PassthroughSubject<Bool, Never> { get }
-    var shouldReportScreenshotsPublisher: PassthroughSubject<Bool, Never> { get }
     
     func set(theme: AvailableTheme)
     func set(didCompleteOnboarding: Bool)
@@ -41,7 +39,6 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     func set(impersonatedUser: ImpersonatingUser?)
     func set(securityPin: String?, businessId: String)
     func set(shouldHideScreenshots: Bool)
-    func set(shouldReportScreenshots: Bool)
     func logout() async
     
     func getSecurityPinForBusinessId(_ businessId: String) -> String?

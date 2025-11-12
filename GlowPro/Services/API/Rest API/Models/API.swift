@@ -49,6 +49,7 @@ internal enum AppRoute {
     case user(String, version: Version = .none)
     case device(String, version: Version = .none)
     case business(String, version: Version = .none)
+    case businessSetting(String, version: Version = .none)
     
     case location(String, version: Version = .none)
     case locationEmployee(String, version: Version = .none)
@@ -81,6 +82,7 @@ internal enum AppRoute {
         case .user: return "users"
         case .device: return "devices"
         case .business: return "businesses"
+        case .businessSetting: return "business-settings"
         case .location: return "locations"
         case .locationEmployee: return "location-employees"
         case .employedLocation: return "employed-locations"
@@ -112,6 +114,7 @@ internal enum AppRoute {
         case .user(let route, let version),
              .device(let route, let version),
              .business(let route, let version),
+             .businessSetting(let route, let version),
              .location(let route, let version),
              .locationEmployee(let route, let version),
              .employedLocation(let route, let version),

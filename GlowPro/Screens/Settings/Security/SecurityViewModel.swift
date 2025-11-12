@@ -65,51 +65,45 @@ final class SecurityViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadDataIfNeeded() {
-        
-        self.shouldHideScreenshots = self.userDefaultsService
-            .shouldHideScreenshots
-        
-        self.shouldReportScreenshots = self.userDefaultsService
-            .shouldReportScreenshots
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.firstHideScreenshotUpdate = false
-        }
-        
-        if let businessId {
-            
-            self.businessPin = self.userDefaultsService
-                .getSecurityPinForBusinessId(businessId) ?? ""
-            
-        }
-        else {
-            loadData()
-        }
-
-    }
-    
-    private func loadData() {
-        
-        self.isLoading = true
-        
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+    func loadData() {
 
         Task {
+            
+            await MainActor.run {
+                
+                self.isLoading = true
+                
+                self.alertService
+                    .showAlert(.init(.simpleLoadingIndicator))
+                
+            }
             
             do {
                 
                 let workspaces = try await self.apiService
                     .getWorkspaces(userId: self.authService.currentUser?.id ?? "")
                 
-                await MainActor.run { [weak self] in
+                var businessSettings: BusinessSetting?
+                
+                if let myBusiness = workspaces.filter({ $0.isOwner }).first {
+                    
+                    businessSettings = try await self.apiService
+                        .getBusinessSettings(businessId: myBusiness.id)
+                    
+                }
+                
+                await MainActor.run { [weak self, businessSettings] in
                     
                     if let myBusiness = workspaces.filter({ $0.isOwner }).first {
                         
                         self?.businessId = myBusiness.id
-                        self?.businessPin = self?.userDefaultsService
-                            .getSecurityPinForBusinessId(myBusiness.id) ?? ""
+                        self?.businessPin = self?.userDefaultsService.getSecurityPinForBusinessId(myBusiness.id) ?? ""
+                        self?.shouldHideScreenshots = self?.userDefaultsService.shouldHideScreenshots ?? false
+                        self?.shouldReportScreenshots = businessSettings?.shouldReportScreenshot ?? false
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self?.firstHideScreenshotUpdate = false
+                        }
                         
                     }
                     
@@ -149,7 +143,7 @@ final class SecurityViewModel: ViewModel {
         self.userDefaultsService
             .set(securityPin: nil, businessId: businessId)
         
-        self.loadDataIfNeeded()
+        self.loadData()
         
     }
     
@@ -177,24 +171,24 @@ final class SecurityViewModel: ViewModel {
     
     func set(shouldReportScreenshots: Bool) {
         
-        self.userDefaultsService
-            .set(shouldReportScreenshots: shouldReportScreenshots)
+        guard let businessId else { return }
+        
+        Task {
+            
+            try await self.apiService
+                .updateShouldReportScreenshot(
+                    businessId: businessId,
+                    shouldReportScreenshot: shouldReportScreenshots
+                )
+            
+        }
+        
         
     }
 
     private func bindSubscribers() {
         
         self.cancelBag = CancelBag()
-        
-        self.userDefaultsService
-            .shouldReportScreenshotsPublisher
-            .sink { [weak self] shouldReport in
-                
-                guard shouldReport != self?.shouldReportScreenshots else { return }
-                self?.shouldReportScreenshots = shouldReport
-                
-            }
-            .store(in: &self.cancelBag)
         
         self.userDefaultsService
             .shouldHideScreenshotsPublisher
