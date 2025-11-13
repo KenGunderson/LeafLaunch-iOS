@@ -19,6 +19,8 @@ public final class PDFEditorViewModel: ObservableObject {
     @Published public var pageIndex: Int = 0
     @Published public var pageCount: Int = 0
     
+    @Published public var toolBeforeGesture: PDFTool?
+    
     public init() {}
     
 }

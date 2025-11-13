@@ -97,24 +97,39 @@ struct PDFEditorView: View {
     
     private func toolBar() -> some View {
         
-        HStack(spacing: Style.shared.spacing(.small)) {
+        VStack {
             
             HStack {
-
-                colorPicker()
-                pencilTool()
-                highlighterTool()
-//                eraserTool()
+                
+                scrollOrPanTool()
+                    .frame(
+                        maxWidth: .infinity,
+                        alignment: .leading
+                    )
+                
+                undoRedo()
                 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             
-            lineWidthSlider()
-                .offset(y: 5)
-            
-            Spacer(minLength: 24)
-            
-            undoRedo()
+            HStack(spacing: Style.shared.spacing(.small)) {
+                
+                HStack {
+                    
+                    colorPicker()
+                    pencilTool()
+                    highlighterTool()
+//                    eraserTool()
+                    
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    alignment: .leading
+                )
+                
+                lineWidthSlider()
+                    .offset(y: 5)
+                
+            }
             
         }
         .padding(.small)
@@ -201,6 +216,52 @@ struct PDFEditorView: View {
             
             self.pdfEditorViewModel.currentTool = eraserTool
             self.pdfCommand = .setTool(eraserTool)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func scrollOrPanTool() -> some View {
+        
+        let isSelected = self.pdfEditorViewModel.currentTool == .scrollAndPan
+        
+        let backgroundStyle = isSelected
+            ? Style.shared.accent
+            : Style.shared.background(.quaternary)
+        
+        let foregroundStyle = isSelected
+            ? Style.shared.textColor(.button)
+            : Style.shared.textColor(.title)
+     
+        TokenView(
+            text: "Zoom And Pan",
+            foregroundStyle: foregroundStyle,
+            backgroundStyle: backgroundStyle
+        )
+        .asButton {
+                        
+            if isSelected {
+                
+                self.pdfEditorViewModel
+                    .currentTool = self.pdfEditorViewModel.toolBeforeGesture ?? .pen
+                
+                self.pdfCommand = .setTool(self.pdfEditorViewModel.toolBeforeGesture ?? .pen)
+                
+                self.pdfEditorViewModel
+                    .toolBeforeGesture = nil
+                
+            } else {
+                
+                self.pdfEditorViewModel
+                    .toolBeforeGesture = self.pdfEditorViewModel.currentTool
+                
+                self.pdfEditorViewModel
+                    .currentTool = .scrollAndPan
+                
+                self.pdfCommand = .setTool(.scrollAndPan)
+                
+            }
             
         }
         

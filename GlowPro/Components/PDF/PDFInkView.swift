@@ -155,6 +155,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     }()
     
     private weak var scrollPan: UIPanGestureRecognizer?
+    private weak var scrollPinch: UIPinchGestureRecognizer?
     
     // MARK: Init
     
@@ -234,6 +235,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         
         // PDF Scroll Pan
         self.scrollPan = self.pdfScrollView?.panGestureRecognizer
+        self.scrollPinch = self.pdfScrollView?.pinchGestureRecognizer
         
         // Our Eraser / Utility Pan Recognizer
         self.addGestureRecognizer(self.drawPan)
@@ -295,7 +297,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             self.currentTool = tool
             self.onAction(.didChangeTool(tool))
-            self.liveLayer.opacity = (tool == .none) ? 0 : 1
+            self.liveLayer.opacity = (tool.isNoneOrScrollAndPan) ? 0 : 1
             self.configureGestures(for: tool)
             
         case .setStroke(let color):
@@ -359,8 +361,10 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         switch tool {
         case .pen, .highlighter(_), .eraser(_):
             drawingActive = true
-        case .none:
+            self.scrollPinch?.isEnabled = false
+        case .none, .scrollAndPan:
             drawingActive = false
+            self.scrollPinch?.isEnabled = true
         }
         
         // Long press drives pen / highlighter drawing
@@ -369,7 +373,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             self.longPressGesture.isEnabled = true
             
-        case .eraser(_), .none:
+        case .eraser(_), .none, .scrollAndPan:
             
             self.longPressGesture.isEnabled = true // guarded in handler
         }
@@ -380,7 +384,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             self.drawPan.isEnabled = true
             
-        case .pen, .highlighter(_), .none:
+        case .pen, .highlighter(_), .none, .scrollAndPan:
             
             self.drawPan.isEnabled = false
             
@@ -425,19 +429,20 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
         case .eraser(let mode):
             
-            switch mode {
-            case .lastStroke:
-                
-                if gesture.state == .ended {
-                    self.eraseLastStroke()
-                }
-                
-            case .byHitTest:
-                
-                self.handleEraseHitTestPan(gesture)
-            }
+            self.handleEraseHitTestPan(gesture)
+//            switch mode {
+//            case .lastStroke:
+//                
+//                if gesture.state == .ended {
+//                    self.eraseLastStroke()
+//                }
+//                
+//            case .byHitTest:
+//                
+//                self.handleEraseHitTestPan(gesture)
+//            }
             
-        case .none:
+        case .none, .scrollAndPan:
             break
         }
         
@@ -451,7 +456,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
         switch self.currentTool {
         case .pen, .highlighter(_):
             break
-        case .eraser(_), .none:
+        case .eraser(_), .none, .scrollAndPan:
             return
         }
         
@@ -524,7 +529,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             
             return (self.strokeColor, self.strokeWidth, 1.0) // unused
             
-        case .none:
+        case .none, .scrollAndPan:
             return (.red, 0, 0)
         }
         
@@ -811,7 +816,7 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ g: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
-        return other is UIPinchGestureRecognizer
+        return other is UIPinchGestureRecognizer || other is UIPanGestureRecognizer
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
