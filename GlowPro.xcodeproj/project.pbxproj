@@ -119,6 +119,15 @@
 		7527E1942E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
 		7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */; };
 		7527E1962E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */; };
+		752B721E2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B721D2EC7849E008D64D5 /* APIService+Subscriptions.swift */; };
+		752B721F2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B721D2EC7849E008D64D5 /* APIService+Subscriptions.swift */; };
+		752B72202EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B721D2EC7849E008D64D5 /* APIService+Subscriptions.swift */; };
+		752B72232EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72222EC78930008D64D5 /* StripeServiceProtocol.swift */; };
+		752B72242EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72222EC78930008D64D5 /* StripeServiceProtocol.swift */; };
+		752B72252EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72222EC78930008D64D5 /* StripeServiceProtocol.swift */; };
+		752B72272EC78AB2008D64D5 /* StripeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72262EC78AB0008D64D5 /* StripeService.swift */; };
+		752B72282EC78AB2008D64D5 /* StripeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72262EC78AB0008D64D5 /* StripeService.swift */; };
+		752B72292EC78AB2008D64D5 /* StripeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752B72262EC78AB0008D64D5 /* StripeService.swift */; };
 		753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */; };
 		753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */; };
 		753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420682E7A4F1500DE3BE4 /* MediaFusion.swift */; };
@@ -484,6 +493,9 @@
 		75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */; };
 		75CD6B6C2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
 		75CD6B6D2E20C583004A1720 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CD6B6B2E20C582004A1720 /* Role.swift */; };
+		75CE3DD32EC6F7700014E1D6 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE3DD22EC6F76E0014E1D6 /* Subscription.swift */; };
+		75CE3DD42EC6F7700014E1D6 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE3DD22EC6F76E0014E1D6 /* Subscription.swift */; };
+		75CE3DD52EC6F7700014E1D6 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE3DD22EC6F76E0014E1D6 /* Subscription.swift */; };
 		75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */; };
 		75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */; };
 		75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088832E690B85000B06B2 /* MediaTagScreen.swift */; };
@@ -992,6 +1004,9 @@
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
 		7527E1922E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteScreen.swift; sourceTree = "<group>"; };
+		752B721D2EC7849E008D64D5 /* APIService+Subscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Subscriptions.swift"; sourceTree = "<group>"; };
+		752B72222EC78930008D64D5 /* StripeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeServiceProtocol.swift; sourceTree = "<group>"; };
+		752B72262EC78AB0008D64D5 /* StripeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeService.swift; sourceTree = "<group>"; };
 		753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourceSelectionView.swift; sourceTree = "<group>"; };
 		753420682E7A4F1500DE3BE4 /* MediaFusion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFusion.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
@@ -1185,6 +1200,7 @@
 		75CD6B652E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditViewModel.swift; sourceTree = "<group>"; };
 		75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditScreen.swift; sourceTree = "<group>"; };
 		75CD6B6B2E20C582004A1720 /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		75CE3DD22EC6F76E0014E1D6 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagViewModel.swift; sourceTree = "<group>"; };
 		75D088832E690B85000B06B2 /* MediaTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagScreen.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1547,6 +1563,15 @@
 			path = Invite;
 			sourceTree = "<group>";
 		};
+		752B72212EC78923008D64D5 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				752B72222EC78930008D64D5 /* StripeServiceProtocol.swift */,
+				752B72262EC78AB0008D64D5 /* StripeService.swift */,
+			);
+			path = Stripe;
+			sourceTree = "<group>";
+		};
 		753420672E7A4F0C00DE3BE4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1838,6 +1863,7 @@
 				75C67E332E764C4300BB29F0 /* Note.swift */,
 				75CD6B6B2E20C582004A1720 /* Role.swift */,
 				756687282EAC872F00C3DC8E /* SubscriptionPaywallItem.swift */,
+				75CE3DD22EC6F76E0014E1D6 /* Subscription.swift */,
 				75F4DF5F2E4C4515003308CF /* Workspace.swift */,
 				753EC1992DB8BC5E00265B2A /* Service Models */,
 				753EC19D2DB8BC5E00265B2A /* System */,
@@ -2126,6 +2152,7 @@
 				7537F3FE2DF661EA0031D9CF /* Navigation */,
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
+				752B72212EC78923008D64D5 /* Stripe */,
 				7537F4152DF661EA0031D9CF /* UserDefaults */,
 				7537F4182DF661EA0031D9CF /* ViewLifecycle */,
 			);
@@ -2661,6 +2688,7 @@
 				750892A22E561F1500D6BC68 /* APIService+Media.swift */,
 				75C67E362E764E9000BB29F0 /* APIService+Notes.swift */,
 				7515DA852E7A72EA00617B06 /* APIService+Upload.swift */,
+				752B721D2EC7849E008D64D5 /* APIService+Subscriptions.swift */,
 				75A046522E37BE7300D5EFCD /* APIService+System.swift */,
 				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
@@ -2978,6 +3006,7 @@
 				750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
+				752B721E2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				7524E2662EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				753EC1A22DB8BC5E00265B2A /* PushNotification.swift in Sources */,
 				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
@@ -2994,6 +3023,7 @@
 				75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				75F131362E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */,
 				758DAEC72E05152200311C7C /* Activity.swift in Sources */,
+				752B72272EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
@@ -3138,6 +3168,7 @@
 				75A46EEE2E5E9F0F0057EF72 /* ActivityType.swift in Sources */,
 				750A18AD2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
+				75CE3DD42EC6F7700014E1D6 /* Subscription.swift in Sources */,
 				7560F8AB2E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
@@ -3151,6 +3182,7 @@
 				75A0464E2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */,
+				752B72232EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75EEA4162E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
@@ -3278,6 +3310,7 @@
 				750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087D2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
+				752B721F2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				7524E2672EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				75D66D2F2DC713C300E51CFC /* PushNotification.swift in Sources */,
 				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
@@ -3294,6 +3327,7 @@
 				75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */,
 				75F131352E74B6DA00E7636B /* FeatureRequestScreen.swift in Sources */,
 				758DAEC62E05152200311C7C /* Activity.swift in Sources */,
+				752B72282EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
@@ -3438,6 +3472,7 @@
 				75A46EED2E5E9F0F0057EF72 /* ActivityType.swift in Sources */,
 				750A18AC2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8A82E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
+				75CE3DD52EC6F7700014E1D6 /* Subscription.swift in Sources */,
 				7560F8A92E4D3C07002BA9D6 /* BusinessLocationHomeScreen.swift in Sources */,
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
@@ -3451,6 +3486,7 @@
 				75A0464C2E37BCDE00D5EFCD /* LegalViewModel.swift in Sources */,
 				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
 				754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */,
+				752B72242EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
@@ -3561,6 +3597,7 @@
 				75DD83C42EAD728600DD8850 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				75DD83C52EAD728600DD8850 /* MediaReviewViewModel.swift in Sources */,
 				75DD83C62EAD728600DD8850 /* EmptyStateConfig.swift in Sources */,
+				752B72202EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				7524E2652EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				75DD83C72EAD728600DD8850 /* PushNotification.swift in Sources */,
 				75DD83C82EAD728600DD8850 /* QuickActionTileView.swift in Sources */,
@@ -3577,6 +3614,7 @@
 				75DD83D22EAD728600DD8850 /* MediaTagScreen.swift in Sources */,
 				75DD83D32EAD728600DD8850 /* FeatureRequestScreen.swift in Sources */,
 				75DD83D42EAD728600DD8850 /* Activity.swift in Sources */,
+				752B72292EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				75DD83D52EAD728600DD8850 /* BusinessEmployeeInviteView.swift in Sources */,
 				75DD83D62EAD728600DD8850 /* BusinessLocationCreateEditScreen.swift in Sources */,
 				75DD83D72EAD728600DD8850 /* BusinessLocationCreateEditViewModel.swift in Sources */,
@@ -3721,6 +3759,7 @@
 				75DD84562EAD728600DD8850 /* ActivityType.swift in Sources */,
 				75DD84572EAD728600DD8850 /* GhostOverlayView.swift in Sources */,
 				75DD84582EAD728600DD8850 /* BusinessLocationHomeViewModel.swift in Sources */,
+				75CE3DD32EC6F7700014E1D6 /* Subscription.swift in Sources */,
 				75DD84592EAD728600DD8850 /* BusinessLocationHomeScreen.swift in Sources */,
 				75DD845A2EAD728600DD8850 /* OnboardingPage.swift in Sources */,
 				75DD845B2EAD728600DD8850 /* OnboardingViewModel.swift in Sources */,
@@ -3734,6 +3773,7 @@
 				75DD84622EAD728600DD8850 /* LegalViewModel.swift in Sources */,
 				75DD84632EAD728600DD8850 /* LogEvent.swift in Sources */,
 				75DD84642EAD728600DD8850 /* Ext+String.swift in Sources */,
+				752B72252EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				75DD84652EAD728600DD8850 /* BusinessHomeViewModel.swift in Sources */,
 				75DD84662EAD728600DD8850 /* GPColor.swift in Sources */,
 				75DD84672EAD728600DD8850 /* GridOverlayView.swift in Sources */,

@@ -154,6 +154,15 @@ class ServiceAssembly: Assembly {
                 )
             }.inObjectScope(.container)
         
+        // STRIPE
+        
+        container
+            .register(StripeServiceProtocol.self) { r in
+                StripeService(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                )
+            }.inObjectScope(.container)
+        
         // AUTH
         
         container
@@ -163,7 +172,8 @@ class ServiceAssembly: Assembly {
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     activeDestination: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    stripeService: r.resolve(StripeServiceProtocol.self)!
                 )
             }.inObjectScope(.container)
         

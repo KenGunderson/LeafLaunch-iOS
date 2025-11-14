@@ -19,7 +19,6 @@ struct Business: Identifiable,
     let email: String?
     let phoneNumber: String?
     let owner: GPUser
-    let isSubscribed: Bool
     let categories: [String]
     let subcategories: [String]
     var employees: [Employee]
@@ -36,6 +35,10 @@ struct Business: Identifiable,
     var totalFormsCount: Int
     
     var businessSettings: BusinessSetting?
+    
+    let stripeCustomerId: String?
+    let stripeSubscriptionProduct: StripeSubscriptionProduct?
+    let isSubscribed: Bool
     
     init(id: String,
          name: String,
@@ -56,7 +59,9 @@ struct Business: Identifiable,
          totalMediaCount: Int = 0,
          totalMediaTagCount: Int = 0,
          totalFormsCount: Int = 0,
-         clientsWithBirthdaysThisMonth: [Client] = []) {
+         clientsWithBirthdaysThisMonth: [Client] = [],
+         stripeCustomerId: String? = nil,
+         stripeSubscriptionProduct: StripeSubscriptionProduct? = nil) {
         
         self.id = id
         self.name = name
@@ -79,6 +84,8 @@ struct Business: Identifiable,
         self.totalFormsCount = totalFormsCount
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
         self.businessSettings = nil
+        self.stripeCustomerId = stripeCustomerId
+        self.stripeSubscriptionProduct = stripeSubscriptionProduct
         
     }
     
@@ -90,7 +97,6 @@ struct Business: Identifiable,
         case email
         case phoneNumber = "phone_number"
         case owner
-        case isSubscribed = "is_subscribed"
         case categories
         case subcategories
         case employees
@@ -105,7 +111,11 @@ struct Business: Identifiable,
         case totalFormsCount = "total_forms"
         case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"
         case businessSettings = "business_setting"
-        
+
+        case stripeCustomerId = "stripe_customer_id"
+        case stripeSubscriptionProduct = "stripe_subscription_product"
+        case isSubscribed = "is_subscribed"
+
     }
     
 }

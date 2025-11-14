@@ -71,6 +71,8 @@ internal enum AppRoute {
     case forms(String, version: Version = .none)
     case activity(String, version: Version = .none)
     
+    case subscriptions(String, version: Version = .none)
+    
     case uploadMedia(String, version: Version = .none)
     case featureRequest(String, version: Version = .none)
     case system(String, version: Version = .none)
@@ -97,6 +99,7 @@ internal enum AppRoute {
         case .notes: return "notes"
         case .forms: return "forms"
         case .activity: return "activities"
+        case .subscriptions: return "subscriptions"
         case .uploadMedia: return "upload-media"
         case .featureRequest: return "feature-requests"
         case .system: return "glowpro"
@@ -129,6 +132,7 @@ internal enum AppRoute {
              .notes(let route, let version),
              .forms(let route, let version),
              .activity(let route, let version),
+             .subscriptions(let route, let version),
              .uploadMedia(let route, let version),
              .featureRequest(let route, let version),
              .system(let route, let version):

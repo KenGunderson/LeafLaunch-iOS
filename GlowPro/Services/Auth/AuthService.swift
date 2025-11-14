@@ -20,6 +20,7 @@ final class AuthService: AuthServiceProtocol {
     private let activeDestination: ActiveDestinationServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let stripeService: StripeServiceProtocol
     
     @Published private(set) var currentUser: GPUser?
     var currentUserPublisher: AnyPublisher<GPUser?, Never> {
@@ -35,13 +36,15 @@ final class AuthService: AuthServiceProtocol {
          apiService: APIServiceProtocol,
          activeDestination: ActiveDestinationServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         stripeService: StripeServiceProtocol) {
         
         self.firebaseService = firebaseService
         self.apiService = apiService
         self.activeDestination = activeDestination
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.stripeService = stripeService
         
         bindSubscribers()
         self.logInit()
@@ -218,6 +221,7 @@ final class AuthService: AuthServiceProtocol {
             await self.userDefaultsService.logout()
             self.analyticsService.logout()
             self.activeDestination.logout()
+            self.stripeService.logout()
             self.currentUser = nil
             
         }

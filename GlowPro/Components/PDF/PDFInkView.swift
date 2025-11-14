@@ -427,20 +427,9 @@ final class InkContainer: UIView, UIGestureRecognizerDelegate {
             // Drawing is handled via long press for pen / highlighter
             break
             
-        case .eraser(let mode):
+        case .eraser:
             
             self.handleEraseHitTestPan(gesture)
-//            switch mode {
-//            case .lastStroke:
-//                
-//                if gesture.state == .ended {
-//                    self.eraseLastStroke()
-//                }
-//                
-//            case .byHitTest:
-//                
-//                self.handleEraseHitTestPan(gesture)
-//            }
             
         case .none, .scrollAndPan:
             break

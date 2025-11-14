@@ -37,6 +37,14 @@ struct MockModels {
         return [MockWorkspace.workspace1, MockWorkspace.workspace2]
     }
     
+    static var allSubscription: [StripeSubscription] {
+        return [MockSubscription.subscription1]
+    }
+    
+    static var allSubscriptionProducts: [StripeSubscriptionProduct] {
+        return [MockSubscriptionProduct.subscriptionProduct1, MockSubscriptionProduct.subscriptionProduct2]
+    }
+    
     static var allClients: [Client] {
         
         return [
@@ -244,6 +252,11 @@ struct MockModels {
         static let collage2: String = UUID().uuidString
         static let collage3: String = UUID().uuidString
         static let collage4: String = UUID().uuidString
+        
+        static let subscription1: String = UUID().uuidString
+        
+        static let subscriptionProduct1 : String = UUID().uuidString
+        static let subscriptionProduct2 : String = UUID().uuidString
     }
     
     struct MockWorkspace {
@@ -1440,6 +1453,61 @@ struct MockModels {
                 locationId: ID.location4,
                 title: "Fourth Form",
                 mediaURL: MockMedia.media28.url
+            )
+        }
+        
+    }
+    
+    struct MockSubscription {
+        
+        nonisolated(unsafe)
+        static var subscription1: StripeSubscription {
+            .init(
+                id: ID.subscription1,
+                businessId: ID.business1,
+                customerId: "mock_customer_id_1",
+                stripeSubscriptionId: "mock_stripe_subscription_id_1",
+                stripeProductId: ID.subscriptionProduct1,
+                status: .active,
+                deleted: false
+            )
+        }
+        
+    }
+    
+    struct MockSubscriptionProduct {
+        
+        nonisolated(unsafe)
+        static var subscriptionProduct1: StripeSubscriptionProduct {
+            .init(
+                id: ID.subscriptionProduct1,
+                name: "Tier 1",
+                description: "This is a description for Tier 1",
+                defaultPriceId: "default_price_id",
+                price: 2999,
+                active: true,
+                metadata: .init(
+                    totalNumberOfEmployees: 5,
+                    totalNumberOfLocations: 1,
+                    totalNumberOfMedia: 1500
+                )
+            )
+        }
+        
+        nonisolated(unsafe)
+        static var subscriptionProduct2: StripeSubscriptionProduct {
+            .init(
+                id: ID.subscriptionProduct2,
+                name: "Tier 2",
+                description: "This is a description for Tier 2",
+                defaultPriceId: "default_price_id",
+                price: 5999,
+                active: true,
+                metadata: .init(
+                    totalNumberOfEmployees: 10_000,
+                    totalNumberOfLocations: 2,
+                    totalNumberOfMedia: 3000
+                )
             )
         }
         

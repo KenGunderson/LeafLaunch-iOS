@@ -203,6 +203,12 @@ protocol APIServiceProtocol: APIProtocol {
     func submitFeatureRequest(userId: String,
                               request: String) async throws
     
+    // Subscription
+    
+    func getAllSubscriptionProducts() async throws -> [StripeSubscriptionProduct]
+    func getStripePaymentLink(businessId: String) async throws -> StripePaymentLink
+    func subscribe(businessId: String, productId: String, setupIntentId: String) async throws -> StripeSubscription
+    
 }
 
 extension APIProtocol {

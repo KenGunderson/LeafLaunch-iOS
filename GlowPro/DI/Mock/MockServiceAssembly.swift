@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseStorage
 import AppTrackingTransparency
 import Swinject
+import StripePaymentSheet
 import AVFoundation
 
 // MARK: - AnalyticsServiceProtocol
@@ -114,6 +115,8 @@ final class MockAPIService: APIServiceProtocol {
     private var activities: [Activity]
     private var notes: [Note] = []
     private var forms: [Form] = []
+    private var subscriptions: [StripeSubscription] = []
+    private var subscriptionProducts: [StripeSubscriptionProduct] = []
     
     init() {
         
@@ -128,6 +131,8 @@ final class MockAPIService: APIServiceProtocol {
         self.activities = MockModels.allActivities
         self.notes = MockModels.allNotes
         self.forms = MockModels.allForms
+        self.subscriptions = MockModels.allSubscription
+        self.subscriptionProducts = MockModels.allSubscriptionProducts
         
         var user = MockModels.MockUser.user1
         user.businesses = self.businesses
@@ -867,6 +872,40 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    // Subscriptions
+    
+    func getStripePaymentLink(businessId: String) async throws -> StripePaymentLink {
+        
+        return .init(
+            setupIntentId: "1",
+            setupIntentCustomerSecret: "1",
+            ephemeralKeySecret: "1",
+            customerId: "1",
+            publishableKey: "1"
+        )
+        
+    }
+    
+    func getAllSubscriptionProducts() async throws -> [StripeSubscriptionProduct] {
+        return self.subscriptionProducts
+    }
+    
+    func subscribe(businessId: String,
+                   productId: String,
+                   setupIntentId: String) async throws -> StripeSubscription {
+        
+        if let subscription = self.subscriptions.first {
+            return subscription
+        }
+        
+        throw APIError
+            .serverError(
+                statusCode: 404,
+                errorMessage: "Not found"
+            )
+        
+    }
+    
     // Upload Media
     
     func uploadMedia(uploadMedia: UploadMedia) async throws -> String {
@@ -1536,6 +1575,26 @@ final class MockMediaTransferService: MediaTransferServiceProtocol {
     
 }
 
+final class MockStripeService: StripeServiceProtocol {
+    
+    internal let loggerName: String = "STRIPE_SERVICE"
+    internal let loggerEmoji: String = "💳"
+    
+    func setupCustomer(businessId: String) async throws {
+        
+    }
+    
+    func presentSubscriptionSheet(priceId: String,
+                                  from viewController: UIViewController) async -> PaymentSheetResult? {
+        return nil
+    }
+    
+    func logout() {
+        
+    }
+    
+}
+
 // MARK: - Mock Service Assembly
 
 final class MockServiceAssembly: Assembly {
@@ -1564,6 +1623,8 @@ final class MockServiceAssembly: Assembly {
         container.register(ActiveDestinationServiceProtocol.self.self) { _ in MockActiveDestinationService() }.inObjectScope(.container)
         container.register(CameraServiceProtocol.self.self) { _ in MockCameraService() }.inObjectScope(.transient)
         container.register(MediaTransferServiceProtocol.self.self) { _ in MediaTransferService() }.inObjectScope(.transient)
+        container.register(MockStripeService.self.self) { _ in MockStripeService() }.inObjectScope(.transient)
+        
     }
     
 }
