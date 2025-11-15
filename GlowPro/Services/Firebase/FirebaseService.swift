@@ -40,12 +40,14 @@ final class FirebaseService: FirebaseServiceProtocol {
         case generic(Error)
         case notFound
         case emailAlreadyInUse
+        case wrongPassword
         
         var message: String {
             switch self {
             case .generic(let error): return error.getMessageForError()
-            case .notFound: return "Not found"
+            case .notFound: return "Account Not found"
             case .emailAlreadyInUse: return "Email already in use"
+            case .wrongPassword: return "The email or password you entered is incorrect. Please try again."
             }
         }
         
@@ -143,6 +145,11 @@ final class FirebaseService: FirebaseServiceProtocol {
                 
                 switch code {
                 case .userNotFound: throw FirebaseError.notFound
+                case .wrongPassword: throw FirebaseError.wrongPassword
+                case .invalidEmail: throw FirebaseError.notFound
+                case .invalidCredential: throw FirebaseError.wrongPassword
+                case .accountExistsWithDifferentCredential: throw FirebaseError.wrongPassword
+                    
                 default: throw FirebaseError.generic(error)
                 }
                 
@@ -172,6 +179,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                 
                 switch code {
                 case .userNotFound: throw FirebaseError.notFound
+                case .accountExistsWithDifferentCredential: throw FirebaseError.wrongPassword
                 default: throw FirebaseError.generic(error)
                 }
                 

@@ -892,6 +892,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     func subscribe(businessId: String,
                    productId: String,
+                   priceId: String,
                    setupIntentId: String) async throws -> StripeSubscription {
         
         if let subscription = self.subscriptions.first {
@@ -1580,6 +1581,8 @@ final class MockStripeService: StripeServiceProtocol {
     internal let loggerName: String = "STRIPE_SERVICE"
     internal let loggerEmoji: String = "💳"
     
+    var currentSetupIntentId: String?
+    
     func setupCustomer(businessId: String) async throws {
         
     }
@@ -1623,7 +1626,7 @@ final class MockServiceAssembly: Assembly {
         container.register(ActiveDestinationServiceProtocol.self.self) { _ in MockActiveDestinationService() }.inObjectScope(.container)
         container.register(CameraServiceProtocol.self.self) { _ in MockCameraService() }.inObjectScope(.transient)
         container.register(MediaTransferServiceProtocol.self.self) { _ in MediaTransferService() }.inObjectScope(.transient)
-        container.register(MockStripeService.self.self) { _ in MockStripeService() }.inObjectScope(.transient)
+        container.register(StripeServiceProtocol.self) { _ in MockStripeService() }.inObjectScope(.transient)
         
     }
     

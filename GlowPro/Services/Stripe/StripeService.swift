@@ -7,7 +7,7 @@
 
 import UIKit
 import StripeCore
-import StripePaymentSheet
+@preconcurrency import StripePaymentSheet
 
 final class StripeService: StripeServiceProtocol {
     
@@ -75,8 +75,12 @@ final class StripeService: StripeServiceProtocol {
         
         return await withCheckedContinuation { continuation in
             
-            paymentSheet.present(from: viewController) { result in
-                continuation.resume(returning: result)
+            DispatchQueue.main.async {
+                
+                paymentSheet.present(from: viewController) { result in
+                    continuation.resume(returning: result)
+                }
+                
             }
             
         }
@@ -84,9 +88,7 @@ final class StripeService: StripeServiceProtocol {
     }
     
     func logout() {
-        
-        STPAPIClient.shared.publishableKey = nil
-        
+                
         self.customerConfig = nil
         self.paymentSheet = nil
         self.currentSetupIntentId = nil

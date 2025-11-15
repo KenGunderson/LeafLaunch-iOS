@@ -294,6 +294,9 @@
 		753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
 		753EC1FC2DB8C58100265B2A /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F02DB8C58100265B2A /* MainScreen.swift */; };
 		753EC2092DB8CBBB00265B2A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
+		753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
+		753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
+		753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
 		754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
@@ -398,6 +401,9 @@
 		758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC22E0514FA00311C7C /* ActivitiesView.swift */; };
 		758DAEC62E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
 		758DAEC72E05152200311C7C /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DAEC52E05152000311C7C /* Activity.swift */; };
+		75902B492EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75902B482EC84932002E30B5 /* SubscriptionSuccessSheet.swift */; };
+		75902B4A2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75902B482EC84932002E30B5 /* SubscriptionSuccessSheet.swift */; };
+		75902B4B2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75902B482EC84932002E30B5 /* SubscriptionSuccessSheet.swift */; };
 		75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
 		75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */; };
 		7599A95B2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */; };
@@ -1098,6 +1104,7 @@
 		753EC1F02DB8C58100265B2A /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		753EC1F22DB8C58100265B2A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIApplication.swift"; sourceTree = "<group>"; };
 		754241CE2E71CA9C00848F6F /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
 		754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteView.swift; sourceTree = "<group>"; };
 		7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Dev-Info.plist"; sourceTree = "<group>"; };
@@ -1150,6 +1157,7 @@
 		758C3CE42E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeListScreen.swift; sourceTree = "<group>"; };
 		758DAEC22E0514FA00311C7C /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		758DAEC52E05152000311C7C /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		75902B482EC84932002E30B5 /* SubscriptionSuccessSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionSuccessSheet.swift; sourceTree = "<group>"; };
 		75994F692E7E082300A392CD /* GhostOverlayCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCarouselView.swift; sourceTree = "<group>"; };
 		7599A95A2E7E5FBF00E7CBF0 /* GhostOverlayCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayCategory.swift; sourceTree = "<group>"; };
 		7599A95E2E7E641800E7CBF0 /* CameraFlashMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFlashMode.swift; sourceTree = "<group>"; };
@@ -2365,6 +2373,7 @@
 		75A46EF52E5EB4540057EF72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */,
 				75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */,
 				754241CE2E71CA9C00848F6F /* Ext+String.swift */,
 			);
@@ -2665,6 +2674,7 @@
 		75F32AFA2E615327003D904B /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
+				75902B482EC84932002E30B5 /* SubscriptionSuccessSheet.swift */,
 				75F111072EB40496004D91D6 /* EmailVerificationSheet.swift */,
 				75F32AFB2E61536E003D904B /* ChecklistCompleteSheet.swift */,
 			);
@@ -3013,6 +3023,7 @@
 				753EC1A32DB8BC5E00265B2A /* Trackable.swift in Sources */,
 				753EC1A42DB8BC5E00265B2A /* AppError.swift in Sources */,
 				7585FA112EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */,
+				75902B492EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
 				7562BBA12EBEF62400B84E4E /* FormCreateEditViewModel.swift in Sources */,
 				750843362E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */,
 				753EC1A52DB8BC5E00265B2A /* WhatsNew.swift in Sources */,
@@ -3050,6 +3061,7 @@
 				75C67E4B2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */,
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */,
+				753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953C2E0B7D28001CAF72 /* Business.swift in Sources */,
@@ -3317,6 +3329,7 @@
 				75D66D302DC713C300E51CFC /* Trackable.swift in Sources */,
 				75D66D312DC713C300E51CFC /* AppError.swift in Sources */,
 				7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */,
+				75902B4B2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
 				7562BBA32EBEF62400B84E4E /* FormCreateEditViewModel.swift in Sources */,
 				750843372E5BDD8C0039B06B /* BusinessActivityListViewModel.swift in Sources */,
 				75D66D322DC713C300E51CFC /* WhatsNew.swift in Sources */,
@@ -3354,6 +3367,7 @@
 				75C67E4A2E765DA300BB29F0 /* NoteListViewModel.swift in Sources */,
 				7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */,
+				753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
 				751F953D2E0B7D28001CAF72 /* Business.swift in Sources */,
@@ -3604,6 +3618,7 @@
 				75DD83C92EAD728600DD8850 /* Trackable.swift in Sources */,
 				75DD83CA2EAD728600DD8850 /* AppError.swift in Sources */,
 				75DD83CB2EAD728600DD8850 /* CollageCreateEditScreen.swift in Sources */,
+				75902B4A2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
 				7562BBA22EBEF62400B84E4E /* FormCreateEditViewModel.swift in Sources */,
 				75DD83CC2EAD728600DD8850 /* BusinessActivityListViewModel.swift in Sources */,
 				75DD83CD2EAD728600DD8850 /* WhatsNew.swift in Sources */,
@@ -3641,6 +3656,7 @@
 				75DD83EC2EAD728600DD8850 /* NoteListViewModel.swift in Sources */,
 				75DD83ED2EAD728600DD8850 /* PermissionsService.swift in Sources */,
 				75DD83EE2EAD728600DD8850 /* CollageCreateEditViewModel.swift in Sources */,
+				753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				75DD83EF2EAD728600DD8850 /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				75DD83F12EAD728600DD8850 /* NavigationServiceProtocol.swift in Sources */,
 				75DD83F22EAD728600DD8850 /* Business.swift in Sources */,

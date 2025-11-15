@@ -106,6 +106,10 @@ struct SettingsScreen: GPView {
             settings.removeAll { $0 == .security }
         }
         
+        if !self.viewModel.shouldShowSubscriptionSetting {
+            settings.removeAll { $0 == .subscription }
+        }
+        
         let groups = Dictionary(grouping: settings, by: { $0.category })
         let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
         

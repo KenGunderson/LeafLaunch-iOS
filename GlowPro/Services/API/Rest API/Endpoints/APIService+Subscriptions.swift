@@ -47,11 +47,13 @@ extension APIService {
     
     func subscribe(businessId: String,
                    productId: String,
+                   priceId: String,
                    setupIntentId: String) async throws -> StripeSubscription {
         
         let parameters: [String: Any] = [
             "business_id": businessId,
             "product_id": productId,
+            "price_id": priceId,
             "setup_intent_id": setupIntentId
         ]
         .compact()

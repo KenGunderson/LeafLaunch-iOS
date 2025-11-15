@@ -1484,7 +1484,9 @@ struct MockModels {
                 name: "Tier 1",
                 description: "This is a description for Tier 1",
                 defaultPriceId: "default_price_id",
-                price: 2999,
+                prices: [
+                    .init(id: "1", amount: 29, interval: "YEARLY")
+                ],
                 active: true,
                 metadata: .init(
                     totalNumberOfEmployees: 5,
@@ -1501,7 +1503,9 @@ struct MockModels {
                 name: "Tier 2",
                 description: "This is a description for Tier 2",
                 defaultPriceId: "default_price_id",
-                price: 5999,
+                prices: [
+                    .init(id: "1", amount: 59, interval: "YEARLY")
+                ],
                 active: true,
                 metadata: .init(
                     totalNumberOfEmployees: 10_000,

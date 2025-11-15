@@ -9,6 +9,8 @@ import UIKit
 import StripePaymentSheet
 
 protocol StripeServiceProtocol: Loggable {
+    
+    var currentSetupIntentId: String? { get }
         
     func setupCustomer(businessId: String) async throws
     

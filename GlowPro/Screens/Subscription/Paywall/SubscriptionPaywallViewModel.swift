@@ -10,6 +10,29 @@ import SwiftUI
 
 final class SubscriptionPaywallViewModel: ViewModel {
     
+    enum Interval: String, Selectable, CaseIterable {
+        
+        var id: String { return self.rawValue }
+        
+        case monthly
+        case yearly
+        
+        var description: String {
+            switch self {
+            case .monthly: return "Monthly"
+            case .yearly: return "Yearly"
+            }
+        }
+        
+        var stripeName: String {
+            switch self {
+            case .monthly: return "month"
+            case .yearly: return "year"
+            }
+        }
+        
+    }
+    
     internal let loggerName: String = "PAYWALL_VIEW_MODEL"
     internal let loggerEmoji: String = "👮🏻‍♂️"
     
@@ -19,11 +42,28 @@ final class SubscriptionPaywallViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let stripeService: StripeServiceProtocol
 
     @Published private(set) var shouldDismiss: Bool = false
     
     @Published private(set) var paywallItem: SubscriptionPaywallItem!
     @Published private(set) var extractedColors: [Color] = []
+    
+    @Published private(set) var products: [StripeSubscriptionProduct] = []
+    @Published var selectedInterval: Interval? = .monthly
+    
+    @Published private(set) var selectedProduct: StripeSubscriptionProduct?
+    @Published private(set) var isLoading: Bool = false
+    
+    @Published var shouldShowSubscriptionSuccessAlert: Bool = false
+    
+    var businessId: String {
+        return self.activeDestinationService.businessId ?? ""
+    }
+    
+    var isSubscribeButtonEnabled: Bool {
+        return self.selectedProduct != nil
+    }
         
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -33,7 +73,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
          activeDestinationService: ActiveDestinationServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
+         userDefaultsService: UserDefaultsServiceProtocol,
+         stripeService: StripeServiceProtocol) {
         
         self.apiService = apiService
         self.authService = authService
@@ -41,6 +82,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.stripeService = stripeService
         
         self.logInit()
         
@@ -62,26 +104,127 @@ final class SubscriptionPaywallViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
-    func loadData() {
-        extractColor()
+    func set(product: StripeSubscriptionProduct?) {
+        
+        if self.selectedProduct != product {
+            self.selectedProduct = product
+        } else {
+            self.selectedProduct = nil
+        }
+        
     }
     
-    func subscribe() {
+    func loadData() {
         
         self.alertService
-            .showAlert(.init(.appAlert(.init(
-                title: "Coming Soon 🥳",
-                message: "You’re looking at a sneak-peek of the paywall! The full feature is in beta and will be live soon — stay tuned.",
-                primaryButtonTitle: "Okay",
-                primaryButtonAction: {}
-            ))))
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        extractColor()
+        
+        Task {
+            
+            do {
+                
+                let products = try await self.apiService
+                    .getAllSubscriptionProducts()
+                
+                let sortedProducts = products
+                    .sorted(by: { ($0.metadata?.totalNumberOfMedia ?? 0) < ($1.metadata?.totalNumberOfMedia ?? 0) })
+                
+                await MainActor.run {
+                    self.products = sortedProducts
+                }
+                
+            }
+            catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage("subscription products"),
+                            action: {
+                                
+                                self.navigationService?
+                                    .popWithDelay()
+                                
+                            })
+                    ))
+                )
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    @MainActor
+    func subscribe() {
+        
+        let selectedIntervalName = self.selectedInterval?.stripeName ?? Interval.monthly.stripeName
+        
+        guard let product = self.selectedProduct else { return }
+        guard let filteredPrice = product.prices.first(where: { $0.interval == selectedIntervalName }) else { return }
+        guard let defaultPriceId = product.defaultPriceId else { return }
+        guard let viewController = UIApplication.shared.topMostViewController else { return }
+        
+        self.alertService
+            .showAlert(.init(.simpleLoadingIndicator))
+        
+        Task {
+            
+            do {
+                
+                let businessId = self.businessId
+                
+                // Setup Customer
+                
+                try await self.stripeService
+                    .setupCustomer(businessId: businessId)
+                
+                // Present Subscription Sheet
+                
+                let _ = await self.stripeService.presentSubscriptionSheet(
+                    priceId: defaultPriceId,
+                    from: viewController
+                )
+
+                // Subscribe
+                
+                let sub = try await self.apiService.subscribe(
+                    businessId: businessId,
+                    productId: product.id,
+                    priceId: filteredPrice.id,
+                    setupIntentId: self.stripeService.currentSetupIntentId ?? ""
+                )
+                
+                self.logger.debug("Created subscription: \(sub.id)")
+                
+                await MainActor.run {
+                    self.shouldShowSubscriptionSuccessAlert = true
+                }
+                
+            } catch {
+                
+                self.alertService.showAlert(.init(.appAlert(.error(
+                    message: error.getMessageForError(),
+                    action: {}
+                ))))
+                
+            }
+            
+            self.alertService
+                .dismissLoadingIndicator()
+
+        }
         
     }
     
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
     }
-    
     
     private func extractColor() {
         

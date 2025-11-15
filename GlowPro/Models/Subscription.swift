@@ -61,13 +61,31 @@ struct StripeSubscriptionProduct: Identifiable, Codable, Hashable {
             
         }
         
+        init(totalNumberOfEmployees: Int? = 0,
+             totalNumberOfLocations: Int? = 0,
+             totalNumberOfMedia: Int? = 0) {
+            
+            self.totalNumberOfEmployees = totalNumberOfEmployees
+            self.totalNumberOfLocations = totalNumberOfLocations
+            self.totalNumberOfMedia = totalNumberOfMedia
+            
+        }
+        
+    }
+    
+    struct Price: Codable, Hashable {
+        
+        let id: String
+        let amount: Int
+        let interval: String
+        
     }
   
     let id: String
     let name: String
     let description: String?
     let defaultPriceId: String?
-    let price: Int
+    let prices: [Price]
     let active: Bool
     let metadata: Metadata?
     
@@ -77,7 +95,7 @@ struct StripeSubscriptionProduct: Identifiable, Codable, Hashable {
         case name
         case description
         case defaultPriceId = "default_price_id"
-        case price
+        case prices
         case active
         case metadata
         

@@ -17,6 +17,7 @@ final class SettingsViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol
@@ -58,10 +59,15 @@ final class SettingsViewModel: ViewModel {
         return self.workspaces.filter({ $0.isOwner }).first != nil
     }
     
+    var shouldShowSubscriptionSetting: Bool {
+        return self.activeDestinationService.businessId != nil
+    }
+    
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
+         activeDestinationService: ActiveDestinationServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          impersonateService: ImpersonateServiceProtocol) {
@@ -70,6 +76,7 @@ final class SettingsViewModel: ViewModel {
         self.apiService = apiService
         self.alertService = alertService
         self.analyticsService = analyticsService
+        self.activeDestinationService = activeDestinationService
         self.environmentService = environmentService
         self.userDefaultsService = userDefaultsService
         self.impersonateService = impersonateService

@@ -521,7 +521,8 @@ class MockViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    stripeService: r.resolve(StripeServiceProtocol.self)!,
                 )
             }.inObjectScope(.transient)
         
@@ -534,6 +535,7 @@ class MockViewModelAssembly: Assembly {
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
                     impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
