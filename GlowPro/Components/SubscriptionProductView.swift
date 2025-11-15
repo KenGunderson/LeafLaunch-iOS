@@ -17,7 +17,7 @@ struct SubscriptionProductView: View {
         
         return self.isSelected
             ? .color(Style.shared.accent.asColor!.opacity(0.15))
-            : .color(Color.clear)
+            : Style.shared.background(.secondary)
         
     }
     
@@ -25,7 +25,7 @@ struct SubscriptionProductView: View {
         
         return self.isSelected
             ? Style.shared.accent
-            : Style.shared.background(.quaternary)
+            : .color(.clear)
         
     }
         
@@ -59,11 +59,19 @@ struct SubscriptionProductView: View {
     @ViewBuilder
     private func checkmarkView() -> some View {
         
+        var toggleForegroundColor: ColorSource {
+            
+            return self.isSelected
+                ? Style.shared.accent
+                : Style.shared.background(.quaternary)
+            
+        }
+        
         Image(systemName: self.isSelected ? "checkmark.circle.fill" : "circle")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 28)
-            .foregroundStyle(self.borderColor.source())
+            .foregroundStyle(toggleForegroundColor.source())
         
     }
     
@@ -137,24 +145,28 @@ struct SubscriptionProductView: View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
+            Text("Included In This Plan:")
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .appFont(with: .TITLE_4)
+            
             // Location
             
             benefitView(
-                icon: .systemImage("pin"),
+                icon: .systemImage("pin.fill"),
                 title: "You receive \(stringNumberOfLocations)(s) locations"
             )
             
             // Employee
             
             benefitView(
-                icon: .image(.iconPerson2Outline, renderingMode: .template),
+                icon: .image(.iconPerson, renderingMode: .template),
                 title: "You can have up to \(stringNumberOfEmployees) employees"
             )
             
             // Media
             
             benefitView(
-                icon: .image(.iconAlbum, renderingMode: .template),
+                icon: .systemImage("camera.fill"),
                 title: "You can take up to \(stringNumberOfMedia) media per month"
             )
             
@@ -177,7 +189,7 @@ struct SubscriptionProductView: View {
             
             Text(title)
                 .foregroundStyle(Style.shared.textColor(.body).source())
-                .appFont(with: .TITLE_3)
+                .appFont(with: .TITLE_2)
                 .lineLimit(nil)
             
         }
