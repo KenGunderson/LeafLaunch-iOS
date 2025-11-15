@@ -52,4 +52,26 @@ extension APIService {
         
     }
     
+    func updateAllowsOverages(businessId: String,
+                              allowsOverages: Bool) async throws {
+        
+        let parameters: [String: Any] = [
+            "allows_overages": allowsOverages
+        ]
+        
+        do {
+            
+            let _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .businessSetting("\(businessId)/allows-overages")),
+                parameters: parameters
+            )
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }

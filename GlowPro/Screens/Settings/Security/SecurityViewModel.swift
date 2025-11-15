@@ -27,6 +27,7 @@ final class SecurityViewModel: ViewModel {
     
     @Published var shouldHideScreenshots: Bool = false
     @Published var shouldReportScreenshots: Bool = false
+    @Published var allowsOverages: Bool = false
     @Published private(set) var firstHideScreenshotUpdate: Bool = true
     
     private(set) var businessId: String?
@@ -100,6 +101,7 @@ final class SecurityViewModel: ViewModel {
                         self?.businessPin = self?.userDefaultsService.getSecurityPinForBusinessId(myBusiness.id) ?? ""
                         self?.shouldHideScreenshots = self?.userDefaultsService.shouldHideScreenshots ?? false
                         self?.shouldReportScreenshots = businessSettings?.shouldReportScreenshot ?? false
+                        self?.allowsOverages = businessSettings?.allowsOverages ?? false
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self?.firstHideScreenshotUpdate = false
@@ -183,6 +185,21 @@ final class SecurityViewModel: ViewModel {
             
         }
         
+    }
+    
+    func set(allowsOverages: Bool) {
+        
+        guard let businessId else { return }
+        
+        Task {
+            
+            try await self.apiService
+                .updateAllowsOverages(
+                    businessId: businessId,
+                    allowsOverages: allowsOverages
+                )
+            
+        }
         
     }
 

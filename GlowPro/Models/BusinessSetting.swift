@@ -16,14 +16,17 @@ struct BusinessSetting: Identifiable,
     let id: String
     let businessId: String
     let shouldReportScreenshot: Bool
+    let allowsOverages: Bool
     
     init(id: String,
          businessId: String,
-         shouldReportScreenshot: Bool) {
+         shouldReportScreenshot: Bool,
+         allowsOverages: Bool) {
         
         self.id = id
         self.businessId = businessId
         self.shouldReportScreenshot = shouldReportScreenshot
+        self.allowsOverages = allowsOverages
         
     }
     
@@ -32,6 +35,7 @@ struct BusinessSetting: Identifiable,
         case id
         case businessId = "business_id"
         case shouldReportScreenshot = "should_report_screenshot"
+        case allowsOverages = "allows_overages"
         
     }
     
@@ -46,7 +50,8 @@ extension BusinessSetting {
         return .init(
             id: id,
             businessId: MockModels.ID.business1,
-            shouldReportScreenshot: false
+            shouldReportScreenshot: false,
+            allowsOverages: false
         )
         
     }

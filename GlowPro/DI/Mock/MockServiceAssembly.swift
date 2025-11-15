@@ -284,6 +284,11 @@ final class MockAPIService: APIServiceProtocol {
         
     }
     
+    func updateAllowsOverages(businessId: String,
+                              allowsOverages: Bool) async throws {
+        
+    }
+    
     // Locations
     
     func getLocations() async throws -> [Location] {

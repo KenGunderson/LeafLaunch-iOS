@@ -57,6 +57,13 @@ struct SecurityScreen: GPView {
             
         }
         
+        .onChange(of: self.viewModel.allowsOverages) { oldValue, newValue in
+                        
+            self.viewModel
+                .set(allowsOverages: newValue)
+            
+        }
+        
         // Animations
         
         .animation(.spring, value: self.viewModel.hasBusinessPin)
@@ -156,6 +163,32 @@ struct SecurityScreen: GPView {
                 }
                 
                 Text("Receive an email whenever someone tries to take a screenshot while in the app.")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, -8)
+                
+            }
+            
+            // Allows Overages
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
+                
+                HStack {
+                    
+                    Text("Allows Overages")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Toggle(
+                        "",
+                        isOn: self.$viewModel.allowsOverages
+                    )
+                    
+                }
+                
+                Text("Enable this option if you do not want to be charged for any overage data usage. Keep in mind that if you hit your media limit, you will be stopped from taking more photos until the next billing cycle.")
                     .appFont(with: .BODY_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .frame(maxWidth: .infinity, alignment: .leading)

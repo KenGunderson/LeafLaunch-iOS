@@ -54,6 +54,9 @@ protocol APIServiceProtocol: APIProtocol {
     func updateShouldReportScreenshot(businessId: String,
                                       shouldReportScreenshot: Bool) async throws
     
+    func updateAllowsOverages(businessId: String,
+                              allowsOverages: Bool) async throws
+    
     // Locations
     
     func getLocations() async throws -> [Location]
