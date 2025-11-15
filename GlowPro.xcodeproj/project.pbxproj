@@ -45,6 +45,9 @@
 		750990E72E5590D60030DD49 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750990E52E5590D40030DD49 /* Media.swift */; };
 		750A18AC2E6513740087B427 /* GhostOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A18AB2E6513740087B427 /* GhostOverlayView.swift */; };
 		750A18AD2E6513740087B427 /* GhostOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750A18AB2E6513740087B427 /* GhostOverlayView.swift */; };
+		750B584C2EC9343300682769 /* SubscriptionProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B584B2EC9342D00682769 /* SubscriptionProductView.swift */; };
+		750B584D2EC9343300682769 /* SubscriptionProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B584B2EC9342D00682769 /* SubscriptionProductView.swift */; };
+		750B584E2EC9343300682769 /* SubscriptionProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B584B2EC9342D00682769 /* SubscriptionProductView.swift */; };
 		750B85EC2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85ED2E48377000417BA5 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EB2E48376C00417BA5 /* LocationCardView.swift */; };
 		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
@@ -969,6 +972,7 @@
 		750892A22E561F1500D6BC68 /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		750990E52E5590D40030DD49 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		750A18AB2E6513740087B427 /* GhostOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostOverlayView.swift; sourceTree = "<group>"; };
+		750B584B2EC9342D00682769 /* SubscriptionProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionProductView.swift; sourceTree = "<group>"; };
 		750B85EB2E48376C00417BA5 /* LocationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
 		750B85F82E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteListScreen.swift; sourceTree = "<group>"; };
@@ -2289,6 +2293,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				750B584B2EC9342D00682769 /* SubscriptionProductView.swift */,
 				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
 				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
 				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
@@ -3085,6 +3090,7 @@
 				75F111082EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				750B584E2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				750D239B2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */,
@@ -3391,6 +3397,7 @@
 				75F1110A2EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				750B584D2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
 				750D239C2E78611C003E57BE /* SecurityPinInputScreen.swift in Sources */,
@@ -3680,6 +3687,7 @@
 				75F111092EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				75DD84022EAD728600DD8850 /* ClientListViewModel.swift in Sources */,
 				75DD84032EAD728600DD8850 /* PushNotificationService.swift in Sources */,
+				750B584C2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75DD84042EAD728600DD8850 /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				75DD84052EAD728600DD8850 /* ConnectivityService.swift in Sources */,
 				75DD84062EAD728600DD8850 /* SecurityPinInputScreen.swift in Sources */,

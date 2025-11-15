@@ -137,7 +137,7 @@ struct SubscriptionPaywallScreen: GPView {
             .clipped()
             .stretchy()
             .gradientBlur(
-                color: self.viewModel.extractedColors.first ?? .red,
+                color: self.viewModel.extractedColors.first ?? .clear,
                 alignment: .bottom,
                 gradientDirection: .topToBottom,
                 mask: .preset(.medium),
@@ -217,163 +217,21 @@ struct SubscriptionPaywallScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
             
             ForEach(self.viewModel.products, id: \.id) { product in
-                subscriptionProductView(product)
-            }
-            
-        }
-        
-    }
-    
-    @ViewBuilder
-    private func subscriptionProductView(_ product: StripeSubscriptionProduct) -> some View {
-        
-        let selectedInterval = self.viewModel.selectedInterval
-        let isSelected = self.viewModel.selectedProduct == product
-        let metadata = product.metadata ?? .init()
-        
-        let price = product
-            .prices
-            .filter({ $0.interval == selectedInterval?.stripeName })
-            .first
-        
-        let normalizedPrice = (price?.amount ?? 0) / 100
-        
-        let backgroundColor: ColorSource = isSelected
-            ? .color(Style.shared.accent.asColor!.opacity(0.15))
-            : .color(Color.clear)
-        
-        let borderColor: ColorSource = isSelected
-            ? Style.shared.accent
-            : Style.shared.background(.quaternary)
-        
-        AppCardView(backgroundStyle: backgroundColor) {
-            
-            VStack(
-                alignment : .leading,
-                spacing : Style.shared.spacing(.small)
-            ) {
                 
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 28)
-                    .foregroundStyle(borderColor.source())
-                
-                HStack {
+                SubscriptionProductView(
+                    product: product,
+                    interval: self.viewModel.selectedInterval ?? .monthly,
+                    isSelected: product == self.viewModel.selectedProduct
+                )
+                .asButton {
                     
-                    Text(product.name)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    HStack(spacing: Style.shared.spacing(.custom(2))) {
-                        
-                        Text(normalizedPrice, format: .currency(code: "USD"))
-                            .contentTransition(.numericText(value: Double(normalizedPrice)))
-                        
-                        Text("/ \(selectedInterval?.stripeName.capitalized ?? "")")
-                            .contentTransition(.numericText())
-                        
-                    }
+                    self.viewModel
+                        .set(product: product)
                     
                 }
-                .appFont(with: .TITLE_6)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                
-                if let description = product.description {
-                    
-                    Text(description)
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                        .lineLimit(nil)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
-                
-                benefitsView(metadata)
-                    .padding(.top, .small)
+                .animation(.bouncy, value: self.viewModel.selectedProduct)
                 
             }
-            
-        }
-        .background(.backgroundTappable)
-        .appBorder(
-            cornerRadius: .small2,
-            color: borderColor,
-            lineWidth: 2.5
-        )
-        .asButton {
-            
-            self.viewModel
-                .set(product: product)
-            
-        }
-        .animation(.bouncy, value: self.viewModel.selectedProduct)
-        
-    }
-    
-    @ViewBuilder
-    private func benefitsView(_ data: StripeSubscriptionProduct.Metadata) -> some View {
-        
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
-            
-            let totalNumberOfLocations: Int? = data.totalNumberOfLocations ?? 0
-            let totalNumberOfEmployees: Int? = data.totalNumberOfEmployees
-            let totalNumberOfMedia: Int? = data.totalNumberOfMedia
-            
-            var stringNumberOfLocations: String {
-                return totalNumberOfLocations == -1 ? "Unlimited" : "\(totalNumberOfLocations ?? 0)"
-            }
-            
-            var stringNumberOfEmployees: String {
-                return totalNumberOfEmployees == -1 ? "Unlimited" : "\(totalNumberOfEmployees ?? 0)"
-            }
-            
-            var stringNumberOfMedia: String {
-                return totalNumberOfMedia == -1 ? "Unlimited" : "\(totalNumberOfMedia ?? 0)"
-            }
-            
-            // Location
-            
-            benefitView(
-                icon: .systemImage("pin"),
-                title: "You receive \(stringNumberOfLocations)(s) locations"
-            )
-            
-            // Employee
-            
-            benefitView(
-                icon: .image(.iconPerson, renderingMode: .template),
-                title: "You can have up to \(stringNumberOfEmployees) employees"
-            )
-            
-            // Media
-            
-            benefitView(
-                icon: .image(.iconAlbum, renderingMode: .template),
-                title: "You can take up to \(stringNumberOfMedia) media per month"
-            )
-            
-        }
-        
-    }
-    
-    private func benefitView(icon: ImageSource,
-                             title: String) -> some View {
-        
-        HStack(spacing: Style.shared.spacing(.small)) {
-            
-            icon
-                .view()
-                .scaledToFit()
-                .frame(width: 16, height: 16)
-                .padding(.small)
-                .foregroundStyle(Style.shared.accent.source())
-                .background(Style.shared.accent.source(opacity: 0.20), in: .circle)
-            
-            Text(title)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .appFont(with: .TITLE_3)
-                .lineLimit(nil)
             
         }
         
