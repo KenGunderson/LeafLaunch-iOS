@@ -300,6 +300,12 @@
 		753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
 		753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
 		753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
+		7541D0D92EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0D82EC93E8D00AAFD9B /* SubscriptionManageViewModel.swift */; };
+		7541D0DA2EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0D82EC93E8D00AAFD9B /* SubscriptionManageViewModel.swift */; };
+		7541D0DB2EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0D82EC93E8D00AAFD9B /* SubscriptionManageViewModel.swift */; };
+		7541D0DD2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0DC2EC93E9B00AAFD9B /* SubscriptionManageScreen.swift */; };
+		7541D0DE2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0DC2EC93E9B00AAFD9B /* SubscriptionManageScreen.swift */; };
+		7541D0DF2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7541D0DC2EC93E9B00AAFD9B /* SubscriptionManageScreen.swift */; };
 		754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
@@ -1109,6 +1115,8 @@
 		753EC1F22DB8C58100265B2A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIApplication.swift"; sourceTree = "<group>"; };
+		7541D0D82EC93E8D00AAFD9B /* SubscriptionManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManageViewModel.swift; sourceTree = "<group>"; };
+		7541D0DC2EC93E9B00AAFD9B /* SubscriptionManageScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManageScreen.swift; sourceTree = "<group>"; };
 		754241CE2E71CA9C00848F6F /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
 		754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteView.swift; sourceTree = "<group>"; };
 		7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlowPro-Dev-Info.plist"; sourceTree = "<group>"; };
@@ -1979,6 +1987,15 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		7541D0D72EC93E8500AAFD9B /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				7541D0D82EC93E8D00AAFD9B /* SubscriptionManageViewModel.swift */,
+				7541D0DC2EC93E9B00AAFD9B /* SubscriptionManageScreen.swift */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
 		754D29312E07B1260065E242 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2438,6 +2455,7 @@
 		75B1A5182EAB20960052F067 /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
+				7541D0D72EC93E8500AAFD9B /* Manage */,
 				75B1A5192EAB20A30052F067 /* Paywall */,
 			);
 			path = Subscription;
@@ -3042,6 +3060,7 @@
 				752B72272EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B672E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
+				7541D0DB2EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */,
 				75CD6B682E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75B1A51C2EAB20B30052F067 /* SubscriptionPaywallViewModel.swift in Sources */,
 				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
@@ -3090,6 +3109,7 @@
 				75F111082EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647E2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F4692DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				7541D0DD2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */,
 				750B584E2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75AFB1332E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F46A2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
@@ -3349,6 +3369,7 @@
 				752B72282EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */,
 				75CD6B692E20C114004A1720 /* BusinessLocationCreateEditScreen.swift in Sources */,
+				7541D0DA2EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */,
 				75CD6B6A2E20C114004A1720 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75B1A51B2EAB20B30052F067 /* SubscriptionPaywallViewModel.swift in Sources */,
 				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
@@ -3397,6 +3418,7 @@
 				75F1110A2EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				759B647D2E04A8EF006F4995 /* ClientListViewModel.swift in Sources */,
 				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
+				7541D0DF2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */,
 				750B584D2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
@@ -3639,6 +3661,7 @@
 				752B72292EC78AB2008D64D5 /* StripeService.swift in Sources */,
 				75DD83D52EAD728600DD8850 /* BusinessEmployeeInviteView.swift in Sources */,
 				75DD83D62EAD728600DD8850 /* BusinessLocationCreateEditScreen.swift in Sources */,
+				7541D0D92EC93E9800AAFD9B /* SubscriptionManageViewModel.swift in Sources */,
 				75DD83D72EAD728600DD8850 /* BusinessLocationCreateEditViewModel.swift in Sources */,
 				75DD83D82EAD728600DD8850 /* SubscriptionPaywallViewModel.swift in Sources */,
 				75DD83D92EAD728600DD8850 /* OnboardingPermissionsScreen.swift in Sources */,
@@ -3687,6 +3710,7 @@
 				75F111092EB4049D004D91D6 /* EmailVerificationSheet.swift in Sources */,
 				75DD84022EAD728600DD8850 /* ClientListViewModel.swift in Sources */,
 				75DD84032EAD728600DD8850 /* PushNotificationService.swift in Sources */,
+				7541D0DE2EC93E9F00AAFD9B /* SubscriptionManageScreen.swift in Sources */,
 				750B584C2EC9343300682769 /* SubscriptionProductView.swift in Sources */,
 				75DD84042EAD728600DD8850 /* BusinessEmployeeUpdateViewModel.swift in Sources */,
 				75DD84052EAD728600DD8850 /* ConnectivityService.swift in Sources */,

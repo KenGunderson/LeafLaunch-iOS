@@ -387,6 +387,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     enum SubscriptionScreen {
         
         case paywall
+        case manageSubscription
         
         var screenName: String {
             
@@ -394,6 +395,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             
             switch self {
             case .paywall: name = "paywall"
+            case .manageSubscription: name = "manage_subscription"
             }
             
             return "subscription.\(name)"
@@ -404,6 +406,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             
             switch self {
             case .paywall: return [:]
+            case .manageSubscription: return [:]
             }
             
         }
