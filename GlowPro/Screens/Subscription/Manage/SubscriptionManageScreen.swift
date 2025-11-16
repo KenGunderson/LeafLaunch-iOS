@@ -63,6 +63,13 @@ struct SubscriptionManageScreen: GPView {
                 
                 navBar()
                 
+                if let business = self.viewModel.business {
+                    
+                    Text(business.name.uppercased())
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    
+                }
+                
             }
             .frame(
                 maxWidth: .infinity,

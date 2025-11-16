@@ -41,6 +41,7 @@ struct SubscriptionProductView: View {
                 checkmarkView()
                 headerView()
                 descriptionView()
+
                 benefitsView()
                     .padding(.top, .small)
                 
@@ -89,20 +90,26 @@ struct SubscriptionProductView: View {
             
             Text(self.product.name)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Style.shared.textColor(.title).source())
             
             HStack(spacing: Style.shared.spacing(.custom(2))) {
                 
                 Text(normalizedPrice, format: .currency(code: "USD"))
                     .contentTransition(.numericText(value: Double(normalizedPrice)))
+                    .foregroundStyle(Style.shared.accent.source())
                 
                 Text("/ \(self.interval.stripeName.capitalized)")
                     .contentTransition(.numericText())
+                    .foregroundStyle(Style.shared.accent.source())
                 
             }
+//            .padding(.horizontal, 12)
+//            .padding(.vertical, 4)
+//            .background(Style.shared.accent.source(opacity: 0.12))
+//            .clipShape(.rect(cornerRadius: 8))
             
         }
         .appFont(with: .TITLE_6)
-        .foregroundStyle(Style.shared.textColor(.title).source())
         
     }
     

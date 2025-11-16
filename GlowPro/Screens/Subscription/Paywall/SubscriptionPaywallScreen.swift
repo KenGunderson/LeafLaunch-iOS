@@ -9,10 +9,11 @@ import SwiftUI
 
 struct SubscriptionPaywallScreen: GPView {
     
-    @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel: SubscriptionPaywallViewModel
+    
+    @State private var navigationService = NavigationService()
     
     @State private var shouldAnimateContent: Bool = false
     @State private var shouldAnimateFooter: Bool = false
@@ -21,69 +22,73 @@ struct SubscriptionPaywallScreen: GPView {
     
     var body: some View {
         
-        content()
-        
-        // Lifecycle
-        
-            .onFirstAppear {
-                
-                self.viewModel
-                    .track()
-                
-                self.viewModel
-                    .setup(navigationService: self.navigationService)
-                
-            }
-            .task {
-                
-                self.viewModel
-                    .loadData()
-                
-            }
-        
-        // On Change
-        
-            .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
-             
-                guard newValue else { return }
-                self.dismiss()
-                
-            }
-        
-            .onChange(of: self.viewModel.products) { oldValue, newValue in
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.shouldAnimateContent = true
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.shouldAnimateFooter = true
-                }
-                
-            }
-        
-        // Alerts
-        
-            .withAlertService(.init(alertService: self.viewModel.alertService))
-        
-        // Sheets
-        
-        .adaptiveSheet(
-            isPresented: self.$viewModel.shouldShowSubscriptionSuccessAlert,
-            backgroundStyle: Style.shared.background(.primary)
-        ) {
+        AppRootView(navigationService: self.$navigationService) {
             
-            SubscriptionSuccessSheet {
-                dismiss()
-            }
+            content()
+            
+            // Lifecycle
+            
+                .onFirstAppear {
+                    
+                    self.viewModel
+                        .track()
+                    
+                    self.viewModel
+                        .setup(navigationService: self.navigationService)
+                    
+                }
+                .task {
+                    
+                    self.viewModel
+                        .loadData()
+                    
+                }
+            
+            // On Change
+            
+                .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
+                    
+                    guard newValue else { return }
+                    self.dismiss()
+                    
+                }
+            
+                .onChange(of: self.viewModel.products) { oldValue, newValue in
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.shouldAnimateContent = true
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.shouldAnimateFooter = true
+                    }
+                    
+                }
+            
+            // Alerts
+            
+                .withAlertService(.init(alertService: self.viewModel.alertService))
+            
+            // Sheets
+            
+                .adaptiveSheet(
+                    isPresented: self.$viewModel.shouldShowSubscriptionSuccessAlert,
+                    backgroundStyle: Style.shared.background(.primary)
+                ) {
+                    
+                    SubscriptionSuccessSheet {
+                        dismiss()
+                    }
+                    
+                }
+            
+            // Animations
+            
+                .animation(.snappy, value: self.viewModel.products)
+                .animation(.snappy, value: self.shouldAnimateContent)
+                .animation(.snappy, value: self.shouldAnimateFooter)
             
         }
-        
-        // Animations
-        
-            .animation(.snappy, value: self.viewModel.products)
-            .animation(.snappy, value: self.shouldAnimateContent)
-            .animation(.snappy, value: self.shouldAnimateFooter)
         
     }
     
@@ -133,7 +138,7 @@ struct SubscriptionPaywallScreen: GPView {
             .illustration
             .view()
             .scaledToFill()
-            .frame(height: 300)
+            .frame(height: 250)
             .clipped()
             .stretchy()
             .gradientBlur(
@@ -189,7 +194,10 @@ struct SubscriptionPaywallScreen: GPView {
                 .padding(.top, .small2)
                 
                 subscriptionProductList()
-                .padding(.top, .small2)
+                    .padding(.top, .small2)
+                
+                termsOfService()
+                    .padding(.top, .small2)
                 
             }
             .padding(.medium)
@@ -269,6 +277,34 @@ struct SubscriptionPaywallScreen: GPView {
             .transition(.move(edge: .bottom).combined(with: .opacity))
             
         }
+        
+    }
+    
+    private func termsOfService() -> some View {
+        
+        AttributedText {
+            
+            Text("Feel free to read our ")
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .font(Style.shared.font(.BODY_2))
+            
+            Text("[Subscription Terms of Service](https://apple.com)")
+                .font(Style.shared.font(.BODY_2))
+                .foregroundStyle(Style.shared.accent.source())
+                .underline()
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .multilineTextAlignment(.center)
+        .environment(\.openURL, .init(handler: { url in
+            
+            self.navigationService
+                .push(.setting(.termsOfService))
+            
+            return .handled
+            
+        }))
+        .tint(Style.shared.accent.source())
         
     }
     
