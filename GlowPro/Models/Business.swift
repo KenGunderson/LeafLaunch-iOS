@@ -37,6 +37,7 @@ struct Business: Identifiable,
     var businessSettings: BusinessSetting?
     
     let stripeCustomerId: String?
+    let subscription: StripeSubscription?
     let stripeSubscriptionProduct: StripeSubscriptionProduct?
     let isSubscribed: Bool
     
@@ -61,6 +62,7 @@ struct Business: Identifiable,
          totalFormsCount: Int = 0,
          clientsWithBirthdaysThisMonth: [Client] = [],
          stripeCustomerId: String? = nil,
+         subscription: StripeSubscription? = nil,
          stripeSubscriptionProduct: StripeSubscriptionProduct? = nil) {
         
         self.id = id
@@ -85,6 +87,7 @@ struct Business: Identifiable,
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
         self.businessSettings = nil
         self.stripeCustomerId = stripeCustomerId
+        self.subscription = subscription
         self.stripeSubscriptionProduct = stripeSubscriptionProduct
         
     }
@@ -113,6 +116,7 @@ struct Business: Identifiable,
         case businessSettings = "business_setting"
 
         case stripeCustomerId = "stripe_customer_id"
+        case subscription
         case stripeSubscriptionProduct = "stripe_subscription_product"
         case isSubscribed = "is_subscribed"
 

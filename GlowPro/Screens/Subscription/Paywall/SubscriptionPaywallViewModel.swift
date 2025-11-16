@@ -187,7 +187,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 // Present Subscription Sheet
                 
                 let _ = await self.stripeService.presentSubscriptionSheet(
-                    priceId: defaultPriceId,
+                    priceId: filteredPrice.id,
                     from: viewController
                 )
 

@@ -68,6 +68,29 @@ struct SubscriptionManageScreen: GPView {
                     Text(business.name.uppercased())
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                     
+                    CommonButton(title: "Unsubscribe") {
+                        
+                        self.viewModel
+                            .unsubscribe()
+                        
+                    }
+                    
+                    CommonButton(title: "Resubscribe") {
+                        
+                        self.viewModel
+                            .resubscribe()
+                        
+                    }
+                    
+                    CommonButton(title: "Update Subscription") {
+                        
+                        self.viewModel
+                            .upgradeOrDowngrade(
+                                priceId: "price_1STbI1DEpnIa6l7RgKsjrPz8"
+                            )
+                        
+                    }
+                    
                 }
                 
             }

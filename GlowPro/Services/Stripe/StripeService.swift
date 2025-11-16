@@ -7,6 +7,7 @@
 
 import UIKit
 import StripeCore
+import SwiftUI
 @preconcurrency import StripePaymentSheet
 
 final class StripeService: StripeServiceProtocol {
@@ -49,6 +50,7 @@ final class StripeService: StripeServiceProtocol {
         var configuration = PaymentSheet.Configuration()
         configuration.customer = self.customerConfig
         configuration.merchantDisplayName = "GlowPro"
+        configuration.primaryButtonColor = UIColor(Color(hex: "#7AD8CE"))
         
         self.paymentSheet = PaymentSheet(
             setupIntentClientSecret: result.setupIntentCustomerSecret,

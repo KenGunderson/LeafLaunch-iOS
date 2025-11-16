@@ -16,19 +16,19 @@ struct SubscriptionProductView: View {
     var backgroundColor: ColorSource {
         
         return self.isSelected
-            ? .color(Style.shared.accent.asColor!.opacity(0.15))
-            : Style.shared.background(.secondary)
+        ? .color(Style.shared.accent.asColor!.opacity(0.15))
+        : Style.shared.background(.secondary)
         
     }
     
     var borderColor: ColorSource {
         
         return self.isSelected
-            ? Style.shared.accent
-            : .color(.clear)
+        ? Style.shared.accent
+        : .color(.clear)
         
     }
-        
+    
     var body: some View {
             
         AppCardView(backgroundStyle: self.backgroundColor) {

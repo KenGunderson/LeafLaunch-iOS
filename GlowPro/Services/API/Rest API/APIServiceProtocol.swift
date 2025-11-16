@@ -216,6 +216,12 @@ protocol APIServiceProtocol: APIProtocol {
                    priceId: String,
                    setupIntentId: String) async throws -> StripeSubscription
     
+    func unsubscribe(subscriptionId: String) async throws
+    func resubscribe(subscriptionId: String) async throws
+    
+    func upgradeOrDowngradeSubscription(subscriptionId: String,
+                                        priceId: String) async throws
+    
 }
 
 extension APIProtocol {

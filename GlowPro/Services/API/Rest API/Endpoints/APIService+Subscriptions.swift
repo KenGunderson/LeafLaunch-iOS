@@ -76,4 +76,65 @@ extension APIService {
         
     }
     
+    func unsubscribe(subscriptionId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .subscriptions("\(subscriptionId)/cancel"))
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func resubscribe(subscriptionId: String) async throws {
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .subscriptions("\(subscriptionId)/resubscribe"))
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
+    func upgradeOrDowngradeSubscription(subscriptionId: String,
+                                        priceId: String) async throws {
+        
+        let parameters: [String: Any] = [
+            "price_id": priceId,
+        ]
+        .compact()
+        
+        do {
+            
+            _ = try await buildRequest(
+                method: .put,
+                apiPath: .init(path: .subscriptions("\(subscriptionId)/upgrade-or-downgrade")),
+                parameters: parameters
+            )
+            
+            return
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
 }

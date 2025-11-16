@@ -97,10 +97,17 @@ final class SettingsViewModel: ViewModel {
             
             presentLogoutAlert()
             
-        case .subscription:
+        case .subscribe:
             
             self.navigationService?
                 .modal(fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION))
+            
+        case .manageSubscription:
+            
+            let businessId = self.activeDestinationService.businessId ?? ""
+            
+            self.navigationService?
+                .modal(fullScreenCover: .subscriptionManage(businessId: businessId))
             
         case .updatePermissions:
             
@@ -147,6 +154,7 @@ final class SettingsViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
                     
+                    self?.isSubscribed = self?.activeDestinationService.business?.stripeSubscriptionProduct != nil
                     self?.workspaces = workspaces
                     self?.isLoading = false
                     

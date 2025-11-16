@@ -203,7 +203,8 @@ extension View {
                 let viewModel = globalResolver.resolve(ProfileViewModel.self)!
                 ProfileScreen(viewModel: viewModel)
                 
-            case .subscription: EmptyView()
+            case .subscribe: EmptyView()
+            case .manageSubscription: EmptyView()
             case .security:
                 
                 let viewModel = globalResolver.resolve(SecurityViewModel.self)!
@@ -678,6 +679,13 @@ extension View {
                     .setup(paywallItem: paywallItem)
                 
                 SubscriptionPaywallScreen(viewModel: viewModel)
+                
+            case .subscriptionManage(let businessId):
+                
+                let viewModel = globalResolver.resolve(SubscriptionManageViewModel.self)!
+                    .setup(businessId: businessId)
+                
+                SubscriptionManageScreen(viewModel: viewModel)
                 
             case .pdfEditor(let pdfDocument, let completion):
                 

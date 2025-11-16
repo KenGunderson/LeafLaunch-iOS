@@ -106,8 +106,12 @@ struct SettingsScreen: GPView {
             settings.removeAll { $0 == .security }
         }
         
-        if !self.viewModel.shouldShowSubscriptionSetting {
-            settings.removeAll { $0 == .subscription }
+        if !self.viewModel.shouldShowSubscriptionSetting || self.viewModel.isSubscribed {
+            settings.removeAll { $0 == .subscribe }
+        }
+        
+        if !self.viewModel.isSubscribed {
+            settings.removeAll { $0 == .manageSubscription }
         }
         
         let groups = Dictionary(grouping: settings, by: { $0.category })
@@ -161,11 +165,7 @@ struct SettingsScreen: GPView {
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(item.tintColor.source())
                 
-                let isSubscriptionSetting = (item == .subscription)
-                let subscriptionTitle = self.viewModel.isSubscribed ? item.displayName : "Subscribe"
-                let title = isSubscriptionSetting ? subscriptionTitle : item.displayName
-                
-                Text(title)
+                Text(item.displayName)
                     .appFont(with: .TITLE_4)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

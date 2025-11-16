@@ -912,6 +912,19 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func unsubscribe(subscriptionId: String) async throws {
+        
+    }
+    
+    func resubscribe(subscriptionId: String) async throws {
+        
+    }
+    
+    func upgradeOrDowngradeSubscription(subscriptionId: String,
+                                        priceId: String) async throws {
+        
+    }
+    
     // Upload Media
     
     func uploadMedia(uploadMedia: UploadMedia) async throws -> String {

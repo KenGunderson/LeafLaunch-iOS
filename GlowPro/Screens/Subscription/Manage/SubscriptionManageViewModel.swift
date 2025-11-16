@@ -112,6 +112,80 @@ final class SubscriptionManageViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
+    func unsubscribe() {
+        
+        guard let business = self.business else { return }
+        guard let subscription = business.subscription else { return }
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .unsubscribe(subscriptionId: subscription.stripeSubscriptionId)
+                
+            } catch {
+                
+                self.logger.error("\(error.getMessageForError())")
+                
+            }
+            
+            loadData()
+            
+        }
+        
+    }
+    
+    func resubscribe() {
+        
+        guard let business = self.business else { return }
+        guard let subscription = business.subscription else { return }
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService
+                    .resubscribe(subscriptionId: subscription.stripeSubscriptionId)
+                
+            } catch {
+                
+                self.logger.error("\(error.getMessageForError())")
+                
+            }
+            
+            loadData()
+            
+        }
+        
+    }
+    
+    func upgradeOrDowngrade(priceId: String) {
+        
+        guard let business = self.business else { return }
+        guard let subscription = business.subscription else { return }
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService.upgradeOrDowngradeSubscription(
+                    subscriptionId: subscription.stripeSubscriptionId,
+                    priceId: priceId
+                )
+                
+            } catch {
+                
+                self.logger.error("\(error.getMessageForError())")
+                
+            }
+            
+            loadData()
+            
+        }
+        
+    }
+    
 }
 
 extension SubscriptionManageViewModel {

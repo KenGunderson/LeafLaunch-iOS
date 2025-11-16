@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StripeSubscriptionStatus: String, Codable {
+enum StripeSubscriptionStatus: String, Codable, Hashable {
     
     case active = "ACTIVE"
     case cancelled = "CANCELLED"
@@ -20,7 +20,7 @@ enum StripeSubscriptionStatus: String, Codable {
     
 }
 
-struct StripeSubscription: Identifiable, Codable {
+struct StripeSubscription: Identifiable, Codable, Hashable {
     
     let id: String
     let businessId: String
