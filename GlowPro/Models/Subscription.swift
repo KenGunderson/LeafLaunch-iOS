@@ -27,6 +27,7 @@ struct StripeSubscription: Identifiable, Codable, Hashable {
     let customerId: String
     let stripeSubscriptionId: String
     let stripeProductId: String
+    let stripeInterval: String
     let status: StripeSubscriptionStatus
     let deleted: Bool
     
@@ -37,6 +38,7 @@ struct StripeSubscription: Identifiable, Codable, Hashable {
         case customerId = "customer_id"
         case stripeSubscriptionId = "stripe_subscription_id"
         case stripeProductId = "stripe_product_id"
+        case stripeInterval = "stripe_interval"
         case status
         case deleted
         

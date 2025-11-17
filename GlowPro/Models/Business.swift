@@ -37,8 +37,8 @@ struct Business: Identifiable,
     var businessSettings: BusinessSetting?
     
     let stripeCustomerId: String?
-    let subscription: StripeSubscription?
-    let stripeSubscriptionProduct: StripeSubscriptionProduct?
+    var subscription: StripeSubscription?
+    var stripeSubscriptionProduct: StripeSubscriptionProduct?
     let isSubscribed: Bool
     
     init(id: String,

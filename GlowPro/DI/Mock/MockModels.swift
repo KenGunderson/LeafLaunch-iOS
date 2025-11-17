@@ -1468,6 +1468,7 @@ struct MockModels {
                 customerId: "mock_customer_id_1",
                 stripeSubscriptionId: "mock_stripe_subscription_id_1",
                 stripeProductId: ID.subscriptionProduct1,
+                stripeInterval: "month",
                 status: .active,
                 deleted: false
             )

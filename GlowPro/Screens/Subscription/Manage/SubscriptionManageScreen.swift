@@ -59,41 +59,58 @@ struct SubscriptionManageScreen: GPView {
         
         AppBaseView(alignment: .top) {
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                 
                 navBar()
                 
                 if let business = self.viewModel.business {
                     
-                    Text(business.name.uppercased())
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    Text("Current Subscription:")
+                        .appFont(with: .TITLE_5)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
                     
-                    CommonButton(title: "Unsubscribe") {
+                    if let subscription = business.subscription,
+                       let subscriptionProduct = business.stripeSubscriptionProduct {
                         
-                        self.viewModel
-                            .unsubscribe()
+                        SubscriptionProductView(
+                            product: subscriptionProduct,
+                            interval: SubscriptionPaywallViewModel.Interval(rawValue: subscription.stripeInterval) ?? .monthly,
+                            isSelected: true
+                        )
                         
                     }
                     
-                    CommonButton(title: "Resubscribe") {
+                    Group {
                         
-                        self.viewModel
-                            .resubscribe()
+                        CommonButton(title: "Unsubscribe") {
+                            
+                            self.viewModel
+                                .unsubscribe()
+                            
+                        }
                         
-                    }
-                    
-                    CommonButton(title: "Update Subscription") {
+                        CommonButton(title: "Resubscribe") {
+                            
+                            self.viewModel
+                                .resubscribe()
+                            
+                        }
                         
-                        self.viewModel
-                            .upgradeOrDowngrade(
-                                priceId: "price_1STbpWDEpnIa6l7R995RByZm"
-                            )
+                        CommonButton(title: "Update Subscription") {
+                            
+                            self.viewModel
+                                .upgradeOrDowngrade(
+                                    priceId: "price_1STbpWDEpnIa6l7R995RByZm"
+                                )
+                            
+                        }
                         
                     }
                     
                 }
                 
             }
+            .padding(.horizontal, .large)
             .frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,

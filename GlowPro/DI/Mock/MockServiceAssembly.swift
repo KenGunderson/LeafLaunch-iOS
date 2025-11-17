@@ -197,6 +197,7 @@ final class MockAPIService: APIServiceProtocol {
         let employees = self.employees.filter { $0.businessId == id }
         let locations = self.locations.filter { $0.businessId == id }
         let media = self.media.filter { $0.businessId == id }
+        let subscription = self.subscriptions.filter { $0.businessId == id }.first
         
         var totalClients: [Client] {
             
@@ -245,6 +246,8 @@ final class MockAPIService: APIServiceProtocol {
         business.totalEmployeeCount = totalEmployeeCount
         business.totalMediaCount = totalMediaCount
         business.totalClientCount = totalClientCount.count
+        business.subscription = subscription
+        business.stripeSubscriptionProduct = MockModels.MockSubscriptionProduct.subscriptionProduct1
         
         return business
         

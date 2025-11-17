@@ -73,6 +73,8 @@ final class FirebaseService: FirebaseServiceProtocol {
         self.user = Auth.auth().currentUser
         self.logInit()
         
+        setupFirebaseAuthListener()
+        
     }
     
     deinit {
@@ -403,6 +405,45 @@ final class FirebaseService: FirebaseServiceProtocol {
                         }
                         
                     }
+                    
+                }
+                
+            }
+            
+        }
+
+    }
+    
+    func setupFirebaseAuthListener() {
+        
+        Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
+            
+            guard let self = self else { return }
+            self.user = user
+            
+            Task {
+                
+                guard let user = user else {
+                    
+                    await MainActor.run { self.currentAccessToken = nil }
+                    return
+                    
+                }
+                
+                do {
+                    
+                    let result = try await user.getIDTokenResult(forcingRefresh: false)
+                    
+                    await MainActor.run {
+                        self.currentAccessToken = result.token
+                    }
+                    
+                } catch {
+                    
+                    self.logError(
+                        title: "IDToken Listener Error",
+                        message: error.getMessageForError()
+                    )
                     
                 }
                 
