@@ -188,7 +188,7 @@ struct SecurityScreen: GPView {
                     
                 }
                 
-                Text("Enable this option if you do not want to be charged for any overage data usage. Keep in mind that if you hit your media limit, you will be stopped from taking more photos until the next billing cycle.")
+                Text("Enable this option if you do want to be charged for any overage data usage. Keep in mind that if you hit your media limit, you will be stopped from taking more photos until the next billing cycle if you have this off.")
                     .appFont(with: .BODY_2)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .frame(maxWidth: .infinity, alignment: .leading)

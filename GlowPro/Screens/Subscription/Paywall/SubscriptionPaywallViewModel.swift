@@ -169,8 +169,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
         let selectedIntervalName = self.selectedInterval?.stripeName ?? Interval.monthly.stripeName
         
         guard let product = self.selectedProduct else { return }
-        guard let filteredPrice = product.prices.first(where: { $0.interval == selectedIntervalName }) else { return }
-        guard let defaultPriceId = product.defaultPriceId else { return }
+        guard let filteredPrice = product.prices.first(where: { $0.interval == selectedIntervalName && $0.amount > 0 }) else { return }
         guard let viewController = UIApplication.shared.topMostViewController else { return }
         
         self.alertService
@@ -209,7 +208,6 @@ final class SubscriptionPaywallViewModel: ViewModel {
                     
                     self.shouldShowSubscriptionSuccessAlert = true
                     self.viewLifecycleService.reload(for: [.businessHome])
-                    self.shouldDismiss = true
                     
                 }
                 

@@ -106,11 +106,14 @@ struct SettingsScreen: GPView {
             settings.removeAll { $0 == .security }
         }
         
-        if !self.viewModel.shouldShowSubscriptionSetting || self.viewModel.isSubscribed {
+        let shouldShowSubscribe = self.viewModel.shouldShowSubscriptionSetting && !self.viewModel.isSubscribed
+        let shouldShowManage = self.viewModel.shouldShowSubscriptionSetting && self.viewModel.isSubscribed
+
+        if !shouldShowSubscribe {
             settings.removeAll { $0 == .subscribe }
         }
-        
-        if !self.viewModel.shouldShowSubscriptionSetting || !self.viewModel.isSubscribed {
+
+        if !shouldShowManage {
             settings.removeAll { $0 == .manageSubscription }
         }
         

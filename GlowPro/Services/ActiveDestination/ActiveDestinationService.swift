@@ -69,6 +69,9 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     func removeActiveDestination() {
         
         self.activeDestination = nil
+        self.business = nil
+        self.businessId = nil
+        
         self.log(message: "Set active destination to NIL")
         
     }
@@ -125,7 +128,17 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     
     private func loadData() {
         
-        guard let activeDestination else { return }
+        guard let activeDestination else {
+        
+            self.business = nil
+            self.businessId = nil
+            
+            self.log(message: "Set active destination to NIL")
+            
+            return
+            
+        }
+        
         guard let currentUserId = self.authService?.currentUser?.id else { return }
         
         var business: Business?

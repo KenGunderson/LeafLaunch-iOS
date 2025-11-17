@@ -81,7 +81,7 @@ struct SubscriptionProductView: View {
         
         let price = self.product
             .prices
-            .filter({ $0.interval == self.interval.stripeName })
+            .filter({ $0.interval == self.interval.stripeName && $0.amount > 0 })
             .first
         
         let normalizedPrice = (price?.amount ?? 0) / 100

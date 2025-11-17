@@ -86,7 +86,7 @@ struct SubscriptionManageScreen: GPView {
                         
                         self.viewModel
                             .upgradeOrDowngrade(
-                                priceId: "price_1STbI1DEpnIa6l7RgKsjrPz8"
+                                priceId: "price_1STbpWDEpnIa6l7R995RByZm"
                             )
                         
                     }
