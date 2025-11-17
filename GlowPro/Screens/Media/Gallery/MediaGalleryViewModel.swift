@@ -126,6 +126,9 @@ final class MediaGalleryViewModel: ViewModel {
     private var allGroups: [GroupedMedia] = []
     private var nextGroupStartIndex: Int = 0
     private let sectionPageSize: Int = 3
+    
+    private var isLoading: Bool = false
+    private var isPagingComplete: Bool = false
 
     var navTitle: String {
         self.mediaFilterOptions == .collage ? "Collages" : "Media Gallery"
@@ -194,6 +197,9 @@ final class MediaGalleryViewModel: ViewModel {
 
     func loadData(showHud: Bool = true) {
         
+        guard !self.isLoading else { return }
+        guard !self.isPagingComplete else { return }
+        
         // Cancel any in-flight load
         self.loadTask?.cancel()
         
@@ -215,36 +221,52 @@ final class MediaGalleryViewModel: ViewModel {
 
             do {
                 
+                let query = Query(
+                    limit: Query.defaultLimit,
+                    offset: self.media.count
+                )
+                
                 var media: [Media] = []
 
                 switch currentContext {
                 case .business(let businessId):
+                    
                     media = try await self.apiService.getMedia(
                         businessId: businessId,
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
-                        tags: currentTags
+                        tags: currentTags,
+                        query: query
                     )
+                    
                 case .location(let locationId):
+                    
                     media = try await self.apiService.getMedia(
                         locationId: locationId,
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
-                        tags: currentTags
+                        tags: currentTags,
+                        query: query
                     )
+                    
                 case .client(let clientId):
+                    
                     media = try await self.apiService.getMedia(
                         clientId: clientId,
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
-                        tags: currentTags
+                        tags: currentTags,
+                        query: query
                     )
+                    
                 case .employee(let employeeId):
+                    
                     media = try await self.apiService.getMedia(
                         authorId: employeeId,
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
-                        tags: currentTags
+                        tags: currentTags,
+                        query: query
                     )
                 }
 
@@ -275,6 +297,8 @@ final class MediaGalleryViewModel: ViewModel {
                     self.mediaTags = mediaTags
                     self.isFirstLoad = false
                     
+                    self.isPagingComplete = media.count < Query.defaultLimit
+                    
                 }
                 
             }
@@ -301,6 +325,10 @@ final class MediaGalleryViewModel: ViewModel {
                         .dismissLoadingIndicator()
                 }
                 
+            }
+            
+            await MainActor.run {
+                self.isLoading = false
             }
             
         }
@@ -611,6 +639,16 @@ final class MediaGalleryViewModel: ViewModel {
         }
 
     }
+    
+    private func resetPagingState() {
+        
+        self.isPagingComplete = false
+        
+        self.groups.removeAll()
+        self.media = []
+        self.nextGroupStartIndex = 0
+        
+    }
 
     private func bindSubscribers() {
 
@@ -621,7 +659,10 @@ final class MediaGalleryViewModel: ViewModel {
             .dropFirst()
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main)
             .sink { [weak self] _ in
+                
+                self?.resetPagingState()
                 self?.loadData()
+                
             }
             .store(in: &self.cancelBag)
 
@@ -630,14 +671,20 @@ final class MediaGalleryViewModel: ViewModel {
             .dropFirst()
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main)
             .sink { [weak self] _ in
+                
+                self?.resetPagingState()
                 self?.loadData()
+                
             }
             .store(in: &self.cancelBag)
 
         self.viewLifecycleService
             .publisher(for: .mediaGallery)
             .sink { [weak self] in
+                
+                self?.resetPagingState()
                 self?.loadData()
+                
             }
             .store(in: &self.cancelBag)
 

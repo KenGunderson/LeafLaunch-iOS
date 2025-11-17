@@ -109,7 +109,8 @@ final class BusinessEmployeeDetailsViewModel: ViewModel {
                         authorId: self.employeeId,
                         sortingOption: .newest,
                         filterOption: .image,
-                        tags: []
+                        tags: [],
+                        query: .init(limit: 10, offset: 0)
                     )
                 
                 let activities = try await self.apiService

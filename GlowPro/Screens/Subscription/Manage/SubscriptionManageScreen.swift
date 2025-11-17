@@ -69,7 +69,7 @@ struct SubscriptionManageScreen: GPView {
                         .appFont(with: .TITLE_5)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                     
-                    if let subscription = business.subscription,
+                    if let subscription = business.stripeSubscription,
                        let subscriptionProduct = business.stripeSubscriptionProduct {
                         
                         SubscriptionProductView(

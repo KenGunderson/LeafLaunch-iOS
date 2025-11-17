@@ -23,7 +23,6 @@ final class ClientHomeViewModel: ViewModel {
     @Published private(set) var client: Client?
     @Published private(set) var location: Location?
     @Published private(set) var activities: [Activity] = []
-    @Published private(set) var media: [Media] = []
         
     @Published private(set) var shouldDismiss: Bool = false
     @Published private(set) var isFirstLoad: Bool = true
@@ -118,20 +117,11 @@ final class ClientHomeViewModel: ViewModel {
                         activityTypeFilters: []
                     )
                 
-                let media = try await self.apiService
-                    .getMedia(
-                        clientId: self.clientId,
-                        sortingOption: .newest,
-                        filterOption: .image,
-                        tags: []
-                    )
-                
                 await MainActor.run { [weak self] in
                     
                     self?.isFirstLoad = false
                     self?.location = location
                     self?.activities = activities
-                    self?.media = media
                     self?.client = client
                     self?.clientSummaryText = client.summary ?? ""
                     self?.clientSummaryExpanded = (client.summary == "" || client.summary == nil)

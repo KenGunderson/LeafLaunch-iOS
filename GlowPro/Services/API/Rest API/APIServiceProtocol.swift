@@ -114,22 +114,26 @@ protocol APIServiceProtocol: APIProtocol {
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media]
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media]
     
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media]
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media]
     
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media]
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media]
     
     func getMedia(authorId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media]
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media]
     
     func getMedia(id: String) async throws -> Media
     

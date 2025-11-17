@@ -262,6 +262,16 @@ struct MediaGalleryScreen: GPView {
                             }
                             
                         }
+                        .onAppear {
+                            
+                            if item.id == self.viewModel.groups.last?.id {
+                                
+                                self.viewModel
+                                    .loadData(showHud: false)
+                                
+                            }
+                            
+                        }
                         
                     }
                     

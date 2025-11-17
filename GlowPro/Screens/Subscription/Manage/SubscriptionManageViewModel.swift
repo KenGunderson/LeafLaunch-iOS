@@ -115,7 +115,7 @@ final class SubscriptionManageViewModel: ViewModel {
     func unsubscribe() {
         
         guard let business = self.business else { return }
-        guard let subscription = business.subscription else { return }
+        guard let subscription = business.stripeSubscription else { return }
         
         Task {
             
@@ -126,6 +126,7 @@ final class SubscriptionManageViewModel: ViewModel {
                 
             } catch {
                 
+                presentErrorAlert(error: error)
                 self.logger.error("\(error.getMessageForError())")
                 
             }
@@ -139,7 +140,7 @@ final class SubscriptionManageViewModel: ViewModel {
     func resubscribe() {
         
         guard let business = self.business else { return }
-        guard let subscription = business.subscription else { return }
+        guard let subscription = business.stripeSubscription else { return }
         
         Task {
             
@@ -150,6 +151,7 @@ final class SubscriptionManageViewModel: ViewModel {
                 
             } catch {
                 
+                presentErrorAlert(error: error)
                 self.logger.error("\(error.getMessageForError())")
                 
             }
@@ -163,7 +165,7 @@ final class SubscriptionManageViewModel: ViewModel {
     func upgradeOrDowngrade(priceId: String) {
         
         guard let business = self.business else { return }
-        guard let subscription = business.subscription else { return }
+        guard let subscription = business.stripeSubscription else { return }
         
         Task {
             
@@ -176,6 +178,7 @@ final class SubscriptionManageViewModel: ViewModel {
                 
             } catch {
                 
+                presentErrorAlert(error: error)
                 self.logger.error("\(error.getMessageForError())")
                 
             }
@@ -183,6 +186,16 @@ final class SubscriptionManageViewModel: ViewModel {
             loadData()
             
         }
+        
+    }
+    
+    private func presentErrorAlert(error: Error) {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.error(
+                message: error.getMessageForError(),
+                action: {}
+            ))))
         
     }
     

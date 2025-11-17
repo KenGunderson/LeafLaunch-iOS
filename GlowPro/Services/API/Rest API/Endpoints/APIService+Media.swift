@@ -12,11 +12,14 @@ extension APIService {
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
-            "media_type": filterOption?.queryParameter
+            "media_type": filterOption?.queryParameter,
+            "limit": "\(query.limit)",
+            "offset": "\(query.offset)"
         ]
         .compact()
         
@@ -47,11 +50,14 @@ extension APIService {
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
-            "media_type": filterOption?.queryParameter
+            "media_type": filterOption?.queryParameter,
+            "limit": "\(query.limit)",
+            "offset": "\(query.offset)"
         ]
         .compact()
         
@@ -82,11 +88,14 @@ extension APIService {
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
-            "media_type": filterOption?.queryParameter
+            "media_type": filterOption?.queryParameter,
+            "limit": "\(query.limit)",
+            "offset": "\(query.offset)"
         ]
         .compact()
         
@@ -117,11 +126,14 @@ extension APIService {
     func getMedia(authorId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
-            "media_type": filterOption?.queryParameter
+            "media_type": filterOption?.queryParameter,
+            "limit": "\(query.limit)",
+            "offset": "\(query.offset)"
         ]
         .compact()
         

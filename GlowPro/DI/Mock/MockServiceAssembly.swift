@@ -246,7 +246,7 @@ final class MockAPIService: APIServiceProtocol {
         business.totalEmployeeCount = totalEmployeeCount
         business.totalMediaCount = totalMediaCount
         business.totalClientCount = totalClientCount.count
-        business.subscription = subscription
+        business.stripeSubscription = subscription
         business.stripeSubscriptionProduct = MockModels.MockSubscriptionProduct.subscriptionProduct1
         
         return business
@@ -624,7 +624,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     func getMedia(businessId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         let media = self.media.filter { $0.businessId == businessId }
         
@@ -639,7 +640,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         var media: [Media] = []
         
@@ -666,7 +668,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         let media = self.media.filter { $0.clientId == clientId }
         
@@ -681,7 +684,8 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     func getMedia(authorId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
-                  tags: [MediaTag]) async throws -> [Media] {
+                  tags: [MediaTag],
+                  query: Query) async throws -> [Media] {
         
         let media = self.media.filter { $0.authorId == authorId }
         
