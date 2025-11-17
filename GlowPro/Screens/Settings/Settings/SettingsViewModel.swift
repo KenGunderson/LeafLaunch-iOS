@@ -20,6 +20,7 @@ final class SettingsViewModel: ViewModel {
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol
 
     private var navigationService: NavigationService?
@@ -70,6 +71,7 @@ final class SettingsViewModel: ViewModel {
          activeDestinationService: ActiveDestinationServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          impersonateService: ImpersonateServiceProtocol) {
         
         self.authService = authService
@@ -79,6 +81,7 @@ final class SettingsViewModel: ViewModel {
         self.activeDestinationService = activeDestinationService
         self.environmentService = environmentService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         self.impersonateService = impersonateService
         
         self.logInit()
@@ -188,7 +191,19 @@ final class SettingsViewModel: ViewModel {
     }
     
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.viewLifecycleService
+            .publisher(for: .settings)
+            .receiveOnMain()
+            .sink { [weak self] in
+                
+                self?.loadData(showHud: false)
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
     private func reviewApp() {

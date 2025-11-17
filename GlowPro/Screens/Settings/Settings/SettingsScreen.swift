@@ -110,7 +110,7 @@ struct SettingsScreen: GPView {
             settings.removeAll { $0 == .subscribe }
         }
         
-        if !self.viewModel.isSubscribed {
+        if !self.viewModel.shouldShowSubscriptionSetting || !self.viewModel.isSubscribed {
             settings.removeAll { $0 == .manageSubscription }
         }
         

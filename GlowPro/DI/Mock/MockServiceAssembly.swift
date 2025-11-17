@@ -1571,6 +1571,7 @@ final class MockViewLifecycleService: ViewLifecycleServiceProtocol {
     var onWillEnterForeground = CurrentValueSubject<String?, Never>(nil)
     
     func reload(for key: ViewLifecycleKey) {}
+    func reload(for keys: [ViewLifecycleKey]) {}
     func reloadAll() {}
     func publisher(for key: ViewLifecycleKey) -> AnyPublisher<Void, Never> { return PassthroughSubject().eraseToAnyPublisher() }
     

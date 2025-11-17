@@ -524,6 +524,7 @@ class ViewModelAssembly: Assembly {
                     alertService: r.resolve(AlertServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
                     stripeService: r.resolve(StripeServiceProtocol.self)!,
                 )
             }.inObjectScope(.transient)
@@ -555,7 +556,8 @@ class ViewModelAssembly: Assembly {
                     activeDestinationService: r.resolve(ActiveDestinationServiceProtocol.self)!,
                     environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!,
                 )
             }.inObjectScope(.transient)
         

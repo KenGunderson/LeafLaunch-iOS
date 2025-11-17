@@ -22,6 +22,9 @@ enum ViewLifecycleKey: String, Hashable {
     
     case mediaPreview
     case mediaGallery
+    
+    case settings
+    
     case devSettings
     
 }
@@ -59,6 +62,26 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
             let newSubject = PassthroughSubject<Void, Never>()
             self.subjectMap[key] = newSubject
             newSubject.send(())
+            
+        }
+        
+    }
+    
+    func reload(for keys: [ViewLifecycleKey]) {
+        
+        for key in keys {
+            
+            self.log(message: "Reloading Key: \(key.rawValue.convertNamingStyle(from: .camelCase, to: .screamingSnakeCase))")
+            
+            if let subject = self.subjectMap[key] {
+                subject.send(())
+            } else {
+                
+                let newSubject = PassthroughSubject<Void, Never>()
+                self.subjectMap[key] = newSubject
+                newSubject.send(())
+                
+            }
             
         }
         

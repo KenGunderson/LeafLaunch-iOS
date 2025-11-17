@@ -10,6 +10,7 @@ import Combine
 protocol ViewLifecycleServiceProtocol: AnyObject, Loggable {
     
     func reload(for key: ViewLifecycleKey)
+    func reload(for keys: [ViewLifecycleKey])
     func reloadAll()
     func publisher(for key: ViewLifecycleKey) -> AnyPublisher<Void, Never>
     

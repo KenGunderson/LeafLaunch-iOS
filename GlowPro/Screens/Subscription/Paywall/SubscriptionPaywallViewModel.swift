@@ -42,6 +42,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let stripeService: StripeServiceProtocol
 
     @Published private(set) var shouldDismiss: Bool = false
@@ -74,6 +75,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          stripeService: StripeServiceProtocol) {
         
         self.apiService = apiService
@@ -82,6 +84,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         self.stripeService = stripeService
         
         self.logInit()
@@ -203,7 +206,11 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 self.logger.debug("Created subscription: \(sub.id)")
                 
                 await MainActor.run {
+                    
                     self.shouldShowSubscriptionSuccessAlert = true
+                    self.viewLifecycleService.reload(for: [.businessHome])
+                    self.shouldDismiss = true
+                    
                 }
                 
             } catch {
