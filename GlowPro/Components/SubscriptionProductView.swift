@@ -15,9 +15,10 @@ struct SubscriptionProductView: View {
     
     var backgroundColor: ColorSource {
         
-        return self.isSelected
-        ? .color(Style.shared.accent.asColor!.opacity(0.15))
-        : Style.shared.background(.secondary)
+//        return self.isSelected
+//        ? .color(Style.shared.accent.asColor!.opacity(0.15))
+//        : Style.shared.background(.secondary)
+        return Style.shared.background(.secondary)
         
     }
     
@@ -52,7 +53,7 @@ struct SubscriptionProductView: View {
         .appBorder(
             cornerRadius: .small2,
             color: borderColor,
-            lineWidth: 2.5
+            lineWidth: 3.5
         )
         
     }
@@ -134,20 +135,20 @@ struct SubscriptionProductView: View {
         
         let data = self.product.metadata ?? .init()
         
-        let totalNumberOfLocations: Int? = data.totalNumberOfLocations ?? 0
-        let totalNumberOfEmployees: Int? = data.totalNumberOfEmployees
-        let totalNumberOfMedia: Int? = data.totalNumberOfMedia
+        let totalNumberOfLocations = data.totalNumberOfLocations ?? 0
+        let totalNumberOfEmployees = data.totalNumberOfEmployees ?? 0
+        let totalNumberOfMedia = data.totalNumberOfMedia ?? 0
         
         var stringNumberOfLocations: String {
-            return totalNumberOfLocations == -1 ? "Unlimited" : "\(totalNumberOfLocations ?? 0)"
+            return totalNumberOfLocations == -1 ? "Unlimited" : "\(totalNumberOfLocations)"
         }
         
         var stringNumberOfEmployees: String {
-            return totalNumberOfEmployees == -1 ? "Unlimited" : "\(totalNumberOfEmployees ?? 0)"
+            return totalNumberOfEmployees == -1 ? "Unlimited" : "\(totalNumberOfEmployees)"
         }
         
         var stringNumberOfMedia: String {
-            return totalNumberOfMedia == -1 ? "Unlimited" : "\(totalNumberOfMedia ?? 0)"
+            return totalNumberOfMedia == -1 ? "Unlimited" : "\(totalNumberOfMedia)"
         }
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
@@ -160,21 +161,40 @@ struct SubscriptionProductView: View {
             
             benefitView(
                 icon: .systemImage("pin.fill"),
-                title: "You receive \(stringNumberOfLocations)(s) locations"
+                title: "\(stringNumberOfLocations) Location\(pluralize(totalNumberOfLocations))",
+                color: .color(ActivityCategory.location.color)
             )
             
             // Employee
             
             benefitView(
                 icon: .image(.iconPerson, renderingMode: .template),
-                title: "You can have up to \(stringNumberOfEmployees) employees"
+                title: "\(stringNumberOfEmployees) Employee\(pluralize(totalNumberOfEmployees))",
+                color: .color(ActivityCategory.employee.color)
             )
             
             // Media
             
             benefitView(
                 icon: .systemImage("camera.fill"),
-                title: "You can take up to \(stringNumberOfMedia) media per month"
+                title: "\(stringNumberOfMedia) Media Upload\(pluralize(totalNumberOfMedia))",
+                color: .color(ActivityCategory.media.color)
+            )
+            
+            // Notes
+            
+            benefitView(
+                icon: .image(.iconNoteOutline, renderingMode: .template),
+                title: "Unlimited Notes & Forms",
+                color: .color(ActivityCategory.note.color)
+            )
+            
+            // Media
+            
+            benefitView(
+                icon: .systemImage("camera.fill"),
+                title: "You can take up to \(stringNumberOfMedia) media per month",
+                color: .color(ActivityCategory.media.color)
             )
             
         }
@@ -182,7 +202,8 @@ struct SubscriptionProductView: View {
     }
     
     private func benefitView(icon: ImageSource,
-                             title: String) -> some View {
+                             title: String,
+                             color: ColorSource) -> some View {
         
         HStack(spacing: Style.shared.spacing(.custom(6))) {
             
@@ -191,16 +212,20 @@ struct SubscriptionProductView: View {
                 .scaledToFit()
                 .frame(width: 16, height: 16)
                 .padding(.small)
-                .foregroundStyle(Style.shared.accent.source())
-                .background(Style.shared.accent.source(opacity: 0.15), in: .circle)
+                .foregroundStyle(color.source())
+                .background(color.source(opacity: 0.15), in: .circle)
             
             Text(title)
                 .foregroundStyle(Style.shared.textColor(.body).source())
-                .appFont(with: .TITLE_2)
+                .appFont(with: .TITLE_3)
                 .lineLimit(nil)
             
         }
         
+    }
+    
+    private func pluralize(_ count: Int) -> String {
+        return (count == 1) ? "" : "s"
     }
     
 }

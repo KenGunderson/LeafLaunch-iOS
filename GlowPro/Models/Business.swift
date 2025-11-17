@@ -39,6 +39,7 @@ struct Business: Identifiable,
     let stripeCustomerId: String?
     var stripeSubscription: StripeSubscription?
     var stripeSubscriptionProduct: StripeSubscriptionProduct?
+    var stripeSubscriptionOverageUsage: StripeSubscriptionOverageUsage?
     var stripeHasPendingSubscriptionUpdate: Bool
     let isSubscribed: Bool
     
@@ -65,6 +66,7 @@ struct Business: Identifiable,
          stripeCustomerId: String? = nil,
          stripeSubscription: StripeSubscription? = nil,
          stripeSubscriptionProduct: StripeSubscriptionProduct? = nil,
+         stripeSubscriptionOverageUsage: StripeSubscriptionOverageUsage? = nil,
          stripeHasPendingSubscriptionUpdate: Bool = false) {
         
         self.id = id
@@ -91,6 +93,7 @@ struct Business: Identifiable,
         self.stripeCustomerId = stripeCustomerId
         self.stripeSubscription = stripeSubscription
         self.stripeSubscriptionProduct = stripeSubscriptionProduct
+        self.stripeSubscriptionOverageUsage = stripeSubscriptionOverageUsage
         self.stripeHasPendingSubscriptionUpdate = stripeHasPendingSubscriptionUpdate
         
     }
@@ -122,6 +125,7 @@ struct Business: Identifiable,
         case stripeSubscription = "stripe_subscription"
         case stripeSubscriptionProduct = "stripe_subscription_product"
         case stripeHasPendingSubscriptionUpdate = "stripe_has_pending_subscription_update"
+        case stripeSubscriptionOverageUsage = "stripe_subscription_overage_usage"
         case isSubscribed = "is_subscribed"
 
     }

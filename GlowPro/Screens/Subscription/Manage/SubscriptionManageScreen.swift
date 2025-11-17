@@ -63,54 +63,58 @@ struct SubscriptionManageScreen: GPView {
                 
                 navBar()
                 
-                if let business = self.viewModel.business {
-                    
-                    Text("Current Subscription:")
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                    
-                    if let subscription = business.stripeSubscription,
-                       let subscriptionProduct = business.stripeSubscriptionProduct {
+                Group {
+                
+                    if let business = self.viewModel.business {
                         
-                        SubscriptionProductView(
-                            product: subscriptionProduct,
-                            interval: SubscriptionPaywallViewModel.Interval(rawValue: subscription.stripeInterval) ?? .monthly,
-                            isSelected: true
-                        )
+                        Text("Active Subscription:")
+                            .appFont(with: .TITLE_5)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
                         
-                    }
-                    
-                    Group {
-                        
-                        CommonButton(title: "Unsubscribe") {
+                        if let subscription = business.stripeSubscription,
+                           let subscriptionProduct = business.stripeSubscriptionProduct {
                             
-                            self.viewModel
-                                .unsubscribe()
+                            SubscriptionProductView(
+                                product: subscriptionProduct,
+                                interval: SubscriptionPaywallViewModel.Interval(rawValue: subscription.stripeInterval) ?? .monthly,
+                                isSelected: true
+                            )
                             
                         }
                         
-                        CommonButton(title: "Resubscribe") {
+                        Group {
                             
-                            self.viewModel
-                                .resubscribe()
+                            CommonButton(title: "Unsubscribe") {
+                                
+                                self.viewModel
+                                    .unsubscribe()
+                                
+                            }
                             
-                        }
-                        
-                        CommonButton(title: "Update Subscription") {
+                            CommonButton(title: "Resubscribe") {
+                                
+                                self.viewModel
+                                    .resubscribe()
+                                
+                            }
                             
-                            self.viewModel
-                                .upgradeOrDowngrade(
-                                    priceId: "price_1STbpWDEpnIa6l7R995RByZm"
-                                )
+                            CommonButton(title: "Update Subscription") {
+                                
+                                self.viewModel
+                                    .upgradeOrDowngrade(
+                                        priceId: "price_1STbpWDEpnIa6l7R995RByZm"
+                                    )
+                                
+                            }
                             
                         }
                         
                     }
                     
                 }
+                .padding(.horizontal, .large)
                 
             }
-            .padding(.horizontal, .large)
             .frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,
@@ -132,8 +136,7 @@ struct SubscriptionManageScreen: GPView {
             title: "Manage Subscription",
             rightButtonView: closeButton
         )
-        .padding(.top, .medium)
-        
+        // TODO: - MAYBE ADD PADDING TOP MEDIUM?
     }
     
 }
