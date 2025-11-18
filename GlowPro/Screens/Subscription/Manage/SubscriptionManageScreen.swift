@@ -87,23 +87,23 @@ struct SubscriptionManageScreen: GPView {
                     
                     Group {
                         
-                        activePlanView(business: business)
-                        mediaUsageView(business: business)
-                        
                         if isPendingSubscriptionDowngrade {
                             pendingSubscriptionUpdateView()
                         }
-                        
-                        billingInformation(business: business)
                         
                         if isCancellationPending {
                             pendingCancellationView()
                         }
                         
+                        activePlanView(business: business)
+                        mediaUsageView(business: business)
+                        billingInformation(business: business)
+                        
                         if canCancelSubscription {
                             cancelSubscription()
                         }
                         
+                        termsOfService()
                         
                     }
                     .transition(.offset(y: 300).combined(with: .opacity))
@@ -144,11 +144,11 @@ struct SubscriptionManageScreen: GPView {
             
             let canUpdateSubscription = !business.stripeHasPendingSubscriptionUpdate
             
-            let price = product.prices.filter({ $0.interval == subscription.stripeInterval }).first
-            let amount = (price?.amount ?? 0)
-            
+            let price = product.prices.filter({ $0.interval == subscription.stripeInterval && $0.amount > 0 }).first
+            let normalizedPrice = (price?.amount ?? 0) / 100
+                        
             let rawInterval = price?.interval ?? ""
-            let interval = SubscriptionPaywallViewModel.Interval(rawValue: rawInterval) ?? .monthly
+            let interval = SubscriptionPaywallViewModel.Interval.createFromStripeName(rawInterval)
             
             let color = ActivityCategory.business.color
             
@@ -182,11 +182,11 @@ struct SubscriptionManageScreen: GPView {
                         Text(product.name)
                             .appFont(with: .HEADER_2)
                             .foregroundStyle(Style.shared.textColor(.body).source())
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(1)
                         
                         HStack(spacing: 2) {
                             
-                            Text(amount, format: .currency(code: "USD"))
+                            Text(normalizedPrice, format: .currency(code: "USD"))
                                 .appFont(with: .HEADER_2)
                                 .foregroundStyle(color)
                             
@@ -195,6 +195,8 @@ struct SubscriptionManageScreen: GPView {
                                 .foregroundStyle(color)
                             
                         }
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                         
                     }
                     
@@ -376,7 +378,7 @@ struct SubscriptionManageScreen: GPView {
         
         let color = ActivityCategory.location.color
         let rawInterval = business.stripeSubscription?.stripeInterval ?? ""
-        let interval = SubscriptionPaywallViewModel.Interval(rawValue: rawInterval) ?? .monthly
+        let interval = SubscriptionPaywallViewModel.Interval.createFromStripeName(rawInterval)
         
         sectionCardView(color: .color(color)) {
             

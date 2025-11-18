@@ -29,7 +29,7 @@ final class SettingsViewModel: ViewModel {
     @Published private(set) var workspaces: [Workspace] = []
     @Published private(set) var isSubscribed: Bool = false
     
-    @Published var shouldDismiss: Bool = false
+    @Published private(set) var shouldDismiss: Bool = false
     
     @Published private(set)var isLoading: Bool = true
     @Published private(set) var isFirstLoad: Bool = true
@@ -105,7 +105,14 @@ final class SettingsViewModel: ViewModel {
             self.navigationService?
                 .modal(fullScreenCover: .subscriptionPaywall(
                     context: .create,
-                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION
+                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                    completion: { [weak self] in
+                                                
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                            self?.shouldDismiss = true
+                        }
+                        
+                    }
                 ))
             
         case .manageSubscription:

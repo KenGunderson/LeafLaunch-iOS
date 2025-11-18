@@ -41,6 +41,20 @@ final class SubscriptionPaywallViewModel: ViewModel {
             }
         }
         
+        static func createFromStripeName(_ name: String) -> Self {
+            
+            var interval: String {
+                
+                if name == "month" { return "monthly"}
+                else if name == "year" { return "yearly" }
+                return "monthly"
+                
+            }
+            
+            return .init(rawValue: interval)!
+            
+        }
+        
     }
     
     internal let loggerName: String = "PAYWALL_VIEW_MODEL"
@@ -79,15 +93,17 @@ final class SubscriptionPaywallViewModel: ViewModel {
         switch self.context! {
         case .view: return false
         case .create: return isValid
-        case .update(_, let currentProduct, _):
+        case .update(_, let currentProduct, let currentInterval):
             
-            return isValid && (currentProduct != self.selectedProduct)
+            let isSameSelection = (currentProduct == self.selectedProduct && (currentInterval == self.selectedInterval))
+            return isValid && !isSameSelection
             
         }
         
     }
         
     private(set) var context: Context!
+    private(set) var completion: (() -> Void)?
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
@@ -119,10 +135,13 @@ final class SubscriptionPaywallViewModel: ViewModel {
     
     @discardableResult
     func setup(context: Context,
-               paywallItem: SubscriptionPaywallItem) -> Self {
+               paywallItem: SubscriptionPaywallItem,
+               completion: (() -> Void)? = nil) -> Self {
         
         self.context = context
         self.paywallItem = paywallItem
+        self.completion = completion
+        
         return self
         
     }
@@ -237,15 +256,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 
                 await MainActor.run {
                     
-                    self.shouldDismiss = true
                     self.viewLifecycleService.reload(for: [.businessHome, .subscriptionManage])
-                    
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    
-                    self.navigationService?
-                        .modal(fullScreenCover: .subscriptionManage(businessId: self.businessId))
+                    self.shouldDismiss = true
                     
                 }
                 

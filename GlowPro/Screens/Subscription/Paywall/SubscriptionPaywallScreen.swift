@@ -77,7 +77,10 @@ struct SubscriptionPaywallScreen: GPView {
                 ) {
                     
                     SubscriptionSuccessSheet {
+                        
+                        self.viewModel.completion?()
                         dismiss()
+                        
                     }
                     
                 }
