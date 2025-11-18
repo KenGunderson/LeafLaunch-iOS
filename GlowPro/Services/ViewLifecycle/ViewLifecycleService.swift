@@ -23,6 +23,8 @@ enum ViewLifecycleKey: String, Hashable {
     case mediaPreview
     case mediaGallery
     
+    case subscriptionManage
+    
     case settings
     
     case devSettings

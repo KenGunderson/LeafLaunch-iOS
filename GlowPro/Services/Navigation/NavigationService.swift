@@ -673,10 +673,13 @@ extension View {
                 
                 MediaURLPreviewView(ctx: ctx)
                 
-            case .subscriptionPaywall(let paywallItem):
+            case .subscriptionPaywall(let context, let paywallItem):
                 
                 let viewModel = globalResolver.resolve(SubscriptionPaywallViewModel.self)!
-                    .setup(paywallItem: paywallItem)
+                    .setup(
+                        context: context,
+                        paywallItem: paywallItem
+                    )
                 
                 SubscriptionPaywallScreen(viewModel: viewModel)
                 

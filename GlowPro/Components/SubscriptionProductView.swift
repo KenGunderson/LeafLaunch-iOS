@@ -15,10 +15,9 @@ struct SubscriptionProductView: View {
     
     var backgroundColor: ColorSource {
         
-//        return self.isSelected
-//        ? .color(Style.shared.accent.asColor!.opacity(0.15))
-//        : Style.shared.background(.secondary)
-        return Style.shared.background(.secondary)
+        return self.isSelected
+        ? .color(Style.shared.accent.asColor!.opacity(0.15))
+        : Style.shared.background(.secondary)
         
     }
     
@@ -187,14 +186,6 @@ struct SubscriptionProductView: View {
                 icon: .image(.iconNoteOutline, renderingMode: .template),
                 title: "Unlimited Notes & Forms",
                 color: .color(ActivityCategory.note.color)
-            )
-            
-            // Media
-            
-            benefitView(
-                icon: .systemImage("camera.fill"),
-                title: "You can take up to \(stringNumberOfMedia) media per month",
-                color: .color(ActivityCategory.media.color)
             )
             
         }

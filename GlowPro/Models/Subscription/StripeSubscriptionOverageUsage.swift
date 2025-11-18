@@ -25,4 +25,18 @@ struct StripeSubscriptionOverageUsage: Codable, Hashable {
         
     }
     
+    init(mediaAllowed: Int = 0,
+         mediaUsed: Int = 0,
+         mediaUsagePercentage: Double = 0,
+         mediaRemaining: Int = 0,
+         isLimitReached: Bool = false) {
+        
+        self.mediaAllowed = mediaAllowed
+        self.mediaUsed = mediaUsed
+        self.mediaUsagePercentage = mediaUsagePercentage
+        self.mediaRemaining = mediaRemaining
+        self.isLimitReached = isLimitReached
+        
+    }
+    
 }

@@ -10,6 +10,15 @@ import SwiftUI
 
 final class SubscriptionPaywallViewModel: ViewModel {
     
+    enum Context: Equatable {
+        
+        case view
+        case create
+        case update(selectedProduct: StripeSubscriptionProduct,
+                    selectedInterval: Interval)
+        
+    }
+    
     enum Interval: String, Selectable, CaseIterable {
         
         var id: String { return self.rawValue }
@@ -63,9 +72,21 @@ final class SubscriptionPaywallViewModel: ViewModel {
     }
     
     var isSubscribeButtonEnabled: Bool {
-        return self.selectedProduct != nil
+        
+        let isValid = self.selectedProduct != nil
+        
+        switch self.context! {
+        case .view: return false
+        case .create: return isValid
+        case .update(let currentProduct, _):
+            
+            return isValid && (currentProduct != self.selectedProduct)
+            
+        }
+        
     }
         
+    private(set) var context: Context!
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
@@ -96,8 +117,10 @@ final class SubscriptionPaywallViewModel: ViewModel {
     }
     
     @discardableResult
-    func setup(paywallItem: SubscriptionPaywallItem) -> Self {
+    func setup(context: Context,
+               paywallItem: SubscriptionPaywallItem) -> Self {
         
+        self.context = context
         self.paywallItem = paywallItem
         return self
         
@@ -135,7 +158,19 @@ final class SubscriptionPaywallViewModel: ViewModel {
                     .sorted(by: { ($0.metadata?.totalNumberOfMedia ?? 0) < ($1.metadata?.totalNumberOfMedia ?? 0) })
                 
                 await MainActor.run {
+                    
                     self.products = sortedProducts
+                    
+                    switch self.context! {
+                    case .view: break
+                    case .create: break
+                    case .update(let selectedProduct, let selectedInterval):
+                        
+                        self.selectedProduct = selectedProduct
+                        self.selectedInterval = selectedInterval
+                        
+                    }
+                    
                 }
                 
             }
@@ -207,7 +242,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 await MainActor.run {
                     
                     self.shouldShowSubscriptionSuccessAlert = true
-                    self.viewLifecycleService.reload(for: [.businessHome])
+                    self.viewLifecycleService.reload(for: [.businessHome, .subscriptionManage])
                     
                 }
                 

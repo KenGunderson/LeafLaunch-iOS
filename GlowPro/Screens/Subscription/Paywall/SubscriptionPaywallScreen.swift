@@ -248,21 +248,28 @@ struct SubscriptionPaywallScreen: GPView {
     @ViewBuilder
     private func bottomBar() -> some View {
         
+        let isReadOnly = self.viewModel.context == .view
+        let closeButtonCopy = isReadOnly ? "Close" : "Not Now"
+        
         if self.shouldAnimateFooter {
             
             VStack(spacing: Style.shared.spacing(.medium)) {
                 
-                CommonButton(
-                    title: "Subscribe",
-                    isEnabled: self.viewModel.isSubscribeButtonEnabled
-                ) {
+                if !isReadOnly {
                     
-                    self.viewModel
-                        .subscribe()
+                    CommonButton(
+                        title: "Subscribe",
+                        isEnabled: self.viewModel.isSubscribeButtonEnabled
+                    ) {
+                        
+                        self.viewModel
+                            .subscribe()
+                        
+                    }
                     
                 }
                 
-                Text("Not Now")
+                Text(closeButtonCopy)
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .asButton {
@@ -315,7 +322,10 @@ struct SubscriptionPaywallScreen: GPView {
     @Previewable @State var showPaywall: Bool = true
     
     let viewModel = mockResolve(SubscriptionPaywallViewModel.self)
-        .setup(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION)
+        .setup(
+            context: .create,
+            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION
+        )
     
     AppBaseView {
     

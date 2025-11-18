@@ -19,6 +19,7 @@ final class SubscriptionManageViewModel: ViewModel {
     private(set) var alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let stripeService: StripeServiceProtocol
 
     @Published private(set) var business: Business?
@@ -39,6 +40,7 @@ final class SubscriptionManageViewModel: ViewModel {
          alertService: AlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          stripeService: StripeServiceProtocol) {
         
         self.apiService = apiService
@@ -47,6 +49,7 @@ final class SubscriptionManageViewModel: ViewModel {
         self.alertService = alertService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
+        self.viewLifecycleService = viewLifecycleService
         self.stripeService = stripeService
         
         self.logInit()
@@ -111,7 +114,19 @@ final class SubscriptionManageViewModel: ViewModel {
     }
     
     private func bindSubscribers() {
+        
         self.cancelBag = CancelBag()
+        
+        self.viewLifecycleService
+            .publisher(for: .subscriptionManage)
+            .receiveOnMain()
+            .sink { [weak self] in
+                
+                self?.loadData()
+                
+            }
+            .store(in: &self.cancelBag)
+        
     }
     
     func unsubscribe() {
@@ -198,6 +213,30 @@ final class SubscriptionManageViewModel: ViewModel {
                 message: error.getMessageForError(),
                 action: {}
             ))))
+        
+    }
+    
+    func getNextBillingDate() -> String {
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        // 1. Add one month
+        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: now) else {
+            return ""
+        }
+        
+        // 2. Get the first day of that month
+        let components = calendar.dateComponents([.year, .month], from: nextMonth)
+        guard let firstDay = calendar.date(from: components) else {
+            return ""
+        }
+        
+        // 3. Format however you want
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"   // “January 1, 2026”
+        
+        return formatter.string(from: firstDay)
         
     }
     

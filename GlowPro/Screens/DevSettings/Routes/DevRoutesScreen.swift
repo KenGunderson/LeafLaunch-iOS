@@ -91,12 +91,10 @@ struct DevRoutesScreen: GPView {
             
             route(
                 title: "Premium Paywall",
-                fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION)
-            )
-            
-            route(
-                title: "Location Paywall",
-                fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_ADD_LOCATION_MONTHLY)
+                fullScreenCover: .subscriptionPaywall(
+                    context: .create,
+                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION
+                )
             )
             
             route(

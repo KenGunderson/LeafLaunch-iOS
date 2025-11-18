@@ -103,7 +103,10 @@ final class SettingsViewModel: ViewModel {
         case .subscribe:
             
             self.navigationService?
-                .modal(fullScreenCover: .subscriptionPaywall(paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION))
+                .modal(fullScreenCover: .subscriptionPaywall(
+                    context: .create,
+                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION
+                ))
             
         case .manageSubscription:
             
