@@ -14,7 +14,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
         
         case view
         case create
-        case update(selectedProduct: StripeSubscriptionProduct,
+        case update(subscriptionId: String,
+                    selectedProduct: StripeSubscriptionProduct,
                     selectedInterval: Interval)
         
     }
@@ -78,7 +79,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
         switch self.context! {
         case .view: return false
         case .create: return isValid
-        case .update(let currentProduct, _):
+        case .update(_, let currentProduct, _):
             
             return isValid && (currentProduct != self.selectedProduct)
             
@@ -164,7 +165,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
                     switch self.context! {
                     case .view: break
                     case .create: break
-                    case .update(let selectedProduct, let selectedInterval):
+                    case .update(_, let selectedProduct, let selectedInterval):
                         
                         self.selectedProduct = selectedProduct
                         self.selectedInterval = selectedInterval
@@ -199,7 +200,74 @@ final class SubscriptionPaywallViewModel: ViewModel {
     }
     
     @MainActor
-    func subscribe() {
+    func handleSubscribe() {
+        
+        switch self.context! {
+        case .view: return
+        case .create: subscribe()
+        case .update(let subscriptionId, let selectedProduct, let selectedInterval):
+            
+            upgradeOrDowngrade(
+                subscriptionId: subscriptionId,
+                currentProduct: selectedProduct,
+                currentInterval: selectedInterval
+            )
+            
+        }
+        
+    }
+    
+    private func upgradeOrDowngrade(subscriptionId: String,
+                                    currentProduct: StripeSubscriptionProduct,
+                                    currentInterval: Interval) {
+        
+        let selectedIntervalName = self.selectedInterval?.stripeName ?? Interval.monthly.stripeName
+        
+        guard let product = self.selectedProduct else { return }
+        guard let filteredPrice = product.prices.first(where: { $0.interval == selectedIntervalName && $0.amount > 0 }) else { return }
+        
+        Task {
+            
+            do {
+                
+                try await self.apiService.upgradeOrDowngradeSubscription(
+                    subscriptionId: subscriptionId,
+                    priceId: filteredPrice.id
+                )
+                
+                await MainActor.run {
+                    
+                    self.shouldDismiss = true
+                    self.viewLifecycleService.reload(for: [.businessHome, .subscriptionManage])
+                    
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    
+                    self.navigationService?
+                        .modal(fullScreenCover: .subscriptionManage(businessId: self.businessId))
+                    
+                }
+                
+            } catch {
+                
+                self.alertService.showAlert(.init(.appAlert(.error(
+                    message: error.getMessageForError(),
+                    action: {}
+                ))))
+                
+                self.logger.error("\(error.getMessageForError())")
+                
+            }
+            
+            loadData()
+            
+        }
+        
+    }
+    
+    @MainActor
+    private func subscribe() {
         
         let selectedIntervalName = self.selectedInterval?.stripeName ?? Interval.monthly.stripeName
         

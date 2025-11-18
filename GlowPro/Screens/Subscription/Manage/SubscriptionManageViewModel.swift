@@ -53,6 +53,7 @@ final class SubscriptionManageViewModel: ViewModel {
         self.stripeService = stripeService
         
         self.logInit()
+        self.bindSubscribers()
         
     }
     
@@ -165,33 +166,6 @@ final class SubscriptionManageViewModel: ViewModel {
                 
                 try await self.apiService
                     .resubscribe(subscriptionId: subscription.stripeSubscriptionId)
-                
-            } catch {
-                
-                presentErrorAlert(error: error)
-                self.logger.error("\(error.getMessageForError())")
-                
-            }
-            
-            loadData()
-            
-        }
-        
-    }
-    
-    func upgradeOrDowngrade(priceId: String) {
-        
-        guard let business = self.business else { return }
-        guard let subscription = business.stripeSubscription else { return }
-        
-        Task {
-            
-            do {
-                
-                try await self.apiService.upgradeOrDowngradeSubscription(
-                    subscriptionId: subscription.stripeSubscriptionId,
-                    priceId: priceId
-                )
                 
             } catch {
                 

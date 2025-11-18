@@ -252,6 +252,14 @@ extension View {
                 LegalScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
+            case .subscriptionTerms:
+                
+                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                    .setup(context: .subscriptionTerms)
+                
+                LegalScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
             case .logout: EmptyView()
             }
             

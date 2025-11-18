@@ -249,7 +249,15 @@ struct SubscriptionPaywallScreen: GPView {
     private func bottomBar() -> some View {
         
         let isReadOnly = self.viewModel.context == .view
-        let closeButtonCopy = isReadOnly ? "Close" : "Not Now"
+        let closeButtonTitle = isReadOnly ? "Close" : "Not Now"
+        
+        var subscribeButtonTitle: String {
+            switch self.viewModel.context! {
+            case .view: return "Subscribe"
+            case .create: return "Subscribe"
+            case .update: return "Update Subscription"
+            }
+        }
         
         if self.shouldAnimateFooter {
             
@@ -258,18 +266,18 @@ struct SubscriptionPaywallScreen: GPView {
                 if !isReadOnly {
                     
                     CommonButton(
-                        title: "Subscribe",
+                        title: subscribeButtonTitle,
                         isEnabled: self.viewModel.isSubscribeButtonEnabled
                     ) {
                         
                         self.viewModel
-                            .subscribe()
+                            .handleSubscribe()
                         
                     }
                     
                 }
                 
-                Text(closeButtonCopy)
+                Text(closeButtonTitle)
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .asButton {
@@ -306,7 +314,7 @@ struct SubscriptionPaywallScreen: GPView {
         .environment(\.openURL, .init(handler: { url in
             
             self.navigationService
-                .push(.setting(.termsOfService))
+                .push(.setting(.subscriptionTerms))
             
             return .handled
             

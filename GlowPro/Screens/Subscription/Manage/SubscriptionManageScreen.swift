@@ -9,66 +9,71 @@ import SwiftUI
 
 struct SubscriptionManageScreen: GPView {
     
-    @Environment(NavigationService.self) private var navigationService
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel: SubscriptionManageViewModel
     
+    @State private var navigationService = NavigationService()
+    
     var body: some View {
         
-        content()
-        
-        // Lifecycle
-        
-            .onFirstAppear {
-                
-                self.viewModel
-                    .track()
-                
-                self.viewModel
-                    .setup(navigationService: self.navigationService)
-                
-            }
-            .task {
-                
-                self.viewModel
-                    .loadData()
-                
-            }
-        
-        // On Change
-        
-            .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
-                
-                guard newValue else { return }
-                self.dismiss()
-                
-            }
-        
-        // Alerts
-        
-            .withAlertService(.init(alertService: self.viewModel.alertService))
-        
-        // Sheets
-        
-            .adaptiveSheet(isPresented: self.$viewModel.shouldPresentCancelSubscriptionSheet) {
-                
-                SubscriptionCancelSheet {
+        AppRootView(navigationService: self.$navigationService) {
+            
+            content()
+            
+            // Lifecycle
+            
+                .onFirstAppear {
                     
                     self.viewModel
-                        .unsubscribe()
+                        .track()
                     
-                } dismissAction: {
-                    // Do Nothing
+                    self.viewModel
+                        .setup(navigationService: self.navigationService)
+                    
                 }
-                
-            }
+                .task {
+                    
+                    self.viewModel
+                        .loadData()
+                    
+                }
+            
+            // On Change
+            
+                .onChange(of: self.viewModel.shouldDismiss) { _, newValue in
+                    
+                    guard newValue else { return }
+                    self.dismiss()
+                    
+                }
+            
+            // Alerts
+            
+                .withAlertService(.init(alertService: self.viewModel.alertService))
+            
+            // Sheets
+            
+                .adaptiveSheet(isPresented: self.$viewModel.shouldPresentCancelSubscriptionSheet) {
+                    
+                    SubscriptionCancelSheet {
+                        
+                        self.viewModel
+                            .unsubscribe()
+                        
+                    } dismissAction: {
+                        // Do Nothing
+                    }
+                    
+                }
+            
+        }
         
     }
     
     private func content() -> some View {
         
-        AppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .medium) {
             navBar()
         } scrollViewContent: {
             
@@ -77,22 +82,28 @@ struct SubscriptionManageScreen: GPView {
                 if let business = self.viewModel.business {
                     
                     let canCancelSubscription = business.stripeSubscription?.status == .active && !business.stripeHasPendingSubscriptionUpdate
-                    let isCancellationPending = business.stripeHasPendingSubscriptionUpdate
+                    let isPendingSubscriptionDowngrade = business.stripeHasPendingSubscriptionUpdate
+                    let isCancellationPending = business.stripeSubscription?.status == .cancelled
                     
                     Group {
                         
                         activePlanView(business: business)
                         mediaUsageView(business: business)
                         
-                        if isCancellationPending {
+                        if isPendingSubscriptionDowngrade {
                             pendingSubscriptionUpdateView()
                         }
                         
                         billingInformation(business: business)
                         
+                        if isCancellationPending {
+                            pendingCancellationView()
+                        }
+                        
                         if canCancelSubscription {
                             cancelSubscription()
                         }
+                        
                         
                     }
                     .transition(.offset(y: 300).combined(with: .opacity))
@@ -152,6 +163,7 @@ struct SubscriptionManageScreen: GPView {
                         self.navigationService
                             .modal(fullScreenCover: .subscriptionPaywall(
                                 context: .update(
+                                    subscriptionId: subscription.stripeSubscriptionId,
                                     selectedProduct: product,
                                     selectedInterval: interval
                                 ),
@@ -290,6 +302,50 @@ struct SubscriptionManageScreen: GPView {
                    spacing: Style.shared.spacing(.small2)) {
                 
                 Text("Your subscription is scheduled to downgrade on \(self.viewModel.getNextBillingDate()).")
+                    .appFont(with: .TITLE_4)
+                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text("This change is waiting for the next billing cycle. You can continue using your current plan until then.")
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                CommonButton(
+                    title: "Undo Change",
+                    backgroundStyle: .color(color)
+                ) {
+                    
+                    self.viewModel
+                        .resubscribe()
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func pendingCancellationView() -> some View {
+        
+        let color = GPColor.iconRed
+        
+        sectionCardView(color: .color(color)) {
+            
+            sectionCardHeader(
+                title: "Pending Cancellation",
+                icon: .systemImage("trash.fill"),
+                color: .color(color)
+            )
+            
+        } content: {
+            
+            VStack(alignment: .leading,
+                   spacing: Style.shared.spacing(.small2)) {
+                
+                Text("Your subscription is scheduled to be cancelled on \(self.viewModel.getNextBillingDate()).")
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -522,6 +578,34 @@ struct SubscriptionManageScreen: GPView {
                 .lineLimit(nil)
             
         }
+        
+    }
+    
+    private func termsOfService() -> some View {
+        
+        AttributedText {
+            
+            Text("Feel free to read our ")
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .font(Style.shared.font(.BODY_2))
+            
+            Text("[Subscription Terms of Service](https://apple.com)")
+                .font(Style.shared.font(.BODY_2))
+                .foregroundStyle(Style.shared.accent.source())
+                .underline()
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .multilineTextAlignment(.center)
+        .environment(\.openURL, .init(handler: { url in
+            
+            self.navigationService
+                .push(.setting(.subscriptionTerms))
+            
+            return .handled
+            
+        }))
+        .tint(Style.shared.accent.source())
         
     }
     

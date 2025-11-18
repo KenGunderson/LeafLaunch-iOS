@@ -130,6 +130,7 @@ enum Route: Navigation, Hashable, Sendable {
         case rateApp
         case privacyPolicy
         case termsOfService
+        case subscriptionTerms
         case logout
         
         var displayName: String {
@@ -146,6 +147,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .rateApp: return "Rate Our App"
             case .privacyPolicy: return "Privacy Policy"
             case .termsOfService: return "Terms of Service"
+            case .subscriptionTerms: return "Subscription Terms"
             case .logout: return "Logout"
             }
         }
@@ -164,6 +166,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .rateApp: return .systemImage("star.fill")
             case .privacyPolicy: return .image(.iconLock)
             case .termsOfService: return .systemImage("clipboard.fill")
+            case .subscriptionTerms: return .systemImage("doc.fill")
             case .logout: return .image(.iconCloseCircle)
             }
         }
@@ -179,7 +182,7 @@ enum Route: Navigation, Hashable, Sendable {
             switch self {
             case .profile, .subscribe, .manageSubscription, .security, .updatePermissions: return "Account"
             case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .featureRequest, .rateApp: return "Help & Feedback"
-            case .privacyPolicy, .termsOfService: return "Legal"
+            case .privacyPolicy, .termsOfService, .subscriptionTerms: return "Legal"
             case .logout: return "Logout"
             }
         }
