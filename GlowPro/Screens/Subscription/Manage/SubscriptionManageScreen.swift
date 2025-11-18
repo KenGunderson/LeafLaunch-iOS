@@ -49,6 +49,21 @@ struct SubscriptionManageScreen: GPView {
         
             .withAlertService(.init(alertService: self.viewModel.alertService))
         
+        // Sheets
+        
+            .adaptiveSheet(isPresented: self.$viewModel.shouldPresentCancelSubscriptionSheet) {
+                
+                SubscriptionCancelSheet {
+                    
+                    self.viewModel
+                        .unsubscribe()
+                    
+                } dismissAction: {
+                    // Do Nothing
+                }
+
+            }
+        
         // Animations
         
             .animation(.snappy, value: self.viewModel.business)
@@ -63,51 +78,12 @@ struct SubscriptionManageScreen: GPView {
                 
                 navBar()
                 
-                Group {
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
                 
                     if let business = self.viewModel.business {
                         
-                        Text("Active Subscription:")
-                            .appFont(with: .TITLE_5)
-                            .foregroundStyle(Style.shared.textColor(.title).source())
-                        
-                        if let subscription = business.stripeSubscription,
-                           let subscriptionProduct = business.stripeSubscriptionProduct {
-                            
-                            SubscriptionProductView(
-                                product: subscriptionProduct,
-                                interval: SubscriptionPaywallViewModel.Interval(rawValue: subscription.stripeInterval) ?? .monthly,
-                                isSelected: true
-                            )
-                            
-                        }
-                        
-                        Group {
-                            
-                            CommonButton(title: "Unsubscribe") {
-                                
-                                self.viewModel
-                                    .unsubscribe()
-                                
-                            }
-                            
-                            CommonButton(title: "Resubscribe") {
-                                
-                                self.viewModel
-                                    .resubscribe()
-                                
-                            }
-                            
-                            CommonButton(title: "Update Subscription") {
-                                
-                                self.viewModel
-                                    .upgradeOrDowngrade(
-                                        priceId: "price_1STbpWDEpnIa6l7R995RByZm"
-                                    )
-                                
-                            }
-                            
-                        }
+                        currentSubscription(business: business)
+                        subscriptionUpdates(business: business)
                         
                     }
                     
@@ -137,6 +113,81 @@ struct SubscriptionManageScreen: GPView {
             rightButtonView: closeButton
         )
         // TODO: - MAYBE ADD PADDING TOP MEDIUM?
+    }
+    
+    @ViewBuilder
+    private func currentSubscription(business: Business) -> some View {
+        
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            
+            Text("Active Subscription:")
+                .appFont(with: .TITLE_5)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            if let subscription = business.stripeSubscription,
+               let subscriptionProduct = business.stripeSubscriptionProduct {
+                
+                SubscriptionProductView(
+                    product: subscriptionProduct,
+                    interval: SubscriptionPaywallViewModel.Interval(rawValue: subscription.stripeInterval) ?? .monthly,
+                    isSelected: true
+                )
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func subscriptionUpdates(business: Business) -> some View {
+                 
+        if let subscription = business.stripeSubscription {
+            
+            let canCancelSubscription = subscription.status == .active && !business.stripeHasPendingSubscriptionUpdate
+            let isCancellationPending = business.stripeHasPendingSubscriptionUpdate
+            let canUpdateSubscription = !business.stripeHasPendingSubscriptionUpdate
+            
+            if canUpdateSubscription {
+                
+                CommonButton(title: "Update Subscription") {
+                    
+                    self.viewModel
+                        .upgradeOrDowngrade(
+                            priceId: "price_1STbpWDEpnIa6l7R995RByZm"
+                        )
+                    
+                }
+                
+            }
+            
+            if canCancelSubscription {
+                
+                CommonButton(
+                    title: "Cancel",
+                    backgroundStyle: Style.shared.background(.error)
+                ) {
+                    
+                    self.viewModel
+                        .shouldPresentCancelSubscriptionSheet = true
+                    
+                }
+                
+            }
+            
+            if isCancellationPending {
+                
+                CommonButton(title: "Undo Cancellation") {
+                    
+                    self.viewModel
+                        .resubscribe()
+                    
+                }
+                
+            }
+            
+        }
+        
     }
     
 }

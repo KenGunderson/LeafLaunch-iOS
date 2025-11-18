@@ -56,6 +56,7 @@ struct SubscriptionSuccessSheet: View {
         )
         .presentationCornerRadius(Style.shared.radius(.extraLarge))
         .presentationCompactAdaptation(.sheet)
+        .presentationBackground(Style.shared.background(.primary).source())
         
     }
     

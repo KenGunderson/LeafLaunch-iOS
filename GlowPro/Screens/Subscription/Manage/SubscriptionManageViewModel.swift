@@ -24,6 +24,8 @@ final class SubscriptionManageViewModel: ViewModel {
     @Published private(set) var business: Business?
     
     @Published private(set) var shouldDismiss: Bool = false
+    @Published var shouldPresentCancelSubscriptionSheet: Bool = false
+    
     @Published private(set) var isLoading: Bool = false
         
     var businessId: String!
