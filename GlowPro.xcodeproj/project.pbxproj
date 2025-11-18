@@ -80,6 +80,9 @@
 		750F9E212E56156500C72EA7 /* MediaGalleryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */; };
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
+		75122DBC2ECD3490009D99F9 /* SectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75122DBB2ECD348D009D99F9 /* SectionCardView.swift */; };
+		75122DBD2ECD3490009D99F9 /* SectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75122DBB2ECD348D009D99F9 /* SectionCardView.swift */; };
+		75122DBE2ECD3490009D99F9 /* SectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75122DBB2ECD348D009D99F9 /* SectionCardView.swift */; };
 		75136AA82E7477E700779BB9 /* LineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75136AA72E7477AD00779BB9 /* LineItemView.swift */; };
 		75136AA92E7477E700779BB9 /* LineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75136AA72E7477AD00779BB9 /* LineItemView.swift */; };
 		7515DA862E7A72EF00617B06 /* APIService+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DA852E7A72EA00617B06 /* APIService+Upload.swift */; };
@@ -1014,6 +1017,7 @@
 		750F9E1F2E56156200C72EA7 /* MediaGalleryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGalleryScreen.swift; sourceTree = "<group>"; };
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7510A3C72D9D8AAF000A93CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		75122DBB2ECD348D009D99F9 /* SectionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCardView.swift; sourceTree = "<group>"; };
 		75136AA72E7477AD00779BB9 /* LineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItemView.swift; sourceTree = "<group>"; };
 		7515DA852E7A72EA00617B06 /* APIService+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Upload.swift"; sourceTree = "<group>"; };
 		7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -2337,6 +2341,7 @@
 		758DAEA12E0514F100311C7C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				75122DBB2ECD348D009D99F9 /* SectionCardView.swift */,
 				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
 				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
 				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
@@ -3142,6 +3147,7 @@
 				7537F4742DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4752DF661EA0031D9CF /* EventType.swift in Sources */,
 				75837A052EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
+				75122DBD2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				7537F4762DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7524E25E2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
@@ -3455,6 +3461,7 @@
 				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
 				7537F4362DF661EA0031D9CF /* EventType.swift in Sources */,
 				75837A042EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
+				75122DBE2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
 				7524E25F2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
@@ -3751,6 +3758,7 @@
 				75DD84112EAD728600DD8850 /* AppDelegateService.swift in Sources */,
 				75DD84122EAD728600DD8850 /* EventType.swift in Sources */,
 				75837A062EB19428004C2DB5 /* ProfileScreen.swift in Sources */,
+				75122DBC2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				75DD84132EAD728600DD8850 /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75DD84142EAD728600DD8850 /* AboutUsScreen.swift in Sources */,
 				7524E25D2EB1153E003EB9AF /* PDFCommand.swift in Sources */,

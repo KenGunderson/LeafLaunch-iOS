@@ -99,6 +99,7 @@ struct BusinessHomeScreen: GPView {
                 
                 Group {
                     
+                    mediaUsageOverageView()
                     checklist()
                     tilesGrid()
                     quickActionButtons()
@@ -392,6 +393,73 @@ struct BusinessHomeScreen: GPView {
                 }
                 
             }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func mediaUsageOverageView() -> some View {
+        
+        if let business = self.viewModel.business,
+           let usage = business.stripeSubscriptionOverageUsage,
+           usage.mediaUsagePercentage <= 0.80 {
+
+            let color = ActivityCategory.media.color
+            let percentage = Float(usage.mediaUsagePercentage)
+            
+            SectionCardView(
+                title: "Media Usage",
+                subtitle: "You're almost at your monthly limit. Click here to learn more.",
+                icon: .systemImage("camera.fill"),
+                color: .color(color)
+            ) {
+                
+                VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+                    
+                    Text(usage.mediaUsagePercentage, format: .percent.precision(.fractionLength(0)))
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    
+                    ProgressBar(
+                        value: .constant(percentage),
+                        fillColor: .color(color)
+                    )
+                    .frame(height: 12)
+                    .frame(maxHeight: 12)
+                    .appShadow(.card)
+                    
+                    HStack {
+                        
+                        Text("Used: \(usage.mediaUsed)")
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                        Spacer()
+                        
+                        Text("Allowed: \(usage.mediaAllowed)")
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                    }
+                    
+                    Text("Resets: \(Date.getNextBillingDate())")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                    
+                }
+                
+            }
+            .asButton {
+                
+                self.navigationService
+                    .modal(fullScreenCover: .subscriptionManage(
+                        businessId: self.viewModel.businessId)
+                    )
+                
+            }
+            .transition(.move(edge: .top).combined(with: .opacity))
             
         }
         

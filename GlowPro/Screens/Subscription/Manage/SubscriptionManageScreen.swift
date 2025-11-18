@@ -152,70 +152,67 @@ struct SubscriptionManageScreen: GPView {
             
             let color = ActivityCategory.business.color
             
-            sectionCardView(color: .color(color)) {
-                
-                sectionCardHeader(
-                    title: "Active Plan",
-                    icon: .systemImage("storefront.fill"),
-                    color: .color(color),
-                    headerActionTitle: canUpdateSubscription ? "Change Plan" : nil) {
-                        
-                        self.navigationService
-                            .modal(fullScreenCover: .subscriptionPaywall(
-                                context: .update(
-                                    subscriptionId: subscription.stripeSubscriptionId,
-                                    selectedProduct: product,
-                                    selectedInterval: interval
-                                ),
-                                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION)
-                            )
-                        
-                    }
-                
-            } content: {
-                
-                VStack(alignment: .leading,
-                       spacing: Style.shared.spacing(.small2)) {
+            SectionCardView(
+                title: "Active Plan",
+                icon: .systemImage("storefront.fill"),
+                color: .color(color),
+                headerActionTitle: canUpdateSubscription ? "Change Plan" : nil,
+                headerAction: {
                     
-                    HStack {
+                    self.navigationService
+                        .modal(fullScreenCover: .subscriptionPaywall(
+                            context: .update(
+                                subscriptionId: subscription.stripeSubscriptionId,
+                                selectedProduct: product,
+                                selectedInterval: interval
+                            ),
+                            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION)
+                        )
+                    
+                }) {
+                    
+                    VStack(alignment: .leading,
+                           spacing: Style.shared.spacing(.small2)) {
                         
-                        Text(product.name)
-                            .appFont(with: .HEADER_2)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        HStack {
+                            
+                            Text(product.name)
+                                .appFont(with: .HEADER_2)
+                                .foregroundStyle(Style.shared.textColor(.body).source())
+                                .lineLimit(1)
+                            
+                            HStack(spacing: 2) {
+                                
+                                Text(normalizedPrice, format: .currency(code: "USD"))
+                                    .appFont(with: .HEADER_2)
+                                    .foregroundStyle(color)
+                                
+                                Text("/ \(interval.description)")
+                                    .appFont(with: .HEADER_2)
+                                    .foregroundStyle(color)
+                                
+                            }
                             .lineLimit(1)
-                        
-                        HStack(spacing: 2) {
-                            
-                            Text(normalizedPrice, format: .currency(code: "USD"))
-                                .appFont(with: .HEADER_2)
-                                .foregroundStyle(color)
-                            
-                            Text("/ \(interval.description)")
-                                .appFont(with: .HEADER_2)
-                                .foregroundStyle(color)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                             
                         }
-                        .lineLimit(1)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        
+                        if let description = product.description {
+                            
+                            Text(description)
+                                .appFont(with: .BODY_2)
+                                .foregroundStyle(Style.shared.textColor(.body).source())
+                            
+                        }
+                        
+                        benefitsView(
+                            subscription: subscription,
+                            product: product
+                        )
                         
                     }
-                    
-                    if let description = product.description {
-                        
-                        Text(description)
-                            .appFont(with: .BODY_2)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
-                        
-                    }
-                    
-                    benefitsView(
-                        subscription: subscription,
-                        product: product
-                    )
                     
                 }
-                
-            }
             
         }
         
@@ -229,59 +226,53 @@ struct SubscriptionManageScreen: GPView {
         let usage = business.stripeSubscriptionOverageUsage ?? .init()
         let percentage = Float(usage.mediaUsagePercentage)
         
-        sectionCardView(color: .color(color)) {
-            
-            sectionCardHeader(
-                title: "Media Usage",
-                icon: .systemImage("camera.fill"),
-                color: .color(color)
-            )
-            
-        } content: {
-            
-            VStack(alignment: .leading,
-                   spacing: Style.shared.spacing(.small2)) {
+        SectionCardView(
+            title: "Media Usage",
+            icon: .systemImage("camera.fill"),
+            color: .color(color)) {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
+                VStack(alignment: .leading,
+                       spacing: Style.shared.spacing(.small2)) {
                     
-                    Text(usage.mediaUsagePercentage, format: .percent.precision(.fractionLength(0)))
-                        .appFont(with: .TITLE_4)
+                    VStack(spacing: Style.shared.spacing(.small)) {
+                        
+                        Text(usage.mediaUsagePercentage, format: .percent.precision(.fractionLength(0)))
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        
+                        ProgressBar(
+                            value: .constant(percentage),
+                            fillColor: .color(color)
+                        )
+                        .frame(height: 12)
+                        .frame(maxHeight: 12)
+                        .appShadow(.card)
+                        
+                    }
+                    
+                    HStack {
+                        
+                        Text("Used: \(usage.mediaUsed)")
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                        Spacer()
+                        
+                        Text("Allowed: \(usage.mediaAllowed)")
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                        
+                    }
+                    
+                    Text("Resets: \(Date.getNextBillingDate())")
+                        .appFont(with: .BODY_2)
                         .foregroundStyle(Style.shared.textColor(.body).source())
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                    
-                    ProgressBar(
-                        value: .constant(percentage),
-                        fillColor: .color(color)
-                    )
-                    .frame(height: 12)
-                    .frame(maxHeight: 12)
-                    .appShadow(.card)
                     
                 }
-                
-                HStack {
-                    
-                    Text("Used: \(usage.mediaUsed)")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                    
-                    Spacer()
-                    
-                    Text("Allowed: \(usage.mediaAllowed)")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                    
-                }
-                
-                Text("Resets: \(self.viewModel.getNextBillingDate())")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                       .padding(.top, -4)
                 
             }
-                   .padding(.top, -4)
-            
-        }
-        
         
     }
     
@@ -290,42 +281,37 @@ struct SubscriptionManageScreen: GPView {
         
         let color = GPColor.iconYellow
         
-        sectionCardView(color: .color(color)) {
-            
-            sectionCardHeader(
-                title: "Pending Subscription Update",
-                icon: .systemImage("clock.fill"),
-                color: .color(color)
-            )
-            
-        } content: {
-            
-            VStack(alignment: .leading,
-                   spacing: Style.shared.spacing(.small2)) {
+        SectionCardView(
+            title: "Pending Subscription Update",
+            icon: .systemImage("clock.fill"),
+            color: .color(color)) {
                 
-                Text("Your subscription is scheduled to downgrade on \(self.viewModel.getNextBillingDate()).")
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text("This change is waiting for the next billing cycle. You can continue using your current plan until then.")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                CommonButton(
-                    title: "Undo Change",
-                    backgroundStyle: .color(color)
-                ) {
+                VStack(alignment: .leading,
+                       spacing: Style.shared.spacing(.small2)) {
                     
-                    self.viewModel
-                        .resubscribe()
+                    Text("Your subscription is scheduled to downgrade on \(Date.getNextBillingDate()).")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("This change is waiting for the next billing cycle. You can continue using your current plan until then.")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    CommonButton(
+                        title: "Undo Change",
+                        backgroundStyle: .color(color)
+                    ) {
+                        
+                        self.viewModel
+                            .resubscribe()
+                        
+                    }
                     
                 }
                 
             }
-            
-        }
         
     }
     
@@ -334,42 +320,37 @@ struct SubscriptionManageScreen: GPView {
         
         let color = GPColor.iconRed
         
-        sectionCardView(color: .color(color)) {
-            
-            sectionCardHeader(
-                title: "Pending Cancellation",
-                icon: .systemImage("trash.fill"),
-                color: .color(color)
-            )
-            
-        } content: {
-            
-            VStack(alignment: .leading,
-                   spacing: Style.shared.spacing(.small2)) {
+        SectionCardView(
+            title: "Pending Cancellation",
+            icon: .systemImage("trash.fill"),
+            color: .color(color)) {
                 
-                Text("Your subscription is scheduled to be cancelled on \(self.viewModel.getNextBillingDate()).")
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text("This change is waiting for the next billing cycle. You can continue using your current plan until then.")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                CommonButton(
-                    title: "Undo Change",
-                    backgroundStyle: .color(color)
-                ) {
+                VStack(alignment: .leading,
+                       spacing: Style.shared.spacing(.small2)) {
                     
-                    self.viewModel
-                        .resubscribe()
+                    Text("Your subscription is scheduled to be cancelled on \(Date.getNextBillingDate()).")
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("This change is waiting for the next billing cycle. You can continue using your current plan until then.")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    CommonButton(
+                        title: "Undo Change",
+                        backgroundStyle: .color(color)
+                    ) {
+                        
+                        self.viewModel
+                            .resubscribe()
+                        
+                    }
                     
                 }
                 
             }
-            
-        }
         
     }
     
@@ -380,102 +361,26 @@ struct SubscriptionManageScreen: GPView {
         let rawInterval = business.stripeSubscription?.stripeInterval ?? ""
         let interval = SubscriptionPaywallViewModel.Interval.createFromStripeName(rawInterval)
         
-        sectionCardView(color: .color(color)) {
-            
-            sectionCardHeader(
-                title: "Billing Information",
-                icon: .systemImage("info"),
-                color: .color(color)
-            )
-            
-        } content: {
-            
-            VStack {
+        SectionCardView(
+            title: "Billing Information",
+            icon: .systemImage("info"),
+            color: .color(color)) {
                 
-                Text("Next Renewal Date: \(self.viewModel.getNextBillingDate())")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Text("Billing Period: \(interval.description)")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-            }
-            
-        }
-        
-    }
-    
-    @ViewBuilder
-    private func sectionCardHeader(title: String,
-                                   icon: ImageSource,
-                                   color: ColorSource,
-                                   headerActionTitle: String? = nil,
-                                   headerAction: (() -> Void)? = nil) -> some View {
-        
-        HStack {
-            
-            icon
-                .view()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 16, height: 16)
-                .padding(8)
-                .foregroundStyle(.white)
-                .background(color.source())
-                .clipShape(.circle)
-            
-            Text(title)
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            if let headerActionTitle,
-               let headerAction {
-                
-                TokenView(
-                    text: headerActionTitle,
-                    foregroundStyle: color,
-                    backgroundStyle: .color(.clear),
-                    horizontalPadding: .medium,
-                    verticalPadding: .custom(6),
-                )
-                .appBorder(
-                    cornerRadius: .extraLarge,
-                    color: color,
-                    lineWidth: 1.5
-                )
-                .asButton {
-                    headerAction()
+                VStack {
+                    
+                    Text("Next Renewal Date: \(Date.getNextBillingDate())")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("Billing Period: \(interval.description)")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                 }
                 
             }
-            
-        }
-        
-    }
-    
-    @ViewBuilder
-    private func sectionCardView(color: ColorSource,
-                                 header: @escaping () -> some View,
-                                 content: @escaping () -> some View) -> some View {
-        
-        AppCardView {
-            
-            VStack(spacing: Style.shared.spacing(.small2)) {
-                
-                header()
-                content()
-                
-            }
-            
-        }
-        .appBorder(
-            cornerRadius: .small2,
-            color: .color(color.asColor!.opacity(0.55)),
-            lineWidth: 2.5
-        )
         
     }
     
