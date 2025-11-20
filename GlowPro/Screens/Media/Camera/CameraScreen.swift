@@ -21,6 +21,8 @@ public struct CameraScreen: View {
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @State private var zoomScale: Double = 1.0
     @State private var gridDivision: Int = 0
+    
+    @State private var dragOffsetY: CGFloat = 0
     @State private var dragOffsetX: CGFloat = 0
     
     public var body: some View {
@@ -385,22 +387,36 @@ public struct CameraScreen: View {
                 }
                 .gesture(
                     DragGesture(minimumDistance: 10, coordinateSpace: .local)
-                    
                         .onChanged { value in
-                            dragOffsetX = value.translation.width
+                            
+                            self.dragOffsetX = value.translation.width
+                            self.dragOffsetY = value.translation.height
+                            
                         }
                         .onEnded { value in
                             
-                            let translation = value.translation.width
+                            let translationWidth = value.translation.width
+                            let translationHeight = value.translation.height
                             
-                            if translation <= -10 {
-                                findNextGhostOverlayItemFromSwipe(increment: true)
-                            } else if translation >= 10 {
-                                findNextGhostOverlayItemFromSwipe(increment: false)
+                            let tolerance: CGFloat = 30
+                            
+                            if translationHeight <= -tolerance {
+                                findNextGhostOverlayCategoryFromVerticalSwipe(increment: true)
+                            } else if translationHeight >= tolerance {
+                                findNextGhostOverlayCategoryFromVerticalSwipe(increment: false)
+                            }
+                            
+                            if translationWidth <= -tolerance {
+                                findNextGhostOverlayItemFromHorizontalSwipe(increment: true)
+                            } else if translationWidth >= tolerance {
+                                findNextGhostOverlayItemFromHorizontalSwipe(increment: false)
                             }
                             
                             withAnimation(.smooth(duration: 0.2)) {
-                                dragOffsetX = 0
+                                
+                                self.dragOffsetX = 0
+                                self.dragOffsetY = 0
+                                
                             }
                             
                         }
@@ -565,15 +581,15 @@ public struct CameraScreen: View {
         
     }
     
-    private func findNextGhostOverlayItemFromSwipe(increment: Bool) {
+    private func findNextGhostOverlayItemFromHorizontalSwipe(increment: Bool) {
         
-        guard let item = self.selectedGhostOverlayItem else { return }
+        guard let currentItem = self.selectedGhostOverlayItem else { return }
         guard let category = self.selectedGhostOverlayCategory else { return }
 
-        if let index = category.images.firstIndex(where: { $0.id == item.id }) {
+        if let index = category.images.firstIndex(where: { $0.id == currentItem.id }) {
             
-            let isFirst = (category.images.first?.id == item.id)
-            let isLast  = (category.images.last?.id  == item.id)
+            let isFirst = (category.images.first?.id == currentItem.id)
+            let isLast  = (category.images.last?.id  == currentItem.id)
             
             // Stop at bounds
             if (isFirst && !increment) || (isLast && increment) {
@@ -583,9 +599,58 @@ public struct CameraScreen: View {
             let newIndex = increment ? (index + 1) : (index - 1)
             
             guard category.images.indices.contains(newIndex) else { return }
-            self.selectedGhostOverlayItem = category.images[newIndex]
+            
+            let newImage = category.images[newIndex]
+            
+            self.selectedGhostOverlayItem = .init(
+                id: newImage.id,
+                image: newImage.image,
+                opacity: currentItem.opacity,
+                scale: currentItem.scale
+            )
             
         }
+        
+    }
+    
+    private func findNextGhostOverlayCategoryFromVerticalSwipe(increment: Bool) {
+        
+        guard let currentCategory = self.selectedGhostOverlayCategory else { return }
+        guard let currentItem = self.selectedGhostOverlayItem else { return }
+        
+        // Remove custom ghost overlay
+        let categories = Array(GhostOverlayCategory.allCases.dropFirst())
+        
+        guard let currentCategoryIndex = categories.firstIndex(where: { $0 == currentCategory }) else {
+            return
+        }
+        
+        let isFirst = (currentCategoryIndex == categories.startIndex)
+        let isLast = (currentCategoryIndex == categories.index(before: categories.endIndex))
+        
+        if (isFirst && !increment) || (isLast && increment) {
+            return
+        }
+        
+        let newIndex = increment
+            ? categories.index(after: currentCategoryIndex)
+            : categories.index(before: currentCategoryIndex)
+        
+        let newCategory = categories[newIndex]
+        
+        // New sections start at item index 0
+        guard let firstImage = newCategory.images.first else {
+            return
+        }
+        
+        self.selectedGhostOverlayCategory = newCategory
+        
+        self.selectedGhostOverlayItem = .init(
+            id: firstImage.id,
+            image: firstImage.image,
+            opacity: currentItem.opacity,
+            scale: currentItem.scale
+        )
         
     }
     
