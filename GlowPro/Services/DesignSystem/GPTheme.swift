@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 public extension Theme {
     
     static let GLOW_PRO = Theme(
@@ -23,6 +22,7 @@ public extension Theme {
             secondary:  .color(Color(hex: "#FFFFFF")),
             tertiary:   .color(Color(hex: "#EBE6E9")),
             quaternary: .color(Color(hex: "#E6E7EB")),
+            quinary:    .color(Color(hex: "#EEF0F3")),
             error:      .color(Color(hex: "#D32F2F")),
             success:    .color(Color(hex: "#388E3C")),
             border:     .color(Color(hex: "#DFE2E7"))
