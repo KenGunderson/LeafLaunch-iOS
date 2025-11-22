@@ -403,7 +403,7 @@ struct BusinessHomeScreen: GPView {
         
         if let business = self.viewModel.business,
            let usage = business.stripeSubscriptionOverageUsage,
-           usage.mediaUsagePercentage <= 0.80 {
+           usage.mediaUsagePercentage >= 0.80 {
 
             let color = ActivityCategory.media.color
             let percentage = Float(usage.mediaUsagePercentage)

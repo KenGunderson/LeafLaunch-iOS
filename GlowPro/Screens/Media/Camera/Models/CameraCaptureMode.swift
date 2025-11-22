@@ -34,7 +34,7 @@ public enum CameraCaptureMode: Hashable, Sendable {
             
             self = .single(nil)
             
-        case .multiple(var images):
+        case .multiple(let images):
             
             var newImages = images
             

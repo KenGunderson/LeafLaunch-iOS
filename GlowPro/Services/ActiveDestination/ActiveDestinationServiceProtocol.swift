@@ -24,6 +24,9 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     var locationEmployee: LocationEmployee? { get set }
     var isTemporaryLocationEmployee: Bool { get set }
     
+    var isSubscribed: Bool { get }
+    var isMediaLimitReached: Bool { get }
+    
     func setActiveDestination(_ destination: ActiveDestination)
     func removeActiveDestination()
     

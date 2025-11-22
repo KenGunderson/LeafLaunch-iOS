@@ -1209,6 +1209,8 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     internal var business: Business? = MockModels.MockBusiness.business1
     internal var businessId: String? = MockModels.ID.business1
     internal var locationEmployee: LocationEmployee? = MockModels.MockLocationEmployee.locationEmployee1
+    internal var isSubscribed: Bool = false
+    internal var isMediaLimitReached: Bool = false
     
     @Published private(set) var activeDestination: ActiveDestination?
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> {

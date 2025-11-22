@@ -38,6 +38,24 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         return self.isOwner || self.role == .manager
     }
     
+    var isSubscribed: Bool {
+        return self.business?.isSubscribed ?? false
+    }
+    
+    var isMediaLimitReached: Bool {
+        
+        let business = self.business
+        let allowsOverages = business?.businessSettings?.allowsOverages ?? false
+        let isLimitReached = business?.stripeSubscriptionOverageUsage?.isLimitReached ?? false
+        
+        if allowsOverages {
+            return false
+        }
+        
+        return isLimitReached
+        
+    }
+    
     internal var business: Business?
     internal var businessId: String?
     
@@ -157,7 +175,6 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
         self.isTemporaryLocationEmployee = false
         
-        // THIS IS NIL BECAUSE WE DON"T HAVE BUSINESS OWNER IN LOCATION OBJECT
         self.isOwner = (business?.owner.id == currentUserId)
         self.locationEmployee = locationEmployee
         

@@ -162,7 +162,7 @@ struct SubscriptionManageScreen: GPView {
                     self.navigationService
                         .modal(fullScreenCover: .subscriptionPaywall(
                             context: .update(
-                                subscriptionId: subscription.stripeSubscriptionId,
+                                stripeSubscriptionId: subscription.stripeSubscriptionId,
                                 selectedProduct: product,
                                 selectedInterval: interval
                             ),

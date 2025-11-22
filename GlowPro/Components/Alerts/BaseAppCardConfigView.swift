@@ -12,8 +12,25 @@ struct BaseAppCardConfigView: View {
     let image: ImageSource
     let title: String
     let attributedText: AttributedText
+    let tintColor: ColorSource
     let actionTitle: String
     let action: () -> Void
+    
+    init(image: ImageSource,
+         title: String,
+         attributedText: AttributedText,
+         tintColor: ColorSource = .color(GPColor.green),
+         actionTitle: String,
+         action: @escaping () -> Void) {
+        
+        self.image = image
+        self.title = title
+        self.attributedText = attributedText
+        self.tintColor = tintColor
+        self.actionTitle = actionTitle
+        self.action = action
+        
+    }
     
     var body: some View {
         
@@ -33,7 +50,7 @@ struct BaseAppCardConfigView: View {
             .view()
             .aspectRatio(contentMode: .fit)
             .frame(height: 80)
-            .foregroundStyle(GPColor.iconGreen)
+            .foregroundStyle(self.tintColor.source())
         
     }
     

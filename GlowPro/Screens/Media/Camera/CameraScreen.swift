@@ -33,7 +33,13 @@ public struct CameraScreen: View {
         // Lifecycle
         
         .onAppear {
-            self.viewModel.setup()
+            
+            self.viewModel
+                .setup(navigationService: self.navigationService)
+            
+            self.viewModel
+                .setup()
+            
         }
         .onDisappear {
             self.viewModel.teardown()

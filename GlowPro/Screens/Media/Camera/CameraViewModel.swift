@@ -14,6 +14,7 @@ final class CameraViewModel: ViewModel {
     internal let loggerEmoji: String = "📸"
     
     private let cameraService: CameraServiceProtocol
+    private let activeDestinationService: ActiveDestinationServiceProtocol
     private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     
@@ -28,15 +29,19 @@ final class CameraViewModel: ViewModel {
     private(set) var context: MediaContext!
     private var cancelBag: CancelBag!
     
+    private var navigationService: NavigationService?
+    
     var allImages: [UIImage] {
         return self.captureMode.allPhotos
     }
     
     public init(cameraService: CameraServiceProtocol,
+                activeDestinationService: ActiveDestinationServiceProtocol,
                 alertService: AlertServiceProtocol,
                 analyticsService: AnalyticsServiceProtocol) {
         
         self.cameraService = cameraService
+        self.activeDestinationService = activeDestinationService
         self.alertService = alertService
         self.analyticsService = analyticsService
         
@@ -64,10 +69,34 @@ final class CameraViewModel: ViewModel {
         
     }
     
+    func setup(navigationService: NavigationService) {
+        self.navigationService = navigationService
+    }
+    
+    @MainActor
     func setup() {
         
         guard !ProcessInfo.isPreview,
               !ProcessInfo.isSimulator else { return }
+        
+        if self.activeDestinationService.isMediaLimitReached {
+                        
+            let businessName = self.activeDestinationService.business?.name ?? ""
+            let isSubscribed = self.activeDestinationService.isSubscribed
+            
+            self.alertService.showAlert(.init(.card(.mediaLimitReachedAlert(
+                businessName: businessName,
+                isSubscribed: isSubscribed,
+                subscribeAction: { [weak self] in
+                    self?.showPaywall()
+                },
+                closeAction: { [weak self] in
+                    self?.shouldDismiss = true
+                }))))
+            
+            return
+            
+        }
         
         Task { @MainActor [weak self] in
             
@@ -182,6 +211,34 @@ final class CameraViewModel: ViewModel {
                 secondaryButtonTextColor: Style.shared.textColor(.title)
             )
             )))
+        
+    }
+    
+    @MainActor
+    private func showPaywall() {
+        
+        var paywallContext: SubscriptionPaywallViewModel.Context = .create
+        
+        if let subscription = self.activeDestinationService.business?.stripeSubscription,
+           let subscriptionProduct = self.activeDestinationService.business?.stripeSubscriptionProduct {
+            
+            let selectedInterval = SubscriptionPaywallViewModel.Interval.createFromStripeName(subscription.stripeInterval)
+            
+            paywallContext = .update(
+                stripeSubscriptionId: subscription.stripeSubscriptionId,
+                selectedProduct: subscriptionProduct,
+                selectedInterval: selectedInterval
+            )
+            
+        }
+        
+        self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+            context: paywallContext,
+            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+            completion: nil
+        ))
+        
+        self.shouldDismiss = true
         
     }
     

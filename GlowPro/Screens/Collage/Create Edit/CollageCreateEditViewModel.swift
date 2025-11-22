@@ -189,6 +189,10 @@ final class CollageCreateEditViewModel: ViewModel {
         
         Task {
             
+            if showMediaLimitReachedAlert() {
+                return
+            }
+            
             do {
                 
                 let client = try await self.apiService.getClient(id: clientId)
@@ -217,6 +221,37 @@ final class CollageCreateEditViewModel: ViewModel {
             
             self.alertService
                 .dismissLoadingIndicator()
+            
+        }
+        
+    }
+    
+    func showMediaLimitReachedAlert() -> Bool {
+        
+        if self.activeDestinationService.isMediaLimitReached {
+            
+            let businessName = self.activeDestinationService.business?.name ?? ""
+            let isSubscribed = self.activeDestinationService.isSubscribed
+            
+            Task { @MainActor in
+                
+                self.alertService.showAlert(.init(.card(.mediaLimitReachedAlert(
+                    businessName: businessName,
+                    isSubscribed: isSubscribed,
+                    subscribeAction: { [weak self] in
+                        self?.showPaywall()
+                    },
+                    closeAction: { [weak self] in
+                        self?.navigationService?.pop()
+                    }))))
+                
+            }
+            
+            return true
+            
+        } else {
+            
+            return false
             
         }
         
@@ -306,6 +341,34 @@ final class CollageCreateEditViewModel: ViewModel {
             self.alertService.dismissLoadingIndicator()
             
         }
+        
+    }
+    
+    @MainActor
+    private func showPaywall() {
+        
+        var paywallContext: SubscriptionPaywallViewModel.Context = .create
+        
+        if let subscription = self.activeDestinationService.business?.stripeSubscription,
+           let subscriptionProduct = self.activeDestinationService.business?.stripeSubscriptionProduct {
+            
+            let selectedInterval = SubscriptionPaywallViewModel.Interval.createFromStripeName(subscription.stripeInterval)
+            
+            paywallContext = .update(
+                stripeSubscriptionId: subscription.stripeSubscriptionId,
+                selectedProduct: subscriptionProduct,
+                selectedInterval: selectedInterval
+            )
+            
+        }
+        
+        self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+            context: paywallContext,
+            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+            completion: nil
+        ))
+        
+        self.navigationService?.pop()
         
     }
     

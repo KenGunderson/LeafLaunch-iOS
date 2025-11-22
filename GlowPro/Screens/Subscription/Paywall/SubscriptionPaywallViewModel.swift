@@ -14,7 +14,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
         
         case view
         case create
-        case update(subscriptionId: String,
+        case update(stripeSubscriptionId: String,
                     selectedProduct: StripeSubscriptionProduct,
                     selectedInterval: Interval)
         
@@ -245,6 +245,35 @@ final class SubscriptionPaywallViewModel: ViewModel {
         guard let product = self.selectedProduct else { return }
         guard let filteredPrice = product.prices.first(where: { $0.interval == selectedIntervalName && $0.amount > 0 }) else { return }
         
+        switch self.context! {
+        case .update(_,
+                     let selectedProduct,
+                     let selectedInterval):
+            
+            let currentPrice = selectedProduct.prices.first(where: { $0.interval == selectedInterval.stripeName && $0.amount > 0 })?.amount ?? 0
+            
+            if currentPrice > filteredPrice.amount {
+                
+                if canDowngrade() {
+                    break
+                } else {
+                    
+                    self.alertService.showAlert(.init(.appAlert(.error(
+                        title: "Almost There!",
+                        message: "To move to a smaller plan, your account needs to fit within that plan’s limits. Please remove any extra locations or team members you no longer need, then try downgrading again.",
+                        action: { self.shouldDismiss = true }
+                    ))))
+                    
+                    return
+                    
+                }
+                
+            }
+            
+        case .create: return
+        case .view: return
+        }
+        
         Task {
             
             do {
@@ -375,6 +404,31 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 print("Failed to extract colors:", error)
             }
             
+        }
+        
+    }
+    
+    private func canDowngrade() -> Bool {
+        
+        guard let business = self.activeDestinationService.business else { return false }
+        guard let selectedProduct = self.selectedProduct else { return false }
+        
+        switch self.context! {
+        case .update:
+            
+            let totalNumberOfLocations = business.totalLocationCount
+            let totalNumberOfEmployees = business.totalEmployeeCount
+            
+            let proposedNumberOfLocations = selectedProduct.metadata?.totalNumberOfLocations ?? 0
+            let proposedNumberOfEmployees = selectedProduct.metadata?.totalNumberOfEmployees ?? 0
+            
+            let canDowngradeLocations = totalNumberOfLocations <= proposedNumberOfLocations
+            let canDowngradeEmployees = totalNumberOfEmployees <= proposedNumberOfEmployees
+            
+            return (canDowngradeLocations && canDowngradeEmployees)
+            
+        case .create: return true
+        case .view: return true
         }
         
     }
