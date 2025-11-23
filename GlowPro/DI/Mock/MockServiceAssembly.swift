@@ -1210,6 +1210,8 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     internal var businessId: String? = MockModels.ID.business1
     internal var locationEmployee: LocationEmployee? = MockModels.MockLocationEmployee.locationEmployee1
     internal var isSubscribed: Bool = false
+    internal var canAddAnotherLocation: Bool = false
+    internal var canAddAnotherEmployee: Bool = false
     internal var isMediaLimitReached: Bool = false
     
     @Published private(set) var activeDestination: ActiveDestination?
@@ -1268,6 +1270,19 @@ final class MockActiveDestinationService: ActiveDestinationServiceProtocol {
     }
     
     func refresh() {}
+    
+    func getPaywallOverageContext() -> SubscriptionPaywallViewModel.Context {
+        return .create
+    }
+    
+    func showLimitAlertIfNeeded(type: AppCardConfig.LimitType,
+                                subscribeAction: @escaping () -> Void,
+                                dismissAction: @escaping () -> Void) -> AppCardConfig.LimitReachhedAlert? {
+        
+        return nil
+        
+        
+    }
     
 }
 

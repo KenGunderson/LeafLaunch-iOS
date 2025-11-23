@@ -25,6 +25,8 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     var isTemporaryLocationEmployee: Bool { get set }
     
     var isSubscribed: Bool { get }
+    var canAddAnotherLocation: Bool { get }
+    var canAddAnotherEmployee: Bool { get }
     var isMediaLimitReached: Bool { get }
     
     func setActiveDestination(_ destination: ActiveDestination)
@@ -35,5 +37,11 @@ protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
     
     func refresh()
     func logout()
+    func getPaywallOverageContext() -> SubscriptionPaywallViewModel.Context
+    
+    
+    func showLimitAlertIfNeeded(type: AppCardConfig.LimitType,
+                                subscribeAction: @escaping () -> Void,
+                                dismissAction: @escaping () -> Void) -> AppCardConfig.LimitReachhedAlert?
     
 }

@@ -22,6 +22,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -50,6 +51,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
@@ -57,6 +59,7 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
+        self.viewLifecycleService = viewLifecycleService
         self.analyticsService = analyticsService
         self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
@@ -111,6 +114,8 @@ final class BusinessEmployeeInviteListViewModel: ViewModel {
                 
                 default: break
                 }
+                
+                self.viewLifecycleService.reload(for: .businessHome)
                 
                 await MainActor.run { [weak self, employeeInvites] in
                     

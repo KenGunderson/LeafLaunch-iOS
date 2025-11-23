@@ -16,6 +16,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
     private(set) var activeDestinationService: ActiveDestinationServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
         
@@ -65,6 +66,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
         
@@ -72,6 +74,7 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
         self.authService = authService
         self.alertService = alertService
         self.activeDestinationService = activeDestinationService
+        self.viewLifecycleService = viewLifecycleService
         self.analyticsService = analyticsService
         self.userDefaultsService = userDefaultsService
         
@@ -110,6 +113,10 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
     }
     
     func loadData() {
+        
+        if shouldShowLimitAlert() {
+            return
+        }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -204,6 +211,8 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 try await self.apiService
                     .deleteLocation(id: locationId)
                 
+                self.viewLifecycleService.reload(for: .businessHome)
+                
                 await MainActor.run { [weak self] in
                     self?.navigationService?.pop()
                 }
@@ -249,6 +258,8 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 
                 _ = try await self.apiService
                     .createLocation(location: newLocation)
+                
+                self.viewLifecycleService.reload(for: .businessHome)
                 
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
@@ -304,6 +315,8 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
                 try await self.apiService
                     .updateLocation(location: updatedLocation)
                 
+                self.viewLifecycleService.reload(for: .businessHome)
+                
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
                         message: "Location updated successfully.",
@@ -326,6 +339,52 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
             }
             
             self.alertService.dismissLoadingIndicator()
+            
+        }
+        
+    }
+
+    private func shouldShowLimitAlert() -> Bool {
+        
+        if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
+            type: .location,
+            subscribeAction: { [weak self] in
+                self?.showPaywall()
+            },
+            dismissAction: { [weak self] in
+                self?.navigationService?.popWithDelay()
+            }
+        ) {
+            
+            Task { @MainActor in
+                
+                self.alertService.showAlert(.init(
+                    .card(.limitReachedAlert(limitReachedAlert: alert))
+                ))
+                
+            }
+            
+            return true
+            
+        }
+        
+        return false
+        
+    }
+    
+    private func showPaywall() {
+        
+        Task { @MainActor in
+            
+            let paywallContext = self.activeDestinationService.getPaywallOverageContext()
+            
+            self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+                context: paywallContext,
+                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                completion: nil
+            ))
+            
+            self.navigationService?.pop()
             
         }
         

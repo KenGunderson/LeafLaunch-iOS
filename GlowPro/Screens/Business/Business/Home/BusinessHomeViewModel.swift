@@ -112,7 +112,7 @@ final class BusinessHomeViewModel: ViewModel {
                 let business = try await self.apiService.getBusiness(id: self.businessId)
                 let activities = try await self.apiService.getActivitiy(
                     businessId: self.businessId,
-                    query: .init(),
+                    query: .init(limit: 10),
                     activityTypeFilters: []
                 )
                 

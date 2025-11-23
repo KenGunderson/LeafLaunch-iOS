@@ -261,7 +261,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
                     self.alertService.showAlert(.init(.appAlert(.error(
                         title: "Almost There!",
                         message: "To move to a smaller plan, your account needs to fit within that plan’s limits. Please remove any extra locations or team members you no longer need, then try downgrading again.",
-                        action: { self.shouldDismiss = true }
+                        action: { }
                     ))))
                     
                     return

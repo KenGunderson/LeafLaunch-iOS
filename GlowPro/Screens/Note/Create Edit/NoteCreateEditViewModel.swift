@@ -239,7 +239,12 @@ final class NoteCreateEditViewModel: ViewModel {
     func handleSourceSelectionAction(_ source: SourceType) {
         
         switch source {
-        case .applePhotos: self.shouldShowApplePhotosSelectionSheet = true
+        case .applePhotos:
+            
+            if !shouldShowLimitAlert() {
+                self.shouldShowApplePhotosSelectionSheet = true
+            }
+            
         case .mediaGallery:
             
             self.navigationService?
@@ -277,11 +282,15 @@ final class NoteCreateEditViewModel: ViewModel {
             
         case .camera:
             
-            self.navigationService?
-                .push(.media(.camera(
-                    context: .client(clientId: self.clientId),
-                    mode: .single(nil))
-                ))
+            if !shouldShowLimitAlert() {
+                
+                self.navigationService?
+                    .push(.media(.camera(
+                        context: .client(clientId: self.clientId),
+                        mode: .single(nil))
+                    ))
+                
+            }
             
         }
         
@@ -652,6 +661,53 @@ final class NoteCreateEditViewModel: ViewModel {
             return (
                 !self.title.isEmpty
             )
+            
+        }
+        
+    }
+    
+    private func shouldShowLimitAlert() -> Bool {
+        
+        if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
+            type: .media,
+            subscribeAction: { [weak self] in
+                self?.showPaywall()
+            },
+            dismissAction: { [weak self] in
+                self?.navigationService?.popWithDelay()
+            }
+        ) {
+            
+            Task { @MainActor in
+                
+                self.alertService.showAlert(.init(
+                    .card(.limitReachedAlert(limitReachedAlert: alert))
+                ))
+                
+            }
+            
+            return true
+            
+        }
+        
+        return false
+        
+    }
+    
+    private func showPaywall() {
+        
+        Task { @MainActor in
+            
+            let paywallContext = self.activeDestinationService
+                .getPaywallOverageContext()
+            
+            self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+                context: paywallContext,
+                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                completion: nil
+            ))
+            
+            self.navigationService?.popWithDelay()
             
         }
         

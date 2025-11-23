@@ -79,23 +79,8 @@ final class CameraViewModel: ViewModel {
         guard !ProcessInfo.isPreview,
               !ProcessInfo.isSimulator else { return }
         
-        if self.activeDestinationService.isMediaLimitReached {
-                        
-            let businessName = self.activeDestinationService.business?.name ?? ""
-            let isSubscribed = self.activeDestinationService.isSubscribed
-            
-            self.alertService.showAlert(.init(.card(.mediaLimitReachedAlert(
-                businessName: businessName,
-                isSubscribed: isSubscribed,
-                subscribeAction: { [weak self] in
-                    self?.showPaywall()
-                },
-                closeAction: { [weak self] in
-                    self?.shouldDismiss = true
-                }))))
-            
+        if shouldShowLimitAlert() {
             return
-            
         }
         
         Task { @MainActor [weak self] in
@@ -214,31 +199,50 @@ final class CameraViewModel: ViewModel {
         
     }
     
-    @MainActor
-    private func showPaywall() {
+    private func shouldShowLimitAlert() -> Bool {
         
-        var paywallContext: SubscriptionPaywallViewModel.Context = .create
-        
-        if let subscription = self.activeDestinationService.business?.stripeSubscription,
-           let subscriptionProduct = self.activeDestinationService.business?.stripeSubscriptionProduct {
+        if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
+            type: .media,
+            subscribeAction: { [weak self] in
+                self?.showPaywall()
+            },
+            dismissAction: { [weak self] in
+                self?.navigationService?.popWithDelay()
+            }
+        ) {
             
-            let selectedInterval = SubscriptionPaywallViewModel.Interval.createFromStripeName(subscription.stripeInterval)
+            Task { @MainActor in
+                
+                self.alertService.showAlert(.init(
+                    .card(.limitReachedAlert(limitReachedAlert: alert))
+                ))
+                
+            }
             
-            paywallContext = .update(
-                stripeSubscriptionId: subscription.stripeSubscriptionId,
-                selectedProduct: subscriptionProduct,
-                selectedInterval: selectedInterval
-            )
+            return true
             
         }
         
-        self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
-            context: paywallContext,
-            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
-            completion: nil
-        ))
+        return false
         
-        self.shouldDismiss = true
+    }
+    
+    private func showPaywall() {
+        
+        Task { @MainActor in
+            
+            let paywallContext = self.activeDestinationService
+                .getPaywallOverageContext()
+            
+            self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+                context: paywallContext,
+                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                completion: nil
+            ))
+            
+            self.shouldDismiss = true
+            
+        }
         
     }
     

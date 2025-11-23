@@ -456,9 +456,9 @@
 		7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */; };
 		756308802E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
 		756308812E7BB39E003175A1 /* MediaReviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */; };
-		756498D22ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* MediaLimitReachedAlert.swift */; };
-		756498D32ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* MediaLimitReachedAlert.swift */; };
-		756498D42ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* MediaLimitReachedAlert.swift */; };
+		756498D22ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
+		756498D32ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
+		756498D42ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
 		7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */; };
 		75715ACE2DB9365500E7994E /* ClientHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */; };
@@ -1188,7 +1188,7 @@
 		7562BBAA2EBF0AA000B84E4E /* Face.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Face.pdf; sourceTree = "<group>"; };
 		7563087C2E7BB391003175A1 /* MediaReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewViewModel.swift; sourceTree = "<group>"; };
 		7563087F2E7BB397003175A1 /* MediaReviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewScreen.swift; sourceTree = "<group>"; };
-		756498D12ED25492002B7E55 /* MediaLimitReachedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLimitReachedAlert.swift; sourceTree = "<group>"; };
+		756498D12ED25492002B7E55 /* LimitReachedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitReachedAlert.swift; sourceTree = "<group>"; };
 		7566F19E2E76E0CD00327A3C /* ClientBirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientBirthdayView.swift; sourceTree = "<group>"; };
 		75715ACD2DB9364F00E7994E /* ClientHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeScreen.swift; sourceTree = "<group>"; };
 		75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHomeViewModel.swift; sourceTree = "<group>"; };
@@ -2670,7 +2670,7 @@
 			children = (
 				75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */,
 				754E51E12E54283900258225 /* InvitationAlert.swift */,
-				756498D12ED25492002B7E55 /* MediaLimitReachedAlert.swift */,
+				756498D12ED25492002B7E55 /* LimitReachedAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -3207,7 +3207,7 @@
 				7515DBC42ECBEB3E00921AE9 /* Gender.swift in Sources */,
 				7515DBC52ECBEB3E00921AE9 /* GPUser.swift in Sources */,
 				7515DBC62ECBEB3E00921AE9 /* LegalItem.swift in Sources */,
-				756498D42ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */,
+				756498D42ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
 				7515DBC72ECBEB3E00921AE9 /* Location.swift in Sources */,
 				7515DBC82ECBEB3E00921AE9 /* LocationEmployee.swift in Sources */,
 				7515DBC92ECBEB3E00921AE9 /* Media.swift in Sources */,
@@ -3522,7 +3522,7 @@
 				7515DBE32ECBEB3E00921AE9 /* Gender.swift in Sources */,
 				7515DBE42ECBEB3E00921AE9 /* GPUser.swift in Sources */,
 				7515DBE52ECBEB3E00921AE9 /* LegalItem.swift in Sources */,
-				756498D32ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */,
+				756498D32ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
 				7515DBE62ECBEB3E00921AE9 /* Location.swift in Sources */,
 				7515DBE72ECBEB3E00921AE9 /* LocationEmployee.swift in Sources */,
 				7515DBE82ECBEB3E00921AE9 /* Media.swift in Sources */,
@@ -3820,7 +3820,7 @@
 				7515DC022ECBEB3E00921AE9 /* Gender.swift in Sources */,
 				7515DC032ECBEB3E00921AE9 /* GPUser.swift in Sources */,
 				7515DC042ECBEB3E00921AE9 /* LegalItem.swift in Sources */,
-				756498D22ED25492002B7E55 /* MediaLimitReachedAlert.swift in Sources */,
+				756498D22ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
 				7515DC052ECBEB3E00921AE9 /* Location.swift in Sources */,
 				7515DC062ECBEB3E00921AE9 /* LocationEmployee.swift in Sources */,
 				7515DC072ECBEB3E00921AE9 /* Media.swift in Sources */,

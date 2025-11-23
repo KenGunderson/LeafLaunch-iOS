@@ -184,14 +184,14 @@ final class CollageCreateEditViewModel: ViewModel {
         
         guard let clientId else { return }
         
+        if shouldShowLimitAlert() {
+            return
+        }
+        
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
         
         Task {
-            
-            if showMediaLimitReachedAlert() {
-                return
-            }
             
             do {
                 
@@ -226,34 +226,31 @@ final class CollageCreateEditViewModel: ViewModel {
         
     }
     
-    func showMediaLimitReachedAlert() -> Bool {
+    private func shouldShowLimitAlert() -> Bool {
         
-        if self.activeDestinationService.isMediaLimitReached {
-            
-            let businessName = self.activeDestinationService.business?.name ?? ""
-            let isSubscribed = self.activeDestinationService.isSubscribed
+        if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
+            type: .media,
+            subscribeAction: { [weak self] in
+                self?.showPaywall()
+            },
+            dismissAction: { [weak self] in
+                self?.navigationService?.popWithDelay()
+            }
+        ) {
             
             Task { @MainActor in
                 
-                self.alertService.showAlert(.init(.card(.mediaLimitReachedAlert(
-                    businessName: businessName,
-                    isSubscribed: isSubscribed,
-                    subscribeAction: { [weak self] in
-                        self?.showPaywall()
-                    },
-                    closeAction: { [weak self] in
-                        self?.navigationService?.pop()
-                    }))))
+                self.alertService.showAlert(.init(
+                    .card(.limitReachedAlert(limitReachedAlert: alert))
+                ))
                 
             }
             
             return true
             
-        } else {
-            
-            return false
-            
         }
+        
+        return false
         
     }
     
@@ -344,31 +341,21 @@ final class CollageCreateEditViewModel: ViewModel {
         
     }
     
-    @MainActor
     private func showPaywall() {
         
-        var paywallContext: SubscriptionPaywallViewModel.Context = .create
-        
-        if let subscription = self.activeDestinationService.business?.stripeSubscription,
-           let subscriptionProduct = self.activeDestinationService.business?.stripeSubscriptionProduct {
+        Task { @MainActor in
             
-            let selectedInterval = SubscriptionPaywallViewModel.Interval.createFromStripeName(subscription.stripeInterval)
+            let paywallContext = self.activeDestinationService.getPaywallOverageContext()
             
-            paywallContext = .update(
-                stripeSubscriptionId: subscription.stripeSubscriptionId,
-                selectedProduct: subscriptionProduct,
-                selectedInterval: selectedInterval
-            )
+            self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+                context: paywallContext,
+                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                completion: nil
+            ))
+            
+            self.navigationService?.popWithDelay()
             
         }
-        
-        self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
-            context: paywallContext,
-            paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
-            completion: nil
-        ))
-        
-        self.navigationService?.pop()
         
     }
     

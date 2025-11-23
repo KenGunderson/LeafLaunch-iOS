@@ -24,6 +24,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private(set) var alertService: AlertServiceProtocol
+    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let activeDestinationService: ActiveDestinationServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -65,6 +66,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          alertService: AlertServiceProtocol,
+         viewLifecycleService: ViewLifecycleServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          activeDestinationService: ActiveDestinationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
@@ -72,6 +74,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         self.apiService = apiService
         self.authService = authService
         self.alertService = alertService
+        self.viewLifecycleService = viewLifecycleService
         self.analyticsService = analyticsService
         self.activeDestinationService = activeDestinationService
         self.userDefaultsService = userDefaultsService
@@ -107,6 +110,10 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     }
     
     func loadData() {
+        
+        if shouldShowLimitAlert() {
+            return
+        }
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
@@ -209,6 +216,7 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                 )
                 
                 try await self.apiService.createEmployeeInvite(invite: invite)
+                self.viewLifecycleService.reload(for: .businessHome)
                 
                 await presentSuccessAlert()
                 
@@ -274,6 +282,52 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
                     
                 }
             )))
+        
+    }
+    
+    private func shouldShowLimitAlert() -> Bool {
+        
+        if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
+            type: .employee,
+            subscribeAction: { [weak self] in
+                self?.showPaywall()
+            },
+            dismissAction: { [weak self] in
+                self?.navigationService?.popWithDelay()
+            }
+        ) {
+            
+            Task { @MainActor in
+                
+                self.alertService.showAlert(.init(
+                    .card(.limitReachedAlert(limitReachedAlert: alert))
+                ))
+                
+            }
+            
+            return true
+            
+        }
+        
+        return false
+        
+    }
+    
+    private func showPaywall() {
+        
+        Task { @MainActor in
+            
+            let paywallContext = self.activeDestinationService.getPaywallOverageContext()
+            
+            self.navigationService?.modal(fullScreenCover: .subscriptionPaywall(
+                context: paywallContext,
+                paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                completion: nil
+            ))
+            
+            self.navigationService?.pop()
+            
+        }
         
     }
     

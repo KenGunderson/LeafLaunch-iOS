@@ -13,7 +13,6 @@ struct StripeSubscriptionProduct: Identifiable, Codable, Hashable {
         let totalNumberOfLocations: Int?
         let totalNumberOfMedia: Int?
         
-        
         private enum CodingKeys: String, CodingKey {
             
             case totalNumberOfEmployees = "total_number_of_employees"

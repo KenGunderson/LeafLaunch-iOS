@@ -56,6 +56,34 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
         
     }
     
+    var canAddAnotherLocation: Bool {
+        
+        let totalNumberOfLocations = self.business?.totalLocationCount ?? 0
+        let allowedNumberOfLocations = self.business?.stripeSubscriptionProduct?.metadata?.totalNumberOfLocations ?? 1
+        
+        // Infinite
+        if allowedNumberOfLocations == -1 {
+            return true
+        }
+        
+        return totalNumberOfLocations < allowedNumberOfLocations
+        
+    }
+    
+    var canAddAnotherEmployee: Bool {
+        
+        let totalNumberOfEmployees = self.business?.totalEmployeeCount ?? 0
+        let allowedNumberOfEmployees = self.business?.stripeSubscriptionProduct?.metadata?.totalNumberOfEmployees ?? 2
+        
+        // Infinite
+        if allowedNumberOfEmployees == -1 {
+            return true
+        }
+        
+        return totalNumberOfEmployees < allowedNumberOfEmployees
+        
+    }
+    
     internal var business: Business?
     internal var businessId: String?
     
@@ -142,6 +170,56 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     
     func refresh() {
         loadData()
+    }
+    
+    func getPaywallOverageContext() -> SubscriptionPaywallViewModel.Context {
+        
+        var paywallContext: SubscriptionPaywallViewModel.Context = .create
+        
+        if let subscription = self.business?.stripeSubscription,
+           let subscriptionProduct = self.business?.stripeSubscriptionProduct {
+            
+            let selectedInterval = SubscriptionPaywallViewModel.Interval.createFromStripeName(subscription.stripeInterval)
+            
+            paywallContext = .update(
+                stripeSubscriptionId: subscription.stripeSubscriptionId,
+                selectedProduct: subscriptionProduct,
+                selectedInterval: selectedInterval
+            )
+            
+        }
+        
+        return paywallContext
+        
+    }
+    
+    func showLimitAlertIfNeeded(type: AppCardConfig.LimitType,
+                                subscribeAction: @escaping () -> Void,
+                                dismissAction: @escaping () -> Void) -> AppCardConfig.LimitReachhedAlert? {
+        
+        guard let business else { return nil }
+                
+        var isOverLimit: Bool {
+            
+            switch type {
+            case .employee: return !self.canAddAnotherEmployee
+            case .location: return !self.canAddAnotherLocation
+            case .media: return self.isMediaLimitReached
+            }
+            
+        }
+        
+        if !isOverLimit {
+            return nil
+        }
+        
+        return .init(
+            type: type,
+            businessName: business.name,
+            isSubscribed: business.isSubscribed,
+            subscribeAction: subscribeAction,
+            dismissAction: dismissAction)
+        
     }
     
     private func loadData() {
