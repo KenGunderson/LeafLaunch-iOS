@@ -72,7 +72,7 @@ final class ActiveDestinationService: ActiveDestinationServiceProtocol {
     
     var canAddAnotherEmployee: Bool {
         
-        let totalNumberOfEmployees = self.business?.totalEmployeeCount ?? 0
+        let totalNumberOfEmployees = (self.business?.totalEmployeeCount ?? 0 - 1) // Since the owner counts
         let allowedNumberOfEmployees = self.business?.stripeSubscriptionProduct?.metadata?.totalNumberOfEmployees ?? 2
         
         // Infinite

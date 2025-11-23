@@ -45,7 +45,7 @@ struct StripeSubscriptionProduct: Identifiable, Codable, Hashable {
     let name: String
     let description: String?
     let defaultPriceId: String?
-    let prices: [Price]
+    var prices: [Price]
     let active: Bool
     let metadata: Metadata?
     

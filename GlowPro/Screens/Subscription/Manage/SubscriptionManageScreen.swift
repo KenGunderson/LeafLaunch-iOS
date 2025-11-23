@@ -96,8 +96,8 @@ struct SubscriptionManageScreen: GPView {
                         }
                         
                         activePlanView(business: business)
-                        mediaUsageView(business: business)
                         billingInformation(business: business)
+                        mediaUsageView(business: business)
                         
                         if canCancelSubscription {
                             cancelSubscription()

@@ -89,10 +89,11 @@ final class SubscriptionPaywallViewModel: ViewModel {
     var isSubscribeButtonEnabled: Bool {
         
         let isValid = self.selectedProduct != nil
+        let isFreemiumSelected = self.selectedProduct?.prices.contains(where: { $0.interval == "freemium"}) ?? false
         
         switch self.context! {
         case .view: return false
-        case .create: return isValid
+        case .create: return isValid && !isFreemiumSelected
         case .update(_, let currentProduct, let currentInterval):
             
             let isSameSelection = (currentProduct == self.selectedProduct && (currentInterval == self.selectedInterval))
@@ -174,16 +175,29 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 let products = try await self.apiService
                     .getAllSubscriptionProducts()
                 
-                let sortedProducts = products
+                var sortedProducts = products
                     .sorted(by: { ($0.metadata?.totalNumberOfMedia ?? 0) < ($1.metadata?.totalNumberOfMedia ?? 0) })
                 
-                await MainActor.run {
+                if self.context != .create {
+                    
+                    sortedProducts = sortedProducts.filter { product in
+                        product.prices.contains { $0.interval == "freemium" }
+                    }
+                    
+                }
+                
+                await MainActor.run { [sortedProducts] in
                     
                     self.products = sortedProducts
                     
                     switch self.context! {
                     case .view: break
-                    case .create: break
+                    case .create:
+                        
+                        self.selectedProduct = sortedProducts.first { product in
+                            product.prices.contains { $0.interval == "freemium" }
+                        }
+                        
                     case .update(_, let selectedProduct, let selectedInterval):
                         
                         self.selectedProduct = selectedProduct
