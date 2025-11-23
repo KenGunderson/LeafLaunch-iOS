@@ -7,7 +7,9 @@
 
 import Combine
 
-protocol ActiveDestinationServiceProtocol: AnyObject, Sendable, Loggable {
+protocol ActiveDestinationServiceProtocol: AnyObject,
+                                           Sendable,
+                                           Loggable {
     
     var activeDestination: ActiveDestination? { get }
     var activeDestinationPublisher: AnyPublisher<ActiveDestination?, Never> { get }
