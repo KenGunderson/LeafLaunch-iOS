@@ -310,6 +310,9 @@ final class CollageCreateEditViewModel: ViewModel {
                         mediaType: .collage
                     ))
                 
+                self.viewLifecycleService
+                    .reload(for: .mediaGallery)
+                
                 self.alertService
                     .showAlert(.init(.appAlert(.success(
                         message: "Collage created successfully.",

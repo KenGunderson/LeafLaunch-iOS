@@ -268,7 +268,7 @@ struct CollageCreateEditScreen: View {
             cornerRadius: .none
         )
             .background(.clear)
-                
+        
         let renderer = ImageRenderer(content: view)
         renderer.scale = UIScreen.main.scale
         renderer.proposedSize = .init(

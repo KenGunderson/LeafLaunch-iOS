@@ -284,6 +284,7 @@ struct SignUpScreen: GPView {
         .textContentType(textContentType)
         .submitLabel(submitLabel)
         .textInputAutocapitalization(isNameFields ? .words : .never)
+        .disableAutocorrection(true)
         .overlay(alignment: .bottomTrailing) {
             passwordEyeOverlay(fieldToFocus: fieldToFocus)
         }

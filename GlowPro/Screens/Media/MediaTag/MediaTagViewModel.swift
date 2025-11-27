@@ -244,6 +244,9 @@ final class MediaTagViewModel: ViewModel {
             }
             
             self.viewLifecycleService
+                .reload(for: .mediaGallery)
+            
+            self.viewLifecycleService
                 .reload(for: .mediaPreview)
             
             self.alertService
@@ -287,6 +290,9 @@ final class MediaTagViewModel: ViewModel {
                 )
                 
             }
+            
+            self.viewLifecycleService
+                .reload(for: .mediaGallery)
             
             self.viewLifecycleService
                 .reload(for: .mediaPreview)

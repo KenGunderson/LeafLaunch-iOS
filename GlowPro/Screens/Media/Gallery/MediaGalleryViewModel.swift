@@ -456,24 +456,38 @@ final class MediaGalleryViewModel: ViewModel {
 
             let locationId = self.activeDestinationService.locationEmployee?.locationId
 
-            try await items.asyncForEach { item in
+            do {
+                
+                try await items.asyncForEach { item in
 
-                if let data = try? await item.loadTransferable(type: Data.self) {
+                    if let data = try? await item.loadTransferable(type: Data.self) {
 
-                    if let uiImage = UIImage(data: data) {
+                        if let uiImage = UIImage(data: data) {
 
-                        let _ = try await self.apiService
-                            .uploadMedia(uploadMedia: .init(
-                                data: uiImage.compressedData(maxMegaBytes: 5) ?? Data(),
-                                businessId: self.activeDestinationService.businessId,
-                                locationId: locationId,
-                                clientId: clientId
-                            ))
+                            let _ = try await self.apiService
+                                .uploadMedia(uploadMedia: .init(
+                                    data: uiImage.compressedData(maxMegaBytes: 5) ?? Data(),
+                                    businessId: self.activeDestinationService.businessId,
+                                    locationId: locationId,
+                                    clientId: clientId
+                                ))
+
+                        }
 
                     }
 
                 }
-
+                
+            } catch {
+                
+                self.alertService.showAlert(.init(
+                    .appAlert(
+                        .error(
+                            message: Constants.Message.errorMessage(context: .create, "media"),
+                            action: { })
+                    ))
+                )
+                
             }
 
             self.alertService
@@ -482,6 +496,7 @@ final class MediaGalleryViewModel: ViewModel {
             await MainActor.run { [weak self] in
 
                 self?.selectedPhotoPickerItems = []
+                self?.resetPagingState()
                 self?.loadData()
 
             }
@@ -542,6 +557,7 @@ final class MediaGalleryViewModel: ViewModel {
                 
             }
             
+            self.resetPagingState()
             self.loadData()
             
         }
@@ -640,8 +656,9 @@ final class MediaGalleryViewModel: ViewModel {
 
     }
     
-    private func resetPagingState() {
+    func resetPagingState() {
         
+        self.isLoading = false
         self.isPagingComplete = false
         
         self.groups.removeAll()

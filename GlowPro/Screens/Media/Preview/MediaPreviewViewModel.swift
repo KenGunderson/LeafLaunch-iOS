@@ -103,6 +103,9 @@ final class MediaPreviewViewModel: ViewModel {
                 
             }
             
+            self?.viewLifecycleService
+                .reload(for: .mediaGallery)
+            
             await MainActor.run { [weak self] in
                                 
                 self?.selectedMedia?.isFavorited.toggle()
