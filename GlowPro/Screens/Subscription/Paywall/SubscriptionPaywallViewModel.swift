@@ -181,7 +181,7 @@ final class SubscriptionPaywallViewModel: ViewModel {
                 if self.context != .create {
                     
                     sortedProducts = sortedProducts.filter { product in
-                        product.prices.contains { $0.interval == "freemium" }
+                        product.prices.contains { $0.interval != "freemium" }
                     }
                     
                 }
