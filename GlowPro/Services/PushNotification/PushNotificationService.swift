@@ -96,47 +96,39 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     private func handleNotificationReceived(_ notification: PushNotification) {
 
         self.log(message: "push received: \(notification.type.rawValue)")
-
-        switch notification.type {
-        case .test:
-            print("TEST PUSH") // call handle method to parse further and navigate to where you need
-        case .generic:
-            print("THIS IS A GENERIC PUSH")
-//        case .createChallenge: self.navigationService?.homeNavigationService.push(.createChallange)
-//        case .challengeDetails:
-//
-//            if let challengeId = notification.info["challenge_id"] as? String {
-//
-//                self.navigationService?
-//                    .homeNavigationService
-//                    .push(.challengeDetails(.init(
-//                        id: challengeId,
-//                        challengeType: .calories,
-//                        gameMode: .cooperative,
-//                        title: "",
-//                        goalAmount: 0,
-//                        startDate: "",
-//                        inviteCode: "",
-//                        ownerId: "",
-//                        createdAt: Date()
-//                    )))
-//
-//            }
-            
-        }
+        handleNavigationForNotification(notification)
         
-//        self.viewLifecycleService?.triggerReload()
     }
     
     private func handleTestNotificationTapped(_ notification: PushNotification) {
 
         self.log(message: "push tapped: \(notification.type.rawValue)")
-
-        // TODO: - Handle Deeplink Navigation
-        // MARK: - THIS IS HOW WE PARSE
-//        if let route = notification.info["deeplink"] as? String {
-//        }
+        handleNavigationForNotification(notification)
         
-        // MARK: - Route them somewhere based on tap with navigationService
     }
+    
+    private func handleNavigationForNotification(_ notification: PushNotification) {
+        
+        switch notification.type {
+        case .test:
+            print("TEST PUSH") // call handle method to parse further and navigate to where you need
+        case .generic:
+            print("THIS IS A GENERIC PUSH")
+        case .invite:
+            
+            self.navigationService?
+                .push(.business(.businessEmployeeInviteList(context: .personal)))
+            
+        case .accpetInvite:
+            
+            if let businessId = notification.info["business_id"] as? String {
+                            
+                self.navigationService?
+                    .push(.business(.businessEmployeeInviteList(context: .business(businessId: businessId))))
+                
+            }
+        }
+        
+    }
+    
 }
