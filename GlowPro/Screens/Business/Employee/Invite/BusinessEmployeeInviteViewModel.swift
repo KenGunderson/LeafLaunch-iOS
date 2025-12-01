@@ -287,6 +287,8 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
     
     private func shouldShowLimitAlert() -> Bool {
         
+        guard !self.isUpdatingEmployeeContext else { return false }
+        
         if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
             type: .employee,
             subscribeAction: { [weak self] in

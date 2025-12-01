@@ -228,6 +228,8 @@ final class CollageCreateEditViewModel: ViewModel {
     
     private func shouldShowLimitAlert() -> Bool {
         
+        guard self.isCreateContext else { return false }
+        
         if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
             type: .media,
             subscribeAction: { [weak self] in

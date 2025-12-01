@@ -346,6 +346,9 @@ final class BusinessLocationCreateEditViewModel: ViewModel {
 
     private func shouldShowLimitAlert() -> Bool {
         
+        let isCreateContext = !self.isEditMode
+        guard isCreateContext else { return false }
+        
         if let alert = self.activeDestinationService.showLimitAlertIfNeeded(
             type: .location,
             subscribeAction: { [weak self] in
