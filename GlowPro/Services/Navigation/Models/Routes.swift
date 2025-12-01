@@ -121,7 +121,7 @@ enum Route: Navigation, Hashable, Sendable {
         case profile
         case subscribe
         case manageSubscription
-        case security
+        case businessSettings
         case updatePermissions
         case aboutUs
         case frequentlyAskedQuestions
@@ -138,7 +138,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .profile: return "Update Profile"
             case .subscribe: return "Subscribe"
             case .manageSubscription: return "Manage Subscription"
-            case .security: return "Security"
+            case .businessSettings: return "Business Settings"
             case .updatePermissions: return "Update Permissions"
             case .aboutUs: return "About Us"
             case .frequentlyAskedQuestions: return "Frequently Asked Questions"
@@ -157,7 +157,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .profile: return .image(.iconPerson)
             case .subscribe: return .image(.iconShoppingCart)
             case .manageSubscription: return .image(.iconShoppingCart)
-            case .security: return .systemImage("lock.fill")
+            case .businessSettings: return .systemImage("lock.fill")
             case .updatePermissions: return .systemImage("shield.fill")
             case .aboutUs: return .image(.iconInfoCircle)
             case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
@@ -180,7 +180,7 @@ enum Route: Navigation, Hashable, Sendable {
         
         var category: String {
             switch self {
-            case .profile, .subscribe, .manageSubscription, .security, .updatePermissions: return "Account"
+            case .profile, .subscribe, .manageSubscription, .businessSettings, .updatePermissions: return "Account"
             case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .featureRequest, .rateApp: return "Help & Feedback"
             case .privacyPolicy, .termsOfService, .subscriptionTerms: return "Legal"
             case .logout: return "Logout"

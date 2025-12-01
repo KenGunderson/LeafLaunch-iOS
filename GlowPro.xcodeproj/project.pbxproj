@@ -16,10 +16,10 @@
 		4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
 		4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
 		4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
-		75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
-		75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
-		75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
-		75027FE22E7FAEFE00E10640 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
+		75027FDE2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */; };
+		75027FDF2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */; };
+		75027FE12E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */; };
+		75027FE22E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */; };
 		7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
@@ -759,7 +759,7 @@
 		75DD843A2EAD728600DD8850 /* EmptyStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */; };
 		75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */; };
 		75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */; };
-		75DD843D2EAD728600DD8850 /* SecurityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */; };
+		75DD843D2EAD728600DD8850 /* BusinessSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */; };
 		75DD843E2EAD728600DD8850 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6C2762E63C79300F8A336 /* CameraPreviewView.swift */; };
 		75DD843F2EAD728600DD8850 /* AppTrackingPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40C2DF661EA0031D9CF /* AppTrackingPermissionService.swift */; };
 		75DD84402EAD728600DD8850 /* LaunchScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */; };
@@ -773,7 +773,7 @@
 		75DD84492EAD728600DD8850 /* APIService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D12DF661EA0031D9CF /* APIService+Users.swift */; };
 		75DD844A2EAD728600DD8850 /* EnvironmentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E42DF661EA0031D9CF /* EnvironmentServiceProtocol.swift */; };
 		75DD844B2EAD728600DD8850 /* ActiveDestinationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755076802E26C3F10041021C /* ActiveDestinationServiceProtocol.swift */; };
-		75DD844C2EAD728600DD8850 /* SecurityScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */; };
+		75DD844C2EAD728600DD8850 /* BusinessSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */; };
 		75DD844D2EAD728600DD8850 /* APIService+EmployeeInvites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85FD2E4944F500417BA5 /* APIService+EmployeeInvites.swift */; };
 		75DD844E2EAD728600DD8850 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		75DD844F2EAD728600DD8850 /* ThemeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */; };
@@ -983,8 +983,8 @@
 		4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
 		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
 		4ADEEB522EADCE000092678C /* PDFInkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInkView.swift; sourceTree = "<group>"; };
-		75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
-		75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScreen.swift; sourceTree = "<group>"; };
+		75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSettingsViewModel.swift; sourceTree = "<group>"; };
+		75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSettingsScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		7504EB872EC39B13008C7A3C /* APIService+BusinessSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+BusinessSettings.swift"; sourceTree = "<group>"; };
@@ -1394,13 +1394,13 @@
 			path = PDFs;
 			sourceTree = "<group>";
 		};
-		75027FDC2E7FAEEB00E10640 /* Security */ = {
+		75027FDC2E7FAEEB00E10640 /* BusinessSettings */ = {
 			isa = PBXGroup;
 			children = (
-				75027FDD2E7FAEEF00E10640 /* SecurityViewModel.swift */,
-				75027FE02E7FAEFA00E10640 /* SecurityScreen.swift */,
+				75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */,
+				75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */,
 			);
-			path = Security;
+			path = BusinessSettings;
 			sourceTree = "<group>";
 		};
 		7505AFAE2EB5BF1F00AB2F73 /* Views */ = {
@@ -2044,7 +2044,7 @@
 			children = (
 				754D29332E07B5BB0065E242 /* Settings */,
 				758379FE2EB19414004C2DB5 /* Profile */,
-				75027FDC2E7FAEEB00E10640 /* Security */,
+				75027FDC2E7FAEEB00E10640 /* BusinessSettings */,
 				75F131292E74B2CD00E7636B /* AboutUs */,
 				75F131302E74B6C700E7636B /* FeatureRequest */,
 				75740B752E0A1FA900EF8627 /* FAQ */,
@@ -3232,7 +3232,7 @@
 				753B7C4E2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
-				75027FDE2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
+				75027FDE2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */,
 				75D6C2782E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
 				75F81F552EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
@@ -3247,7 +3247,7 @@
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076822E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
-				75027FE12E7FAEFE00E10640 /* SecurityScreen.swift in Sources */,
+				75027FE12E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */,
 				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
@@ -3547,7 +3547,7 @@
 				753B7C4D2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
-				75027FDF2E7FAEF000E10640 /* SecurityViewModel.swift in Sources */,
+				75027FDF2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */,
 				75D6C2772E63C79300F8A336 /* CameraPreviewView.swift in Sources */,
 				75F81F572EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
@@ -3562,7 +3562,7 @@
 				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				755076812E26C3F70041021C /* ActiveDestinationServiceProtocol.swift in Sources */,
-				75027FE22E7FAEFE00E10640 /* SecurityScreen.swift in Sources */,
+				75027FE22E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */,
 				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
@@ -3845,7 +3845,7 @@
 				753B7C4F2EBDAECE00125332 /* FormListViewModel.swift in Sources */,
 				75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */,
 				75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */,
-				75DD843D2EAD728600DD8850 /* SecurityViewModel.swift in Sources */,
+				75DD843D2EAD728600DD8850 /* BusinessSettingsViewModel.swift in Sources */,
 				75DD843E2EAD728600DD8850 /* CameraPreviewView.swift in Sources */,
 				75F81F562EBCF7A500A94897 /* DownsampledRemoteImage.swift in Sources */,
 				75DD843F2EAD728600DD8850 /* AppTrackingPermissionService.swift in Sources */,
@@ -3860,7 +3860,7 @@
 				75DD84492EAD728600DD8850 /* APIService+Users.swift in Sources */,
 				75DD844A2EAD728600DD8850 /* EnvironmentServiceProtocol.swift in Sources */,
 				75DD844B2EAD728600DD8850 /* ActiveDestinationServiceProtocol.swift in Sources */,
-				75DD844C2EAD728600DD8850 /* SecurityScreen.swift in Sources */,
+				75DD844C2EAD728600DD8850 /* BusinessSettingsScreen.swift in Sources */,
 				75DD844D2EAD728600DD8850 /* APIService+EmployeeInvites.swift in Sources */,
 				75DD844E2EAD728600DD8850 /* Section.swift in Sources */,
 				75DD844F2EAD728600DD8850 /* ThemeRegistry.swift in Sources */,

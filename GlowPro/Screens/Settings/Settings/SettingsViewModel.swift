@@ -56,7 +56,7 @@ final class SettingsViewModel: ViewModel {
         
     }
     
-    var shouldShowSecuritySetting: Bool {
+    var shouldShowBusinessSettings: Bool {
         return self.workspaces.filter({ $0.isOwner }).first != nil
     }
     

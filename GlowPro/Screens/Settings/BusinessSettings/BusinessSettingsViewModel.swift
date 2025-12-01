@@ -1,5 +1,5 @@
 //
-//  SecurityViewModel.swift
+//  BusinessSettingsViewModel.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 9/20/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class SecurityViewModel: ViewModel {
+final class BusinessSettingsViewModel: ViewModel {
     
     internal let loggerName: String = "SECURITY_VIEW_MODEL"
     internal let loggerEmoji: String = "⚙️"
@@ -221,10 +221,10 @@ final class SecurityViewModel: ViewModel {
     
 }
 
-extension SecurityViewModel {
+extension BusinessSettingsViewModel {
     
     func track() {
-        self.analyticsService.track(screen: .settings(.security))
+        self.analyticsService.track(screen: .settings(.businessSettings))
     }
     
 }

@@ -581,11 +581,11 @@ class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
-        // Settings - SECURITY
+        // Settings - BUSINESS SETTINGS
         
         container
-            .register(SecurityViewModel.self) { r in
-                SecurityViewModel(
+            .register(BusinessSettingsViewModel.self) { r in
+                BusinessSettingsViewModel(
                     apiService: r.resolve(APIServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,

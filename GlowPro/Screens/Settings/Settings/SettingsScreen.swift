@@ -102,8 +102,8 @@ struct SettingsScreen: GPView {
         
         var settings: [Route.SettingRoute] = Route.SettingRoute.allCases
         
-        if !self.viewModel.shouldShowSecuritySetting {
-            settings.removeAll { $0 == .security }
+        if !self.viewModel.shouldShowBusinessSettings {
+            settings.removeAll { $0 == .businessSettings }
         }
         
         let shouldShowSubscribe = self.viewModel.shouldShowSubscriptionSetting && !self.viewModel.isSubscribed

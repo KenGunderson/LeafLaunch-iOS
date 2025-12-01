@@ -205,11 +205,11 @@ extension View {
                 
             case .subscribe: EmptyView()
             case .manageSubscription: EmptyView()
-            case .security:
+            case .businessSettings:
                 
-                let viewModel = globalResolver.resolve(SecurityViewModel.self)!
+                let viewModel = globalResolver.resolve(BusinessSettingsViewModel.self)!
                 
-                SecurityScreen(viewModel: viewModel)
+                BusinessSettingsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
             
             case .updatePermissions: EmptyView()

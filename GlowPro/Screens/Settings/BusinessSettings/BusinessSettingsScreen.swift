@@ -1,5 +1,5 @@
 //
-//  SecurityScreen.swift
+//  BusinessSettingsScreen.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 9/20/25.
@@ -8,9 +8,9 @@
 import SwiftUI
 import Charts
 
-struct SecurityScreen: GPView {
+struct BusinessSettingsScreen: GPView {
     
-    @StateObject var viewModel: SecurityViewModel
+    @StateObject var viewModel: BusinessSettingsViewModel
     @Environment(NavigationService.self) private var navigationService
     
     var body: some View {
@@ -74,7 +74,7 @@ struct SecurityScreen: GPView {
     private func headerView() -> some View {
         
         NavBarView(
-            title: "Security",
+            title: "Business Settings",
             leftButtonView: (
                 NavBarButton(style: .back) {
                     self.viewModel.dismiss()
@@ -94,6 +94,7 @@ struct SecurityScreen: GPView {
                 if !self.viewModel.isLoading {
                     
                     generalSection()
+                    subscriptionSection()
                     pinSection()
                     
                 }
@@ -170,6 +171,19 @@ struct SecurityScreen: GPView {
                 
             }
             
+        }
+        
+    }
+    
+    private func subscriptionSection() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Subscription",
+                showDivider: true
+            )
+            
             // Allows Overages
             
             VStack(spacing: Style.shared.spacing(.small)) {
@@ -208,7 +222,7 @@ struct SecurityScreen: GPView {
         return VStack(spacing: Style.shared.spacing(.small)) {
             
             SectionView(
-                leadingTitle: "Limiting Access",
+                leadingTitle: "Security",
                 showDivider: true
             )
             
@@ -322,8 +336,8 @@ struct SecurityScreen: GPView {
     
     AppRootView(navigationService: .constant(NavigationService())) {
             
-        SecurityScreen(
-            viewModel: mockResolve(SecurityViewModel.self)
+        BusinessSettingsScreen(
+            viewModel: mockResolve(BusinessSettingsViewModel.self)
         )
         
     }
