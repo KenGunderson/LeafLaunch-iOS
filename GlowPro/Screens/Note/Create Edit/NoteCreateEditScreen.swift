@@ -493,7 +493,6 @@ struct NoteCreateEditScreen: View {
     private func mediaItem(_ mediaFusion: MediaFusion) -> some View {
         
         switch mediaFusion.kind {
-            
         case .url(let url): urlItem(url: url, mediaFusion: mediaFusion)
         case .uiImage(let image): appleMediaItem(uiImage: image, mediaFusion: mediaFusion)
         case .pdf(let data): pdfMediaItem(pdfData: data, mediaFusion: mediaFusion)
@@ -553,7 +552,7 @@ struct NoteCreateEditScreen: View {
     }
     
     private func pdfMediaItem(pdfData: Data,
-                                mediaFusion: MediaFusion) -> some View {
+                              mediaFusion: MediaFusion) -> some View {
         
         mediaItem(
             image: Image(uiImage: mediaFusion.kind.image ?? UIImage(systemName: "photo.badge.exclamationmark.fill")!),
@@ -568,7 +567,10 @@ struct NoteCreateEditScreen: View {
                 if let pdfDoc = PDFDocument(data: pdfData) {
                     
                     self.navigationService
-                        .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDoc) { data in
+                        .modal(fullScreenCover: .pdfEditor(
+                            pdfDocument: pdfDoc,
+                            isReadOnly: mediaFusion.isUploaded
+                        ) { data in
                             
                             self.viewModel
                                 .removeOldPDFMediaFusion(mediaFusion: mediaFusion)

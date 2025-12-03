@@ -699,10 +699,11 @@ extension View {
                 
                 SubscriptionManageScreen(viewModel: viewModel)
                 
-            case .pdfEditor(let pdfDocument, let completion):
+            case .pdfEditor(let pdfDocument, let isReadOnly, let completion):
                 
                 PDFEditorView(
                     pdfDocument: pdfDocument,
+                    isReadOnly: isReadOnly,
                     onSave: completion
                 )
                 

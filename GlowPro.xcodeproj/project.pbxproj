@@ -7,15 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
-		4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
-		4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */; };
 		4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
 		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
 		4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
-		4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
-		4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
-		4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEEB522EADCE000092678C /* PDFInkView.swift */; };
 		75027FDE2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */; };
 		75027FDF2E7FAEF000E10640 /* BusinessSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */; };
 		75027FE12E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */; };
@@ -200,18 +194,6 @@
 		751F95412E0B7EB5001CAF72 /* BusinessCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */; };
 		751F95432E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
 		751F95442E0B7EBD001CAF72 /* BusinessCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */; };
-		7524E2592EB1151B003EB9AF /* PDFTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2582EB11518003EB9AF /* PDFTool.swift */; };
-		7524E25A2EB1151B003EB9AF /* PDFTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2582EB11518003EB9AF /* PDFTool.swift */; };
-		7524E25B2EB1151B003EB9AF /* PDFTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2582EB11518003EB9AF /* PDFTool.swift */; };
-		7524E25D2EB1153E003EB9AF /* PDFCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E25C2EB1153A003EB9AF /* PDFCommand.swift */; };
-		7524E25E2EB1153E003EB9AF /* PDFCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E25C2EB1153A003EB9AF /* PDFCommand.swift */; };
-		7524E25F2EB1153E003EB9AF /* PDFCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E25C2EB1153A003EB9AF /* PDFCommand.swift */; };
-		7524E2612EB11566003EB9AF /* PDFAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2602EB11565003EB9AF /* PDFAction.swift */; };
-		7524E2622EB11566003EB9AF /* PDFAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2602EB11565003EB9AF /* PDFAction.swift */; };
-		7524E2632EB11566003EB9AF /* PDFAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2602EB11565003EB9AF /* PDFAction.swift */; };
-		7524E2652EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
-		7524E2662EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
-		7524E2672EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */; };
 		75260F5A2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
 		75260F5B2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
 		75260F5C2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
@@ -578,6 +560,12 @@
 		75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */; };
 		75D088842E690B89000B06B2 /* MediaTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088832E690B85000B06B2 /* MediaTagScreen.swift */; };
 		75D088852E690B89000B06B2 /* MediaTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D088832E690B85000B06B2 /* MediaTagScreen.swift */; };
+		75D290442EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
+		75D290452EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
+		75D290462EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
+		75D290482EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
+		75D290492EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
+		75D2904A2EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
 		75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		75D66D102DC713C300E51CFC /* ClientHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */; };
 		75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
@@ -983,9 +971,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
 		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
-		4ADEEB522EADCE000092678C /* PDFInkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInkView.swift; sourceTree = "<group>"; };
 		75027FDD2E7FAEEF00E10640 /* BusinessSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSettingsViewModel.swift; sourceTree = "<group>"; };
 		75027FE02E7FAEFA00E10640 /* BusinessSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessSettingsScreen.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
@@ -1065,10 +1051,6 @@
 		751970162E3D021F007FB142 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditScreen.swift; sourceTree = "<group>"; };
 		751F95422E0B7EB8001CAF72 /* BusinessCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCreateEditViewModel.swift; sourceTree = "<group>"; };
-		7524E2582EB11518003EB9AF /* PDFTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTool.swift; sourceTree = "<group>"; };
-		7524E25C2EB1153A003EB9AF /* PDFCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCommand.swift; sourceTree = "<group>"; };
-		7524E2602EB11565003EB9AF /* PDFAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAction.swift; sourceTree = "<group>"; };
-		7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorViewModel.swift; sourceTree = "<group>"; };
 		75260F592EB468BD00318960 /* Sample.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Sample.pdf; sourceTree = "<group>"; };
 		75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDashboardView.swift; sourceTree = "<group>"; };
 		7527E1912E26929500FBC9AF /* BusinessEmployeeInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeInviteViewModel.swift; sourceTree = "<group>"; };
@@ -1253,6 +1235,8 @@
 		75CD6B662E20C114004A1720 /* BusinessLocationCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationCreateEditScreen.swift; sourceTree = "<group>"; };
 		75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagViewModel.swift; sourceTree = "<group>"; };
 		75D088832E690B85000B06B2 /* MediaTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagScreen.swift; sourceTree = "<group>"; };
+		75D290432EE0C0BC004692F2 /* PDFEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorController.swift; sourceTree = "<group>"; };
+		75D290472EE0C16F004692F2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
 		75D66DCD2DC7179600E51CFC /* GlowProUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -1655,16 +1639,6 @@
 				751F953F2E0B7EA4001CAF72 /* BusinessCreateEditScreen.swift */,
 			);
 			path = "Create Edit";
-			sourceTree = "<group>";
-		};
-		7524E2682EB115AA003EB9AF /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7524E2582EB11518003EB9AF /* PDFTool.swift */,
-				7524E2602EB11565003EB9AF /* PDFAction.swift */,
-				7524E25C2EB1153A003EB9AF /* PDFCommand.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		7527E1902E26925E00FBC9AF /* Invite */ = {
@@ -2338,10 +2312,8 @@
 		758D461D2EAF32CC002EEC64 /* PDF */ = {
 			isa = PBXGroup;
 			children = (
-				7524E2682EB115AA003EB9AF /* Models */,
-				7524E2642EB1158B003EB9AF /* PDFEditorViewModel.swift */,
-				4ADEEB522EADCE000092678C /* PDFInkView.swift */,
-				4A4BDC302EAD9EBB002D0DD2 /* PDFEditorView.swift */,
+				75D290472EE0C16F004692F2 /* PDFEditorView.swift */,
+				75D290432EE0C0BC004692F2 /* PDFEditorController.swift */,
 			);
 			path = PDF;
 			sourceTree = "<group>";
@@ -3078,7 +3050,6 @@
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
 				7515DC1A2ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B721E2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
-				7524E2662EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				7585FA112EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */,
 				75902B492EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
@@ -3160,14 +3131,12 @@
 				75122DBD2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				7537F4762DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312E2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
-				7524E25E2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
 				75837A022EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				7537F4772DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E22E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4782DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
-				4ADEEB542EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F47B2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -3284,10 +3253,10 @@
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
+				75D290492EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
-				4A4BDC332EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26C2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076882E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -3316,12 +3285,12 @@
 				75C67E4D2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
+				75D290462EE0C0CB004692F2 /* PDFEditorController.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
 				75D66DD92DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */,
 				75D66DDA2DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
-				7524E2622EB11566003EB9AF /* PDFAction.swift in Sources */,
 				7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				7534206A2E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
 				75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
@@ -3335,7 +3304,6 @@
 				75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
-				7524E2592EB1151B003EB9AF /* PDFTool.swift in Sources */,
 				758C3CE72E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */,
 				758C3CE82E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */,
@@ -3394,7 +3362,6 @@
 				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
 				7515DC182ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B721F2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
-				7524E2672EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
 				7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */,
 				75902B4B2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
@@ -3476,14 +3443,12 @@
 				75122DBE2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75F1312F2E74B2DD00E7636B /* AboutUsScreen.swift in Sources */,
-				7524E25F2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
 				75837A002EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E12E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
-				4ADEEB552EADCE130092678C /* PDFInkView.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
 				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
 				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
@@ -3600,10 +3565,10 @@
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
+				75D2904A2EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
-				4A4BDC312EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26B2E63C59000F8A336 /* CameraService.swift in Sources */,
 				755076872E26C40E0041021C /* ActiveDestination.swift in Sources */,
@@ -3632,12 +3597,12 @@
 				75C67E4E2E765DA800BB29F0 /* NoteListScreen.swift in Sources */,
 				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
 				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
+				75D290442EE0C0CB004692F2 /* PDFEditorController.swift in Sources */,
 				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
 				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
 				75D66DD72DC717DF00E51CFC /* WhatsNewScreen.swift in Sources */,
 				75D66DD82DC717DF00E51CFC /* WhatsNewViewModel.swift in Sources */,
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
-				7524E2612EB11566003EB9AF /* PDFAction.swift in Sources */,
 				7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
 				75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
@@ -3651,7 +3616,6 @@
 				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
 				75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */,
 				75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
-				7524E25B2EB1151B003EB9AF /* PDFTool.swift in Sources */,
 				758C3CE52E14B0CB00BC1A43 /* BusinessEmployeeListViewModel.swift in Sources */,
 				758C3CE62E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
@@ -3693,7 +3657,6 @@
 				75DD83C62EAD728600DD8850 /* EmptyStateConfig.swift in Sources */,
 				7515DC192ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B72202EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
-				7524E2652EB11590003EB9AF /* PDFEditorViewModel.swift in Sources */,
 				75DD83C82EAD728600DD8850 /* QuickActionTileView.swift in Sources */,
 				75DD83CB2EAD728600DD8850 /* CollageCreateEditScreen.swift in Sources */,
 				75902B4A2EC84939002E30B5 /* SubscriptionSuccessSheet.swift in Sources */,
@@ -3775,14 +3738,12 @@
 				75122DBC2ECD3490009D99F9 /* SectionCardView.swift in Sources */,
 				75DD84132EAD728600DD8850 /* AppTrackingPermissionServiceProtocol.swift in Sources */,
 				75DD84142EAD728600DD8850 /* AboutUsScreen.swift in Sources */,
-				7524E25D2EB1153E003EB9AF /* PDFCommand.swift in Sources */,
 				75837A012EB19422004C2DB5 /* ProfileViewModel.swift in Sources */,
 				75DD84152EAD728600DD8850 /* ConnectivityServiceProtocol.swift in Sources */,
 				75DD84162EAD728600DD8850 /* MediaTransferServiceProtocol.swift in Sources */,
 				75DD84172EAD728600DD8850 /* DeeplinkService.swift in Sources */,
 				75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */,
 				75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */,
-				4ADEEB532EADCE130092678C /* PDFInkView.swift in Sources */,
 				75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */,
 				75DD841C2EAD728600DD8850 /* EnvironmentService.swift in Sources */,
 				75DD841D2EAD728600DD8850 /* GhostOverlayCarouselView.swift in Sources */,
@@ -3899,10 +3860,10 @@
 				75DD84682EAD728600DD8850 /* APIService+Businesses.swift in Sources */,
 				75DD84692EAD728600DD8850 /* FirebaseService.swift in Sources */,
 				75DD846A2EAD728600DD8850 /* MockAssembler.swift in Sources */,
+				75D290482EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
 				75DD846B2EAD728600DD8850 /* WelcomeViewModel.swift in Sources */,
 				75DD846E2EAD728600DD8850 /* ActivitiesView.swift in Sources */,
 				75DD846F2EAD728600DD8850 /* SettingsScreen.swift in Sources */,
-				4A4BDC322EADA01D002D0DD2 /* PDFEditorView.swift in Sources */,
 				75DD84702EAD728600DD8850 /* MediaPreviewViewModel.swift in Sources */,
 				75DD84712EAD728600DD8850 /* CameraService.swift in Sources */,
 				75DD84722EAD728600DD8850 /* ActiveDestination.swift in Sources */,
@@ -3931,12 +3892,12 @@
 				75DD848C2EAD728600DD8850 /* NoteListScreen.swift in Sources */,
 				75DD848D2EAD728600DD8850 /* SignUpScreen.swift in Sources */,
 				75DD848E2EAD728600DD8850 /* DevImpersonateScreen.swift in Sources */,
+				75D290452EE0C0CB004692F2 /* PDFEditorController.swift in Sources */,
 				75DD848F2EAD728600DD8850 /* DevRoutesViewModel.swift in Sources */,
 				75DD84902EAD728600DD8850 /* DevRoutesScreen.swift in Sources */,
 				75DD84912EAD728600DD8850 /* WhatsNewScreen.swift in Sources */,
 				75DD84922EAD728600DD8850 /* WhatsNewViewModel.swift in Sources */,
 				75DD84932EAD728600DD8850 /* HomeViewModel.swift in Sources */,
-				7524E2632EB11566003EB9AF /* PDFAction.swift in Sources */,
 				75DD84952EAD728600DD8850 /* ClientBirthdayView.swift in Sources */,
 				75DD84962EAD728600DD8850 /* MediaFusion.swift in Sources */,
 				75DD84972EAD728600DD8850 /* ClientCreateEditViewModel.swift in Sources */,
@@ -3950,7 +3911,6 @@
 				75DD849F2EAD728600DD8850 /* WelcomeScreen.swift in Sources */,
 				75DD84A02EAD728600DD8850 /* GPTheme.swift in Sources */,
 				75DD84A22EAD728600DD8850 /* OnboardingPermissionsViewModel.swift in Sources */,
-				7524E25A2EB1151B003EB9AF /* PDFTool.swift in Sources */,
 				75DD84A42EAD728600DD8850 /* BusinessEmployeeListViewModel.swift in Sources */,
 				75DD84A52EAD728600DD8850 /* BusinessEmployeeListScreen.swift in Sources */,
 				75DD84A62EAD728600DD8850 /* DevSettingsViewModel.swift in Sources */,

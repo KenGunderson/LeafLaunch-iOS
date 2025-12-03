@@ -123,6 +123,7 @@ struct Note: Identifiable,
     
     let employeeSignature: String?
     let mediaURLs: [URL]
+    let media: [Media]
     
     private var _createdAt: String?
     
@@ -143,6 +144,7 @@ struct Note: Identifiable,
          metadata: NoteMetadata? = nil,
          employeeSignature: String?,
          mediaURLs: [URL] = [],
+         media: [Media] = [],
          createdAt: String) {
         
         self.id = id
@@ -154,6 +156,7 @@ struct Note: Identifiable,
         self.metadata = metadata
         self.employeeSignature = employeeSignature
         self.mediaURLs = mediaURLs
+        self.media = media
         self._createdAt = createdAt
         
     }
@@ -173,6 +176,7 @@ struct Note: Identifiable,
         case employeeSignature = "employee_signature"
         
         case mediaURLs = "media_urls"
+        case media = "media_objects"
         case _createdAt = "created_at"
         
     }

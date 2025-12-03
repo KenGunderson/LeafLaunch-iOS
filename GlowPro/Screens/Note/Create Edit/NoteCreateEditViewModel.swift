@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 import _PhotosUI_SwiftUI
 
 final class NoteCreateEditViewModel: ViewModel {
@@ -194,14 +195,33 @@ final class NoteCreateEditViewModel: ViewModel {
                     self.outcome = metaData?.outcome ?? ""
                     self.treatedBy = metaData?.treatedBy ?? ""
                     self.reviewedBy = metaData?.reviewedBy ?? ""
-                    
-                    if self.mediaFusion.isEmpty {
+                    		
+                    if self.mediaFusion.isEmpty {	
                         
-                        self.mediaFusion = note.mediaURLs.map { .init(
-                            id: $0.absoluteString,
-                            kind: .url($0),
-                            isUploaded: true
-                        )}
+                        self.mediaFusion = note.mediaURLs.map { url in
+                            
+                            let media = note.media.first(where: { $0.url == url })
+                            
+                            var mediaKind: MediaFusion.Kind {
+                                
+                                if media?.mediaType == .diagram,
+                                   let document = PDFDocument(url: url),
+                                   let data = document.dataRepresentation() {
+                                    
+                                    return .pdf(data)
+                                    
+                                }
+                                
+                                return .url(url)
+                                
+                            }
+                            
+                            return .init(
+                                id: url.absoluteString,
+                                kind: mediaKind,
+                                isUploaded: true,
+                                media: media
+                            )}
                         
                     }
                     
@@ -584,15 +604,16 @@ final class NoteCreateEditViewModel: ViewModel {
                 
                 newMediaURLs.append(URL(string: newURL))
                 
-            case .pdf(_):
+            case .pdf(let data):
                 
                 let newURL = try await self.apiService
                     .uploadMedia(uploadMedia: .init(
-                        data: media.kind.image?.compressedData(maxMegaBytes: 5) ?? Data(),
+                        data: data,
                         businessId: self.activeDestinationService.businessId,
                         locationId: locationId,
                         clientId: self.clientId,
-                        mediaType: .diagram
+                        mediaType: .diagram,
+                        contentType: .pdf
                     ))
                 
                 newMediaURLs.append(URL(string: newURL))
