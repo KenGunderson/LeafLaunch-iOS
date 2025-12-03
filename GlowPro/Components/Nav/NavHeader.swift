@@ -10,7 +10,7 @@ import SwiftUI
 struct NavHeader: View {
     
     private let title: String
-    private let subtitle: String
+    private let subtitle: String?
     private let avatar: AvatarView.AvatarStyle?
     private let backgroundStyle: ColorSource
     private let leadingNavButtons: [NavBarButton.Style]
@@ -19,7 +19,7 @@ struct NavHeader: View {
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> ())?
     
     init(title: String,
-         subtitle: String,
+         subtitle: String? = nil,
          avatar: AvatarView.AvatarStyle? = nil,
          backgroundStyle: ColorSource = Style.shared.background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
@@ -109,9 +109,14 @@ struct NavHeader: View {
                 .appFont(with: .HEADER_2)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
-            Text(self.subtitle)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+            if let subtitle = self.subtitle {
+                
+                Text(subtitle)
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .minimumScaleFactor(0.5)
+                
+            }
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -85,8 +85,8 @@ struct ClientHomeScreen: GPView {
     private func navBarView() -> some View {
         
         NavHeader(
-            title: self.viewModel.location?.name ?? " ",
-            subtitle: "Client Dashboard",
+            title: "Client Dashboard",
+            subtitle: self.viewModel.location?.name ?? " ",
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { navItem in
                 

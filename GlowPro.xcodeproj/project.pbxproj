@@ -524,6 +524,9 @@
 		75A46EF12E5EB1C30057EF72 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
+		75AA60D22EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */; };
+		75AA60D32EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */; };
+		75AA60D42EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
 		75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
 		75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */; };
@@ -1221,6 +1224,7 @@
 		75A391792E8753D00081391A /* MediaURLPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaURLPreviewView.swift; sourceTree = "<group>"; };
 		75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
+		75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionTileHeaderView.swift; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateConfig.swift; sourceTree = "<group>"; };
 		75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateOverlayModifier.swift; sourceTree = "<group>"; };
@@ -2363,6 +2367,7 @@
 				75B429A72E70061100DE7852 /* PlaceholderView.swift */,
 				750F9E172E56116B00C72EA7 /* Section.swift */,
 				750B584B2EC9342D00682769 /* SubscriptionProductView.swift */,
+				75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
@@ -3256,6 +3261,7 @@
 				7560F8A42E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */,
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
+				75AA60D32EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */,
 				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				750A18AD2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8AA2E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
@@ -3571,6 +3577,7 @@
 				7560F8A52E4D3BAA002BA9D6 /* BusinessHomeScreen.swift in Sources */,
 				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
+				75AA60D22EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */,
 				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
 				750A18AC2E6513740087B427 /* GhostOverlayView.swift in Sources */,
 				7560F8A82E4D3C07002BA9D6 /* BusinessLocationHomeViewModel.swift in Sources */,
@@ -3869,6 +3876,7 @@
 				75DD84522EAD728600DD8850 /* BusinessHomeScreen.swift in Sources */,
 				75DD84532EAD728600DD8850 /* CameraPermissionServiceProtocol.swift in Sources */,
 				75DD84542EAD728600DD8850 /* ErrorEvent.swift in Sources */,
+				75AA60D42EDF77760076D25A /* QuickActionTileHeaderView.swift in Sources */,
 				75DD84552EAD728600DD8850 /* StyleConverter.swift in Sources */,
 				75DD84572EAD728600DD8850 /* GhostOverlayView.swift in Sources */,
 				75DD84582EAD728600DD8850 /* BusinessLocationHomeViewModel.swift in Sources */,
