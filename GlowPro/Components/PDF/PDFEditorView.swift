@@ -89,6 +89,9 @@ struct PDFEditorView: View {
             controller: self.controller
         )
         .frame(maxHeight: .infinity)
+        .if(self.isReadOnly) { view in
+            view.ignoresSafeArea(edges: .bottom)
+        }
 
     }
 

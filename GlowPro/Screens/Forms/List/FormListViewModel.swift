@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PDFKit
 
 final class FormListViewModel: ViewModel {
     
@@ -184,8 +185,20 @@ final class FormListViewModel: ViewModel {
         switch self.mode! {
         case .preview:
             
-            self.navigationService?
-                .modal(fullScreenCover: .mediaPreview(context: .url(url: form.mediaURL)))
+            if let document = PDFDocument(url: form.mediaURL) {
+                
+                self.navigationService?
+                    .modal(fullScreenCover: .pdfEditor(
+                        pdfDocument: document,
+                        isReadOnly: true,
+                        completion: { _ in }))
+                
+            } else {
+                
+                self.navigationService?
+                    .modal(fullScreenCover: .mediaPreview(context: .url(url: form.mediaURL)))
+                
+            }
             
         case .singleSelection(let completion):
             
