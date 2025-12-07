@@ -106,7 +106,7 @@ struct AnnotationView: View {
                 imageURL: url,
                 controller: self.controller
             )
-            .frame(maxHeight: .infinity, alignment: .center)
+            .frame(maxHeight: .infinity)
             .if(self.isReadOnly) { view in
                 view.ignoresSafeArea(edges: .bottom)
             }
