@@ -461,6 +461,12 @@
 		75837A042EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
 		75837A052EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
 		75837A062EB19428004C2DB5 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75837A032EB19424004C2DB5 /* ProfileScreen.swift */; };
+		758420982EE6295200EDC98A /* PhotoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758420972EE6295200EDC98A /* PhotoEditor.swift */; };
+		758420992EE6295200EDC98A /* PhotoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758420972EE6295200EDC98A /* PhotoEditor.swift */; };
+		7584209A2EE6295200EDC98A /* PhotoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758420972EE6295200EDC98A /* PhotoEditor.swift */; };
+		7584209C2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
+		7584209D2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
+		7584209E2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
 		7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
@@ -563,9 +569,9 @@
 		75D290442EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
 		75D290452EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
 		75D290462EE0C0CB004692F2 /* PDFEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290432EE0C0BC004692F2 /* PDFEditorController.swift */; };
-		75D290482EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
-		75D290492EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
-		75D2904A2EE0C17D004692F2 /* PDFEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* PDFEditorView.swift */; };
+		75D290482EE0C17D004692F2 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* AnnotationView.swift */; };
+		75D290492EE0C17D004692F2 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* AnnotationView.swift */; };
+		75D2904A2EE0C17D004692F2 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D290472EE0C16F004692F2 /* AnnotationView.swift */; };
 		75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		75D66D102DC713C300E51CFC /* ClientHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75715ACF2DB9365B00E7994E /* ClientHomeViewModel.swift */; };
 		75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
@@ -1184,6 +1190,8 @@
 		7582A2D82E48145A0020BA28 /* PendingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInviteView.swift; sourceTree = "<group>"; };
 		758379FF2EB1941F004C2DB5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		75837A032EB19424004C2DB5 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		758420972EE6295200EDC98A /* PhotoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditor.swift; sourceTree = "<group>"; };
+		7584209B2EE629F400EDC98A /* AnnotationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationKind.swift; sourceTree = "<group>"; };
 		7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditViewModel.swift; sourceTree = "<group>"; };
 		7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditScreen.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
@@ -1236,7 +1244,7 @@
 		75D088802E690B7C000B06B2 /* MediaTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagViewModel.swift; sourceTree = "<group>"; };
 		75D088832E690B85000B06B2 /* MediaTagScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTagScreen.swift; sourceTree = "<group>"; };
 		75D290432EE0C0BC004692F2 /* PDFEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorController.swift; sourceTree = "<group>"; };
-		75D290472EE0C16F004692F2 /* PDFEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditorView.swift; sourceTree = "<group>"; };
+		75D290472EE0C16F004692F2 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		75D66DC52DC713C300E51CFC /* GlowPro Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlowPro Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
 		75D66DCD2DC7179600E51CFC /* GlowProUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -2282,6 +2290,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		758420962EE6295000EDC98A /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				758420972EE6295200EDC98A /* PhotoEditor.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		7585FA0B2EA49F1300AD6DC2 /* Create Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2312,7 +2328,6 @@
 		758D461D2EAF32CC002EEC64 /* PDF */ = {
 			isa = PBXGroup;
 			children = (
-				75D290472EE0C16F004692F2 /* PDFEditorView.swift */,
 				75D290432EE0C0BC004692F2 /* PDFEditorController.swift */,
 			);
 			path = PDF;
@@ -2428,6 +2443,9 @@
 		75ABB3862EE5EB39001A6D44 /* Annotation */ = {
 			isa = PBXGroup;
 			children = (
+				7584209B2EE629F400EDC98A /* AnnotationKind.swift */,
+				75D290472EE0C16F004692F2 /* AnnotationView.swift */,
+				758420962EE6295000EDC98A /* Image */,
 				758D461D2EAF32CC002EEC64 /* PDF */,
 			);
 			path = Annotation;
@@ -3259,11 +3277,13 @@
 				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75EEA4162E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
+				7584209C2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
-				75D290492EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
+				75D290492EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
+				758420982EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				75F1BBDC2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26C2E63C59000F8A336 /* CameraService.swift in Sources */,
@@ -3571,11 +3591,13 @@
 				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
 				75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
+				7584209E2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
 				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
-				75D2904A2EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
+				75D2904A2EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
+				7584209A2EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
 				75F1BBDB2E65481700858401 /* MediaPreviewViewModel.swift in Sources */,
 				75D6C26B2E63C59000F8A336 /* CameraService.swift in Sources */,
@@ -3866,11 +3888,13 @@
 				75DD84662EAD728600DD8850 /* GPColor.swift in Sources */,
 				75DD84672EAD728600DD8850 /* GridOverlayView.swift in Sources */,
 				75DD84682EAD728600DD8850 /* APIService+Businesses.swift in Sources */,
+				7584209D2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
 				75DD84692EAD728600DD8850 /* FirebaseService.swift in Sources */,
 				75DD846A2EAD728600DD8850 /* MockAssembler.swift in Sources */,
-				75D290482EE0C17D004692F2 /* PDFEditorView.swift in Sources */,
+				75D290482EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75DD846B2EAD728600DD8850 /* WelcomeViewModel.swift in Sources */,
 				75DD846E2EAD728600DD8850 /* ActivitiesView.swift in Sources */,
+				758420992EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				75DD846F2EAD728600DD8850 /* SettingsScreen.swift in Sources */,
 				75DD84702EAD728600DD8850 /* MediaPreviewViewModel.swift in Sources */,
 				75DD84712EAD728600DD8850 /* CameraService.swift in Sources */,

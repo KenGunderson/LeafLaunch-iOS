@@ -1,5 +1,5 @@
 //
-//  PDFEditorView.swift
+//  AnnotationView.swift
 //  GlowPro
 //
 //  Created by Sako Hovaguimian on 12/3/25.
@@ -9,23 +9,37 @@ import SwiftUI
 import PDFKit
 import UniformTypeIdentifiers
 
-struct PDFEditorView: View {
+struct AnnotationView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    private let kind: AnnotationKind
     private let isReadOnly: Bool
     private let onSave: (Data) -> Void
 
     @State private var isDrawing: Bool = false
     @State private var controller = PDFController()
-    @State private var pdfDocument: PDFDocument
     @State private var toolPickerFrame: CGRect = .zero
+    
+    var navTitle: String {
+        
+        var prefix = ""
+        let suffix = self.isReadOnly ? "Preview" : "Editor"
+        
+        switch self.kind {
+        case .url: prefix = "Media"
+        case .pdf: prefix = "PDF"
+        }
+        
+        return "\(prefix) \(suffix)"
+        
+    }
 
-    init(pdfDocument: PDFDocument,
+    init(kind: AnnotationKind,
          isReadOnly: Bool = false,
          onSave: @escaping (Data) -> Void) {
 
-        self.pdfDocument = pdfDocument
+        self.kind = kind
         self.isReadOnly = isReadOnly
         self.onSave = onSave
 
@@ -38,7 +52,7 @@ struct PDFEditorView: View {
     private func content() -> some View {
 
         AppBaseView {
-            buildPDFView()
+            annotationView()
         }
         .safeAreaInset(edge: .top) {
             navBar()
@@ -71,7 +85,7 @@ struct PDFEditorView: View {
         .asAnyView()
 
         return NavBarView(
-            title: self.isReadOnly ? "PDF Preview" : "PDF Editor",
+            title: self.navTitle,
             subtitle: nil,
             leftButtonView: backButton,
             divider: .init(
@@ -82,15 +96,32 @@ struct PDFEditorView: View {
 
     }
 
-    private func buildPDFView() -> some View {
+    @ViewBuilder
+    private func annotationView() -> some View {
 
-        PDFEditor(
-            document: self.pdfDocument,
-            controller: self.controller
-        )
-        .frame(maxHeight: .infinity)
-        .if(self.isReadOnly) { view in
-            view.ignoresSafeArea(edges: .bottom)
+        switch self.kind {
+        case .url(let url):
+            
+            PhotoEditor(
+                imageURL: url,
+                controller: self.controller
+            )
+            .frame(maxHeight: .infinity, alignment: .center)
+            .if(self.isReadOnly) { view in
+                view.ignoresSafeArea(edges: .bottom)
+            }
+            
+        case .pdf(let pdfDocument):
+            
+            PDFEditor(
+                document: pdfDocument,
+                controller: self.controller
+            )
+            .frame(maxHeight: .infinity)
+            .if(self.isReadOnly) { view in
+                view.ignoresSafeArea(edges: .bottom)
+            }
+            
         }
 
     }
@@ -228,12 +259,22 @@ struct PDFEditorView: View {
 
 }
 
-#Preview {
+#Preview("PDF Annotation") {
     
     let url = Bundle.main.url(forResource: "Sample", withExtension: "pdf")!
     let pdfDoucment = PDFDocument(url: url)!
     
-    PDFEditorView(pdfDocument: pdfDoucment) { editedData in
+    AnnotationView(kind: .pdf(pdfDoucment)) { editedData in
+        print("Edited PDF size: \(editedData.count) bytes")
+    }
+    
+}
+
+#Preview("URL Annotation") {
+    
+    let url = MockModels.allMedia[15].url
+    
+    AnnotationView(kind: .url(url)) { editedData in
         print("Edited PDF size: \(editedData.count) bytes")
     }
     

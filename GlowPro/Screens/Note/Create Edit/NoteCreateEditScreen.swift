@@ -567,7 +567,7 @@ struct NoteCreateEditScreen: View {
                 if let pdfDoc = PDFDocument(data: pdfData) {
                     
                     self.navigationService
-                        .modal(fullScreenCover: .pdfEditor(
+                        .modal(fullScreenCover: .pdfAnnotation(
                             pdfDocument: pdfDoc,
                             isReadOnly: mediaFusion.isUploaded
                         ) { data in
@@ -640,7 +640,7 @@ struct NoteCreateEditScreen: View {
         if let pdfDocument = PDFDocument(url: form.mediaURL) {
             
             self.navigationService
-                .modal(fullScreenCover: .pdfEditor(pdfDocument: pdfDocument) { data in
+                .modal(fullScreenCover: .pdfAnnotation(pdfDocument: pdfDocument) { data in
                     
                     self.viewModel
                         .handlePDFDocumentSelection(data: data)

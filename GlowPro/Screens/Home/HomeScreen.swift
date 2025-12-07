@@ -21,7 +21,7 @@ struct HomeScreen: GPView {
     var body: some View {
                 
         AppRootView(
-            navigationService: Bindable(navigationService),
+            navigationService: Bindable(self.navigationService),
             alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
              
                 AppHeaderScrollView(horizontalPadding: .medium) {

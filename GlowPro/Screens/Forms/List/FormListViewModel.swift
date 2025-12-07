@@ -188,7 +188,7 @@ final class FormListViewModel: ViewModel {
             if let document = PDFDocument(url: form.mediaURL) {
                 
                 self.navigationService?
-                    .modal(fullScreenCover: .pdfEditor(
+                    .modal(fullScreenCover: .pdfAnnotation(
                         pdfDocument: document,
                         isReadOnly: true,
                         completion: { _ in }))

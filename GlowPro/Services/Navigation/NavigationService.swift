@@ -681,7 +681,9 @@ extension View {
                 
                 MediaURLPreviewView(ctx: ctx)
                 
-            case .subscriptionPaywall(let context, let paywallItem, let completion):
+            case .subscriptionPaywall(let context,
+                                      let paywallItem,
+                                      let completion):
                 
                 let viewModel = globalResolver.resolve(SubscriptionPaywallViewModel.self)!
                     .setup(
@@ -698,11 +700,23 @@ extension View {
                     .setup(businessId: businessId)
                 
                 SubscriptionManageScreen(viewModel: viewModel)
+
+            case .urlAnnotation(let url,
+                                let isReadOnly,
+                                let completion):
                 
-            case .pdfEditor(let pdfDocument, let isReadOnly, let completion):
+                AnnotationView(
+                    kind: .url(url),
+                    isReadOnly: isReadOnly,
+                    onSave: completion
+                )
                 
-                PDFEditorView(
-                    pdfDocument: pdfDocument,
+            case .pdfAnnotation(let pdfDocument,
+                                let isReadOnly,
+                                let completion):
+                
+                AnnotationView(
+                    kind: .pdf(pdfDocument),
                     isReadOnly: isReadOnly,
                     onSave: completion
                 )

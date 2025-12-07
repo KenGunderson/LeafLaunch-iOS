@@ -24,7 +24,11 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     
     case subscriptionManage(businessId: String)
     
-    case pdfEditor(pdfDocument: PDFDocument,
+    case urlAnnotation(url: URL,
+                       isReadOnly: Bool = false,
+                       completion: (Data) -> Void)
+    
+    case pdfAnnotation(pdfDocument: PDFDocument,
                    isReadOnly: Bool = false,
                    completion: (Data) -> Void)
 
@@ -47,7 +51,8 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .mediaPreview(let ctx): return hasher.combine(ctx)
         case .subscriptionPaywall(_, let item, _): return hasher.combine(item.id)
         case .subscriptionManage(let businessId): return hasher.combine(businessId)
-        case .pdfEditor(let pdfDocument, _, _): return hasher.combine(pdfDocument.documentURL?.absoluteString ?? "")
+        case .urlAnnotation(let url, _, _): return hasher.combine(url.absoluteString)
+        case .pdfAnnotation(let pdfDocument, _, _): return hasher.combine(pdfDocument.documentURL?.absoluteString ?? "")
         }
         
     }
