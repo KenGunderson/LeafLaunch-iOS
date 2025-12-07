@@ -25,6 +25,15 @@ struct ChecklistView: View {
             }
         }
         
+        var description: String? {
+            switch self {
+            case .completeProfile: return nil
+            case .createLocation: return nil
+            case .createClient: return "Go to a Location to add a client"
+            case .createMedia: return "Go to a Client to take a photo"
+            }
+        }
+        
         var icon: ImageSource {
             switch self {
             case .completeProfile: return ActivityCategory.business.icon
@@ -122,10 +131,23 @@ struct ChecklistView: View {
                         lineWidth: 2
                     )
                 
-                Text(item.type.displayName)
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(spacing: Style.shared.spacing(.extraSmall)) {
+                    
+                    Text(item.type.displayName)
+                        .appFont(with: .TITLE_4)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let description = item.type.description {
+                        
+                        Text(description)
+                            .appFont(with: .BODY_2)
+                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    }
+                    
+                }
                 
                 Image(systemName: item.isComplete ? "checkmark.circle.fill" : "chevron.right")
                     .resizable()
