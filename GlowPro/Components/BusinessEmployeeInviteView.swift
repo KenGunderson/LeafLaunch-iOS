@@ -16,7 +16,7 @@ struct BusinessEmployeeInviteView: View {
     }
     
     var title: String {
-        "Looking to Join Your Team?"
+        "Join an Existing Team"
     }
 
     var actionTitle: String {

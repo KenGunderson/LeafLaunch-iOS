@@ -31,7 +31,7 @@ enum OnboardingPage: String, CaseIterable, Identifiable {
     
     var message: String {
         switch self {
-        case .businessSetup: return "Add your business info to unlock the full app experience."
+        case .businessSetup: return "Add your business details to start managing clients, employees, and locations right away."
         case .locationControl: return "Invite staff, manage roles, and keep locations organized."
         case .photos: return "Camera and editing toolbox built for aesthetics."
         case .beforeAndAfter: return "Show results. Build trust. Drive revenue."

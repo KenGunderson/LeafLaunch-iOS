@@ -28,9 +28,9 @@ extension AppCardConfig {
         
         var cardTitle: String {
             switch self {
-            case .media: return "Media Limit Reached"
-            case .location: return "Location Limit Reached"
-            case .employee: return "Team Member Limit Reached"
+            case .media: return "Limit Reached"
+            case .location: return "Limit Reached"
+            case .employee: return "Limit Reached"
             }
         }
         
@@ -103,25 +103,19 @@ extension AppCardConfig {
             case .media:
                 
                 return """
-                You’ve filled up your free space for \(businessName).
-
-                Start a GlowPro subscription to unlock more room for photos and videos and keep your client gallery looking fresh ✨
+                \(businessName) has reached the maximum number of media for the free tier. Subscribe today to add more media and continue your operations.
                 """
                 
             case .location:
                 
                 return """
-                You’ve reached the maximum number of locations for \(businessName).
-
-                Start a GlowPro subscription to unlock additional locations and keep every part of your business organized in one place ✨
+                \(businessName) has reached the maximum number of locations for the free tier. Subscribe today to add more locations and centralize your operations.
                 """
                 
             case .employee:
                 
                 return """
-                You’ve reached the maximum number of team members for \(businessName).
-
-                Start a GlowPro subscription to unlock more employee seats and keep your whole team working from the same playbook ✨
+                \(businessName) has reached the maximum number of employees for the free tier. Subscribe today to add more employees to your business.
                 """
             }
             

@@ -121,53 +121,58 @@ struct BusinessSettingsScreen: GPView {
             
             // Hide Screenshots
             
-            VStack(spacing: Style.shared.spacing(.small)) {
+            HStack(spacing: 0) {
                 
-                HStack {
+                VStack(spacing: Style.shared.spacing(.extraSmall)) {
                     
-                    Text("Hide Screenshots")
+                    
+                    Text("Block Screenshots")
                         .appFont(with: .TITLE_4)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Toggle(
-                        "",
-                        isOn: self.$viewModel.shouldHideScreenshots
-                    )
+                    Text("Disable screenshots across all devices and users to keep sensitive information protected.")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                 }
                 
-                Text("Restrict the use of screenshots in the app for this device. This will prevent sensitive information from being saved to device.")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, -8)
+                Toggle(
+                    "",
+                    isOn: self.$viewModel.shouldHideScreenshots
+                )
+                .fixedSize(horizontal: true, vertical: false)
                 
             }
             
-            // Report Screenshots
-            
-            VStack(spacing: Style.shared.spacing(.small)) {
+            HStack(spacing: 0) {
                 
-                HStack {
+                // Report Screenshots
+                
+                VStack(spacing: Style.shared.spacing(.extraSmall)) {
                     
-                    Text("Report Screenshots")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                    HStack {
+                        
+                        Text("Report Screenshots")
+                            .appFont(with: .TITLE_4)
+                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    }
+                    
+                    Text("Receive an email whenever anyone attempts a screenshot while inside the app.")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Toggle(
-                        "",
-                        isOn: self.$viewModel.shouldReportScreenshots
-                    )
                     
                 }
                 
-                Text("Receive an email whenever someone tries to take a screenshot while in the app.")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, -8)
+                Toggle(
+                    "",
+                    isOn: self.$viewModel.shouldReportScreenshots
+                )
+                .fixedSize(horizontal: true, vertical: false)
                 
             }
             
@@ -186,27 +191,28 @@ struct BusinessSettingsScreen: GPView {
             
             // Allows Overages
             
-            VStack(spacing: Style.shared.spacing(.small)) {
-                
-                HStack {
+            HStack(spacing: 0) {
+            
+                VStack(spacing: Style.shared.spacing(.extraSmall)) {
                     
-                    Text("Allows Overages")
+                    Text("Allow Data Overage Charges")
                         .appFont(with: .TITLE_4)
                         .foregroundStyle(Style.shared.textColor(.title).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .layoutPriority(.infinity)
                     
-                    Toggle(
-                        "",
-                        isOn: self.$viewModel.allowsOverages
-                    )
+                    Text("Continue adding media even after your monthly limit is reached. Additional charges will apply. When this toggle is off, media uploads stop immediately once you hit your limit.")
+                        .appFont(with: .BODY_2)
+                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                 }
                 
-                Text("Enable this option if you do want to be charged for any overage data usage. Keep in mind that if you hit your media limit, you will be stopped from taking more photos until the next billing cycle if you have this off.")
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, -8)
+                Toggle(
+                    "",
+                    isOn: self.$viewModel.allowsOverages
+                )
+                .fixedSize(horizontal: true, vertical: false)
                 
             }
             
@@ -216,8 +222,8 @@ struct BusinessSettingsScreen: GPView {
     
     private func pinSection() -> some View {
         
-        let title = "Secure Your Business Access"
-        let subtitle = "Set up a secure 4-digit PIN to protect your business. This PIN is required to return to the main menu from your dashboard, ensuring only authorized users can exit."
+        let title = "Dashboard Lock"
+        let subtitle = "Create a 4-digit PIN to keep your owner space safe and private. Staff can’t access your business dashboard or owner settings without it."
         
         return VStack(spacing: Style.shared.spacing(.small)) {
             

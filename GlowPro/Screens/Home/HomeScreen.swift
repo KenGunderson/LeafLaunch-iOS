@@ -73,7 +73,7 @@ struct HomeScreen: GPView {
             : "Let's get started"
         
         NavHeader(
-            title: "Good Morning, \(currentUser?.firstName ?? "")",
+            title: "Welcome, \(currentUser?.firstName ?? "")",
             subtitle: subtitle,
             avatar: .initials(name: currentUser?.fullName ?? ""),
             trailingNavButtons: [
@@ -107,9 +107,7 @@ struct HomeScreen: GPView {
                     if hasActiveBusiness {
                         
                         if let business = self.viewModel.workspaces.first(where: { $0.isOwner }) {
-                            
                             self.navigationService.push(.business(.businessHome(businessId: business.id)))
-                            
                         }
                         
                     } else {
@@ -123,10 +121,14 @@ struct HomeScreen: GPView {
             
             if self.viewModel.hasActiveWorkspace && self.viewModel.hasRoleLocations {
                 
-                SectionView(
-                    leadingTitle: "Choose Your Location",
-                    showDivider: true
-                )
+                if !self.viewModel.filteredWorkspaces.isEmpty {
+                    
+                    SectionView(
+                        leadingTitle: "Choose Your Location",
+                        showDivider: true
+                    )
+                    
+                }
                 
                 workspacesList()
                 
@@ -178,7 +180,7 @@ struct HomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
             
-            ForEach(self.viewModel.workspaces, id: \.id) { workspace in
+            ForEach(self.viewModel.filteredWorkspaces, id: \.id) { workspace in
                 
                 ForEach(workspace.roleLocations, id: \.self) { roleLocation in
                     

@@ -47,7 +47,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             case .generic(let error): return error.getMessageForError()
             case .notFound: return "Account Not found"
             case .emailAlreadyInUse: return "Email already in use"
-            case .wrongPassword: return "The email or password you entered is incorrect. Please try again."
+            case .wrongPassword: return "The email or password you entered is incorrect. Please check your details and try again."
             }
         }
         

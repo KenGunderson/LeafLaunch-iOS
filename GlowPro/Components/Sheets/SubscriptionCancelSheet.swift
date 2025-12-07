@@ -17,15 +17,14 @@ struct SubscriptionCancelSheet: View {
     var message: String {
 
         return """
-            Are you sure you want to cancel your GlowPro subscription?
+            Before you cancel, please note: 
 
-            Before you decide, here’s a quick reminder of what canceling means:
-            • You’ll lose access to premium capture tools, client organization features, and business-building workflows.
-            • Your photos and data remain safe, but certain pro features will become unavailable once your billing period ends.
-            
-            We completely understand if GlowPro isn’t the right fit right now — life and business needs change. We just want to make sure this decision feels intentional and not accidental.
+            • You’ll lose access to GlowPro’s premium photo tools and organized client timelines.
+            • Your photos stay safe, but pro features turn off after this billing cycle.
 
-            If you’d like to continue, you can keep your subscription active with no interruptions. Otherwise, you’re welcome to proceed and we’ll guide you through the cancellation smoothly.
+            We understand if your needs are changing. Sometimes you just need a breather or a reset. We just want to be sure this feels intentional, not rushed.
+
+            If GlowPro still helps you stay organized and confident, you can keep your plan active with no interruption. Otherwise, you can continue to cancel.
             """
     }
     

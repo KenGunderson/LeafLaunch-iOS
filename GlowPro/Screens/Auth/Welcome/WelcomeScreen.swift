@@ -13,6 +13,7 @@ struct WelcomeScreen: GPView {
     @Environment(NavigationService.self) private var navigationService
     
     @State private var footerSize: CGSize = .zero
+    @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
         
     var body: some View {
         
@@ -35,6 +36,9 @@ struct WelcomeScreen: GPView {
             
         }
         .preferredColorScheme(.light)
+        .detectRotation { orientation in
+            self.orientation = orientation
+        }
         .task {
             
             self.viewModel
@@ -50,7 +54,12 @@ struct WelcomeScreen: GPView {
             
             Image(.illustrationWelcome)
                 .resizable()
-                .frame(height: UIScreen.main.bounds.height / 1.95)
+                .if(self.orientation == .landscapeLeft || self.orientation == .landscapeRight) { view in
+                    view.scaledToFit().cornerRadius(.large)
+                }
+                .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
+                    view.frame(height: UIScreen.main.bounds.height / 1.95)
+                }
                 .ignoresSafeArea()
             
             VStack(spacing: Style.shared.spacing(.large)) {
@@ -61,7 +70,7 @@ struct WelcomeScreen: GPView {
                     .frame(height: 50)
                     .frame(maxWidth: .infinity)
                 
-                Text("Secure records, treatment tracking, and before & after results, all in one place.")
+                Text("Capture photos, create before & afters, and showcase your results.")
                     .appFont(with: .BODY_4)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Style.shared.textColor(.body).source())
@@ -74,6 +83,7 @@ struct WelcomeScreen: GPView {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Style.shared.background(.primary).source())
         .ignoresSafeArea()
         
     }

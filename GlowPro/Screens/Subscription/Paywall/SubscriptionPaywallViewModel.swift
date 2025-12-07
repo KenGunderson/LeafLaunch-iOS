@@ -372,9 +372,12 @@ final class SubscriptionPaywallViewModel: ViewModel {
             } catch {
                 
                 self.alertService.showAlert(.init(.appAlert(.error(
-                    message: error.getMessageForError(),
+                    title: "Something went wrong",
+                    message: "We couldn't complete your subscription setup. Please give it another try.",
                     action: {}
                 ))))
+                
+                self.logError(message: error.getMessageForError())
                 
             }
             

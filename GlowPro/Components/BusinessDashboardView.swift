@@ -27,7 +27,7 @@ struct BusinessDashboardView: View {
         
         self.isBusinessActive
         ? "Manage your business from your dashboard"
-        : "Set up your business profile to start managing locations, clients, media and growing with GlowPro."
+        : "Set up your profile to start managing locations, clients, and media."
         
     }
     

@@ -50,7 +50,7 @@ struct LoginScreen: GPView {
         .errorHandler(
             error: self.$viewModel.error,
             alertStyle: .simpleError(
-                
+                title: "Sign In Failed",
                 message: (self.viewModel.error?.getMessageForError() ?? ""),
                 action: {
                     self.viewModel.error = nil

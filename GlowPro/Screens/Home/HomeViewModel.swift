@@ -44,6 +44,10 @@ final class HomeViewModel: ViewModel {
         return !roleLocations.isEmpty
         
     }
+    
+    var filteredWorkspaces: [Workspace] {
+        return self.workspaces.filter { !$0.isOwner }
+    }
         
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,

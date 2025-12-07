@@ -16,11 +16,10 @@ struct ChecklistCompleteSheet: View {
     var message: String {
         
         return """
-            You did it — every step on your journey is complete!
-            
-            Your profile is polished, your business is open, your first client is added, and you’ve captured your very first photo.
-            
-            This is just the beginning — your foundation is set, and now the real magic of growing your business begins. Keep shining, keep creating, and let’s make every step forward count. 🌟
+            Your business is open, your first client is added, and your first photo is captured.
+
+            This is the beginning of a smooth and beautiful workflow.
+            We’re here to support your growth from here forward. 🌿
             """
         
     }
@@ -79,7 +78,7 @@ struct ChecklistCompleteSheet: View {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            Text("Way To Glow Up! 🎉")
+            Text("You’re Ready to Glow! ✨")
                 .appFont(with: .HEADER_4)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             

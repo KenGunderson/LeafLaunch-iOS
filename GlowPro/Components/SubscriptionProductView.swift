@@ -168,7 +168,7 @@ struct SubscriptionProductView: View {
             
             benefitView(
                 icon: .image(.iconPerson, renderingMode: .template),
-                title: "\(stringNumberOfEmployees) Employee\(pluralize(totalNumberOfEmployees))",
+                title: "\(stringNumberOfEmployees) Additional Staff",
                 color: .color(ActivityCategory.employee.color)
             )
             
