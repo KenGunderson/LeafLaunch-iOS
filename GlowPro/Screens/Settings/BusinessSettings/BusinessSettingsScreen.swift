@@ -121,60 +121,19 @@ struct BusinessSettingsScreen: GPView {
             
             // Hide Screenshots
             
-            HStack(spacing: 0) {
-                
-                VStack(spacing: Style.shared.spacing(.extraSmall)) {
-                    
-                    
-                    Text("Block Screenshots")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Text("Disable screenshots across all devices and users to keep sensitive information protected.")
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
-                
-                Toggle(
-                    "",
-                    isOn: self.$viewModel.shouldHideScreenshots
-                )
-                .fixedSize(horizontal: true, vertical: false)
-                
-            }
+            toggleItem(
+                title: "Block Screenshots",
+                subtitle: "Disable screenshots across all devices and users to keep sensitive information protected.",
+                isOn: self.$viewModel.shouldHideScreenshots
+            )
             
-            HStack(spacing: 0) {
-                
-                // Report Screenshots
-                
-                VStack(spacing: Style.shared.spacing(.extraSmall)) {
-                    
-                    HStack {
-                        
-                        Text("Report Screenshots")
-                            .appFont(with: .TITLE_4)
-                            .foregroundStyle(Style.shared.textColor(.title).source())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                    }
-                    
-                    Text("Receive an email whenever anyone attempts a screenshot while inside the app.")
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
-                
-                Toggle(
-                    "",
-                    isOn: self.$viewModel.shouldReportScreenshots
-                )
-                .fixedSize(horizontal: true, vertical: false)
-                
-            }
+            // Report Screenshots
+            
+            toggleItem(
+                title: "Report Screenshots",
+                subtitle: "Receive an email whenever anyone attempts a screenshot while inside the app.",
+                isOn: self.$viewModel.shouldReportScreenshots
+            )
             
         }
         
@@ -191,30 +150,11 @@ struct BusinessSettingsScreen: GPView {
             
             // Allows Overages
             
-            HStack(spacing: 0) {
-            
-                VStack(spacing: Style.shared.spacing(.extraSmall)) {
-                    
-                    Text("Allow Data Overage Charges")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .layoutPriority(.infinity)
-                    
-                    Text("Continue adding media even after your monthly limit is reached. Additional charges will apply. When this toggle is off, media uploads stop immediately once you hit your limit.")
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                }
-                
-                Toggle(
-                    "",
-                    isOn: self.$viewModel.allowsOverages
-                )
-                .fixedSize(horizontal: true, vertical: false)
-                
-            }
+            toggleItem(
+                title: "Allow Data Overage Charges",
+                subtitle: "Continue adding media even after your monthly limit is reached. Additional charges will apply. When this toggle is off, media uploads stop immediately once you hit your limit.",
+                isOn: self.$viewModel.allowsOverages
+            )
             
         }
         
@@ -254,18 +194,44 @@ struct BusinessSettingsScreen: GPView {
     }
     
     @ViewBuilder
+    private func toggleItem(title: String,
+                            subtitle: String,
+                            isOn: Binding<Bool>) -> some View {
+        
+        HStack(spacing: 0) {
+            
+            titleSubtitle(
+                title: title,
+                subtitle: subtitle
+            )
+            
+            Toggle(
+                "",
+                isOn: isOn
+            )
+            .fixedSize(horizontal: true, vertical: false)
+            
+        }
+        
+    }
+    
+    @ViewBuilder
     private func titleSubtitle(title: String,
                                subtitle: String) -> some View {
         
-        Text(title)
-            .appFont(with: .TITLE_4)
-            .foregroundStyle(Style.shared.textColor(.title).source())
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        Text(subtitle)
-            .appFont(with: .BODY_2)
-            .foregroundStyle(Style.shared.textColor(.body).source())
-            .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing: Style.shared.spacing(.extraSmall)) {
+            
+            Text(title)
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(subtitle)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+        }
         
     }
     

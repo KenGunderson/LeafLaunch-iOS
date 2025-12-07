@@ -365,7 +365,7 @@ final class RootViewModel: ViewModel {
         
         self.alertService.showAlert(.init(
             .appAlert(
-                .error(message: "We couldn't log you in please try again!",
+                .error(message: error.getMessageForError(),
                        action: { [weak self] in
                            
                            self?.impersonateService.logout()

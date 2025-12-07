@@ -77,6 +77,8 @@ final class ImpersonateService: ImpersonateServiceProtocol {
     
     func impersonateUser(email: String) async throws {
         
+        guard self.apiService.environment != .production else { return }
+        
         self.originalUser = authService.currentUser
         self.originalUserAccessToken = apiService.accessToken
         
@@ -126,6 +128,7 @@ final class ImpersonateService: ImpersonateServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] user in
                 
+                guard self?.apiService.environment != .production else { return }
                 guard let user else { return }
                 
                 if self?.originalUser == nil {
