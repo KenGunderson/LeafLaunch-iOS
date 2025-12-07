@@ -2346,7 +2346,7 @@
 				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
-				758D461D2EAF32CC002EEC64 /* PDF */,
+				75ABB3862EE5EB39001A6D44 /* Annotation */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2423,6 +2423,14 @@
 				75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */,
 			);
 			path = "Empty State";
+			sourceTree = "<group>";
+		};
+		75ABB3862EE5EB39001A6D44 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				758D461D2EAF32CC002EEC64 /* PDF */,
+			);
+			path = Annotation;
 			sourceTree = "<group>";
 		};
 		75ACAA3A2E18C78800401EC8 /* Employee */ = {

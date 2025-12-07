@@ -46,7 +46,9 @@ final class BusinessEmployeeInviteViewModel: ViewModel {
         
         return (
             !self.name.isEmpty &&
-            !self.email.isEmpty
+            !self.email.isEmpty &&
+            !self.selectedLocations.isEmpty &&
+            self.selectedRole != nil
         )
         
     }
