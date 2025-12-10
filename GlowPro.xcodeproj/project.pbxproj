@@ -523,6 +523,9 @@
 		75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */; };
 		75ACC7532EA2E2B6006200F6 /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ACC7522EA2E2B6006200F6 /* CollageView.swift */; };
 		75ACC7542EA2E2B6006200F6 /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ACC7522EA2E2B6006200F6 /* CollageView.swift */; };
+		75AD20192EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AD20182EE946E300602FB4 /* ActiveWorkspaceView.swift */; };
+		75AD201A2EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AD20182EE946E300602FB4 /* ActiveWorkspaceView.swift */; };
+		75AD201B2EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AD20182EE946E300602FB4 /* ActiveWorkspaceView.swift */; };
 		75AE94032E5045D4006F4DED /* EmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */; };
 		75AE94042E5045D4006F4DED /* EmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */; };
 		75AFB1322E1EF8C300A9FD0E /* BusinessEmployeeUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */; };
@@ -889,6 +892,9 @@
 		75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
 		75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
 		75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
+		75E5D4FF2EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
+		75E5D5002EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
+		75E5D5012EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
 		75E5F0C42E31D94500162C72 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0C32E31D94500162C72 /* Stripe */; };
 		75E5F0C62E31D94500162C72 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0C52E31D94500162C72 /* StripeApplePay */; };
 		75E5F0C82E31D94500162C72 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0C72E31D94500162C72 /* StripeCardScan */; };
@@ -1219,6 +1225,7 @@
 		75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateConfig.swift; sourceTree = "<group>"; };
 		75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateOverlayModifier.swift; sourceTree = "<group>"; };
 		75ACC7522EA2E2B6006200F6 /* CollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
+		75AD20182EE946E300602FB4 /* ActiveWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkspaceView.swift; sourceTree = "<group>"; };
 		75AE94022E5045D1006F4DED /* EmployeeInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInviteView.swift; sourceTree = "<group>"; };
 		75AFB1312E1EF8BC00A9FD0E /* BusinessEmployeeUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateViewModel.swift; sourceTree = "<group>"; };
 		75AFB1342E1EF8CA00A9FD0E /* BusinessEmployeeUpdateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessEmployeeUpdateScreen.swift; sourceTree = "<group>"; };
@@ -1268,6 +1275,7 @@
 		75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsScreen.swift; sourceTree = "<group>"; };
 		75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeaturesScreen.swift; sourceTree = "<group>"; };
+		75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppCardConfigView.swift; sourceTree = "<group>"; };
 		75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictCapture.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
@@ -2339,6 +2347,7 @@
 				75122DBB2ECD348D009D99F9 /* SectionCardView.swift */,
 				75A46EEF2E5EB1BD0057EF72 /* ActivityView.swift */,
 				758DAEC22E0514FA00311C7C /* ActivitiesView.swift */,
+				75AD20182EE946E300602FB4 /* ActiveWorkspaceView.swift */,
 				75263AE92E61FD39004008B5 /* BusinessDashboardView.swift */,
 				754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */,
 				75ACC7522EA2E2B6006200F6 /* CollageView.swift */,
@@ -2356,6 +2365,7 @@
 				750B584B2EC9342D00682769 /* SubscriptionProductView.swift */,
 				75AA60D12EDF77760076D25A /* QuickActionTileHeaderView.swift */,
 				750B86032E49485800417BA5 /* QuickActionTileView.swift */,
+				75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
 				75F32AFA2E615327003D904B /* Sheets */,
@@ -3169,6 +3179,7 @@
 				75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */,
+				75E5D5002EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
@@ -3264,6 +3275,7 @@
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				7504EB8A2EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
+				75AD20192EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */,
 				75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
@@ -3483,6 +3495,7 @@
 				75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */,
+				75E5D5012EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				755076852E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
@@ -3578,6 +3591,7 @@
 				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				7504EB882EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
+				75AD201B2EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */,
 				75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */,
 				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
 				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
@@ -3780,6 +3794,7 @@
 				75DD841E2EAD728600DD8850 /* APIService+Locations.swift in Sources */,
 				75DD841F2EAD728600DD8850 /* AnalyticsServiceProtocol.swift in Sources */,
 				75DD84202EAD728600DD8850 /* CameraScreen.swift in Sources */,
+				75E5D4FF2EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				75DD84212EAD728600DD8850 /* AuthService.swift in Sources */,
 				75DD84222EAD728600DD8850 /* ActiveDestinationService.swift in Sources */,
 				75DD84232EAD728600DD8850 /* SplashScreenIntroView.swift in Sources */,
@@ -3875,6 +3890,7 @@
 				75DD845A2EAD728600DD8850 /* OnboardingPage.swift in Sources */,
 				75DD845B2EAD728600DD8850 /* OnboardingViewModel.swift in Sources */,
 				7504EB892EC39B18008C7A3C /* APIService+BusinessSettings.swift in Sources */,
+				75AD201A2EE946EA00602FB4 /* ActiveWorkspaceView.swift in Sources */,
 				75DD845C2EAD728600DD8850 /* EmptyStateView.swift in Sources */,
 				75DD845D2EAD728600DD8850 /* OnboardingScreen.swift in Sources */,
 				75DD845F2EAD728600DD8850 /* ViewLifecycleService.swift in Sources */,

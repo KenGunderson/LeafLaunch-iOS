@@ -214,6 +214,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     func getAllSubscriptionProducts() async throws -> [StripeSubscriptionProduct]
     func getStripePaymentLink(businessId: String) async throws -> StripePaymentLink
+    func getStripeUpdatePaymentMethodLink(businessId: String) async throws -> String
     
     func subscribe(businessId: String,
                    productId: String,

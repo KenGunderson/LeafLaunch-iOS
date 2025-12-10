@@ -11,7 +11,7 @@ struct NavHeader: View {
     
     private let title: String
     private let subtitle: String?
-    private let avatar: AvatarView.AvatarStyle?
+    private let showLogo: Bool
     private let backgroundStyle: ColorSource
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> ())?
@@ -20,7 +20,7 @@ struct NavHeader: View {
     
     init(title: String,
          subtitle: String? = nil,
-         avatar: AvatarView.AvatarStyle? = nil,
+         showLogo: Bool = false,
          backgroundStyle: ColorSource = Style.shared.background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil,
@@ -29,7 +29,7 @@ struct NavHeader: View {
         
         self.title = title
         self.subtitle = subtitle
-        self.avatar = avatar
+        self.showLogo = showLogo
         self.backgroundStyle = backgroundStyle
         self.leadingNavButtons = leadingNavButtons
         self.leadingNavButtonsAction = leadingNavButtonsAction
@@ -51,11 +51,19 @@ struct NavHeader: View {
                 
             }
             
-            if let avatar {
-                avatarView(avatar)
+            if self.showLogo {
+                
+                Image(.illustrationLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 24)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+            } else {
+                
+                titleSubtitleView()
+                
             }
-            
-            titleSubtitleView()
             
             if !self.trailingNavButtons.isEmpty {
                 
@@ -78,25 +86,6 @@ struct NavHeader: View {
                 .offset(y: 10)
             
         }
-        
-    }
-    
-    @ViewBuilder
-    private func avatarView(_ avatar: AvatarView.AvatarStyle) -> some View {
-        
-        AvatarView(
-            style: avatar,
-            backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.10))
-        )
-        .frame(
-            width: 40,
-            height: 40
-        )
-        .appBorder(
-            cornerRadius: .custom(20),
-            color: Style.shared.accent,
-            lineWidth: 2
-        )
         
     }
     
@@ -152,7 +141,7 @@ struct NavHeader: View {
             NavHeader(
                 title: "Good Morning, Sako",
                 subtitle: "Select where you're working today",
-                avatar: .initials(name: "Sako Hovaguimian"),
+                showLogo: true,
                 trailingNavButtons: [
                     .bell(notificationCount: 1),
                     .settings
@@ -193,7 +182,7 @@ struct NavHeader: View {
         NavHeader(
             title: "Good Morning, Sako",
             subtitle: "Select where you're working today",
-            avatar: .initials(name: "Sako Hovaguimian"),
+            showLogo: true,
             trailingNavButtons: [
                 .bell(notificationCount: 1),
                 .settings

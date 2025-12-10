@@ -45,6 +45,31 @@ extension APIService {
         
     }
     
+    func getStripeUpdatePaymentMethodLink(businessId: String) async throws -> String {
+        
+        do {
+            
+            let data = try await buildRequest(
+                method: .get,
+                apiPath: .init(path: .subscriptions("\(businessId)/change-payment-method"))
+            )
+            
+            let result: [String : String] = try parseData(data: data)
+            let urlString = result["url"]
+            
+            if let urlString {
+                return urlString
+            } else {
+                throw APIError.serverError(statusCode: 500, errorMessage: "Stripe did not return a valid URL string")
+            }
+            
+        }
+        catch {
+            throw error
+        }
+        
+    }
+    
     func subscribe(businessId: String,
                    productId: String,
                    priceId: String,

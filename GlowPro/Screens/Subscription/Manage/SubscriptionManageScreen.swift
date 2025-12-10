@@ -67,6 +67,15 @@ struct SubscriptionManageScreen: GPView {
                     
                 }
             
+                .sheet(item: self.$viewModel.changePaymentMethodURL, onDismiss: {
+                    
+                    self.viewModel
+                        .loadData()
+                    
+                }) { url in
+                    SafariView(url: url)
+                }
+            
         }
         
     }
@@ -377,6 +386,18 @@ struct SubscriptionManageScreen: GPView {
                         .appFont(with: .BODY_2)
                         .foregroundStyle(Style.shared.textColor(.body).source())
                         .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    CommonButton(
+                        style: .outline(lineWidth: 1.5),
+                        title: "Manage Payment Method",
+                        titleColor: .color(color),
+                        backgroundStyle: .color(color),
+                    ) {
+                        
+                        self.viewModel
+                            .changePaymentMethod()
+                        
+                    }
                     
                 }
                 

@@ -67,15 +67,9 @@ struct HomeScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
         
-        let currentUser = viewModel.currentUser
-        let subtitle = self.viewModel.hasActiveWorkspace
-            ? "Select where you're working today"
-            : "Let's get started"
-        
         NavHeader(
-            title: "Welcome, \(currentUser?.firstName ?? "")",
-            subtitle: subtitle,
-            avatar: .initials(name: currentUser?.fullName ?? ""),
+            title: "",
+            showLogo: true,
             trailingNavButtons: [
                 .bell(notificationCount: self.viewModel.pendingInvites.count),
                 .settings
@@ -91,6 +85,14 @@ struct HomeScreen: GPView {
         }
         .padding(.top, 1)
         .padding(.bottom, .custom(4))
+        .overlay(alignment: .bottom) {
+            
+            Rectangle()
+                .fill(Style.shared.background(.quaternary).source())
+                .frame(height: 1.5)
+                .offset(y: Style.shared.spacing(.extraSmall))
+            
+        }
         
     }
     
@@ -98,42 +100,59 @@ struct HomeScreen: GPView {
     private func content() -> some View {
         
         VStack(spacing: Style.shared.spacing(.small2)) {
+            
+            let currentUser = viewModel.currentUser
+            let subtitle = self.viewModel.hasActiveWorkspace
+                ? "Select where you're working today"
+                : "Let's get started"
+            
+            titleSubtitleView(
+                title: "Welcome, \(currentUser?.firstName ?? "")",
+                subtitle: subtitle
+            )
                         
             let hasActiveBusiness = self.viewModel.hasActiveBusiness
             
-            BusinessDashboardView(isBusinessActive: hasActiveBusiness)
-                .asButton {
-                   
-                    if hasActiveBusiness {
+            if let workspace = self.viewModel.workspaces.first(where: { $0.isOwner }),
+               hasActiveBusiness {
+                
+                ActiveWorkspaceView(workspace: workspace)
+                    .asButton {
                         
-                        if let business = self.viewModel.workspaces.first(where: { $0.isOwner }) {
-                            self.navigationService.push(.business(.businessHome(businessId: business.id)))
-                        }
+                        self.navigationService
+                            .push(.business(
+                                .businessHome(businessId: workspace.id)
+                            ))
                         
-                    } else {
+                    }
+                
+            } else {
+                
+                BusinessDashboardView(isBusinessActive: false)
+                    .asButton {
                         
                         self.navigationService
                             .push(.business(.businessCreateEdit(businessId: nil)))
                         
                     }
-                    
-                }
+                
+            }
             
             if self.viewModel.hasActiveWorkspace && self.viewModel.hasRoleLocations {
                 
-                if !self.viewModel.filteredWorkspaces.isEmpty {
+                if self.viewModel.filteredWorkspaces.isEmpty {
+                    emptyStateView()
+                } else {
                     
                     SectionView(
                         leadingTitle: "Choose Your Location",
                         showDivider: true
                     )
                     
+                    workspacesList()
+                    
                 }
                 
-                workspacesList()
-                
-            } else {
-                emptyStateView()
             }
             
         }
@@ -206,6 +225,26 @@ struct HomeScreen: GPView {
             }
             
         }
+        
+    }
+    
+    @ViewBuilder
+    private func titleSubtitleView(title: String,
+                                   subtitle: String) -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            Text(title)
+                .appFont(with: .HEADER_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            Text(subtitle)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .minimumScaleFactor(0.5)
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
         
     }
     

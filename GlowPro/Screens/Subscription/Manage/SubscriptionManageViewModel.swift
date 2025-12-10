@@ -27,6 +27,8 @@ final class SubscriptionManageViewModel: ViewModel {
     @Published private(set) var shouldDismiss: Bool = false
     @Published var shouldPresentCancelSubscriptionSheet: Bool = false
     
+    @Published var changePaymentMethodURL: String?
+    
     @Published private(set) var isLoading: Bool = false
         
     var businessId: String!
@@ -175,6 +177,32 @@ final class SubscriptionManageViewModel: ViewModel {
             }
             
             loadData()
+            
+        }
+        
+    }
+    
+    func changePaymentMethod() {
+        
+        guard let business = self.business else { return }
+        
+        Task {
+            
+            do {
+                
+                let url = try await self.apiService
+                    .getStripeUpdatePaymentMethodLink(businessId: business.id)
+                
+                await MainActor.run { [weak self] in
+                    self?.changePaymentMethodURL = url
+                }
+                
+            } catch {
+                
+                presentErrorAlert(error: error)
+                self.logger.error("\(error.getMessageForError())")
+                
+            }
             
         }
         

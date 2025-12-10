@@ -151,6 +151,7 @@ struct BusinessActivityListScreen: GPView {
                     .clearFilters()
                 
             }
+            .padding(.top, .small)
             .padding(.horizontal, .extraLarge)
             .transition(
                 .move(edge: .bottom)

@@ -22,6 +22,7 @@ final class BusinessLocationListViewModel: ViewModel {
     @Published private(set) var business: Business?
     @Published private(set) var locations: [Location] = []
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published private(set) var isFirstLoad: Bool = true
     
     private(set) var businessId: String!
 
@@ -68,8 +69,12 @@ final class BusinessLocationListViewModel: ViewModel {
     
     func loadData(showHud: Bool = true) {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
+        if showHud {
+            
+            self.alertService
+                .showAlert(.init(.simpleLoadingIndicator))
+            
+        }
         
         Task {
             
@@ -83,6 +88,7 @@ final class BusinessLocationListViewModel: ViewModel {
                 
                 await MainActor.run { [weak self] in
 
+                    self?.isFirstLoad = false
                     self?.business = business
                     self?.locations = locations
                     self?.shouldShowEmptyState = business.locations.isEmpty
@@ -107,8 +113,12 @@ final class BusinessLocationListViewModel: ViewModel {
                 
             }
             
-            self.alertService
-                .dismissLoadingIndicator()
+            if showHud {
+                
+                self.alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
         }
         

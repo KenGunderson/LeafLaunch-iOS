@@ -898,6 +898,10 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         
     }
     
+    func getStripeUpdatePaymentMethodLink(businessId: String) async throws -> String {
+        return "http://www.google.com"
+    }
+    
     func getAllSubscriptionProducts() async throws -> [StripeSubscriptionProduct] {
         return self.subscriptionProducts
     }
