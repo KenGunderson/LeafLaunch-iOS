@@ -10,6 +10,7 @@ import PDFKit
 
 enum AnnotationKind {
     
+    case image(UIImage)
     case url(URL)
     case pdf(PDFDocument)
     

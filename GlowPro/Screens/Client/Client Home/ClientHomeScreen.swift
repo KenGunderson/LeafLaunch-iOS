@@ -169,7 +169,7 @@ struct ClientHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.note.icon,
                     iconBackgroundColor: .color(ActivityCategory.note.color),
-                    title: "All Notes",
+                    title: "Client Notes",
                     subtitle: "Show All Notes",
                     prominentSubtitle: false
                 )
@@ -202,7 +202,7 @@ struct ClientHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
-                    title: "All Media",
+                    title: "Client Media",
                     subtitle: "Show All Media",
                     prominentSubtitle: false
                 )
@@ -220,7 +220,7 @@ struct ClientHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.collage.icon,
                     iconBackgroundColor: .color(ActivityCategory.collage.color),
-                    title: "All Collages",
+                    title: "Client Collages",
                     subtitle: "Show All Collages",
                     prominentSubtitle: false
                 )

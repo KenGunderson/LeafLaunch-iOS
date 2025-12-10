@@ -192,9 +192,9 @@ enum ActivityCategory {
         case .form: return .image(.iconFileOutline)
         case .note: return .image(.iconNoteOutline)
         case .camera: return .image(.iconCamera)
-        case .media: return .systemImage("photo.on.rectangle.fill")
+        case .media: return .systemImage("photo.on.rectangle")
         case .collage: return .systemImage("square.grid.2x2")
-        case .tags: return .systemImage("tag.fill")
+        case .tags: return .systemImage("tag")
         }
     }
     

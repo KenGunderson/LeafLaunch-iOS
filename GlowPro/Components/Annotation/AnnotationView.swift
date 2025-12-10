@@ -27,6 +27,7 @@ struct AnnotationView: View {
         let suffix = self.isReadOnly ? "Preview" : "Editor"
         
         switch self.kind {
+        case .image: prefix = "Media"
         case .url: prefix = "Media"
         case .pdf: prefix = "PDF"
         }
@@ -100,15 +101,36 @@ struct AnnotationView: View {
     private func annotationView() -> some View {
 
         switch self.kind {
+        case .image(let uiImage):
+            
+            GeometryReader { geometry in
+                
+                PhotoEditor(
+                    image: uiImage,
+                    canvasSize: geometry.size,
+                    controller: self.controller
+                )
+                .frame(maxHeight: .infinity)
+                .if(self.isReadOnly) { view in
+                    view.ignoresSafeArea(edges: .bottom)
+                }
+                
+            }
+            
         case .url(let url):
             
-            PhotoEditor(
-                imageURL: url,
-                controller: self.controller
-            )
-            .frame(maxHeight: .infinity)
-            .if(self.isReadOnly) { view in
-                view.ignoresSafeArea(edges: .bottom)
+            GeometryReader { geometry in
+                
+                PhotoEditor(
+                    url: url,
+                    canvasSize: geometry.size,
+                    controller: self.controller
+                )
+                .frame(maxHeight: .infinity)
+                .if(self.isReadOnly) { view in
+                    view.ignoresSafeArea(edges: .bottom)
+                }
+                
             }
             
         case .pdf(let pdfDocument):

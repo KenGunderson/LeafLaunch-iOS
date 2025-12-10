@@ -108,6 +108,8 @@ struct BusinessHomeScreen: GPView {
                     activitiesList()
                     
                 }
+                .geometryGroup()
+                .compositingGroup()
                 .transition(.offset(y: 200).combined(with: .opacity))
                 
             }
@@ -122,8 +124,8 @@ struct BusinessHomeScreen: GPView {
     
     @ViewBuilder
     private func tilesGrid() -> some View {
-        
-        VStack(spacing: Style.shared.spacing(.small)) {
+            
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             let businessColor = ActivityCategory.business.color
             
@@ -149,6 +151,24 @@ struct BusinessHomeScreen: GPView {
                     ))
                 
             }
+            
+            manageSection()
+            assetsSection()
+            settingsSection()
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func manageSection() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Team & Clients",
+                showDivider: true
+            )
             
             LazyVGrid(columns: [
                 .init(.flexible()),
@@ -203,6 +223,27 @@ struct BusinessHomeScreen: GPView {
                     
                 }
                 
+            }
+            
+        }
+        
+    }
+        
+    @ViewBuilder
+    private func assetsSection() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Assets",
+                showDivider: true
+            )
+            
+            LazyVGrid(columns: [
+                .init(.flexible()),
+                .init(.flexible()),
+            ]) {
+                
                 QuickActionTileView(
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
@@ -253,6 +294,56 @@ struct BusinessHomeScreen: GPView {
                             context: .business(businessId: self.viewModel.businessId),
                             mode: .preview
                         )))
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func settingsSection() -> some View {
+        
+        let isSubscribed = self.viewModel.business?.isSubscribed ?? false
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+        
+        SectionView(
+            leadingTitle: "Account & Security",
+            showDivider: true
+        )
+        
+            HStack {
+                
+                QuickActionTileView(
+                    icon: .systemImage("lock"),
+                    iconBackgroundColor: .color(Color(uiColor: .lightGray)),
+                    title: "Security",
+                    subtitle: "Manage Your Business",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.navigationService
+                        .push(.setting(.businessSettings))
+                    
+                }
+                
+                QuickActionTileView(
+                    icon: .systemImage("crown"),
+                    iconBackgroundColor: Style.shared.accent,
+                    title: isSubscribed ? "Subscription" : "Subscribe",
+                    subtitle: isSubscribed ? "Manage Subscription" : "Get Started",
+                    prominentSubtitle: false
+                )
+                .appShadow(.subtle)
+                .asButton {
+                    
+                    self.viewModel
+                        .presentSubscriptionPaywall()
                     
                 }
                 

@@ -123,6 +123,7 @@ extension View {
             case .collage(let route): collage(route: route)
             case .note(let route): note(route: route)
             case .form(let route): form(route: route)
+            case .settings(let route): settings(route: route)
             }
             
         }
@@ -700,27 +701,16 @@ extension View {
                     .setup(businessId: businessId)
                 
                 SubscriptionManageScreen(viewModel: viewModel)
-
-            case .urlAnnotation(let url,
-                                let isReadOnly,
-                                let completion):
+                
+            case .annotation(let kind,
+                             let isReadOnly,
+                             let completion):
                 
                 AnnotationView(
-                    kind: .url(url),
+                    kind: kind,
                     isReadOnly: isReadOnly,
                     onSave: completion
                 )
-                
-            case .pdfAnnotation(let pdfDocument,
-                                let isReadOnly,
-                                let completion):
-                
-                AnnotationView(
-                    kind: .pdf(pdfDocument),
-                    isReadOnly: isReadOnly,
-                    onSave: completion
-                )
-                
             }
             
         }

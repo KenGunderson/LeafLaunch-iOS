@@ -26,9 +26,6 @@ final class SettingsViewModel: ViewModel {
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
-    @Published private(set) var workspaces: [Workspace] = []
-    @Published private(set) var isSubscribed: Bool = false
-    
     @Published private(set) var shouldDismiss: Bool = false
     
     @Published private(set)var isLoading: Bool = true
@@ -54,14 +51,6 @@ final class SettingsViewModel: ViewModel {
             isHTML: false,
             attachments: [])
         
-    }
-    
-    var shouldShowBusinessSettings: Bool {
-        return self.workspaces.filter({ $0.isOwner }).first != nil
-    }
-    
-    var shouldShowSubscriptionSetting: Bool {
-        return self.activeDestinationService.businessId != nil
     }
     
     init(authService: AuthServiceProtocol,
@@ -100,28 +89,6 @@ final class SettingsViewModel: ViewModel {
             
             presentLogoutAlert()
             
-        case .subscribe:
-            
-            self.navigationService?
-                .modal(fullScreenCover: .subscriptionPaywall(
-                    context: .create,
-                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
-                    completion: { [weak self] in
-                                                
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                            self?.shouldDismiss = true
-                        }
-                        
-                    }
-                ))
-            
-        case .manageSubscription:
-            
-            let businessId = self.activeDestinationService.businessId ?? ""
-            
-            self.navigationService?
-                .modal(fullScreenCover: .subscriptionManage(businessId: businessId))
-            
         case .updatePermissions:
             
             if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -149,71 +116,13 @@ final class SettingsViewModel: ViewModel {
     
     func loadData(showHud: Bool = true) {
         
-        self.isLoading = (self.isFirstLoad)
-        
-        if self.isFirstLoad {
-            
-            self.alertService
-                .showAlert(.init(.simpleLoadingIndicator))
-            
-        }
-
-        Task {
-            
-            do {
-                
-                let workspaces = try await self.apiService
-                    .getWorkspaces(userId: self.authService.currentUser?.id ?? "")
-                
-                await MainActor.run { [weak self] in
-                    
-                    self?.isSubscribed = self?.activeDestinationService.business?.stripeSubscriptionProduct != nil
-                    self?.workspaces = workspaces
-                    self?.isLoading = false
-                    
-                }
-                
-            }
-            catch {
-                
-                await MainActor.run { [weak self] in
-                    self?.isLoading = false
-                }
-                
-            }
-            
-            if self.isFirstLoad {
-                
-                self.alertService
-                    .dismissLoadingIndicator()
-                
-            }
-            
-            await MainActor.run { [weak self] in
-                
-                self?.isLoading = false
-                self?.isFirstLoad = false
-                
-            }
-            
-        }
+        self.isLoading = false
+        self.isFirstLoad = false
         
     }
     
     private func bindSubscribers() {
-        
         self.cancelBag = CancelBag()
-        
-        self.viewLifecycleService
-            .publisher(for: .settings)
-            .receiveOnMain()
-            .sink { [weak self] in
-                
-                self?.loadData(showHud: false)
-                
-            }
-            .store(in: &self.cancelBag)
-        
     }
     
     private func reviewApp() {

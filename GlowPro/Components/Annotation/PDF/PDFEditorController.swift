@@ -1,3 +1,10 @@
+//
+//  PDFController.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 12/7/25.
+//
+
 import SwiftUI
 import PDFKit
 import PencilKit

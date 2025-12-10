@@ -243,6 +243,7 @@ enum Route: Navigation, Hashable, Sendable {
     case collage(CollageRoute)
     case note(NoteRoute)
     case form(FormRoute)
+    case settings(SettingRoute)
     
 }
 

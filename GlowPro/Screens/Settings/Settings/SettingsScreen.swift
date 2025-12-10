@@ -102,20 +102,9 @@ struct SettingsScreen: GPView {
         
         var settings: [Route.SettingRoute] = Route.SettingRoute.allCases
         
-        if !self.viewModel.shouldShowBusinessSettings {
-            settings.removeAll { $0 == .businessSettings }
-        }
-        
-        let shouldShowSubscribe = self.viewModel.shouldShowSubscriptionSetting && !self.viewModel.isSubscribed
-        let shouldShowManage = self.viewModel.shouldShowSubscriptionSetting && self.viewModel.isSubscribed
-
-        if !shouldShowSubscribe {
-            settings.removeAll { $0 == .subscribe }
-        }
-
-        if !shouldShowManage {
-            settings.removeAll { $0 == .manageSubscription }
-        }
+        settings.removeAll { $0 == .businessSettings }
+        settings.removeAll { $0 == .subscribe }
+        settings.removeAll { $0 == .manageSubscription }
         
         let groups = Dictionary(grouping: settings, by: { $0.category })
         let config = Constants.StaggerAnimation.config(interitemSpacing: 8)

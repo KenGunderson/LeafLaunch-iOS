@@ -221,6 +221,30 @@ final class BusinessHomeViewModel: ViewModel {
         
     }
     
+    @MainActor
+    func presentSubscriptionPaywall() {
+        
+        guard let business else { return }
+        guard let navigationService else { return }
+        
+        if business.isSubscribed {
+            
+            navigationService
+                .modal(fullScreenCover: .subscriptionManage(businessId: business.id))
+            
+        } else {
+            
+            navigationService
+                .modal(fullScreenCover: .subscriptionPaywall(
+                    context: .create,
+                    paywallItem: .GLOWPRO_PREMIUM_MONTHLY_SUBSCRIPTION,
+                    completion: nil
+                ))
+            
+        }
+        
+    }
+    
     func presentChecklistClientMediaErrorAlert() {
         
         self.alertService

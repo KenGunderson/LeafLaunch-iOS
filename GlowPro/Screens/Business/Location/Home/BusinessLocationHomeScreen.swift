@@ -247,7 +247,7 @@ struct BusinessLocationHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.form.icon,
                     iconBackgroundColor: .color(ActivityCategory.form.color),
-                    title: "All Forms",
+                    title: "Forms",
                     subtitle: "\(self.viewModel.location?.totalFormsCount ?? 0)",
                     prominentSubtitle: true
                 )
@@ -275,7 +275,7 @@ struct BusinessLocationHomeScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.small)) {
                 
-                SectionView(leadingTitle: "All Activities", showDivider: true) {
+                SectionView(leadingTitle: "Location Activities", showDivider: true) {
                     
                     self.navigationService
                         .push(.business(.businessActivitiesList(

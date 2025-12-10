@@ -1,70 +1,183 @@
+//
+//  PhotoEditor.swift
+//  GlowPro
+//
+//  Created by Sako Hovaguimian on 12/7/25.
+//
+
 import SwiftUI
 import Kingfisher
 import PencilKit
 
 struct PhotoEditor: UIViewRepresentable {
     
-    let imageURL: URL
-    let controller: PDFController
+    private let imageURL: URL?
+    private let uiImage: UIImage?
+    private let canvasSize: CGSize
+    private let controller: PDFController
     
+    init(url: URL,
+         canvasSize: CGSize,
+         controller: PDFController) {
+        
+        self.imageURL = url
+        self.uiImage = nil
+        self.canvasSize = canvasSize
+        self.controller = controller
+        
+    }
+    
+    init(image: UIImage,
+         canvasSize: CGSize,
+         controller: PDFController) {
+        
+        self.uiImage = image
+        self.imageURL = nil
+        self.canvasSize = canvasSize
+        self.controller = controller
+        
+    }
+        
     func makeUIView(context: Context) -> PKCanvasView {
+        
         let canvasView = PKCanvasView()
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
-        
-        // 1. Assign Delegate to handle zooming/centering
-        canvasView.delegate = context.coordinator
-        
         canvasView.drawingPolicy = .anyInput
         
-        // Configure ScrollView properties
-        canvasView.alwaysBounceVertical = true
-        canvasView.alwaysBounceHorizontal = true
-        canvasView.bouncesZoom = true
         canvasView.showsVerticalScrollIndicator = false
         canvasView.showsHorizontalScrollIndicator = false
+        canvasView.bouncesZoom = true
         
-        // Max zoom allows user to zoom in for detail
-        canvasView.maximumZoomScale = 5.0
-        
+        canvasView.delegate = context.coordinator
         context.coordinator.canvasView = canvasView
         
         setupControllerLogic(context: context)
-        loadImage(into: canvasView, context: context)
+        
+        loadImage(
+            into: canvasView,
+            context: context
+        )
         
         return canvasView
+        
     }
     
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+    func updateUIView(_ uiView: PKCanvasView,
+                      context: Context) {
+        
+        if context.coordinator.canvasSize != canvasSize {
+            
+            let oldSize = context.coordinator.canvasSize
+            context.coordinator.canvasSize = canvasSize
+            
+            let isRotation = abs(oldSize.width - canvasSize.height) < 50 && abs(oldSize.height - canvasSize.width) < 50
+            
+            let shouldForceReset = isRotation || oldSize == .zero
+            
+            context.coordinator.applyReferenceMath(forceResetZoom: shouldForceReset)
+            
+        }
+        
         context.coordinator.updateToolPickerVisibility()
         
-        // 2. Recalculate zoom when the SwiftUI view layout changes (e.g., rotation)
-        // We wrap this in a check to ensure we have an image to work with
-        if context.coordinator.imageView?.image != nil {
-             context.coordinator.updateZoomToFit(canvasView: uiView)
-        }
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
+        
+    private func loadImage(into canvasView: PKCanvasView,
+                           context: Context) {
+        
+        let imageView = UIImageView()
+        context.coordinator.imageView = imageView
+        
+        if let localImage = self.uiImage {
+            
+            DispatchQueue.main.async {
+                
+                self.applyImageToCanvas(
+                    localImage,
+                    imageView: imageView,
+                    canvasView: canvasView,
+                    context: context
+                )
+                
+            }
+            
+            return
+            
+        }
+        
+        if let remoteURL = self.imageURL {
+            
+            imageView.kf.setImage(with: remoteURL) { result in
+                
+                guard case let .success(value) = result else { return }
+                
+                DispatchQueue.main.async {
+                    
+                    self.applyImageToCanvas(
+                        value.image,
+                        imageView: imageView,
+                        canvasView: canvasView,
+                        context: context
+                    )
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     
-    // MARK: - Controller Logic
+    private func applyImageToCanvas(_ image: UIImage,
+                                    imageView: UIImageView,
+                                    canvasView: PKCanvasView,
+                                    context: Context) {
+        
+        if let contentView = canvasView.subviews.first {
+            
+            contentView.subviews
+                .compactMap { $0 as? UIImageView }
+                .forEach { $0.removeFromSuperview() }
+            
+            contentView.insertSubview(imageView, at: 0)
+            imageView.image = image
+            imageView.frame = CGRect(origin: .zero, size: image.size)
+            
+            canvasView.contentSize = image.size
+            
+            context.coordinator.imageSize = image.size
+            context.coordinator.canvasSize = self.canvasSize
+            
+            // Initial load always forces zoom to fit
+            context.coordinator.applyReferenceMath(forceResetZoom: true)
+            
+        }
+        
+    }
     
     private func setupControllerLogic(context: Context) {
+        
         self.controller.captureSnapshot = { [weak coordinator = context.coordinator] in
             return coordinator?.captureSnapshot() ?? Data()
         }
         
         self.controller.toggleDrawing = { [weak coordinator = context.coordinator] isEnabled in
-            guard let coordinator = coordinator,
-                  let canvasView = coordinator.canvasView else { return }
+            
+            guard let coordinator = coordinator, let canvas = coordinator.canvasView else { return }
             
             DispatchQueue.main.async {
-                canvasView.drawingPolicy = isEnabled ? .anyInput : .pencilOnly
+                
+                canvas.drawingPolicy = isEnabled ? .anyInput : .pencilOnly
                 coordinator.isDrawingEnabled = isEnabled
                 coordinator.updateToolPickerVisibility()
+                
             }
+            
         }
         
         self.controller.performUndo = { [weak coordinator = context.coordinator] in
@@ -74,148 +187,123 @@ struct PhotoEditor: UIViewRepresentable {
         self.controller.performRedo = { [weak coordinator = context.coordinator] in
             coordinator?.canvasView?.undoManager?.redo()
         }
+        
     }
     
-    // MARK: - Image Loading
-    
-    private func loadImage(into canvasView: PKCanvasView, context: Context) {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit // Actually irrelevant because we set frame manually
-        imageView.backgroundColor = .clear
-        imageView.isUserInteractionEnabled = false
-        
-        // Insert at index 0 to be behind drawing
-        canvasView.insertSubview(imageView, at: 0)
-        context.coordinator.imageView = imageView
-        
-        imageView.kf.setImage(with: self.imageURL) { result in
-            guard case let .success(value) = result else { return }
-            
-            let image = value.image
-            
-            DispatchQueue.main.async {
-                guard let canvasView = context.coordinator.canvasView else { return }
-                
-                // Set the "World Size" to the actual image size (e.g., 3000x2000)
-                canvasView.contentSize = image.size
-                imageView.frame = CGRect(origin: .zero, size: image.size)
-                
-                // 3. Trigger initial zoom calculation
-                context.coordinator.updateZoomToFit(canvasView: canvasView, initialLoad: true)
-            }
-        }
-    }
-    
-    // MARK: - Coordinator
-    
-    class Coordinator: NSObject, PKCanvasViewDelegate { // Added PKCanvasViewDelegate
+    class Coordinator: NSObject, PKCanvasViewDelegate {
         
         var parent: PhotoEditor
-        
-        private let toolPicker = PKToolPicker()
         var isDrawingEnabled: Bool = true
-        
         weak var canvasView: PKCanvasView?
         weak var imageView: UIImageView?
+        private let toolPicker = PKToolPicker()
+        
+        var imageSize: CGSize = .zero
+        var canvasSize: CGSize = .zero
         
         init(_ parent: PhotoEditor) {
             self.parent = parent
-            super.init()
         }
         
-        // MARK: - Zoom & Layout Logic
-        
-        func updateZoomToFit(canvasView: PKCanvasView, initialLoad: Bool = false) {
-            guard let imageSize = imageView?.image?.size else { return }
-            let canvasSize = canvasView.bounds.size
+        // FIX 1: Added forceResetZoom parameter
+        func applyReferenceMath(forceResetZoom: Bool) {
             
-            // Avoid dividing by zero if layout hasn't happened yet
-            guard canvasSize.width > 0 && canvasSize.height > 0 else { return }
+            guard let canvasView = self.canvasView,
+                  self.imageSize != .zero,
+                  self.canvasSize != .zero else { return }
             
-            // Calculate scale to fit image completely in view
-            let widthScale = canvasSize.width / imageSize.width
-            let heightScale = canvasSize.height / imageSize.height
-            let minScale = min(widthScale, heightScale)
+            let widthScale = self.canvasSize.width / self.imageSize.width
+            let heightScale = self.canvasSize.height / self.imageSize.height
             
-            // Update the minimum zoom scale so the user can't zoom out past the "fit" size
-            canvasView.minimumZoomScale = minScale
+            let fitScale = min(widthScale, heightScale)
             
-            // If this is the first load, or if the current zoom is invalid, snap to fit.
-            if initialLoad || canvasView.zoomScale < minScale {
-                canvasView.zoomScale = minScale
-            }
+            canvasView.minimumZoomScale = fitScale
+            canvasView.maximumZoomScale = 5.0
             
-            // Force a center recalculation
-            centerContent(in: canvasView)
-        }
-        
-        // This keeps the image in the center of the screen when zoomed out
-        func centerContent(in scrollView: UIScrollView) {
-            let boundsSize = scrollView.bounds.size
-            var contentsFrame = CGRect(origin: .zero, size: scrollView.contentSize)
-            
-            if contentsFrame.size.width < boundsSize.width {
-                contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0
+            if forceResetZoom {
+                
+                canvasView
+                    .setZoomScale(
+                        fitScale,
+                        animated: false
+                    )
+                
             } else {
-                contentsFrame.origin.x = 0.0
+               
+                if canvasView.zoomScale < fitScale {
+                    canvasView.setZoomScale(fitScale, animated: true)
+                }
+                
             }
             
-            if contentsFrame.size.height < boundsSize.height {
-                contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0
-            } else {
-                contentsFrame.origin.y = 0.0
-            }
+            centerContent()
             
-            // We only need to adjust the imageView if we want to manually move it,
-            // but usually modifying the contentInset is cleaner, or simply letting
-            // the scrollViewDelegate handle subview positioning.
-            // However, PKCanvasView is tricky. The easiest way to center visually
-            // is usually via contentInset.
-            
-            let offsetX = max((boundsSize.width - scrollView.contentSize.width) * 0.5, 0)
-            let offsetY = max((boundsSize.height - scrollView.contentSize.height) * 0.5, 0)
-            
-            scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
         }
         
-        // MARK: - PKCanvasViewDelegate / UIScrollViewDelegate
+        func centerContent() {
+            
+            guard let canvasView = self.canvasView,
+                  self.imageSize != .zero else { return }
+            
+            let boundsSize = canvasView.bounds.size
+            let currentScale = canvasView.zoomScale
+            
+            let contentWidth = self.imageSize.width * currentScale
+            let contentHeight = self.imageSize.height * currentScale
+            
+            let xOffset = max(0, (boundsSize.width - contentWidth) / 2)
+            let yOffset = max(0, (boundsSize.height - contentHeight) / 2)
+            
+            canvasView.contentInset = UIEdgeInsets(
+                top: yOffset,
+                left: xOffset,
+                bottom: 0,
+                right: 0
+            )
+            
+        }
         
         func scrollViewDidZoom(_ scrollView: UIScrollView) {
-            // Keep content centered while zooming
-            centerContent(in: scrollView)
+            centerContent()
         }
         
-        // MARK: - Tool Picker
-        
         func updateToolPickerVisibility() {
-            guard let canvasView = canvasView, canvasView.window != nil else { return }
-            toolPicker.setVisible(isDrawingEnabled, forFirstResponder: canvasView)
-            toolPicker.addObserver(canvasView)
-            if isDrawingEnabled {
+            
+            guard let canvasView = self.canvasView,
+                  canvasView.window != nil else { return }
+            
+            self.toolPicker
+                .setVisible(
+                    self.isDrawingEnabled,
+                    forFirstResponder: canvasView
+                )
+            
+            self.toolPicker.addObserver(canvasView)
+            
+            if self.isDrawingEnabled {
                 canvasView.becomeFirstResponder()
             } else {
                 canvasView.resignFirstResponder()
             }
+            
         }
         
-        // MARK: - Snapshot
-        
         func captureSnapshot() -> Data {
-            guard let canvasView = canvasView,
-                  let imageView = imageView,
+            
+            guard let canvasView = self.canvasView,
+                  let imageView = self.imageView,
                   let image = imageView.image else { return Data() }
             
-            let imageSize = image.size
-            let rect = CGRect(origin: .zero, size: imageSize)
-            
-            let renderer = UIGraphicsImageRenderer(size: imageSize)
+            let rect = CGRect(origin: .zero, size: image.size)
+            let renderer = UIGraphicsImageRenderer(size: image.size)
             
             return renderer.image { _ in
                 image.draw(in: rect)
-                // Draw the PencilKit strokes
-                let drawingImage = canvasView.drawing.image(from: rect, scale: 1.0)
-                drawingImage.draw(in: rect)
+                canvasView.drawing.image(from: rect, scale: 1.0).draw(in: rect)
             }.pngData() ?? Data()
+            
         }
+        
     }
+    
 }
