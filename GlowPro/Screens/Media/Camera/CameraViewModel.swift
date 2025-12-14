@@ -99,6 +99,7 @@ final class CameraViewModel: ViewModel {
             
             do {
                 
+                self?.cameraService.zoomFactor = self?.zoomFactor ?? 1
                 try self?.cameraService.configure()
                 self?.cameraService.start()
                 
@@ -261,8 +262,8 @@ final class CameraViewModel: ViewModel {
         self.cameraService
             .zoomFactorPublisher
             .receiveOnMain()
-            .sink { [weak self] in
-                self?.zoomFactor = $0
+            .sink { [weak self] zoom in
+                self?.zoomFactor = zoom
             }
             .store(in: &self.cancelBag)
         

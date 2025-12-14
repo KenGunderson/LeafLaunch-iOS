@@ -70,7 +70,7 @@ struct QuickActionTileHeaderView: View {
             
         }
         .padding(.horizontal, .medium)
-        .padding(.vertical, .extraLarge)
+        .padding(.vertical, .large)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(self.backgroundStyle.source())
         .cornerRadius(.small)

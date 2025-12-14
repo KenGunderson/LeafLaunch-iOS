@@ -76,7 +76,7 @@ final class FormListViewModel: ViewModel {
     }
     
     var shouldShowAddButton: Bool {
-        return self.isOwnerOrManager && self.context.isLocationContext
+        return self.isOwnerOrManager
     }
     
     init(apiService: APIServiceProtocol,

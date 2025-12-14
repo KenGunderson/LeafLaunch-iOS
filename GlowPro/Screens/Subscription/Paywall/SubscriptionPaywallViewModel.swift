@@ -24,11 +24,15 @@ final class SubscriptionPaywallViewModel: ViewModel {
         
         var id: String { return self.rawValue }
         
+        case daily
+        case weekly
         case monthly
         case yearly
         
         var description: String {
             switch self {
+            case .daily: return "Daily"
+            case .weekly: return "Weekly"
             case .monthly: return "Monthly"
             case .yearly: return "Yearly"
             }
@@ -36,6 +40,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
         
         var stripeName: String {
             switch self {
+            case .daily: return "day"
+            case .weekly: return "week"
             case .monthly: return "month"
             case .yearly: return "year"
             }
@@ -46,6 +52,8 @@ final class SubscriptionPaywallViewModel: ViewModel {
             var interval: String {
                 
                 if name == "month" { return "monthly"}
+                else if name == "day" { return "daily" }
+                else if name == "week" { return "weekly" }
                 else if name == "year" { return "yearly" }
                 return "monthly"
                 

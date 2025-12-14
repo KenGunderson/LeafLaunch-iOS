@@ -17,8 +17,10 @@ public struct CameraScreen: View {
     @StateObject var viewModel: CameraViewModel
     
     @State private var showBottomOverlayDrawer: Bool = false
+    
     @State private var selectedGhostOverlayCategory: GhostOverlayCategory? = .ghost
     @State private var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
+    
     @State private var zoomScale: Double = 1.0
     @State private var gridDivision: Int = 0
     
@@ -58,6 +60,14 @@ public struct CameraScreen: View {
             
             self.viewModel
                 .zoom(scale: newValue)
+            
+        }
+        
+        .onChange(of: self.viewModel.zoomFactor) { oldValue, newValue in
+            
+            if newValue != self.zoomScale {
+                self.zoomScale = newValue
+            }
             
         }
         

@@ -170,6 +170,11 @@ final class CameraService: NSObject, CameraServiceProtocol {
                 strongSelf.log(message: "Camera session already running")
             }
             
+            self?.unsafeZoom(
+                factor: self?.zoomFactor ?? 1.0,
+                animated: false
+            )
+            
         }
         
     }
@@ -297,31 +302,43 @@ final class CameraService: NSObject, CameraServiceProtocol {
         
         self.sessionQueue.async { [weak self] in
             
-            guard let self = self,
-                  let device = self.videoDeviceInput?.device else { return }
+            self?.unsafeZoom(
+                factor: factor,
+                animated: animated,
+                rampRate: rampRate
+            )
             
-            let clamped = max(1.0, min(factor, self.maxZoomFactor))
+        }
+        
+    }
+    
+    func unsafeZoom(factor: CGFloat,
+                    animated: Bool = true,
+                    rampRate: Float = 8.0) {
+        
+        guard let device = self.videoDeviceInput?.device else { return }
+        
+        let clamped = max(1.0, min(factor, self.maxZoomFactor))
 
-            do {
+        do {
+            
+            try device.lockForConfiguration()
+            
+            if animated,
+               device.responds(to: #selector(getter: AVCaptureDevice.isRampingVideoZoom)) {
                 
-                try device.lockForConfiguration()
+                device.ramp(toVideoZoomFactor: clamped, withRate: max(1.0, rampRate))
                 
-                if animated,
-                   device.responds(to: #selector(getter: AVCaptureDevice.isRampingVideoZoom)) {
-                    
-                    device.ramp(toVideoZoomFactor: clamped, withRate: max(1.0, rampRate))
-                    
-                } else {
-                    device.videoZoomFactor = clamped
-                }
-                
-                device.unlockForConfiguration()
-                self.log(message: "Zoom set to \(clamped)")
-                
-            } catch {
-                self.logError(message: "Failed to set zoom: \(error.localizedDescription)")
+            } else {
+                device.videoZoomFactor = clamped
             }
             
+            self.zoomFactor = clamped
+            device.unlockForConfiguration()
+            self.log(message: "Zoom set to \(clamped)")
+            
+        } catch {
+            self.logError(message: "Failed to set zoom: \(error.localizedDescription)")
         }
         
     }
@@ -329,14 +346,10 @@ final class CameraService: NSObject, CameraServiceProtocol {
     func zoom(by multiplier: CGFloat,
               animated: Bool = false) {
         
-        self.sessionQueue.async { [weak self] in
-                                                
-            self?.setZoom(
-                factor: multiplier,
-                animated: animated
-            )
-            
-        }
+        self.setZoom(
+            factor: multiplier,
+            animated: animated
+        )
         
     }
     

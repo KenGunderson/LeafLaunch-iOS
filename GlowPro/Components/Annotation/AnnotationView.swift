@@ -158,7 +158,7 @@ struct AnnotationView: View {
                 toolBar()
                     .compositingGroup()
                     .geometryGroup()
-                    .padding(.bottom, self.isDrawing ? self.toolPickerFrame.height + 32 : 0)
+                    .padding(.bottom, self.isDrawing ? self.toolPickerFrame.height + 64 : 0)
                 
                 saveButton()
                 

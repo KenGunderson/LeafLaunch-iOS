@@ -77,15 +77,7 @@ struct BusinessHomeScreen: GPView {
                 default: fatalError("Not Implemented")
                 }
                 
-            },
-            trailingNavButtons: [.settings]) { navItem in
-                
-                switch navItem {
-                case .settings: self.navigationService.modal(fullScreenCover: .settings)
-                default: fatalError("Not Implemented")
-                }
-                
-            }
+            })
             .contentTransition(.numericText())
         
     }
@@ -100,12 +92,16 @@ struct BusinessHomeScreen: GPView {
                 Group {
                     
                     mediaUsageOverageView()
+                    
+                    businessCardView()
                     checklist()
+                    locationCardView()
+                    
                     tilesGrid()
-                    quickActionButtons()
+                    
                     pendingInvitesList()
-                    clientBirthdayList()
                     activitiesList()
+                    clientBirthdayList()
                     
                 }
                 .geometryGroup()
@@ -123,34 +119,67 @@ struct BusinessHomeScreen: GPView {
     }
     
     @ViewBuilder
-    private func tilesGrid() -> some View {
+    private func businessCardView() -> some View {
+        
+        let businessColor = ActivityCategory.business.color
+        
+        QuickActionTileHeaderView(
+            icon: ActivityCategory.business.icon,
+            iconBackgroundColor: .color(businessColor),
+            title: self.viewModel.business?.name ?? "Business Information",
+            subtitle: self.viewModel.business?.email ?? "Dashboard",
+            backgroundStyle: .color(businessColor.opacity(0.10))
+        )
+        .appShadow(.subtle)
+        .appBorder(
+            cornerRadius: .small,
+            color: .color(businessColor),
+            lineWidth: 2
+        )
+        .asButton {
             
-        VStack(spacing: Style.shared.spacing(.medium)) {
+            self.navigationService
+                .push(.business(
+                    .businessCreateEdit(businessId: self.viewModel.businessId)
+                ))
             
-            let businessColor = ActivityCategory.business.color
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func locationCardView() -> some View {
+        
+        VStack(spacing: Style.shared.spacing(.small)) {
+            
+            SectionView(
+                leadingTitle: "Operations",
+                showDivider: true
+            )
             
             QuickActionTileView(
-                icon: ActivityCategory.business.icon,
-                iconBackgroundColor: .color(businessColor),
-                title: self.viewModel.business?.name ?? "Business Information",
-                subtitle: self.viewModel.business?.email ?? "Dashboard",
-                prominentSubtitle: false,
-                backgroundStyle: .color(businessColor.opacity(0.10))
+                icon: ActivityCategory.location.icon,
+                iconBackgroundColor: .color(ActivityCategory.location.color),
+                title: "All Locations",
+                subtitle: "\(self.viewModel.business?.totalLocationCount ?? 0)",
+                prominentSubtitle: true
             )
             .appShadow(.subtle)
-            .appBorder(
-                cornerRadius: .small,
-                color: .color(businessColor),
-                lineWidth: 2
-            )
             .asButton {
                 
                 self.navigationService
-                    .push(.business(
-                        .businessCreateEdit(businessId: self.viewModel.businessId)
-                    ))
+                    .push(.business(.businessLocationList(businessId: self.viewModel.businessId)))
                 
             }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func tilesGrid() -> some View {
+            
+        VStack(spacing: Style.shared.spacing(.medium)) {
             
             manageSection()
             assetsSection()
@@ -166,7 +195,7 @@ struct BusinessHomeScreen: GPView {
         VStack(spacing: Style.shared.spacing(.small)) {
             
             SectionView(
-                leadingTitle: "Team & Clients",
+                leadingTitle: "Team",
                 showDivider: true
             )
             
@@ -194,21 +223,6 @@ struct BusinessHomeScreen: GPView {
                 }
                 
                 QuickActionTileView(
-                    icon: ActivityCategory.location.icon,
-                    iconBackgroundColor: .color(ActivityCategory.location.color),
-                    title: "All Locations",
-                    subtitle: "\(self.viewModel.business?.totalLocationCount ?? 0)",
-                    prominentSubtitle: true
-                )
-                .appShadow(.subtle)
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.business(.businessLocationList(businessId: self.viewModel.businessId)))
-                    
-                }
-                
-                QuickActionTileView(
                     icon: ActivityCategory.client.icon,
                     iconBackgroundColor: .color(ActivityCategory.client.color),
                     title: "All Clients",
@@ -224,6 +238,8 @@ struct BusinessHomeScreen: GPView {
                 }
                 
             }
+            
+            inviteEmployeeView()
             
         }
         
@@ -353,40 +369,37 @@ struct BusinessHomeScreen: GPView {
         
     }
     
-    @ViewBuilder
-    private func quickActionButtons() -> some View {
-     
-        HStack {
-            
-            CommonButton(
-                title: "Invite Employee",
-                titleFont: .TITLE_2,
-                icon: .systemImage("plus"),
-                verticalPadding: .small2,
-                horizontalPadding: .none) {
-                    
-                    self.navigationService
-                        .push(.business(
-                            .businessEmployeesInvite(
-                                businessId: self.viewModel.businessId,
-                                context: .newEmployee
-                            )))
-                    
-                }
-            
-            CommonButton(
-                title: "Add New Location",
-                titleFont: .TITLE_2,
-                icon: .systemImage("plus"),
-                verticalPadding: .small2,
-                horizontalPadding: .none) {
-                    
-                    self.navigationService
-                        .push(.business(.businessLocationCreateEdit(businessId: self.viewModel.businessId)))
-                    
-                }
-            
-        }
+    private func inviteEmployeeView() -> some View {
+        
+        CommonButton(
+            title: "Invite Employee",
+            titleFont: .TITLE_2,
+            icon: .systemImage("plus"),
+            verticalPadding: .small2,
+            horizontalPadding: .none) {
+                
+                self.navigationService
+                    .push(.business(
+                        .businessEmployeesInvite(
+                            businessId: self.viewModel.businessId,
+                            context: .newEmployee
+                        )))
+                
+            }
+        
+    }
+    
+    private func addNewLocationView() -> some View {
+        
+        CommonButton(
+            title: "Add New Location",
+            titleFont: .TITLE_2,
+            icon: .systemImage("plus"),
+            verticalPadding: .small2,
+            horizontalPadding: .none) {
+                
+                self.navigationService
+            }
         
     }
     
@@ -457,7 +470,7 @@ struct BusinessHomeScreen: GPView {
                     
                 }
                 
-                ActivitiesView(activities: Array(self.viewModel.activities.prefix(10)))
+                ActivitiesView(activities: Array(self.viewModel.activities.prefix(5)))
                 
             }
             
