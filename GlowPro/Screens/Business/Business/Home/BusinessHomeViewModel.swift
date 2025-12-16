@@ -195,13 +195,12 @@ final class BusinessHomeViewModel: ViewModel {
             
             if business.locations.isEmpty {
                 
-                presentChecklistClientMediaErrorAlert()
+                presentChecklistClientAlert()
                 return
                 
             }
             
-            self.navigationService?
-                .push(.client(.clientCreate(locationId: self.business?.locations.first?.id ?? "", clientId: nil)))
+            presentChecklistClientAlert()
             
         case .createMedia:
             
@@ -212,11 +211,8 @@ final class BusinessHomeViewModel: ViewModel {
                 
             }
             
-            self.navigationService?
-                .push(.media(.camera(
-                    context: .location(locationId: self.business?.locations.first?.id ?? ""),
-                    mode: .multiple([])
-                )))
+            presentChecklistMediaAlert()
+            
         }
         
     }
@@ -254,6 +250,34 @@ final class BusinessHomeViewModel: ViewModel {
                 primaryButtonTitle: "Okay",
                 primaryButtonAction: {},
                 primaryButtonBackgroundColor: Style.shared.background(.error),
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted)
+            ))))
+        
+    }
+    
+    func presentChecklistClientAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Select A Location",
+                message: "Clients can only be created inside a location. Use the Dashboard to oversee your business, and Locations to handle daily operations.",
+                primaryButtonTitle: "Got It",
+                primaryButtonAction: {},
+                primaryButtonBackgroundColor: Style.shared.accent,
+                primaryButtonTextColor: Style.shared.textColor(.titleInverted)
+            ))))
+        
+    }
+    
+    func presentChecklistMediaAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.init(
+                title: "Select A Client",
+                message: "Photos can only be taken for a client. Choose a client to continue. You can always view all media in the Dashboard.",
+                primaryButtonTitle: "Got It",
+                primaryButtonAction: {},
+                primaryButtonBackgroundColor: Style.shared.accent,
                 primaryButtonTextColor: Style.shared.textColor(.titleInverted)
             ))))
         

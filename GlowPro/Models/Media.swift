@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum MediaSortingOption: String,
                     CaseIterable,
@@ -18,12 +19,14 @@ enum MediaSortingOption: String,
     case newest
     case oldest
     case favorited
+    case onlyUntagged
     
     var description: String {
         switch self {
         case .newest: return "Newest"
         case .oldest: return "Oldest"
         case .favorited: return "Favorited"
+        case .onlyUntagged: return "Untagged"
         }
     }
     
@@ -32,6 +35,7 @@ enum MediaSortingOption: String,
         case .newest: return "desc"
         case .oldest: return "asc"
         case .favorited: return "desc"
+        case .onlyUntagged: return "desc"
         }
     }
     
@@ -49,12 +53,16 @@ enum MediaType: String,
     case image = "IMAGE"
     case collage = "COLLAGE"
     case diagram = "DIAGRAM"
+    case imageAnnotation = "IMAGE_ANNOTATION"
+    case diagramAnnotation = "DIAGRAM_ANNOTATION"
     
     var description: String {
         switch self {
         case .image: return "Image"
         case .collage: return "Collage"
         case .diagram: return "Diagram"
+        case .imageAnnotation: return "Image Annotation"
+        case .diagramAnnotation: return "Diagram Annotation"
         }
     }
     
@@ -63,7 +71,23 @@ enum MediaType: String,
         case .image: return "IMAGE"
         case .collage: return "COLLAGE"
         case .diagram: return "DIAGRAM"
+        case .imageAnnotation: return "IMAGE_ANNOTATION"
+        case .diagramAnnotation: return "DIAGRAM_ANNOTATION"
         }
+    }
+    
+    var color: Color {
+        switch self {
+        case .image: ActivityCategory.camera.color
+        case .collage: ActivityCategory.collage.color
+        case .diagram: ActivityCategory.form.color
+        case .imageAnnotation: ActivityCategory.camera.color
+        case .diagramAnnotation: ActivityCategory.form.color
+        }
+    }
+    
+    static var DISPLAY_CASES: [MediaType] {
+        return [.image, .collage, .diagram]
     }
     
 }

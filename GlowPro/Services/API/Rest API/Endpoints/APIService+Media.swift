@@ -13,13 +13,15 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
             "media_type": filterOption?.queryParameter,
             "limit": "\(query.limit)",
-            "offset": "\(query.offset)"
+            "offset": "\(query.offset)",
+            "only_untagged": onlyUntagged ? "true" : "false"
         ]
         .compact()
         
@@ -51,13 +53,15 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
             "media_type": filterOption?.queryParameter,
             "limit": "\(query.limit)",
-            "offset": "\(query.offset)"
+            "offset": "\(query.offset)",
+            "only_untagged": onlyUntagged ? "true" : "false"
         ]
         .compact()
         
@@ -89,13 +93,15 @@ extension APIService {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         var queryParameters: [String : String] = [
             "order_by": sortingOption?.queryParameter,
             "media_type": filterOption?.queryParameter,
             "limit": "\(query.limit)",
-            "offset": "\(query.offset)"
+            "offset": "\(query.offset)",
+            "only_untagged": onlyUntagged ? "true" : "false"
         ]
         .compact()
         

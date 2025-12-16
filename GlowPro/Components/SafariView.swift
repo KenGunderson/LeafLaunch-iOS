@@ -14,7 +14,13 @@ struct SafariView: UIViewRepresentable {
     let url: String
 
     func makeUIView(context: Context) -> WKWebView {
-        return WKWebView(frame: .zero)
+        
+        let view = WKWebView(frame: .zero)
+        view.scrollView.contentInsetAdjustmentBehavior = .never
+        view.scrollView.contentInset = .zero
+        
+        return view
+        
     }
 
     func updateUIView(_ view: WKWebView,

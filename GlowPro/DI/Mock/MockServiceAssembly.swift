@@ -625,6 +625,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         let media = self.media.filter { $0.businessId == businessId }
@@ -641,6 +642,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         var media: [Media] = []
@@ -669,6 +671,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media] {
         
         let media = self.media.filter { $0.clientId == clientId }
@@ -719,6 +722,7 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
         case .newest: filtered.sort { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
         case .oldest: filtered.sort { ($0.createdAt ?? .distantFuture) < ($1.createdAt ?? .distantFuture) }
         case .favorited: filtered = filtered.filter { $0.isFavorited }
+        case .onlyUntagged: filtered.sort { ($0.createdAt ?? .distantPast) > ($1.createdAt ?? .distantPast) }
         case .none: break
         }
         

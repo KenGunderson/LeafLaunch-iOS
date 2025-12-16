@@ -73,7 +73,10 @@ struct SubscriptionManageScreen: GPView {
                         .loadData()
                     
                 }) { url in
+                    
                     SafariView(url: url)
+                        .ignoresSafeArea()
+                    
                 }
             
         }

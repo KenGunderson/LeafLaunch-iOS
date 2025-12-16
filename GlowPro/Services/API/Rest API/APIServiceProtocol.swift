@@ -115,18 +115,21 @@ protocol APIServiceProtocol: APIProtocol {
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media]
     
     func getMedia(locationId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media]
     
     func getMedia(clientId: String,
                   sortingOption: MediaSortingOption?,
                   filterOption: MediaType?,
                   tags: [MediaTag],
+                  onlyUntagged: Bool,
                   query: Query) async throws -> [Media]
     
     func getMedia(authorId: String,

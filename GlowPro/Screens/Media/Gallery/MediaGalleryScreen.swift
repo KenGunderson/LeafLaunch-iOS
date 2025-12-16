@@ -283,6 +283,8 @@ struct MediaGalleryScreen: GPView {
             }
 
         }
+        .compositingGroup()
+        .geometryGroup()
         .id(groupedMedia.id)
 
     }

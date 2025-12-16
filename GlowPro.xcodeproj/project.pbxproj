@@ -405,6 +405,9 @@
 		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
+		7559ECE82EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559ECE72EF0FA9F00DA82FE /* BusinessHomeChartCarousel.swift */; };
+		7559ECE92EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559ECE72EF0FA9F00DA82FE /* BusinessHomeChartCarousel.swift */; };
+		7559ECEA2EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559ECE72EF0FA9F00DA82FE /* BusinessHomeChartCarousel.swift */; };
 		755D3FE92EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */; };
 		755D3FEA2EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE82EAAAC1700F3D0D3 /* MediaMultiTagScreen.swift */; };
 		755D3FEB2EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755D3FE72EAAAC1700F3D0D3 /* MediaMultiTagViewModel.swift */; };
@@ -467,6 +470,39 @@
 		7584209C2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
 		7584209D2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
 		7584209E2EE629FA00EDC98A /* AnnotationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584209B2EE629F400EDC98A /* AnnotationKind.swift */; };
+		7585479E2EF0D0D20071D98C /* MediaBarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585479D2EF0D0AB0071D98C /* MediaBarChartData.swift */; };
+		7585479F2EF0D0D20071D98C /* MediaBarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585479D2EF0D0AB0071D98C /* MediaBarChartData.swift */; };
+		758547A02EF0D0D20071D98C /* MediaBarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585479D2EF0D0AB0071D98C /* MediaBarChartData.swift */; };
+		758547A22EF0D15F0071D98C /* MediaBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A12EF0D15B0071D98C /* MediaBarChart.swift */; };
+		758547A32EF0D15F0071D98C /* MediaBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A12EF0D15B0071D98C /* MediaBarChart.swift */; };
+		758547A42EF0D15F0071D98C /* MediaBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A12EF0D15B0071D98C /* MediaBarChart.swift */; };
+		758547A62EF0D1780071D98C /* BaseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A52EF0D1740071D98C /* BaseChartView.swift */; };
+		758547A72EF0D1780071D98C /* BaseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A52EF0D1740071D98C /* BaseChartView.swift */; };
+		758547A82EF0D1780071D98C /* BaseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A52EF0D1740071D98C /* BaseChartView.swift */; };
+		758547AA2EF0D2210071D98C /* LegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A92EF0D2210071D98C /* LegendItem.swift */; };
+		758547AB2EF0D2210071D98C /* LegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A92EF0D2210071D98C /* LegendItem.swift */; };
+		758547AC2EF0D2210071D98C /* LegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547A92EF0D2210071D98C /* LegendItem.swift */; };
+		758547AE2EF0D5F10071D98C /* ClientGrowthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547AD2EF0D5E90071D98C /* ClientGrowthData.swift */; };
+		758547AF2EF0D5F10071D98C /* ClientGrowthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547AD2EF0D5E90071D98C /* ClientGrowthData.swift */; };
+		758547B02EF0D5F10071D98C /* ClientGrowthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547AD2EF0D5E90071D98C /* ClientGrowthData.swift */; };
+		758547B22EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B12EF0D6340071D98C /* ClientGrowthLineChart.swift */; };
+		758547B32EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B12EF0D6340071D98C /* ClientGrowthLineChart.swift */; };
+		758547B42EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B12EF0D6340071D98C /* ClientGrowthLineChart.swift */; };
+		758547B62EF0D7820071D98C /* EmployeeActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B52EF0D77C0071D98C /* EmployeeActivityData.swift */; };
+		758547B72EF0D7820071D98C /* EmployeeActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B52EF0D77C0071D98C /* EmployeeActivityData.swift */; };
+		758547B82EF0D7820071D98C /* EmployeeActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547B52EF0D77C0071D98C /* EmployeeActivityData.swift */; };
+		758547EA2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547E92EF0E95D0071D98C /* EmployeeActivityBarChart.swift */; };
+		758547EB2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547E92EF0E95D0071D98C /* EmployeeActivityBarChart.swift */; };
+		758547EC2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547E92EF0E95D0071D98C /* EmployeeActivityBarChart.swift */; };
+		758547EE2EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547ED2EF0EBBB0071D98C /* MetricScoreBaseChart.swift */; };
+		758547EF2EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547ED2EF0EBBB0071D98C /* MetricScoreBaseChart.swift */; };
+		758547F02EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547ED2EF0EBBB0071D98C /* MetricScoreBaseChart.swift */; };
+		758547F22EF0EBF60071D98C /* LegendDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F12EF0EBF60071D98C /* LegendDot.swift */; };
+		758547F32EF0EBF60071D98C /* LegendDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F12EF0EBF60071D98C /* LegendDot.swift */; };
+		758547F42EF0EBF60071D98C /* LegendDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F12EF0EBF60071D98C /* LegendDot.swift */; };
+		758547FA2EF0ED890071D98C /* MetricScoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F92EF0ED850071D98C /* MetricScoreData.swift */; };
+		758547FB2EF0ED890071D98C /* MetricScoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F92EF0ED850071D98C /* MetricScoreData.swift */; };
+		758547FC2EF0ED890071D98C /* MetricScoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758547F92EF0ED850071D98C /* MetricScoreData.swift */; };
 		7585FA0D2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA0E2EA49F3800AD6DC2 /* CollageCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */; };
 		7585FA102EA49F3F00AD6DC2 /* CollageCreateEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */; };
@@ -1168,6 +1204,7 @@
 		75573AC62DD82E6300C7CA6E /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		7559ECE72EF0FA9F00DA82FE /* BusinessHomeChartCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessHomeChartCarousel.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* GlowPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GlowProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GlowProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1198,6 +1235,17 @@
 		75837A032EB19424004C2DB5 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		758420972EE6295200EDC98A /* PhotoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditor.swift; sourceTree = "<group>"; };
 		7584209B2EE629F400EDC98A /* AnnotationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationKind.swift; sourceTree = "<group>"; };
+		7585479D2EF0D0AB0071D98C /* MediaBarChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaBarChartData.swift; sourceTree = "<group>"; };
+		758547A12EF0D15B0071D98C /* MediaBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaBarChart.swift; sourceTree = "<group>"; };
+		758547A52EF0D1740071D98C /* BaseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChartView.swift; sourceTree = "<group>"; };
+		758547A92EF0D2210071D98C /* LegendItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendItem.swift; sourceTree = "<group>"; };
+		758547AD2EF0D5E90071D98C /* ClientGrowthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientGrowthData.swift; sourceTree = "<group>"; };
+		758547B12EF0D6340071D98C /* ClientGrowthLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientGrowthLineChart.swift; sourceTree = "<group>"; };
+		758547B52EF0D77C0071D98C /* EmployeeActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeActivityData.swift; sourceTree = "<group>"; };
+		758547E92EF0E95D0071D98C /* EmployeeActivityBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeActivityBarChart.swift; sourceTree = "<group>"; };
+		758547ED2EF0EBBB0071D98C /* MetricScoreBaseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricScoreBaseChart.swift; sourceTree = "<group>"; };
+		758547F12EF0EBF60071D98C /* LegendDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendDot.swift; sourceTree = "<group>"; };
+		758547F92EF0ED850071D98C /* MetricScoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricScoreData.swift; sourceTree = "<group>"; };
 		7585FA0C2EA49F3000AD6DC2 /* CollageCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditViewModel.swift; sourceTree = "<group>"; };
 		7585FA0F2EA49F3B00AD6DC2 /* CollageCreateEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreateEditScreen.swift; sourceTree = "<group>"; };
 		758C3CDC2E14AF8100BC1A43 /* BusinessLocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessLocationListViewModel.swift; sourceTree = "<group>"; };
@@ -2306,6 +2354,33 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		758547962EF0D0400071D98C /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				7559ECE72EF0FA9F00DA82FE /* BusinessHomeChartCarousel.swift */,
+				7585479C2EF0D0860071D98C /* Models */,
+				758547A12EF0D15B0071D98C /* MediaBarChart.swift */,
+				758547B12EF0D6340071D98C /* ClientGrowthLineChart.swift */,
+				758547E92EF0E95D0071D98C /* EmployeeActivityBarChart.swift */,
+				758547ED2EF0EBBB0071D98C /* MetricScoreBaseChart.swift */,
+				758547F12EF0EBF60071D98C /* LegendDot.swift */,
+				758547A52EF0D1740071D98C /* BaseChartView.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		7585479C2EF0D0860071D98C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7585479D2EF0D0AB0071D98C /* MediaBarChartData.swift */,
+				758547AD2EF0D5E90071D98C /* ClientGrowthData.swift */,
+				758547B52EF0D77C0071D98C /* EmployeeActivityData.swift */,
+				758547F92EF0ED850071D98C /* MetricScoreData.swift */,
+				758547A92EF0D2210071D98C /* LegendItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7585FA0B2EA49F1300AD6DC2 /* Create Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2368,6 +2443,7 @@
 				75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */,
 				75E72B9F2E54CA2000B51203 /* Alerts */,
 				754D29312E07B1260065E242 /* Base */,
+				758547962EF0D0400071D98C /* Charts */,
 				75F32AFA2E615327003D904B /* Sheets */,
 				75AA75572E529AB5002F1990 /* Empty State */,
 				754E51DF2E54281500258225 /* Nav */,
@@ -3070,8 +3146,10 @@
 				753EC1F72DB8C58100265B2A /* RootScreen.swift in Sources */,
 				753EC1F92DB8C58100265B2A /* MainViewModel.swift in Sources */,
 				753EC1FA2DB8C58100265B2A /* RootViewModel.swift in Sources */,
+				758547AE2EF0D5F10071D98C /* ClientGrowthData.swift in Sources */,
 				753420642E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
 				750EACE22EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */,
+				758547FA2EF0ED890071D98C /* MetricScoreData.swift in Sources */,
 				753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */,
 				750D239E2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046542E37BE7800D5EFCD /* APIService+System.swift in Sources */,
@@ -3084,6 +3162,7 @@
 				750B85FB2E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087E2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
+				758547B32EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */,
 				7515DC1A2ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B721E2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				750B86042E49485900417BA5 /* QuickActionTileView.swift in Sources */,
@@ -3171,6 +3250,7 @@
 				7537F4772DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E22E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4782DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
+				758547A82EF0D1780071D98C /* BaseChartView.swift in Sources */,
 				7537F4792DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F47A2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
@@ -3178,17 +3258,20 @@
 				75994F6B2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA42E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
+				758547EF2EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */,
 				75F135D42E638FB000BFCD51 /* CameraScreen.swift in Sources */,
 				75E5D5002EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				755076842E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
+				758547F32EF0EBF60071D98C /* LegendDot.swift in Sources */,
 				75D088812E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAD2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				75D6C2712E63C75500F8A336 /* ShutterButton.swift in Sources */,
 				7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
+				758547AC2EF0D2210071D98C /* LegendItem.swift in Sources */,
 				751970142E3D021D007FB142 /* HomeScreen.swift in Sources */,
 				75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				75EAC4D02EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
@@ -3261,6 +3344,7 @@
 				75027FE12E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */,
 				750B85FE2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
+				758547B62EF0D7820071D98C /* EmployeeActivityData.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2DA2E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -3313,6 +3397,7 @@
 				75AFB1352E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
 				75CB87742E4F84AB00FB7D78 /* GPFont.swift in Sources */,
 				75795D2A2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
+				7585479E2EF0D0D20071D98C /* MediaBarChartData.swift in Sources */,
 				754D29352E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75F131392E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */,
@@ -3333,6 +3418,7 @@
 				751970172E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				7566F1A02E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				7534206A2E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
+				7559ECEA2EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */,
 				75F2877D2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1952E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
@@ -3348,8 +3434,10 @@
 				758C3CE82E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */,
 				7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */,
+				758547EC2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */,
 				75F131332E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,
 				750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */,
+				758547A42EF0D15F0071D98C /* MediaBarChart.swift in Sources */,
 				750DFBD72DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift in Sources */,
 				75F32AFC2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,
 				750DFBD92DC6ED1200A2AB74 /* DevAnalyticsScreen.swift in Sources */,
@@ -3386,8 +3474,10 @@
 				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
 				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
 				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
+				758547B02EF0D5F10071D98C /* ClientGrowthData.swift in Sources */,
 				753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */,
 				750EACE12EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */,
+				758547FB2EF0ED890071D98C /* MetricScoreData.swift in Sources */,
 				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
 				750D239F2E786127003E57BE /* SecurityPinInputViewModel.swift in Sources */,
 				75A046532E37BE7800D5EFCD /* APIService+System.swift in Sources */,
@@ -3400,6 +3490,7 @@
 				750B85F92E493FFA00417BA5 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				7563087D2E7BB395003175A1 /* MediaReviewViewModel.swift in Sources */,
 				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
+				758547B42EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */,
 				7515DC182ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B721F2EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				750B86052E49485900417BA5 /* QuickActionTileView.swift in Sources */,
@@ -3487,6 +3578,7 @@
 				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
 				75C481E12E7C96CE0046DB88 /* MediaTransferServiceProtocol.swift in Sources */,
 				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
+				758547A72EF0D1780071D98C /* BaseChartView.swift in Sources */,
 				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
 				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
 				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
@@ -3494,17 +3586,20 @@
 				75994F6A2E7E082A00A392CD /* GhostOverlayCarouselView.swift in Sources */,
 				75F79DA52E18293100E24BD3 /* APIService+Locations.swift in Sources */,
 				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
+				758547F02EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */,
 				75F135D32E638FB000BFCD51 /* CameraScreen.swift in Sources */,
 				75E5D5012EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
 				755076852E26C3FD0041021C /* ActiveDestinationService.swift in Sources */,
 				7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
+				758547F22EF0EBF60071D98C /* LegendDot.swift in Sources */,
 				75D088822E690B7E000B06B2 /* MediaTagViewModel.swift in Sources */,
 				75F79DAE2E182A5D00E24BD3 /* APIService+Clients.swift in Sources */,
 				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				75D6C2722E63C75500F8A336 /* ShutterButton.swift in Sources */,
 				7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
 				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
+				758547AB2EF0D2210071D98C /* LegendItem.swift in Sources */,
 				751970152E3D021D007FB142 /* HomeScreen.swift in Sources */,
 				75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				75EAC4D12EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
@@ -3577,6 +3672,7 @@
 				75027FE22E7FAEFE00E10640 /* BusinessSettingsScreen.swift in Sources */,
 				750B85FF2E4944FB00417BA5 /* APIService+EmployeeInvites.swift in Sources */,
 				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
+				758547B82EF0D7820071D98C /* EmployeeActivityData.swift in Sources */,
 				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
 				7582A2D92E4814660020BA28 /* PendingInviteView.swift in Sources */,
@@ -3629,6 +3725,7 @@
 				75AFB1362E1EF8CD00A9FD0E /* BusinessEmployeeUpdateScreen.swift in Sources */,
 				75CB87732E4F84AB00FB7D78 /* GPFont.swift in Sources */,
 				75795D2C2E1731A4008BD44A /* BusinessEmployeeDetailsScreen.swift in Sources */,
+				7585479F2EF0D0D20071D98C /* MediaBarChartData.swift in Sources */,
 				754D29362E07B5C90065E242 /* SettingsViewModel.swift in Sources */,
 				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				75F131382E74BDC700E7636B /* APIService+FeatureRequest.swift in Sources */,
@@ -3649,6 +3746,7 @@
 				751970182E3D0221007FB142 /* HomeViewModel.swift in Sources */,
 				7566F19F2E76E0D300327A3C /* ClientBirthdayView.swift in Sources */,
 				753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */,
+				7559ECE92EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */,
 				75F2877E2E4FFD0D0045097D /* ClientCreateEditViewModel.swift in Sources */,
 				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
 				7527E1932E26929500FBC9AF /* BusinessEmployeeInviteScreen.swift in Sources */,
@@ -3664,8 +3762,10 @@
 				758C3CE62E14B0CB00BC1A43 /* BusinessEmployeeListScreen.swift in Sources */,
 				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
 				7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */,
+				758547EB2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */,
 				75F131322E74B6D500E7636B /* FeatureRequestViewModel.swift in Sources */,
 				75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */,
+				758547A22EF0D15F0071D98C /* MediaBarChart.swift in Sources */,
 				75D66DB52DC713C300E51CFC /* DevAnalyticsViewModel.swift in Sources */,
 				75F32AFD2E61537C003D904B /* ChecklistCompleteSheet.swift in Sources */,
 				75D66DB62DC713C300E51CFC /* DevAnalyticsScreen.swift in Sources */,
@@ -3685,8 +3785,10 @@
 				75DD83B32EAD728600DD8850 /* RootScreen.swift in Sources */,
 				75DD83B42EAD728600DD8850 /* MainViewModel.swift in Sources */,
 				75DD83B52EAD728600DD8850 /* RootViewModel.swift in Sources */,
+				758547AF2EF0D5F10071D98C /* ClientGrowthData.swift in Sources */,
 				75DD83B62EAD728600DD8850 /* MediaSourceSelectionView.swift in Sources */,
 				750EACE32EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */,
+				758547FC2EF0ED890071D98C /* MetricScoreData.swift in Sources */,
 				75DD83B72EAD728600DD8850 /* SplashScreenView.swift in Sources */,
 				75DD83B82EAD728600DD8850 /* SecurityPinInputViewModel.swift in Sources */,
 				75DD83B92EAD728600DD8850 /* APIService+System.swift in Sources */,
@@ -3699,6 +3801,7 @@
 				75DD83C42EAD728600DD8850 /* BusinessEmployeeInviteListScreen.swift in Sources */,
 				75DD83C52EAD728600DD8850 /* MediaReviewViewModel.swift in Sources */,
 				75DD83C62EAD728600DD8850 /* EmptyStateConfig.swift in Sources */,
+				758547B22EF0D6390071D98C /* ClientGrowthLineChart.swift in Sources */,
 				7515DC192ECBEB9200921AE9 /* StripeSubscriptionProduct.swift in Sources */,
 				752B72202EC784B3008D64D5 /* APIService+Subscriptions.swift in Sources */,
 				75DD83C82EAD728600DD8850 /* QuickActionTileView.swift in Sources */,
@@ -3786,6 +3889,7 @@
 				75DD84152EAD728600DD8850 /* ConnectivityServiceProtocol.swift in Sources */,
 				75DD84162EAD728600DD8850 /* MediaTransferServiceProtocol.swift in Sources */,
 				75DD84172EAD728600DD8850 /* DeeplinkService.swift in Sources */,
+				758547A62EF0D1780071D98C /* BaseChartView.swift in Sources */,
 				75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */,
 				75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */,
 				75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */,
@@ -3793,17 +3897,20 @@
 				75DD841D2EAD728600DD8850 /* GhostOverlayCarouselView.swift in Sources */,
 				75DD841E2EAD728600DD8850 /* APIService+Locations.swift in Sources */,
 				75DD841F2EAD728600DD8850 /* AnalyticsServiceProtocol.swift in Sources */,
+				758547EE2EF0EBBB0071D98C /* MetricScoreBaseChart.swift in Sources */,
 				75DD84202EAD728600DD8850 /* CameraScreen.swift in Sources */,
 				75E5D4FF2EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				75DD84212EAD728600DD8850 /* AuthService.swift in Sources */,
 				75DD84222EAD728600DD8850 /* ActiveDestinationService.swift in Sources */,
 				75DD84232EAD728600DD8850 /* SplashScreenIntroView.swift in Sources */,
+				758547F42EF0EBF60071D98C /* LegendDot.swift in Sources */,
 				75DD84242EAD728600DD8850 /* MediaTagViewModel.swift in Sources */,
 				75DD84252EAD728600DD8850 /* APIService+Clients.swift in Sources */,
 				75DD84262EAD728600DD8850 /* FirebaseServiceProtocol.swift in Sources */,
 				75DD84272EAD728600DD8850 /* ShutterButton.swift in Sources */,
 				75DD84282EAD728600DD8850 /* MediaPermissionServiceProtocol.swift in Sources */,
 				75DD84292EAD728600DD8850 /* ImpersonateServiceProtocol.swift in Sources */,
+				758547AA2EF0D2210071D98C /* LegendItem.swift in Sources */,
 				75DD842A2EAD728600DD8850 /* HomeScreen.swift in Sources */,
 				75DD842B2EAD728600DD8850 /* NavHeader.swift in Sources */,
 				75EAC4CF2EC2450900C7FEE1 /* PendingLocationView.swift in Sources */,
@@ -3876,6 +3983,7 @@
 				75DD844C2EAD728600DD8850 /* BusinessSettingsScreen.swift in Sources */,
 				75DD844D2EAD728600DD8850 /* APIService+EmployeeInvites.swift in Sources */,
 				75DD844E2EAD728600DD8850 /* Section.swift in Sources */,
+				758547B72EF0D7820071D98C /* EmployeeActivityData.swift in Sources */,
 				75DD844F2EAD728600DD8850 /* ThemeRegistry.swift in Sources */,
 				75DD84502EAD728600DD8850 /* APILogResponse.swift in Sources */,
 				75DD84512EAD728600DD8850 /* PendingInviteView.swift in Sources */,
@@ -3928,6 +4036,7 @@
 				75DD847E2EAD728600DD8850 /* BusinessEmployeeUpdateScreen.swift in Sources */,
 				75DD847F2EAD728600DD8850 /* GPFont.swift in Sources */,
 				75DD84802EAD728600DD8850 /* BusinessEmployeeDetailsScreen.swift in Sources */,
+				758547A02EF0D0D20071D98C /* MediaBarChartData.swift in Sources */,
 				75DD84812EAD728600DD8850 /* SettingsViewModel.swift in Sources */,
 				75DD84822EAD728600DD8850 /* LoginScreen.swift in Sources */,
 				75DD84832EAD728600DD8850 /* APIService+FeatureRequest.swift in Sources */,
@@ -3948,6 +4057,7 @@
 				75DD84932EAD728600DD8850 /* HomeViewModel.swift in Sources */,
 				75DD84952EAD728600DD8850 /* ClientBirthdayView.swift in Sources */,
 				75DD84962EAD728600DD8850 /* MediaFusion.swift in Sources */,
+				7559ECE82EF0FAAC00DA82FE /* BusinessHomeChartCarousel.swift in Sources */,
 				75DD84972EAD728600DD8850 /* ClientCreateEditViewModel.swift in Sources */,
 				75DD84982EAD728600DD8850 /* SignUpViewModel.swift in Sources */,
 				75DD84992EAD728600DD8850 /* BusinessEmployeeInviteScreen.swift in Sources */,
@@ -3963,8 +4073,10 @@
 				75DD84A52EAD728600DD8850 /* BusinessEmployeeListScreen.swift in Sources */,
 				75DD84A62EAD728600DD8850 /* DevSettingsViewModel.swift in Sources */,
 				75DD84A72EAD728600DD8850 /* GlobalImports.swift in Sources */,
+				758547EA2EF0E9670071D98C /* EmployeeActivityBarChart.swift in Sources */,
 				75DD84A82EAD728600DD8850 /* FeatureRequestViewModel.swift in Sources */,
 				75DD84A92EAD728600DD8850 /* DevSettingsScreen.swift in Sources */,
+				758547A32EF0D15F0071D98C /* MediaBarChart.swift in Sources */,
 				75DD84AA2EAD728600DD8850 /* DevAnalyticsViewModel.swift in Sources */,
 				75DD84AB2EAD728600DD8850 /* ChecklistCompleteSheet.swift in Sources */,
 				75DD84AC2EAD728600DD8850 /* DevAnalyticsScreen.swift in Sources */,

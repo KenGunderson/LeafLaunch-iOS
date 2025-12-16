@@ -226,6 +226,8 @@ final class MediaGalleryViewModel: ViewModel {
                     offset: self.media.count
                 )
                 
+                let onlyShowUntagged = (self.selectedSortingOption == .onlyUntagged)
+                
                 var media: [Media] = []
 
                 switch currentContext {
@@ -236,6 +238,7 @@ final class MediaGalleryViewModel: ViewModel {
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
                         tags: currentTags,
+                        onlyUntagged: onlyShowUntagged,
                         query: query
                     )
                     
@@ -246,6 +249,7 @@ final class MediaGalleryViewModel: ViewModel {
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
                         tags: currentTags,
+                        onlyUntagged: onlyShowUntagged,
                         query: query
                     )
                     
@@ -256,6 +260,7 @@ final class MediaGalleryViewModel: ViewModel {
                         sortingOption: currentSorting,
                         filterOption: currentFilter,
                         tags: currentTags,
+                        onlyUntagged: onlyShowUntagged,
                         query: query
                     )
                     

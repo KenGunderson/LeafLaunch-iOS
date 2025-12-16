@@ -245,14 +245,14 @@ struct SubscriptionProductView: View {
                 interval: .yearly,
                 isSelected: false
             )
-            .padding(.horizontal, 24)
+            .padding(.horizontal, .large)
             
             SubscriptionProductView(
                 product: product,
                 interval: .yearly,
                 isSelected: true
             )
-            .padding(.horizontal, 24)
+            .padding(.horizontal, .large)
             
         }
         

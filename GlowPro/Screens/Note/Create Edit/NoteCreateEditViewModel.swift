@@ -612,7 +612,7 @@ final class NoteCreateEditViewModel: ViewModel {
                         businessId: self.activeDestinationService.businessId,
                         locationId: locationId,
                         clientId: self.clientId,
-                        mediaType: .diagram,
+                        mediaType: .diagramAnnotation,
                         contentType: .pdf
                     ))
                 
