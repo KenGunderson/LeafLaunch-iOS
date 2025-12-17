@@ -111,6 +111,7 @@ class DrawingPDFView: PDFView,
     var onToolPickerFrameChanged: ((CGRect) -> Void)?
     private var cancellables = Set<AnyCancellable>()
 
+    private var pendingDrawingEnabled: Bool?
     weak var activeCanvas: PKCanvasView?
 
     lazy var overlayProvider: CanvasOverlayProvider = {
@@ -184,18 +185,17 @@ class DrawingPDFView: PDFView,
 
         super.didMoveToWindow()
 
-        guard self.window != nil else {
-            self.toolPicker.setVisible(false, forFirstResponder: self)
-            self.toolPicker.removeObserver(self)
-            return
-        }
+        guard self.window != nil else { return }
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        self.toolPicker.addObserver(self)
+
+        if let pending = self.pendingDrawingEnabled {
             
-            self.toolPicker.addObserver(self)
-//            self.toolPicker.setVisible(true, forFirstResponder: self)
-//            self.becomeFirstResponder()
+            self.pendingDrawingEnabled = nil
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.setDrawingMode(isEnabled: pending)
+            }
             
         }
 
@@ -237,23 +237,44 @@ class DrawingPDFView: PDFView,
         }
 
     }
-
+    
     func setDrawingMode(isEnabled: Bool) {
+        
+        guard self.window != nil else {
+            
+            self.pendingDrawingEnabled = isEnabled
+            return
+            
+        }
 
-        self.toolPicker.setVisible(isEnabled, forFirstResponder: self)
+        self.overlayProvider.isDrawingEnabled = isEnabled
 
         for canvas in self.overlayProvider.pageCanvasMap.values {
             canvas.isUserInteractionEnabled = isEnabled
         }
 
-        self.overlayProvider.isDrawingEnabled = isEnabled
-        
-        // FORCE UPDATE:
-        if isEnabled {
-            self.becomeFirstResponder()
-        } else {
-            self.resignFirstResponder()
+        guard isEnabled else {
+            
+            if let canvas = self.activeCanvas ?? self.overlayProvider.pageCanvasMap.values.first {
+                self.toolPicker.setVisible(false, forFirstResponder: canvas)
+            }
+            
+            return
+            
         }
+
+        guard let canvas = self.activeCanvas ?? self.overlayProvider.pageCanvasMap.values.first else {
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.setDrawingMode(isEnabled: true)
+            }
+            
+            return
+            
+        }
+
+        self.toolPicker.setVisible(true, forFirstResponder: canvas)
+        DispatchQueue.main.async { canvas.becomeFirstResponder() }
 
     }
 
