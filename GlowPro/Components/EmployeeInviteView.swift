@@ -78,27 +78,44 @@ struct EmployeeInviteView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(alignment: .trailing, spacing: Style.shared.spacing(.custom(2))) {
-                
-                Text(self.employeeInvitation.createdAt?.formatted(.relative(presentation: .numeric, unitsStyle: .narrow)) ?? "")
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(bodyColor)
-                    .padding(.trailing, 2)
-                
-                TokenView(
-                    text: "Remove",
-                    titleFont: .TITLE_1,
-                    foregroundStyle: Style.shared.textColor(.titleInverted),
-                    backgroundStyle: Style.shared.background(.error),
-                    verticalPadding: .custom(2),
-                    clipShape: .init(.rect(cornerRadius: Style.shared.radius(.extraSmall)))
+            Text(self.employeeInvitation.createdAt?.formatted(.relative(presentation: .numeric, unitsStyle: .narrow)) ?? "")
+                .appFont(with: .BODY_1)
+                .foregroundStyle(bodyColor)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(
+                    
+                    RoundedRectangle(cornerRadius: Style.shared.radius(.extraSmall), style: .continuous)
+                        .fill(Style.shared.background(.quinary).source())
+                    
                 )
-                .asButton {
-                    self.deleteAction()
-                }
-                
+            
+            menu()
+            
+        }
+        
+    }
+    
+    private func menu() -> some View {
+        
+        Menu {
+            
+            Button(role: .destructive) {
+                self.deleteAction()
+            } label: {
+                Label("Revoke Invitation", systemImage: "trash")
             }
-
+            
+        } label: {
+            
+            Image(systemName: "ellipsis")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+                .frame(width: 16, height: 16)
+                .rotationEffect(.degrees(90))
+                .padding(6)
+            
         }
         
     }
@@ -119,7 +136,7 @@ struct EmployeeInviteView: View {
                 businessName: "Yolo Bros",
                 locationIds: [],
                 role: .admin,
-                createdAt: Date().toISO()
+                createdAt: Date().addingTimeInterval(-1723712).toISO()
             )) {}
             
             EmployeeInviteView(employeeInvitation: .init(

@@ -291,7 +291,11 @@ final class BusinessHomeViewModel: ViewModel {
                 message: "You are attemping to delete \(invite.name)'s employee invite. This action cannot be undone. Are you sure you wish to continue?",
                 primaryButtonTitle: "Yes",
                 primaryButtonAction: { [weak self] in
-                    self?.deleteInvite(invite)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                        self?.deleteInvite(invite)
+                    }
+                    
                 },
                 primaryButtonBackgroundColor: Style.shared.background(.error),
                 primaryButtonTextColor: Style.shared.textColor(.titleInverted),
