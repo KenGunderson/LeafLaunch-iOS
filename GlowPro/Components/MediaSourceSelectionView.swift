@@ -25,8 +25,8 @@ enum SourceType: String, CaseIterable {
     
     var image: ImageSource {
         switch self {
-        case .camera: return .image(.iconCamera)
-        case .mediaGallery: return .image(.iconAlbum)
+        case .camera: return .image(.iconCamera, renderingMode: .template)
+        case .mediaGallery: return .image(.iconAlbum, renderingMode: .template)
         case .collageGallery: return .systemImage("square.grid.2x2")
         case .applePhotos: return .systemImage("photo")
         }

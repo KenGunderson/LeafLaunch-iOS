@@ -26,10 +26,10 @@ struct NavBarButton: View {
             switch self {
             case .back: return .systemImage("arrow.left")
             case .close: return .systemImage("xmark")
-            case .settings: return .image(.iconSetting)
+            case .settings: return .image(.iconSetting, renderingMode: .template)
             case .ellipsis: return .systemImage("ellipsis")
             case .plus: return .systemImage("plus")
-            case .bell: return .image(.iconBell)
+            case .bell: return .image(.iconBell, renderingMode: .template)
             case .pencil: return .systemImage("pencil")
             case .filter(let isFilled): return .systemImage("line.3.horizontal.decrease.circle\(isFilled ? ".fill" : "")")
             case .trash: return .systemImage("trash")

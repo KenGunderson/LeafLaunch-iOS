@@ -141,7 +141,7 @@ struct SubscriptionPaywallScreen: GPView {
             .illustration
             .view()
             .scaledToFill()
-            .frame(height: 250)
+            .frame(height: UIScreen.main.bounds.height * 0.30)
             .clipped()
             .stretchy()
             .gradientBlur(
@@ -149,7 +149,7 @@ struct SubscriptionPaywallScreen: GPView {
                 alignment: .bottom,
                 gradientDirection: .topToBottom,
                 mask: .preset(.medium),
-                heightStyle: .fixed(75)
+                heightStyle: .fixed(UIScreen.main.bounds.height * 0.13)
             )
             .overlay(alignment: .bottom) {
                                 

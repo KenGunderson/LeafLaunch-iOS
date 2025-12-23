@@ -104,7 +104,6 @@ extension Date {
             return ""
         }
         
-        // 3. Format however you want
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy"   // “January 1, 2026”
         

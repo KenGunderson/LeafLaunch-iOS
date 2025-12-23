@@ -189,7 +189,7 @@ struct GhostOverlayView: View {
     
     @Previewable @State var selectedGhostOverlayItem: GhostOverlayView.GhostOverlayItem?
     @Previewable @State var images: [GhostOverlayView.GhostOverlayItem] = [
-        .init(id: "0", image: .image(.armBentLeft)),
+        .init(id: "0", image: .image(.armBentLeft, renderingMode: .template)),
         .init(id: "1", image: .systemImage("person.fill")),
         .init(id: "2", image: .systemImage("house.fill")),
         .init(id: "3", image: .systemImage("person.2.fill")),
@@ -199,7 +199,7 @@ struct GhostOverlayView: View {
     ZStack {
         
         ImageSource
-            .image(.illustrationWelcome, renderingMode: .original)
+            .image(.illustrationWelcome)
             .view()
             .ignoresSafeArea()
         

@@ -155,15 +155,15 @@ struct ClientListScreen: GPView {
                     HStack(spacing: Style.shared.spacing(.small)) {
                         
                         if client.email != nil {
-                            extraInformationItem(icon: .image(.iconMail))
+                            extraInformationItem(icon: .image(.iconMail, renderingMode: .template))
                         }
                         
                         if client.phoneNumber != nil {
-                            extraInformationItem(icon: .image(.iconPhone))
+                            extraInformationItem(icon: .image(.iconPhone, renderingMode: .template))
                         }
                         
                         if client.dateOfBirth != nil {
-                            extraInformationItem(icon: .image(.iconCake))
+                            extraInformationItem(icon: .image(.iconCake, renderingMode: .template))
                         }
                             
                     }

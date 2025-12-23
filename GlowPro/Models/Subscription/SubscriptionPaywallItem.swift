@@ -27,7 +27,7 @@ extension SubscriptionPaywallItem {
         description: "Level up your workflow with advanced tools, secure storage, and team collaboration.",
         tagline: "Capture. Organize. Grow.",
         price: 29.99,
-        illustration: .image(.illustrationWelcome, renderingMode: .original)
+        illustration: .image(.illustrationWelcome)
     )
 
     static let GLOWPRO_ADD_LOCATION_MONTHLY = SubscriptionPaywallItem(
@@ -36,7 +36,7 @@ extension SubscriptionPaywallItem {
         description: "Expand your workspace with a new location and keep everything neatly separated.",
         tagline: "Grow your practice the right way.",
         price: 19.99,
-        illustration: .image(.illustrationStorefront, renderingMode: .original)
+        illustration: .image(.illustrationStorefront)
     )
     
 }

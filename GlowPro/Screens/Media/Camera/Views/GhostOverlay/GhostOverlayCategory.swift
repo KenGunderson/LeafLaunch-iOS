@@ -41,57 +41,57 @@ enum GhostOverlayCategory: String,
         case .head:
             
             return [
-                .init(id: "1", image: .image(.headFront)),
-                .init(id: "2", image: .image(.headProfileLeft)),
-                .init(id: "3", image: .image(.headProfileRight)),
-                .init(id: "4", image: .image(.head45Left)),
-                .init(id: "5", image: .image(.head45Right)),
+                .init(id: "1", image: .image(.headFront, renderingMode: .template)),
+                .init(id: "2", image: .image(.headProfileLeft, renderingMode: .template)),
+                .init(id: "3", image: .image(.headProfileRight, renderingMode: .template)),
+                .init(id: "4", image: .image(.head45Left, renderingMode: .template)),
+                .init(id: "5", image: .image(.head45Right, renderingMode: .template)),
             ]
           
         case .neck:
             
             return [
-                .init(id: "6", image: .image(.neckFront)),
-                .init(id: "7", image: .image(.neckProfileLeft)),
-                .init(id: "8", image: .image(.neckProfileRight)),
-                .init(id: "9", image: .image(.neckTiltedProfileLeft)),
-                .init(id: "10", image: .image(.neckTiltedProfileRight)),
+                .init(id: "6", image: .image(.neckFront, renderingMode: .template)),
+                .init(id: "7", image: .image(.neckProfileLeft, renderingMode: .template)),
+                .init(id: "8", image: .image(.neckProfileRight, renderingMode: .template)),
+                .init(id: "9", image: .image(.neckTiltedProfileLeft, renderingMode: .template)),
+                .init(id: "10", image: .image(.neckTiltedProfileRight, renderingMode: .template)),
             ]
             
         case .chest:
             
             return [
-                .init(id: "11", image: .image(.torsoFront)),
-                .init(id: "12", image: .image(.torsoBack)),
-                .init(id: "13", image: .image(.torsoChestLeft)),
-                .init(id: "14", image: .image(.torsoChestRight)),
+                .init(id: "11", image: .image(.torsoFront, renderingMode: .template)),
+                .init(id: "12", image: .image(.torsoBack, renderingMode: .template)),
+                .init(id: "13", image: .image(.torsoChestLeft, renderingMode: .template)),
+                .init(id: "14", image: .image(.torsoChestRight, renderingMode: .template)),
             ]
             
         case .arms:
             
             return [
-                .init(id: "15", image: .image(.armLeft)),
-                .init(id: "16", image: .image(.armRight)),
-                .init(id: "17", image: .image(.armBentLeft)),
-                .init(id: "18", image: .image(.armBentRight)),
+                .init(id: "15", image: .image(.armLeft, renderingMode: .template)),
+                .init(id: "16", image: .image(.armRight, renderingMode: .template)),
+                .init(id: "17", image: .image(.armBentLeft, renderingMode: .template)),
+                .init(id: "18", image: .image(.armBentRight, renderingMode: .template)),
             ]
             
         case .abdomen:
             
             return [
-                .init(id: "19", image: .image(.abFront)),
-                .init(id: "20", image: .image(.abBack)),
-                .init(id: "21", image: .image(.abLeft)),
-                .init(id: "22", image: .image(.abRight)),
+                .init(id: "19", image: .image(.abFront, renderingMode: .template)),
+                .init(id: "20", image: .image(.abBack, renderingMode: .template)),
+                .init(id: "21", image: .image(.abLeft, renderingMode: .template)),
+                .init(id: "22", image: .image(.abRight, renderingMode: .template)),
             ]
             
         case .hips:
             
             return [
-                .init(id: "23", image: .image(.hipFront)),
-                .init(id: "24", image: .image(.hipBack)),
-                .init(id: "25", image: .image(.hipProLeft)),
-                .init(id: "26", image: .image(.hipProRight)),
+                .init(id: "23", image: .image(.hipFront, renderingMode: .template)),
+                .init(id: "24", image: .image(.hipBack, renderingMode: .template)),
+                .init(id: "25", image: .image(.hipProLeft, renderingMode: .template)),
+                .init(id: "26", image: .image(.hipProRight, renderingMode: .template)),
             ]
         }
         
