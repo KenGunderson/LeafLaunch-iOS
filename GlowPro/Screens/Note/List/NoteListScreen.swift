@@ -142,7 +142,7 @@ struct NoteListScreen: GPView {
         
         let isSelected = self.viewModel.selectedNoteType == noteType
         let selectedBackgroundColor = noteType.backgroundColor
-        let opacityBackgroundColor: ColorSource = .color(selectedBackgroundColor.asColor!.opacity(0.15))
+        let opacityBackgroundColor: ColorSource = .sourceWithOpacity(selectedBackgroundColor, opacity: 0.15)
         
         return TokenView(
             text: noteType.displayName,
@@ -258,7 +258,7 @@ struct NoteListScreen: GPView {
             TokenView(
                 text: note.type.displayName,
                 foregroundStyle: note.type.backgroundColor,
-                backgroundStyle: .color(note.type.backgroundColor.asColor!.opacity(0.15))
+                backgroundStyle: .sourceWithOpacity(note.type.backgroundColor, opacity: 0.15)
             )
             .appBorder(
                 cornerRadius: .extraLarge,

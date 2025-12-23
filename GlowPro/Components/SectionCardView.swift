@@ -124,7 +124,7 @@ struct SectionCardView<Content: View>: View {
         }
         .appBorder(
             cornerRadius: .small2,
-            color: .color(self.color.asColor!.opacity(0.55)),
+            color: .sourceWithOpacity(self.color, opacity: 0.55),
             lineWidth: 2.5
         )
         

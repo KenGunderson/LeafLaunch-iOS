@@ -144,7 +144,7 @@ struct BusinessActivityListScreen: GPView {
                 title: "Clear All Filters",
                 titleColor: Style.shared.background(.error),
                 icon: .systemImage("xmark"),
-                backgroundStyle: .color(Style.shared.background(.error).asColor!.opacity(0.15))
+                backgroundStyle: .sourceWithOpacity(Style.shared.background(.error), opacity: 0.15)
             ) {
                 
                 self.viewModel

@@ -44,7 +44,7 @@ struct QuickActionTileView: View {
             
             CircularIconView(
                 foregroundColor: self.iconBackgroundColor,
-                backgroundColor: .color(self.iconBackgroundColor.asColor!.opacity(0.10)),
+                backgroundColor: .sourceWithOpacity(self.iconBackgroundColor, opacity: 0.10),
                 imageSource: self.icon,
                 size: 40
             )

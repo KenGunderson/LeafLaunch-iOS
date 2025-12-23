@@ -32,7 +32,7 @@ struct EmployeeInviteView: View {
             AvatarView(
                 style: .initials(name: employeeInvitation.name),
                 foregroundColor: Style.shared.accent,
-                backgroundColor: .color(Style.shared.accent.asColor!.opacity(0.10))
+                backgroundColor: .sourceWithOpacity(Style.shared.accent, opacity: 0.10)
             )
             .frame(
                 width: 40,

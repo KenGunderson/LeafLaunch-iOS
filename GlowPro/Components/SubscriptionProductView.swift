@@ -16,7 +16,7 @@ struct SubscriptionProductView: View {
     var backgroundColor: ColorSource {
         
         return self.isSelected
-        ? .color(Style.shared.accent.asColor!.opacity(0.15))
+        ? .sourceWithOpacity(Style.shared.accent, opacity: 0.15)
         : Style.shared.background(.secondary)
         
     }
