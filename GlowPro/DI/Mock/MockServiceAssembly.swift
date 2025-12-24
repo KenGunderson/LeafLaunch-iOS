@@ -1548,6 +1548,11 @@ final class MockCameraService: CameraServiceProtocol {
         return self.$zoomFactor.eraseToAnyPublisher()
     }
     
+    @Published internal var flashlightEnabled: Bool = false
+    var flashlightEnabledPublisher: AnyPublisher<Bool, Never>  {
+        return self.$flashlightEnabled.eraseToAnyPublisher()
+    }
+    
     func configure() throws {
         //
     }
@@ -1566,6 +1571,13 @@ final class MockCameraService: CameraServiceProtocol {
         
         let shouldTurnOn = self.flashMode == .auto || self.flashMode == .off
         self.flashMode = shouldTurnOn ? .on : .off
+        
+    }
+    
+    func setFlashlight(_ isOn: Bool) {
+        
+        self.flashlightEnabled = isOn
+        self.log(message: "Flashlight Enabled: \(isOn)")
         
     }
     

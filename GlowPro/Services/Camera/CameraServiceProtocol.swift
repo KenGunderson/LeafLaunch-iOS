@@ -19,6 +19,9 @@ public protocol CameraServiceProtocol: AnyObject, Loggable {
     var zoomFactor: CGFloat { get set }
     var zoomFactorPublisher: AnyPublisher<CGFloat, Never> { get }
     
+    var flashlightEnabled: Bool { get set }
+    var flashlightEnabledPublisher: AnyPublisher<Bool, Never> { get }
+    
     func configure() throws
     
     func start()
@@ -29,6 +32,8 @@ public protocol CameraServiceProtocol: AnyObject, Loggable {
     
     func setFlashMode(_ mode: CameraFlashMode)
     func toggleFlash()
+    
+    func setFlashlight(_ isOn: Bool)
     
     func setZoom(factor: CGFloat,
                  animated: Bool,

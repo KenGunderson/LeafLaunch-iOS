@@ -68,9 +68,7 @@ final class OnboardingViewModel: ViewModel {
     }
     
     deinit {
-        
         self.logDeinit()
-        
     }
     
     @discardableResult

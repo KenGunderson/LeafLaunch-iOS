@@ -376,7 +376,6 @@
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D22E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
 		754241D32E71FCB200848F6F /* BusinessEmployeeInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241D12E71FC8900848F6F /* BusinessEmployeeInviteView.swift */; };
-		754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7545912F2DF4B5860041AC58 /* GlowPro-Dev-Info.plist */; };
 		7548D23A2DD5612C008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D2392DD5612C008AE243 /* Rune */; };
 		7548D23C2DD56138008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D23B2DD56138008AE243 /* Rune */; };
 		7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
@@ -3108,7 +3107,6 @@
 				75260F5B2EB468BD00318960 /* Sample.pdf in Resources */,
 				75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
 				4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
-				754591302DF4B5860041AC58 /* GlowPro-Dev-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

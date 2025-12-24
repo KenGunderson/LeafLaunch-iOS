@@ -33,6 +33,11 @@ final class CameraService: NSObject, CameraServiceProtocol {
         return self.$zoomFactor.eraseToAnyPublisher()
     }
     
+    @Published internal var flashlightEnabled: Bool = false
+    var flashlightEnabledPublisher: AnyPublisher<Bool, Never> {
+        return self.$flashlightEnabled.eraseToAnyPublisher()
+    }
+    
     var maxZoomFactor: CGFloat {
         
         guard let device = self.videoDeviceInput?.device else { return 1.0 }
@@ -308,6 +313,29 @@ final class CameraService: NSObject, CameraServiceProtocol {
                 rampRate: rampRate
             )
             
+        }
+        
+    }
+    
+    func setFlashlight(_ isOn: Bool) {
+        
+        guard let device = self.videoDeviceInput?.device else { return }
+        
+        do {
+            
+            try device.lockForConfiguration()
+                        
+            if isOn {
+                try device.setTorchModeOn(level: 1.0)
+            } else {
+                device.torchMode = .off
+            }
+            
+            device.unlockForConfiguration()
+            self.log(message: "Flaslight Enabled: \(isOn)")
+            
+        } catch {
+            self.logError(message: "Failed to set flashlight: \(error.localizedDescription)")
         }
         
     }

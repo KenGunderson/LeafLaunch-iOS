@@ -6,6 +6,7 @@
 //
 
 import Combine
+
 final class OnboardingPermissionsViewModel: ViewModel {
     
     internal let loggerName: String = "ONBOARDING_PERMISSION_VIEW_MODEL"
