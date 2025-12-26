@@ -21,16 +21,19 @@ struct GhostOverlayView: View {
         
         let id: String
         let image: ImageSource
-        var opacity: Double = 0.5
-        var scale: CGFloat = 0.5
+        var opacity: Double = GhostOverlayView.DEFAULT_OPACITY
+        var scale: CGFloat = CGFloat(GhostOverlayView.DEFAULT_SCALE)
         
     }
     
     @Binding var selectedGhostOverlayItem: GhostOverlayItem?
     @Binding private var images: [GhostOverlayItem]
     
-    @State private var selectedOpacity: Double = 0.5
-    @State private var selectedScale: Double = 0.5
+    @State private var selectedOpacity: Double = Self.DEFAULT_OPACITY
+    @State private var selectedScale: Double = Self.DEFAULT_SCALE
+    
+    static let DEFAULT_OPACITY: Double = 0.85
+    static let DEFAULT_SCALE: Double = 0.50
     
     init(selectedGhostOverlayItem: Binding<GhostOverlayItem?>,
          images: Binding<[GhostOverlayItem]>) {
@@ -38,8 +41,8 @@ struct GhostOverlayView: View {
         self._selectedGhostOverlayItem = selectedGhostOverlayItem
         self._images = images
         
-        let initialOpacity = selectedGhostOverlayItem.wrappedValue?.opacity ?? 0.5
-        let initialScale = Double(selectedGhostOverlayItem.wrappedValue?.scale ?? 0.5)
+        let initialOpacity = selectedGhostOverlayItem.wrappedValue?.opacity ?? Self.DEFAULT_OPACITY
+        let initialScale = Double(selectedGhostOverlayItem.wrappedValue?.scale ?? CGFloat(Self.DEFAULT_SCALE))
         
         self._selectedOpacity = State(initialValue: initialOpacity)
         self._selectedScale = State(initialValue: initialScale)
@@ -65,8 +68,8 @@ struct GhostOverlayView: View {
             // Reset
             
             guard newValue == nil else { return }
-            self.selectedOpacity = 0.5
-            self.selectedScale = 0.5
+            self.selectedOpacity = Self.DEFAULT_OPACITY
+            self.selectedScale = Self.DEFAULT_SCALE
             
         }
         .onChange(of: self.selectedScale) { _, newValue in

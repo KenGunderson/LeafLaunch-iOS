@@ -95,6 +95,8 @@ struct Constants {
         
     }
     
+    // MARK: - LOGGER
+    
     struct Message {
         
         enum Context {
@@ -128,6 +130,8 @@ struct Constants {
         }
         
     }
+    
+    // MARK: - WHAT'S NEW
     
     struct WhatsNewItems {
         
@@ -165,6 +169,8 @@ struct Constants {
 }
 
 extension Constants {
+    
+    // MARK: - STATES
     
     enum USState: String, CaseIterable, Selectable {
         
@@ -235,6 +241,8 @@ extension Constants {
 }
 
 extension Constants {
+    
+    // MARK: - ALERTS
     
     static func INVALID_EMAIL_ALERT() -> RuneAlert {
         

@@ -684,8 +684,8 @@ public struct CameraScreen: View {
                         self.selectedGhostOverlayItem = .init(
                             id: "CUSTOM_PHOTO",
                             image: .remote(url: url),
-                            opacity: currentItem?.opacity ?? 0.5,
-                            scale: currentItem?.scale ?? 0.5
+                            opacity: currentItem?.opacity ?? GhostOverlayView.DEFAULT_OPACITY,
+                            scale: currentItem?.scale ?? CGFloat(GhostOverlayView.DEFAULT_SCALE)
                         )
                         
                     }
