@@ -21,19 +21,16 @@ struct GhostOverlayView: View {
         
         let id: String
         let image: ImageSource
-        var opacity: Double = GhostOverlayView.DEFAULT_OPACITY
-        var scale: CGFloat = CGFloat(GhostOverlayView.DEFAULT_SCALE)
+        var opacity: Double = Constants.Camera.DEFAULT_OPACITY
+        var scale: CGFloat = CGFloat(Constants.Camera.DEFAULT_SCALE)
         
     }
     
     @Binding var selectedGhostOverlayItem: GhostOverlayItem?
     @Binding private var images: [GhostOverlayItem]
     
-    @State private var selectedOpacity: Double = Self.DEFAULT_OPACITY
-    @State private var selectedScale: Double = Self.DEFAULT_SCALE
-    
-    static let DEFAULT_OPACITY: Double = 0.85
-    static let DEFAULT_SCALE: Double = 0.50
+    @State private var selectedOpacity: Double = Constants.Camera.DEFAULT_OPACITY
+    @State private var selectedScale: Double = Constants.Camera.DEFAULT_SCALE
     
     init(selectedGhostOverlayItem: Binding<GhostOverlayItem?>,
          images: Binding<[GhostOverlayItem]>) {
@@ -41,8 +38,8 @@ struct GhostOverlayView: View {
         self._selectedGhostOverlayItem = selectedGhostOverlayItem
         self._images = images
         
-        let initialOpacity = selectedGhostOverlayItem.wrappedValue?.opacity ?? Self.DEFAULT_OPACITY
-        let initialScale = Double(selectedGhostOverlayItem.wrappedValue?.scale ?? CGFloat(Self.DEFAULT_SCALE))
+        let initialOpacity = selectedGhostOverlayItem.wrappedValue?.opacity ?? Constants.Camera.DEFAULT_OPACITY
+        let initialScale = Double(selectedGhostOverlayItem.wrappedValue?.scale ?? CGFloat(Constants.Camera.DEFAULT_SCALE))
         
         self._selectedOpacity = State(initialValue: initialOpacity)
         self._selectedScale = State(initialValue: initialScale)
@@ -68,8 +65,8 @@ struct GhostOverlayView: View {
             // Reset
             
             guard newValue == nil else { return }
-            self.selectedOpacity = Self.DEFAULT_OPACITY
-            self.selectedScale = Self.DEFAULT_SCALE
+            self.selectedOpacity = Constants.Camera.DEFAULT_OPACITY
+            self.selectedScale = Constants.Camera.DEFAULT_SCALE
             
         }
         .onChange(of: self.selectedScale) { _, newValue in

@@ -95,6 +95,15 @@ struct Constants {
         
     }
     
+    // MARK: - CAMERA
+    
+    struct Camera {
+        
+        static let DEFAULT_OPACITY: Double = 0.85
+        static let DEFAULT_SCALE: Double = 0.50
+        
+    }
+    
     // MARK: - LOGGER
     
     struct Message {
