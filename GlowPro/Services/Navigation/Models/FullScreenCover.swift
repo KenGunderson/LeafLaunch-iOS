@@ -47,7 +47,7 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
         case .mediaPreview(let ctx): return hasher.combine(ctx)
         case .subscriptionPaywall(_, let item, _): return hasher.combine(item.id)
         case .subscriptionManage(let businessId): return hasher.combine(businessId)
-        case .annotation(let url, _, _): return hasher.combine(UUID().uuidString)
+        case .annotation(_, _, _): return hasher.combine(UUID().uuidString)
         }
         
     }

@@ -6,24 +6,28 @@
 //
 
 import os
+import Synchronization
 
 final class LoggedEventsStore {
     
     static let shared = LoggedEventsStore()
 
-    private var events: [LogEvent] = []
-    private let lock = OSAllocatedUnfairLock()
+    private let events: Mutex<[LogEvent]> = .init([])
 
     func append(_ event: LogEvent) {
-        self.lock.withLock { self.events.append(event) }
+        
+        self.events.withLock { logs in
+            logs.append(event)
+        }
+        
     }
 
     func snapshot() -> [LogEvent] {
-        self.lock.withLock { self.events }
+        self.events.withLock { return $0 }
     }
 
     func clear() {
-        self.lock.withLock { self.events.removeAll(keepingCapacity: false) }
+        self.events.withLock { $0.removeAll() }
     }
     
 }
@@ -32,23 +36,22 @@ final class APILogResponseStore {
     
     static let shared = APILogResponseStore()
 
-    private var responses: [APILogResponse] = []
-    private let lock = OSAllocatedUnfairLock()
+    private let responses: Mutex<[APILogResponse]> = .init([])
 
     func append(_ response: APILogResponse) {
         
-        self.lock.withLock {
-            self.responses.append(response)
+        self.responses.withLock { responses in
+            responses.append(response)
         }
         
     }
 
     func snapshot() -> [APILogResponse] {
-        self.lock.withLock { self.responses }
+        self.responses.withLock { return $0 }
     }
 
     func clear() {
-        self.lock.withLock { self.responses.removeAll(keepingCapacity: false) }
+        self.responses.withLock { $0.removeAll() }
     }
     
 }

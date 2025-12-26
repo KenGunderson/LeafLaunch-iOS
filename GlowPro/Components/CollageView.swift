@@ -437,9 +437,7 @@ struct CollageView: View {
 }
 
 #Preview("Template") {
-    
-    let demo = (1...16).compactMap { URL(string: "https://picsum.photos/id/\($0)/604/1001") }
-    
+        
     ScrollView {
         
         VStack(spacing: 32) {

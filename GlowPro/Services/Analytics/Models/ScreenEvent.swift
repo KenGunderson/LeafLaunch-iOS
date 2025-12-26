@@ -354,7 +354,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         var properties: [String: Any]? {
             
             switch self {
-            case .formList(let context, let locationId):
+            case .formList(let context, let mode):
                 
                 var locationId: String?
                 var businessId: String?
@@ -366,6 +366,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
                 
                 return [
                     "context": context.analyticsName,
+                    "mode": mode.analyticsName,
                     "location_id": locationId,
                     "business_id": businessId
                 ]

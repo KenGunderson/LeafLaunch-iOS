@@ -31,10 +31,10 @@ final class ImpersonateService: ImpersonateServiceProtocol {
     internal let loggerName: String = "IMPERSONATE_SERVICE"
     internal let loggerEmoji: String = "🥷🏻"
     
-    internal var apiService: APIServiceProtocol
-    internal var authService: AuthServiceProtocol
-    internal var userDefaultsService: UserDefaultsServiceProtocol
-    internal var firebaseService: FirebaseServiceProtocol
+    internal let apiService: APIServiceProtocol
+    internal let authService: AuthServiceProtocol
+    internal let userDefaultsService: UserDefaultsServiceProtocol
+    internal let firebaseService: FirebaseServiceProtocol
     
     @Published private(set) var originalUser: GPUser?
     var originalUserPublisher: AnyPublisher<GPUser?, Never> {

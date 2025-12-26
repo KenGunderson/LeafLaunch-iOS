@@ -76,7 +76,7 @@ final class DevImpersonateViewModel: ViewModel {
             .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
-        Task { [weak self] in
+        Task { [weak self, userToImpersonateEmail] in
             
             self?.alertService
                 .showAlert(loadingAlert)

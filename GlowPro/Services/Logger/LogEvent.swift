@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-public struct LogEvent: Equatable {
+public struct LogEvent: Equatable, Sendable {
     
     let id: String = UUID().uuidString
     let createdAt: Date = Date()

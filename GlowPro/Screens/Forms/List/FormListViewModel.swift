@@ -37,6 +37,13 @@ final class FormListViewModel: ViewModel {
         case preview
         case singleSelection(completion: @Sendable (Form) -> Void)
         
+        var analyticsName: String {
+            switch self {
+            case .preview: return "preview"
+            case .singleSelection: return "single_selection"
+            }
+        }
+        
         static func == (lhs: FormListViewModel.Mode, rhs: FormListViewModel.Mode) -> Bool {
             return lhs.hashValue == rhs.hashValue
         }

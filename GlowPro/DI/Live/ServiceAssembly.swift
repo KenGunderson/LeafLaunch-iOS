@@ -8,8 +8,7 @@
 import Swinject
 import UIKit
 
-final
-class ServiceAssembly: Assembly {
+final class ServiceAssembly: Assembly {
     
     func assemble(container: Container) {
         

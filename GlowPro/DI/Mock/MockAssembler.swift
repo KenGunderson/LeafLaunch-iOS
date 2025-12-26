@@ -8,6 +8,7 @@
 import SwiftUI
 import Swinject
 
+@preconcurrency
 class MockAppAssembler {
     
     static let shared = MockAppAssembler()

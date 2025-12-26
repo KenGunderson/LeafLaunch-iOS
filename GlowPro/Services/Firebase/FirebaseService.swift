@@ -7,7 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
-import FirebaseAuth
+@preconcurrency import FirebaseAuth
 import FirebaseStorage
 import AuthenticationServices
 import Combine

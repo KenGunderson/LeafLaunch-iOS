@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct APILogResponse {
+public struct APILogResponse: Sendable {
     
     public let method: String
     public let path: String

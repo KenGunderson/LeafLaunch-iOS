@@ -121,6 +121,7 @@ struct Media: Identifiable,
               Equatable,
               Codable,
               Hashable,
+              Sendable,
               Mockable {
     
     let id: String
