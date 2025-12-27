@@ -157,7 +157,7 @@ struct FormListScreen: GPView {
         let shouldShowContextMenu: Bool = (
             !form.locationId.isEmpty &&
             self.viewModel.mode == .preview &&
-            self.viewModel.context.isLocationContext
+            self.viewModel.isOwnerOrManager
         )
         
         return VStack {
