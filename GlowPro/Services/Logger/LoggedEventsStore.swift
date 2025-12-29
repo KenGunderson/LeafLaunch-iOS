@@ -13,6 +13,10 @@ final class LoggedEventsStore {
     static let shared = LoggedEventsStore()
 
     private let events: Mutex<[LogEvent]> = .init([])
+    
+    private init() {
+        
+    }
 
     func append(_ event: LogEvent) {
         
@@ -37,6 +41,10 @@ final class APILogResponseStore {
     static let shared = APILogResponseStore()
 
     private let responses: Mutex<[APILogResponse]> = .init([])
+    
+    private init() {
+        
+    }
 
     func append(_ response: APILogResponse) {
         
