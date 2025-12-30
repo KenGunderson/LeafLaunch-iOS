@@ -108,7 +108,12 @@ struct SubscriptionManageScreen: GPView {
                         }
                         
                         activePlanView(business: business)
-                        billingInformation(business: business)
+                        
+                        billingInformation(
+                            business: business,
+                            isCancellationPending: isCancellationPending
+                        )
+                        
                         mediaUsageView(business: business)
                         
                         if canCancelSubscription {
@@ -367,11 +372,16 @@ struct SubscriptionManageScreen: GPView {
     }
     
     @ViewBuilder
-    private func billingInformation(business: Business) -> some View {
+    private func billingInformation(business: Business,
+                                    isCancellationPending: Bool) -> some View {
         
         let color = ActivityCategory.location.color
         let rawInterval = business.stripeSubscription?.stripeInterval ?? ""
         let interval = SubscriptionPaywallViewModel.Interval.createFromStripeName(rawInterval)
+        
+        let title: String = isCancellationPending
+            ? "Cancellation Date"
+            : "Next Renewal Date"
         
         SectionCardView(
             title: "Billing Information",
@@ -380,7 +390,7 @@ struct SubscriptionManageScreen: GPView {
                 
                 VStack {
                     
-                    Text("Next Renewal Date: \(Date.getNextBillingDate())")
+                    Text("\(title): \(Date.getNextBillingDate())")
                         .appFont(with: .BODY_2)
                         .foregroundStyle(Style.shared.textColor(.body).source())
                         .frame(maxWidth: .infinity, alignment: .leading)

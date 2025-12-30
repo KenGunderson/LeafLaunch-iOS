@@ -51,6 +51,15 @@ enum MediaContext: Hashable, Sendable {
         case .client: return "client"
         }
     }
+    
+    var isBusinessContext: Bool {
+        switch self {
+        case .business: return true
+        case .location: return false
+        case .employee: return false
+        case .client: return false
+        }
+    }
 
 }
 
@@ -141,6 +150,18 @@ final class MediaGalleryViewModel: ViewModel {
     var allowsDelete: Bool {
         return self.isEditMode && self.activeDestinationService.isOwnerOrManager
     }
+    
+    var sortingOptions: [MediaSortingOption] {
+        
+        var options = MediaSortingOption.allCases
+        
+        if self.mediaContext.isBusinessContext {
+            options.removeAll { $0 != .favorited }
+        }
+        
+        return options
+        
+    }
 
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -211,9 +232,13 @@ final class MediaGalleryViewModel: ViewModel {
         }
 
         let currentContext = self.mediaContext!
-        let currentSorting = self.selectedSortingOption
         let currentFilter = self.mediaFilterOptions
         let currentTags = self.selectedTags
+        var currentSorting = self.selectedSortingOption
+        
+        if self.mediaContext.isBusinessContext {
+            currentSorting = .favorited
+        }
 
         self.loadTask = Task { [weak self] in
             

@@ -160,7 +160,7 @@ struct MediaGalleryScreen: GPView {
         VStack(spacing: Style.shared.spacing(.small2)) {
 
             CommonDropDownMenu(
-                options: MediaSortingOption.allCases,
+                options: self.viewModel.sortingOptions,
                 backgroundStyle: Style.shared.background(.primary),
                 shadow: .none,
                 textHorizontalPadding: .small,

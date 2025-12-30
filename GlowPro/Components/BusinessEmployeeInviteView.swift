@@ -16,7 +16,7 @@ struct BusinessEmployeeInviteView: View {
     }
     
     var title: String {
-        "Join an Existing Team"
+        "Employee or Team Member?"
     }
 
     var actionTitle: String {
@@ -36,7 +36,7 @@ struct BusinessEmployeeInviteView: View {
             
             AttributedText {
                 
-                Text("You’ll be invited to join a business at ")
+                Text("Once your employer sends an invite to ")
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .font(Style.shared.font(.BODY_2))
                 
@@ -44,7 +44,7 @@ struct BusinessEmployeeInviteView: View {
                     .foregroundStyle(self.accentColor)
                     .font(Style.shared.font(.TITLE_3))
                 
-                Text(". Once your employer sends the invite, you’ll be able to access the business and get started. Sit tight!")
+                Text(", you’ll be able to access their business here.")
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .font(Style.shared.font(.BODY_2))
                 

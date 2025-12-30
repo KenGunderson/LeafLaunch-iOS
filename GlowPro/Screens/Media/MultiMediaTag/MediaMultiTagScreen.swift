@@ -165,7 +165,7 @@ struct MediaMultiTagScreen: GPView {
         
         VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            Text("Can't find a tag? Add it yourself.")
+            Text("Don't see a tag? Create one here.")
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             

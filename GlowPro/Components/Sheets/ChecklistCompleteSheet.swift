@@ -19,6 +19,7 @@ struct ChecklistCompleteSheet: View {
             Your business is open, your first client is added, and your first photo is captured.
 
             This is the beginning of a smooth and beautiful workflow.
+            
             We’re here to support your growth from here forward. 🌿
             """
         

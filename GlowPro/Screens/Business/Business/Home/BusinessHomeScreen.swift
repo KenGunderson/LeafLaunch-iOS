@@ -100,8 +100,8 @@ struct BusinessHomeScreen: GPView {
                     tilesGrid()
                     
                     pendingInvitesList()
-                    activitiesList()
-                    clientBirthdayList()
+//                    activitiesList()
+//                    clientBirthdayList()
                     
                 }
                 .geometryGroup()
@@ -222,20 +222,20 @@ struct BusinessHomeScreen: GPView {
                     
                 }
                 
-                QuickActionTileView(
-                    icon: ActivityCategory.client.icon,
-                    iconBackgroundColor: .color(ActivityCategory.client.color),
-                    title: "All Clients",
-                    subtitle: "\(self.viewModel.business?.totalClientCount ?? 0)",
-                    prominentSubtitle: true
-                )
-                .appShadow(.subtle)
-                .asButton {
-                    
-                    self.navigationService
-                        .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
-                    
-                }
+//                QuickActionTileView(
+//                    icon: ActivityCategory.client.icon,
+//                    iconBackgroundColor: .color(ActivityCategory.client.color),
+//                    title: "All Clients",
+//                    subtitle: "\(self.viewModel.business?.totalClientCount ?? 0)",
+//                    prominentSubtitle: true
+//                )
+//                .appShadow(.subtle)
+//                .asButton {
+//                    
+//                    self.navigationService
+//                        .push(.client(.clientList(context: .business(businessId: self.viewModel.businessId))))
+//                    
+//                }
                 
             }
             
@@ -263,7 +263,7 @@ struct BusinessHomeScreen: GPView {
                 QuickActionTileView(
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
-                    title: "All Media",
+                    title: "Favorited Media",
                     subtitle: "\(self.viewModel.business?.totalMediaCount ?? 0)",
                     prominentSubtitle: true
                 )
@@ -337,7 +337,7 @@ struct BusinessHomeScreen: GPView {
                     icon: .systemImage("lock"),
                     iconBackgroundColor: .color(Color(uiColor: .lightGray)),
                     title: "Security",
-                    subtitle: "Manage Your Business",
+                    subtitle: "Manage",
                     prominentSubtitle: false
                 )
                 .appShadow(.subtle)
