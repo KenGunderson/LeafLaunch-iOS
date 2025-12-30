@@ -196,6 +196,10 @@ final class MediaGalleryViewModel: ViewModel {
         self.mediaContext = mediaContext
         self.mediaSelectionContext = mediaSelectionContext
         self.mediaFilterOptions = mediaFilterOptions
+        
+        if mediaContext.isBusinessContext {
+            self.selectedSortingOption = .favorited
+        }
 
         return self
 
@@ -234,11 +238,7 @@ final class MediaGalleryViewModel: ViewModel {
         let currentContext = self.mediaContext!
         let currentFilter = self.mediaFilterOptions
         let currentTags = self.selectedTags
-        var currentSorting = self.selectedSortingOption
-        
-        if self.mediaContext.isBusinessContext {
-            currentSorting = .favorited
-        }
+        let currentSorting = self.selectedSortingOption
 
         self.loadTask = Task { [weak self] in
             
