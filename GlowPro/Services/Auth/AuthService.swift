@@ -414,8 +414,12 @@ final class AuthService: AuthServiceProtocol {
                 )
                 
                 // TODO: - This causes two errors because the throw goes to LoginViewModel / SignupViewModel
-                // But this OnError presents on the RootViewModel. We need a way to know if this endpoint failed before or after the user has signed in. If old sign in then this onError should be good. 
-                self.onError.send(error)
+                // But this OnError presents on the RootViewModel. We need a way to know if this endpoint failed before or after the user has signed in. If old sign in then this onError should be good.
+                
+                if self.onInitialLoadCompleted.value {
+                    self.onError.send(error)
+                }
+                
                 throw error
                 
             }
