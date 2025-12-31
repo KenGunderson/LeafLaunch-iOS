@@ -31,6 +31,7 @@ struct Business: Identifiable,
     var totalClientCount: Int
     var totalEmployeeCount: Int
     var totalMediaCount: Int
+    var totalFavoritedMediaCount: Int
     var totalMediaTagCount: Int
     var totalFormsCount: Int
     
@@ -60,6 +61,7 @@ struct Business: Identifiable,
          totalClientCount: Int = 0,
          totalEmployeeCount: Int = 0,
          totalMediaCount: Int = 0,
+         totalFavoritedMediaCount: Int = 0,
          totalMediaTagCount: Int = 0,
          totalFormsCount: Int = 0,
          clientsWithBirthdaysThisMonth: [Client] = [],
@@ -86,6 +88,7 @@ struct Business: Identifiable,
         self.totalClientCount = totalClientCount
         self.totalEmployeeCount = totalEmployeeCount
         self.totalMediaCount = totalMediaCount
+        self.totalFavoritedMediaCount = totalFavoritedMediaCount
         self.totalMediaTagCount = totalMediaTagCount
         self.totalFormsCount = totalFormsCount
         self.clientsWithBirthdaysThisMonth = clientsWithBirthdaysThisMonth
@@ -116,6 +119,7 @@ struct Business: Identifiable,
         case totalClientCount = "total_clients"
         case totalEmployeeCount = "total_employees"
         case totalMediaCount = "total_media"
+        case totalFavoritedMediaCount = "total_favorited_media"
         case totalMediaTagCount = "total_media_tags"
         case totalFormsCount = "total_forms"
         case clientsWithBirthdaysThisMonth = "clients_with_birthdays_this_month"

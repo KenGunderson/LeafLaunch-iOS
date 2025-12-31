@@ -264,7 +264,7 @@ struct BusinessHomeScreen: GPView {
                     icon: ActivityCategory.media.icon,
                     iconBackgroundColor: .color(ActivityCategory.media.color),
                     title: "Favorited Media",
-                    subtitle: "\(self.viewModel.business?.totalMediaCount ?? 0)",
+                    subtitle: "\(self.viewModel.business?.totalFavoritedMediaCount ?? 0)",
                     prominentSubtitle: true
                 )
                 .appShadow(.subtle)
