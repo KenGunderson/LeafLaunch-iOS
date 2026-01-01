@@ -204,6 +204,7 @@ protocol APIServiceProtocol: APIProtocol {
     
     // System
     
+    func getCompanyStats(interval: CompanyStatInterval) async throws -> CompanyStats
     func getLegalInformation(context: String) async throws -> [LegalItem]
     func getFrequentlyAskedQuestions() async throws -> [FAQViewModel.FAQItemSection]
     func reportScreenshot(businessId: String) async throws

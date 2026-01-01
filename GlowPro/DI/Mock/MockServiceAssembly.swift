@@ -1020,6 +1020,10 @@ func declineEmployeeInvite(invite: EmployeeInvite) async throws {
     
     // System
     
+    func getCompanyStats(interval: CompanyStatInterval) async throws -> CompanyStats {
+        return .DUMMY_DATA()
+    }
+    
     func getLegalInformation(context: String) -> [LegalItem] {
         
         return [

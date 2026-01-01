@@ -227,6 +227,7 @@ final class MediaGalleryViewModel: ViewModel {
         
         // Cancel any in-flight load
         self.loadTask?.cancel()
+        self.alertService.dismissLoadingIndicator()
         
         if showHud {
             
@@ -703,12 +704,11 @@ final class MediaGalleryViewModel: ViewModel {
 
         self.$selectedSortingOption
             .receive(on: RunLoop.main)
-            .dropFirst()
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 
                 self?.resetPagingState()
-                self?.loadData()
+                self?.loadData(showHud: self?.isFirstLoad ?? false)
                 
             }
             .store(in: &self.cancelBag)

@@ -730,6 +730,20 @@ final class ViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
+        // DevSettings - CompanyStats
+        
+        container
+            .register(DevCompanyStatsViewModel.self) { r in
+                DevCompanyStatsViewModel(
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
     }
     
 }

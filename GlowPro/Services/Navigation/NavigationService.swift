@@ -587,6 +587,12 @@ extension View {
                 DevImpersonateScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
+            case .companyStats:
+                
+                let viewModel = globalResolver.resolve(DevCompanyStatsViewModel.self)!
+                
+                DevCompanyStatsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }

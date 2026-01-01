@@ -216,6 +216,15 @@
 		753420652E7A3AFC00DE3BE4 /* MediaSourceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */; };
 		753420692E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420682E7A4F1500DE3BE4 /* MediaFusion.swift */; };
 		7534206A2E7A4F1D00DE3BE4 /* MediaFusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753420682E7A4F1500DE3BE4 /* MediaFusion.swift */; };
+		7537013C2F0620110062A80C /* CompanyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537013B2F06200D0062A80C /* CompanyStats.swift */; };
+		7537013D2F0620110062A80C /* CompanyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537013B2F06200D0062A80C /* CompanyStats.swift */; };
+		7537013E2F0620110062A80C /* CompanyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537013B2F06200D0062A80C /* CompanyStats.swift */; };
+		753701412F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701402F0620B10062A80C /* DevCompanyStatsViewModel.swift */; };
+		753701422F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701402F0620B10062A80C /* DevCompanyStatsViewModel.swift */; };
+		753701432F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701402F0620B10062A80C /* DevCompanyStatsViewModel.swift */; };
+		753701452F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701442F0620E50062A80C /* DevCompanyStatsScreen.swift */; };
+		753701462F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701442F0620E50062A80C /* DevCompanyStatsScreen.swift */; };
+		753701472F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753701442F0620E50062A80C /* DevCompanyStatsScreen.swift */; };
 		7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -1107,6 +1116,9 @@
 		752B72262EC78AB0008D64D5 /* StripeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeService.swift; sourceTree = "<group>"; };
 		753420632E7A3AEF00DE3BE4 /* MediaSourceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSourceSelectionView.swift; sourceTree = "<group>"; };
 		753420682E7A4F1500DE3BE4 /* MediaFusion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFusion.swift; sourceTree = "<group>"; };
+		7537013B2F06200D0062A80C /* CompanyStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyStats.swift; sourceTree = "<group>"; };
+		753701402F0620B10062A80C /* DevCompanyStatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevCompanyStatsViewModel.swift; sourceTree = "<group>"; };
+		753701442F0620E50062A80C /* DevCompanyStatsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevCompanyStatsScreen.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -1491,13 +1503,13 @@
 			path = InviteList;
 			sourceTree = "<group>";
 		};
-		750D23992E786099003E57BE /* Security Pin */ = {
+		750D23992E786099003E57BE /* SecurityPin */ = {
 			isa = PBXGroup;
 			children = (
 				750D239D2E78611E003E57BE /* SecurityPinInputViewModel.swift */,
 				750D239A2E786117003E57BE /* SecurityPinInputScreen.swift */,
 			);
-			path = "Security Pin";
+			path = SecurityPin;
 			sourceTree = "<group>";
 		};
 		750DFBC02DC6CDAE00A2AB74 /* DevSettings */ = {
@@ -1509,6 +1521,7 @@
 				750DFBCD2DC6E97500A2AB74 /* UserDefaults */,
 				750DFBD62DC6ED1200A2AB74 /* Analytics */,
 				750DFBDC2DC6EFEC00A2AB74 /* Impersonate */,
+				7537013F2F06207B0062A80C /* CompanyStats */,
 			);
 			path = DevSettings;
 			sourceTree = "<group>";
@@ -1646,6 +1659,7 @@
 				7515DB9D2ECBEB3E00921AE9 /* BusinessCategory.swift */,
 				7515DB9E2ECBEB3E00921AE9 /* BusinessSetting.swift */,
 				7515DB9F2ECBEB3E00921AE9 /* BusinessSubcategory.swift */,
+				7537013B2F06200D0062A80C /* CompanyStats.swift */,
 				7515DBA02ECBEB3E00921AE9 /* Client.swift */,
 				7515DBA12ECBEB3E00921AE9 /* Employee.swift */,
 				7515DBA22ECBEB3E00921AE9 /* EmployeeInvite.swift */,
@@ -1728,6 +1742,15 @@
 				753420682E7A4F1500DE3BE4 /* MediaFusion.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7537013F2F06207B0062A80C /* CompanyStats */ = {
+			isa = PBXGroup;
+			children = (
+				753701402F0620B10062A80C /* DevCompanyStatsViewModel.swift */,
+				753701442F0620E50062A80C /* DevCompanyStatsScreen.swift */,
+			);
+			path = CompanyStats;
 			sourceTree = "<group>";
 		};
 		7537F3CB2DF661EA0031D9CF /* Models */ = {
@@ -2229,7 +2252,7 @@
 				75C67E392E764F2A00BB29F0 /* Note */,
 				75D66DD62DC717DF00E51CFC /* WhatsNew */,
 				754D29322E07B5AE0065E242 /* Settings */,
-				750D23992E786099003E57BE /* Security Pin */,
+				750D23992E786099003E57BE /* SecurityPin */,
 				75B1A5182EAB20960052F067 /* Subscription */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
 			);
@@ -3277,6 +3300,7 @@
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312B2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
 				7515DBB12ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */,
+				753701432F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */,
 				7515DBB22ECBEB3E00921AE9 /* AppError.swift in Sources */,
 				7515DBB32ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
 				7515DBB42ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
@@ -3369,6 +3393,7 @@
 				752B72232EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				7560F8A12E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */,
+				7537013E2F0620110062A80C /* CompanyStats.swift in Sources */,
 				75EEA4162E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA02E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7584209C2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
@@ -3376,6 +3401,7 @@
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75D290492EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				753701452F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */,
 				758DAEC32E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				758420982EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				754D29382E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
@@ -3605,6 +3631,7 @@
 				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
 				75F1312C2E74B2D800E7636B /* AboutUsViewModel.swift in Sources */,
 				7515DBD02ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */,
+				753701412F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */,
 				7515DBD12ECBEB3E00921AE9 /* AppError.swift in Sources */,
 				7515DBD22ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
 				7515DBD32ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
@@ -3697,6 +3724,7 @@
 				752B72242EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				7560F8A02E4D3996002BA9D6 /* BusinessHomeViewModel.swift in Sources */,
 				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
+				7537013C2F0620110062A80C /* CompanyStats.swift in Sources */,
 				75EEA4172E865E1C00F33B9B /* GridOverlayView.swift in Sources */,
 				75F79DA12E18263700E24BD3 /* APIService+Businesses.swift in Sources */,
 				7584209E2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
@@ -3704,6 +3732,7 @@
 				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
 				75D2904A2EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				753701462F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */,
 				758DAEC42E0514FE00311C7C /* ActivitiesView.swift in Sources */,
 				7584209A2EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				754D29392E07B5CE0065E242 /* SettingsScreen.swift in Sources */,
@@ -3916,6 +3945,7 @@
 				75DD842D2EAD728600DD8850 /* AnalyticsService.swift in Sources */,
 				75DD842E2EAD728600DD8850 /* AboutUsViewModel.swift in Sources */,
 				7515DBEF2ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */,
+				753701422F0620B70062A80C /* DevCompanyStatsViewModel.swift in Sources */,
 				7515DBF02ECBEB3E00921AE9 /* AppError.swift in Sources */,
 				7515DBF12ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
 				7515DBF22ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
@@ -4008,6 +4038,7 @@
 				752B72252EC78936008D64D5 /* StripeServiceProtocol.swift in Sources */,
 				75DD84652EAD728600DD8850 /* BusinessHomeViewModel.swift in Sources */,
 				75DD84662EAD728600DD8850 /* GPColor.swift in Sources */,
+				7537013D2F0620110062A80C /* CompanyStats.swift in Sources */,
 				75DD84672EAD728600DD8850 /* GridOverlayView.swift in Sources */,
 				75DD84682EAD728600DD8850 /* APIService+Businesses.swift in Sources */,
 				7584209D2EE629FA00EDC98A /* AnnotationKind.swift in Sources */,
@@ -4015,6 +4046,7 @@
 				75DD846A2EAD728600DD8850 /* MockAssembler.swift in Sources */,
 				75D290482EE0C17D004692F2 /* AnnotationView.swift in Sources */,
 				75DD846B2EAD728600DD8850 /* WelcomeViewModel.swift in Sources */,
+				753701472F0620E90062A80C /* DevCompanyStatsScreen.swift in Sources */,
 				75DD846E2EAD728600DD8850 /* ActivitiesView.swift in Sources */,
 				758420992EE6295200EDC98A /* PhotoEditor.swift in Sources */,
 				75DD846F2EAD728600DD8850 /* SettingsScreen.swift in Sources */,

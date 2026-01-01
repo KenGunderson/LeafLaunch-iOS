@@ -47,9 +47,6 @@ struct MediaGalleryScreen: GPView {
             self.viewModel
                 .resetPagingState()
 
-            self.viewModel
-                .loadData(showHud: self.viewModel.isFirstLoad)
-
         }
 
         // On Change
