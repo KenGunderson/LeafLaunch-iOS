@@ -21,7 +21,7 @@ final class DevCompanyStatsViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
     
     @Published private(set) var companyStats: CompanyStats?
-    @Published var selectedInterval: CompanyStatInterval?
+    @Published var selectedInterval: CompanyStatInterval? = .days7
     
     private var navigationService: NavigationService?
     private var cancelBag: CancelBag!

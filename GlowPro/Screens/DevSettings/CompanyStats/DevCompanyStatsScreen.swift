@@ -84,7 +84,10 @@ struct DevCompanyStatsScreen: GPView {
                 
                 Group {
                     
+                    intervalSegmentedControl()
                     totalsSection(companyStats: stats)
+                    
+                    growthSection(companyStats: stats)
                     averagesSection(companyStats: stats)
                     infrastructureSection(companyStats: stats)
                     
@@ -105,6 +108,16 @@ struct DevCompanyStatsScreen: GPView {
             
         }
         .frameInfinity()
+        
+    }
+    
+    @ViewBuilder
+    private func intervalSegmentedControl() -> some View {
+        
+        CommonSegmentedControl(
+            selectedOption: self.$viewModel.selectedInterval,
+            options: CompanyStatInterval.allCases
+        )
         
     }
     
@@ -425,6 +438,58 @@ struct DevCompanyStatsScreen: GPView {
     }
     
     @ViewBuilder
+    private func growthSection(companyStats: CompanyStats) -> some View {
+        
+        let growth = companyStats.growth
+        
+        AppCardView {
+            
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+                
+                SectionView(
+                    leadingTitle: "Growth",
+                    showDivider: true
+                )
+                
+                growthLabel(
+                    title: "Users",
+                    total: growth.users.added,
+                    percentageChange: growth.users.pctOfTotal ?? 0
+                )
+                
+                growthLabel(
+                    title: "Businesses",
+                    total: growth.businesses.added,
+                    percentageChange: growth.businesses.pctOfTotal ?? 0
+                )
+                
+                growthLabel(
+                    title: "Subscriptions",
+                    total: growth.subscriptions.added,
+                    percentageChange: growth.subscriptions.pctOfTotal ?? 0
+                )
+                
+                growthLabel(
+                    title: "Clients",
+                    total: growth.clients.added,
+                    percentageChange: growth.clients.pctOfTotal ?? 0
+                )
+                
+                growthLabel(
+                    title: "Media",
+                    total: growth.media.added,
+                    percentageChange: growth.media.pctOfTotal ?? 0
+                )
+                
+            }
+            
+        }
+        .compositingGroup()
+        .geometryGroup()
+        
+    }
+    
+    @ViewBuilder
     private func titleValueLabel(title: String,
                                  value: Int,
                                  image: ImageSource? = nil,
@@ -448,11 +513,49 @@ struct DevCompanyStatsScreen: GPView {
                 
                 Text("\(title): ")
                     .foregroundStyle(Style.shared.textColor(.title).source())
-                    .font(Style.shared.font(.HEADER_1))
+                    .font(Style.shared.font(.BODY_3))
                 
                 Text("\(value.formatted(.number))")
                     .font(Style.shared.font(.HEADER_1))
                     .foregroundStyle(color)
+                
+            }
+            
+        }
+        
+    }
+    
+    @ViewBuilder
+    private func growthLabel(title: String,
+                             total: Int,
+                             percentageChange: Double) -> some View {
+        
+        let chevron = percentageChange > 0 ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill"
+        let chevronTintColor = percentageChange > 0 ? GPColor.iconGreen : GPColor.iconRed
+        
+        HStack(spacing: Style.shared.spacing(.small)) {
+            
+            Text("\(title): ")
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .font(Style.shared.font(.BODY_3))
+            
+            Text("\(total.formatted(.number))")
+                .font(Style.shared.font(.HEADER_1))
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            HStack(spacing: Style.shared.spacing(.extraSmall)) {
+                
+                Image(systemName: chevron)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 8, height: 8)
+                    .foregroundStyle(chevronTintColor)
+                    .contentShape(.rect)
+                    .clipShape(.rect)
+                
+                Text(percentageChange, format: .percent.precision(.fractionLength(2)))
+                    .font(Style.shared.font(.HEADER_1))
+                    .foregroundStyle(chevronTintColor)
                 
             }
             
@@ -482,7 +585,7 @@ struct DevCompanyStatsScreen: GPView {
                 
                 Text("\(title): ")
                     .foregroundStyle(Style.shared.textColor(.title).source())
-                    .font(Style.shared.font(.HEADER_1))
+                    .font(Style.shared.font(.BODY_3))
                 
                 Text(value)
                     .font(Style.shared.font(.HEADER_1))
