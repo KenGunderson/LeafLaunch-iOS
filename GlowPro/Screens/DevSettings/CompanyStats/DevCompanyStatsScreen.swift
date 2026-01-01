@@ -286,6 +286,7 @@ struct DevCompanyStatsScreen: GPView {
         companyStats
             .groupedTotals
             .groupedActivities
+            .sorted { $0.count > $1.count }
             .forEach {
                 
                 dict[$0.activityType] = ($0.count)
@@ -306,6 +307,7 @@ struct DevCompanyStatsScreen: GPView {
         companyStats
             .groupedTotals
             .groupedCategories
+            .sorted { $0.category < $1.category }
             .forEach {
                 
                 dict[$0.category] = ($0.count)
@@ -326,6 +328,7 @@ struct DevCompanyStatsScreen: GPView {
         companyStats
             .groupedTotals
             .groupedSubcategories
+            .sorted { $0.subcategory < $1.subcategory }
             .forEach {
                 
                 dict[$0.subcategory] = ($0.count)
@@ -346,6 +349,7 @@ struct DevCompanyStatsScreen: GPView {
         companyStats
             .groupedTotals
             .groupedLocationStates
+            .sorted { $0.state < $1.state }
             .forEach {
                 
                 dict[$0.state] = ($0.count)
@@ -363,6 +367,8 @@ struct DevCompanyStatsScreen: GPView {
     private func groupedSection(title: String,
                                 data: [String: Int]) -> some View {
         
+        let sortedKeys = Array(data.keys).sorted()
+        
         AppCardView {
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
@@ -372,7 +378,7 @@ struct DevCompanyStatsScreen: GPView {
                     showDivider: true
                 )
                 
-                ForEach(Array(data.keys), id: \.id) { key in
+                ForEach(sortedKeys, id: \.id) { key in
 
                     let value = data[key]
                     
