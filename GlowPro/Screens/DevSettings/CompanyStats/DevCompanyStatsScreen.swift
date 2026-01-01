@@ -90,6 +90,7 @@ struct DevCompanyStatsScreen: GPView {
                     growthSection(companyStats: stats)
                     averagesSection(companyStats: stats)
                     infrastructureSection(companyStats: stats)
+                    downtrendSection(companyStats: stats)
                     
                     groupedActivitiesSection(companyStats: stats)
                     groupedCategories(companyStats: stats)
@@ -618,6 +619,200 @@ struct DevCompanyStatsScreen: GPView {
         .compositingGroup()
         .geometryGroup()
         
+    }
+    
+    @ViewBuilder
+    private func downtrendSection(companyStats: CompanyStats) -> some View {
+
+        let downtrend = companyStats.downtrend
+
+        AppCardView {
+
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+
+                SectionView(
+                    leadingTitle: "Downtrend",
+                    showDivider: true
+                )
+
+                titleValueLabel(
+                    title: "Subscribed Businesses",
+                    value: downtrend.subscribedBusinessCount,
+                    image: ActivityCategory.business.icon,
+                    color: ActivityCategory.business.color
+                )
+
+                titleValueLabel(
+                    title: "Cancelled Subscriptions",
+                    value: downtrend.cancelledSubscriptionsCount,
+                    image: .systemImage("xmark.circle.fill"),
+                    color: GPColor.iconRed
+                )
+
+                titleValueLabel(
+                    title: "Downgrades Happening Next Billing Cycle",
+                    value: downtrend.tierUpdateScheduleCount,
+                    image: .systemImage("calendar.badge.clock"),
+                    color: ActivityCategory.note.color
+                )
+
+                titleValueLabel(
+                    title: "Downgrades In Schedule",
+                    value: downtrend.downgradesInScheduleCount,
+                    image: .systemImage("arrow.down.circle.fill"),
+                    color: .yellow
+                )
+
+                titleValueLabel(
+                    title: "Deleted Locations w/ Media (Count)",
+                    value: downtrend.deletedLocationsWithMediaCount,
+                    image: ActivityCategory.location.icon,
+                    color: ActivityCategory.location.color
+                )
+
+                titleValueLabel(
+                    title: "Deleted Locations w/ Media (Total Media)",
+                    value: downtrend.deletedLocationsWithMediaTotalMedia,
+                    image: ActivityCategory.media.icon,
+                    color: ActivityCategory.media.color
+                )
+
+                if !downtrend.deletedLocationsWithMedia.isEmpty {
+
+                    SectionView(
+                        leadingTitle: "Deleted Locations With Media",
+                        showDivider: true
+                    )
+
+                    ForEach(downtrend.deletedLocationsWithMedia, id: \.locationId) { item in
+                        deletedLocationWithMediaRow(item)
+                    }
+
+                }
+
+                if !downtrend.tierUpdateSchedule.isEmpty {
+
+                    SectionView(
+                        leadingTitle: "Downgrades Coming",
+                        showDivider: true
+                    )
+
+                    ForEach(downtrend.tierUpdateSchedule, id: \.subscriptionId) { item in
+                        subscriptionScheduleRow(item)
+                    }
+
+                }
+
+            }
+
+        }
+        .compositingGroup()
+        .geometryGroup()
+
+    }
+    
+    @ViewBuilder
+    private func deletedLocationWithMediaRow(_ item: CompanyDeletedLocationWithMedia) -> some View {
+
+        AppCardView {
+
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+
+                HStack(spacing: Style.shared.spacing(.small)) {
+
+                    ActivityCategory.location.icon
+                        .view()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(ActivityCategory.location.color)
+
+                    Text(item.locationName)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .font(Style.shared.font(.TITLE_5))
+
+                }
+
+                titleValueLabel(
+                    title: "Business",
+                    value: item.businessName
+                )
+
+                titleValueLabel(
+                    title: "Media Count",
+                    value: item.mediaCount,
+                    image: ActivityCategory.media.icon,
+                    color: ActivityCategory.media.color
+                )
+                .padding(.top, .small2)
+
+                if let deletedAt = item.deletedAt {
+
+                    titleValueLabel(
+                        title: "Deleted At",
+                        value: deletedAt
+                    )
+
+                }
+
+            }
+
+        }
+        .compositingGroup()
+        .geometryGroup()
+
+    }
+
+    @ViewBuilder
+    private func subscriptionScheduleRow(_ item: CompanySubscriptionData) -> some View {
+
+        AppCardView {
+
+            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+
+                HStack(spacing: Style.shared.spacing(.small)) {
+
+                    ImageSource.systemImage("storefront.fill")
+                        .view()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(ActivityCategory.business.color)
+
+                    Text(item.businessName)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .font(Style.shared.font(.TITLE_5))
+
+                }
+
+                titleValueLabel(
+                    title: "Owner",
+                    value: item.ownerName,
+                    color: .black
+                )
+
+                titleValueLabel(
+                    title: "Owner Email",
+                    value: item.ownerEmail,
+                    color: .black
+                )
+
+                titleValueLabel(
+                    title: "Months Subscribed",
+                    value: item.monthsSubscribed,
+                    color: .black
+                )
+
+                titleValueLabel(
+                    title: "Created At",
+                    value: item.createdAt,
+                    color: .black
+                )
+
+            }
+
+        }
+        .compositingGroup()
+        .geometryGroup()
+
     }
     
 }
