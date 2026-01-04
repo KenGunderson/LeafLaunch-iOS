@@ -54,44 +54,46 @@ enum GhostOverlayCategory: String,
                 .init(id: "6", image: .image(.neckFront, renderingMode: .template)),
                 .init(id: "7", image: .image(.neckProfileLeft, renderingMode: .template)),
                 .init(id: "8", image: .image(.neckProfileRight, renderingMode: .template)),
-                .init(id: "9", image: .image(.neckTiltedProfileLeft, renderingMode: .template)),
-                .init(id: "10", image: .image(.neckTiltedProfileRight, renderingMode: .template)),
+                .init(id: "9", image: .image(.neckTiltedProfileUpLeft, renderingMode: .template)),
+                .init(id: "10", image: .image(.neckTiltedProfileUpRight, renderingMode: .template)),
+                .init(id: "11", image: .image(.neckTiltedProfileDownLeft, renderingMode: .template)),
+                .init(id: "12", image: .image(.neckTiltedProfileDownRight, renderingMode: .template)),
             ]
             
         case .chest:
             
             return [
-                .init(id: "11", image: .image(.torsoFront, renderingMode: .template)),
-                .init(id: "12", image: .image(.torsoBack, renderingMode: .template)),
-                .init(id: "13", image: .image(.torsoChestLeft, renderingMode: .template)),
-                .init(id: "14", image: .image(.torsoChestRight, renderingMode: .template)),
+                .init(id: "13", image: .image(.torsoFront, renderingMode: .template)),
+                .init(id: "14", image: .image(.torsoBack, renderingMode: .template)),
+                .init(id: "15", image: .image(.torsoChestLeft, renderingMode: .template)),
+                .init(id: "16", image: .image(.torsoChestRight, renderingMode: .template)),
             ]
             
         case .arms:
             
             return [
-                .init(id: "15", image: .image(.armLeft, renderingMode: .template)),
-                .init(id: "16", image: .image(.armRight, renderingMode: .template)),
-                .init(id: "17", image: .image(.armBentLeft, renderingMode: .template)),
-                .init(id: "18", image: .image(.armBentRight, renderingMode: .template)),
+                .init(id: "17", image: .image(.armLeft, renderingMode: .template)),
+                .init(id: "18", image: .image(.armRight, renderingMode: .template)),
+                .init(id: "19", image: .image(.armBentLeft, renderingMode: .template)),
+                .init(id: "20", image: .image(.armBentRight, renderingMode: .template)),
             ]
             
         case .abdomen:
             
             return [
-                .init(id: "19", image: .image(.abFront, renderingMode: .template)),
-                .init(id: "20", image: .image(.abBack, renderingMode: .template)),
-                .init(id: "21", image: .image(.abLeft, renderingMode: .template)),
-                .init(id: "22", image: .image(.abRight, renderingMode: .template)),
+                .init(id: "21", image: .image(.abFront, renderingMode: .template)),
+                .init(id: "22", image: .image(.abBack, renderingMode: .template)),
+                .init(id: "23", image: .image(.abLeft, renderingMode: .template)),
+                .init(id: "24", image: .image(.abRight, renderingMode: .template)),
             ]
             
         case .hips:
             
             return [
-                .init(id: "23", image: .image(.hipFront, renderingMode: .template)),
-                .init(id: "24", image: .image(.hipBack, renderingMode: .template)),
-                .init(id: "25", image: .image(.hipProLeft, renderingMode: .template)),
-                .init(id: "26", image: .image(.hipProRight, renderingMode: .template)),
+                .init(id: "25", image: .image(.hipFront, renderingMode: .template)),
+                .init(id: "26", image: .image(.hipBack, renderingMode: .template)),
+                .init(id: "27", image: .image(.hipProLeft, renderingMode: .template)),
+                .init(id: "28", image: .image(.hipProRight, renderingMode: .template)),
             ]
         }
         
