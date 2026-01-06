@@ -14,10 +14,10 @@ public class TabBarNavigationService {
     var selectedTab: Tab = .tab1
     var isTabBarVisible: Bool = true
     
-    var tab1NavigationService = NavigationService()
-    var tab2NavigationService = NavigationService()
-    var tab3NavigationService = NavigationService()
-    var tab4NavigationService = NavigationService()
+    let tab1NavigationService = NavigationService()
+    let tab2NavigationService = NavigationService()
+    let tab3NavigationService = NavigationService()
+    let tab4NavigationService = NavigationService()
     
     func select(_ tab: Tab) {
         
