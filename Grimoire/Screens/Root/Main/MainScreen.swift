@@ -38,9 +38,6 @@ struct MainScreen: GPView {
                     
                 }
                 
-                .withWindowToastOverlay()
-                .withWindowAlertService(.init(alertService: self.viewModel.alertService))
-                
             }
             
             if self.viewModel.shouldShowWelcomeScreen {
@@ -49,9 +46,6 @@ struct MainScreen: GPView {
                     .environment(self.tabBarNavigationService.tab1NavigationService)
                     .transition(.opacity)
                 
-                    .withWindowToastOverlay()
-                    .withWindowAlertService(.init(alertService: self.viewModel.alertService))
-                
             }
             
         }
@@ -59,6 +53,9 @@ struct MainScreen: GPView {
             maxWidth: .infinity,
             maxHeight: .infinity
         )
+        
+        .withWindowToastOverlay()
+        .withWindowAlertService(.init(alertService: self.viewModel.alertService))
         
         // Lifecycle
         
