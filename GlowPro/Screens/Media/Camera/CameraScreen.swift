@@ -545,7 +545,7 @@ public struct CameraScreen: View {
                     
                     HStack {
                         
-                        Text("Ghost Overlay:")
+                        Text("Overlay:")
                             .appFont(with: .TITLE_7)
                             .foregroundStyle(Style.shared.textColor(.title).source())
                         
