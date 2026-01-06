@@ -55,6 +55,14 @@ final class HomeViewModel: ViewModel {
         self.navigationService = navigationService
     }
     
+    func logout() {
+        
+        Task {
+            try? await self.authService.logout()
+        }
+        
+    }
+    
     func bindSubsribers() {
         
         self.cancelBag = CancelBag()
