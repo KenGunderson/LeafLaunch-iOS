@@ -110,18 +110,90 @@ class MockViewModelAssembly: Assembly {
                 )
             }.inObjectScope(.transient)
         
-        // Home
+        // Settings
         
         container
-            .register(HomeViewModel.self) { r in
-                HomeViewModel(
+            .register(SettingsViewModel.self) { r in
+                SettingsViewModel(
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     apiService: r.resolve(APIServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - PROFILE
+        
+        container
+            .register(ProfileViewModel.self) { r in
+                ProfileViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - ABOUT US
+        
+        container
+            .register(AboutUsViewModel.self) { r in
+                AboutUsViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - FEATURE REQUEST
+        
+        container
+            .register(FeatureRequestViewModel.self) { r in
+                FeatureRequestViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - FAQ
+        
+        container
+            .register(FAQViewModel.self) { r in
+                FAQViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
+                )
+            }.inObjectScope(.transient)
+        
+        // Settings - Legal
+        
+        container
+            .register(LegalViewModel.self) { r in
+                LegalViewModel(
+                    apiService: r.resolve(APIServiceProtocol.self)!,
+                    authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     alertService: r.resolve(AlertServiceProtocol.self)!,
-                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
-                    launchService: r.resolve(LaunchScreenServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
+                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
+                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
                 )
             }.inObjectScope(.transient)
         

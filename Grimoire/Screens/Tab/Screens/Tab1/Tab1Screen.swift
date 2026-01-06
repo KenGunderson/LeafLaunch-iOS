@@ -68,7 +68,12 @@ struct TabBar1Screen: View {
             
             switch navItem {
             case .bell: print("bell")
-            case .settings: print("settings")
+            case .settings:
+                
+                self.tabBarNavigationService
+                    .tab1NavigationService
+                    .modal(fullScreenCover: .settings)
+                
             default: fatalError("Not Implemented")
             }
             

@@ -32,6 +32,67 @@ enum Route: Navigation, Hashable, Sendable {
         
     }
     
+    enum SettingRoute: String, CaseIterable {
+        
+        case profile
+        case updatePermissions
+        case aboutUs
+        case frequentlyAskedQuestions
+        case contactSupport
+        case featureRequest
+        case rateApp
+        case privacyPolicy
+        case termsOfService
+        case logout
+        
+        var displayName: String {
+            switch self {
+            case .profile: return "Update Profile"
+            case .updatePermissions: return "Update Permissions"
+            case .aboutUs: return "About Us"
+            case .frequentlyAskedQuestions: return "Frequently Asked Questions"
+            case .contactSupport: return "Contact Support"
+            case .featureRequest: return "Feature Request"
+            case .rateApp: return "Rate Our App"
+            case .privacyPolicy: return "Privacy Policy"
+            case .termsOfService: return "Terms of Service"
+            case .logout: return "Logout"
+            }
+        }
+        
+        var icon: ImageSource {
+            switch self {
+            case .profile: return .image(.iconPerson)
+            case .updatePermissions: return .systemImage("shield.fill")
+            case .aboutUs: return .image(.iconInfoCircle)
+            case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
+            case .contactSupport: return .image(.iconMail)
+            case .featureRequest: return .systemImage("lightbulb.fill")
+            case .rateApp: return .systemImage("star.fill")
+            case .privacyPolicy: return .image(.iconLock)
+            case .termsOfService: return .systemImage("clipboard.fill")
+            case .logout: return .image(.iconCloseCircle)
+            }
+        }
+        
+        var tintColor: ColorSource {
+            switch self {
+            case .logout: Style.shared.background(.error)
+            default: Style.shared.accent
+            }
+        }
+        
+        var category: String {
+            switch self {
+            case .profile, .updatePermissions: return "Account"
+            case .aboutUs, .frequentlyAskedQuestions, .contactSupport, .featureRequest, .rateApp: return "Help & Feedback"
+            case .privacyPolicy, .termsOfService: return "Legal"
+            case .logout: return "Logout"
+            }
+        }
+        
+    }
+    
     enum DevSettingRoute: String, CaseIterable {
         
         case components
@@ -75,9 +136,10 @@ enum Route: Navigation, Hashable, Sendable {
         }
         
     }
-    
-    case devSetting(DevSettingRoute)
+
     case auth(AuthRoute)
     case onboarding(OnboardingRoute)
+    case settings(SettingRoute)
+    case devSetting(DevSettingRoute)
     
 }

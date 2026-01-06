@@ -115,6 +115,7 @@ extension View {
             switch route {
             case .auth(let route): auth(route: route)
             case .onboarding(let route): onboarding(route: route)
+            case .settings(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
             }
             
@@ -183,6 +184,60 @@ extension View {
                 
                 OnboardingPermissionsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func settings(route: Route.SettingRoute) -> some View {
+            
+            switch route {
+            case .profile:
+                
+                let viewModel = globalResolver.resolve(ProfileViewModel.self)!
+                ProfileScreen(viewModel: viewModel)
+                
+            case .updatePermissions: EmptyView()
+            case .aboutUs:
+                
+                let viewModel = globalResolver.resolve(AboutUsViewModel.self)!
+                
+                AboutUsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .frequentlyAskedQuestions:
+                
+                let viewModel = globalResolver.resolve(FAQViewModel.self)!
+                
+                FAQScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .contactSupport: EmptyView()
+            case .rateApp: EmptyView()
+            case .featureRequest:
+                
+                let viewModel = globalResolver.resolve(FeatureRequestViewModel.self)!
+                
+                FeatureRequestScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .privacyPolicy:
+                
+                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                    .setup(context: .privacyPolicy)
+                
+                LegalScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .termsOfService:
+                
+                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                    .setup(context: .termsAndConditions)
+                
+                LegalScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .logout: EmptyView()
             }
             
         }
@@ -287,7 +342,8 @@ extension View {
                 OnboardingScreen(viewModel: viewModel)
             case .settings:
                 
-                Color.blue.ignoresSafeArea()
+                let viewModel = globalResolver.resolve(SettingsViewModel.self)!
+                SettingsScreen(viewModel: viewModel)
             }
             
         }
