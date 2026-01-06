@@ -88,7 +88,14 @@ struct TabBar1Screen: View {
     
     @ViewBuilder
     private func content() -> some View {
-        Color.red.ignoresSafeArea()
+        
+        CommonButton(title: "Logout") {
+            
+            self.viewModel
+                .logout()
+            
+        }
+        
     }
     
 }

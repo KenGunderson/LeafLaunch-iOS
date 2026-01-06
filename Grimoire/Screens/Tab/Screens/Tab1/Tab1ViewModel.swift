@@ -39,6 +39,14 @@ final class Tab1ViewModel: ViewModel {
         self.tabBarNavigationService = tabBarNavigationService
     }
     
+    func logout() {
+        
+        Task {
+            try? await self.authService.logout()
+        }
+        
+    }
+    
     func setRandomTheme() {
         
         self.userDefaultsService
