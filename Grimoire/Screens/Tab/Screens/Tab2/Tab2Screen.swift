@@ -53,7 +53,19 @@ struct TabBar2Screen: View {
     }
     
     private func content() -> some View {
-        EmptyView()
+        
+        Color.indigo
+            .ignoresSafeArea()
+            .onTapGesture {
+                
+                ToastManager.shared
+                    .present(toastItem: .init(title: "Some New Toast"))
+                
+                self.viewModel
+                    .presentAlert()
+                
+            }
+        
     }
     
 }

@@ -67,7 +67,14 @@ struct TabBar1Screen: View {
         ) { navItem in
             
             switch navItem {
-            case .bell: print("bell")
+            case .bell:
+                
+                ToastManager.shared
+                    .present(toastItem: .init(title: "Some New Toast"))
+                
+                self.viewModel
+                    .presentAlert()
+                
             case .settings:
                 
                 self.tabBarNavigationService

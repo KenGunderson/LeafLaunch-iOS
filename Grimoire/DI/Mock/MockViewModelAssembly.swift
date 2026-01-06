@@ -37,6 +37,7 @@ class MockViewModelAssembly: Assembly {
         
         container.register(MainViewModel.self) { r in
             MainViewModel(
+                alertService: r.resolve(AlertServiceProtocol.self)!,
                 appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
                 analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                 firebaseService: r.resolve(FirebaseServiceProtocol.self)!,

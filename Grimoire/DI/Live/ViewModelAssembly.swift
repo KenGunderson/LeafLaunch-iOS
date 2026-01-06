@@ -39,6 +39,7 @@ final class ViewModelAssembly: Assembly {
         container
             .register(MainViewModel.self) { r in
                 MainViewModel(
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
@@ -117,6 +118,7 @@ final class ViewModelAssembly: Assembly {
         container
             .register(Tab1ViewModel.self) { r in
                 Tab1ViewModel(
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
                     analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
                     userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
@@ -128,8 +130,10 @@ final class ViewModelAssembly: Assembly {
         container
             .register(Tab2ViewModel.self) { r in
                 Tab2ViewModel(
+                    alertService: r.resolve(AlertServiceProtocol.self)!,
                     authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
+                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
+                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
                 )
             }
         

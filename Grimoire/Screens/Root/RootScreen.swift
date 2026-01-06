@@ -26,14 +26,14 @@ struct RootScreen: GPView {
                 
             }
             
-            mainView()            
+            mainView()
             splashScreenView()
             
         }
-        .withAlertService(self.viewModel.observableAlertServiceWrapper)
-        .environmentObject(self.viewModel.observableAlertServiceWrapper)
+//        .withAlertService(self.viewModel.observableAlertServiceWrapper)
+//        .environmentObject(self.viewModel.observableAlertServiceWrapper)
         .environment(self.tabBarNavigationService)
-        .withToastOverlay()
+//        .withToastOverlay()
         
         // Lifecycle
         
@@ -84,7 +84,6 @@ struct RootScreen: GPView {
             DevSettingsScreen(viewModel: viewModel)
             
         }
-        
         
     }
     

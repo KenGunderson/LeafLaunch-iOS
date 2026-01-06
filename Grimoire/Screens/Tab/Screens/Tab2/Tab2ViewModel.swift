@@ -12,17 +12,23 @@ final class Tab2ViewModel: ViewModel {
     internal let loggerName: String = "TAB_2_VIEW_MODEL"
     internal let loggerEmoji: String = "🔹"
     
+    private let alertService: AlertServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
     
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     
-    init(authService: AuthServiceProtocol,
-         analyticsService: AnalyticsServiceProtocol) {
+    init(alertService: AlertServiceProtocol,
+         authService: AuthServiceProtocol,
+         analyticsService: AnalyticsServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol) {
         
+        self.alertService = alertService
         self.authService = authService
         self.analyticsService = analyticsService
+        self.userDefaultsService = userDefaultsService
         
         self.logInit()
         
@@ -34,6 +40,15 @@ final class Tab2ViewModel: ViewModel {
     
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
+    }
+    
+    func presentAlert() {
+        
+        self.alertService
+            .showAlert(.init(.appAlert(.success(message: "Test", action: {
+                
+            }))))
+        
     }
     
 }

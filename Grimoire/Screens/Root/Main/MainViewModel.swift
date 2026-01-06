@@ -13,6 +13,7 @@ final class MainViewModel: ViewModel {
     internal let loggerName: String = "MAIN_VIEW_MODEL"
     internal let loggerEmoji: String = "🫚"
     
+    private(set) var alertService: AlertServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
@@ -38,7 +39,8 @@ final class MainViewModel: ViewModel {
     
     // Tab Bar Properties
     
-    init(appDelegateService: AppDelegateServiceProtocol,
+    init(alertService: AlertServiceProtocol,
+         appDelegateService: AppDelegateServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          authService: AuthServiceProtocol,
@@ -47,6 +49,7 @@ final class MainViewModel: ViewModel {
          pushNotificationsService: PushNotificationServiceProtocol,
          permissionsService: PermissionsServiceProtocol) {
         
+        self.alertService = alertService
         self.appDelegateService = appDelegateService
         self.analyticsService = analyticsService
         self.firebaseService = firebaseService
