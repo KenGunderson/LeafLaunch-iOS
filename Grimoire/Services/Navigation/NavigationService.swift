@@ -1,0 +1,297 @@
+//
+//  NavigationService.swift
+//  Grimoire
+//
+//  Created by Sako Hovaguimian on 7/15/24.
+//
+
+import SwiftUI
+import Combine
+
+@Observable
+class NavigationService: NavigationServiceProtocol, Equatable {
+    
+    static func == (lhs: NavigationService, rhs: NavigationService) -> Bool {
+        
+        lhs.routes == rhs.routes &&
+        lhs.sheet == rhs.sheet &&
+        lhs.fullScreenCover == rhs.fullScreenCover
+        
+    }
+    
+    var routes: [Route] = []
+    var sheet: Sheet?
+    var fullScreenCover: FullScreenCover?
+    
+    func push(_ route: Route) {
+        self.routes.append(route)
+    }
+    
+    func push(_ routes: [Route]) {
+        self.routes.append(contentsOf: routes)
+    }
+    
+    func pop() {
+        
+        guard !self.routes.isEmpty else { return }
+        self.routes.removeLast()
+        
+    }
+    
+    func popWithDelay(_ delay: TimeInterval = 0.2) {
+        
+        guard !self.routes.isEmpty else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.routes.removeLast()
+        }
+        
+    }
+    
+    func popLast(count: Int) {
+        
+        guard count > 0 else { return }
+        guard !self.routes.isEmpty else { return }
+        
+        let safeCount = min(count, self.routes.count)
+        self.routes.removeLast(safeCount)
+        
+    }
+    
+    func popToRoot() {
+        self.routes = []
+    }
+    
+    func swap(_ route: Route) {
+        
+        self.routes.removeLast()
+        self.routes.append(route)
+        
+    }
+    
+    func replaceStack(_ route: Route) {
+        
+        self.routes.removeAll()
+        
+        Task { @MainActor in
+            //The time delay may be device/app specific.
+            try? await Task.sleep(nanoseconds: 400_000_000)
+            await MainActor.run { [weak self] in
+                self?.push(route)
+            }
+            
+        }
+        
+    }
+    
+    // Sheets
+    
+    func modal(sheet: Sheet) {
+        self.sheet = sheet
+    }
+    
+    func dismissSheet() {
+        self.sheet = nil
+    }
+    
+    // FullScreenCover
+    
+    func modal(fullScreenCover: FullScreenCover) {
+        self.fullScreenCover = fullScreenCover
+    }
+    
+    func dismissFullScreenCover() {
+        self.fullScreenCover = nil
+    }
+    
+}
+
+extension View {
+    
+    func withNavigationDestination() -> some View {
+        
+        return navigationDestination(for: Route.self) { route in
+            
+            switch route {
+            case .auth(let route): auth(route: route)
+            case .onboarding(let route): onboarding(route: route)
+            case .devSetting(let route): devSettings(route: route)
+            }
+            
+        }
+        
+        @ViewBuilder
+        func auth(route: Route.AuthRoute) -> some View {
+            
+            switch route {
+            case .welcome:
+                
+                let viewModel = globalResolver.resolve(WelcomeViewModel.self)!
+                
+                WelcomeScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .login:
+                
+                let viewModel = globalResolver.resolve(LoginViewModel.self)!
+                
+                LoginScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .signup:
+                
+                let viewModel = globalResolver.resolve(SignUpViewModel.self)!
+                
+                SignUpScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func onboarding(route: Route.OnboardingRoute) -> some View {
+            
+            switch route {
+            case .businessSetup:
+                
+                OnboardingFeaturesScreen(onboardingPage: .businessSetup)
+                    .navigationBarBackButtonHidden()
+                
+            case .locationControl:
+                
+                OnboardingFeaturesScreen(onboardingPage: .locationControl)
+                    .navigationBarBackButtonHidden()
+                
+            case .photos:
+                
+                OnboardingFeaturesScreen(onboardingPage: .photos)
+                    .navigationBarBackButtonHidden()
+                
+            case .beforeAndAfter:
+                
+                OnboardingFeaturesScreen(onboardingPage: .beforeAndAfter)
+                    .navigationBarBackButtonHidden()
+                
+            case .documentation:
+                
+                OnboardingFeaturesScreen(onboardingPage: .documentation)
+                    .navigationBarBackButtonHidden()
+                
+            case .permission:
+                
+                let viewModel = globalResolver.resolve(OnboardingPermissionsViewModel.self)!
+                
+                OnboardingPermissionsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+        @ViewBuilder
+        func devSettings(route: Route.DevSettingRoute) -> some View {
+            
+            switch route {
+            case .components:
+                
+                DemoView()
+                    .navigationBarBackButtonHidden()
+                
+            case .userDefaults:
+                
+                let viewModel = globalResolver.resolve(DevUserDefaultsViewModel.self)!
+                
+                DevUserDefaultsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .routes:
+                                    
+                let viewModel = globalResolver.resolve(DevRoutesViewModel.self)!
+                
+                DevRoutesScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .deeplinks:
+                
+                let viewModel = globalResolver.resolve(DevDeeplinksViewModel.self)!
+                
+                DevDeeplinksScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+                
+            case .analytics:
+                                    
+                let viewModel = globalResolver.resolve(DevAnalyticsViewModel.self)!
+                
+                DevAnalyticsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
+            case .impersonate:
+                
+                let viewModel = globalResolver.resolve(DevImpersonateViewModel.self)!
+                
+                DevImpersonateScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+            }
+            
+        }
+        
+    }
+    
+    func withSheetDestination(_ customSheet: Binding<Sheet?>) -> some View {
+        
+        /// DEV-NOTE: Add `presentationBackground` modifier to presenting view to avoid flickering; Apple bug
+        
+        // We do this for SE Phones
+//        let halfSheet = 0.60
+//        let iphoneSESheet = 0.70
+//
+//        let isModernDevice: Bool = UIDevice.isModernDevice
+        
+        return sheet(item: customSheet) { sheet in
+            
+            switch sheet {
+            case .whatsNew:
+
+                Color.orange.ignoresSafeArea()
+                
+            case .permissions:
+                
+                Color.indigo.ignoresSafeArea()
+            }
+            
+        }
+        
+    }
+    
+    func withFullScreenCover(_ customFullScreenCover: Binding<FullScreenCover?>) -> some View {
+        
+        return fullScreenCover(item: customFullScreenCover) { fullScreenCover in
+            
+            switch fullScreenCover {
+            case .devSettings:
+                
+                let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
+                DevSettingsScreen(viewModel: viewModel)
+                
+            case .onboarding:
+                
+                let viewModel = globalResolver.resolve(OnboardingViewModel.self)!
+                    .setup(pages: [
+                        .businessSetup,
+                        .locationControl,
+                        .photos,
+                        .beforeAndAfter,
+                        .documentation,
+                        .permission
+                    ])
+                
+                OnboardingScreen(viewModel: viewModel)
+            case .settings:
+                
+                Color.blue.ignoresSafeArea()
+            }
+            
+        }
+        
+    }
+    
+}
