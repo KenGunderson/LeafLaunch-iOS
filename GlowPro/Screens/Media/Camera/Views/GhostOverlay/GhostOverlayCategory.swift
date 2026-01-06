@@ -21,7 +21,7 @@ enum GhostOverlayCategory: String,
     
     var displayName: String {
         switch self {
-        case .ghost: return "Ghost Photo"
+        case .ghost: return "Custom"
         case .head: return "Head"
         case .neck: return "Neck"
         case .chest: return "Chest"
