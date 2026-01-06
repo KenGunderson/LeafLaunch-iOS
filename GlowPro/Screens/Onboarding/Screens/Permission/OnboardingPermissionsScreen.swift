@@ -120,7 +120,7 @@ struct OnboardingPermissionsScreen: GPView {
                 return isEnabled ? "Allowed" : "Denied"
             }
             
-            return "Authorize"
+            return "Next"
         }
         
         var buttonTitleColor: ColorSource {

@@ -4263,15 +4263,16 @@
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4303,15 +4304,16 @@
 				INFOPLIST_FILE = GlowPro/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4416,9 +4418,9 @@
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -4457,9 +4459,9 @@
 				INFOPLIST_FILE = "GlowPro-Dev/GlowPro-Dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This allows you to take photos from your devce to upload to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows you to select photos from your camera roll to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This information helps us debug potential problems within the app and associate features that are working.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -4498,9 +4500,9 @@
 				INFOPLIST_FILE = "GlowPro-Localhost/GlowPro-Localhost-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Lets you take photos with your camera and upload them to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Lets you choose photos from your library to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Helps us detect and fix issues, monitor app performance, and improve reliability by understanding what’s working and what isn’t.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -4539,9 +4541,9 @@
 				INFOPLIST_FILE = "GlowPro-Localhost/GlowPro-Localhost-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = GlowPro;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Lets you take photos with your camera and upload them to the app.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Lets you choose photos from your library to upload to the app.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Helps us detect and fix issues, monitor app performance, and improve reliability by understanding what’s working and what isn’t.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "GlowPro uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "GlowPro lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "GlowPro collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
