@@ -50,7 +50,7 @@ final class LegalViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
     
     private(set) var context: Context!
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     
     private var cancelBag: CancelBag!
     

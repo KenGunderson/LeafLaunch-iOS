@@ -13,7 +13,7 @@ final class OnboardingViewModel: ViewModel {
     internal let loggerName: String = "ONBOARDING_VIEW_MODEL"
     internal let loggerEmoji: String = "🛹"
     
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     
     private let analyticsService: AnalyticsServiceProtocol
     private(set) var permissionService: PermissionsServiceProtocol

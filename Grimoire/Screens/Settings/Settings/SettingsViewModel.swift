@@ -22,7 +22,7 @@ final class SettingsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol
 
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     @Published private(set) var shouldDismiss: Bool = false

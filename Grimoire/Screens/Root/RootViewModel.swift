@@ -35,7 +35,7 @@ final class RootViewModel: ViewModel {
     @Published private(set) var isImpersonatingUser: Bool = false
     @Published var shouldPresentDevSettings: Bool = false
     
-    private(set) var navigationService: NavigationService?
+    private(set) weak var navigationService: NavigationService?
     
     var impersonatingUserEmail: String {
         return self.impersonateService.impersonatedUser?.email ?? ""

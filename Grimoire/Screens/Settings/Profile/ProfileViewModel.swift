@@ -20,7 +20,7 @@ final class ProfileViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     
     @Published var firstName: String = ""
     @Published var lastName: String = ""

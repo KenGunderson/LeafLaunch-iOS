@@ -20,7 +20,7 @@ final class DevSettingsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     private var dismissAction: (() -> ())?
     private var cancelBag: CancelBag!
             

@@ -39,7 +39,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     
     private(set) var impersonatedUserData: Data?
     
-    private var navigationService: NavigationService?
+    private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
     
     init(alertService: AlertServiceProtocol,
