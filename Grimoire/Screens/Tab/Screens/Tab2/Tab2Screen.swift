@@ -12,6 +12,12 @@ struct TabBar2Screen: View {
     @StateObject var viewModel: Tab2ViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
     
+    @State private var time = WheelTime(
+        hour: 1,
+        minute: 00,
+        period: .am
+    )
+    
     let tab: Tab
     
     var body: some View {
@@ -54,17 +60,10 @@ struct TabBar2Screen: View {
     
     private func content() -> some View {
         
-        Color.indigo
-            .ignoresSafeArea()
-            .onTapGesture {
-                
-                ToastManager.shared
-                    .present(toastItem: .init(title: "Some New Toast"))
-                
-                self.viewModel
-                    .presentAlert()
-                
-            }
+        WheelTimePicker(
+            time: self.$time
+        )
+        
         
     }
     
