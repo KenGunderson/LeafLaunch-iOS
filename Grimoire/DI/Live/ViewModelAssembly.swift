@@ -6,322 +6,341 @@
 //
 
 import Foundation
-import Swinject
+import FactoryKit
 
-final class ViewModelAssembly: Assembly {
+extension Container {
     
-    func assemble(container: Container) {
-        
-        // RootViewModel
-        
-        container
-            .register(RootViewModel.self) { r in
-                RootViewModel(
-                    launchService: r.resolve(LaunchScreenServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!,
-                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
-                    appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
-                    connectivityService: r.resolve(ConnectivityServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    pushNotificationService: r.resolve(PushNotificationServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    deeplinkService: r.resolve(DeeplinkServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // MainViewModel
-        
-        container
-            .register(MainViewModel.self) { r in
-                MainViewModel(
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    appDelegateService: r.resolve(AppDelegateServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    pushNotificationsService: r.resolve(PushNotificationServiceProtocol.self)!,
-                    permissionsService: r.resolve(PermissionsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Auth - Welcome
-        
-        container
-            .register(WelcomeViewModel.self) { r in
-                WelcomeViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Auth - Login
-        
-        container
-            .register(LoginViewModel.self) { r in
-                LoginViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Auth - SignUp
-        
-        container
-            .register(SignUpViewModel.self) { r in
-                SignUpViewModel(
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Onboarding ViewModel
-        
-        container
-            .register(OnboardingViewModel.self) { r in
-                OnboardingViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    permissionService: r.resolve(PermissionsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Onboarding Permission ViewModel
-        
-        container
-            .register(OnboardingPermissionsViewModel.self) { r in
-                OnboardingPermissionsViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    permissionService: r.resolve(PermissionsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Tab 1 ViewModel
-        
-        container
-            .register(Tab1ViewModel.self) { r in
-                Tab1ViewModel(
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
-        // Tab 2 ViewModel
-        
-        container
-            .register(Tab2ViewModel.self) { r in
-                Tab2ViewModel(
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }
-        
-        // Tab 3 ViewModel
-        
-        container
-            .register(Tab3ViewModel.self) { r in
-                Tab3ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
-                )
-            }
-        
-        // Tab 4 ViewModel
-        
-        container
-            .register(Tab4ViewModel.self) { r in
-                Tab4ViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!
-                )
-            }
-        
-        // Settings
-        
-        container
-            .register(SettingsViewModel.self) { r in
-                SettingsViewModel(
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Settings - PROFILE
-        
-        container
-            .register(ProfileViewModel.self) { r in
-                ProfileViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Settings - ABOUT US
-        
-        container
-            .register(AboutUsViewModel.self) { r in
-                AboutUsViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Settings - FEATURE REQUEST
-        
-        container
-            .register(FeatureRequestViewModel.self) { r in
-                FeatureRequestViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Settings - FAQ
-        
-        container
-            .register(FAQViewModel.self) { r in
-                FAQViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // Settings - Legal
-        
-        container
-            .register(LegalViewModel.self) { r in
-                LegalViewModel(
-                    apiService: r.resolve(APIServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings
-        
-        container
-            .register(DevSettingsViewModel.self) { r in
-                DevSettingsViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    firebaseService: r.resolve(FirebaseServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings - Routes
-        
-        container
-            .register(DevRoutesViewModel.self) { r in
-                DevRoutesViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings - Deeplinks
-        
-        container
-            .register(DevDeeplinksViewModel.self) { r in
-                DevDeeplinksViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings - UserDefaults
-        
-        container
-            .register(DevUserDefaultsViewModel.self) { r in
-                DevUserDefaultsViewModel(
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!,
-                    permissionService: r.resolve(PermissionsServiceProtocol.self)!,
-                    userDefaultsService: r.resolve(UserDefaultsServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings - Analytics
-        
-        container
-            .register(DevAnalyticsViewModel.self) { r in
-                DevAnalyticsViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    authService: r.resolve(AuthServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
-        // DevSettings - Impersonate
-        
-        container
-            .register(DevImpersonateViewModel.self) { r in
-                DevImpersonateViewModel(
-                    analyticsService: r.resolve(AnalyticsServiceProtocol.self)!,
-                    impersonateService: r.resolve(ImpersonateServiceProtocol.self)!,
-                    viewLifecycleService: r.resolve(ViewLifecycleServiceProtocol.self)!,
-                    alertService: r.resolve(AlertServiceProtocol.self)!,
-                    environmentService: r.resolve(EnvironmentServiceProtocol.self)!
-                )
-            }.inObjectScope(.transient)
-        
+    // RootViewModel
+    
+    var rootViewModel: Factory<RootViewModel> {
+        self {
+            RootViewModel(
+                launchService: self.launchScreenService(),
+                analyticsService: self.analyticsService(),
+                environmentService: self.environmentService(),
+                alertService: self.alertService(),
+                apiService: self.apiService(),
+                authService: self.authService(),
+                impersonateService: self.impersonateService(),
+                firebaseService: self.firebaseService(),
+                appDelegateService: self.appDelegateService(),
+                connectivityService: self.connectivityService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                pushNotificationService: self.pushNotificationService(),
+                userDefaultsService: self.userDefaultsService(),
+                deeplinkService: self.deeplinkService()
+            )
+        }
+    }
+    
+    // MainViewModel
+    
+    var mainViewModel: Factory<MainViewModel> {
+        self {
+            MainViewModel(
+                alertService: self.alertService(),
+                appDelegateService: self.appDelegateService(),
+                analyticsService: self.analyticsService(),
+                firebaseService: self.firebaseService(),
+                authService: self.authService(),
+                userDefaultsService: self.userDefaultsService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                pushNotificationsService: self.pushNotificationService(),
+                permissionsService: self.permissionsService()
+            )
+        }
+    }
+    
+    // Auth - Welcome
+    
+    var welcomeViewModel: Factory<WelcomeViewModel> {
+        self {
+            WelcomeViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Auth - Login
+    
+    var loginViewModel: Factory<LoginViewModel> {
+        self {
+            LoginViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Auth - SignUp
+    
+    var signUpViewModel: Factory<SignUpViewModel> {
+        self {
+            SignUpViewModel(
+                alertService: self.alertService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Onboarding ViewModel
+    
+    var onboardingViewModel: Factory<OnboardingViewModel> {
+        self {
+            OnboardingViewModel(
+                analyticsService: self.analyticsService(),
+                permissionService: self.permissionsService(),
+                alertService: self.alertService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
+    // Onboarding Permission ViewModel
+    
+    var onboardingPermissionsViewModel: Factory<OnboardingPermissionsViewModel> {
+        self {
+            OnboardingPermissionsViewModel(
+                analyticsService: self.analyticsService(),
+                permissionService: self.permissionsService(),
+                alertService: self.alertService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
+    // Tab 1 ViewModel
+    
+    var tab1ViewModel: Factory<Tab1ViewModel> {
+        self {
+            Tab1ViewModel(
+                alertService: self.alertService(),
+                authService: self.authService(),
+                analyticsService: self.analyticsService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
+    // Tab 2 ViewModel
+    
+    var tab2ViewModel: Factory<Tab2ViewModel> {
+        self {
+            Tab2ViewModel(
+                alertService: self.alertService(),
+                authService: self.authService(),
+                analyticsService: self.analyticsService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
+    // Tab 3 ViewModel
+    
+    var tab3ViewModel: Factory<Tab3ViewModel> {
+        self {
+            Tab3ViewModel(
+                authService: self.authService(),
+                analyticsService: self.analyticsService()
+            )
+        }
+    }
+    
+    // Tab 4 ViewModel
+    
+    var tab4ViewModel: Factory<Tab4ViewModel> {
+        self {
+            Tab4ViewModel(
+                authService: self.authService(),
+                analyticsService: self.analyticsService()
+            )
+        }
+    }
+    
+    // Settings
+    
+    var settingsViewModel: Factory<SettingsViewModel> {
+        self {
+            SettingsViewModel(
+                authService: self.authService(),
+                apiService: self.apiService(),
+                alertService: self.alertService(),
+                analyticsService: self.analyticsService(),
+                environmentService: self.environmentService(),
+                userDefaultsService: self.userDefaultsService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                impersonateService: self.impersonateService()
+            )
+        }
+    }
+    
+    // Settings - PROFILE
+    
+    var profileViewModel: Factory<ProfileViewModel> {
+        self {
+            ProfileViewModel(
+                apiService: self.apiService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                alertService: self.alertService(),
+                userDefaultsService: self.userDefaultsService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Settings - ABOUT US
+    
+    var aboutUsViewModel: Factory<AboutUsViewModel> {
+        self {
+            AboutUsViewModel(
+                apiService: self.apiService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Settings - FEATURE REQUEST
+    
+    var featureRequestViewModel: Factory<FeatureRequestViewModel> {
+        self {
+            FeatureRequestViewModel(
+                apiService: self.apiService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Settings - FAQ
+    
+    var faqViewModel: Factory<FAQViewModel> {
+        self {
+            FAQViewModel(
+                apiService: self.apiService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // Settings - Legal
+    
+    var legalViewModel: Factory<LegalViewModel> {
+        self {
+            LegalViewModel(
+                apiService: self.apiService(),
+                authService: self.authService(),
+                analyticsService: self.analyticsService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // DevSettings
+    
+    var devSettingsViewModel: Factory<DevSettingsViewModel> {
+        self {
+            DevSettingsViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                firebaseService: self.firebaseService(),
+                alertService: self.alertService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // DevSettings - Routes
+    
+    var devRoutesViewModel: Factory<DevRoutesViewModel> {
+        self {
+            DevRoutesViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // DevSettings - Deeplinks
+    
+    var devDeeplinksViewModel: Factory<DevDeeplinksViewModel> {
+        self {
+            DevDeeplinksViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // DevSettings - UserDefaults
+    
+    var devUserDefaultsViewModel: Factory<DevUserDefaultsViewModel> {
+        self {
+            DevUserDefaultsViewModel(
+                alertService: self.alertService(),
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService(),
+                permissionService: self.permissionsService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
+    // DevSettings - Analytics
+    
+    var devAnalyticsViewModel: Factory<DevAnalyticsViewModel> {
+        self {
+            DevAnalyticsViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService()
+            )
+        }
+    }
+    
+    // DevSettings - Impersonate
+    
+    var devImpersonateViewModel: Factory<DevImpersonateViewModel> {
+        self {
+            DevImpersonateViewModel(
+                analyticsService: self.analyticsService(),
+                impersonateService: self.impersonateService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                alertService: self.alertService(),
+                environmentService: self.environmentService()
+            )
+        }
     }
     
 }

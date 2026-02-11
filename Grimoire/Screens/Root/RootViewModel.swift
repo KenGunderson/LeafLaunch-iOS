@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import FactoryKit
 
 final class RootViewModel: ViewModel {
     
@@ -28,7 +29,7 @@ final class RootViewModel: ViewModel {
     private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let deeplinkService: DeeplinkServiceProtocol
     
-    private(set) var mainViewModel = globalResolver.resolve(MainViewModel.self)!
+    @LazyInjected(\.mainViewModel) private(set) var mainViewModel: MainViewModel
     
     @Published private(set) var launchState: LaunchScreenService.State = .loading
     @Published private(set) var shouldShowAuthError: Bool = false

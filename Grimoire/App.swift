@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FactoryKit
 
 @main
 struct GrimoireApp: App {
@@ -18,8 +19,8 @@ struct GrimoireApp: App {
     init() {
         
         self.rootViewModel = self.appAssembler
-            .resolver
-            .resolve(RootViewModel.self)!
+            .container
+            .rootViewModel()
         
     }
     

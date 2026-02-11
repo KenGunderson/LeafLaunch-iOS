@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import FactoryKit
 
 final class MainViewModel: ViewModel {
     
@@ -31,11 +32,11 @@ final class MainViewModel: ViewModel {
         
     // ViewModels
     
-    private(set) var welcomeViewModel = globalResolver.resolve(WelcomeViewModel.self)!
-    private(set) var tab1ViewModel = globalResolver.resolve(Tab1ViewModel.self)!
-    private(set) var tab2ViewModel = globalResolver.resolve(Tab2ViewModel.self)!
-    private(set) var tab3ViewModel = globalResolver.resolve(Tab3ViewModel.self)!
-    private(set) var tab4ViewModel = globalResolver.resolve(Tab4ViewModel.self)!
+    @LazyInjected(\.welcomeViewModel) private(set) var welcomeViewModel: WelcomeViewModel
+    @LazyInjected(\.tab1ViewModel) private(set) var tab1ViewModel: Tab1ViewModel
+    @LazyInjected(\.tab2ViewModel) private(set) var tab2ViewModel: Tab2ViewModel
+    @LazyInjected(\.tab3ViewModel) private(set) var tab3ViewModel: Tab3ViewModel
+    @LazyInjected(\.tab4ViewModel) private(set) var tab4ViewModel: Tab4ViewModel
     
     // Tab Bar Properties
     

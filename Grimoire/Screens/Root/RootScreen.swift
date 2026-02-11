@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FactoryKit
 
 struct RootScreen: GPView {
     
@@ -77,7 +78,7 @@ struct RootScreen: GPView {
         
         .fullScreenCover(isPresented: self.$viewModel.shouldPresentDevSettings) {
             
-            let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
+            let viewModel = Container.shared.devSettingsViewModel()
             DevSettingsScreen(viewModel: viewModel)
             
         }

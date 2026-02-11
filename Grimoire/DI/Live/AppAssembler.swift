@@ -6,23 +6,14 @@
 //
 
 import Foundation
-import Swinject
+import FactoryKit
 
 class AppAssembler {
     
-  private let assembler: Assembler
-  
-  var resolver: Resolver { self.assembler.resolver }
-  
-  init() {
-      
-    self.assembler = Assembler([
-      ServiceAssembly(),
-      ViewModelAssembly(),
-    ])
-      
-    globalResolver = resolver
-      
-  }
+    let container: Container
+    
+    init() {
+        self.container = Container.shared
+    }
     
 }

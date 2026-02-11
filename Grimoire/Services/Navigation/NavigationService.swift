@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import FactoryKit
 
 @Observable
 class NavigationService: NavigationServiceProtocol, Equatable {
@@ -127,21 +128,21 @@ extension View {
             switch route {
             case .welcome:
                 
-                let viewModel = globalResolver.resolve(WelcomeViewModel.self)!
+                let viewModel = Container.shared.welcomeViewModel()
                 
                 WelcomeScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .login:
                 
-                let viewModel = globalResolver.resolve(LoginViewModel.self)!
+                let viewModel = Container.shared.loginViewModel()
                 
                 LoginScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .signup:
                 
-                let viewModel = globalResolver.resolve(SignUpViewModel.self)!
+                let viewModel = Container.shared.signUpViewModel()
                 
                 SignUpScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -180,7 +181,7 @@ extension View {
                 
             case .permission:
                 
-                let viewModel = globalResolver.resolve(OnboardingPermissionsViewModel.self)!
+                let viewModel = Container.shared.onboardingPermissionsViewModel()
                 
                 OnboardingPermissionsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -194,20 +195,20 @@ extension View {
             switch route {
             case .profile:
                 
-                let viewModel = globalResolver.resolve(ProfileViewModel.self)!
+                let viewModel = Container.shared.profileViewModel()
                 ProfileScreen(viewModel: viewModel)
                 
             case .updatePermissions: EmptyView()
             case .aboutUs:
                 
-                let viewModel = globalResolver.resolve(AboutUsViewModel.self)!
+                let viewModel = Container.shared.aboutUsViewModel()
                 
                 AboutUsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .frequentlyAskedQuestions:
                 
-                let viewModel = globalResolver.resolve(FAQViewModel.self)!
+                let viewModel = Container.shared.faqViewModel()
                 
                 FAQScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -216,14 +217,14 @@ extension View {
             case .rateApp: EmptyView()
             case .featureRequest:
                 
-                let viewModel = globalResolver.resolve(FeatureRequestViewModel.self)!
+                let viewModel = Container.shared.featureRequestViewModel()
                 
                 FeatureRequestScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .privacyPolicy:
                 
-                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                let viewModel = Container.shared.legalViewModel()
                     .setup(context: .privacyPolicy)
                 
                 LegalScreen(viewModel: viewModel)
@@ -231,7 +232,7 @@ extension View {
                 
             case .termsOfService:
                 
-                let viewModel = globalResolver.resolve(LegalViewModel.self)!
+                let viewModel = Container.shared.legalViewModel()
                     .setup(context: .termsAndConditions)
                 
                 LegalScreen(viewModel: viewModel)
@@ -253,35 +254,35 @@ extension View {
                 
             case .userDefaults:
                 
-                let viewModel = globalResolver.resolve(DevUserDefaultsViewModel.self)!
+                let viewModel = Container.shared.devUserDefaultsViewModel()
                 
                 DevUserDefaultsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .routes:
                                     
-                let viewModel = globalResolver.resolve(DevRoutesViewModel.self)!
+                let viewModel = Container.shared.devRoutesViewModel()
                 
                 DevRoutesScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .deeplinks:
                 
-                let viewModel = globalResolver.resolve(DevDeeplinksViewModel.self)!
+                let viewModel = Container.shared.devDeeplinksViewModel()
                 
                 DevDeeplinksScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
                 
             case .analytics:
                                     
-                let viewModel = globalResolver.resolve(DevAnalyticsViewModel.self)!
+                let viewModel = Container.shared.devAnalyticsViewModel()
                 
                 DevAnalyticsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .impersonate:
                 
-                let viewModel = globalResolver.resolve(DevImpersonateViewModel.self)!
+                let viewModel = Container.shared.devImpersonateViewModel()
                 
                 DevImpersonateScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -324,12 +325,12 @@ extension View {
             switch fullScreenCover {
             case .devSettings:
                 
-                let viewModel = globalResolver.resolve(DevSettingsViewModel.self)!
+                let viewModel = Container.shared.devSettingsViewModel()
                 DevSettingsScreen(viewModel: viewModel)
                 
             case .onboarding:
                 
-                let viewModel = globalResolver.resolve(OnboardingViewModel.self)!
+                let viewModel = Container.shared.onboardingViewModel()
                     .setup(pages: [
                         .businessSetup,
                         .locationControl,
@@ -342,7 +343,7 @@ extension View {
                 OnboardingScreen(viewModel: viewModel)
             case .settings:
                 
-                let viewModel = globalResolver.resolve(SettingsViewModel.self)!
+                let viewModel = Container.shared.settingsViewModel()
                 SettingsScreen(viewModel: viewModel)
             }
             

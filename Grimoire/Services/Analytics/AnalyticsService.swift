@@ -9,6 +9,7 @@ import Combine
 import Observation
 import Amplitude
 import AdSupport
+import FactoryKit
 
 final class AnalyticsService: AnalyticsServiceProtocol {
     
@@ -19,7 +20,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     private(set) var environmentService: EnvironmentServiceProtocol
     private(set) var permissionService: PermissionsServiceProtocol
-    private(set) var impersonateService: ImpersonateServiceProtocol?
+    @LazyInjected(\.impersonateService) private var impersonateService: ImpersonateServiceProtocol
     
     private(set) var currentUserId = CurrentValueSubject<String?, Never>(nil)
     
@@ -29,19 +30,17 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     }
     
     private var isImpersonating: Bool {
-        return self.impersonateService?.isImpersonating ?? false
+        return (self.impersonateService).isImpersonating
     }
     
     private var currentIdfa: String = "00000000-0000-0000-0000-000000000000"
     private var cancelBag: CancelBag!
         
     init(environmentService: EnvironmentServiceProtocol,
-         permissionService: PermissionsServiceProtocol,
-         impersonateService: ImpersonateServiceProtocol?) {
+         permissionService: PermissionsServiceProtocol) {
         
         self.environmentService = environmentService
         self.permissionService = permissionService
-        self.impersonateService = impersonateService
         
         self.logInit()
         self.sessionEvents = []

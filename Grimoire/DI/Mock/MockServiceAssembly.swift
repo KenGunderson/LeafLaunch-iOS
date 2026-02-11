@@ -12,7 +12,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseStorage
 import AppTrackingTransparency
-import Swinject
+import FactoryKit
 import StripePaymentSheet
 import AVFoundation
 
@@ -475,29 +475,29 @@ final class MockViewLifecycleService: ViewLifecycleServiceProtocol {
 
 // MARK: - Mock Service Assembly
 
-final class MockServiceAssembly: Assembly {
+final class MockServiceAssembly {
     
     func assemble(container: Container) {
         
-        container.register(EnvironmentServiceProtocol.self) { _ in MockEnvironmentService() }.inObjectScope(.container)
-        container.register(AlertServiceProtocol.self) { _ in MockAlertService() }.inObjectScope(.container)
-        container.register(AnalyticsServiceProtocol.self) { _ in MockAnalyticsService() }.inObjectScope(.container)
-        container.register(AppDelegateServiceProtocol.self) { _ in MockAppDelegateService() }.inObjectScope(.container)
-        container.register(DeeplinkServiceProtocol.self) { _ in MockDeeplinkService() }.inObjectScope(.container)
-        container.register(FirebaseServiceProtocol.self) { _ in MockFirebaseService() }.inObjectScope(.container)
-        container.register(UserDefaultsServiceProtocol.self) { _ in MockUserDefaultsService() }.inObjectScope(.container)
-        container.register(ConnectivityServiceProtocol.self) { _ in MockConnectivityService() }.inObjectScope(.container)
-        container.register(PushNotificationServiceProtocol.self) { _ in MockPushNotificationService() }.inObjectScope(.container)
-        container.register(LaunchScreenServiceProtocol.self) { _ in MockLaunchScreenService() }.inObjectScope(.container)
-        container.register(CameraPermissionServiceProtocol.self) { _ in MockCameraPermissionService() }.inObjectScope(.container)
-        container.register(MediaPermissionServiceProtocol.self) { _ in MockMediaPermissionService() }.inObjectScope(.container)
-        container.register(PushNotificationPermissionServiceProtocol.self) { _ in MockPushNotificationPermissionService() }.inObjectScope(.container)
-        container.register(AppTrackingPermissionServiceProtocol.self) { _ in MockAppTrackingPermissionService() }.inObjectScope(.container)
-        container.register(ViewLifecycleServiceProtocol.self) { _ in MockViewLifecycleService() }.inObjectScope(.container)
-        container.register(PermissionsServiceProtocol.self) { _ in MockPermissionsService() }.inObjectScope(.container)
-        container.register(APIServiceProtocol.self) { _ in MockAPIService() }.inObjectScope(.container)
-        container.register(AuthServiceProtocol.self) { _ in MockAuthService() }.inObjectScope(.container)
-        container.register(ImpersonateServiceProtocol.self.self) { _ in MockImpersonateService() }.inObjectScope(.container)
+        container.environmentService.register { MockEnvironmentService() }
+        container.alertService.register { MockAlertService() }
+        container.analyticsService.register { MockAnalyticsService() }
+        container.appDelegateService.register { MockAppDelegateService() }
+        container.deeplinkService.register { MockDeeplinkService() }
+        container.firebaseService.register { MockFirebaseService() }
+        container.userDefaultsService.register { MockUserDefaultsService() }
+        container.connectivityService.register { MockConnectivityService() }
+        container.pushNotificationService.register { MockPushNotificationService() }
+        container.launchScreenService.register { MockLaunchScreenService() }
+        container.cameraPermissionService.register { MockCameraPermissionService() }
+        container.mediaPermissionService.register { MockMediaPermissionService() }
+        container.pushNotificationPermissionService.register { MockPushNotificationPermissionService() }
+        container.appTrackingPermissionService.register { MockAppTrackingPermissionService() }
+        container.viewLifecycleService.register { MockViewLifecycleService() }
+        container.permissionsService.register { MockPermissionsService() }
+        container.apiService.register { MockAPIService() }
+        container.authService.register { MockAuthService() }
+        container.impersonateService.register { MockImpersonateService() }
         
     }
     
