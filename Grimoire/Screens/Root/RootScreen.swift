@@ -30,10 +30,7 @@ struct RootScreen: GPView {
             splashScreenView()
             
         }
-//        .withAlertService(self.viewModel.observableAlertServiceWrapper)
-//        .environmentObject(self.viewModel.observableAlertServiceWrapper)
         .environment(self.tabBarNavigationService)
-//        .withToastOverlay()
         
         // Lifecycle
         
