@@ -15,7 +15,9 @@ public extension Theme {
             primary:    .color(Color(hex: "#7AD8CE")),
             secondary:  .color(Color(hex: "#9bf7ed")),
             tertiary:   .color(Color(hex: "#75CEC5")),
-            quaternary: .color(Color(hex: "#75CEC5"))
+            quaternary: .color(Color(hex: "#75CEC5")),
+            disabled: .color(Color(hex: "#DFE2E7")),
+            warning: .color(Color(hex: "#FFD740"))
         ),
         background: .init(
             primary:    .color(Color(hex: "#F9FAFB")),
