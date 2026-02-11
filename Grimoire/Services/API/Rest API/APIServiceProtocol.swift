@@ -7,6 +7,14 @@
 
 import Foundation
 
+enum RequestBody {
+    
+    case none
+    case json([String: Any])
+    case multipart(boundary: String, data: Data)
+    
+}
+
 protocol APIProtocol: AnyObject, Sendable, Loggable {
     
     var environment: AppEnvironment? { get }
@@ -43,86 +51,50 @@ protocol APIServiceProtocol: APIProtocol {
 
 extension APIProtocol {
     
-    func buildRequest(
-        method: HTTPRequestMethod,
-        apiPath: APIPath,
-        queryParameters: [String: String]? = [:],
-        parameters: [String: Any] = [:]) async throws -> Data {
+    func buildRequest(method: HTTPRequestMethod,
+                      apiPath: APIPath,
+                      queryParameters: [String: String] = [:],
+                      parameters: [String: Any] = [:]) async throws -> Data {
+        
+        var apiLogResponse: APILogResponse?
+        
+        defer {
             
-            var apiLogResponse: APILogResponse?
-            
-            defer {
-                
-                if let apiLogResponse {
-                    APILogResponseStore.shared.append(apiLogResponse)
-                }
-                
+            if let apiLogResponse {
+                APILogResponseStore.shared.append(apiLogResponse)
             }
-            
-            guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
-                throw URLError(.badURL)
-            }
-            
-            if !(queryParameters?.isEmpty ?? false) {
-                urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
-            }
-            
-            guard let url = urlComponents.url else {
-                throw URLError(.badURL)
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = method.rawValue
-            request.setValue("0.0.1", forHTTPHeaderField: "App-Version")
-            request.setValue("Bearer \(self.accessToken ?? "")", forHTTPHeaderField: "Authorization")
-            
-            if !parameters.isEmpty {
-                
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            }
-            
-            var customLog: String = """
-            METHOD: \(method.rawValue.uppercased())
-            OUTGOING URL: \(request.url?.absoluteString ?? "No URL Provided")
-            """
-            
-            if let queryParameters,
-               !queryParameters.isEmpty {
-                
-                customLog.append("\nQUERY PARAMS: \(queryParameters)")
-                
-            }
-            
-            if !parameters.isEmpty {
-                customLog.append("\nPARAMETERS: \(parameters)")
-            }
-            
-            self.log(message: customLog)
-            
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            apiLogResponse = APILogResponse(
-                method: method.rawValue,
-                path: request.url?.absoluteString ?? "No URL Provided",
-                statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-                headers: request.allHTTPHeaderFields ?? [:],
-                queryParameters: queryParameters ?? [:],
-                body: parameters,
-                responseData: data
-            )
-            
-            if let error = handleErrorResponse(data: data, response: response) {
-                
-                apiLogResponse?.error = error
-                throw error
-                
-            }
-            
-            return data
             
         }
+        
+        let request = try makeRequest(
+            method: method,
+            apiPath: apiPath,
+            queryParameters: queryParameters,
+            body: .json(parameters)
+        )
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        apiLogResponse = APILogResponse(
+            method: method.rawValue,
+            path: request.url?.absoluteString ?? "No URL Provided",
+            statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
+            headers: request.allHTTPHeaderFields ?? [:],
+            queryParameters: queryParameters,
+            body: parameters,
+            responseData: data
+        )
+        
+        if let error = handleErrorResponse(data: data, response: response) {
+            
+            apiLogResponse?.error = error
+            throw error
+            
+        }
+        
+        return data
+        
+    }
     
     func buildMultipartRequest(method: HTTPRequestMethod,
                                apiPath: APIPath,
@@ -139,30 +111,12 @@ extension APIProtocol {
             
         }
         
-        guard let urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
-            throw URLError(.badURL)
-        }
-        
-        guard let url = urlComponents.url else {
-            throw URLError(.badURL)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        request.httpBody = data
-        
-        request.setValue("1.0.0", forHTTPHeaderField: "App-Version")
-        request.setValue("Bearer \(self.accessToken ?? "")", forHTTPHeaderField: "Authorization")
-                
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        let customLog: String = """
-            METHOD: \(method.rawValue.uppercased())
-            OUTGOING URL: \(request.url?.absoluteString ?? "No URL Provided")
-            """
-        
-        self.log(message: customLog)
+        let request = try makeRequest(
+            method: method,
+            apiPath: apiPath,
+            queryParameters: [:],
+            body: .multipart(boundary: boundary, data: data)
+        )
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -186,6 +140,10 @@ extension APIProtocol {
         return data
         
     }
+    
+}
+
+extension APIProtocol {
     
     func parseData<T: Decodable>(data: Data) throws -> T {
         
@@ -307,6 +265,107 @@ extension APIProtocol {
         let received = first["received"] as? String ?? "unknown"
         
         return "Field '\(path)': \(message) (expected \(expected), received \(received)) [\(code)]"
+    }
+    
+}
+
+extension APIProtocol {
+    
+    func makeRequest(method: HTTPRequestMethod,
+                     apiPath: APIPath,
+                     queryParameters: [String: String],
+                     body: RequestBody) throws -> URLRequest {
+        
+        guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
+            throw URLError(.badURL)
+        }
+        
+        if !queryParameters.isEmpty {
+            urlComponents.queryItems = queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
+        
+        guard let url = urlComponents.url else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.setValue(Self.appVersion, forHTTPHeaderField: "App-Version")
+        
+        if let accessToken = self.accessToken,
+           !accessToken.isEmpty {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        switch body {
+        case .none:
+            break
+            
+        case .json(let parameters):
+            
+            if !parameters.isEmpty {
+                
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+            }
+            
+        case .multipart(let boundary, let data):
+            
+            request.httpBody = data
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            
+        }
+        
+        log(message: buildRequestLog(
+            method: method,
+            url: request.url,
+            queryParameters: queryParameters,
+            body: body
+        ))
+        
+        return request
+        
+    }
+    
+    func buildRequestLog(method: HTTPRequestMethod,
+                         url: URL?,
+                         queryParameters: [String: String],
+                         body: RequestBody) -> String {
+        
+        var customLog: String = """
+        METHOD: \(method.rawValue.uppercased())
+        OUTGOING URL: \(url?.absoluteString ?? "No URL Provided")
+        """
+        
+        if !queryParameters.isEmpty {
+            customLog.append("\nQUERY PARAMS: \(queryParameters)")
+        }
+        
+        if let params = body.jsonParameters,
+           !params.isEmpty {
+            customLog.append("\nPARAMETERS: \(params)")
+        }
+        
+        return customLog
+        
+    }
+    
+    static var appVersion: String {
+        "1.0.0"
+    }
+    
+}
+
+private extension RequestBody {
+    
+    var jsonParameters: [String: Any]? {
+        
+        switch self {
+        case .json(let params): return params
+        default: return nil
+        }
+        
     }
     
 }
