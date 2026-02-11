@@ -10,8 +10,6 @@ import SwiftUI
 struct AppRootView<Content: View>: View {
     
     @Binding var navigationService: NavigationService
-//    private let alertService: AlertServiceProtocol?
-//    @State var observableAlertServiceWrapper: ObservableAlertServiceWrapper?
     private let content: Content
     
     init(navigationService: Binding<NavigationService>,
@@ -19,10 +17,6 @@ struct AppRootView<Content: View>: View {
          @ViewBuilder content: () -> Content) {
         
         self._navigationService = navigationService
-        
-//        self.alertService = alertService
-//        self.observableAlertServiceWrapper = (alertService == nil) ? nil : .init(alertService: alertService!)
-        
         self.content = content()
         
     }
@@ -32,10 +26,6 @@ struct AppRootView<Content: View>: View {
          @ViewBuilder content: () -> Content) {
         
         self._navigationService = .constant(navigationService.wrappedValue)
-        
-//        self.alertService = alertService
-//        self.observableAlertServiceWrapper = (alertService == nil) ? nil : .init(alertService: alertService!)
-        
         self.content = content()
         
     }
@@ -51,23 +41,9 @@ struct AppRootView<Content: View>: View {
             
         }
         
-//        // Alert
-//        
-//        .if(self.alertService != nil) { view in
-//            view.withAlertService(self.observableAlertServiceWrapper!)
-//        }
-//        
-//        // Toast
-//        
-//        .withToastOverlay()
-        
         // Env
         
         .environment(self.navigationService)
-//        
-//        .if(self.alertService != nil) { view in
-//            view.environmentObject(self.observableAlertServiceWrapper!)
-//        }
         
         // Dev Settings
         

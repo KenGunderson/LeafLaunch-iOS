@@ -41,7 +41,7 @@ private struct PreviewWrapper<Content: View>: View {
     var body: some View {
         
         content()
-            .withAlertService(ObservableAlertServiceWrapper(alertService: mockResolve(AlertServiceProtocol.self)))
+            .withWindowAlertService(ObservableAlertServiceWrapper(alertService: mockResolve(AlertServiceProtocol.self)))
         
     }
     
@@ -57,7 +57,7 @@ extension View {
         .if(withNaivgationService) { view in
             view.environment(NavigationService())
         }
-        .withToastOverlay()
+        .withWindowToastOverlay()
         
     }
     
