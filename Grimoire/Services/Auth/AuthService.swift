@@ -210,7 +210,7 @@ final class AuthService: AuthServiceProtocol {
         
         do {
             
-            globalTabBarNavigationService.resetPathItems()
+            globalTabBarNavigationService?.resetPathItems()
             try self.firebaseService.logout()
             await self.userDefaultsService.logout()
             self.analyticsService.logout()
@@ -273,72 +273,60 @@ final class AuthService: AuthServiceProtocol {
                                   authorization: ASAuthorization,
                                   isLogin: Bool) async throws {
         
-        return try await withCheckedThrowingContinuation { continuation in
+        let authResult: (name: String?,
+                         email: String?,
+                         idTokenString: String,
+                         nonce: String) = try await withCheckedThrowingContinuation { continuation in
             
             self.firebaseService.handleAppleSignupOrLogin(
                 currentNonce: currentNonce,
-                authorization: authorization,
-                completion: { name, email, idTokenString, nonce, error in
-                    
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                    }
-                    
-                    Task {
-                        
-                        do {
-                            
-                            try await self.firebaseService.login(
-                                token: idTokenString,
-                                nonce: nonce
-                            )
-                            
-                            if let name,
-                               let email {
-                                
-                                // Create user
-                                
-                                let user = try await self.apiService
-                                    .createUser(user: .init(
-                                        id: "",
-                                        firstName: name.firstName,
-                                        lastName: name.lastName,
-                                        email: email,
-                                        externalId: self.firebaseService.user?.uid ?? "",
-                                        dateOfBirth: nil,
-                                        imageURL: nil
-                                    ))
-                                
-                                DispatchQueue.main.async {
-                                    self.currentUser = user
-                                }
-                                
-                                continuation.resume()
-                                
-                            }
-                            else {
-                                
-                                // Get Profile
-                                                                
-                                let user = try await self.apiService
-                                    .getUserProfile()
-                                
-                                DispatchQueue.main.async {
-                                    self.currentUser = user
-                                }
-                                
-                                continuation.resume()
-                                
-                            }
-                            
-                        }
-                        catch {
-                            continuation.resume(throwing: error)
-                        }
-                        
-                    }
-                    
-                })
+                authorization: authorization
+            ) { name, email, idTokenString, nonce, error in
+                
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                continuation.resume(returning: (
+                    name: name,
+                    email: email,
+                    idTokenString: idTokenString,
+                    nonce: nonce
+                ))
+                
+            }
+            
+        }
+        
+        try await self.firebaseService.login(
+            token: authResult.idTokenString,
+            nonce: authResult.nonce
+        )
+        
+        if let name = authResult.name,
+           let email = authResult.email {
+            
+            let user = try await self.apiService
+                .createUser(user: .init(
+                    id: "",
+                    firstName: name.firstName,
+                    lastName: name.lastName,
+                    email: email,
+                    externalId: self.firebaseService.user?.uid ?? "",
+                    dateOfBirth: nil,
+                    imageURL: nil
+                ))
+            
+            self.currentUser = user
+            
+        }
+        else {
+            
+            let user = try await self.apiService
+                .getUserProfile()
+            
+            self.currentUser = user
             
         }
         

@@ -98,6 +98,11 @@ final class MockAPIService: APIServiceProtocol {
     var accessToken: String? = nil
     var deviceToken: String? = nil
     var environment: AppEnvironment? = nil
+    let networkSession: URLSession = .shared
+    let requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout
+    let resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout
+    let maxRetryCount: Int = 0
+    let retryBackoffNanoseconds: UInt64 = Constants.Runtime.apiRetryBackoffBaseNanoseconds
     
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)
@@ -498,6 +503,19 @@ final class MockServiceAssembly {
         container.apiService.register { MockAPIService() }
         container.authService.register { MockAuthService() }
         container.impersonateService.register { MockImpersonateService() }
+        container.rootStartupService.register {
+            RootStartupService(
+                launchService: container.launchScreenService(),
+                environmentService: container.environmentService(),
+                apiService: container.apiService(),
+                authService: container.authService(),
+                impersonateService: container.impersonateService(),
+                firebaseService: container.firebaseService(),
+                appDelegateService: container.appDelegateService(),
+                connectivityService: container.connectivityService(),
+                viewLifecycleService: container.viewLifecycleService()
+            )
+        }
         
     }
     

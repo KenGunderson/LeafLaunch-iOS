@@ -206,28 +206,25 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
     }
     
+    @MainActor
     func logout() async {
         
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)
         }
         
-        DispatchQueue.main.async {
-         
-            Setting
-                .allCases
-                .forEach {
-                    UserDefaults.standard.removeObject(forKey: $0.rawValue)
-                }
-            
-            // Manually Reset
-            
-            self.set(impersonatedUser: nil)
-            self.set(lastViewedWhatsNewVersion: nil)
-            self.set(didCompleteOnboarding: false)
-            self.set(shouldHideScreenshots: false)
-            
-        }
+        Setting
+            .allCases
+            .forEach {
+                UserDefaults.standard.removeObject(forKey: $0.rawValue)
+            }
+        
+        // Manually Reset
+        
+        self.set(impersonatedUser: nil)
+        self.set(lastViewedWhatsNewVersion: nil)
+        self.set(didCompleteOnboarding: false)
+        self.set(shouldHideScreenshots: false)
         
     }
     

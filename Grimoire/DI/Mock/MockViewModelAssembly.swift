@@ -16,20 +16,14 @@ class MockViewModelAssembly {
         
         container.rootViewModel.register {
             RootViewModel(
-                launchService: container.launchScreenService(),
                 analyticsService: container.analyticsService(),
-                environmentService: container.environmentService(),
                 alertService: container.alertService(),
-                apiService: container.apiService(),
                 authService: container.authService(),
                 impersonateService: container.impersonateService(),
-                firebaseService: container.firebaseService(),
-                appDelegateService: container.appDelegateService(),
-                connectivityService: container.connectivityService(),
-                viewLifecycleService: container.viewLifecycleService(),
                 pushNotificationService: container.pushNotificationService(),
                 userDefaultsService: container.userDefaultsService(),
-                deeplinkService: container.deeplinkService()
+                deeplinkService: container.deeplinkService(),
+                startupService: container.rootStartupService()
             )
         }
 

@@ -115,11 +115,11 @@ struct RootScreen: GPView {
     
     private func splashScreenView() -> some View {
         
-        SplashScreenView { launcState in
-            
+        SplashScreenView {
+                        
             self.viewModel
-                .setLaunchState(launcState)
-            
+                .markSplashAnimationCompleted()
+                        
         }
         .opacity(self.viewModel.launchState == .completed ? 0 : 1)
         .animation(.smooth(duration: 0.6), value: viewModel.launchState)

@@ -17,6 +17,19 @@ struct Constants {
         static let url: URL = Bundle.main.url(forResource: "Info", withExtension: "plist")!
         
     }
+
+    // MARK: - RUNTIME
+
+    struct Runtime {
+        
+        static let apiRequestTimeout: TimeInterval = 30
+        static let apiResourceTimeout: TimeInterval = 90
+        static let apiRetryCount: Int = 2
+        static let apiRetryBackoffBaseNanoseconds: UInt64 = 400_000_000
+        
+        static let fallbackEnvironment: AppEnvironment = .development
+
+    }
     
     @MainActor
     struct Device {

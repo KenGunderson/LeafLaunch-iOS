@@ -10,9 +10,9 @@ import SwiftUI
 struct SplashScreenView: View {
     
     @State private var isLoading: Bool = true
-    private let didFinishAction: (LaunchScreenService.State) -> ()
+    private let didFinishAction: () -> ()
     
-    init(didFinishAction: @escaping (LaunchScreenService.State) -> ()) {
+    init(didFinishAction: @escaping () -> ()) {
         self.didFinishAction = didFinishAction
     }
     
@@ -25,7 +25,7 @@ struct SplashScreenView: View {
         .onChange(of: self.isLoading) { oldValue, newValue in
             
             if !newValue {
-                self.didFinishAction(.completed)
+                self.didFinishAction()
             }
             
         }
@@ -36,8 +36,8 @@ struct SplashScreenView: View {
 
 #Preview {
     
-    SplashScreenView { lauchState in
-        print(lauchState)
+    SplashScreenView {
+        print("Splash complete")
     }
     
 }

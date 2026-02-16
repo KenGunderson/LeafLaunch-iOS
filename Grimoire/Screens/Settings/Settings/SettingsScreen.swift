@@ -47,60 +47,6 @@ struct SettingsScreen: GPView {
                 self.viewModel
                     .setup(navigationService: self.navigationService)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    
-                    ToastManager.shared.present(toastItem: .init(
-                        title: "Auth Token Copied",
-                        titleColor: Style.shared.textColor(.title),
-                        message: "Your auth token is now saved on your clipboard",
-                        messageColor: Style.shared.textColor(.title),
-                        image: .systemImage("lock.fill"),
-                        tint: Style.shared.accent,
-                        isUserInteractionEnabled: true,
-                        timing: .medium,
-                        direction: .top
-                    ))
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        
-                        ToastManager.shared.present(toastItem: .init(
-                            title: "Auth Token Copied",
-                            titleColor: Style.shared.textColor(.title),
-                            message: "Your auth token is now saved on your clipboard",
-                            messageColor: Style.shared.textColor(.title),
-                            image: .systemImage("lock.fill"),
-                            tint: Style.shared.accent,
-                            isUserInteractionEnabled: true,
-                            timing: .medium,
-                            direction: .top
-                        ))
-                        
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        
-                        self.viewModel.alertService.showAlert(
-                            .init(.card(.invitationAlert(
-                                name: "Sako Hovaguimian",
-                                businessName: "Bronx Tales"
-                            ) {
-                                print("Testing")
-                            }
-                            )))
-                        
-                        self.viewModel.alertService.showAlert(
-                            .init(.card(.invitationAlert(
-                                name: "Sako Hovaguimian",
-                                businessName: "Bronx Tales"
-                            ) {
-                                print("Testing")
-                            }
-                            )))
-                        
-                    }
-                    
-                }
-                
             }
             .task {
                 

@@ -1,6 +1,6 @@
 //
 //  RootViewModel.swift
-//  Grimoire 
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/14/24.
 //
@@ -15,24 +15,17 @@ final class RootViewModel: ViewModel {
     internal let loggerEmoji: String = "🪾"
     
     private(set) var alertService: AlertServiceProtocol
-    private let launchService: LaunchScreenServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let environmentService: EnvironmentServiceProtocol
-    private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol
-    private let firebaseService: FirebaseServiceProtocol
-    private let appDelegateService: AppDelegateServiceProtocol
-    private let connectivityService: ConnectivityServiceProtocol
-    private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationService: PushNotificationServiceProtocol
     private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let deeplinkService: DeeplinkServiceProtocol
+    private let startupService: RootStartupServiceProtocol
     
     @LazyInjected(\.mainViewModel) private(set) var mainViewModel: MainViewModel
     
     @Published private(set) var launchState: LaunchScreenService.State = .loading
-    @Published private(set) var shouldShowAuthError: Bool = false
     @Published private(set) var isImpersonatingUser: Bool = false
     @Published var shouldPresentDevSettings: Bool = false
     
@@ -44,46 +37,34 @@ final class RootViewModel: ViewModel {
     
     var observableAlertServiceWrapper: ObservableAlertServiceWrapper!
     
-    init(launchService: LaunchScreenServiceProtocol,
-         analyticsService: AnalyticsServiceProtocol,
-         environmentService: EnvironmentServiceProtocol,
+    init(analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
-         apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          impersonateService: ImpersonateServiceProtocol,
-         firebaseService: FirebaseServiceProtocol,
-         appDelegateService: AppDelegateServiceProtocol,
-         connectivityService: ConnectivityServiceProtocol,
-         viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationService: PushNotificationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
-         deeplinkService: DeeplinkServiceProtocol) {
+         deeplinkService: DeeplinkServiceProtocol,
+         startupService: RootStartupServiceProtocol) {
         
-        self.environmentService = environmentService
-        self.launchService = launchService
         self.analyticsService = analyticsService
         self.alertService = alertService
-        self.apiService = apiService
         self.authService = authService
         self.impersonateService = impersonateService
-        self.firebaseService = firebaseService
-        self.appDelegateService = appDelegateService
-        self.connectivityService = connectivityService
-        self.viewLifecycleService = viewLifecycleService
         self.pushNotificationService = pushNotificationService
         self.userDefaultsService = userDefaultsService
         self.deeplinkService = deeplinkService
+        self.startupService = startupService
         self.observableAlertServiceWrapper = ObservableAlertServiceWrapper(alertService: alertService)
         
         self.logInit()
-        bindSubscribers()
+        bindStartupCoordinator()
         
         Task {
             
             await MainActor.run {
                 UITabBar.appearance().isHidden = true
             }
-                        
+            
         }
         
     }
@@ -92,14 +73,12 @@ final class RootViewModel: ViewModel {
         self.logDeinit()
     }
     
-    private var cancelBag: CancelBag!
-    
     // MARK: - PUBLIC
     
     @discardableResult
     func setup(appDelegate: AppDelegate) -> Self {
-                
-        self.appDelegateService
+        
+        self.startupService
             .setup(appDelegate: appDelegate)
         
         return self
@@ -115,8 +94,15 @@ final class RootViewModel: ViewModel {
     
     func setLaunchState(_ state: LaunchScreenService.State) {
         
-        self.launchService
-            .setState(state)
+        self.startupService
+            .setLaunchState(state)
+        
+    }
+    
+    func markSplashAnimationCompleted() {
+        
+        self.startupService
+            .markSplashAnimationCompleted()
         
     }
     
@@ -149,6 +135,8 @@ final class RootViewModel: ViewModel {
     }
     
     func presentDevSettings() {
+        
+        // TODO: - CHECK ENV FOR NON-PROD
         
         if self.authService.currentUser == nil {
             shouldPresentDevSettings = true
@@ -188,159 +176,42 @@ final class RootViewModel: ViewModel {
             .showAlert(.init(.enviornmentAlert(.init(config: Constants.FORCE_UPDATE_ENV_ALERT {
                 // TODO: - RETRY
             }))))
-
+        
     }
     
     // MARK: - PRIVATE
     
-    private func bindSubscribers() {
+    private func bindStartupCoordinator() {
         
-        self.cancelBag = CancelBag()
-        
-        self.environmentService
-            .environmentPublisher
-            .receiveOnMain()
-            .sink { [weak self] environment in
-                
-                self?.getHealthCheck()
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.authService
-            .currentUserPublisher
-            .receiveOnMain()
-            .sink { [weak self] user in
-                
-                guard user != nil else { return }
-                guard let deviceToken = self?.appDelegateService.deviceToken else { return }
-                guard !(self?.impersonateService.isImpersonating ?? false) else { return }
-                
-                self?.registerDeviceToken(deviceToken)
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.authService
-            .onError
-            .receiveOnMain()
-            .sink { [weak self] error in
-                
-                guard let strongSelf = self else { return }
-                guard let error else { return }
+        self.startupService.start(
+            onLaunchStateChanged: { [weak self] state in
+                self?.launchState = state
+            },
+            onImpersonationStateChanged: { [weak self] isImpersonating in
+                self?.isImpersonatingUser = isImpersonating
+            },
+            onAuthError: { [weak self] error in
                 
                 self?.logError(message: error.getMessageForError())
-                strongSelf.showAuthError(error)
+                self?.showAuthError(error)
                 
-            }
-            .store(in: &self.cancelBag)
-
-        self.appDelegateService
-            .deviceTokenPublisher
-            .receiveOnMain()
-            .sink { [weak self] token in
-                
-                guard let token else { return }
-                self?.registerDeviceToken(token)
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.launchService
-            .onLaunchStateChanged
-            .receiveOnMain()
-            .sink { [weak self] state in
-                self?.launchState = state
-            }
-            .store(in: &self.cancelBag)
-        
-        self.connectivityService
-            .onHasNetworkConnection
-            .receiveOnMain()
-            .sink { [weak self] hasNetworkConnection in
-                
-                guard !hasNetworkConnection else { return }
+            },
+            onNoNetwork: { [weak self] in
                 self?.presentNoNetworkAlert()
+            },
+            onHealthCheckResult: { [weak self] requiresForceUpdate in
                 
-            }
-            .store(in: &self.cancelBag)
-        
-        self.viewLifecycleService
-            .onWillEnterForeground
-            .dropFirst(2)
-            .receiveOnMain()
-            .sink { [weak self] _ in
+                guard let self else { return }
                 
-                guard let strongSelf = self else { return }
-                
-                Task {
-                    
-                    try await strongSelf
-                        .authService.fetchUserInfoWithToken()
-                    
-                }
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.impersonateService
-            .impersonatedUserPublisher
-            .receiveOnMain()
-            .sink { impersonatingUser in
-                self.isImpersonatingUser = (impersonatingUser != nil)
-            }
-            .store(in: &self.cancelBag)
-
-    }
-    
-    private func registerDeviceToken(_ token: String) {
-        
-        guard let user = self.authService.currentUser,
-              self.firebaseService.user != nil else { return }
-                
-        Task { @MainActor in
-            
-            try await self.apiService.registerDevice(
-                token: token,
-                userId: user.id
-            )
-            
-        }
-        
-    }
-    
-    private func getHealthCheck() {
-        
-        guard self.environmentService.environment != .development else {
-            return
-        }
-        
-        Task { @MainActor in
-            
-            do {
-                try await self.apiService.getHealth()
-            }
-            catch {
-                
-                if let apiError = error as? APIError,
-                   case let .serverError(statusCode, _) = apiError,
-                   statusCode == 426 {
-                    
-                    DispatchQueue.main.async { [weak self] in
-                        self?.presentForceUpdateAlert()
-                    }
-                    
+                if requiresForceUpdate {
+                    self.presentForceUpdateAlert()
                     return
-                    
                 }
                 
-                DispatchQueue.main.async { [weak self] in
-                    self?.presentHealthCheckAlert()
-                }
+                self.presentHealthCheckAlert()
                 
             }
-            
-        }
+        )
         
     }
     

@@ -8,4 +8,4 @@
 import SwiftUI
 
 /// For fun; not actually keeping
-nonisolated(unsafe) var globalTabBarNavigationService: TabBarNavigationService!
+@MainActor var globalTabBarNavigationService: TabBarNavigationService?

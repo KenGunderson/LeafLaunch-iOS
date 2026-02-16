@@ -62,6 +62,12 @@
 		7515DBF52ECBEB3E00921AE9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB962ECBEB3E00921AE9 /* ViewModel.swift */; };
 		7515DBF62ECBEB3E00921AE9 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB972ECBEB3E00921AE9 /* WhatsNew.swift */; };
 		7515DC032ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
+		751BC5D82F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
+		751BC5D92F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
+		751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
+		751BC5DC2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
+		751BC5DD2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
+		751BC5DE2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
 		75260F5A2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
 		75260F5B2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
 		75260F5C2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
@@ -607,6 +613,8 @@
 		7515DB962ECBEB3E00921AE9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		7515DB972ECBEB3E00921AE9 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNew.swift; sourceTree = "<group>"; };
 		7515DBA52ECBEB3E00921AE9 /* GPUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUser.swift; sourceTree = "<group>"; };
+		751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupServiceProtocol.swift; sourceTree = "<group>"; };
+		751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupService.swift; sourceTree = "<group>"; };
 		75260F592EB468BD00318960 /* Sample.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Sample.pdf; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
@@ -988,6 +996,15 @@
 				7515DBA52ECBEB3E00921AE9 /* GPUser.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		751BC5D62F43D086007750E0 /* Startup */ = {
+			isa = PBXGroup;
+			children = (
+				751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */,
+				751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */,
+			);
+			path = Startup;
 			sourceTree = "<group>";
 		};
 		7537F3CB2DF661EA0031D9CF /* Models */ = {
@@ -1521,6 +1538,7 @@
 				7537F3FE2DF661EA0031D9CF /* Navigation */,
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
+				751BC5D62F43D086007750E0 /* Startup */,
 				7537F4152DF661EA0031D9CF /* UserDefaults */,
 				7537F4182DF661EA0031D9CF /* ViewLifecycle */,
 			);
@@ -2009,6 +2027,7 @@
 				753EC1E92DB8C4E800265B2A /* AppAssembler.swift in Sources */,
 				753EC1EA2DB8C4E800265B2A /* MockServiceAssembly.swift in Sources */,
 				750DFBCE2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift in Sources */,
+				751BC5DE2F43D0B9007750E0 /* RootStartupService.swift in Sources */,
 				750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F4592DF661EA0031D9CF /* Routes.swift in Sources */,
@@ -2019,6 +2038,7 @@
 				7537F45F2DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
 				7537F4602DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
+				751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
 				753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
@@ -2191,6 +2211,7 @@
 				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
 				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
 				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
+				751BC5DC2F43D0B9007750E0 /* RootStartupService.swift in Sources */,
 				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
 				7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */,
 				7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */,
@@ -2201,6 +2222,7 @@
 				7537F4202DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
 				7537F4212DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
 				7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */,
+				751BC5D82F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
 				753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
@@ -2356,6 +2378,7 @@
 				75DD83DA2EAD728600DD8850 /* AppAssembler.swift in Sources */,
 				75DD83DB2EAD728600DD8850 /* MockServiceAssembly.swift in Sources */,
 				75DD83E02EAD728600DD8850 /* DevUserDefaultsViewModel.swift in Sources */,
+				751BC5DD2F43D0B9007750E0 /* RootStartupService.swift in Sources */,
 				75DD83E12EAD728600DD8850 /* DevUserDefaultsScreen.swift in Sources */,
 				75DD83E22EAD728600DD8850 /* APIService+Health.swift in Sources */,
 				75DD83E32EAD728600DD8850 /* Routes.swift in Sources */,
@@ -2366,6 +2389,7 @@
 				75DD83EA2EAD728600DD8850 /* CameraPermissionService.swift in Sources */,
 				75DD83EB2EAD728600DD8850 /* LaunchScreenServiceProtocol.swift in Sources */,
 				75DD83ED2EAD728600DD8850 /* PermissionsService.swift in Sources */,
+				751BC5D92F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
 				753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				75DD83EF2EAD728600DD8850 /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				75DD83F12EAD728600DD8850 /* NavigationServiceProtocol.swift in Sources */,
@@ -2567,7 +2591,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2624,7 +2648,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2703,7 +2727,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com..app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -2722,7 +2746,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QNK29NH27H;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2741,7 +2765,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QNK29NH27H;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

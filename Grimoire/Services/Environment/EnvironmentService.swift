@@ -36,6 +36,7 @@ final class EnvironmentService: EnvironmentServiceProtocol {
     private func setup() {
         
         let pListUrl = Constants.PList.url
+        let fallbackEnvironment = Constants.Runtime.fallbackEnvironment
         
         if let data = try? Data(contentsOf: pListUrl),
            let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) {
@@ -47,8 +48,25 @@ final class EnvironmentService: EnvironmentServiceProtocol {
                 self.environment = env
                 
             } else {
-                fatalError("NO ENV SET")
+                
+                self.logError(
+                    title: "Environment Setup",
+                    message: "No valid Environment value was found in Info.plist. Falling back to \(fallbackEnvironment.displayName)."
+                )
+                
+                self.environment = fallbackEnvironment
+                
             }
+            
+        }
+        else {
+            
+            self.logError(
+                title: "Environment Setup",
+                message: "Unable to read Info.plist data. Falling back to \(fallbackEnvironment.displayName)."
+            )
+            
+            self.environment = fallbackEnvironment
             
         }
         

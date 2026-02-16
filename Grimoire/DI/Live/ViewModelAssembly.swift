@@ -15,20 +15,14 @@ extension Container {
     var rootViewModel: Factory<RootViewModel> {
         self {
             RootViewModel(
-                launchService: self.launchScreenService(),
                 analyticsService: self.analyticsService(),
-                environmentService: self.environmentService(),
                 alertService: self.alertService(),
-                apiService: self.apiService(),
                 authService: self.authService(),
                 impersonateService: self.impersonateService(),
-                firebaseService: self.firebaseService(),
-                appDelegateService: self.appDelegateService(),
-                connectivityService: self.connectivityService(),
-                viewLifecycleService: self.viewLifecycleService(),
                 pushNotificationService: self.pushNotificationService(),
                 userDefaultsService: self.userDefaultsService(),
-                deeplinkService: self.deeplinkService()
+                deeplinkService: self.deeplinkService(),
+                startupService: self.rootStartupService()
             )
         }
     }

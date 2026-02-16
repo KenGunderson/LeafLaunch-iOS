@@ -20,6 +20,11 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
     var accessToken: String? { get set }
+    var networkSession: URLSession { get }
+    var requestTimeout: TimeInterval { get }
+    var resourceTimeout: TimeInterval { get }
+    var maxRetryCount: Int { get }
+    var retryBackoffNanoseconds: UInt64 { get }
     
 }
 
@@ -56,6 +61,7 @@ extension APIProtocol {
                       queryParameters: [String: String] = [:],
                       parameters: [String: Any] = [:]) async throws -> Data {
         
+        let includeSensitiveLogData = shouldIncludeSensitiveAPILogData()
         var apiLogResponse: APILogResponse?
         
         defer {
@@ -73,16 +79,27 @@ extension APIProtocol {
             body: .json(parameters)
         )
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response, attemptCount) = try await performRequestWithRetry(
+            request: request,
+            method: method,
+            path: apiPath.path.buildURL
+        )
         
         apiLogResponse = APILogResponse(
             method: method.rawValue,
             path: request.url?.absoluteString ?? "No URL Provided",
             statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-            headers: request.allHTTPHeaderFields ?? [:],
-            queryParameters: queryParameters,
-            body: parameters,
-            responseData: data
+            headers: redactedHeaders(
+                request.allHTTPHeaderFields ?? [:],
+                includeSensitiveData: includeSensitiveLogData
+            ),
+            queryParameters: redactedQueryParameters(
+                queryParameters,
+                includeSensitiveData: includeSensitiveLogData
+            ),
+            body: redactedBody(parameters, includeSensitiveData: includeSensitiveLogData),
+            responseData: data,
+            attemptCount: attemptCount
         )
         
         if let error = handleErrorResponse(data: data, response: response) {
@@ -101,6 +118,7 @@ extension APIProtocol {
                                boundary: String,
                                data: Data) async throws -> Data {
         
+        let includeSensitiveLogData = shouldIncludeSensitiveAPILogData()
         var apiLogResponse: APILogResponse?
         
         defer {
@@ -118,16 +136,27 @@ extension APIProtocol {
             body: .multipart(boundary: boundary, data: data)
         )
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response, attemptCount) = try await performRequestWithRetry(
+            request: request,
+            method: method,
+            path: apiPath.path.buildURL
+        )
         
         apiLogResponse = APILogResponse(
             method: method.rawValue,
             path: request.url?.absoluteString ?? "No URL Provided",
             statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-            headers: request.allHTTPHeaderFields ?? [:],
-            queryParameters: [:],
+            headers: redactedHeaders(
+                request.allHTTPHeaderFields ?? [:],
+                includeSensitiveData: includeSensitiveLogData
+            ),
+            queryParameters: redactedQueryParameters(
+                [:],
+                includeSensitiveData: includeSensitiveLogData
+            ),
             body: [:],
-            responseData: data
+            responseData: data,
+            attemptCount: attemptCount
         )
         
         if let error = handleErrorResponse(data: data, response: response) {
@@ -144,6 +173,177 @@ extension APIProtocol {
 }
 
 extension APIProtocol {
+    
+    private func shouldIncludeSensitiveAPILogData() -> Bool {
+        
+        guard let environment = self.environment else { return false }
+        
+        switch environment {
+        case .production:
+            return false
+        case .localhost, .development, .custom:
+            return true
+        }
+        
+    }
+    
+    private func redactedHeaders(_ headers: [String: String],
+                                 includeSensitiveData: Bool) -> [String: String] {
+        
+        guard !includeSensitiveData else { return headers }
+        
+        let sensitiveHeaderKeys: Set<String> = [
+            "authorization",
+            "cookie",
+            "set-cookie",
+            "x-api-key",
+            "api-key",
+            "token"
+        ]
+        
+        return headers.reduce(into: [String: String]()) { partialResult, item in
+            
+            if sensitiveHeaderKeys.contains(item.key.lowercased()) {
+                partialResult[item.key] = "<redacted>"
+            }
+            else {
+                partialResult[item.key] = item.value
+            }
+            
+        }
+        
+    }
+    
+    private func redactedQueryParameters(_ queryParameters: [String: String],
+                                         includeSensitiveData: Bool) -> [String: String] {
+        
+        guard !includeSensitiveData else { return queryParameters }
+        
+        return queryParameters.reduce(into: [String: String]()) { partialResult, item in
+            partialResult[item.key] = "<redacted>"
+        }
+        
+    }
+    
+    private func redactedBody(_ body: [String: Any],
+                              includeSensitiveData: Bool) -> [String: Any] {
+        
+        guard !includeSensitiveData else { return body }
+        guard !body.isEmpty else { return body }
+        
+        return [
+            "_redacted": true,
+            "_keys": body.keys.sorted()
+        ]
+        
+    }
+    
+    private func performRequestWithRetry(request: URLRequest,
+                                         method: HTTPRequestMethod,
+                                         path: String) async throws -> (Data, URLResponse, Int) {
+        
+        var attempt = 0
+        var currentBackoff = max(self.retryBackoffNanoseconds, 100_000_000)
+        var latestResponse: (Data, URLResponse)?
+        
+        while attempt <= self.maxRetryCount {
+            
+            attempt += 1
+            
+            do {
+                
+                let response = try await self.networkSession.data(for: request)
+                latestResponse = response
+                
+                if let httpResponse = response.1 as? HTTPURLResponse,
+                   shouldRetry(statusCode: httpResponse.statusCode),
+                   attempt <= self.maxRetryCount {
+                    
+                    self.log(
+                        level: .info,
+                        message: """
+                        Retrying API request after status code \(httpResponse.statusCode)
+                        Attempt: \(attempt)
+                        Path: \(path)
+                        """
+                    )
+                    
+                    try await Task.sleep(nanoseconds: currentBackoff)
+                    currentBackoff *= 2
+                    continue
+                    
+                }
+                
+                return (response.0, response.1, attempt)
+                
+            }
+            catch {
+                
+                guard shouldRetry(error: error),
+                      attempt <= self.maxRetryCount else {
+                    
+                    self.logError(
+                        title: "API Request Failed",
+                        message: """
+                        Method: \(method.rawValue.uppercased())
+                        Attempt: \(attempt)
+                        Path: \(path)
+                        Error: \(error.getMessageForError())
+                        """
+                    )
+                    
+                    throw error
+                    
+                }
+                
+                self.log(
+                    level: .info,
+                    message: """
+                    Retrying API request after transport error
+                    Attempt: \(attempt)
+                    Path: \(path)
+                    Error: \(error.getMessageForError())
+                    """
+                )
+                
+                try await Task.sleep(nanoseconds: currentBackoff)
+                currentBackoff *= 2
+                
+            }
+            
+        }
+        
+        if let latestResponse {
+            return (latestResponse.0, latestResponse.1, attempt)
+        }
+        
+        throw APIError.unknownError
+        
+    }
+    
+    private func shouldRetry(statusCode: Int) -> Bool {
+        
+        let retryableStatusCodes: Set<Int> = [408, 425, 429, 500, 502, 503, 504]
+        return retryableStatusCodes.contains(statusCode)
+        
+    }
+    
+    private func shouldRetry(error: Error) -> Bool {
+        
+        guard let urlError = error as? URLError else { return false }
+        
+        let retryableCodes: Set<URLError.Code> = [
+            .timedOut,
+            .cannotFindHost,
+            .cannotConnectToHost,
+            .networkConnectionLost,
+            .dnsLookupFailed,
+            .notConnectedToInternet
+        ]
+        
+        return retryableCodes.contains(urlError.code)
+        
+    }
     
     func parseData<T: Decodable>(data: Data) throws -> T {
         
@@ -290,6 +490,7 @@ extension APIProtocol {
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        request.timeoutInterval = self.requestTimeout
         request.setValue(Self.appVersion, forHTTPHeaderField: "App-Version")
         
         if let accessToken = self.accessToken,
@@ -333,18 +534,38 @@ extension APIProtocol {
                          queryParameters: [String: String],
                          body: RequestBody) -> String {
         
+        let includeSensitiveData = shouldIncludeSensitiveAPILogData()
+        
         var customLog: String = """
         METHOD: \(method.rawValue.uppercased())
         OUTGOING URL: \(url?.absoluteString ?? "No URL Provided")
         """
         
         if !queryParameters.isEmpty {
-            customLog.append("\nQUERY PARAMS: \(queryParameters)")
+            
+            if includeSensitiveData {
+                customLog.append("\nQUERY PARAMS: \(queryParameters)")
+            }
+            else {
+                customLog.append("\nQUERY PARAMS: <redacted keys: \(queryParameters.keys.sorted())>")
+            }
+            
         }
         
         if let params = body.jsonParameters,
            !params.isEmpty {
-            customLog.append("\nPARAMETERS: \(params)")
+            
+            if includeSensitiveData {
+                customLog.append("\nPARAMETERS: \(params)")
+            }
+            else {
+                customLog.append("\nPARAMETERS: <redacted keys: \(params.keys.sorted())>")
+            }
+            
+        }
+        
+        if !includeSensitiveData {
+            customLog.append("\nSENSITIVE PAYLOAD LOGGING: Disabled")
         }
         
         return customLog

@@ -209,4 +209,23 @@ extension Container {
         .singleton
     }
     
+    // ROOT STARTUP
+    
+    var rootStartupService: Factory<RootStartupServiceProtocol> {
+        self {
+            RootStartupService(
+                launchService: self.launchScreenService(),
+                environmentService: self.environmentService(),
+                apiService: self.apiService(),
+                authService: self.authService(),
+                impersonateService: self.impersonateService(),
+                firebaseService: self.firebaseService(),
+                appDelegateService: self.appDelegateService(),
+                connectivityService: self.connectivityService(),
+                viewLifecycleService: self.viewLifecycleService()
+            )
+        }
+        .singleton
+    }
+    
 }

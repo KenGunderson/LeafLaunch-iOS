@@ -18,6 +18,12 @@ final class APIService: APIServiceProtocol {
     private let appDelegateService: AppDelegateServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
     
+    internal let networkSession: URLSession
+    internal let requestTimeout: TimeInterval
+    internal let resourceTimeout: TimeInterval
+    internal let maxRetryCount: Int
+    internal let retryBackoffNanoseconds: UInt64
+    
     internal var accessToken: String?
     internal var deviceToken: String?
     internal var environment: AppEnvironment?
@@ -31,12 +37,33 @@ final class APIService: APIServiceProtocol {
     init(analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
-         firebaseService: FirebaseServiceProtocol) {
+         firebaseService: FirebaseServiceProtocol,
+         networkSession: URLSession? = nil,
+         requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout,
+         resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout,
+         maxRetryCount: Int = Constants.Runtime.apiRetryCount,
+         retryBackoffNanoseconds: UInt64 = Constants.Runtime.apiRetryBackoffBaseNanoseconds) {
         
         self.analyticsService = analyticsService
         self.environmentService = environmentService
         self.appDelegateService = appDelegateService
         self.firebaseService = firebaseService
+        self.requestTimeout = requestTimeout
+        self.resourceTimeout = resourceTimeout
+        self.maxRetryCount = maxRetryCount
+        self.retryBackoffNanoseconds = retryBackoffNanoseconds
+        
+        if let networkSession {
+            self.networkSession = networkSession
+        }
+        else {
+            
+            let configuration = URLSessionConfiguration.default
+            configuration.timeoutIntervalForRequest = requestTimeout
+            configuration.timeoutIntervalForResource = resourceTimeout
+            self.networkSession = URLSession(configuration: configuration)
+            
+        }
         
         self.logInit()
         bindSubscribers()
@@ -89,4 +116,3 @@ final class APIService: APIServiceProtocol {
     }
     
 }
-

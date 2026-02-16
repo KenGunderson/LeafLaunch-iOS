@@ -15,6 +15,7 @@ public struct APILogResponse: Sendable {
     public let headers: [String: String]
     public let queryParameters: [String: String]
     public let body: [String : Any]
+    public let attemptCount: Int
     public let date = Date()
     private let responseData: Data?
     
@@ -37,7 +38,8 @@ public struct APILogResponse: Sendable {
                 headers: [String : String],
                 queryParameters: [String : String],
                 body: [String : Any],
-                responseData: Data?) {
+                responseData: Data?,
+                attemptCount: Int = 1) {
         
         self.method = method
         self.path = path
@@ -46,6 +48,7 @@ public struct APILogResponse: Sendable {
         self.queryParameters = queryParameters
         self.body = body
         self.responseData = responseData
+        self.attemptCount = attemptCount
         
     }
     
