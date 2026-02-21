@@ -24,37 +24,35 @@ struct TabBar2Screen: View {
         
         let nav = Bindable(self.tabBarNavigationService.tab2NavigationService)
         
-        AppRootView(
-            navigationService: nav,
-            alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
-             
-                AppHeaderScrollView(horizontalPadding: .medium) {
-                    
-                } scrollViewContent: {
-                    
-                    content()
-                    
-                }
-                // Lifecycle
+        AppRootView(navigationService: nav) {
+            
+            AppHeaderScrollView(horizontalPadding: .medium) {
                 
-                .onFirstAppear {
-                    
-                    self.viewModel
-                        .track()
-                    
-                    self.viewModel
-                        .setup(tabBarNavigationService: self.tabBarNavigationService)
-                                        
-                }
-                .task {
-                    
-//                    self.viewModel
-//                        .loadData(showHud: false)
-                    
-                }
+            } scrollViewContent: {
+                
+                content()
                 
             }
-            .tag(self.tab)
+            // Lifecycle
+            
+            .onFirstAppear {
+                
+                self.viewModel
+                    .track()
+                
+                self.viewModel
+                    .setup(tabBarNavigationService: self.tabBarNavigationService)
+                
+            }
+            .task {
+                
+                //                    self.viewModel
+                //                        .loadData(showHud: false)
+                
+            }
+            
+        }
+        .tag(self.tab)
         
     }
     

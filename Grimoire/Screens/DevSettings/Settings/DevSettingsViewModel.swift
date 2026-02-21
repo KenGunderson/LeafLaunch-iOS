@@ -13,7 +13,7 @@ final class DevSettingsViewModel: ViewModel {
     internal let loggerName: String = "DEV"
     internal let loggerEmoji: String = "🔧"
     
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private(set) var authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private(set) var firebaseService: FirebaseServiceProtocol

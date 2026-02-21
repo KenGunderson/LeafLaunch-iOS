@@ -16,7 +16,7 @@ final class OnboardingPermissionsViewModel: ViewModel {
     
     private let analyticsService: AnalyticsServiceProtocol
     var permissionService: PermissionsServiceProtocol
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     var cameraPermission: CameraPermissionServiceProtocol {

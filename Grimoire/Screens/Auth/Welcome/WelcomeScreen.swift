@@ -14,13 +14,10 @@ struct WelcomeScreen: GPView {
     
     @State private var footerSize: CGSize = .zero
     @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
-        
+    
     var body: some View {
         
-        AppRootView(
-            navigationService: Bindable(self.navigationService),
-            alertService: nil // // Setting Alert Service as Nill so we still use our current AlertService from Root
-        ) {
+        AppRootView(navigationService: Bindable(self.navigationService)) {
             
             content
                 .safeAreaInset(edge: .bottom) {
@@ -58,7 +55,7 @@ struct WelcomeScreen: GPView {
                     view.scaledToFit().cornerRadius(.large)
                 }
                 .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
-                    view.frame(height: UIScreen.main.bounds.height / 1.95)
+                    view.frame(height: (UIScreen.currentHeight ?? 0) / 1.95)
                 }
                 .ignoresSafeArea()
             
@@ -103,7 +100,7 @@ struct WelcomeScreen: GPView {
         } action: { newValue in
             self.footerSize = newValue
         }
-
+        
     }
     
     var signUpButton: some View {

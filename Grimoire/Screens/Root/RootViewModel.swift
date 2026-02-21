@@ -14,7 +14,7 @@ final class RootViewModel: ViewModel {
     internal let loggerName: String = "ROOT_VIEW_MODEL"
     internal let loggerEmoji: String = "🪾"
     
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let impersonateService: ImpersonateServiceProtocol

@@ -15,7 +15,7 @@ final class SettingsViewModel: ViewModel {
     
     private let authService: AuthServiceProtocol
     private let apiService: APIServiceProtocol
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol

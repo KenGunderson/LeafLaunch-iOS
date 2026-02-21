@@ -27,10 +27,7 @@ struct OnboardingScreen: View {
         
         ZStack(alignment: .top) {
             
-            AppRootView(
-                navigationService: self.$navigationService,
-                alertService: self.viewModel.alertService
-            ) {
+            AppRootView(navigationService: self.$navigationService) {
                 OnboardingFeaturesScreen(onboardingPage: .businessSetup)
             }
             

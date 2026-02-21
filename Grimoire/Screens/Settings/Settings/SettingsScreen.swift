@@ -15,14 +15,11 @@ struct SettingsScreen: GPView {
     
     @StateObject var viewModel: SettingsViewModel
     @State private var navigationService = NavigationService()
-        
+    
     var body: some View {
         
-        AppRootView(
-            navigationService: self.$navigationService,
-            alertService: self.viewModel.alertService
-        ) {
-                
+        AppRootView(navigationService: self.$navigationService) {
+            
             AppHeaderScrollView(horizontalPadding: .medium) {
                 navBar()
             } scrollViewContent: {
@@ -87,8 +84,8 @@ struct SettingsScreen: GPView {
         let closeButton = NavBarButton(style: .close) {
             dismiss()
         }
-        .padding(.trailing, .small)
-        .asAnyView()
+            .padding(.trailing, .small)
+            .asAnyView()
         
         return NavBarView(
             title: "Settings",
@@ -167,7 +164,7 @@ struct SettingsScreen: GPView {
         .asButton {
             
             withAnimation(.smooth) {
-
+                
                 self.viewModel
                     .selectSetting(item)
                 

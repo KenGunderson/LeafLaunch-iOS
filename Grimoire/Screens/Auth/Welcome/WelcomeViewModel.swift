@@ -16,7 +16,7 @@ final class WelcomeViewModel: ViewModel {
     
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     

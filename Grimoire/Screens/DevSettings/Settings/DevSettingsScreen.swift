@@ -1,6 +1,6 @@
 //
 //  DevSettingsScreen.swift
-//  Grimoire 
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 4/25/24.
 //
@@ -12,18 +12,15 @@ struct DevSettingsScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DevSettingsViewModel
     @State private var navigationService = NavigationService()
-            
+    
     init(viewModel: DevSettingsViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
     }
     
     var body: some View {
         
-        AppRootView(
-            navigationService: self.$navigationService,
-            alertService: self.viewModel.alertService
-        ) {
-           
+        AppRootView(navigationService: self.$navigationService) {
+            
             AppHeaderScrollView(horizontalPadding: .medium) {
                 
                 navBarView()
@@ -65,8 +62,8 @@ struct DevSettingsScreen: GPView {
         let closeButton = NavBarButton(style: .close) {
             self.viewModel.dismiss()
         }
-        .padding(.trailing, .small)
-        .asAnyView()
+            .padding(.trailing, .small)
+            .asAnyView()
         
         NavBarView(
             title: "Dev Settings",
@@ -168,7 +165,7 @@ struct DevSettingsScreen: GPView {
                             self.viewModel.copyAuthTokenToNotepad()
                         }
                         .padding(.top, .small)
-
+                    
                 }
                 
             }

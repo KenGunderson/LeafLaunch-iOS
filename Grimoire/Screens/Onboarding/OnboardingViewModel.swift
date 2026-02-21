@@ -17,7 +17,7 @@ final class OnboardingViewModel: ViewModel {
     
     private let analyticsService: AnalyticsServiceProtocol
     private(set) var permissionService: PermissionsServiceProtocol
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
     @Published var currentPageIndex: Int = 0

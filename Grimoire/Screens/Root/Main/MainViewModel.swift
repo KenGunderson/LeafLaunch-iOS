@@ -14,7 +14,7 @@ final class MainViewModel: ViewModel {
     internal let loggerName: String = "MAIN_VIEW_MODEL"
     internal let loggerEmoji: String = "🫚"
     
-    private(set) var alertService: AlertServiceProtocol
+    private let alertService: AlertServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
@@ -29,6 +29,10 @@ final class MainViewModel: ViewModel {
     
     @Published private(set) var showShouldHomeScreen: Bool = false
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
+    
+    var readOnlyAlertService: any AlertServiceProtocol {
+        return self.alertService
+    }
         
     // ViewModels
     

@@ -17,40 +17,38 @@ struct TabBar1Screen: View {
     var body: some View {
         
         let nav = Bindable(self.tabBarNavigationService.tab1NavigationService)
+        
+        AppRootView(navigationService: nav) {
+            
+            AppHeaderScrollView(horizontalPadding: .medium) {
                 
-        AppRootView(
-            navigationService: nav,
-            alertService: nil) { // Setting Alert Service as Nill so we still use our current AlertService from Root
-             
-                AppHeaderScrollView(horizontalPadding: .medium) {
-                    
-                    navBarView()
-                    
-                } scrollViewContent: {
-                    
-                    content()
-                    
-                }
-                // Lifecycle
+                navBarView()
                 
-                .onFirstAppear {
-                    
-                    self.viewModel
-                        .track()
-                    
-                    self.viewModel
-                        .setup(tabBarNavigationService: self.tabBarNavigationService)
-                                        
-                }
-                .task {
-                    
-//                    self.viewModel
-//                        .loadData(showHud: false)
-                    
-                }
+            } scrollViewContent: {
+                
+                content()
                 
             }
-            .tag(self.tab)
+            // Lifecycle
+            
+            .onFirstAppear {
+                
+                self.viewModel
+                    .track()
+                
+                self.viewModel
+                    .setup(tabBarNavigationService: self.tabBarNavigationService)
+                
+            }
+            .task {
+                
+                //                    self.viewModel
+                //                        .loadData(showHud: false)
+                
+            }
+            
+        }
+        .tag(self.tab)
         
     }
     

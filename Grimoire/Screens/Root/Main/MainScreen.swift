@@ -55,7 +55,7 @@ struct MainScreen: GPView {
         )
         
         .withWindowToastOverlay()
-        .withWindowAlertService(.init(alertService: self.viewModel.alertService))
+        .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
         .withWindowDynamicIslandService()
         
         // Lifecycle

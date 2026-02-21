@@ -13,7 +13,6 @@ struct AppRootView<Content: View>: View {
     private let content: Content
     
     init(navigationService: Binding<NavigationService>,
-         alertService: AlertServiceProtocol? = nil,
          @ViewBuilder content: () -> Content) {
         
         self._navigationService = navigationService
@@ -22,7 +21,6 @@ struct AppRootView<Content: View>: View {
     }
     
     init(navigationService: Bindable<NavigationService>,
-         alertService: AlertServiceProtocol? = nil,
          @ViewBuilder content: () -> Content) {
         
         self._navigationService = .constant(navigationService.wrappedValue)
@@ -31,7 +29,7 @@ struct AppRootView<Content: View>: View {
     }
     
     public var body: some View {
-     
+        
         NavigationStack(path: self.$navigationService.routes) {
             
             content
