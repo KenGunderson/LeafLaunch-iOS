@@ -199,8 +199,18 @@ extension AppCardConfig {
                 
             },
             cornerRadius: Style.shared.radius(.large),
-            backgroundCardInset: .init(top: 0, left: 24, bottom: UIScreen.main.bounds.height * 0.20, right: 24),
-            contentCardInset: .init(top: 40, left: 16, bottom: 40, right: 16),
+            backgroundCardInset: .init(
+                top: 0,
+                left: 24,
+                bottom: Constants.Runtime.deviceHeight * 0.20,
+                right: 24
+            ),
+            contentCardInset: .init(
+                top: 40,
+                left: 16,
+                bottom: 40,
+                right: 16
+            ),
             cardBackgroundColor: Style.shared.background(.secondary),
             shouldDismissOnOutsideTouch: false,
             shouldDismissOnDrag: false

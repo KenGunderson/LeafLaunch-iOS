@@ -55,7 +55,7 @@ struct WelcomeScreen: GPView {
                     view.scaledToFit().cornerRadius(.large)
                 }
                 .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
-                    view.frame(height: (UIScreen.currentHeight ?? 0) / 1.95)
+                    view.frame(height: Constants.Runtime.deviceHeight / 1.95)
                 }
                 .ignoresSafeArea()
             

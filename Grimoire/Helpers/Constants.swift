@@ -28,6 +28,9 @@ struct Constants {
         static let apiRetryBackoffBaseNanoseconds: UInt64 = 400_000_000
         
         static let fallbackEnvironment: AppEnvironment = .development
+        
+        @MainActor
+        static let deviceHeight: CGFloat = UIScreen.currentHeight ?? 0
 
     }
     

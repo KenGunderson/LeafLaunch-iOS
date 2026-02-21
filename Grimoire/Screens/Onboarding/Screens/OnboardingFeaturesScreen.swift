@@ -25,7 +25,7 @@ struct OnboardingFeaturesScreen: GPView {
                 .illustration
                 .view(renderingMode: .original)
                 .scaledToFit()
-                .frame(height: UIScreen.main.bounds.height * 0.53)
+                .frame(height: Constants.Runtime.deviceHeight * 0.53)
                 .padding([.top], .large)
                 .zIndex(-1)
             

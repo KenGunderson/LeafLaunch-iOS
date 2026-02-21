@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-protocol NavigationServiceProtocol {
+protocol NavigationServiceProtocol: Sendable {
 
     var routes: [Route] { get set }
     

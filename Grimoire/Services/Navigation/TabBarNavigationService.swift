@@ -9,7 +9,7 @@ import SwiftUI
 import Observation
 
 @Observable
-public class TabBarNavigationService {
+public final class TabBarNavigationService: Sendable {
     
     var selectedTab: Tab = .tab1
     var isTabBarVisible: Bool = true

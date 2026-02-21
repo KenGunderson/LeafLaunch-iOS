@@ -19,10 +19,10 @@ final class MainViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
     private let authService: AuthServiceProtocol
-    private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
     private let permissionsService: PermissionsServiceProtocol
+    let userDefaultsService: UserDefaultsServiceProtocol
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!

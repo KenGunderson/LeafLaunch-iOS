@@ -42,10 +42,10 @@ final class PermissionsService: PermissionsServiceProtocol {
     internal let loggerName: String = "PERMISSIONS_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
     
-    private(set) var cameraPermissionService: CameraPermissionServiceProtocol
-    private(set) var mediaPermissionService: MediaPermissionServiceProtocol
-    private(set) var pushNotificationPermissionService: PushNotificationPermissionServiceProtocol
-    private(set) var appTrackingPermissionService: AppTrackingPermissionServiceProtocol
+    internal let cameraPermissionService: CameraPermissionServiceProtocol
+    internal let mediaPermissionService: MediaPermissionServiceProtocol
+    internal let pushNotificationPermissionService: PushNotificationPermissionServiceProtocol
+    internal let appTrackingPermissionService: AppTrackingPermissionServiceProtocol
        
     @Published private(set) var shouldShowPermissionView: Bool = false
     var shouldShowPermissionViewPublisher: AnyPublisher<Bool, Never> {

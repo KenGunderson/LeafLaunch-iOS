@@ -10,7 +10,7 @@ import Combine
 import FactoryKit
 
 @Observable
-class NavigationService: NavigationServiceProtocol, Equatable {
+final class NavigationService: NavigationServiceProtocol, Equatable {
     
     static func == (lhs: NavigationService, rhs: NavigationService) -> Bool {
         
