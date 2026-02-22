@@ -10,6 +10,15 @@ import SwiftUI
 
 struct Constants {
     
+    // MARK: - FEATURES
+    
+    struct Feature {
+        
+        static let isWhatsNewEnabled: Bool = true
+        static let isOnboardingEnabled: Bool = true
+        
+    }
+    
     // MARK: - DEVICE
     
     struct PList {

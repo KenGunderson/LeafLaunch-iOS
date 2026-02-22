@@ -74,11 +74,15 @@ final class MainViewModel: ViewModel {
     }
     
     var shouldShowOnboarding: Bool {
+        
+        guard Constants.Feature.isOnboardingEnabled else { return false }
         return !self.userDefaultsService.didCompleteOnboarding
+        
     }
     
     var shouldShowWhatsNew: Bool {
         
+        guard Constants.Feature.isWhatsNewEnabled else { return false }
         guard let currentItem = Constants.WhatsNewItems.items.last else { return false }
         
         let defaultVersion = "0.0.0"
