@@ -69,46 +69,46 @@ final class FAQViewModel: ViewModel {
     
     func loadData() {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
-        
-        Task {
-            
-            do {
-                
+//        self.alertService
+//            .showAlert(.init(.simpleLoadingIndicator))
+//        
+//        Task {
+//            
+//            do {
+//                
 //                let faq = try await self.apiService
 //                    .getFrequentlyAskedQuestions()
-                
-                await MainActor.run { [weak self] in
-                    
-                    self?.faqItems = [.init(title: "Test", sections: [
-                        .init(question: "Questions", answer: "Answers")
-                    ])]
-                    
-                }
-                
-            }
-            catch {
-                
-                self.alertService.showAlert(.init(
-                    .appAlert(
-                        .error(
-                            message: Constants.Message.errorMessage("frequently asked questions"),
-                            action: {
-                                
-                                self.navigationService?
-                                    .popWithDelay()
-                                
-                            })
-                    ))
-                )
-                
-            }
-            
-            self.alertService
-                .dismissLoadingIndicator()
-            
-        }
+//                
+//                await MainActor.run { [weak self] in
+//                    
+//                    self?.faqItems = [.init(title: "Test", sections: [
+//                        .init(question: "Questions", answer: "Answers")
+//                    ])]
+//                    
+//                }
+//                
+//            }
+//            catch {
+//                
+//                self.alertService.showAlert(.init(
+//                    .appAlert(
+//                        .error(
+//                            message: Constants.Message.errorMessage("frequently asked questions"),
+//                            action: {
+//                                
+//                                self.navigationService?
+//                                    .popWithDelay()
+//                                
+//                            })
+//                    ))
+//                )
+//                
+//            }
+//            
+//            self.alertService
+//                .dismissLoadingIndicator()
+//            
+//        }
         
     }
     

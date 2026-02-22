@@ -88,49 +88,49 @@ final class LegalViewModel: ViewModel {
     
     func loadData() {
         
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
-        
-        Task {
-            
-            do {
-                
+//        self.alertService
+//            .showAlert(.init(.simpleLoadingIndicator))
+//        
+//        Task {
+//            
+//            do {
+//                
 //                let legalItems = try await self.apiService
 //                    .getLegalInformation(context: self.context.dataName)
-                
-                await MainActor.run { [weak self] in
-                    
-                    self?.legalItems = [
-                        .init(title: "Test", sections: [
-                            "This is a cool one",
-                            "This is another cool one"
-                        ])
-                        
-                    ]
-                }
-                
-            }
-            catch {
-                
-                self.alertService.showAlert(.init(
-                    .appAlert(
-                        .error(
-                            message: Constants.Message.errorMessage("legal information"),
-                            action: {
-                                
-                                self.navigationService?
-                                    .popWithDelay()
-                                
-                            })
-                    ))
-                )
-                
-            }
-            
-            self.alertService
-                .dismissLoadingIndicator()
-            
-        }
+//                
+//                await MainActor.run { [weak self] in
+//                    
+//                    self?.legalItems = [
+//                        .init(title: "Test", sections: [
+//                            "This is a cool one",
+//                            "This is another cool one"
+//                        ])
+//                        
+//                    ]
+//                }
+//                
+//            }
+//            catch {
+//                
+//                self.alertService.showAlert(.init(
+//                    .appAlert(
+//                        .error(
+//                            message: Constants.Message.errorMessage("legal information"),
+//                            action: {
+//                                
+//                                self.navigationService?
+//                                    .popWithDelay()
+//                                
+//                            })
+//                    ))
+//                )
+//                
+//            }
+//            
+//            self.alertService
+//                .dismissLoadingIndicator()
+//            
+//        }
         
     }
     

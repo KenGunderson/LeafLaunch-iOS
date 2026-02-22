@@ -62,14 +62,14 @@ final class FeatureRequestViewModel: ViewModel {
     
     func submit() {
         
-        guard let authUser = self.authService.currentUser else { return }
-        
-        self.alertService
-            .showAlert(.init(.simpleLoadingIndicator))
-        
-        Task {
-            
-            do {
+//        guard let authUser = self.authService.currentUser else { return }
+//        
+//        self.alertService
+//            .showAlert(.init(.simpleLoadingIndicator))
+//        
+//        Task {
+//            
+//            do {
                 
 //                _ = try await self.apiService
 //                    .submitFeatureRequest(
@@ -77,30 +77,30 @@ final class FeatureRequestViewModel: ViewModel {
 //                        request: self.featureRequestText
 //                    )
                 
-                self.alertService
-                    .showAlert(.init(.appAlert(.success(
-                        message: "Request Submitted Successfully!",
-                        action: {
-                            self.navigationService?.popWithDelay()
-                        }
-                    ))))
-                
-            }
-            catch {
-                
-                self.alertService.showAlert(.init(
-                    .appAlert(
-                        .error(
-                            message: Constants.Message.errorMessage(context: .create, "feature request"),
-                            action: {})
-                    ))
-                )
-                
-            }
+//                self.alertService
+//                    .showAlert(.init(.appAlert(.success(
+//                        message: "Request Submitted Successfully!",
+//                        action: {
+//                            self.navigationService?.popWithDelay()
+//                        }
+//                    ))))
+//                
+//            }
+//            catch {
+//                
+//                self.alertService.showAlert(.init(
+//                    .appAlert(
+//                        .error(
+//                            message: Constants.Message.errorMessage(context: .create, "feature request"),
+//                            action: {})
+//                    ))
+//                )
+//                
+//            }
+//            
+//            self.alertService.dismissLoadingIndicator()
             
-            self.alertService.dismissLoadingIndicator()
-            
-        }
+//        }
         
     }
 
