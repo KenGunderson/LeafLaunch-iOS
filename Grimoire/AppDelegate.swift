@@ -30,10 +30,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
             
             if let error = error {
                 
-                self?.logError(
-                    title: "App Delegate App Badge Error",
-                    message: error.getMessageForError()
-                )
+                Task { @MainActor [weak self] in
+                    
+                    self?.logError(
+                        title: "App Delegate App Badge Error",
+                        message: error.getMessageForError()
+                    )
+                    
+                }
                 
             }
             
@@ -98,10 +102,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
             
             if let error = error {
                 
-                self?.logError(
-                    title: "App Delegate App Badge Error",
-                    message: error.getMessageForError()
-                )
+                Task { @MainActor [weak self] in
+                    
+                    self?.logError(
+                        title: "App Delegate App Badge Error",
+                        message: error.getMessageForError()
+                    )
+                    
+                }
                 
             }
             

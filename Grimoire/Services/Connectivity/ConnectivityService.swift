@@ -24,7 +24,10 @@ final class ConnectivityService: ConnectivityServiceProtocol {
         self.networkMonitor.pathUpdateHandler = { [weak self] path in
             
             guard let self = self else { return }
-            self.setNetworkConnection(connection: path.status == .satisfied)
+            
+            Task { @MainActor in
+                self.setNetworkConnection(connection: path.status == .satisfied)
+            }
             
         }
         

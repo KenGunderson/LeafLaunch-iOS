@@ -19,11 +19,11 @@ public struct LogEvent: Equatable, Sendable {
     let level: OSLogType
     let emoji: String?
     
-    init(title: String = "Log Event",
-         message: String,
-         source: String,
-         level: OSLogType = .debug,
-         emoji: String? = nil) {
+    nonisolated init(title: String = "Log Event",
+                     message: String,
+                     source: String,
+                     level: OSLogType = .debug,
+                     emoji: String? = nil) {
         
         self.title = title
         self.message = message

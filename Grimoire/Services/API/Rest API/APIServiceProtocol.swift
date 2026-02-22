@@ -37,20 +37,20 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Health
     
-    func getHealth() async throws
+    @concurrent func getHealth() async throws
     
     // Device
     
-    func registerDevice(token: String, userId: String) async throws
+    @concurrent func registerDevice(token: String, userId: String) async throws
     
     // Users
     
-    func getUser(id: String) async throws -> GPUser
-    func getUserProfile() async throws -> GPUser
-    func getFirebaseTokenForUser(email: String) async throws -> String
-    func updateUser(user: GPUser) async throws
-    func createUser(user: GPUser) async throws -> GPUser
-    func deleteUser(user: GPUser) async throws
+    @concurrent func getUser(id: String) async throws -> GPUser
+    @concurrent func getUserProfile() async throws -> GPUser
+    @concurrent func getFirebaseTokenForUser(email: String) async throws -> String
+    @concurrent func updateUser(user: GPUser) async throws
+    @concurrent func createUser(user: GPUser) async throws -> GPUser
+    @concurrent func deleteUser(user: GPUser) async throws
     
 }
 
@@ -345,7 +345,8 @@ extension APIProtocol {
         
     }
     
-    func parseData<T: Decodable>(data: Data) throws -> T {
+    @concurrent
+    func parseData<T: Decodable>(data: Data) async throws -> T {
         
         do {
             
@@ -397,7 +398,7 @@ extension APIProtocol {
             
             self.logError(
                 title: "Decoding Error",
-                message: "Unknown error: \(error.getMessageForError())"
+                message: "Unknown error: \(await error.getMessageForError())"
             )
             
         }

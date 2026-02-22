@@ -416,7 +416,7 @@ final class FirebaseService: FirebaseServiceProtocol {
     
     func setupFirebaseAuthListener() {
         
-        Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
+        _ = Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
             
             guard let self = self else { return }
             self.user = user

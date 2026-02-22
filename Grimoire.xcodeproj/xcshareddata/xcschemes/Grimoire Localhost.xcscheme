@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1630"
+   LastUpgradeVersion = "2600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "75D66CD62DC713C300E51CFC"
-               BuildableName = "Grimoire Dev.app"
-               BlueprintName = "Grimoire Dev"
+               BlueprintIdentifier = "75DD83962EAD728600DD8850"
+               BuildableName = "Grimoire Localhost.app"
+               BlueprintName = "Grimoire Localhost"
                ReferencedContainer = "container:Grimoire.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "75D66CD62DC713C300E51CFC"
-            BuildableName = "Grimoire Dev.app"
-            BlueprintName = "Grimoire Dev"
+            BlueprintIdentifier = "75DD83962EAD728600DD8850"
+            BuildableName = "Grimoire Localhost.app"
+            BlueprintName = "Grimoire Localhost"
             ReferencedContainer = "container:Grimoire.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "75D66CD62DC713C300E51CFC"
-            BuildableName = "Grimoire Dev.app"
-            BlueprintName = "Grimoire Dev"
+            BlueprintIdentifier = "75DD83962EAD728600DD8850"
+            BuildableName = "Grimoire Localhost.app"
+            BlueprintName = "Grimoire Localhost"
             ReferencedContainer = "container:Grimoire.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-enum ViewLifecycleKey: String, Hashable {
+enum ViewLifecycleKey: String, Hashable, Sendable {
     
     case home
     
@@ -31,6 +31,7 @@ enum ViewLifecycleKey: String, Hashable {
     
 }
 
+@MainActor
 final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     
     internal let loggerName = "VIEW_LIFECYCLE"
@@ -117,7 +118,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
         return subject.eraseToAnyPublisher()
         
     }
-
+    
     private func setupNotifications() {
         
         NotificationCenter
@@ -125,45 +126,51 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
             .addObserver(forName: UIApplication.willEnterForegroundNotification,
                          object: nil,
                          queue: .main) { [weak self] notification in
-            
-            DispatchQueue.main.async { [weak self] in
                 
-                self?.log(message: "will enter foreground")
-                self?.onWillEnterForeground.send("\(notification.name.rawValue): \(UUID().uuidString)")
+                let notificationName = notification.name.rawValue
+                
+                Task { @MainActor [weak self] in
+                    
+                    self?.log(message: "will enter foreground")
+                    self?.onWillEnterForeground.send("\(notificationName): \(UUID().uuidString)")
+                    
+                }
                 
             }
-            
-        }
         
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.didBecomeActiveNotification,
                          object: nil,
                          queue: .main) { [weak self] notification in
-            
-            DispatchQueue.main.async { [weak self] in
                 
-                self?.log(message:"did become active")
-                self?.onDidBecomeActive.send("\(notification.name.rawValue): \(UUID().uuidString)")
+                let notificationName = notification.name.rawValue
+                
+                Task { @MainActor [weak self] in
+                    
+                    self?.log(message:"did become active")
+                    self?.onDidBecomeActive.send("\(notificationName): \(UUID().uuidString)")
+                    
+                }
                 
             }
-            
-        }
-
+        
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.didEnterBackgroundNotification,
                          object: nil,
                          queue: .main) { [weak self] notification in
-            
-            DispatchQueue.main.async { [weak self] in
                 
-                self?.log(message:"did enter background")
-                self?.onDidEnterBackground.send("\(notification.name.rawValue): \(UUID().uuidString)")
+                let notificationName = notification.name.rawValue
+                
+                Task { @MainActor [weak self] in
+                    
+                    self?.log(message:"did enter background")
+                    self?.onDidEnterBackground.send("\(notificationName): \(UUID().uuidString)")
+                    
+                }
                 
             }
-            
-        }
         
     }
     

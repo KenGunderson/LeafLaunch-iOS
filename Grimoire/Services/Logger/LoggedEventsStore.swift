@@ -8,17 +8,17 @@
 import os
 import Synchronization
 
-final class LoggedEventsStore {
+final class LoggedEventsStore: Sendable {
     
-    static let shared = LoggedEventsStore()
+    nonisolated static let shared = LoggedEventsStore()
 
-    private let events: Mutex<[LogEvent]> = .init([])
+    private let events: Mutex<[LogEvent]>
     
-    private init() {
-        
+    nonisolated private init() {
+        self.events = Mutex([])
     }
 
-    func append(_ event: LogEvent) {
+    nonisolated func append(_ event: LogEvent) {
         
         self.events.withLock { logs in
             logs.append(event)
@@ -26,27 +26,27 @@ final class LoggedEventsStore {
         
     }
 
-    func snapshot() -> [LogEvent] {
+    nonisolated func snapshot() -> [LogEvent] {
         self.events.withLock { return $0 }
     }
 
-    func clear() {
+    nonisolated func clear() {
         self.events.withLock { $0.removeAll() }
     }
     
 }
 
-final class APILogResponseStore {
+final class APILogResponseStore: Sendable {
     
-    static let shared = APILogResponseStore()
+    nonisolated static let shared = APILogResponseStore()
 
-    private let responses: Mutex<[APILogResponse]> = .init([])
+    private let responses: Mutex<[APILogResponse]>
     
-    private init() {
-        
+    nonisolated private init() {
+        self.responses = Mutex([])
     }
 
-    func append(_ response: APILogResponse) {
+    nonisolated func append(_ response: APILogResponse) {
         
         self.responses.withLock { responses in
             responses.append(response)
@@ -54,11 +54,11 @@ final class APILogResponseStore {
         
     }
 
-    func snapshot() -> [APILogResponse] {
+    nonisolated func snapshot() -> [APILogResponse] {
         self.responses.withLock { return $0 }
     }
 
-    func clear() {
+    nonisolated func clear() {
         self.responses.withLock { $0.removeAll() }
     }
     

@@ -9,6 +9,7 @@ import Foundation
 
 extension APIService {
     
+    @concurrent
     func registerDevice(token: String,
                         userId: String) async throws {
         

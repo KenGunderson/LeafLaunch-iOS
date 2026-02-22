@@ -1,6 +1,6 @@
 //
 //  MockViewModelAssembly.swift
-//  Grimoire 
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/23/24.
 //
@@ -14,7 +14,7 @@ class MockViewModelAssembly {
 
         // RootViewModel
         
-        container.rootViewModel.register {
+        container.rootViewModel.register { @MainActor in
             RootViewModel(
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService(),
@@ -29,7 +29,7 @@ class MockViewModelAssembly {
 
         // MainViewModel
         
-        container.mainViewModel.register {
+        container.mainViewModel.register { @MainActor in
             MainViewModel(
                 alertService: container.alertService(),
                 appDelegateService: container.appDelegateService(),
@@ -45,7 +45,7 @@ class MockViewModelAssembly {
         
         // Auth - Welcome
         
-        container.welcomeViewModel.register {
+        container.welcomeViewModel.register { @MainActor in
             WelcomeViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -57,7 +57,7 @@ class MockViewModelAssembly {
         
         // Auth - Login
         
-        container.loginViewModel.register {
+        container.loginViewModel.register { @MainActor in
             LoginViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -68,7 +68,7 @@ class MockViewModelAssembly {
         
         // Auth - SignUp
         
-        container.signUpViewModel.register {
+        container.signUpViewModel.register { @MainActor in
             SignUpViewModel(
                 alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
@@ -80,7 +80,7 @@ class MockViewModelAssembly {
         
         // Onboarding ViewModel
         
-        container.onboardingViewModel.register {
+        container.onboardingViewModel.register { @MainActor in
             OnboardingViewModel(
                 analyticsService: container.analyticsService(),
                 permissionService: container.permissionsService(),
@@ -91,7 +91,7 @@ class MockViewModelAssembly {
         
         // Onboarding Permission ViewModel
         
-        container.onboardingPermissionsViewModel.register {
+        container.onboardingPermissionsViewModel.register { @MainActor in
             OnboardingPermissionsViewModel(
                 analyticsService: container.analyticsService(),
                 permissionService: container.permissionsService(),
@@ -102,7 +102,7 @@ class MockViewModelAssembly {
         
         // Settings
         
-        container.settingsViewModel.register {
+        container.settingsViewModel.register { @MainActor in
             SettingsViewModel(
                 authService: container.authService(),
                 apiService: container.apiService(),
@@ -117,7 +117,7 @@ class MockViewModelAssembly {
         
         // Settings - PROFILE
         
-        container.profileViewModel.register {
+        container.profileViewModel.register { @MainActor in
             ProfileViewModel(
                 apiService: container.apiService(),
                 analyticsService: container.analyticsService(),
@@ -131,7 +131,7 @@ class MockViewModelAssembly {
         
         // Settings - ABOUT US
         
-        container.aboutUsViewModel.register {
+        container.aboutUsViewModel.register { @MainActor in
             AboutUsViewModel(
                 apiService: container.apiService(),
                 analyticsService: container.analyticsService(),
@@ -144,7 +144,7 @@ class MockViewModelAssembly {
         
         // Settings - FEATURE REQUEST
         
-        container.featureRequestViewModel.register {
+        container.featureRequestViewModel.register { @MainActor in
             FeatureRequestViewModel(
                 apiService: container.apiService(),
                 analyticsService: container.analyticsService(),
@@ -157,7 +157,7 @@ class MockViewModelAssembly {
         
         // Settings - FAQ
         
-        container.faqViewModel.register {
+        container.faqViewModel.register { @MainActor in
             FAQViewModel(
                 apiService: container.apiService(),
                 analyticsService: container.analyticsService(),
@@ -170,7 +170,7 @@ class MockViewModelAssembly {
         
         // Settings - Legal
         
-        container.legalViewModel.register {
+        container.legalViewModel.register { @MainActor in
             LegalViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
@@ -183,7 +183,7 @@ class MockViewModelAssembly {
         
         // DevSettings
         
-        container.devSettingsViewModel.register {
+        container.devSettingsViewModel.register { @MainActor in
             DevSettingsViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -196,7 +196,7 @@ class MockViewModelAssembly {
         
         // DevSettings - Routes
         
-        container.devRoutesViewModel.register {
+        container.devRoutesViewModel.register { @MainActor in
             DevRoutesViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -207,7 +207,7 @@ class MockViewModelAssembly {
         
         // DevSettings - Deeplinks
         
-        container.devDeeplinksViewModel.register {
+        container.devDeeplinksViewModel.register { @MainActor in
             DevDeeplinksViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -218,7 +218,7 @@ class MockViewModelAssembly {
         
         // DevSettings - UserDefaults
         
-        container.devUserDefaultsViewModel.register {
+        container.devUserDefaultsViewModel.register { @MainActor in
             DevUserDefaultsViewModel(
                 alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
@@ -232,7 +232,7 @@ class MockViewModelAssembly {
         
         // DevSettings - Analytics
         
-        container.devAnalyticsViewModel.register {
+        container.devAnalyticsViewModel.register { @MainActor in
             DevAnalyticsViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -243,7 +243,7 @@ class MockViewModelAssembly {
         
         // DevSettings - Impersonate
         
-        container.devImpersonateViewModel.register {
+        container.devImpersonateViewModel.register { @MainActor in
             DevImpersonateViewModel(
                 analyticsService: container.analyticsService(),
                 impersonateService: container.impersonateService(),

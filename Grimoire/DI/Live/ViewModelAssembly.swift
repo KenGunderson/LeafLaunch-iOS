@@ -12,8 +12,9 @@ extension Container {
     
     // RootViewModel
     
+    @MainActor
     var rootViewModel: Factory<RootViewModel> {
-        self {
+        self { @MainActor in
             RootViewModel(
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService(),
@@ -29,8 +30,9 @@ extension Container {
     
     // MainViewModel
     
+    @MainActor
     var mainViewModel: Factory<MainViewModel> {
-        self {
+        self { @MainActor in
             MainViewModel(
                 alertService: self.alertService(),
                 appDelegateService: self.appDelegateService(),
@@ -47,8 +49,9 @@ extension Container {
     
     // Auth - Welcome
     
+    @MainActor
     var welcomeViewModel: Factory<WelcomeViewModel> {
-        self {
+        self { @MainActor in
             WelcomeViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -61,8 +64,9 @@ extension Container {
     
     // Auth - Login
     
+    @MainActor
     var loginViewModel: Factory<LoginViewModel> {
-        self {
+        self { @MainActor in
             LoginViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -74,8 +78,9 @@ extension Container {
     
     // Auth - SignUp
     
+    @MainActor
     var signUpViewModel: Factory<SignUpViewModel> {
-        self {
+        self { @MainActor in
             SignUpViewModel(
                 alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
@@ -88,8 +93,9 @@ extension Container {
     
     // Onboarding ViewModel
     
+    @MainActor
     var onboardingViewModel: Factory<OnboardingViewModel> {
-        self {
+        self { @MainActor in
             OnboardingViewModel(
                 analyticsService: self.analyticsService(),
                 permissionService: self.permissionsService(),
@@ -101,8 +107,9 @@ extension Container {
     
     // Onboarding Permission ViewModel
     
+    @MainActor
     var onboardingPermissionsViewModel: Factory<OnboardingPermissionsViewModel> {
-        self {
+        self { @MainActor in
             OnboardingPermissionsViewModel(
                 analyticsService: self.analyticsService(),
                 permissionService: self.permissionsService(),
@@ -114,8 +121,9 @@ extension Container {
     
     // Tab 1 ViewModel
     
+    @MainActor
     var tab1ViewModel: Factory<Tab1ViewModel> {
-        self {
+        self { @MainActor in
             Tab1ViewModel(
                 alertService: self.alertService(),
                 authService: self.authService(),
@@ -127,8 +135,9 @@ extension Container {
     
     // Tab 2 ViewModel
     
+    @MainActor
     var tab2ViewModel: Factory<Tab2ViewModel> {
-        self {
+        self { @MainActor in
             Tab2ViewModel(
                 alertService: self.alertService(),
                 authService: self.authService(),
@@ -140,8 +149,9 @@ extension Container {
     
     // Tab 3 ViewModel
     
+    @MainActor
     var tab3ViewModel: Factory<Tab3ViewModel> {
-        self {
+        self { @MainActor in
             Tab3ViewModel(
                 authService: self.authService(),
                 analyticsService: self.analyticsService()
@@ -151,8 +161,9 @@ extension Container {
     
     // Tab 4 ViewModel
     
+    @MainActor
     var tab4ViewModel: Factory<Tab4ViewModel> {
-        self {
+        self { @MainActor in
             Tab4ViewModel(
                 authService: self.authService(),
                 analyticsService: self.analyticsService()
@@ -162,8 +173,9 @@ extension Container {
     
     // Settings
     
+    @MainActor
     var settingsViewModel: Factory<SettingsViewModel> {
-        self {
+        self { @MainActor in
             SettingsViewModel(
                 authService: self.authService(),
                 apiService: self.apiService(),
@@ -179,8 +191,9 @@ extension Container {
     
     // Settings - PROFILE
     
+    @MainActor
     var profileViewModel: Factory<ProfileViewModel> {
-        self {
+        self { @MainActor in
             ProfileViewModel(
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
@@ -195,8 +208,9 @@ extension Container {
     
     // Settings - ABOUT US
     
+    @MainActor
     var aboutUsViewModel: Factory<AboutUsViewModel> {
-        self {
+        self { @MainActor in
             AboutUsViewModel(
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
@@ -210,8 +224,9 @@ extension Container {
     
     // Settings - FEATURE REQUEST
     
+    @MainActor
     var featureRequestViewModel: Factory<FeatureRequestViewModel> {
-        self {
+        self { @MainActor in
             FeatureRequestViewModel(
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
@@ -225,8 +240,9 @@ extension Container {
     
     // Settings - FAQ
     
+    @MainActor
     var faqViewModel: Factory<FAQViewModel> {
-        self {
+        self { @MainActor in
             FAQViewModel(
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
@@ -240,8 +256,9 @@ extension Container {
     
     // Settings - Legal
     
+    @MainActor
     var legalViewModel: Factory<LegalViewModel> {
-        self {
+        self { @MainActor in
             LegalViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
@@ -255,8 +272,9 @@ extension Container {
     
     // DevSettings
     
+    @MainActor
     var devSettingsViewModel: Factory<DevSettingsViewModel> {
-        self {
+        self { @MainActor in
             DevSettingsViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -270,8 +288,9 @@ extension Container {
     
     // DevSettings - Routes
     
+    @MainActor
     var devRoutesViewModel: Factory<DevRoutesViewModel> {
-        self {
+        self { @MainActor in
             DevRoutesViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -283,8 +302,9 @@ extension Container {
     
     // DevSettings - Deeplinks
     
+    @MainActor
     var devDeeplinksViewModel: Factory<DevDeeplinksViewModel> {
-        self {
+        self { @MainActor in
             DevDeeplinksViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -296,8 +316,9 @@ extension Container {
     
     // DevSettings - UserDefaults
     
+    @MainActor
     var devUserDefaultsViewModel: Factory<DevUserDefaultsViewModel> {
-        self {
+        self { @MainActor in
             DevUserDefaultsViewModel(
                 alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
@@ -312,8 +333,9 @@ extension Container {
     
     // DevSettings - Analytics
     
+    @MainActor
     var devAnalyticsViewModel: Factory<DevAnalyticsViewModel> {
-        self {
+        self { @MainActor in
             DevAnalyticsViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -325,8 +347,9 @@ extension Container {
     
     // DevSettings - Impersonate
     
+    @MainActor
     var devImpersonateViewModel: Factory<DevImpersonateViewModel> {
-        self {
+        self { @MainActor in
             DevImpersonateViewModel(
                 analyticsService: self.analyticsService(),
                 impersonateService: self.impersonateService(),

@@ -13,7 +13,7 @@ extension Container {
     // ENV
     
     var environmentService: Factory<EnvironmentServiceProtocol> {
-        self {
+        self { @MainActor in
             EnvironmentService()
         }
         .singleton
@@ -22,7 +22,7 @@ extension Container {
     // ALERT
     
     var alertService: Factory<AlertServiceProtocol> {
-        self {
+        self { @MainActor in
             AlertService()
         }
         .singleton
@@ -31,7 +31,7 @@ extension Container {
     // ANALYTICS
     
     var analyticsService: Factory<AnalyticsServiceProtocol> {
-        self {
+        self { @MainActor in
             AnalyticsService(
                 environmentService: self.environmentService(),
                 permissionService: self.permissionsService()
@@ -43,7 +43,7 @@ extension Container {
     // APP DELEGATE
     
     var appDelegateService: Factory<AppDelegateServiceProtocol> {
-        self {
+        self { @MainActor in
             AppDelegateService()
         }
         .singleton
@@ -52,7 +52,7 @@ extension Container {
     // DEEP LINK
     
     var deeplinkService: Factory<DeeplinkServiceProtocol> {
-        self {
+        self { @MainActor in
             DeeplinkService(
                 lifecycleService: self.viewLifecycleService()
             )
@@ -63,7 +63,7 @@ extension Container {
     // FIREBASE
     
     var firebaseService: Factory<FirebaseServiceProtocol> {
-        self {
+        self { @MainActor in
             FirebaseService()
         }
         .singleton
@@ -72,7 +72,7 @@ extension Container {
     // USER DEFAULTS
     
     var userDefaultsService: Factory<UserDefaultsServiceProtocol> {
-        self {
+        self { @MainActor in
             UserDefaultsService()
         }
         .singleton
@@ -81,7 +81,7 @@ extension Container {
     // CONNECTIVITY
     
     var connectivityService: Factory<ConnectivityServiceProtocol> {
-        self {
+        self { @MainActor in
             ConnectivityService()
         }
         .singleton
@@ -90,7 +90,7 @@ extension Container {
     // PUSH NOTIFICATION
     
     var pushNotificationService: Factory<PushNotificationServiceProtocol> {
-        self {
+        self { @MainActor in
             PushNotificationService(
                 viewLifecycleService: self.viewLifecycleService()
             )
@@ -101,7 +101,7 @@ extension Container {
     // LAUNCH
     
     var launchScreenService: Factory<LaunchScreenServiceProtocol> {
-        self {
+        self { @MainActor in
             LaunchScreenService()
         }
         .singleton
@@ -110,7 +110,7 @@ extension Container {
     // CAMERA PERMISSION
     
     var cameraPermissionService: Factory<CameraPermissionServiceProtocol> {
-        self {
+        self { @MainActor in
             CameraPermissionService()
         }
         .singleton
@@ -119,7 +119,7 @@ extension Container {
     // MEDIA PERMISSION
     
     var mediaPermissionService: Factory<MediaPermissionServiceProtocol> {
-        self {
+        self { @MainActor in
             MediaPermissionService()
         }
         .singleton
@@ -128,7 +128,7 @@ extension Container {
     // PUSH NOTIFICATION PERMISSION
     
     var pushNotificationPermissionService: Factory<PushNotificationPermissionServiceProtocol> {
-        self {
+        self { @MainActor in
             PushNotificationPermissionService()
         }
         .singleton
@@ -137,7 +137,7 @@ extension Container {
     // APP TRACKING PERMISSION
     
     var appTrackingPermissionService: Factory<AppTrackingPermissionServiceProtocol> {
-        self {
+        self { @MainActor in
             AppTrackingPermissionService()
         }
         .singleton
@@ -146,7 +146,7 @@ extension Container {
     // VIEW LIFECYCLE
     
     var viewLifecycleService: Factory<ViewLifecycleServiceProtocol> {
-        self {
+        self { @MainActor in
             ViewLifecycleService()
         }
         .singleton
@@ -155,7 +155,7 @@ extension Container {
     // PERMISSIONS SERVICE
     
     var permissionsService: Factory<PermissionsServiceProtocol> {
-        self {
+        self { @MainActor in
             PermissionsService(
                 cameraPermissionService: self.cameraPermissionService(),
                 mediaPermissionService: self.mediaPermissionService(),
@@ -169,7 +169,7 @@ extension Container {
     // API
     
     var apiService: Factory<APIServiceProtocol> {
-        self {
+        self { @MainActor in
 //            MockAPIService() // TODO: - REPLACE WITH LIVE
             APIService(
                 analyticsService: self.analyticsService(),
@@ -184,7 +184,7 @@ extension Container {
     // AUTH
     
     var authService: Factory<AuthServiceProtocol> {
-        self {
+        self { @MainActor in
             AuthService(
                 firebaseService: self.firebaseService(),
                 apiService: self.apiService(),
@@ -198,7 +198,7 @@ extension Container {
     // IMPERSONATE
     
     var impersonateService: Factory<ImpersonateServiceProtocol> {
-        self {
+        self { @MainActor in
             ImpersonateService(
                 firebaseService: self.firebaseService(),
                 apiService: self.apiService(),
@@ -212,7 +212,7 @@ extension Container {
     // ROOT STARTUP
     
     var rootStartupService: Factory<RootStartupServiceProtocol> {
-        self {
+        self { @MainActor in 
             RootStartupService(
                 launchService: self.launchScreenService(),
                 environmentService: self.environmentService(),

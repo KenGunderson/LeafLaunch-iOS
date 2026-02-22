@@ -10,15 +10,15 @@ import OSLog
 
 public protocol Loggable: Sendable {
     
-    var loggerName: String { get }
-    var loggerEmoji: String { get }
-    var logger: Logger { get }
+    nonisolated var loggerName: String { get }
+    nonisolated var loggerEmoji: String { get }
+    nonisolated var logger: Logger { get }
     
 }
 
 public extension Loggable {
     
-    var logger: Logger {
+    nonisolated var logger: Logger {
         
         Logger(
             subsystem: Bundle.main.bundleIdentifier ?? "com.your.app",
@@ -27,12 +27,12 @@ public extension Loggable {
         
     }
     
-    fileprivate func formattedString(title: String? = nil,
-                                     message: String,
-                                     level: OSLogType,
-                                     file: StaticString,
-                                     function: StaticString,
-                                     line: UInt) -> String {
+    nonisolated fileprivate func formattedString(title: String? = nil,
+                                                 message: String,
+                                                 level: OSLogType,
+                                                 file: StaticString,
+                                                 function: StaticString,
+                                                 line: UInt) -> String {
         
         let icons = String(repeating: loggerEmoji, count: 5)
         let header = "\(icons) [\(loggerName.uppercased())]"
@@ -52,9 +52,9 @@ public extension Loggable {
         
     }
 
-    func logInit(file: StaticString = #file,
-                 function: StaticString = #function,
-                 line: UInt = #line) {
+    nonisolated func logInit(file: StaticString = #file,
+                             function: StaticString = #function,
+                             line: UInt = #line) {
         
         let formattedString = formattedString(
             message: "Init",
@@ -79,9 +79,9 @@ public extension Loggable {
         
     }
 
-    func logDeinit(file: StaticString = #file,
-                   function: StaticString = #function,
-                   line: UInt = #line) {
+    nonisolated func logDeinit(file: StaticString = #file,
+                               function: StaticString = #function,
+                               line: UInt = #line) {
         
         let formattedString = formattedString(
             message: "Deinit",
@@ -106,7 +106,7 @@ public extension Loggable {
         
     }
 
-    func log(
+    nonisolated func log(
         level: OSLogType = .debug,
         message: String,
         file: StaticString = #file,
@@ -136,11 +136,11 @@ public extension Loggable {
             
     }
 
-    func logError(title: String? = nil,
-                  message: String,
-                  file: StaticString = #file,
-                  function: StaticString = #function,
-                  line: UInt = #line) {
+    nonisolated func logError(title: String? = nil,
+                              message: String,
+                              file: StaticString = #file,
+                              function: StaticString = #function,
+                              line: UInt = #line) {
         
         let formattedString = formattedString(
             title: title,

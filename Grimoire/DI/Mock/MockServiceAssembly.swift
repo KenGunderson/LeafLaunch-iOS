@@ -1,6 +1,6 @@
 //
 //  MockServiceAssembly.swift
-//  Grimoire 
+//  Grimoire
 //
 //  Created by Sako Hovaguimian on 7/23/24.
 //
@@ -18,7 +18,7 @@ import AVFoundation
 
 // MARK: - AnalyticsServiceProtocol
 
-final class MockAnalyticsService: AnalyticsServiceProtocol {
+final class MockAnalyticsService: AnalyticsServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "ANALYTICS_SERVICE"
     internal let loggerEmoji: String = "📀"
@@ -41,7 +41,7 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
 
 // MARK: - MockAlertService
 
-final class MockAlertService: AlertServiceProtocol, ObservableObject {
+final class MockAlertService: AlertServiceProtocol, ObservableObject, @unchecked Sendable {
     
     @Published var alerts: [RuneAlert] = []
     
@@ -90,7 +90,7 @@ final class MockAlertService: AlertServiceProtocol, ObservableObject {
 
 // MARK: - APIServiceProtocol
 
-final class MockAPIService: APIServiceProtocol {
+final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "API_SERVICE"
     internal let loggerEmoji: String = "🌐"
@@ -112,7 +112,7 @@ final class MockAPIService: APIServiceProtocol {
     
     init() {
         
-        var user = MockModels.MockUser.user1
+        let user = MockModels.MockUser.user1
         self.currentUser = user
         
     }
@@ -125,14 +125,14 @@ final class MockAPIService: APIServiceProtocol {
     
     func getUser(id: String) async throws -> GPUser {
         
-        var user = MockModels.MockUser.user1
+        let user = MockModels.MockUser.user1
         return user
         
     }
     
     func getUserProfile() async throws -> GPUser {
         
-        var user = MockModels.MockUser.user1
+        let user = MockModels.MockUser.user1
         return user
         
     }
@@ -150,7 +150,7 @@ final class MockAPIService: APIServiceProtocol {
 
 // MARK: - AppDelegateServiceProtocol
 
-final class MockAppDelegateService: AppDelegateServiceProtocol {
+final class MockAppDelegateService: AppDelegateServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "APP_DELEGATE_SERVICE"
     internal let loggerEmoji: String = "📱"
@@ -168,7 +168,7 @@ final class MockAppDelegateService: AppDelegateServiceProtocol {
 
 // MARK: - AppTrackingPermissionServiceProtocol
 
-final class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol {
+final class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "APP_TRACKING_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -187,7 +187,7 @@ final class MockAppTrackingPermissionService: AppTrackingPermissionServiceProtoc
 
 // MARK: - AuthServiceProtocol
 
-final class MockAuthService: AuthServiceProtocol {
+final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "AUTH_SERVICE"
     internal let loggerEmoji: String = "🪪"
@@ -209,7 +209,7 @@ final class MockAuthService: AuthServiceProtocol {
     
     func login(email: String, password: String) async throws {
         
-        var currentUser = MockModels.MockUser.user1
+        let currentUser = MockModels.MockUser.user1
         self.currentUser = currentUser
         
     }
@@ -226,7 +226,7 @@ final class MockAuthService: AuthServiceProtocol {
 
 // MARK: IMPERSONATE
 
-final class MockImpersonateService: ImpersonateServiceProtocol {
+final class MockImpersonateService: ImpersonateServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "IMPERSONATE_SERVICE"
     internal let loggerEmoji: String = "🥷🏻"
@@ -253,7 +253,7 @@ final class MockImpersonateService: ImpersonateServiceProtocol {
 
 // MARK: - CameraPermissionServiceProtocol
 
-final class MockCameraPermissionService: CameraPermissionServiceProtocol {
+final class MockCameraPermissionService: CameraPermissionServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "CAMERA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -270,7 +270,7 @@ final class MockCameraPermissionService: CameraPermissionServiceProtocol {
 
 // MARK: - ConnectivityServiceProtocol
 
-final class MockConnectivityService: ConnectivityServiceProtocol {
+final class MockConnectivityService: ConnectivityServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "CONNECTIVITY_SERVICE"
     internal let loggerEmoji: String = "📡"
@@ -284,7 +284,7 @@ final class MockConnectivityService: ConnectivityServiceProtocol {
 
 // MARK: - DeeplinkServiceProtocol
 
-final class MockDeeplinkService: DeeplinkServiceProtocol {
+final class MockDeeplinkService: DeeplinkServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "DEEPLINK_SERVICE"
     internal let loggerEmoji: String = "🔗"
@@ -296,7 +296,7 @@ final class MockDeeplinkService: DeeplinkServiceProtocol {
 
 // MARK: - EnvironmentServiceProtocol
 
-final class MockEnvironmentService: EnvironmentServiceProtocol {
+final class MockEnvironmentService: EnvironmentServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "ENVIRONMENT_SERVICE"
     internal let loggerEmoji: String = "♻️"
@@ -310,7 +310,7 @@ final class MockEnvironmentService: EnvironmentServiceProtocol {
 
 // MARK: - FirebaseServiceProtocol
 
-final class MockFirebaseService: FirebaseServiceProtocol {
+final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "FIREBASE_SERVICE"
     internal let loggerEmoji: String = "🔥"
@@ -340,7 +340,7 @@ final class MockFirebaseService: FirebaseServiceProtocol {
 
 // MARK: - LaunchScreenServiceProtocol
 
-final class MockLaunchScreenService: LaunchScreenServiceProtocol {
+final class MockLaunchScreenService: LaunchScreenServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "LAUNCH_SERVICE"
     internal let loggerEmoji: String = "🚀"
@@ -352,7 +352,7 @@ final class MockLaunchScreenService: LaunchScreenServiceProtocol {
 
 // MARK: - MediaPermissionServiceProtocol
 
-final class MockMediaPermissionService: MediaPermissionServiceProtocol {
+final class MockMediaPermissionService: MediaPermissionServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "MEDIA_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -369,7 +369,7 @@ final class MockMediaPermissionService: MediaPermissionServiceProtocol {
 
 // MARK: - PermissionsServiceProtocol
 
-final class MockPermissionsService: PermissionsServiceProtocol {
+final class MockPermissionsService: PermissionsServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -389,7 +389,7 @@ final class MockPermissionsService: PermissionsServiceProtocol {
 
 // MARK: - PushNotificationPermissionServiceProtocol
 
-final class MockPushNotificationPermissionService: PushNotificationPermissionServiceProtocol {
+final class MockPushNotificationPermissionService: PushNotificationPermissionServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "PUSH_NOTIFICATION_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
@@ -406,7 +406,7 @@ final class MockPushNotificationPermissionService: PushNotificationPermissionSer
 
 // MARK: - PushNotificationServiceProtocol
 
-final class MockPushNotificationService: PushNotificationServiceProtocol {
+final class MockPushNotificationService: PushNotificationServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
     internal let loggerEmoji: String = "🔔"
@@ -418,7 +418,7 @@ final class MockPushNotificationService: PushNotificationServiceProtocol {
 
 // MARK: - UserDefaultsServiceProtocol
 
-final class MockUserDefaultsService: UserDefaultsServiceProtocol {
+final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
@@ -461,7 +461,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol {
 
 // MARK: - ViewLifecycleServiceProtocol
 
-final class MockViewLifecycleService: ViewLifecycleServiceProtocol {
+final class MockViewLifecycleService: ViewLifecycleServiceProtocol, @unchecked Sendable {
     
     internal let loggerName: String = "VIEW_LIFECYCLE_SERVICE"
     internal let loggerEmoji: String = "🔁"
@@ -484,26 +484,26 @@ final class MockServiceAssembly {
     
     func assemble(container: Container) {
         
-        container.environmentService.register { MockEnvironmentService() }
-        container.alertService.register { MockAlertService() }
-        container.analyticsService.register { MockAnalyticsService() }
-        container.appDelegateService.register { MockAppDelegateService() }
-        container.deeplinkService.register { MockDeeplinkService() }
-        container.firebaseService.register { MockFirebaseService() }
-        container.userDefaultsService.register { MockUserDefaultsService() }
-        container.connectivityService.register { MockConnectivityService() }
-        container.pushNotificationService.register { MockPushNotificationService() }
-        container.launchScreenService.register { MockLaunchScreenService() }
-        container.cameraPermissionService.register { MockCameraPermissionService() }
-        container.mediaPermissionService.register { MockMediaPermissionService() }
-        container.pushNotificationPermissionService.register { MockPushNotificationPermissionService() }
-        container.appTrackingPermissionService.register { MockAppTrackingPermissionService() }
-        container.viewLifecycleService.register { MockViewLifecycleService() }
-        container.permissionsService.register { MockPermissionsService() }
-        container.apiService.register { MockAPIService() }
-        container.authService.register { MockAuthService() }
-        container.impersonateService.register { MockImpersonateService() }
-        container.rootStartupService.register {
+        container.environmentService.register { @MainActor in MockEnvironmentService() }
+        container.alertService.register { @MainActor in MockAlertService() }
+        container.analyticsService.register { @MainActor in MockAnalyticsService() }
+        container.appDelegateService.register { @MainActor in MockAppDelegateService() }
+        container.deeplinkService.register { @MainActor in MockDeeplinkService() }
+        container.firebaseService.register { @MainActor in MockFirebaseService() }
+        container.userDefaultsService.register { @MainActor in MockUserDefaultsService() }
+        container.connectivityService.register { @MainActor in MockConnectivityService() }
+        container.pushNotificationService.register { @MainActor in MockPushNotificationService() }
+        container.launchScreenService.register { @MainActor in MockLaunchScreenService() }
+        container.cameraPermissionService.register { @MainActor in MockCameraPermissionService() }
+        container.mediaPermissionService.register { @MainActor in MockMediaPermissionService() }
+        container.pushNotificationPermissionService.register { @MainActor in MockPushNotificationPermissionService() }
+        container.appTrackingPermissionService.register { @MainActor in MockAppTrackingPermissionService() }
+        container.viewLifecycleService.register { @MainActor in MockViewLifecycleService() }
+        container.permissionsService.register { @MainActor in MockPermissionsService() }
+        container.apiService.register { @MainActor in MockAPIService() }
+        container.authService.register { @MainActor in MockAuthService() }
+        container.impersonateService.register { @MainActor in MockImpersonateService() }
+        container.rootStartupService.register { @MainActor in
             RootStartupService(
                 launchService: container.launchScreenService(),
                 environmentService: container.environmentService(),

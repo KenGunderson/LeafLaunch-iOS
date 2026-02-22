@@ -12,6 +12,7 @@ extension APIService {
     
     // MARK: - USERS
 
+    @concurrent
     func getUser(id: String) async throws -> GPUser {
         
         do {
@@ -21,7 +22,7 @@ extension APIService {
                 apiPath: .init(path: .user("\(id)"))
             )
             
-            let result: GPUser = try parseData(data: data)
+            let result: GPUser = try await parseData(data: data)
             return result
             
         }
@@ -31,6 +32,7 @@ extension APIService {
         
     }
     
+    @concurrent
     func getUserProfile() async throws -> GPUser {
         
         do {
@@ -40,7 +42,7 @@ extension APIService {
                 apiPath: .init(path: .user("profile"))
             )
             
-            let result: GPUser = try parseData(data: data)
+            let result: GPUser = try await parseData(data: data)
             return result
             
         }
@@ -50,6 +52,7 @@ extension APIService {
         
     }
     
+    @concurrent
     func getFirebaseTokenForUser(email: String) async throws -> String {
         
         do {
@@ -59,7 +62,7 @@ extension APIService {
                 apiPath: .init(path: .user("token/\(email)"))
             )
             
-            let json: [String: String] = try parseData(data: data)
+            let json: [String: String] = try await parseData(data: data)
             
             if let token = json["token"] {
                 return token
@@ -74,9 +77,10 @@ extension APIService {
         
     }
     
+    @concurrent
     func createUser(user: GPUser) async throws -> GPUser {
         
-        let parameters: [String : Any] = [
+        let parameters: [String : Any] = await [
             "first_name": user.firstName,
             "last_name": user.lastName,
             "email": user.email,
@@ -95,7 +99,7 @@ extension APIService {
                 parameters: parameters
             )
             
-            let result: GPUser = try parseData(data: data)
+            let result: GPUser = try await parseData(data: data)
             return result
             
         }
@@ -105,6 +109,7 @@ extension APIService {
         
     }
     
+    @concurrent
     func updateUser(user: GPUser) async throws {
         
         let parameters: [String : Any] = [
@@ -115,7 +120,7 @@ extension APIService {
             "email": user.email,
             "phone_number": user.phoneNumber,
             "image_url": user.imageURL?.absoluteString,
-            "date_of_birth": user.dateOfBirth?.toISO(),
+            "date_of_birth": await user.dateOfBirth?.toISO(),
         ]
         .compact()
         
@@ -134,6 +139,7 @@ extension APIService {
         
     }
     
+    @concurrent
     func deleteUser(user: GPUser) async throws {
         
         do {

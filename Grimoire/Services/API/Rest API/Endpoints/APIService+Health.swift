@@ -11,6 +11,7 @@ extension APIService {
     
     // MARK: - HEALTH
     
+    @concurrent
     func getHealth() async throws {
         
         do {

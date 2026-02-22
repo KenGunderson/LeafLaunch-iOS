@@ -59,7 +59,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
         if let _ = components.host {
             
             let paths = components.path.components(separatedBy: "/").dropFirst()
-            let queryParameters = components.queryItems
+//            let queryParameters = components.queryItems
             
             guard let deepLink = DeeplinkRoutes(rawValue: paths.first ?? "") else { return }
             

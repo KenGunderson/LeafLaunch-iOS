@@ -9,6 +9,7 @@ import SwiftUI
 
 public extension Theme {
     
+    @MainActor
     static let GLOW_PRO = Theme(
         id: "GLOW_PRO_THEME",
         foreground: .init(

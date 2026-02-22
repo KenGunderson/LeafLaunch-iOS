@@ -22,7 +22,6 @@ struct MockModels {
     
     struct MockUser {
         
-        nonisolated(unsafe)
         static var user1 = GPUser(
             id: ID.user1,
             firstName: "Sako",
@@ -34,7 +33,6 @@ struct MockModels {
             imageURL: nil
         )
         
-        nonisolated(unsafe)
         static var user2 = GPUser(
             id: ID.user2,
             firstName: "KC",
