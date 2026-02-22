@@ -187,7 +187,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
         switch self {
         case .root: screenName = "root"
         case .launch: screenName = "launch"
-        case .main(let screen): screenName = screen.data.name
+        case .main(let screen):
+            
+            screenName = screen.data.name
+            properties = screen.data.properties 
+            
         case .home: screenName = "home"
         case .onboarding(let screen): screenName = screen.screenName
         case .devSettings(let screen): screenName = screen.screenName

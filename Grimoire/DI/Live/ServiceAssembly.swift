@@ -32,10 +32,11 @@ extension Container {
     
     var analyticsService: Factory<AnalyticsServiceProtocol> {
         self { @MainActor in
-            AnalyticsService(
-                environmentService: self.environmentService(),
-                permissionService: self.permissionsService()
-            )
+            MockAnalyticsService()
+//            AnalyticsService(
+//                environmentService: self.environmentService(),
+//                permissionService: self.permissionsService()
+//            )
         }
         .singleton
     }
@@ -170,13 +171,13 @@ extension Container {
     
     var apiService: Factory<APIServiceProtocol> {
         self { @MainActor in
-//            MockAPIService() // TODO: - REPLACE WITH LIVE
-            APIService(
-                analyticsService: self.analyticsService(),
-                environmentService: self.environmentService(),
-                appDelegateService: self.appDelegateService(),
-                firebaseService: self.firebaseService()
-            )
+            MockAPIService() // TODO: - REPLACE WITH LIVE
+            //            APIService(
+            //                analyticsService: self.analyticsService(),
+            //                environmentService: self.environmentService(),
+            //                appDelegateService: self.appDelegateService(),
+            //                firebaseService: self.firebaseService()
+            //            )
         }
         .singleton
     }
@@ -212,7 +213,7 @@ extension Container {
     // ROOT STARTUP
     
     var rootStartupService: Factory<RootStartupServiceProtocol> {
-        self { @MainActor in 
+        self { @MainActor in
             RootStartupService(
                 launchService: self.launchScreenService(),
                 environmentService: self.environmentService(),

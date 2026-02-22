@@ -18,7 +18,7 @@ import AVFoundation
 
 // MARK: - AnalyticsServiceProtocol
 
-final class MockAnalyticsService: AnalyticsServiceProtocol, @unchecked Sendable {
+final class MockAnalyticsService: AnalyticsServiceProtocol {
     
     internal let loggerName: String = "ANALYTICS_SERVICE"
     internal let loggerEmoji: String = "📀"
@@ -30,12 +30,95 @@ final class MockAnalyticsService: AnalyticsServiceProtocol, @unchecked Sendable 
         return self.$sessionEvents.eraseToAnyPublisher()
     }
     
-    func identifyUser(_ userId: String?) {}
-    func setUserProperty(_ key: String, value: String) {}
-    func track(_ app: AppEvent) { print("Tracking App Event") }
-    func track(screen: ScreenEvent) { print("Tracking Screen Event") }
-    func track(error: ErrorEvent) { print("Tracking Error Event") }
-    func logout() {}
+    // MARK: Public
+    
+    func identifyUser(_ userId: String?) {
+        
+        self.log(message: "identify: \(userId ?? "nil")")
+        self.currentUserId.send(userId)
+        
+        // Logging
+        self.log(message: "USER_ID: \(userId ?? "NIL")")
+        
+        let loggingEvent = EventData(
+            name: "identify",
+            properties: ["user_id": (userId != nil) ? userId! : "nil"]
+        )
+        
+        sessionEvents.append(loggingEvent)
+    }
+    
+    func setUserProperty(_ key: String, value: String) {
+        
+        self.log(message: "user_property: [\(key): \(value)]")
+        self.log(message: "User property: \(key)\n METADATA:\nkey: \(key),\nvalue: \(value)")
+    
+        let loggingEvent = EventData(
+            name: "user_property",
+            properties: [key: value]
+        )
+        
+        sessionEvents.append(loggingEvent)
+    }
+    
+    func track(_ app: AppEvent) {
+        track(event: app)
+    }
+    
+    func track(screen: ScreenEvent) {
+        track(event: screen)
+    }
+    
+    func track(error: ErrorEvent) {
+        track(event: error)
+    }
+    
+    func logout() {
+        
+        self.log(message: "logout")
+        self.currentUserId.send(nil)
+        identifyUser(nil)
+        
+    }
+    
+    // MARK: Private
+    
+    private func track(event: AnalyticsEvent) {
+        
+        let type = event.eventType
+        let data = event.eventData
+                
+        let message = (data.properties != nil) ?
+            "\(data.name): \(data.properties!)" :
+            data.name
+        
+        var debugLogMessage = "Analytics event"
+        
+        switch type {
+        case .app:
+            debugLogMessage = "App: \(data.name)"
+            
+        case .screen:
+            if let screenName = data.properties?["screen"] as? String {
+                debugLogMessage = "Screen: \(screenName)"
+            }
+            else {
+                debugLogMessage = "Screen event"
+            }
+            
+        case .error:
+            if let errorName = data.properties?["name"] as? String {
+                debugLogMessage = "Error: \(errorName)"
+            }
+            else {
+                debugLogMessage = "Error event"
+            }
+        }
+
+        self.log(message: "\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
+        
+        sessionEvents.append(data)
+    }
     
 }
 
