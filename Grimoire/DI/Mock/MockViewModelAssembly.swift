@@ -181,6 +181,15 @@ class MockViewModelAssembly {
             )
         }
         
+        // What's New
+        
+        container.whatsNewViewModel.register { @MainActor in
+            WhatsNewViewModel(
+                analyticsService: container.analyticsService(),
+                userDefaultsService: container.userDefaultsService()
+            )
+        }
+        
         // DevSettings
         
         container.devSettingsViewModel.register { @MainActor in

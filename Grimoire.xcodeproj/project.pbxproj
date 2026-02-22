@@ -187,6 +187,12 @@
 		7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
 		7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
 		7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
+		75388C332F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
+		75388C342F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
+		75388C352F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
+		75388C362F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
+		75388C372F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
+		75388C382F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
 		753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B12DB8BD3900265B2A /* Constants.swift */; };
 		753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B72DB8BE1700265B2A /* FirebaseAuth */; };
@@ -674,6 +680,8 @@
 		7537F4142DF661EA0031D9CF /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLifecycleService.swift; sourceTree = "<group>"; };
+		75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreen.swift; sourceTree = "<group>"; };
+		75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewModel.swift; sourceTree = "<group>"; };
 		753EC1B12DB8BD3900265B2A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		753EC1B32DB8BD4A00265B2A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1249,6 +1257,15 @@
 			path = ViewLifecycle;
 			sourceTree = "<group>";
 		};
+		75388C322F4ADA41000D70A0 /* WhatsNew */ = {
+			isa = PBXGroup;
+			children = (
+				75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */,
+				75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */,
+			);
+			path = WhatsNew;
+			sourceTree = "<group>";
+		};
 		753EC1BD2DB8BE6700265B2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1516,6 +1533,7 @@
 				75B70AC72F0CA0D90054E8C7 /* Tab */,
 				75507FCB2F0CE67000CCB99F /* Settings */,
 				750DFBC02DC6CDAE00A2AB74 /* DevSettings */,
+				75388C322F4ADA41000D70A0 /* WhatsNew */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -2107,6 +2125,8 @@
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75B70AAF2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
+				75388C332F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */,
+				75388C342F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */,
 				75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
@@ -2291,6 +2311,8 @@
 				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75B70AAD2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
+				75388C352F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */,
+				75388C362F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */,
 				75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
@@ -2458,6 +2480,8 @@
 				75DD84372EAD728600DD8850 /* API.swift in Sources */,
 				75DD84382EAD728600DD8850 /* PermissionsServiceProtocol.swift in Sources */,
 				75B70AAE2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
+				75388C372F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */,
+				75388C382F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */,
 				75DD843A2EAD728600DD8850 /* EmptyStateOverlayModifier.swift in Sources */,
 				75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */,
 				75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */,

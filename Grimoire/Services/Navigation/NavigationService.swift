@@ -306,8 +306,13 @@ extension View {
             
             switch sheet {
             case .whatsNew:
+                
+                let defaultItem: WhatsNewItem = .init(version: .init("0.0.0"), items: [])
 
-                Color.orange.ignoresSafeArea()
+                let viewModel = Container.shared.whatsNewViewModel()
+                    .setup(whatsNewItem: Constants.WhatsNewItems.items.last ?? defaultItem)
+                
+                WhatsNewScreen(viewModel: viewModel)
                 
             case .permissions:
                 

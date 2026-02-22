@@ -73,6 +73,22 @@ final class MainViewModel: ViewModel {
         self.logDeinit()
     }
     
+    var shouldShowOnboarding: Bool {
+        return !self.userDefaultsService.didCompleteOnboarding
+    }
+    
+    var shouldShowWhatsNew: Bool {
+        
+        guard let currentItem = Constants.WhatsNewItems.items.last else { return false }
+        
+        let defaultVersion = "0.0.0"
+        let previouslyViewedVersion = SemanticVersion(self.userDefaultsService.lastViewedWhatsNewVersion ?? defaultVersion)
+        let currentVersion = currentItem.version
+        
+        return currentVersion > previouslyViewedVersion
+        
+    }
+    
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
     }
@@ -102,6 +118,15 @@ final class MainViewModel: ViewModel {
                 
                 self?.showShouldHomeScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
+                
+                let isLoggedIn = authServiceCurrentUser != nil
+                if isLoggedIn {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                        self?.presentModalsIfNeeded()
+                    }
+                    
+                }
                 
             }
             .store(in: &self.cancelBag)
@@ -137,6 +162,50 @@ final class MainViewModel: ViewModel {
                 
             }
             .store(in: &self.cancelBag)
+        
+        self.userDefaultsService
+            .didCompleteOnboardingPublisher
+            .receiveOnMain()
+            .sink { [weak self] didComplete in
+                
+                if didComplete {
+                    self?.presentModalsIfNeeded()
+                }
+                
+            }
+            .store(in: &self.cancelBag)
+        
+    }
+    
+    private func presentModalsIfNeeded() {
+        
+        if self.shouldShowOnboarding {
+            
+            self.tabBarNavigationService?
+                .tab1NavigationService
+                .modal(fullScreenCover: .onboarding)
+            
+            return
+            
+        }
+        
+        if self.shouldShowWhatsNew {
+            
+            Task { @MainActor in
+                
+                guard let currentItem = Constants.WhatsNewItems.items.last else { return }
+                
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                
+                self.tabBarNavigationService?
+                    .tab1NavigationService
+                    .modal(sheet: .whatsNew(currentItem))
+                
+            }
+            
+            return
+            
+        }
         
     }
 

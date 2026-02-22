@@ -270,6 +270,18 @@ extension Container {
         }
     }
     
+    // What's New
+    
+    @MainActor
+    var whatsNewViewModel: Factory<WhatsNewViewModel> {
+        self { @MainActor in
+            WhatsNewViewModel(
+                analyticsService: self.analyticsService(),
+                userDefaultsService: self.userDefaultsService()
+            )
+        }
+    }
+    
     // DevSettings
     
     @MainActor

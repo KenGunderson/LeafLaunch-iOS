@@ -32,7 +32,7 @@ extension Container {
     
     var analyticsService: Factory<AnalyticsServiceProtocol> {
         self { @MainActor in
-            MockAnalyticsService()
+            MockAnalyticsService() // TODO: - REPLACE WITH LIVE
 //            AnalyticsService(
 //                environmentService: self.environmentService(),
 //                permissionService: self.permissionsService()
@@ -172,12 +172,12 @@ extension Container {
     var apiService: Factory<APIServiceProtocol> {
         self { @MainActor in
             MockAPIService() // TODO: - REPLACE WITH LIVE
-            //            APIService(
-            //                analyticsService: self.analyticsService(),
-            //                environmentService: self.environmentService(),
-            //                appDelegateService: self.appDelegateService(),
-            //                firebaseService: self.firebaseService()
-            //            )
+//            APIService(
+//                analyticsService: self.analyticsService(),
+//                environmentService: self.environmentService(),
+//                appDelegateService: self.appDelegateService(),
+//                firebaseService: self.firebaseService()
+//            )
         }
         .singleton
     }

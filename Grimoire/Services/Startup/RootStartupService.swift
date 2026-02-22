@@ -54,6 +54,10 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         
     }
     
+    var isProduction: Bool {
+        return self.environmentService.environment == .production
+    }
+    
     deinit {
         self.logDeinit()
     }

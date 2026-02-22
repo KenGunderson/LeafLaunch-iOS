@@ -136,7 +136,7 @@ final class RootViewModel: ViewModel {
     
     func presentDevSettings() {
         
-        // TODO: - CHECK ENV FOR NON-PROD
+        guard !self.startupService.isProduction else { return }
         
         if self.authService.currentUser == nil {
             shouldPresentDevSettings = true

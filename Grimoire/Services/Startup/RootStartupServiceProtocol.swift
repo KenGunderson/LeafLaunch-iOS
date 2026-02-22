@@ -9,6 +9,8 @@ import Foundation
 
 protocol RootStartupServiceProtocol: AnyObject {
     
+    var isProduction: Bool { get }
+    
     func setup(appDelegate: AppDelegate)
     func setLaunchState(_ state: LaunchScreenService.State)
     func markSplashAnimationCompleted()

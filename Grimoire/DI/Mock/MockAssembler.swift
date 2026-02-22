@@ -101,6 +101,10 @@ class MockAppAssembler {
             return self.container.legalViewModel() as! T
         }
         
+        if type == WhatsNewViewModel.self {
+            return self.container.whatsNewViewModel() as! T
+        }
+        
         if type == DevSettingsViewModel.self {
             return self.container.devSettingsViewModel() as! T
         }
