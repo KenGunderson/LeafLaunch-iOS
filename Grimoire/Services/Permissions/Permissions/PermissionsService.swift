@@ -80,7 +80,7 @@ final class PermissionsService: PermissionsServiceProtocol {
         self.cancelBag = CancelBag()
         
         self.cameraPermissionService
-            .permissionGrantedPublisher
+            .shouldPromptForPermissionsPublisher
             .receiveOnMain()
             .sink { [weak self] _ in
                 self?.validatePermissions()
@@ -88,7 +88,7 @@ final class PermissionsService: PermissionsServiceProtocol {
             .store(in: &self.cancelBag)
         
         self.mediaPermissionService
-            .permissionGrantedPublisher
+            .shouldPromptForPermissionsPublisher
             .receiveOnMain()
             .sink { [weak self] _ in
                 self?.validatePermissions()
@@ -96,7 +96,7 @@ final class PermissionsService: PermissionsServiceProtocol {
             .store(in: &self.cancelBag)
         
         self.pushNotificationPermissionService
-            .permissionGrantedPublisher
+            .shouldPromptForPermissionsPublisher
             .receiveOnMain()
             .sink { [weak self] _ in
                 self?.validatePermissions()
@@ -104,7 +104,7 @@ final class PermissionsService: PermissionsServiceProtocol {
             .store(in: &self.cancelBag)
         
         self.appTrackingPermissionService
-            .permissionGrantedPublisher
+            .shouldPromptForPermissionsPublisher
             .receiveOnMain()
             .sink { [weak self] _ in
                 self?.validatePermissions()

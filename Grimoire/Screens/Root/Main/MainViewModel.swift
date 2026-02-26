@@ -109,11 +109,16 @@ final class MainViewModel: ViewModel {
         self.cancelBag = CancelBag()
         
         Publishers
-            .CombineLatest(
-                self.authService.currentUserPublisher,
-                self.firebaseService.userPublisher
-            )
-            .receiveOnMain()
+            .CombineLatest(self.authService.currentUserPublisher, self.firebaseService.userPublisher)
+            .filter { authUser, fbUser in
+                
+                let bothPresent = authUser != nil && fbUser != nil
+                let bothMissing = authUser == nil && fbUser == nil
+                
+                return bothPresent || bothMissing
+                
+            }
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] authServiceCurrentUser, firebaseUser in
                 
                 let isUserMissing = authServiceCurrentUser == nil
@@ -123,7 +128,8 @@ final class MainViewModel: ViewModel {
                 self?.showShouldHomeScreen = !isUserMissing
                 self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
                 
-                let isLoggedIn = authServiceCurrentUser != nil
+                let isLoggedIn = !isUserMissing && !isFirebaseUserMissing
+                
                 if isLoggedIn {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in

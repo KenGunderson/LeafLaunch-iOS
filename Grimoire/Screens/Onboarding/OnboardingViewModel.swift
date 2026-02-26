@@ -26,7 +26,7 @@ final class OnboardingViewModel: ViewModel {
     
     @Published var currentPage: OnboardingPage!
     
-    var didAcknowledgePermissions: Bool = false
+    @Published private(set) var didAcknowledgePermissions: Bool = false
     
     var progress: CGFloat {
         return CGFloat(Double(self.currentPageIndex + 1) / Double(self.pages.count))
