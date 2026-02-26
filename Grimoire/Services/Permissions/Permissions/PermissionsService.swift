@@ -7,18 +7,6 @@
 
 import Combine
 
-enum PermissionError: Error, AppCustomError {
-    
-    case alreadyRequested
-    
-    var message: String {
-        switch self {
-        case .alreadyRequested: return "This permission has already been requested. Please go to Apple's settings and enable it."
-        }
-    }
-    
-}
-
 enum Permission: String, CaseIterable {
     
     case camera
