@@ -30,6 +30,10 @@ final class Tab4ViewModel: ViewModel {
         self.logDeinit()
     }
     
+    func loadData() {
+        
+    }
+    
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
     }

@@ -40,8 +40,8 @@ struct TabBar4Screen: View {
             }
             .task {
                 
-                //                    self.viewModel
-                //                        .loadData(showHud: false)
+//                self.viewModel
+//                    .loadData(showHud: false)
                 
             }
             

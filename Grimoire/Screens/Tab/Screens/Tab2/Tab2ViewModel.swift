@@ -42,6 +42,10 @@ final class Tab2ViewModel: ViewModel {
         self.tabBarNavigationService = tabBarNavigationService
     }
     
+    func loadData() {
+        
+    }
+    
     func presentAlert() {
         
         self.alertService

@@ -32,6 +32,10 @@ final class Tab3ViewModel: ViewModel {
         self.logDeinit()
     }
     
+    func loadData() {
+        
+    }
+    
     func setup(tabBarNavigationService: TabBarNavigationService) {
         self.tabBarNavigationService = tabBarNavigationService
     }
