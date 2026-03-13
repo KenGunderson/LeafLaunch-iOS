@@ -47,7 +47,7 @@ struct TabBar2Screen: View {
             .task {
                 
                 self.viewModel
-                    .loadData(showHud: false)
+                    .loadData(showHud: true)
                 
             }
             

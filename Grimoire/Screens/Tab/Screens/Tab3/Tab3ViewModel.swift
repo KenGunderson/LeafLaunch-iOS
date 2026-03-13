@@ -32,7 +32,7 @@ final class Tab3ViewModel: ViewModel {
         self.logDeinit()
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = false) {
         
     }
     

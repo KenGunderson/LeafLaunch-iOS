@@ -42,7 +42,7 @@ final class Tab1ViewModel: ViewModel {
         self.tabBarNavigationService = tabBarNavigationService
     }
     
-    func loadData() {
+    func loadData(showHud: Bool = false) {
         
     }
     
