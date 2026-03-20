@@ -1484,8 +1484,6 @@
 			isa = PBXGroup;
 			children = (
 				755C981F2D9CC89000437D5D /* Grimoire */,
-				75D66DC92DC7141A00E51CFC /* Grimoire-Dev */,
-				75DD84CA2EAD731300DD8850 /* Grimoire-Localhost */,
 				75D66DD22DC7179600E51CFC /* GrimoireTests */,
 				75D66DCE2DC7179600E51CFC /* GrimoireUITests */,
 				753EC1BD2DB8BE6700265B2A /* Frameworks */,
@@ -1499,8 +1497,6 @@
 				755C97E92D9CC86900437D5D /* Grimoire.app */,
 				755C97F92D9CC86A00437D5D /* GrimoireTests.xctest */,
 				755C98032D9CC86A00437D5D /* GrimoireUITests.xctest */,
-				75D66DC52DC713C300E51CFC /* Grimoire Dev.app */,
-				75DD84C62EAD728600DD8850 /* Grimoire Localhost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1672,15 +1668,6 @@
 			path = Tab;
 			sourceTree = "<group>";
 		};
-		75D66DC92DC7141A00E51CFC /* Grimoire-Dev */ = {
-			isa = PBXGroup;
-			children = (
-				75B5D5202EB431C900B52F9E /* GlowPro Dev.entitlements */,
-				7545912F2DF4B5860041AC58 /* Grimoire-Dev-Info.plist */,
-			);
-			path = "Grimoire-Dev";
-			sourceTree = "<group>";
-		};
 		75D66DCE2DC7179600E51CFC /* GrimoireUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1696,15 +1683,6 @@
 				75D66DD12DC7179600E51CFC /* GrimoireTests.swift */,
 			);
 			path = GrimoireTests;
-			sourceTree = "<group>";
-		};
-		75DD84CA2EAD731300DD8850 /* Grimoire-Localhost */ = {
-			isa = PBXGroup;
-			children = (
-				75B5D51F2EB4310D00B52F9E /* GlowPro Localhost.entitlements */,
-				75DD84C92EAD731300DD8850 /* Grimoire-Localhost-Info.plist */,
-			);
-			path = "Grimoire-Localhost";
 			sourceTree = "<group>";
 		};
 		75E0CA712E15F0720081A02A /* Onboarding */ = {
@@ -1945,8 +1923,6 @@
 			projectRoot = "";
 			targets = (
 				755C97E82D9CC86900437D5D /* Grimoire */,
-				75D66CD62DC713C300E51CFC /* Grimoire Dev */,
-				75DD83962EAD728600DD8850 /* Grimoire Localhost */,
 				755C97F82D9CC86A00437D5D /* GrimoireTests */,
 				755C98022D9CC86A00437D5D /* GrimoireUITests */,
 			);
@@ -2688,9 +2664,142 @@
 			};
 			name = Release;
 		};
+		A1B2C3012F3A100000000001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Development;
+		};
+		A1B2C3022F3A100000000001 /* Localhost */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Localhost;
+		};
 		755C980E2D9CC86B00437D5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_ENVIRONMENT = PRODUCTION;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
@@ -2733,6 +2842,7 @@
 		755C980F2D9CC86B00437D5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_ENVIRONMENT = PRODUCTION;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
@@ -2772,6 +2882,92 @@
 			};
 			name = Release;
 		};
+		A1B2C3032F3A100000000001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_ENVIRONMENT = DEVELOPMENT;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Development;
+		};
+		A1B2C3042F3A100000000001 /* Localhost */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_ENVIRONMENT = LOCALHOST;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Localhost;
+		};
 		755C98112D9CC86B00437D5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2810,6 +3006,44 @@
 			};
 			name = Release;
 		};
+		A1B2C3052F3A100000000001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
+			};
+			name = Development;
+		};
+		A1B2C3062F3A100000000001 /* Localhost */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
+			};
+			name = Localhost;
+		};
 		755C98142D9CC86B00437D5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2843,6 +3077,40 @@
 				TEST_TARGET_NAME = Rune;
 			};
 			name = Release;
+		};
+		A1B2C3072F3A100000000001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rune;
+			};
+			name = Development;
+		};
+		A1B2C3082F3A100000000001 /* Localhost */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rune;
+			};
+			name = Localhost;
 		};
 		75D66DC32DC713C300E51CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3027,6 +3295,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				755C980B2D9CC86B00437D5D /* Debug */,
+				A1B2C3012F3A100000000001 /* Development */,
+				A1B2C3022F3A100000000001 /* Localhost */,
 				755C980C2D9CC86B00437D5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3036,6 +3306,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				755C980E2D9CC86B00437D5D /* Debug */,
+				A1B2C3032F3A100000000001 /* Development */,
+				A1B2C3042F3A100000000001 /* Localhost */,
 				755C980F2D9CC86B00437D5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3045,6 +3317,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				755C98112D9CC86B00437D5D /* Debug */,
+				A1B2C3052F3A100000000001 /* Development */,
+				A1B2C3062F3A100000000001 /* Localhost */,
 				755C98122D9CC86B00437D5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3054,6 +3328,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				755C98142D9CC86B00437D5D /* Debug */,
+				A1B2C3072F3A100000000001 /* Development */,
+				A1B2C3082F3A100000000001 /* Localhost */,
 				755C98152D9CC86B00437D5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

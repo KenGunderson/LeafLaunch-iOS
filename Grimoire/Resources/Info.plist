@@ -16,7 +16,7 @@
 		</dict>
 	</array>
 	<key>Environment</key>
-	<string>PRODUCTION</string>
+	<string>$(APP_ENVIRONMENT)</string>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 </dict>
