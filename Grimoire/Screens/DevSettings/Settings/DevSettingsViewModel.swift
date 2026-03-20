@@ -17,6 +17,8 @@ final class DevSettingsViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     let firebaseService: FirebaseServiceProtocol
+    private let appDelegateService: AppDelegateServiceProtocol
+    private let impersonateService: ImpersonateServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     
@@ -32,6 +34,8 @@ final class DevSettingsViewModel: ViewModel {
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
+         appDelegateService: AppDelegateServiceProtocol,
+         impersonateService: ImpersonateServiceProtocol,
          alertService: AlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
@@ -39,6 +43,8 @@ final class DevSettingsViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.authService = authService
         self.firebaseService = firebaseService
+        self.appDelegateService = appDelegateService
+        self.impersonateService = impersonateService
         self.alertService = alertService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
@@ -126,6 +132,44 @@ final class DevSettingsViewModel: ViewModel {
                 .logout()
             
         }
+        
+    }
+    
+    var appVersion: String {
+        return Constants.App.version
+    }
+    
+    var buildNumber: String {
+        return Constants.App.buildNumber
+    }
+    
+    var bundleIdentifier: String {
+        return Constants.App.bundleIdentifier
+    }
+    
+    var currentEnvironmentName: String {
+        return self.selectedEnviornment?.displayName ?? "Unavailable"
+    }
+    
+    var deviceId: String {
+        return Constants.Device.deviceId
+    }
+    
+    var pushToken: String {
+        return self.appDelegateService.deviceToken ?? "Unavailable"
+    }
+    
+    var currentUserEmail: String {
+        return self.user?.email ?? "Unavailable"
+    }
+    
+    var impersonationState: String {
+        
+        guard self.impersonateService.isImpersonating else {
+            return "Inactive"
+        }
+        
+        return self.impersonateService.impersonatedUser?.email ?? "Active"
         
     }
     

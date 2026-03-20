@@ -59,7 +59,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
         if let _ = components.host {
             
             let paths = components.path.components(separatedBy: "/").dropFirst()
-//            let queryParameters = components.queryItems
+            let queryParameters = components.queryItems
             
             guard let deepLink = DeeplinkRoutes(rawValue: paths.first ?? "") else { return }
             
@@ -68,7 +68,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
             switch deepLink {
             case .tab:
                 
-//                handleTabDeeplink(from: queryParameters)
+                handleTabDeeplink(from: queryParameters)
                 return
                 
             }
@@ -77,26 +77,26 @@ final class DeeplinkService: DeeplinkServiceProtocol {
         
     }
     
-//    // *****************************
-//    // MARK: - TAB -
-//    // *****************************
-//    
-//    private func handleTabDeeplink(from queryParameters: [URLQueryItem]?) {
-//        
-//        if let tab = queryParameters?.first(where: { $0.name == "tab" }),
-//           let tabString = tab.value {
-//            
-//            self.log(message: "\(tab.value ?? "")")
-//            
-//            guard let selectedTab = Tab(rawValue: tabString) else { return }
-//                        
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-//                self?.tabBarNavigationService?.select(selectedTab)
-//            }
-//            
-//        }
-//        
-//    }
+    // *****************************
+    // MARK: - TAB -
+    // *****************************
+    
+    private func handleTabDeeplink(from queryParameters: [URLQueryItem]?) {
+        
+        if let tab = queryParameters?.first(where: { $0.name == "tab" }),
+           let tabString = tab.value {
+            
+            self.log(message: "\(tab.value ?? "")")
+            
+            guard let selectedTab = Tab(rawValue: tabString) else { return }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.tabBarNavigationService?.select(selectedTab)
+            }
+            
+        }
+        
+    }
 //    
 //    // *****************************
 //    // MARK: - SEARCH -

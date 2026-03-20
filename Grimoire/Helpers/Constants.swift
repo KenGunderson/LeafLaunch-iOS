@@ -50,6 +50,16 @@ struct Constants {
         
     }
     
+    // MARK: - APP
+    
+    struct App {
+        
+        static let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unavailable"
+        static let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "Unavailable"
+        static let bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "Unavailable"
+        
+    }
+    
     // MARK: - ANALYTICS
     
     struct Analytics {

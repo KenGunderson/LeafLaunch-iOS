@@ -60,6 +60,26 @@ final class DevAnalyticsViewModel: ViewModel {
         return APILogResponseStore.shared.snapshot()
     }
     
+    var clearActionTitle: String {
+        
+        switch self.selectedDisplayType {
+        case .logs: return "Clear Logs"
+        case .analytics: return "Reset Session"
+        case .api: return "Clear API Logs"
+        }
+        
+    }
+    
+    var selectedDisplayCount: Int {
+        
+        switch self.selectedDisplayType {
+        case .logs: return self.logEvents.count
+        case .analytics: return self.events.count
+        case .api: return self.allAPILogResponses.count
+        }
+        
+    }
+    
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
@@ -139,6 +159,23 @@ final class DevAnalyticsViewModel: ViewModel {
             .dismissFullScreenCover()
         
         UIApplication.shared.open(url)
+        
+    }
+    
+    func clearSelectedData() {
+        
+        switch self.selectedDisplayType {
+        case .logs:
+            LoggedEventsStore.shared.clear()
+            self.objectWillChange.send()
+            
+        case .analytics:
+            self.analyticsService.clearSessionEvents()
+            
+        case .api:
+            APILogResponseStore.shared.clear()
+            self.objectWillChange.send()
+        }
         
     }
 

@@ -62,6 +62,8 @@ struct DevAnalyticsScreen: GPView {
             case .api: EmptyView()
             }
             
+            actionHeaderView()
+            
         }
         
     }
@@ -92,6 +94,28 @@ struct DevAnalyticsScreen: GPView {
         .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, .small)
         .transition(.move(edge: .top).combined(with: .opacity).animation(.bouncy))
+        
+    }
+    
+    @ViewBuilder
+    private func actionHeaderView() -> some View {
+        
+        HStack {
+            
+            TokenView(
+                text: "\(self.viewModel.clearActionTitle) (\(self.viewModel.selectedDisplayCount))",
+                foregroundStyle: Style.shared.textColor(.button),
+                backgroundStyle: .color(.red)
+            )
+            .asButton {
+                self.viewModel.clearSelectedData()
+            }
+            
+            Spacer(minLength: 0)
+            
+        }
+        .padding(.horizontal, .medium)
+        .padding(.bottom, .small)
         
     }
     

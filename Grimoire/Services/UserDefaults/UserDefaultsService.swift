@@ -194,6 +194,17 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.shouldHideScreenshots = shouldHideScreenshots
     }
     
+    func resetDevFlags() {
+        
+        self.set(didCompleteOnboarding: false)
+        self.set(didCompletePermission: false)
+        self.set(didViewChecklistCompletionSheet: false)
+        self.set(didRateMyAppAlertShow: false)
+        self.set(lastViewedWhatsNewVersion: nil)
+        self.set(shouldHideScreenshots: false)
+        
+    }
+    
     func getSecurityPinForBusinessId(_ businessId: String) -> String? {
         
         let key = self.securityPinsDictionaryData

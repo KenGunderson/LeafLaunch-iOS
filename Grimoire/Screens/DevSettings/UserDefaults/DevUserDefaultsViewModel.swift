@@ -30,6 +30,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     @Published var didViewChecklistCompletionSheet: Bool!
     @Published var didCompletePermission: Bool!
     @Published var didRateMyAppAlertShow: Bool!
+    @Published var shouldHideScreenshots: Bool!
 
     @Published var shouldShowNoNetworkError: Bool = false
     @Published var shouldShowHealthCheckError: Bool = false
@@ -63,6 +64,7 @@ final class DevUserDefaultsViewModel: ViewModel {
         self.didCompletePermission = userDefaultsService.didCompletePermission
         self.didViewChecklistCompletionSheet = userDefaultsService.didViewChecklistCompletionSheet
         self.didRateMyAppAlertShow = userDefaultsService.didRateMyAppAlertShow
+        self.shouldHideScreenshots = userDefaultsService.shouldHideScreenshots
         self.impersonatedUserData = userDefaultsService.impersonatingUserData
         self.lastViewedWhatsNewVersion = userDefaultsService.lastViewedWhatsNewVersion
         
@@ -155,6 +157,17 @@ final class DevUserDefaultsViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
+        self.$shouldHideScreenshots
+            .dropFirst()
+            .receiveOnMain()
+            .sink { [weak self] shouldHideScreenshots in
+                
+                guard let shouldHideScreenshots else { return }
+                self?.userDefaultsService.set(shouldHideScreenshots: shouldHideScreenshots)
+                
+            }
+            .store(in: &self.cancelBag)
+        
         self.$shouldShowNoNetworkError
             .dropFirst()
             .receiveOnMain()
@@ -243,6 +256,18 @@ final class DevUserDefaultsViewModel: ViewModel {
                 }))))
             
         }
+        
+    }
+    
+    func resetDevFlags() {
+        
+        self.userDefaultsService.resetDevFlags()
+        self.didCompleteOnboarding = self.userDefaultsService.didCompleteOnboarding
+        self.didCompletePermission = self.userDefaultsService.didCompletePermission
+        self.didViewChecklistCompletionSheet = self.userDefaultsService.didViewChecklistCompletionSheet
+        self.didRateMyAppAlertShow = self.userDefaultsService.didRateMyAppAlertShow
+        self.shouldHideScreenshots = self.userDefaultsService.shouldHideScreenshots
+        self.lastViewedWhatsNewVersion = self.userDefaultsService.lastViewedWhatsNewVersion
         
     }
     

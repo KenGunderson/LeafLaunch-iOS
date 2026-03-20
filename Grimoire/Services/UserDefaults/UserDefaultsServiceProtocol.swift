@@ -39,6 +39,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     func set(impersonatedUser: ImpersonatingUser?)
     func set(securityPin: String?, businessId: String)
     func set(shouldHideScreenshots: Bool)
+    func resetDevFlags()
     @MainActor
     func logout() async
     

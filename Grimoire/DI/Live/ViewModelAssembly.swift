@@ -291,6 +291,8 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 firebaseService: self.firebaseService(),
+                appDelegateService: self.appDelegateService(),
+                impersonateService: self.impersonateService(),
                 alertService: self.alertService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()

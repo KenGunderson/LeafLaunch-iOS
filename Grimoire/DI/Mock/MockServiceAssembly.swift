@@ -73,6 +73,10 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
         track(event: error)
     }
     
+    func clearSessionEvents() {
+        self.sessionEvents = []
+    }
+    
     func logout() {
         
         self.log(message: "logout")
@@ -535,6 +539,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sen
     func set(impersonatedUser: ImpersonatingUser?) {}
     func set(securityPin: String?, businessId: String) {}
     func set(shouldHideScreenshots: Bool) {}
+    func resetDevFlags() {}
     
     func getSecurityPinForBusinessId(_ businessId: String) -> String? { return nil }
     

@@ -78,6 +78,7 @@ struct DevSettingsScreen: GPView {
         VStack(spacing: 24) {
             
             informationSection()
+            diagnosticsSection()
             routeSection()
             
         }
@@ -176,6 +177,68 @@ struct DevSettingsScreen: GPView {
     }
     
     @ViewBuilder
+    private func diagnosticsSection() -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            Text("Diagnostics")
+                .appFont(with: .TITLE_4)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            AppCardView {
+                
+                VStack(spacing: Style.shared.spacing(.small)) {
+                    
+                    lineItemView(
+                        title: "Version",
+                        subtitle: self.viewModel.appVersion
+                    )
+                    
+                    lineItemView(
+                        title: "Build",
+                        subtitle: self.viewModel.buildNumber
+                    )
+                    
+                    lineItemView(
+                        title: "Bundle Id",
+                        subtitle: self.viewModel.bundleIdentifier
+                    )
+                    
+                    lineItemView(
+                        title: "Environment",
+                        subtitle: self.viewModel.currentEnvironmentName
+                    )
+                    
+                    lineItemView(
+                        title: "Device Id",
+                        subtitle: self.viewModel.deviceId
+                    )
+                    
+                    lineItemView(
+                        title: "Push Token",
+                        subtitle: self.viewModel.pushToken
+                    )
+                    
+                    lineItemView(
+                        title: "User Email",
+                        subtitle: self.viewModel.currentUserEmail
+                    )
+                    
+                    lineItemView(
+                        title: "Impersonation",
+                        subtitle: self.viewModel.impersonationState
+                    )
+                    
+                }
+                
+            }
+            
+        }
+        .frame(maxWidth: .infinity)
+        
+    }
+    
+    @ViewBuilder
     private func routeSection() -> some View {
         
         VStack(alignment: .leading) {
@@ -228,7 +291,7 @@ struct DevSettingsScreen: GPView {
     func lineItemView(title: String,
                       subtitle: String) -> some View {
         
-        HStack {
+        HStack(alignment: .top) {
             
             Text(title + ": ")
                 .appFont(with: .TITLE_3)
@@ -237,6 +300,7 @@ struct DevSettingsScreen: GPView {
             
             Text(subtitle)
                 .appFont(with: .BODY_2)
+                .multilineTextAlignment(.trailing)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             
         }

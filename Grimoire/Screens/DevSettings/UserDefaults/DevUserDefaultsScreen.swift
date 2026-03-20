@@ -136,6 +136,22 @@ struct DevUserDefaultsScreen: GPView {
             Toggle("didCompletePermission", isOn: self.$viewModel.didCompletePermission)
             Toggle("didViewChecklistCompletionSheet", isOn: self.$viewModel.didViewChecklistCompletionSheet)
             Toggle("didRateMyAppAlertShow", isOn: self.$viewModel.didRateMyAppAlertShow)
+            Toggle("shouldHideScreenshots", isOn: self.$viewModel.shouldHideScreenshots)
+            
+            HStack {
+                
+                TokenView(
+                    text: "Reset Flags",
+                    foregroundStyle: .color(.white),
+                    backgroundStyle: .color(.red)
+                )
+                .asButton {
+                    self.viewModel.resetDevFlags()
+                }
+                
+                Spacer(minLength: 0)
+                
+            }
             
         }
         

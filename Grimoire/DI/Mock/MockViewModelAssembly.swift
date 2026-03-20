@@ -197,6 +197,8 @@ class MockViewModelAssembly {
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 firebaseService: container.firebaseService(),
+                appDelegateService: container.appDelegateService(),
+                impersonateService: container.impersonateService(),
                 alertService: container.alertService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()

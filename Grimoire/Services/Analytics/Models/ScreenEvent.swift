@@ -150,7 +150,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             
             switch self {
             case .settings: name = "settings"
-            case .components: name = "componenets"
+            case .components: name = "components"
             case .routes: name = "routes"
             case .deeplinks: name = "deeplinks"
             case .userDefaults: name = "user_defaults"

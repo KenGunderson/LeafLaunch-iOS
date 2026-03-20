@@ -167,6 +167,10 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         track(event: error)
     }
     
+    func clearSessionEvents() {
+        self.sessionEvents = []
+    }
+    
     private func track(event: AnalyticsEvent) {
         
         let type = event.eventType

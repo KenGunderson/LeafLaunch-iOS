@@ -22,6 +22,7 @@ protocol AnalyticsServiceProtocol: AnyObject, Sendable, Loggable {
     func track(_ app: AppEvent)
     func track(screen: ScreenEvent)
     func track(error: ErrorEvent)
+    func clearSessionEvents()
     
     func logout()
     
