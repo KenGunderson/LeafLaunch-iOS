@@ -78,11 +78,24 @@ extension Theme.Fonts {
             TITLE_5: .sfDisplay(size: 18, weight: .semibold),
             TITLE_6: .sfDisplay(size: 22, weight: .semibold),
             TITLE_7: .sfDisplay(size: 24, weight: .semibold),
+            
+            SUBTITLE_1: .rounded(size: 12, weight: .medium),
+            SUBTITLE_2: .rounded(size: 14, weight: .medium),
+            SUBTITLE_3: .rounded(size: 16, weight: .medium),
+            SUBTITLE_4: .rounded(size: 18, weight: .medium),
+            SUBTITLE_5: .rounded(size: 20, weight: .medium),
 
             BODY_1: .sfDisplay(size: 12, weight: .regular),
             BODY_2: .sfDisplay(size: 14, weight: .regular),
             BODY_3: .sfDisplay(size: 16, weight: .regular),
-            BODY_4: .sfDisplay(size: 18, weight: .regular)
+            BODY_4: .sfDisplay(size: 18, weight: .regular),
+            BODY_5: .sfDisplay(size: 20, weight: .regular),
+
+            NOTE_1: .sfDisplay(size: 10, weight: .regular),
+            NOTE_2: .sfDisplay(size: 10, weight: .ultraLight),
+            NOTE_3: .sfDisplay(size: 12, weight: .ultraLight),
+            NOTE_4: .sfDisplay(size: 14, weight: .ultraLight),
+            NOTE_5: .sfDisplay(size: 16, weight: .ultraLight),
         )
     }
     
