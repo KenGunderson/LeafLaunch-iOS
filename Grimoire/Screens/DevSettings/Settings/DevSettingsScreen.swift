@@ -12,6 +12,7 @@ struct DevSettingsScreen: GPView {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DevSettingsViewModel
     @State private var navigationService = NavigationService()
+    @State private var shouldShowComponentsView: Bool = false
     
     init(viewModel: DevSettingsViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
@@ -50,6 +51,11 @@ struct DevSettingsScreen: GPView {
             
             .onChange(of: self.viewModel.selectedEnviornment!) { oldValue, newValue in
                 self.viewModel.set(environment: newValue)
+            }
+            
+            // Full Screen Cover
+            .fullScreenCover(isPresented: self.$shouldShowComponentsView) {
+                DemoView()
             }
             
         }
@@ -248,6 +254,14 @@ struct DevSettingsScreen: GPView {
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             VStack {
+                
+                listSectionItemView(
+                    title: "Components",
+                    icon: "wrench.and.screwdriver.fill"
+                )
+                .asButton {
+                    self.shouldShowComponentsView = true
+                }
                 
                 ForEach(Route.DevSettingRoute.allCases, id: \.rawValue) { route in
                     

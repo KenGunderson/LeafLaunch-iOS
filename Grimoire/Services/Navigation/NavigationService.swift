@@ -247,11 +247,6 @@ extension View {
         func devSettings(route: Route.DevSettingRoute) -> some View {
             
             switch route {
-            case .components:
-                
-                DemoView()
-                    .navigationBarBackButtonHidden()
-                
             case .userDefaults:
                 
                 let viewModel = Container.shared.devUserDefaultsViewModel()
