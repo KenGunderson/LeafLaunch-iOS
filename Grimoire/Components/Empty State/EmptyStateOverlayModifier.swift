@@ -44,7 +44,10 @@ extension View {
     /// Adds a reusable empty state overlay that animates in/out.
     func emptyStateOverlay(shouldShow: Bool,
                            config: EmptyStateConfig,
-                           transition: AnyTransition = .move(edge: .bottom).combined(with: .opacity),
+                           transition: AnyTransition = .asymmetric(
+                            insertion: .move(edge: .bottom).combined(with: .opacity),
+                            removal: .opacity.animation(.spring(duration: 0.15))
+                           ),
                            animation: Animation? = .bouncy.delay(0.3)) -> some View {
         
         modifier(

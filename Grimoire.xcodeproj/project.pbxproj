@@ -7,14 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
 		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
-		4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
-		7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
-		75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
-		750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
 		750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
@@ -28,11 +23,8 @@
 		750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
 		750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
 		750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
-		750EACE12EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750EACE02EB3345200BA4A37 /* LoggedEventsStore.swift */; };
 		750EACE22EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750EACE02EB3345200BA4A37 /* LoggedEventsStore.swift */; };
-		750EACE32EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750EACE02EB3345200BA4A37 /* LoggedEventsStore.swift */; };
 		750F9E182E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
-		750F9E192E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
 		7510A3CA2D9D8AAF000A93CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		7515DBB12ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */; };
@@ -44,91 +36,9 @@
 		7515DBB72ECBEB3E00921AE9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB962ECBEB3E00921AE9 /* ViewModel.swift */; };
 		7515DBB82ECBEB3E00921AE9 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB972ECBEB3E00921AE9 /* WhatsNew.swift */; };
 		7515DBC52ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
-		7515DBD02ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */; };
-		7515DBD12ECBEB3E00921AE9 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB902ECBEB3E00921AE9 /* AppError.swift */; };
-		7515DBD22ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB912ECBEB3E00921AE9 /* AppNumberFormatter.swift */; };
-		7515DBD32ECBEB3E00921AE9 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB922ECBEB3E00921AE9 /* PushNotification.swift */; };
-		7515DBD42ECBEB3E00921AE9 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB932ECBEB3E00921AE9 /* Query.swift */; };
-		7515DBD52ECBEB3E00921AE9 /* Trackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB952ECBEB3E00921AE9 /* Trackable.swift */; };
-		7515DBD62ECBEB3E00921AE9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB962ECBEB3E00921AE9 /* ViewModel.swift */; };
-		7515DBD72ECBEB3E00921AE9 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB972ECBEB3E00921AE9 /* WhatsNew.swift */; };
-		7515DBE42ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
-		7515DBEF2ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */; };
-		7515DBF02ECBEB3E00921AE9 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB902ECBEB3E00921AE9 /* AppError.swift */; };
-		7515DBF12ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB912ECBEB3E00921AE9 /* AppNumberFormatter.swift */; };
-		7515DBF22ECBEB3E00921AE9 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB922ECBEB3E00921AE9 /* PushNotification.swift */; };
-		7515DBF32ECBEB3E00921AE9 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB932ECBEB3E00921AE9 /* Query.swift */; };
-		7515DBF42ECBEB3E00921AE9 /* Trackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB952ECBEB3E00921AE9 /* Trackable.swift */; };
-		7515DBF52ECBEB3E00921AE9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB962ECBEB3E00921AE9 /* ViewModel.swift */; };
-		7515DBF62ECBEB3E00921AE9 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB972ECBEB3E00921AE9 /* WhatsNew.swift */; };
-		7515DC032ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
-		751BC5D82F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
-		751BC5D92F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
 		751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
-		751BC5DC2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
-		751BC5DD2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
 		751BC5DE2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
 		75260F5A2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
-		75260F5B2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
-		75260F5C2EB468BD00318960 /* Sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75260F592EB468BD00318960 /* Sample.pdf */; };
-		7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
-		7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
-		7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
-		7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4032DF661EA0031D9CF /* PushNotificationPermissionService.swift */; };
-		7537F41E2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */; };
-		7537F41F2DF661EA0031D9CF /* ImpersonateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */; };
-		7537F4202DF661EA0031D9CF /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4062DF661EA0031D9CF /* CameraPermissionService.swift */; };
-		7537F4212DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */; };
-		7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4002DF661EA0031D9CF /* PermissionsService.swift */; };
-		7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4022DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift */; };
-		7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F72DF661EA0031D9CF /* NavigationServiceProtocol.swift */; };
-		7537F4252DF661EA0031D9CF /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CE2DF661EA0031D9CF /* APIService.swift */; };
-		7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40D2DF661EA0031D9CF /* ATTStatus.swift */; };
-		7537F4272DF661EA0031D9CF /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D42DF661EA0031D9CF /* APIError.swift */; };
-		7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */; };
-		7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CD2DF661EA0031D9CF /* APIServiceProtocol.swift */; };
-		7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4112DF661EA0031D9CF /* PushNotificationService.swift */; };
-		7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DF2DF661EA0031D9CF /* ConnectivityService.swift */; };
-		7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4142DF661EA0031D9CF /* UserDefaultsService.swift */; };
-		7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C62DF661EA0031D9CF /* AppEvent.swift */; };
-		7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F82DF661EA0031D9CF /* NavigationService.swift */; };
-		7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FB2DF661EA0031D9CF /* Sheet.swift */; };
-		7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E12DF661EA0031D9CF /* DeeplinkServiceProtocol.swift */; };
-		7537F4332DF661EA0031D9CF /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CA2DF661EA0031D9CF /* EventData.swift */; };
-		7537F4342DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4132DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift */; };
-		7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D92DF661EA0031D9CF /* AppDelegateService.swift */; };
-		7537F4362DF661EA0031D9CF /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C82DF661EA0031D9CF /* EventType.swift */; };
-		7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40B2DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift */; };
-		7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DE2DF661EA0031D9CF /* ConnectivityServiceProtocol.swift */; };
-		7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E22DF661EA0031D9CF /* DeeplinkService.swift */; };
-		7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4092DF661EA0031D9CF /* MediaPermissionService.swift */; };
-		7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */; };
-		7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E52DF661EA0031D9CF /* EnvironmentService.swift */; };
-		7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */; };
-		7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DC2DF661EA0031D9CF /* AuthService.swift */; };
-		7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */; };
-		7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4082DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift */; };
-		7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */; };
-		7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D82DF661EA0031D9CF /* AppDelegateServiceProtocol.swift */; };
-		7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C42DF661EA0031D9CF /* AnalyticsService.swift */; };
-		7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */; };
-		7537F4462DF661EA0031D9CF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D32DF661EA0031D9CF /* API.swift */; };
-		7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FF2DF661EA0031D9CF /* PermissionsServiceProtocol.swift */; };
-		7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */; };
-		7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */; };
-		7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40C2DF661EA0031D9CF /* AppTrackingPermissionService.swift */; };
-		7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */; };
-		7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DB2DF661EA0031D9CF /* AuthServiceProtocol.swift */; };
-		7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C92DF661EA0031D9CF /* ScreenEvent.swift */; };
-		7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D12DF661EA0031D9CF /* APIService+Users.swift */; };
-		7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E42DF661EA0031D9CF /* EnvironmentServiceProtocol.swift */; };
-		7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */; };
-		7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D22DF661EA0031D9CF /* APILogResponse.swift */; };
-		7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4052DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift */; };
-		7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C72DF661EA0031D9CF /* ErrorEvent.swift */; };
-		7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
-		7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
-		7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
 		7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F4592DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -189,10 +99,6 @@
 		7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
 		75388C332F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
 		75388C342F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
-		75388C352F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
-		75388C362F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
-		75388C372F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
-		75388C382F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
 		753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B12DB8BD3900265B2A /* Constants.swift */; };
 		753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B72DB8BE1700265B2A /* FirebaseAuth */; };
@@ -213,30 +119,11 @@
 		753EC1FB2DB8C58100265B2A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
 		753EC1FC2DB8C58100265B2A /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F02DB8C58100265B2A /* MainScreen.swift */; };
 		753EC2092DB8CBBB00265B2A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
-		753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
-		753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
 		753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */; };
-		754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		7548D23A2DD5612C008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D2392DD5612C008AE243 /* Rune */; };
-		7548D23C2DD56138008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D23B2DD56138008AE243 /* Rune */; };
 		7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
-		7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
 		754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
-		754E51E32E54284C00258225 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
-		75507FCD2F0CE67000CCB99F /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC52F0CE67000CCB99F /* FAQItemView.swift */; };
-		75507FCE2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC12F0CE67000CCB99F /* FeatureRequestScreen.swift */; };
-		75507FCF2F0CE67000CCB99F /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC02F0CE67000CCB99F /* FeatureRequestViewModel.swift */; };
-		75507FD02F0CE67000CCB99F /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC32F0CE67000CCB99F /* FAQViewModel.swift */; };
-		75507FD12F0CE67000CCB99F /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FBD2F0CE67000CCB99F /* AboutUsViewModel.swift */; };
-		75507FD22F0CE67000CCB99F /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB52F0CE67000CCB99F /* SettingsScreen.swift */; };
-		75507FD32F0CE67000CCB99F /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC92F0CE67000CCB99F /* LegalScreen.swift */; };
-		75507FD42F0CE67000CCB99F /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC42F0CE67000CCB99F /* FAQScreen.swift */; };
-		75507FD62F0CE67000CCB99F /* AboutUsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FBE2F0CE67000CCB99F /* AboutUsScreen.swift */; };
-		75507FD72F0CE67000CCB99F /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB82F0CE67000CCB99F /* ProfileScreen.swift */; };
-		75507FD82F0CE67000CCB99F /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC82F0CE67000CCB99F /* LegalViewModel.swift */; };
-		75507FD92F0CE67000CCB99F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB42F0CE67000CCB99F /* SettingsViewModel.swift */; };
-		75507FDA2F0CE67000CCB99F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB72F0CE67000CCB99F /* ProfileViewModel.swift */; };
 		75507FDC2F0CE67000CCB99F /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC52F0CE67000CCB99F /* FAQItemView.swift */; };
 		75507FDD2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC12F0CE67000CCB99F /* FeatureRequestScreen.swift */; };
 		75507FDE2F0CE67000CCB99F /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC02F0CE67000CCB99F /* FeatureRequestViewModel.swift */; };
@@ -250,78 +137,25 @@
 		75507FE72F0CE67000CCB99F /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC82F0CE67000CCB99F /* LegalViewModel.swift */; };
 		75507FE82F0CE67000CCB99F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB42F0CE67000CCB99F /* SettingsViewModel.swift */; };
 		75507FE92F0CE67000CCB99F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB72F0CE67000CCB99F /* ProfileViewModel.swift */; };
-		75507FEB2F0CE67000CCB99F /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC52F0CE67000CCB99F /* FAQItemView.swift */; };
-		75507FEC2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC12F0CE67000CCB99F /* FeatureRequestScreen.swift */; };
-		75507FED2F0CE67000CCB99F /* FeatureRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC02F0CE67000CCB99F /* FeatureRequestViewModel.swift */; };
-		75507FEE2F0CE67000CCB99F /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC32F0CE67000CCB99F /* FAQViewModel.swift */; };
-		75507FEF2F0CE67000CCB99F /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FBD2F0CE67000CCB99F /* AboutUsViewModel.swift */; };
-		75507FF02F0CE67000CCB99F /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB52F0CE67000CCB99F /* SettingsScreen.swift */; };
-		75507FF12F0CE67000CCB99F /* LegalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC92F0CE67000CCB99F /* LegalScreen.swift */; };
-		75507FF22F0CE67000CCB99F /* FAQScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC42F0CE67000CCB99F /* FAQScreen.swift */; };
-		75507FF42F0CE67000CCB99F /* AboutUsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FBE2F0CE67000CCB99F /* AboutUsScreen.swift */; };
-		75507FF52F0CE67000CCB99F /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB82F0CE67000CCB99F /* ProfileScreen.swift */; };
-		75507FF62F0CE67000CCB99F /* LegalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC82F0CE67000CCB99F /* LegalViewModel.swift */; };
-		75507FF72F0CE67000CCB99F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB42F0CE67000CCB99F /* SettingsViewModel.swift */; };
-		75507FF82F0CE67000CCB99F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FB72F0CE67000CCB99F /* ProfileViewModel.swift */; };
-		75507FFA2F0CE6F800CCB99F /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FF92F0CE6F800CCB99F /* LegalItem.swift */; };
-		75507FFB2F0CE6F800CCB99F /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FF92F0CE6F800CCB99F /* LegalItem.swift */; };
 		75507FFC2F0CE6F800CCB99F /* LegalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FF92F0CE6F800CCB99F /* LegalItem.swift */; };
 		75573ABC2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
-		75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
 		75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
-		75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
-		75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */; };
 		75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */; };
-		75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
 		75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
 		75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
-		75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
-		75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
-		7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
-		7562BBAB2EBF0AA000B84E4E /* Face.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBAA2EBF0AA000B84E4E /* Face.pdf */; };
-		7562BBAC2EBF0AA000B84E4E /* Body.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA82EBF0AA000B84E4E /* Body.pdf */; };
-		7562BBAD2EBF0AA000B84E4E /* Canvas.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA92EBF0AA000B84E4E /* Canvas.pdf */; };
 		7562BBAE2EBF0AA000B84E4E /* Face.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBAA2EBF0AA000B84E4E /* Face.pdf */; };
 		7562BBAF2EBF0AA000B84E4E /* Body.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA82EBF0AA000B84E4E /* Body.pdf */; };
 		7562BBB02EBF0AA000B84E4E /* Canvas.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA92EBF0AA000B84E4E /* Canvas.pdf */; };
-		7562BBB12EBF0AA000B84E4E /* Face.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBAA2EBF0AA000B84E4E /* Face.pdf */; };
-		7562BBB22EBF0AA000B84E4E /* Body.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA82EBF0AA000B84E4E /* Body.pdf */; };
-		7562BBB32EBF0AA000B84E4E /* Canvas.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA92EBF0AA000B84E4E /* Canvas.pdf */; };
-		756498D22ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
-		756498D32ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
-		756498D42ED25492002B7E55 /* LimitReachedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756498D12ED25492002B7E55 /* LimitReachedAlert.swift */; };
 		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
-		75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
-		75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
-		75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
-		75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */; };
 		75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */; };
 		75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */; };
-		75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */; };
 		75B429A82E70061500DE7852 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B429A72E70061100DE7852 /* PlaceholderView.swift */; };
-		75B429A92E70061500DE7852 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B429A72E70061100DE7852 /* PlaceholderView.swift */; };
-		75B70AAD2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AAC2F0C978D0054E8C7 /* TabBarNavigationService.swift */; };
-		75B70AAE2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AAC2F0C978D0054E8C7 /* TabBarNavigationService.swift */; };
 		75B70AAF2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AAC2F0C978D0054E8C7 /* TabBarNavigationService.swift */; };
-		75B70AB22F0CA0C10054E8C7 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB12F0CA0C10054E8C7 /* Tab.swift */; };
 		75B70AB32F0CA0C10054E8C7 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB12F0CA0C10054E8C7 /* Tab.swift */; };
-		75B70AB42F0CA0C10054E8C7 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB12F0CA0C10054E8C7 /* Tab.swift */; };
-		75B70AC82F0CA0D90054E8C7 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC22F0CA0D90054E8C7 /* TabItemView.swift */; };
-		75B70AC92F0CA0D90054E8C7 /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC62F0CA0D90054E8C7 /* TabBarScreen.swift */; };
-		75B70ACA2F0CA0D90054E8C7 /* Tab3Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABC2F0CA0D90054E8C7 /* Tab3Screen.swift */; };
-		75B70ACB2F0CA0D90054E8C7 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC32F0CA0D90054E8C7 /* CustomTabBarView.swift */; };
-		75B70ACC2F0CA0D90054E8C7 /* Tab2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB82F0CA0D90054E8C7 /* Tab2ViewModel.swift */; };
-		75B70ACD2F0CA0D90054E8C7 /* Tab1Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB62F0CA0D90054E8C7 /* Tab1Screen.swift */; };
-		75B70ACE2F0CA0D90054E8C7 /* Tab2Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB92F0CA0D90054E8C7 /* Tab2Screen.swift */; };
-		75B70ACF2F0CA0D90054E8C7 /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC42F0CA0D90054E8C7 /* StandardTabBarView.swift */; };
-		75B70AD02F0CA0D90054E8C7 /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABE2F0CA0D90054E8C7 /* Tab4ViewModel.swift */; };
-		75B70AD12F0CA0D90054E8C7 /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABF2F0CA0D90054E8C7 /* Tab4Screen.swift */; };
-		75B70AD22F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB52F0CA0D90054E8C7 /* Tab1ViewModel.swift */; };
-		75B70AD32F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABB2F0CA0D90054E8C7 /* Tab3ViewModel.swift */; };
 		75B70AD42F0CA0D90054E8C7 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC22F0CA0D90054E8C7 /* TabItemView.swift */; };
 		75B70AD52F0CA0D90054E8C7 /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC62F0CA0D90054E8C7 /* TabBarScreen.swift */; };
 		75B70AD62F0CA0D90054E8C7 /* Tab3Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABC2F0CA0D90054E8C7 /* Tab3Screen.swift */; };
@@ -334,242 +168,32 @@
 		75B70ADD2F0CA0D90054E8C7 /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABF2F0CA0D90054E8C7 /* Tab4Screen.swift */; };
 		75B70ADE2F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB52F0CA0D90054E8C7 /* Tab1ViewModel.swift */; };
 		75B70ADF2F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABB2F0CA0D90054E8C7 /* Tab3ViewModel.swift */; };
-		75B70AE02F0CA0D90054E8C7 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC22F0CA0D90054E8C7 /* TabItemView.swift */; };
-		75B70AE12F0CA0D90054E8C7 /* TabBarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC62F0CA0D90054E8C7 /* TabBarScreen.swift */; };
-		75B70AE22F0CA0D90054E8C7 /* Tab3Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABC2F0CA0D90054E8C7 /* Tab3Screen.swift */; };
-		75B70AE32F0CA0D90054E8C7 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC32F0CA0D90054E8C7 /* CustomTabBarView.swift */; };
-		75B70AE42F0CA0D90054E8C7 /* Tab2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB82F0CA0D90054E8C7 /* Tab2ViewModel.swift */; };
-		75B70AE52F0CA0D90054E8C7 /* Tab1Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB62F0CA0D90054E8C7 /* Tab1Screen.swift */; };
-		75B70AE62F0CA0D90054E8C7 /* Tab2Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB92F0CA0D90054E8C7 /* Tab2Screen.swift */; };
-		75B70AE72F0CA0D90054E8C7 /* StandardTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AC42F0CA0D90054E8C7 /* StandardTabBarView.swift */; };
-		75B70AE82F0CA0D90054E8C7 /* Tab4ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABE2F0CA0D90054E8C7 /* Tab4ViewModel.swift */; };
-		75B70AE92F0CA0D90054E8C7 /* Tab4Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABF2F0CA0D90054E8C7 /* Tab4Screen.swift */; };
-		75B70AEA2F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70AB52F0CA0D90054E8C7 /* Tab1ViewModel.swift */; };
-		75B70AEB2F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B70ABB2F0CA0D90054E8C7 /* Tab3ViewModel.swift */; };
 		75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
-		75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
-		75C6F81C2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
 		75C6F81D2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
-		75C6F81E2EC199EB0059DE9B /* Lined.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75C6F81B2EC199EB0059DE9B /* Lined.pdf */; };
 		75CB87702E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
-		75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
-		75CB87732E4F84AB00FB7D78 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
 		75CB87742E4F84AB00FB7D78 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
-		75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
-		75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
-		75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EF2DB8C58100265B2A /* MainViewModel.swift */; };
-		75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EE2DB8C58100265B2A /* RootViewModel.swift */; };
-		75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
-		75D66D192DC713C300E51CFC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F02DB8C58100265B2A /* MainScreen.swift */; };
-		75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
-		75D66D1B2DC713C300E51CFC /* DevDeeplinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */; };
-		75D66D372DC713C300E51CFC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
-		75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E42DB8C4E800265B2A /* MockViewModelAssembly.swift */; };
-		75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E02DB8C4E800265B2A /* ViewModelAssembly.swift */; };
-		75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1DE2DB8C4E800265B2A /* AppAssembler.swift */; };
-		75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E32DB8C4E800265B2A /* MockServiceAssembly.swift */; };
-		75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBCB2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift */; };
-		75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBCC2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift */; };
-		75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E22DB8C4E800265B2A /* MockAssembler.swift */; };
-		75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1DF2DB8C4E800265B2A /* ServiceAssembly.swift */; };
-		75D66D532DC713C300E51CFC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B12DB8BD3900265B2A /* Constants.swift */; };
-		75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDA2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift */; };
-		75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
-		75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
-		75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
-		75D66D752DC713C300E51CFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */; };
-		75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
-		75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
-		75D66DB52DC713C300E51CFC /* DevAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD22DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift */; };
-		75D66DB62DC713C300E51CFC /* DevAnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD32DC6ED1200A2AB74 /* DevAnalyticsScreen.swift */; };
-		75D66DB92DC713C300E51CFC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 75D66CD92DC713C300E51CFC /* FirebaseAuth */; };
-		75D66DBA2DC713C300E51CFC /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 75D66CDE2DC713C300E51CFC /* SwiftDate */; };
-		75D66DBB2DC713C300E51CFC /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 75D66CDC2DC713C300E51CFC /* Amplitude */; };
-		75D66DBC2DC713C300E51CFC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 75D66CDB2DC713C300E51CFC /* FirebaseStorage */; };
-		75D66DBD2DC713C300E51CFC /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 75D66CE02DC713C300E51CFC /* FactoryKit */; };
-		75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
-		75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
 		75D66DCF2DC7179600E51CFC /* GlowProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */; };
 		75D66DD02DC7179600E51CFC /* GlowProUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DCD2DC7179600E51CFC /* GlowProUITestsLaunchTests.swift */; };
 		75D66DD32DC7179600E51CFC /* GrimoireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D66DD12DC7179600E51CFC /* GrimoireTests.swift */; };
 		75D8EDF22DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
-		75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
-		75DD83AE2EAD728600DD8850 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
-		75DD83B32EAD728600DD8850 /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1ED2DB8C58100265B2A /* RootScreen.swift */; };
-		75DD83B42EAD728600DD8850 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EF2DB8C58100265B2A /* MainViewModel.swift */; };
-		75DD83B52EAD728600DD8850 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1EE2DB8C58100265B2A /* RootViewModel.swift */; };
-		75DD83B72EAD728600DD8850 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F22DB8C58100265B2A /* SplashScreenView.swift */; };
-		75DD83BC2EAD728600DD8850 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1F02DB8C58100265B2A /* MainScreen.swift */; };
-		75DD83BD2EAD728600DD8850 /* DevDeeplinksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC72DC6E7F400A2AB74 /* DevDeeplinksScreen.swift */; };
-		75DD83BE2EAD728600DD8850 /* DevDeeplinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC62DC6E7F400A2AB74 /* DevDeeplinksViewModel.swift */; };
-		75DD83C62EAD728600DD8850 /* EmptyStateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */; };
-		75DD83CF2EAD728600DD8850 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
-		75DD83D02EAD728600DD8850 /* MockViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E42DB8C4E800265B2A /* MockViewModelAssembly.swift */; };
-		75DD83D12EAD728600DD8850 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E02DB8C4E800265B2A /* ViewModelAssembly.swift */; };
-		75DD83D92EAD728600DD8850 /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
-		75DD83DA2EAD728600DD8850 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1DE2DB8C4E800265B2A /* AppAssembler.swift */; };
-		75DD83DB2EAD728600DD8850 /* MockServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E32DB8C4E800265B2A /* MockServiceAssembly.swift */; };
-		75DD83E02EAD728600DD8850 /* DevUserDefaultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBCB2DC6E97500A2AB74 /* DevUserDefaultsViewModel.swift */; };
-		75DD83E12EAD728600DD8850 /* DevUserDefaultsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBCC2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift */; };
-		75DD83E22EAD728600DD8850 /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
-		75DD83E32EAD728600DD8850 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
-		75DD83E52EAD728600DD8850 /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
-		75DD83E62EAD728600DD8850 /* PushNotificationPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4032DF661EA0031D9CF /* PushNotificationPermissionService.swift */; };
-		75DD83E82EAD728600DD8850 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */; };
-		75DD83E92EAD728600DD8850 /* ImpersonateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */; };
-		75DD83EA2EAD728600DD8850 /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4062DF661EA0031D9CF /* CameraPermissionService.swift */; };
-		75DD83EB2EAD728600DD8850 /* LaunchScreenServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */; };
-		75DD83ED2EAD728600DD8850 /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4002DF661EA0031D9CF /* PermissionsService.swift */; };
-		75DD83EF2EAD728600DD8850 /* PushNotificationPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4022DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift */; };
-		75DD83F12EAD728600DD8850 /* NavigationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F72DF661EA0031D9CF /* NavigationServiceProtocol.swift */; };
-		75DD83F62EAD728600DD8850 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CE2DF661EA0031D9CF /* APIService.swift */; };
-		75DD83F92EAD728600DD8850 /* ATTStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40D2DF661EA0031D9CF /* ATTStatus.swift */; };
-		75DD83FA2EAD728600DD8850 /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
-		75DD83FD2EAD728600DD8850 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D42DF661EA0031D9CF /* APIError.swift */; };
-		75DD84002EAD728600DD8850 /* APIService+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CF2DF661EA0031D9CF /* APIService+Device.swift */; };
-		75DD84012EAD728600DD8850 /* APIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CD2DF661EA0031D9CF /* APIServiceProtocol.swift */; };
-		75DD84032EAD728600DD8850 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4112DF661EA0031D9CF /* PushNotificationService.swift */; };
-		75DD84052EAD728600DD8850 /* ConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DF2DF661EA0031D9CF /* ConnectivityService.swift */; };
-		75DD84072EAD728600DD8850 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4142DF661EA0031D9CF /* UserDefaultsService.swift */; };
-		75DD84082EAD728600DD8850 /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C62DF661EA0031D9CF /* AppEvent.swift */; };
-		75DD84092EAD728600DD8850 /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F82DF661EA0031D9CF /* NavigationService.swift */; };
-		75DD840B2EAD728600DD8850 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FB2DF661EA0031D9CF /* Sheet.swift */; };
-		75DD840C2EAD728600DD8850 /* DeeplinkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E12DF661EA0031D9CF /* DeeplinkServiceProtocol.swift */; };
-		75DD840E2EAD728600DD8850 /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3CA2DF661EA0031D9CF /* EventData.swift */; };
-		75DD84102EAD728600DD8850 /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4132DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift */; };
-		75DD84112EAD728600DD8850 /* AppDelegateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D92DF661EA0031D9CF /* AppDelegateService.swift */; };
-		75DD84122EAD728600DD8850 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C82DF661EA0031D9CF /* EventType.swift */; };
-		75DD84132EAD728600DD8850 /* AppTrackingPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40B2DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift */; };
-		75DD84152EAD728600DD8850 /* ConnectivityServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DE2DF661EA0031D9CF /* ConnectivityServiceProtocol.swift */; };
-		75DD84172EAD728600DD8850 /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E22DF661EA0031D9CF /* DeeplinkService.swift */; };
-		75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4092DF661EA0031D9CF /* MediaPermissionService.swift */; };
-		75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
-		75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */; };
-		75DD841C2EAD728600DD8850 /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E52DF661EA0031D9CF /* EnvironmentService.swift */; };
-		75DD841F2EAD728600DD8850 /* AnalyticsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */; };
-		75DD84212EAD728600DD8850 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DC2DF661EA0031D9CF /* AuthService.swift */; };
-		75DD84232EAD728600DD8850 /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
-		75DD84262EAD728600DD8850 /* FirebaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */; };
-		75DD84282EAD728600DD8850 /* MediaPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4082DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift */; };
-		75DD84292EAD728600DD8850 /* ImpersonateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */; };
-		75DD842B2EAD728600DD8850 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
-		75DD842C2EAD728600DD8850 /* AppDelegateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D82DF661EA0031D9CF /* AppDelegateServiceProtocol.swift */; };
-		75DD842D2EAD728600DD8850 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C42DF661EA0031D9CF /* AnalyticsService.swift */; };
-		75DD842F2EAD728600DD8850 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
-		75DD84322EAD728600DD8850 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
-		75DD84332EAD728600DD8850 /* FullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */; };
-		75DD84342EAD728600DD8850 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
-		75DD84372EAD728600DD8850 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D32DF661EA0031D9CF /* API.swift */; };
-		75DD84382EAD728600DD8850 /* PermissionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FF2DF661EA0031D9CF /* PermissionsServiceProtocol.swift */; };
-		75DD843A2EAD728600DD8850 /* EmptyStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */; };
-		75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */; };
-		75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */; };
-		75DD843F2EAD728600DD8850 /* AppTrackingPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F40C2DF661EA0031D9CF /* AppTrackingPermissionService.swift */; };
-		75DD84402EAD728600DD8850 /* LaunchScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */; };
-		75DD84412EAD728600DD8850 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DB2DF661EA0031D9CF /* AuthServiceProtocol.swift */; };
-		75DD84432EAD728600DD8850 /* ScreenEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C92DF661EA0031D9CF /* ScreenEvent.swift */; };
-		75DD84442EAD728600DD8850 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B429A72E70061100DE7852 /* PlaceholderView.swift */; };
-		75DD84492EAD728600DD8850 /* APIService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D12DF661EA0031D9CF /* APIService+Users.swift */; };
-		75DD844A2EAD728600DD8850 /* EnvironmentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E42DF661EA0031D9CF /* EnvironmentServiceProtocol.swift */; };
-		75DD844E2EAD728600DD8850 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
-		75DD844F2EAD728600DD8850 /* ThemeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */; };
-		75DD84502EAD728600DD8850 /* APILogResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D22DF661EA0031D9CF /* APILogResponse.swift */; };
-		75DD84532EAD728600DD8850 /* CameraPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4052DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift */; };
-		75DD84542EAD728600DD8850 /* ErrorEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C72DF661EA0031D9CF /* ErrorEvent.swift */; };
-		75DD84552EAD728600DD8850 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
-		75DD845A2EAD728600DD8850 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
-		75DD845B2EAD728600DD8850 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
-		75DD845C2EAD728600DD8850 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
-		75DD845D2EAD728600DD8850 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75DD845F2EAD728600DD8850 /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
-		75DD84632EAD728600DD8850 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
-		75DD84642EAD728600DD8850 /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
-		75DD84662EAD728600DD8850 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
-		75DD84692EAD728600DD8850 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
-		75DD846A2EAD728600DD8850 /* MockAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1E22DB8C4E800265B2A /* MockAssembler.swift */; };
-		75DD846B2EAD728600DD8850 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABE2DD82CE100C7CA6E /* WelcomeViewModel.swift */; };
-		75DD84732EAD728600DD8850 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1DF2DB8C4E800265B2A /* ServiceAssembly.swift */; };
-		75DD84742EAD728600DD8850 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C682A22E4B82DA00C1E1D9 /* NavBarButton.swift */; };
-		75DD84762EAD728600DD8850 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC32DD82E1F00C7CA6E /* LoginViewModel.swift */; };
-		75DD847F2EAD728600DD8850 /* GPFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB87722E4F84A800FB7D78 /* GPFont.swift */; };
-		75DD84822EAD728600DD8850 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
-		75DD84842EAD728600DD8850 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B12DB8BD3900265B2A /* Constants.swift */; };
-		75DD84892EAD728600DD8850 /* DevImpersonateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDA2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift */; };
-		75DD848B2EAD728600DD8850 /* BaseAppCardConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */; };
-		75DD848D2EAD728600DD8850 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
-		75DD848E2EAD728600DD8850 /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
-		75DD848F2EAD728600DD8850 /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
-		75DD84902EAD728600DD8850 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
-		75DD84982EAD728600DD8850 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
-		75DD849B2EAD728600DD8850 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1C42DB8BF5A00265B2A /* AppDelegate.swift */; };
-		75DD849F2EAD728600DD8850 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ABB2DD82CD300C7CA6E /* WelcomeScreen.swift */; };
-		75DD84A02EAD728600DD8850 /* GPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CB876F2E4F81F400FB7D78 /* GPTheme.swift */; };
-		75DD84A22EAD728600DD8850 /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
-		75DD84A62EAD728600DD8850 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
-		75DD84A72EAD728600DD8850 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
-		75DD84A92EAD728600DD8850 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
-		75DD84AA2EAD728600DD8850 /* DevAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD22DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift */; };
-		75DD84AC2EAD728600DD8850 /* DevAnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD32DC6ED1200A2AB74 /* DevAnalyticsScreen.swift */; };
-		75DD84AE2EAD728600DD8850 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A52EAD728600DD8850 /* StripeCardScan */; };
-		75DD84AF2EAD728600DD8850 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A22EAD728600DD8850 /* Stripe */; };
-		75DD84B02EAD728600DD8850 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A42EAD728600DD8850 /* StripeApplePay */; };
-		75DD84B12EAD728600DD8850 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83AB2EAD728600DD8850 /* StripePaymentsUI */; };
-		75DD84B22EAD728600DD8850 /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A82EAD728600DD8850 /* StripeIdentity */; };
-		75DD84B32EAD728600DD8850 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83AA2EAD728600DD8850 /* StripePaymentSheet */; };
-		75DD84B42EAD728600DD8850 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A72EAD728600DD8850 /* StripeFinancialConnections */; };
-		75DD84B52EAD728600DD8850 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83972EAD728600DD8850 /* FirebaseAuth */; };
-		75DD84B62EAD728600DD8850 /* StripeConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A62EAD728600DD8850 /* StripeConnect */; };
-		75DD84B72EAD728600DD8850 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD839C2EAD728600DD8850 /* SwiftDate */; };
-		75DD84B82EAD728600DD8850 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD839A2EAD728600DD8850 /* Amplitude */; };
-		75DD84B92EAD728600DD8850 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83992EAD728600DD8850 /* FirebaseStorage */; };
-		75DD84BA2EAD728600DD8850 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A02EAD728600DD8850 /* Rune */; };
-		75DD84BB2EAD728600DD8850 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD83A92EAD728600DD8850 /* StripePayments */; };
-		75DD84BC2EAD728600DD8850 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 75DD839E2EAD728600DD8850 /* FactoryKit */; };
-		75DD84BE2EAD728600DD8850 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
-		75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C72D9D8AAF000A93CA /* Assets.xcassets */; };
-		75DD84C02EAD728600DD8850 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */; };
-		75DD84C12EAD728600DD8850 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
-		75DD84CC2EAD731300DD8850 /* Grimoire-Localhost-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75DD84C92EAD731300DD8850 /* Grimoire-Localhost-Info.plist */; };
-		75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
-		75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
-		75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
 		75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA752E1604090081A02A /* OnboardingPage.swift */; };
 		75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA762E1604090081A02A /* OnboardingViewModel.swift */; };
 		75E0CA822E1604090081A02A /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA772E1604090081A02A /* OnboardingScreen.swift */; };
-		75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
 		75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA852E1610280081A02A /* OnboardingPermissionsScreen.swift */; };
-		75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
 		75E0CA8A2E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 75E0CA882E1617960081A02A /* PrivacyInfo.xcprivacy */; };
-		75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
 		75E0CA8D2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E0CA8B2E1631620081A02A /* OnboardingFeaturesScreen.swift */; };
-		75E5D4FF2EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
 		75E5D5002EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
-		75E5D5012EE93DFD0027DD04 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5D4FE2EE93DFD0027DD04 /* SafariView.swift */; };
 		75E5F0C82E31D94500162C72 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0C72E31D94500162C72 /* StripeCardScan */; };
 		75E5F0CA2E31D94500162C72 /* StripeConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0C92E31D94500162C72 /* StripeConnect */; };
 		75E5F0CC2E31D94500162C72 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0CB2E31D94500162C72 /* StripeFinancialConnections */; };
-		75E5F0CE2E31D95300162C72 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0CD2E31D95300162C72 /* Stripe */; };
-		75E5F0D02E31D95300162C72 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0CF2E31D95300162C72 /* StripeApplePay */; };
-		75E5F0D22E31D95300162C72 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0D12E31D95300162C72 /* StripeCardScan */; };
-		75E5F0D42E31D95300162C72 /* StripeConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0D32E31D95300162C72 /* StripeConnect */; };
-		75E5F0D62E31D95300162C72 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0D52E31D95300162C72 /* StripeFinancialConnections */; };
-		75E5F0D82E31D95300162C72 /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0D72E31D95300162C72 /* StripeIdentity */; };
-		75E5F0DA2E31D95300162C72 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0D92E31D95300162C72 /* StripePayments */; };
-		75E5F0DC2E31D95300162C72 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0DB2E31D95300162C72 /* StripePaymentSheet */; };
-		75E5F0DE2E31D95300162C72 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0DD2E31D95300162C72 /* StripePaymentsUI */; };
 		75E5F0E02E31D95B00162C72 /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0DF2E31D95B00162C72 /* StripeIdentity */; };
 		75E5F0E22E31D95B00162C72 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E12E31D95B00162C72 /* StripePayments */; };
 		75E5F0E42E31D95B00162C72 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E32E31D95B00162C72 /* StripePaymentSheet */; };
 		75E5F0E62E31D95B00162C72 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 75E5F0E52E31D95B00162C72 /* StripePaymentsUI */; };
-		75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */; };
 		75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */; };
-		75E7B50A2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
 		75E7B50B2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
-		75E7B50C2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
-		75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
-		75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -699,7 +323,6 @@
 		753EC2082DB8CBBB00265B2A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIApplication.swift"; sourceTree = "<group>"; };
 		754241CE2E71CA9C00848F6F /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
-		7545912F2DF4B5860041AC58 /* Grimoire-Dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grimoire-Dev-Info.plist"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
 		754E51E12E54283900258225 /* InvitationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAlert.swift; sourceTree = "<group>"; };
 		75507FB42F0CE67000CCB99F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -729,15 +352,12 @@
 		7562BBA82EBF0AA000B84E4E /* Body.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Body.pdf; sourceTree = "<group>"; };
 		7562BBA92EBF0AA000B84E4E /* Canvas.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Canvas.pdf; sourceTree = "<group>"; };
 		7562BBAA2EBF0AA000B84E4E /* Face.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Face.pdf; sourceTree = "<group>"; };
-		756498D12ED25492002B7E55 /* LimitReachedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitReachedAlert.swift; sourceTree = "<group>"; };
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateConfig.swift; sourceTree = "<group>"; };
 		75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateOverlayModifier.swift; sourceTree = "<group>"; };
 		75B429A72E70061100DE7852 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
-		75B5D51F2EB4310D00B52F9E /* GlowPro Localhost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Localhost.entitlements"; sourceTree = "<group>"; };
-		75B5D5202EB431C900B52F9E /* GlowPro Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GlowPro Dev.entitlements"; sourceTree = "<group>"; };
 		75B5D5212EB431D000B52F9E /* GlowPro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlowPro.entitlements; sourceTree = "<group>"; };
 		75B70AAC2F0C978D0054E8C7 /* TabBarNavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationService.swift; sourceTree = "<group>"; };
 		75B70AB12F0CA0C10054E8C7 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
@@ -757,14 +377,11 @@
 		75C6F81B2EC199EB0059DE9B /* Lined.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Lined.pdf; sourceTree = "<group>"; };
 		75CB876F2E4F81F400FB7D78 /* GPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTheme.swift; sourceTree = "<group>"; };
 		75CB87722E4F84A800FB7D78 /* GPFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPFont.swift; sourceTree = "<group>"; };
-		75D66DC52DC713C300E51CFC /* Grimoire Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grimoire Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D66DCC2DC7179600E51CFC /* GlowProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITests.swift; sourceTree = "<group>"; };
 		75D66DCD2DC7179600E51CFC /* GlowProUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowProUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		75D66DD12DC7179600E51CFC /* GrimoireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireTests.swift; sourceTree = "<group>"; };
 		75D8EDEE2DF600D6004D1E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D8EDF12DF600E5004D1E25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		75DD84C62EAD728600DD8850 /* Grimoire Localhost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grimoire Localhost.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		75DD84C92EAD731300DD8850 /* Grimoire-Localhost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grimoire-Localhost-Info.plist"; sourceTree = "<group>"; };
 		75E0CA752E1604090081A02A /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		75E0CA762E1604090081A02A /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		75E0CA772E1604090081A02A /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
@@ -810,50 +427,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75D66DB72DC713C300E51CFC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75E5F0D22E31D95300162C72 /* StripeCardScan in Frameworks */,
-				75E5F0CE2E31D95300162C72 /* Stripe in Frameworks */,
-				75E5F0D02E31D95300162C72 /* StripeApplePay in Frameworks */,
-				75E5F0DE2E31D95300162C72 /* StripePaymentsUI in Frameworks */,
-				75E5F0D82E31D95300162C72 /* StripeIdentity in Frameworks */,
-				75E5F0DC2E31D95300162C72 /* StripePaymentSheet in Frameworks */,
-				75E5F0D62E31D95300162C72 /* StripeFinancialConnections in Frameworks */,
-				75D66DB92DC713C300E51CFC /* FirebaseAuth in Frameworks */,
-				75E5F0D42E31D95300162C72 /* StripeConnect in Frameworks */,
-				75D66DBA2DC713C300E51CFC /* SwiftDate in Frameworks */,
-				75D66DBB2DC713C300E51CFC /* Amplitude in Frameworks */,
-				75D66DBC2DC713C300E51CFC /* FirebaseStorage in Frameworks */,
-				7548D23C2DD56138008AE243 /* Rune in Frameworks */,
-				75E5F0DA2E31D95300162C72 /* StripePayments in Frameworks */,
-				75D66DBD2DC713C300E51CFC /* FactoryKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75DD84AD2EAD728600DD8850 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75DD84AE2EAD728600DD8850 /* StripeCardScan in Frameworks */,
-				75DD84AF2EAD728600DD8850 /* Stripe in Frameworks */,
-				75DD84B02EAD728600DD8850 /* StripeApplePay in Frameworks */,
-				75DD84B12EAD728600DD8850 /* StripePaymentsUI in Frameworks */,
-				75DD84B22EAD728600DD8850 /* StripeIdentity in Frameworks */,
-				75DD84B32EAD728600DD8850 /* StripePaymentSheet in Frameworks */,
-				75DD84B42EAD728600DD8850 /* StripeFinancialConnections in Frameworks */,
-				75DD84B52EAD728600DD8850 /* FirebaseAuth in Frameworks */,
-				75DD84B62EAD728600DD8850 /* StripeConnect in Frameworks */,
-				75DD84B72EAD728600DD8850 /* SwiftDate in Frameworks */,
-				75DD84B82EAD728600DD8850 /* Amplitude in Frameworks */,
-				75DD84B92EAD728600DD8850 /* FirebaseStorage in Frameworks */,
-				75DD84BA2EAD728600DD8850 /* Rune in Frameworks */,
-				75DD84BB2EAD728600DD8850 /* StripePayments in Frameworks */,
-				75DD84BC2EAD728600DD8850 /* FactoryKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1710,7 +1283,6 @@
 			children = (
 				75E72BA02E54CA2800B51203 /* BaseAppCardConfigView.swift */,
 				754E51E12E54283900258225 /* InvitationAlert.swift */,
-				756498D12ED25492002B7E55 /* LimitReachedAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -1809,74 +1381,6 @@
 			productReference = 755C98032D9CC86A00437D5D /* GrimoireUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		75D66CD62DC713C300E51CFC /* Grimoire Dev */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 75D66DC22DC713C300E51CFC /* Build configuration list for PBXNativeTarget "Grimoire Dev" */;
-			buildPhases = (
-				75D66CE22DC713C300E51CFC /* Sources */,
-				75D66DB72DC713C300E51CFC /* Frameworks */,
-				75D66DBE2DC713C300E51CFC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Grimoire Dev";
-			packageProductDependencies = (
-				75D66CD92DC713C300E51CFC /* FirebaseAuth */,
-				75D66CDB2DC713C300E51CFC /* FirebaseStorage */,
-				75D66CDC2DC713C300E51CFC /* Amplitude */,
-				75D66CDE2DC713C300E51CFC /* SwiftDate */,
-				75D66CE02DC713C300E51CFC /* FactoryKit */,
-				7548D23B2DD56138008AE243 /* Rune */,
-				75E5F0CD2E31D95300162C72 /* Stripe */,
-				75E5F0CF2E31D95300162C72 /* StripeApplePay */,
-				75E5F0D12E31D95300162C72 /* StripeCardScan */,
-				75E5F0D32E31D95300162C72 /* StripeConnect */,
-				75E5F0D52E31D95300162C72 /* StripeFinancialConnections */,
-				75E5F0D72E31D95300162C72 /* StripeIdentity */,
-				75E5F0D92E31D95300162C72 /* StripePayments */,
-				75E5F0DB2E31D95300162C72 /* StripePaymentSheet */,
-				75E5F0DD2E31D95300162C72 /* StripePaymentsUI */,
-			);
-			productName = Rune;
-			productReference = 75D66DC52DC713C300E51CFC /* Grimoire Dev.app */;
-			productType = "com.apple.product-type.application";
-		};
-		75DD83962EAD728600DD8850 /* Grimoire Localhost */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 75DD84C32EAD728600DD8850 /* Build configuration list for PBXNativeTarget "Grimoire Localhost" */;
-			buildPhases = (
-				75DD83AC2EAD728600DD8850 /* Sources */,
-				75DD84AD2EAD728600DD8850 /* Frameworks */,
-				75DD84BD2EAD728600DD8850 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Grimoire Localhost";
-			packageProductDependencies = (
-				75DD83972EAD728600DD8850 /* FirebaseAuth */,
-				75DD83992EAD728600DD8850 /* FirebaseStorage */,
-				75DD839A2EAD728600DD8850 /* Amplitude */,
-				75DD839C2EAD728600DD8850 /* SwiftDate */,
-				75DD839E2EAD728600DD8850 /* FactoryKit */,
-				75DD83A02EAD728600DD8850 /* Rune */,
-				75DD83A22EAD728600DD8850 /* Stripe */,
-				75DD83A42EAD728600DD8850 /* StripeApplePay */,
-				75DD83A52EAD728600DD8850 /* StripeCardScan */,
-				75DD83A62EAD728600DD8850 /* StripeConnect */,
-				75DD83A72EAD728600DD8850 /* StripeFinancialConnections */,
-				75DD83A82EAD728600DD8850 /* StripeIdentity */,
-				75DD83A92EAD728600DD8850 /* StripePayments */,
-				75DD83AA2EAD728600DD8850 /* StripePaymentSheet */,
-				75DD83AB2EAD728600DD8850 /* StripePaymentsUI */,
-			);
-			productName = Rune;
-			productReference = 75DD84C62EAD728600DD8850 /* Grimoire Localhost.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1958,41 +1462,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75D66DBE2DC713C300E51CFC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75D66DBF2DC713C300E51CFC /* Preview Assets.xcassets in Resources */,
-				75D66DC02DC713C300E51CFC /* Assets.xcassets in Resources */,
-				75D8EDF32DF600E5004D1E25 /* GoogleService-Info.plist in Resources */,
-				75C6F81C2EC199EB0059DE9B /* Lined.pdf in Resources */,
-				7562BBB12EBF0AA000B84E4E /* Face.pdf in Resources */,
-				7562BBB22EBF0AA000B84E4E /* Body.pdf in Resources */,
-				7562BBB32EBF0AA000B84E4E /* Canvas.pdf in Resources */,
-				75260F5B2EB468BD00318960 /* Sample.pdf in Resources */,
-				75E0CA892E1617960081A02A /* PrivacyInfo.xcprivacy in Resources */,
-				4A4BDC402EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75DD84BD2EAD728600DD8850 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75DD84BE2EAD728600DD8850 /* Preview Assets.xcassets in Resources */,
-				75DD84CC2EAD731300DD8850 /* Grimoire-Localhost-Info.plist in Resources */,
-				75DD84BF2EAD728600DD8850 /* Assets.xcassets in Resources */,
-				75C6F81E2EC199EB0059DE9B /* Lined.pdf in Resources */,
-				7562BBAB2EBF0AA000B84E4E /* Face.pdf in Resources */,
-				7562BBAC2EBF0AA000B84E4E /* Body.pdf in Resources */,
-				7562BBAD2EBF0AA000B84E4E /* Canvas.pdf in Resources */,
-				75260F5C2EB468BD00318960 /* Sample.pdf in Resources */,
-				75DD84C02EAD728600DD8850 /* GoogleService-Info.plist in Resources */,
-				4A4BDC3E2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */,
-				75DD84C12EAD728600DD8850 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2093,7 +1562,6 @@
 				7515DBB72ECBEB3E00921AE9 /* ViewModel.swift in Sources */,
 				7515DBB82ECBEB3E00921AE9 /* WhatsNew.swift in Sources */,
 				7515DBC52ECBEB3E00921AE9 /* GPUser.swift in Sources */,
-				756498D42ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
@@ -2182,344 +1650,6 @@
 			files = (
 				75D66DCF2DC7179600E51CFC /* GlowProUITests.swift in Sources */,
 				75D66DD02DC7179600E51CFC /* GlowProUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75D66CE22DC713C300E51CFC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75D66D0C2DC713C300E51CFC /* Globals.swift in Sources */,
-				75D66D142DC713C300E51CFC /* RootScreen.swift in Sources */,
-				75D66D162DC713C300E51CFC /* MainViewModel.swift in Sources */,
-				75D66D172DC713C300E51CFC /* RootViewModel.swift in Sources */,
-				750EACE12EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */,
-				75D66D182DC713C300E51CFC /* SplashScreenView.swift in Sources */,
-				75D66D192DC713C300E51CFC /* MainScreen.swift in Sources */,
-				75D66D1A2DC713C300E51CFC /* DevDeeplinksScreen.swift in Sources */,
-				75D66D1B2DC713C300E51CFC /* DevDeeplinksViewModel.swift in Sources */,
-				75E7B50A2EB71B41000F4696 /* RestrictCapture.swift in Sources */,
-				75AA75592E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
-				75D66D372DC713C300E51CFC /* App.swift in Sources */,
-				75D66D3E2DC713C300E51CFC /* MockViewModelAssembly.swift in Sources */,
-				75D66D3F2DC713C300E51CFC /* ViewModelAssembly.swift in Sources */,
-				75E0CA862E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
-				75D66D402DC713C300E51CFC /* AppAssembler.swift in Sources */,
-				75D66D412DC713C300E51CFC /* MockServiceAssembly.swift in Sources */,
-				75D66D422DC713C300E51CFC /* DevUserDefaultsViewModel.swift in Sources */,
-				751BC5DC2F43D0B9007750E0 /* RootStartupService.swift in Sources */,
-				75D66D432DC713C300E51CFC /* DevUserDefaultsScreen.swift in Sources */,
-				7537F4192DF661EA0031D9CF /* APIService+Health.swift in Sources */,
-				7537F41A2DF661EA0031D9CF /* Routes.swift in Sources */,
-				7537F41C2DF661EA0031D9CF /* Loggable.swift in Sources */,
-				7537F41D2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
-				7537F41E2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
-				7537F41F2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
-				7537F4202DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
-				7537F4212DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
-				7537F4222DF661EA0031D9CF /* PermissionsService.swift in Sources */,
-				751BC5D82F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
-				753FA59E2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
-				7537F4232DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
-				7537F4242DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
-				7537F4252DF661EA0031D9CF /* APIService.swift in Sources */,
-				7537F4262DF661EA0031D9CF /* ATTStatus.swift in Sources */,
-				75E0CA8C2E1631670081A02A /* OnboardingFeaturesScreen.swift in Sources */,
-				7537F4272DF661EA0031D9CF /* APIError.swift in Sources */,
-				7537F4282DF661EA0031D9CF /* APIService+Device.swift in Sources */,
-				7537F4292DF661EA0031D9CF /* APIServiceProtocol.swift in Sources */,
-				7537F42A2DF661EA0031D9CF /* PushNotificationService.swift in Sources */,
-				7537F42B2DF661EA0031D9CF /* ConnectivityService.swift in Sources */,
-				7537F42C2DF661EA0031D9CF /* UserDefaultsService.swift in Sources */,
-				7537F42E2DF661EA0031D9CF /* AppEvent.swift in Sources */,
-				7537F42F2DF661EA0031D9CF /* NavigationService.swift in Sources */,
-				7537F4312DF661EA0031D9CF /* Sheet.swift in Sources */,
-				7537F4322DF661EA0031D9CF /* DeeplinkServiceProtocol.swift in Sources */,
-				7537F4332DF661EA0031D9CF /* EventData.swift in Sources */,
-				7537F4342DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift in Sources */,
-				7537F4352DF661EA0031D9CF /* AppDelegateService.swift in Sources */,
-				7537F4362DF661EA0031D9CF /* EventType.swift in Sources */,
-				7537F4372DF661EA0031D9CF /* AppTrackingPermissionServiceProtocol.swift in Sources */,
-				7537F4382DF661EA0031D9CF /* ConnectivityServiceProtocol.swift in Sources */,
-				7537F4392DF661EA0031D9CF /* DeeplinkService.swift in Sources */,
-				7537F43A2DF661EA0031D9CF /* MediaPermissionService.swift in Sources */,
-				75A46EF42E5EB44D0057EF72 /* Ext+Date.swift in Sources */,
-				7537F43B2DF661EA0031D9CF /* Ext+OSLogType.swift in Sources */,
-				7537F43C2DF661EA0031D9CF /* EnvironmentService.swift in Sources */,
-				7537F43D2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
-				75E5D5012EE93DFD0027DD04 /* SafariView.swift in Sources */,
-				7537F43E2DF661EA0031D9CF /* AuthService.swift in Sources */,
-				7502DC302E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
-				7537F4402DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
-				75507FFB2F0CE6F800CCB99F /* LegalItem.swift in Sources */,
-				75B70AE02F0CA0D90054E8C7 /* TabItemView.swift in Sources */,
-				75B70AE12F0CA0D90054E8C7 /* TabBarScreen.swift in Sources */,
-				75B70AE22F0CA0D90054E8C7 /* Tab3Screen.swift in Sources */,
-				75B70AE32F0CA0D90054E8C7 /* CustomTabBarView.swift in Sources */,
-				75B70AE42F0CA0D90054E8C7 /* Tab2ViewModel.swift in Sources */,
-				75B70AE52F0CA0D90054E8C7 /* Tab1Screen.swift in Sources */,
-				75B70AE62F0CA0D90054E8C7 /* Tab2Screen.swift in Sources */,
-				75B70AE72F0CA0D90054E8C7 /* StandardTabBarView.swift in Sources */,
-				75B70AE82F0CA0D90054E8C7 /* Tab4ViewModel.swift in Sources */,
-				75B70AE92F0CA0D90054E8C7 /* Tab4Screen.swift in Sources */,
-				75B70AEA2F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */,
-				75B70AEB2F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */,
-				7537F4412DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
-				7537F4422DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
-				75A109312E4CE13500C25BE2 /* NavHeader.swift in Sources */,
-				7537F4432DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
-				7537F4442DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
-				7515DBD02ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */,
-				7515DBD12ECBEB3E00921AE9 /* AppError.swift in Sources */,
-				7515DBD22ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
-				75B70AB22F0CA0C10054E8C7 /* Tab.swift in Sources */,
-				7515DBD32ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
-				7515DBD42ECBEB3E00921AE9 /* Query.swift in Sources */,
-				7515DBD52ECBEB3E00921AE9 /* Trackable.swift in Sources */,
-				7515DBD62ECBEB3E00921AE9 /* ViewModel.swift in Sources */,
-				7515DBD72ECBEB3E00921AE9 /* WhatsNew.swift in Sources */,
-				7515DBE42ECBEB3E00921AE9 /* GPUser.swift in Sources */,
-				756498D32ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
-				7560ACDA2E2835EE00A30E55 /* MockModels.swift in Sources */,
-				754E51E32E54284C00258225 /* InvitationAlert.swift in Sources */,
-				7537F4452DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
-				75038C7F2E074B9C00659A52 /* AppRootView.swift in Sources */,
-				7537F4462DF661EA0031D9CF /* API.swift in Sources */,
-				7537F4472DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
-				75B70AAD2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
-				75388C352F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */,
-				75388C362F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */,
-				75AA755D2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
-				7537F4482DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
-				7537F4492DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
-				7537F44A2DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
-				7537F44B2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
-				7537F44C2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
-				7537F44D2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
-				75B429A92E70061500DE7852 /* PlaceholderView.swift in Sources */,
-				75507FEB2F0CE67000CCB99F /* FAQItemView.swift in Sources */,
-				75507FEC2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */,
-				75507FED2F0CE67000CCB99F /* FeatureRequestViewModel.swift in Sources */,
-				75507FEE2F0CE67000CCB99F /* FAQViewModel.swift in Sources */,
-				75507FEF2F0CE67000CCB99F /* AboutUsViewModel.swift in Sources */,
-				75507FF02F0CE67000CCB99F /* SettingsScreen.swift in Sources */,
-				75507FF12F0CE67000CCB99F /* LegalScreen.swift in Sources */,
-				75507FF22F0CE67000CCB99F /* FAQScreen.swift in Sources */,
-				75507FF42F0CE67000CCB99F /* AboutUsScreen.swift in Sources */,
-				75507FF52F0CE67000CCB99F /* ProfileScreen.swift in Sources */,
-				75507FF62F0CE67000CCB99F /* LegalViewModel.swift in Sources */,
-				75507FF72F0CE67000CCB99F /* SettingsViewModel.swift in Sources */,
-				75507FF82F0CE67000CCB99F /* ProfileViewModel.swift in Sources */,
-				7537F44E2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
-				7537F44F2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
-				750F9E192E56116D00C72EA7 /* Section.swift in Sources */,
-				7537F4502DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
-				7537F4512DF661EA0031D9CF /* APILogResponse.swift in Sources */,
-				7537F4532DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
-				7537F4542DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
-				75E95C212DF7B5F700C82381 /* StyleConverter.swift in Sources */,
-				75E0CA7B2E1604090081A02A /* OnboardingPage.swift in Sources */,
-				75E0CA7C2E1604090081A02A /* OnboardingViewModel.swift in Sources */,
-				75AA75562E529488002F1990 /* EmptyStateView.swift in Sources */,
-				75E0CA7D2E1604090081A02A /* OnboardingScreen.swift in Sources */,
-				7537F4552DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */,
-				7537F4562DF661EA0031D9CF /* LogEvent.swift in Sources */,
-				754241CF2E71CA9F00848F6F /* Ext+String.swift in Sources */,
-				750B85EF2E48DD5400417BA5 /* GPColor.swift in Sources */,
-				7537F4572DF661EA0031D9CF /* FirebaseService.swift in Sources */,
-				75D66D442DC713C300E51CFC /* MockAssembler.swift in Sources */,
-				75573AC02DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
-				75D66D452DC713C300E51CFC /* ServiceAssembly.swift in Sources */,
-				75C682A42E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
-				75573AC42DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
-				75CB87732E4F84AB00FB7D78 /* GPFont.swift in Sources */,
-				75573AC72DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
-				75D66D532DC713C300E51CFC /* Constants.swift in Sources */,
-				75D66D5D2DC713C300E51CFC /* DevImpersonateViewModel.swift in Sources */,
-				75E72BA12E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
-				75573ACE2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
-				75D66D5E2DC713C300E51CFC /* DevImpersonateScreen.swift in Sources */,
-				75D66D602DC713C300E51CFC /* DevRoutesViewModel.swift in Sources */,
-				75D66D612DC713C300E51CFC /* DevRoutesScreen.swift in Sources */,
-				75573ACC2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,
-				75D66D752DC713C300E51CFC /* AppDelegate.swift in Sources */,
-				75573ABD2DD82CD300C7CA6E /* WelcomeScreen.swift in Sources */,
-				75CB87712E4F81F700FB7D78 /* GPTheme.swift in Sources */,
-				75F024FE2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */,
-				75D66DA62DC713C300E51CFC /* DevSettingsViewModel.swift in Sources */,
-				7548D23F2DD561EF008AE243 /* GlobalImports.swift in Sources */,
-				75D66DA72DC713C300E51CFC /* DevSettingsScreen.swift in Sources */,
-				75D66DB52DC713C300E51CFC /* DevAnalyticsViewModel.swift in Sources */,
-				75D66DB62DC713C300E51CFC /* DevAnalyticsScreen.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75DD83AC2EAD728600DD8850 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75DD83AE2EAD728600DD8850 /* Globals.swift in Sources */,
-				75DD83B32EAD728600DD8850 /* RootScreen.swift in Sources */,
-				75DD83B42EAD728600DD8850 /* MainViewModel.swift in Sources */,
-				75DD83B52EAD728600DD8850 /* RootViewModel.swift in Sources */,
-				750EACE32EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */,
-				75DD83B72EAD728600DD8850 /* SplashScreenView.swift in Sources */,
-				75DD83BC2EAD728600DD8850 /* MainScreen.swift in Sources */,
-				75DD83BD2EAD728600DD8850 /* DevDeeplinksScreen.swift in Sources */,
-				75DD83BE2EAD728600DD8850 /* DevDeeplinksViewModel.swift in Sources */,
-				75E7B50C2EB71B41000F4696 /* RestrictCapture.swift in Sources */,
-				75DD83C62EAD728600DD8850 /* EmptyStateConfig.swift in Sources */,
-				75DD83CF2EAD728600DD8850 /* App.swift in Sources */,
-				75DD83D02EAD728600DD8850 /* MockViewModelAssembly.swift in Sources */,
-				75DD83D12EAD728600DD8850 /* ViewModelAssembly.swift in Sources */,
-				75DD83D92EAD728600DD8850 /* OnboardingPermissionsScreen.swift in Sources */,
-				75DD83DA2EAD728600DD8850 /* AppAssembler.swift in Sources */,
-				75DD83DB2EAD728600DD8850 /* MockServiceAssembly.swift in Sources */,
-				75DD83E02EAD728600DD8850 /* DevUserDefaultsViewModel.swift in Sources */,
-				751BC5DD2F43D0B9007750E0 /* RootStartupService.swift in Sources */,
-				75DD83E12EAD728600DD8850 /* DevUserDefaultsScreen.swift in Sources */,
-				75DD83E22EAD728600DD8850 /* APIService+Health.swift in Sources */,
-				75DD83E32EAD728600DD8850 /* Routes.swift in Sources */,
-				75DD83E52EAD728600DD8850 /* Loggable.swift in Sources */,
-				75DD83E62EAD728600DD8850 /* PushNotificationPermissionService.swift in Sources */,
-				75DD83E82EAD728600DD8850 /* AnalyticsEvent.swift in Sources */,
-				75DD83E92EAD728600DD8850 /* ImpersonateService.swift in Sources */,
-				75DD83EA2EAD728600DD8850 /* CameraPermissionService.swift in Sources */,
-				75DD83EB2EAD728600DD8850 /* LaunchScreenServiceProtocol.swift in Sources */,
-				75DD83ED2EAD728600DD8850 /* PermissionsService.swift in Sources */,
-				751BC5D92F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
-				753FA59D2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
-				75DD83EF2EAD728600DD8850 /* PushNotificationPermissionServiceProtocol.swift in Sources */,
-				75DD83F12EAD728600DD8850 /* NavigationServiceProtocol.swift in Sources */,
-				75DD83F62EAD728600DD8850 /* APIService.swift in Sources */,
-				75DD83F92EAD728600DD8850 /* ATTStatus.swift in Sources */,
-				75DD83FA2EAD728600DD8850 /* OnboardingFeaturesScreen.swift in Sources */,
-				75DD83FD2EAD728600DD8850 /* APIError.swift in Sources */,
-				75DD84002EAD728600DD8850 /* APIService+Device.swift in Sources */,
-				75DD84012EAD728600DD8850 /* APIServiceProtocol.swift in Sources */,
-				75DD84032EAD728600DD8850 /* PushNotificationService.swift in Sources */,
-				75DD84052EAD728600DD8850 /* ConnectivityService.swift in Sources */,
-				75DD84072EAD728600DD8850 /* UserDefaultsService.swift in Sources */,
-				75DD84082EAD728600DD8850 /* AppEvent.swift in Sources */,
-				75DD84092EAD728600DD8850 /* NavigationService.swift in Sources */,
-				75DD840B2EAD728600DD8850 /* Sheet.swift in Sources */,
-				75DD840C2EAD728600DD8850 /* DeeplinkServiceProtocol.swift in Sources */,
-				75DD840E2EAD728600DD8850 /* EventData.swift in Sources */,
-				75DD84102EAD728600DD8850 /* UserDefaultsServiceProtocol.swift in Sources */,
-				75DD84112EAD728600DD8850 /* AppDelegateService.swift in Sources */,
-				75DD84122EAD728600DD8850 /* EventType.swift in Sources */,
-				75DD84132EAD728600DD8850 /* AppTrackingPermissionServiceProtocol.swift in Sources */,
-				75DD84152EAD728600DD8850 /* ConnectivityServiceProtocol.swift in Sources */,
-				75DD84172EAD728600DD8850 /* DeeplinkService.swift in Sources */,
-				75DD84182EAD728600DD8850 /* MediaPermissionService.swift in Sources */,
-				75DD841A2EAD728600DD8850 /* Ext+Date.swift in Sources */,
-				75DD841B2EAD728600DD8850 /* Ext+OSLogType.swift in Sources */,
-				75DD841C2EAD728600DD8850 /* EnvironmentService.swift in Sources */,
-				75DD841F2EAD728600DD8850 /* AnalyticsServiceProtocol.swift in Sources */,
-				75E5D4FF2EE93DFD0027DD04 /* SafariView.swift in Sources */,
-				75DD84212EAD728600DD8850 /* AuthService.swift in Sources */,
-				75DD84232EAD728600DD8850 /* SplashScreenIntroView.swift in Sources */,
-				75DD84262EAD728600DD8850 /* FirebaseServiceProtocol.swift in Sources */,
-				75507FFA2F0CE6F800CCB99F /* LegalItem.swift in Sources */,
-				75B70AC82F0CA0D90054E8C7 /* TabItemView.swift in Sources */,
-				75B70AC92F0CA0D90054E8C7 /* TabBarScreen.swift in Sources */,
-				75B70ACA2F0CA0D90054E8C7 /* Tab3Screen.swift in Sources */,
-				75B70ACB2F0CA0D90054E8C7 /* CustomTabBarView.swift in Sources */,
-				75B70ACC2F0CA0D90054E8C7 /* Tab2ViewModel.swift in Sources */,
-				75B70ACD2F0CA0D90054E8C7 /* Tab1Screen.swift in Sources */,
-				75B70ACE2F0CA0D90054E8C7 /* Tab2Screen.swift in Sources */,
-				75B70ACF2F0CA0D90054E8C7 /* StandardTabBarView.swift in Sources */,
-				75B70AD02F0CA0D90054E8C7 /* Tab4ViewModel.swift in Sources */,
-				75B70AD12F0CA0D90054E8C7 /* Tab4Screen.swift in Sources */,
-				75B70AD22F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */,
-				75B70AD32F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */,
-				75DD84282EAD728600DD8850 /* MediaPermissionServiceProtocol.swift in Sources */,
-				75DD84292EAD728600DD8850 /* ImpersonateServiceProtocol.swift in Sources */,
-				75DD842B2EAD728600DD8850 /* NavHeader.swift in Sources */,
-				75DD842C2EAD728600DD8850 /* AppDelegateServiceProtocol.swift in Sources */,
-				75DD842D2EAD728600DD8850 /* AnalyticsService.swift in Sources */,
-				7515DBEF2ECBEB3E00921AE9 /* AppEnvironment.swift in Sources */,
-				7515DBF02ECBEB3E00921AE9 /* AppError.swift in Sources */,
-				7515DBF12ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
-				75B70AB42F0CA0C10054E8C7 /* Tab.swift in Sources */,
-				7515DBF22ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
-				7515DBF32ECBEB3E00921AE9 /* Query.swift in Sources */,
-				7515DBF42ECBEB3E00921AE9 /* Trackable.swift in Sources */,
-				7515DBF52ECBEB3E00921AE9 /* ViewModel.swift in Sources */,
-				7515DBF62ECBEB3E00921AE9 /* WhatsNew.swift in Sources */,
-				7515DC032ECBEB3E00921AE9 /* GPUser.swift in Sources */,
-				756498D22ED25492002B7E55 /* LimitReachedAlert.swift in Sources */,
-				75DD842F2EAD728600DD8850 /* MockModels.swift in Sources */,
-				75DD84322EAD728600DD8850 /* InvitationAlert.swift in Sources */,
-				75DD84332EAD728600DD8850 /* FullScreenCover.swift in Sources */,
-				75DD84342EAD728600DD8850 /* AppRootView.swift in Sources */,
-				75DD84372EAD728600DD8850 /* API.swift in Sources */,
-				75DD84382EAD728600DD8850 /* PermissionsServiceProtocol.swift in Sources */,
-				75B70AAE2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
-				75388C372F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */,
-				75388C382F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */,
-				75DD843A2EAD728600DD8850 /* EmptyStateOverlayModifier.swift in Sources */,
-				75DD843B2EAD728600DD8850 /* ViewLifecycleServiceProtocol.swift in Sources */,
-				75DD843C2EAD728600DD8850 /* PushNotificationServiceProtocol.swift in Sources */,
-				75DD843F2EAD728600DD8850 /* AppTrackingPermissionService.swift in Sources */,
-				75DD84402EAD728600DD8850 /* LaunchScreenService.swift in Sources */,
-				75DD84412EAD728600DD8850 /* AuthServiceProtocol.swift in Sources */,
-				75DD84432EAD728600DD8850 /* ScreenEvent.swift in Sources */,
-				75DD84442EAD728600DD8850 /* PlaceholderView.swift in Sources */,
-				75507FCD2F0CE67000CCB99F /* FAQItemView.swift in Sources */,
-				75507FCE2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */,
-				75507FCF2F0CE67000CCB99F /* FeatureRequestViewModel.swift in Sources */,
-				75507FD02F0CE67000CCB99F /* FAQViewModel.swift in Sources */,
-				75507FD12F0CE67000CCB99F /* AboutUsViewModel.swift in Sources */,
-				75507FD22F0CE67000CCB99F /* SettingsScreen.swift in Sources */,
-				75507FD32F0CE67000CCB99F /* LegalScreen.swift in Sources */,
-				75507FD42F0CE67000CCB99F /* FAQScreen.swift in Sources */,
-				75507FD62F0CE67000CCB99F /* AboutUsScreen.swift in Sources */,
-				75507FD72F0CE67000CCB99F /* ProfileScreen.swift in Sources */,
-				75507FD82F0CE67000CCB99F /* LegalViewModel.swift in Sources */,
-				75507FD92F0CE67000CCB99F /* SettingsViewModel.swift in Sources */,
-				75507FDA2F0CE67000CCB99F /* ProfileViewModel.swift in Sources */,
-				75DD84492EAD728600DD8850 /* APIService+Users.swift in Sources */,
-				75DD844A2EAD728600DD8850 /* EnvironmentServiceProtocol.swift in Sources */,
-				75DD844E2EAD728600DD8850 /* Section.swift in Sources */,
-				75DD844F2EAD728600DD8850 /* ThemeRegistry.swift in Sources */,
-				75DD84502EAD728600DD8850 /* APILogResponse.swift in Sources */,
-				75DD84532EAD728600DD8850 /* CameraPermissionServiceProtocol.swift in Sources */,
-				75DD84542EAD728600DD8850 /* ErrorEvent.swift in Sources */,
-				75DD84552EAD728600DD8850 /* StyleConverter.swift in Sources */,
-				75DD845A2EAD728600DD8850 /* OnboardingPage.swift in Sources */,
-				75DD845B2EAD728600DD8850 /* OnboardingViewModel.swift in Sources */,
-				75DD845C2EAD728600DD8850 /* EmptyStateView.swift in Sources */,
-				75DD845D2EAD728600DD8850 /* OnboardingScreen.swift in Sources */,
-				75DD845F2EAD728600DD8850 /* ViewLifecycleService.swift in Sources */,
-				75DD84632EAD728600DD8850 /* LogEvent.swift in Sources */,
-				75DD84642EAD728600DD8850 /* Ext+String.swift in Sources */,
-				75DD84662EAD728600DD8850 /* GPColor.swift in Sources */,
-				75DD84692EAD728600DD8850 /* FirebaseService.swift in Sources */,
-				75DD846A2EAD728600DD8850 /* MockAssembler.swift in Sources */,
-				75DD846B2EAD728600DD8850 /* WelcomeViewModel.swift in Sources */,
-				75DD84732EAD728600DD8850 /* ServiceAssembly.swift in Sources */,
-				75DD84742EAD728600DD8850 /* NavBarButton.swift in Sources */,
-				75DD84762EAD728600DD8850 /* LoginViewModel.swift in Sources */,
-				75DD847F2EAD728600DD8850 /* GPFont.swift in Sources */,
-				75DD84822EAD728600DD8850 /* LoginScreen.swift in Sources */,
-				75DD84842EAD728600DD8850 /* Constants.swift in Sources */,
-				75DD84892EAD728600DD8850 /* DevImpersonateViewModel.swift in Sources */,
-				75DD848B2EAD728600DD8850 /* BaseAppCardConfigView.swift in Sources */,
-				75DD848D2EAD728600DD8850 /* SignUpScreen.swift in Sources */,
-				75DD848E2EAD728600DD8850 /* DevImpersonateScreen.swift in Sources */,
-				75DD848F2EAD728600DD8850 /* DevRoutesViewModel.swift in Sources */,
-				75DD84902EAD728600DD8850 /* DevRoutesScreen.swift in Sources */,
-				75DD84982EAD728600DD8850 /* SignUpViewModel.swift in Sources */,
-				75DD849B2EAD728600DD8850 /* AppDelegate.swift in Sources */,
-				75DD849F2EAD728600DD8850 /* WelcomeScreen.swift in Sources */,
-				75DD84A02EAD728600DD8850 /* GPTheme.swift in Sources */,
-				75DD84A22EAD728600DD8850 /* OnboardingPermissionsViewModel.swift in Sources */,
-				75DD84A62EAD728600DD8850 /* DevSettingsViewModel.swift in Sources */,
-				75DD84A72EAD728600DD8850 /* GlobalImports.swift in Sources */,
-				75DD84A92EAD728600DD8850 /* DevSettingsScreen.swift in Sources */,
-				75DD84AA2EAD728600DD8850 /* DevAnalyticsViewModel.swift in Sources */,
-				75DD84AC2EAD728600DD8850 /* DevAnalyticsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2664,6 +1794,164 @@
 			};
 			name = Release;
 		};
+		755C980E2D9CC86B00437D5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_ENVIRONMENT = PRODUCTION;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		755C980F2D9CC86B00437D5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_ENVIRONMENT = PRODUCTION;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		755C98112D9CC86B00437D5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
+			};
+			name = Debug;
+		};
+		755C98122D9CC86B00437D5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
+			};
+			name = Release;
+		};
+		755C98142D9CC86B00437D5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rune;
+			};
+			name = Debug;
+		};
+		755C98152D9CC86B00437D5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNK29NH27H;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rune;
+			};
+			name = Release;
+		};
 		A1B2C3012F3A100000000001 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2796,92 +2084,6 @@
 			};
 			name = Localhost;
 		};
-		755C980E2D9CC86B00437D5D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APP_ENVIRONMENT = PRODUCTION;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		755C980F2D9CC86B00437D5D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APP_ENVIRONMENT = PRODUCTION;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Grimoire/GlowPro.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		A1B2C3032F3A100000000001 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2968,44 +2170,6 @@
 			};
 			name = Localhost;
 		};
-		755C98112D9CC86B00437D5D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
-			};
-			name = Debug;
-		};
-		755C98122D9CC86B00437D5D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuneTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rune.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rune";
-			};
-			name = Release;
-		};
 		A1B2C3052F3A100000000001 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3044,40 +2208,6 @@
 			};
 			name = Localhost;
 		};
-		755C98142D9CC86B00437D5D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Rune;
-			};
-			name = Debug;
-		};
-		755C98152D9CC86B00437D5D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.RuneUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Rune;
-			};
-			name = Release;
-		};
 		A1B2C3072F3A100000000001 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3111,182 +2241,6 @@
 				TEST_TARGET_NAME = Rune;
 			};
 			name = Localhost;
-		};
-		75D66DC32DC713C300E51CFC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "Grimoire-Dev/GlowPro Dev.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Grimoire-Dev/Grimoire-Dev-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		75D66DC42DC713C300E51CFC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "Grimoire-Dev/GlowPro Dev.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Grimoire-Dev/Grimoire-Dev-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		75DD84C42EAD728600DD8850 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "Grimoire-Localhost/GlowPro Localhost.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Grimoire-Localhost/Grimoire-Localhost-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		75DD84C52EAD728600DD8850 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "Grimoire-Localhost/GlowPro Localhost.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Grimoire/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = QNK29NH27H;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Grimoire-Localhost/Grimoire-Localhost-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.grimoire.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3335,24 +2289,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		75D66DC22DC713C300E51CFC /* Build configuration list for PBXNativeTarget "Grimoire Dev" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				75D66DC32DC713C300E51CFC /* Debug */,
-				75D66DC42DC713C300E51CFC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		75DD84C32EAD728600DD8850 /* Build configuration list for PBXNativeTarget "Grimoire Localhost" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				75DD84C42EAD728600DD8850 /* Debug */,
-				75DD84C52EAD728600DD8850 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -3396,86 +2332,6 @@
 				kind = branch;
 			};
 		};
-		75D66CDA2DC713C300E51CFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.12.0;
-			};
-		};
-		75D66CDD2DC713C300E51CFC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		75D66CDF2DC713C300E51CFC /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/malcommac/SwiftDate";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		75D66CE12DC713C300E51CFC /* XCRemoteSwiftPackageReference "Factory" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmlongco/Factory";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		75DD83982EAD728600DD8850 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.12.0;
-			};
-		};
-		75DD839B2EAD728600DD8850 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		75DD839D2EAD728600DD8850 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/malcommac/SwiftDate";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		75DD839F2EAD728600DD8850 /* XCRemoteSwiftPackageReference "Factory" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmlongco/Factory";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		75DD83A12EAD728600DD8850 /* XCRemoteSwiftPackageReference "Rune" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SakoHovaguimian/Rune";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 24.17.0;
-			};
-		};
 		75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
@@ -3517,111 +2373,6 @@
 			package = 7548D2382DD5612C008AE243 /* XCRemoteSwiftPackageReference "Rune" */;
 			productName = Rune;
 		};
-		7548D23B2DD56138008AE243 /* Rune */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7548D2382DD5612C008AE243 /* XCRemoteSwiftPackageReference "Rune" */;
-			productName = Rune;
-		};
-		75D66CD92DC713C300E51CFC /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75D66CDA2DC713C300E51CFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		75D66CDB2DC713C300E51CFC /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75D66CDA2DC713C300E51CFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		75D66CDC2DC713C300E51CFC /* Amplitude */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75D66CDD2DC713C300E51CFC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
-			productName = Amplitude;
-		};
-		75D66CDE2DC713C300E51CFC /* SwiftDate */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75D66CDF2DC713C300E51CFC /* XCRemoteSwiftPackageReference "SwiftDate" */;
-			productName = SwiftDate;
-		};
-		75D66CE02DC713C300E51CFC /* FactoryKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75D66CE12DC713C300E51CFC /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = FactoryKit;
-		};
-		75DD83972EAD728600DD8850 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83982EAD728600DD8850 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		75DD83992EAD728600DD8850 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83982EAD728600DD8850 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		75DD839A2EAD728600DD8850 /* Amplitude */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD839B2EAD728600DD8850 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
-			productName = Amplitude;
-		};
-		75DD839C2EAD728600DD8850 /* SwiftDate */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD839D2EAD728600DD8850 /* XCRemoteSwiftPackageReference "SwiftDate" */;
-			productName = SwiftDate;
-		};
-		75DD839E2EAD728600DD8850 /* FactoryKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD839F2EAD728600DD8850 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = FactoryKit;
-		};
-		75DD83A02EAD728600DD8850 /* Rune */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A12EAD728600DD8850 /* XCRemoteSwiftPackageReference "Rune" */;
-			productName = Rune;
-		};
-		75DD83A22EAD728600DD8850 /* Stripe */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = Stripe;
-		};
-		75DD83A42EAD728600DD8850 /* StripeApplePay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeApplePay;
-		};
-		75DD83A52EAD728600DD8850 /* StripeCardScan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeCardScan;
-		};
-		75DD83A62EAD728600DD8850 /* StripeConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeConnect;
-		};
-		75DD83A72EAD728600DD8850 /* StripeFinancialConnections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeFinancialConnections;
-		};
-		75DD83A82EAD728600DD8850 /* StripeIdentity */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeIdentity;
-		};
-		75DD83A92EAD728600DD8850 /* StripePayments */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePayments;
-		};
-		75DD83AA2EAD728600DD8850 /* StripePaymentSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePaymentSheet;
-		};
-		75DD83AB2EAD728600DD8850 /* StripePaymentsUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75DD83A32EAD728600DD8850 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePaymentsUI;
-		};
 		75E5F0C72E31D94500162C72 /* StripeCardScan */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
@@ -3636,51 +2387,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
 			productName = StripeFinancialConnections;
-		};
-		75E5F0CD2E31D95300162C72 /* Stripe */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = Stripe;
-		};
-		75E5F0CF2E31D95300162C72 /* StripeApplePay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeApplePay;
-		};
-		75E5F0D12E31D95300162C72 /* StripeCardScan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeCardScan;
-		};
-		75E5F0D32E31D95300162C72 /* StripeConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeConnect;
-		};
-		75E5F0D52E31D95300162C72 /* StripeFinancialConnections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeFinancialConnections;
-		};
-		75E5F0D72E31D95300162C72 /* StripeIdentity */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripeIdentity;
-		};
-		75E5F0D92E31D95300162C72 /* StripePayments */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePayments;
-		};
-		75E5F0DB2E31D95300162C72 /* StripePaymentSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePaymentSheet;
-		};
-		75E5F0DD2E31D95300162C72 /* StripePaymentsUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
-			productName = StripePaymentsUI;
 		};
 		75E5F0DF2E31D95B00162C72 /* StripeIdentity */ = {
 			isa = XCSwiftPackageProductDependency;
