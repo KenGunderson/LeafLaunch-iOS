@@ -26,6 +26,8 @@ final class MainViewModel: ViewModel {
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
+    private var presentModalsTask: Task<Void, Never>?
+    private var whatsNewPresentationTask: Task<Void, Never>?
     
     @Published private(set) var showShouldHomeScreen: Bool = false
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
@@ -69,7 +71,8 @@ final class MainViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -132,9 +135,12 @@ final class MainViewModel: ViewModel {
                 
                 if isLoggedIn {
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                        self?.presentModalsIfNeeded()
-                    }
+                    self?.schedulePresentModalsIfNeeded()
+                    
+                } else {
+                    
+                    self?.presentModalsTask?.cancel()
+                    self?.whatsNewPresentationTask?.cancel()
                     
                 }
                 
@@ -191,6 +197,8 @@ final class MainViewModel: ViewModel {
         
         if self.shouldShowOnboarding {
             
+            self.whatsNewPresentationTask?.cancel()
+            
             self.tabBarNavigationService?
                 .tab1NavigationService
                 .modal(fullScreenCover: .onboarding)
@@ -201,13 +209,16 @@ final class MainViewModel: ViewModel {
         
         if self.shouldShowWhatsNew {
             
-            Task { @MainActor in
-                
-                guard let currentItem = Constants.WhatsNewItems.items.last else { return }
+            self.whatsNewPresentationTask?.cancel()
+            
+            guard let currentItem = Constants.WhatsNewItems.items.last else { return }
+            
+            self.whatsNewPresentationTask = Task { @MainActor [weak self] in
                 
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
+                guard !Task.isCancelled else { return }
                 
-                self.tabBarNavigationService?
+                self?.tabBarNavigationService?
                     .tab1NavigationService
                     .modal(sheet: .whatsNew(currentItem))
                 
@@ -216,6 +227,28 @@ final class MainViewModel: ViewModel {
             return
             
         }
+        
+    }
+    
+    private func schedulePresentModalsIfNeeded() {
+        
+        self.presentModalsTask?.cancel()
+        
+        self.presentModalsTask = Task { @MainActor [weak self] in
+            
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            guard !Task.isCancelled else { return }
+            
+            self?.presentModalsIfNeeded()
+            
+        }
+        
+    }
+    
+    private func cancelTasks() {
+        
+        self.presentModalsTask?.cancel()
+        self.whatsNewPresentationTask?.cancel()
         
     }
 

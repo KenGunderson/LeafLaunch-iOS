@@ -23,6 +23,9 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     
     private var cancelBag: CancelBag!
+    private var foregroundUserRefreshTask: Task<Void, Never>?
+    private var registerDeviceTokenTask: Task<Void, Never>?
+    private var healthCheckTask: Task<Void, Never>?
     private var hasStarted: Bool = false
     private var isSplashAnimationCompleted: Bool = false
     private var isAuthBootstrapCompleted: Bool = false
@@ -58,7 +61,8 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         return self.environmentService.environment == .production
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -218,10 +222,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             .dropFirst(2)
             .receiveOnMain()
             .sink { [weak self] _ in
-                
-                Task {
-                    await self?.refreshForegroundUserInfo()
-                }
+                self?.scheduleForegroundUserRefresh()
                 
             }
             .store(in: &self.cancelBag)
@@ -241,17 +242,24 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         guard let user = self.authService.currentUser,
               self.firebaseService.user != nil else { return }
         
-        Task { @MainActor [weak self] in
+        self.registerDeviceTokenTask?.cancel()
+        
+        let apiService = self.apiService
+        let userId = user.id
+        
+        self.registerDeviceTokenTask = Task { @MainActor [weak self] in
             
             do {
                 
-                try await self?.apiService.registerDevice(
+                try await apiService.registerDevice(
                     token: token,
-                    userId: user.id
+                    userId: userId
                 )
                 
             }
             catch {
+                
+                guard !Task.isCancelled else { return }
                 
                 self?.logError(
                     title: "Device Token Registration Error",
@@ -283,12 +291,18 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         
         guard environment != .development else { return }
         
-        Task { @MainActor [weak self] in
+        self.healthCheckTask?.cancel()
+        
+        let apiService = self.apiService
+        
+        self.healthCheckTask = Task { @MainActor [weak self] in
             
             do {
-                try await self?.apiService.getHealth()
+                try await apiService.getHealth()
             }
             catch {
+                
+                guard !Task.isCancelled else { return }
                 
                 self?.logError(
                     title: "Health Check Error",
@@ -307,6 +321,24 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             }
             
         }
+        
+    }
+    
+    private func scheduleForegroundUserRefresh() {
+        
+        self.foregroundUserRefreshTask?.cancel()
+        
+        self.foregroundUserRefreshTask = Task { [weak self] in
+            await self?.refreshForegroundUserInfo()
+        }
+        
+    }
+    
+    private func cancelTasks() {
+        
+        self.foregroundUserRefreshTask?.cancel()
+        self.registerDeviceTokenTask?.cancel()
+        self.healthCheckTask?.cancel()
         
     }
     

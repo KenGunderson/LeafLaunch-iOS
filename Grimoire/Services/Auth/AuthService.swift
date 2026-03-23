@@ -29,6 +29,8 @@ final class AuthService: AuthServiceProtocol {
     private(set) var onError = CurrentValueSubject<Error?, Never>(nil)
     
     var cancelBag: CancelBag!
+    private var logoutTask: Task<Void, Never>?
+    private var initialUserLoadTask: Task<Void, Never>?
     
     init(firebaseService: FirebaseServiceProtocol,
          apiService: APIServiceProtocol,
@@ -45,7 +47,8 @@ final class AuthService: AuthServiceProtocol {
 
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -232,8 +235,17 @@ final class AuthService: AuthServiceProtocol {
     
     func logoutDetached() {
         
-        Task {
-            try await logout()
+        self.logoutTask?.cancel()
+        
+        self.logoutTask = Task { [weak self] in
+            
+            do {
+                try await self?.logout()
+            }
+            catch {
+                guard !Task.isCancelled else { return }
+            }
+            
         }
         
     }
@@ -375,7 +387,11 @@ final class AuthService: AuthServiceProtocol {
     
     private func loadInitialUser(_ user: User) {
         
-        Task {
+        self.initialUserLoadTask?.cancel()
+        
+        self.initialUserLoadTask = Task { [weak self] in
+            
+            guard let self else { return }
             
             defer {
                 self.onInitialLoadCompleted.send(true)
@@ -400,11 +416,16 @@ final class AuthService: AuthServiceProtocol {
                     self.onError.send(error)
                 }
                 
-                throw error
-                
             }
             
         }
+        
+    }
+    
+    private func cancelTasks() {
+        
+        self.logoutTask?.cancel()
+        self.initialUserLoadTask?.cancel()
         
     }
     

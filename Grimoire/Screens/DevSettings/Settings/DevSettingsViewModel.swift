@@ -25,6 +25,7 @@ final class DevSettingsViewModel: ViewModel {
     private weak var navigationService: NavigationService?
     private var dismissAction: (() -> ())?
     private var cancelBag: CancelBag!
+    private var logoutTask: Task<Void, Never>?
             
     @Published private(set) var user: GPUser?
     @Published private(set) var isCustomEnvSelected: Bool = false
@@ -51,6 +52,11 @@ final class DevSettingsViewModel: ViewModel {
         
         bindSubscribers()
         
+    }
+    
+    isolated deinit {
+        cancelTasks()
+        self.logDeinit()
     }
     
     func loadData() {
@@ -124,12 +130,19 @@ final class DevSettingsViewModel: ViewModel {
     
     func logout() {
         
-        Task { [weak self] in
+        self.logoutTask?.cancel()
+        self.dismiss()
+        
+        let authService = self.authService
+        
+        self.logoutTask = Task {
             
-            self?.dismiss()
-            
-            try await self?.authService
-                .logout()
+            do {
+                try await authService.logout()
+            }
+            catch {
+                guard !Task.isCancelled else { return }
+            }
             
         }
         
@@ -201,6 +214,10 @@ final class DevSettingsViewModel: ViewModel {
             }
             .store(in: &self.cancelBag)
         
+    }
+    
+    private func cancelTasks() {
+        self.logoutTask?.cancel()
     }
     
 }

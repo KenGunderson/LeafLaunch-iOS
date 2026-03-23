@@ -20,6 +20,7 @@ final class DevImpersonateViewModel: ViewModel {
     
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    private var impersonationTask: Task<Void, Never>?
     
     @Published var userToImpersonateEmail: String = ""
     @Published var isImpersonating: Bool?
@@ -41,7 +42,8 @@ final class DevImpersonateViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -76,25 +78,31 @@ final class DevImpersonateViewModel: ViewModel {
             .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
-        Task { [weak self, userToImpersonateEmail] in
+        self.impersonationTask?.cancel()
+        
+        let alertService = self.alertService
+        let impersonateService = self.impersonateService
+        
+        self.impersonationTask = Task { [weak self, userToImpersonateEmail] in
             
-            self?.alertService
+            alertService
                 .showAlert(loadingAlert)
             
             defer {
                 
-                self?.alertService
+                alertService
                     .dismissAlert(loadingAlert)
                 
             }
             
             do {
                 
-                try await self?.impersonateService
+                try await impersonateService
                     .impersonateUser(email: userToImpersonateEmail)
                 
             }
             catch {
+                guard !Task.isCancelled else { return }
                 self?.presentError(error)
             }
             
@@ -108,22 +116,28 @@ final class DevImpersonateViewModel: ViewModel {
             .init(loadStyle: .progressView(title: "Impersonating", tintColor: Style.shared.accent))
         ))
         
-        Task { [weak self] in
+        self.impersonationTask?.cancel()
+        
+        let alertService = self.alertService
+        let impersonateService = self.impersonateService
+        
+        self.impersonationTask = Task { [weak self] in
             
-            self?.alertService
+            alertService
                 .showAlert(loadingAlert)
             
             defer {
                 
-                self?.alertService
+                alertService
                     .dismissAlert(loadingAlert)
                 
             }
             
             do {
-                try await self?.impersonateService.revert()
+                try await impersonateService.revert()
             }
             catch {
+                guard !Task.isCancelled else { return }
                 self?.presentError(error)
             }
             
@@ -162,6 +176,10 @@ final class DevImpersonateViewModel: ViewModel {
                 )
             )
         
+    }
+    
+    private func cancelTasks() {
+        self.impersonationTask?.cancel()
     }
     
 }

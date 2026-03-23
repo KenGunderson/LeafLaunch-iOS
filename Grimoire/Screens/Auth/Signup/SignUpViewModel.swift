@@ -22,6 +22,8 @@ final class SignUpViewModel: ViewModel {
     
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    private var appleAuthorizationTask: Task<Void, Never>?
+    private var signUpTask: Task<Void, Never>?
     
     @Published var firstName: String = ""
     @Published var lastName: String = ""
@@ -61,7 +63,8 @@ final class SignUpViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -75,8 +78,36 @@ final class SignUpViewModel: ViewModel {
         switch result {
         case .success(let authorization):
             
-            Task {
-                await handleAppleLogin(authorization: authorization)
+            self.appleAuthorizationTask?.cancel()
+            
+            let analyticsService = self.analyticsService
+            let authService = self.authService
+            let currentNonce = self.currentNonce
+            
+            self.appleAuthorizationTask = Task { [weak self] in
+                
+                analyticsService
+                    .track(.onboarding(.appleSignupIntent))
+                
+                do {
+                    
+                    try await authService.handleAppleSignupOrLogin(
+                        currentNonce: currentNonce,
+                        authorization: authorization,
+                        isLogin: false
+                    )
+                    
+                    guard !Task.isCancelled else { return }
+                    self?.dismiss()
+                    
+                }
+                catch(let error) {
+                    
+                    guard !Task.isCancelled else { return }
+                    self?.error = error
+                    
+                }
+                
             }
             
         case .failure(let error): self.error = error
@@ -90,30 +121,35 @@ final class SignUpViewModel: ViewModel {
         self.analyticsService
             .track(.onboarding(.signupIntent))
         
-        Task {
+        self.signUpTask?.cancel()
+        
+        let authService = self.authService
+        let firstName = self.firstName.capitalized
+        let lastName = self.lastName.capitalized
+        let email = self.email
+        let password = self.password
+        
+        self.signUpTask = Task { [weak self] in
             
             do {
                 
-                try await self.authService.signup(
-                    firstName: self.firstName.capitalized,
-                    lastName: self.lastName.capitalized,
-                    email: self.email,
-                    password: self.password
+                try await authService.signup(
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: password
                 )
                 
-                await MainActor.run { [weak self] in
-                    
-                    self?.navigationService?
-                        .popToRoot()
-                    
-                }
+                guard !Task.isCancelled else { return }
+                
+                self?.navigationService?
+                    .popToRoot()
                 
             }
             catch(let error) {
                 
-                await MainActor.run { [weak self] in
-                    self?.error = error
-                }
+                guard !Task.isCancelled else { return }
+                self?.error = error
                 
             }
             
@@ -133,28 +169,10 @@ final class SignUpViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
-    @MainActor
-    private func handleAppleLogin(authorization: ASAuthorization) async {
+    private func cancelTasks() {
         
-        self.analyticsService
-            .track(.onboarding(.appleSignupIntent))
-        
-        do {
-            
-            try await self.authService.handleAppleSignupOrLogin(
-                currentNonce: self.currentNonce,
-                authorization: authorization,
-                isLogin: false
-            )
-            
-            await MainActor.run { [weak self] in
-                self?.dismiss()
-            }
-            
-        }
-        catch(let error) {
-            self.error = error
-        }
+        self.appleAuthorizationTask?.cancel()
+        self.signUpTask?.cancel()
         
     }
     

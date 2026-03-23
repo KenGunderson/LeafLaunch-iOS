@@ -64,6 +64,7 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
     
     private var idTokenDidChangeListener: NSObjectProtocol?
+    private var idTokenUpdateTask: Task<Void, Never>?
     
     var isSignUpContext: Bool = false
     var isLoginContext: Bool = false
@@ -79,7 +80,9 @@ final class FirebaseService: FirebaseServiceProtocol {
         
     }
     
-    deinit {
+    isolated deinit {
+        
+        self.idTokenUpdateTask?.cancel()
         
         if let idTokenDidChangeListener {
             Auth.auth().removeIDTokenDidChangeListener(idTokenDidChangeListener)
@@ -429,7 +432,11 @@ final class FirebaseService: FirebaseServiceProtocol {
             guard let self = self else { return }
             self.user = user
             
-            Task {
+            self.idTokenUpdateTask?.cancel()
+            
+            self.idTokenUpdateTask = Task { [weak self] in
+                
+                guard let self else { return }
                 
                 guard let user = user else {
                     
@@ -447,6 +454,8 @@ final class FirebaseService: FirebaseServiceProtocol {
                     }
                     
                 } catch {
+                    
+                    guard !Task.isCancelled else { return }
                     
                     self.logError(
                         title: "IDToken Listener Error",

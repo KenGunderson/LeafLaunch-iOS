@@ -24,6 +24,7 @@ final class SettingsViewModel: ViewModel {
 
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    private var logoutTask: Task<Void, Never>?
     
     @Published private(set) var shouldDismiss: Bool = false
     
@@ -74,7 +75,8 @@ final class SettingsViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -140,21 +142,40 @@ final class SettingsViewModel: ViewModel {
     
     private func logout() {
         
-        Task { [weak self] in
+        self.logoutTask?.cancel()
+        
+        let authService = self.authService
+        let impersonateService = self.impersonateService
+        
+        self.logoutTask = Task { [weak self] in
             
-            guard let self else { return }
+            do {
+                try await Task.sleep(for: .seconds(0.3))
+            }
+            catch {
+                return
+            }
+            guard !Task.isCancelled else { return }
             
-            try await Task.sleep(for: .seconds(0.3))
-            
-            self.impersonateService
+            impersonateService
                 .logout()
             
-            await MainActor.run {
-                self.shouldDismiss = true
-            }
+            self?.shouldDismiss = true
             
-            try await Task.sleep(for: .seconds(0.3))
-            try await self.authService.logout()
+            do {
+                try await Task.sleep(for: .seconds(0.3))
+            }
+            catch {
+                return
+            }
+            guard !Task.isCancelled else { return }
+            
+            do {
+                try await authService.logout()
+            }
+            catch {
+                guard !Task.isCancelled else { return }
+            }
             
         }
         
@@ -178,6 +199,10 @@ final class SettingsViewModel: ViewModel {
                 secondaryButtonTextColor: Style.shared.textColor(.title)
             ))))
         
+    }
+    
+    private func cancelTasks() {
+        self.logoutTask?.cancel()
     }
     
 }

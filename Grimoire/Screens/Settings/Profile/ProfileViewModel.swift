@@ -35,6 +35,8 @@ final class ProfileViewModel: ViewModel {
     
     private(set) var businessId: String?
     private var cancelBag: CancelBag!
+    private var loadDataTask: Task<Void, Never>?
+    private var updateTask: Task<Void, Never>?
         
     init(apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
@@ -57,7 +59,8 @@ final class ProfileViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -69,39 +72,52 @@ final class ProfileViewModel: ViewModel {
         
         guard let user = self.authService.currentUser else { return }
         
+        self.loadDataTask?.cancel()
+        
         self.isLoading = true
         
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
-
-        Task {
+        
+        let alertService = self.alertService
+        let apiService = self.apiService
+        let userId = user.id
+        
+        self.loadDataTask = Task { [weak self] in
+            
+            defer {
+                
+                alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
             do {
                 
-                let user = try await self.apiService
-                    .getUser(id: user.id)
+                let user = try await apiService
+                    .getUser(id: userId)
                 
-                await MainActor.run { [weak self] in
-                    
-                    self?.firstName = user.firstName
-                    self?.lastName = user.lastName
-                    self?.email = user.email
-                    self?.dateOfBirth = user.dateOfBirth ?? .now
-                    
-                    self?.isLoading = false
-                    
-                }
+                guard !Task.isCancelled else { return }
+                
+                self?.firstName = user.firstName
+                self?.lastName = user.lastName
+                self?.email = user.email
+                self?.dateOfBirth = user.dateOfBirth ?? .now
+                
+                self?.isLoading = false
                 
             }
             catch {
                 
-                self.alertService.showAlert(.init(
+                guard !Task.isCancelled else { return }
+                
+                alertService.showAlert(.init(
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("user"),
-                            action: {
+                            action: { [weak self] in
                                 
-                                self.navigationService?
+                                self?.navigationService?
                                     .popWithDelay()
                                 
                             })
@@ -109,10 +125,7 @@ final class ProfileViewModel: ViewModel {
                 )
                 
             }
-            
-            self.alertService
-                .dismissLoadingIndicator()
-            
+                        
         }
         
     }
@@ -127,21 +140,37 @@ final class ProfileViewModel: ViewModel {
     func update() {
         
         guard let user = self.authService.currentUser else { return }
+        
+        self.updateTask?.cancel()
                 
         self.alertService
             .showAlert(.init(.simpleLoadingIndicator))
-
-        Task {
+        
+        let alertService = self.alertService
+        let apiService = self.apiService
+        let authService = self.authService
+        let firstName = self.firstName
+        let lastName = self.lastName
+        let dateOfBirthValue = self.dateOfBirth
+        
+        self.updateTask = Task { [weak self] in
+            
+            defer {
+                
+                alertService
+                    .dismissLoadingIndicator()
+                
+            }
             
             do {
                 
-                let isValidDateOfBirth = !self.dateOfBirth.isToday
-                let dateOfBirth = isValidDateOfBirth ? self.dateOfBirth.ISO8601Format() : nil
+                let isValidDateOfBirth = !dateOfBirthValue.isToday
+                let dateOfBirth = isValidDateOfBirth ? dateOfBirthValue.ISO8601Format() : nil
                 
                 let updatedUser = GPUser(
                     id: user.id,
-                    firstName: self.firstName,
-                    lastName: self.lastName,
+                    firstName: firstName,
+                    lastName: lastName,
                     email: user.email,
                     phoneNumber: user.phoneNumber,
                     externalId: user.externalId,
@@ -149,18 +178,20 @@ final class ProfileViewModel: ViewModel {
                     imageURL: user.imageURL
                 )
                 
-                try await self.apiService
+                try await apiService
                     .updateUser(user: updatedUser)
                 
-                try await self.authService
+                try await authService
                     .reloadUser()
                 
-                self.alertService
+                guard !Task.isCancelled else { return }
+                
+                alertService
                     .showAlert(.init(.appAlert(.success(
                         message: "Profile updated successfully.",
-                        action: {
+                        action: { [weak self] in
                             
-                            self.navigationService?
+                            self?.navigationService?
                                 .popWithDelay()
                             
                         }
@@ -170,7 +201,9 @@ final class ProfileViewModel: ViewModel {
             }
             catch {
                 
-                self.alertService.showAlert(.init(
+                guard !Task.isCancelled else { return }
+                
+                alertService.showAlert(.init(
                     .appAlert(
                         .error(
                             message: Constants.Message.errorMessage("user"),
@@ -180,10 +213,7 @@ final class ProfileViewModel: ViewModel {
                 )
                 
             }
-            
-            self.alertService
-                .dismissLoadingIndicator()
-            
+                        
         }
         
     }
@@ -221,6 +251,13 @@ final class ProfileViewModel: ViewModel {
 
     private func bindSubscribers() {
         self.cancelBag = CancelBag()
+    }
+    
+    private func cancelTasks() {
+        
+        self.loadDataTask?.cancel()
+        self.updateTask?.cancel()
+        
     }
     
 }

@@ -19,6 +19,7 @@ final class Tab1ViewModel: ViewModel {
     
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
+    private var logoutTask: Task<Void, Never>?
     
     init(alertService: AlertServiceProtocol,
          authService: AuthServiceProtocol,
@@ -34,7 +35,8 @@ final class Tab1ViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -48,8 +50,19 @@ final class Tab1ViewModel: ViewModel {
     
     func logout() {
         
-        Task {
-            try? await self.authService.logout()
+        self.logoutTask?.cancel()
+        
+        let authService = self.authService
+        
+        self.logoutTask = Task {
+            
+            do {
+                try await authService.logout()
+            }
+            catch {
+                guard !Task.isCancelled else { return }
+            }
+            
         }
         
     }
@@ -68,6 +81,10 @@ final class Tab1ViewModel: ViewModel {
                 
             }))))
         
+    }
+    
+    private func cancelTasks() {
+        self.logoutTask?.cancel()
     }
     
 }

@@ -51,7 +51,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
         
     }
     
-    deinit {
+    isolated deinit {
         
         self.notificationObservers.forEach {
             NotificationCenter.default.removeObserver($0)

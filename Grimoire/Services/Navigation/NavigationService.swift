@@ -24,6 +24,12 @@ final class NavigationService: NavigationServiceProtocol, Equatable {
     var sheet: Sheet?
     var fullScreenCover: FullScreenCover?
     
+    private var replaceStackTask: Task<Void, Never>?
+    
+    isolated deinit {
+        self.replaceStackTask?.cancel()
+    }
+    
     func push(_ route: Route) {
         self.routes.append(route)
     }
@@ -73,13 +79,13 @@ final class NavigationService: NavigationServiceProtocol, Equatable {
     func replaceStack(_ route: Route) {
         
         self.routes.removeAll()
+        self.replaceStackTask?.cancel()
         
-        Task { @MainActor in
+        self.replaceStackTask = Task { @MainActor [weak self] in
             //The time delay may be device/app specific.
             try? await Task.sleep(nanoseconds: 400_000_000)
-            await MainActor.run { [weak self] in
-                self?.push(route)
-            }
+            guard !Task.isCancelled else { return }
+            self?.push(route)
             
         }
         

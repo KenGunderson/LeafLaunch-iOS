@@ -24,18 +24,21 @@ final class PushNotificationPermissionService: PushNotificationPermissionService
         return self.$shouldPromptForPermissions.eraseToAnyPublisher()
     }
     
+    private var authorizationStatusTask: Task<Void, Never>?
+    
     init() {
         
         self.logInit()
         
-        Task {
+        self.authorizationStatusTask = Task {
             await checkAuthorizationStatus()
         }
         
     }
     
     
-    deinit {
+    isolated deinit {
+        self.authorizationStatusTask?.cancel()
         self.logDeinit()
     }
     

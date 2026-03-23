@@ -21,6 +21,9 @@ final class LoginViewModel: ViewModel {
     
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
+    private var appleAuthorizationTask: Task<Void, Never>?
+    private var forgotPasswordTask: Task<Void, Never>?
+    private var loginTask: Task<Void, Never>?
     
     @Published var email: String = ""
     @Published var password: String = ""
@@ -55,8 +58,11 @@ final class LoginViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        
+        cancelTasks()
         self.logDeinit()
+        
     }
     
     func set(nonce: String) {
@@ -84,8 +90,36 @@ final class LoginViewModel: ViewModel {
         switch result {
         case .success(let authorization):
             
-            Task {
-                await handleAppleLogin(authorization: authorization)
+            self.appleAuthorizationTask?.cancel()
+            
+            let analyticsService = self.analyticsService
+            let authService = self.authService
+            let currentNonce = self.currentNonce
+            
+            self.appleAuthorizationTask = Task { [weak self] in
+                
+                analyticsService
+                    .track(.onboarding(.appleLoginIntent))
+                
+                do {
+                    
+                    try await authService.handleAppleSignupOrLogin(
+                        currentNonce: currentNonce,
+                        authorization: authorization,
+                        isLogin: true
+                    )
+                    
+                    guard !Task.isCancelled else { return }
+                    self?.dismiss()
+                    
+                }
+                catch(let error) {
+                    
+                    guard !Task.isCancelled else { return }
+                    self?.error = error
+                    
+                }
+                
             }
             
         case .failure(let error): self.error = error
@@ -96,21 +130,25 @@ final class LoginViewModel: ViewModel {
     @MainActor
     func handleForgetPassword(email: String) {
         
-        Task {
+        self.forgotPasswordTask?.cancel()
+        
+        let authService = self.authService
+        let analyticsService = self.analyticsService
+        
+        self.forgotPasswordTask = Task { [weak self] in
             
             do {
                 
-                try await self.authService.resetPassword(email: email)
+                try await authService.resetPassword(email: email)
                 
-                self.analyticsService
+                analyticsService
                     .track(.onboarding(.forgotPassword(email: email)))
                 
             }
             catch(let error) {
                 
-                await MainActor.run { [weak self] in
-                    self?.error = error
-                }
+                guard !Task.isCancelled else { return }
+                self?.error = error
                 
             }
             
@@ -123,26 +161,30 @@ final class LoginViewModel: ViewModel {
         
         self.analyticsService
             .track(.onboarding(.loginIntent))
+        
+        self.loginTask?.cancel()
+        
+        let authService = self.authService
+        let email = self.email
+        let password = self.password
             
-        Task {
+        self.loginTask = Task { [weak self] in
             
             do {
                 
-                try await self.authService.login(
-                    email: self.email,
-                    password: self.password
+                try await authService.login(
+                    email: email,
+                    password: password
                 )
                 
-                await MainActor.run { [weak self] in
-                    self?.dismiss()
-                }
+                guard !Task.isCancelled else { return }
+                self?.dismiss()
                 
             }
             catch(let error) {
                 
-                await MainActor.run { [weak self] in
-                    self?.error = error
-                }
+                guard !Task.isCancelled else { return }
+                self?.error = error
                 
             }
             
@@ -154,30 +196,11 @@ final class LoginViewModel: ViewModel {
         self.cancelBag = CancelBag()
     }
     
-    @MainActor
-    private func handleAppleLogin(authorization: ASAuthorization) async {
+    private func cancelTasks() {
         
-        self.analyticsService
-            .track(.onboarding(.appleLoginIntent))
-        
-        do {
-            
-            try await self.authService.handleAppleSignupOrLogin(
-                currentNonce: self.currentNonce,
-                authorization: authorization,
-                isLogin: true
-            )
-            
-            dismiss()
-            
-        }
-        catch(let error) {
-            
-            await MainActor.run { [weak self] in
-                self?.error = error
-            }
-            
-        }
+        self.appleAuthorizationTask?.cancel()
+        self.forgotPasswordTask?.cancel()
+        self.loginTask?.cancel()
         
     }
     

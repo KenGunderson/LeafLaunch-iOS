@@ -30,6 +30,9 @@ final class RootViewModel: ViewModel {
     @Published var shouldPresentDevSettings: Bool = false
     
     private(set) weak var navigationService: NavigationService?
+    private var tabBarAppearanceTask: Task<Void, Never>?
+    private var revertImpersonationTask: Task<Void, Never>?
+    private var logoutTask: Task<Void, Never>?
     
     var impersonatingUserEmail: String {
         return self.impersonateService.impersonatedUser?.email ?? ""
@@ -59,7 +62,7 @@ final class RootViewModel: ViewModel {
         self.logInit()
         bindStartupCoordinator()
         
-        Task {
+        self.tabBarAppearanceTask = Task {
             
             await MainActor.run {
                 UITabBar.appearance().isHidden = true
@@ -69,7 +72,8 @@ final class RootViewModel: ViewModel {
         
     }
     
-    deinit {
+    isolated deinit {
+        cancelTasks()
         self.logDeinit()
     }
     
@@ -115,8 +119,20 @@ final class RootViewModel: ViewModel {
     
     func revertImpersonatingUser() {
         
-        Task { @MainActor [weak self] in
-            try await self?.impersonateService.revert()
+        self.revertImpersonationTask?.cancel()
+        
+        let impersonateService = self.impersonateService
+        
+        self.revertImpersonationTask = Task { @MainActor [weak self] in
+            
+            do {
+                try await impersonateService.revert()
+            }
+            catch {
+                guard !Task.isCancelled else { return }
+                self?.logError(message: error.getMessageForError())
+            }
+            
         }
         
     }
@@ -222,14 +238,35 @@ final class RootViewModel: ViewModel {
                 .error(message: error.getMessageForError(),
                        action: { [weak self] in
                            
-                           self?.impersonateService.logout()
+                           guard let self else { return }
                            
-                           Task { [weak self] in
-                               try await self?.authService.logout()
+                           self.impersonateService.logout()
+                           
+                           self.logoutTask?.cancel()
+                           
+                           let authService = self.authService
+                           
+                           self.logoutTask = Task {
+                               
+                               do {
+                                   try await authService.logout()
+                               }
+                               catch {
+                                   guard !Task.isCancelled else { return }
+                               }
+                               
                            }
                            
                        }))
         ))
+        
+    }
+    
+    private func cancelTasks() {
+        
+        self.tabBarAppearanceTask?.cancel()
+        self.revertImpersonationTask?.cancel()
+        self.logoutTask?.cancel()
         
     }
     
