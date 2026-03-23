@@ -94,8 +94,8 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             deepLinks: true,
             screenViews: false
         )
-        self.amplitude?.adSupportBlock = {
-            return self.currentIdfa
+        self.amplitude?.adSupportBlock = { [weak self] in
+            return self?.currentIdfa ?? "00000000-0000-0000-0000-000000000000"
         }
 
     }

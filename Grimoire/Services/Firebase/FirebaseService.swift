@@ -63,6 +63,8 @@ final class FirebaseService: FirebaseServiceProtocol {
         return self.$currentAccessToken.eraseToAnyPublisher()
     }
     
+    private var idTokenDidChangeListener: NSObjectProtocol?
+    
     var isSignUpContext: Bool = false
     var isLoginContext: Bool = false
         
@@ -78,7 +80,13 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
     
     deinit {
+        
+        if let idTokenDidChangeListener {
+            Auth.auth().removeIDTokenDidChangeListener(idTokenDidChangeListener)
+        }
+        
         self.logDeinit()
+        
     }
     
     @discardableResult
@@ -416,7 +424,7 @@ final class FirebaseService: FirebaseServiceProtocol {
     
     func setupFirebaseAuthListener() {
         
-        _ = Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
+        self.idTokenDidChangeListener = Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
             
             guard let self = self else { return }
             self.user = user

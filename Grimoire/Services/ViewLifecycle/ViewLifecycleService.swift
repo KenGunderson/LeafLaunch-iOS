@@ -38,6 +38,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     internal let loggerEmoji: String = "🔁"
     
     private var subjectMap: [ViewLifecycleKey: PassthroughSubject<Void, Never>] = [:]
+    private var notificationObservers: [NSObjectProtocol] = []
     
     private(set) var onDidEnterBackground = CurrentValueSubject<String?, Never>(nil)
     private(set) var onDidBecomeActive = CurrentValueSubject<String?, Never>(nil)
@@ -51,7 +52,13 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     }
     
     deinit {
+        
+        self.notificationObservers.forEach {
+            NotificationCenter.default.removeObserver($0)
+        }
+        
         logDeinit()
+        
     }
     
     func reload(for key: ViewLifecycleKey) {
@@ -121,7 +128,7 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
     
     private func setupNotifications() {
         
-        NotificationCenter
+        let willEnterForegroundObserver = NotificationCenter
             .default
             .addObserver(forName: UIApplication.willEnterForegroundNotification,
                          object: nil,
@@ -138,7 +145,9 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                 
             }
         
-        NotificationCenter
+        self.notificationObservers.append(willEnterForegroundObserver)
+        
+        let didBecomeActiveObserver = NotificationCenter
             .default
             .addObserver(forName: UIApplication.didBecomeActiveNotification,
                          object: nil,
@@ -155,7 +164,9 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                 
             }
         
-        NotificationCenter
+        self.notificationObservers.append(didBecomeActiveObserver)
+        
+        let didEnterBackgroundObserver = NotificationCenter
             .default
             .addObserver(forName: UIApplication.didEnterBackgroundNotification,
                          object: nil,
@@ -171,6 +182,8 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
                 }
                 
             }
+        
+        self.notificationObservers.append(didEnterBackgroundObserver)
         
     }
     
