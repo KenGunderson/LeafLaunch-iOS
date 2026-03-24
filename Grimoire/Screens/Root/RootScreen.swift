@@ -65,15 +65,6 @@ struct RootScreen: GPView {
             value: self.viewModel.isImpersonatingUser
         )
         
-        // Dev Settings
-        
-        .simultaneousGesture(LongPressGesture(minimumDuration: 2.5).onEnded { _ in
-            
-            self.viewModel
-                .presentDevSettings()
-            
-        })
-        
         // Full Screen Cover
         
         .fullScreenCover(isPresented: self.$viewModel.shouldPresentDevSettings) {

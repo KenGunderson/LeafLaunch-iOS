@@ -39,7 +39,8 @@ class MockViewModelAssembly {
                 userDefaultsService: container.userDefaultsService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 pushNotificationsService: container.pushNotificationService(),
-                permissionsService: container.permissionsService()
+                permissionsService: container.permissionsService(),
+                environmentService: container.environmentService()
             )
         }
         

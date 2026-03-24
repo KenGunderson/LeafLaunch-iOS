@@ -150,24 +150,6 @@ final class RootViewModel: ViewModel {
         
     }
     
-    func presentDevSettings() {
-        
-        guard !self.startupService.isProduction else { return }
-        
-        if self.authService.currentUser == nil {
-            shouldPresentDevSettings = true
-        }
-        else {
-            
-            self.mainViewModel
-                .tabBarNavigationService?
-                .tab1NavigationService
-                .modal(fullScreenCover: .devSettings)
-            
-        }
-        
-    }
-    
     func presentHealthCheckAlert() {
         
         self.alertService

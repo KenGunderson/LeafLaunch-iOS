@@ -42,7 +42,8 @@ extension Container {
                 userDefaultsService: self.userDefaultsService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 pushNotificationsService: self.pushNotificationService(),
-                permissionsService: self.permissionsService()
+                permissionsService: self.permissionsService(),
+                environmentService: self.environmentService()
             )
         }
     }

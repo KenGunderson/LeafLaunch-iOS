@@ -22,6 +22,7 @@ final class MainViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
     private let permissionsService: PermissionsServiceProtocol
+    private let environmentService: EnvironmentServiceProtocol
     let userDefaultsService: UserDefaultsServiceProtocol
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
@@ -34,6 +35,10 @@ final class MainViewModel: ViewModel {
     
     var readOnlyAlertService: any AlertServiceProtocol {
         return self.alertService
+    }
+    
+    var isDevSettingsEnabled: Bool {
+        return self.environmentService.environment != .production
     }
         
     // ViewModels
@@ -54,7 +59,8 @@ final class MainViewModel: ViewModel {
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
-         permissionsService: PermissionsServiceProtocol) {
+         permissionsService: PermissionsServiceProtocol,
+         environmentService: EnvironmentServiceProtocol) {
         
         self.alertService = alertService
         self.appDelegateService = appDelegateService
@@ -65,6 +71,7 @@ final class MainViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.pushNotificationsService = pushNotificationsService
         self.permissionsService = permissionsService
+        self.environmentService = environmentService
         
         self.logInit()
         bindSubscribers()

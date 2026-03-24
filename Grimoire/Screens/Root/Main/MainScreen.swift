@@ -57,6 +57,13 @@ struct MainScreen: GPView {
         .withWindowToastOverlay()
         .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
         .withWindowDynamicIslandService()
+        .withDevSettingsOverlay(isEnabled: self.viewModel.isDevSettingsEnabled) {
+            
+            self.tabBarNavigationService
+                .tab1NavigationService
+                .modal(fullScreenCover: .devSettings)
+            
+        }
         
         // Lifecycle
         
@@ -114,3 +121,4 @@ struct MainScreen: GPView {
     .withMockServices()
     
 }
+

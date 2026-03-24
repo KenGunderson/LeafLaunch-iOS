@@ -43,15 +43,6 @@ struct AppRootView<Content: View>: View {
         
         .environment(self.navigationService)
         
-        // Dev Settings
-        
-        .simultaneousGesture(LongPressGesture(minimumDuration: 2.5).onEnded { _ in
-            
-            self.navigationService
-                .modal(fullScreenCover: .devSettings)
-            
-        })
-        
     }
     
 }
