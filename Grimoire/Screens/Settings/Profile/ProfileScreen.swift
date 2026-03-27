@@ -51,7 +51,7 @@ struct ProfileScreen: GPView {
                 .loadData()
             
             self.viewModel
-                .track()
+                .handleFirstAppear()
             
             self.viewModel
                 .setup(navigationService: self.navigationService)

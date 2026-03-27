@@ -39,7 +39,7 @@ struct SettingsScreen: GPView {
             .onFirstAppear {
                 
                 self.viewModel
-                    .track()
+                    .handleFirstAppear()
                 
                 self.viewModel
                     .setup(navigationService: self.navigationService)

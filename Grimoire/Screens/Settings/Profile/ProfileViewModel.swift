@@ -54,7 +54,6 @@ final class ProfileViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
         
-        bindSubscribers()
         self.logInit()
         
     }
@@ -66,6 +65,13 @@ final class ProfileViewModel: ViewModel {
     
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
+    }
+
+    func handleFirstAppear() {
+        
+        track()
+        bindSubscribers()
+        
     }
     
     func loadData() {

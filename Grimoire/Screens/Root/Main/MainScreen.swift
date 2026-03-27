@@ -70,7 +70,7 @@ struct MainScreen: GPView {
         .onFirstAppear {
             
             self.viewModel
-                .track()
+                .handleFirstAppear()
             
             self.viewModel
                 .setup(tabBarNavigationService: self.tabBarNavigationService)
@@ -121,4 +121,3 @@ struct MainScreen: GPView {
     .withMockServices()
     
 }
-

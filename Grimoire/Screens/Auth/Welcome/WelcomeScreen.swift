@@ -27,7 +27,7 @@ struct WelcomeScreen: GPView {
                 .onFirstAppear {
                     
                     self.viewModel
-                        .track()
+                        .handleFirstAppear()
                     
                 }
             
