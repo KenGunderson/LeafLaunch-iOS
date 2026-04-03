@@ -143,6 +143,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case analytics
         case impersonate
         case companyStats
+        case localNotifications
         
         var screenName: String {
             
@@ -157,6 +158,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .analytics: name = "analytics"
             case .impersonate: name = "impersonate"
             case .companyStats: name = "company_stats"
+            case .localNotifications: name = "local_notifications"
             }
             
             return "dev_settings.\(name)"

@@ -6,7 +6,7 @@
 //
 
 import Combine
-import UserNotifications
+@preconcurrency import UserNotifications
 import UIKit
 
 final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate, PushNotificationServiceProtocol {

@@ -148,6 +148,11 @@
 		7562BBAE2EBF0AA000B84E4E /* Face.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBAA2EBF0AA000B84E4E /* Face.pdf */; };
 		7562BBAF2EBF0AA000B84E4E /* Body.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA82EBF0AA000B84E4E /* Body.pdf */; };
 		7562BBB02EBF0AA000B84E4E /* Canvas.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA92EBF0AA000B84E4E /* Canvas.pdf */; };
+		7577A1522F7F939100A9DB6A /* DevLocalNotificationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1512F7F939100A9DB6A /* DevLocalNotificationsScreen.swift */; };
+		7577A1542F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1532F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift */; };
+		7577A1572F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */; };
+		7577A1592F7F943300A9DB6A /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1582F7F943300A9DB6A /* LocalNotification.swift */; };
+		7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */; };
 		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
@@ -353,6 +358,11 @@
 		7562BBA82EBF0AA000B84E4E /* Body.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Body.pdf; sourceTree = "<group>"; };
 		7562BBA92EBF0AA000B84E4E /* Canvas.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Canvas.pdf; sourceTree = "<group>"; };
 		7562BBAA2EBF0AA000B84E4E /* Face.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Face.pdf; sourceTree = "<group>"; };
+		7577A1512F7F939100A9DB6A /* DevLocalNotificationsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevLocalNotificationsScreen.swift; sourceTree = "<group>"; };
+		7577A1532F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevLocalNotificationsViewModel.swift; sourceTree = "<group>"; };
+		7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationServiceProtocol.swift; sourceTree = "<group>"; };
+		7577A1582F7F943300A9DB6A /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
@@ -462,6 +472,7 @@
 		750DFBC02DC6CDAE00A2AB74 /* DevSettings */ = {
 			isa = PBXGroup;
 			children = (
+				7577A1502F7F938C00A9DB6A /* LocalNotifications */,
 				750DFBE12DC6F34F00A2AB74 /* Routes */,
 				750DFBC32DC6CDC500A2AB74 /* Settings */,
 				750DFBC82DC6E7F400A2AB74 /* Deeplinks */,
@@ -550,6 +561,7 @@
 		7515DB942ECBEB3E00921AE9 /* Service Models */ = {
 			isa = PBXGroup;
 			children = (
+				7577A1582F7F943300A9DB6A /* LocalNotification.swift */,
 				7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */,
 				7515DB902ECBEB3E00921AE9 /* AppError.swift */,
 				7515DB912ECBEB3E00921AE9 /* AppNumberFormatter.swift */,
@@ -1123,6 +1135,7 @@
 				7537F3E92DF661EA0031D9CF /* Firebase */,
 				7537F3EC2DF661EA0031D9CF /* Impersonate */,
 				7537F3EF2DF661EA0031D9CF /* Launch */,
+				7577A1552F7F940300A9DB6A /* LocalNotification */,
 				7537F3F32DF661EA0031D9CF /* Logger */,
 				7537F3FE2DF661EA0031D9CF /* Navigation */,
 				7537F40F2DF661EA0031D9CF /* Permissions */,
@@ -1140,6 +1153,24 @@
 				75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		7577A1502F7F938C00A9DB6A /* LocalNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				7577A1532F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift */,
+				7577A1512F7F939100A9DB6A /* DevLocalNotificationsScreen.swift */,
+			);
+			path = LocalNotifications;
+			sourceTree = "<group>";
+		};
+		7577A1552F7F940300A9DB6A /* LocalNotification */ = {
+			isa = PBXGroup;
+			children = (
+				7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */,
+				7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */,
+			);
+			path = LocalNotification;
 			sourceTree = "<group>";
 		};
 		758DAEA12E0514F100311C7C /* Components */ = {
@@ -1487,6 +1518,7 @@
 				75E7B50B2EB71B41000F4696 /* RestrictCapture.swift in Sources */,
 				75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */,
 				753EC2092DB8CBBB00265B2A /* App.swift in Sources */,
+				7577A1522F7F939100A9DB6A /* DevLocalNotificationsScreen.swift in Sources */,
 				753EC1E72DB8C4E800265B2A /* MockViewModelAssembly.swift in Sources */,
 				753EC1E82DB8C4E800265B2A /* ViewModelAssembly.swift in Sources */,
 				75E0CA872E16102B0081A02A /* OnboardingPermissionsScreen.swift in Sources */,
@@ -1505,6 +1537,7 @@
 				7537F4602DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
 				751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */,
+				7577A1542F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift in Sources */,
 				753FA59F2EC84116002F69C3 /* Ext+UIApplication.swift in Sources */,
 				7537F4622DF661EA0031D9CF /* PushNotificationPermissionServiceProtocol.swift in Sources */,
 				7537F4632DF661EA0031D9CF /* NavigationServiceProtocol.swift in Sources */,
@@ -1597,6 +1630,7 @@
 				75507FE82F0CE67000CCB99F /* SettingsViewModel.swift in Sources */,
 				75507FE92F0CE67000CCB99F /* ProfileViewModel.swift in Sources */,
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
+				7577A1572F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
@@ -1604,6 +1638,7 @@
 				7537F4922DF661EA0031D9CF /* CameraPermissionServiceProtocol.swift in Sources */,
 				7537F4932DF661EA0031D9CF /* ErrorEvent.swift in Sources */,
 				75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */,
+				7577A1592F7F943300A9DB6A /* LocalNotification.swift in Sources */,
 				75E0CA802E1604090081A02A /* OnboardingPage.swift in Sources */,
 				75E0CA812E1604090081A02A /* OnboardingViewModel.swift in Sources */,
 				75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */,
@@ -1615,6 +1650,7 @@
 				7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */,
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
+				7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
@@ -1818,6 +1854,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
@@ -1861,6 +1898,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
@@ -2108,6 +2146,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
@@ -2151,6 +2190,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;

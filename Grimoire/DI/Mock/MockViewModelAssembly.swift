@@ -264,6 +264,18 @@ class MockViewModelAssembly {
                 environmentService: container.environmentService()
             )
         }
+        
+        // DevSettings - Local Notifications
+        
+        container.devLocalNotificationsViewModel.register { @MainActor in
+            DevLocalNotificationsViewModel(
+                analyticsService: container.analyticsService(),
+                authService: container.authService(),
+                viewLifecycleService: container.viewLifecycleService(),
+                environmentService: container.environmentService(),
+                localNotificationService: container.localNotificationService()
+            )
+        }
 
     }
     

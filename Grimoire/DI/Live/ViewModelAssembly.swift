@@ -375,4 +375,19 @@ extension Container {
         }
     }
     
+    // DevSettings - Local Notifications
+    
+    @MainActor
+    var devLocalNotificationsViewModel: Factory<DevLocalNotificationsViewModel> {
+        self { @MainActor in
+            DevLocalNotificationsViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService(),
+                localNotificationService: self.localNotificationService()
+            )
+        }
+    }
+    
 }

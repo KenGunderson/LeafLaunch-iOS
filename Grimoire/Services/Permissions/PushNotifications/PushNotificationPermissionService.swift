@@ -14,35 +14,41 @@ final class PushNotificationPermissionService: PushNotificationPermissionService
     internal let loggerName: String = "PUSH_NOTIFICATIONS_PERMISSION_SERVICE"
     internal let loggerEmoji: String = "🤚🏻"
     
-    @Published private(set) var permissionGranted: Bool = false
+    var permissionGranted: Bool {
+        return self.localNotificationService.permissionGranted
+    }
+    
     var permissionGrantedPublisher: AnyPublisher<Bool, Never> {
-        return self.$permissionGranted.eraseToAnyPublisher()
+        return self.localNotificationService.permissionGrantedPublisher
     }
     
-    @Published private(set) var shouldPromptForPermissions: Bool = false
+    var shouldPromptForPermissions: Bool {
+        return self.localNotificationService.shouldPromptForPermissions
+    }
+    
     var shouldPromptForPermissionsPublisher: AnyPublisher<Bool, Never> {
-        return self.$shouldPromptForPermissions.eraseToAnyPublisher()
+        return self.localNotificationService.shouldPromptForPermissionsPublisher
     }
     
-    private var authorizationStatusTask: Task<Void, Never>?
+    private let localNotificationService: LocalNotificationServiceProtocol
     
-    init() {
+    init(localNotificationService: LocalNotificationServiceProtocol) {
+        
+        self.localNotificationService = localNotificationService
         
         self.logInit()
-        
-        self.authorizationStatusTask = Task {
-            await checkAuthorizationStatus()
-        }
+        self.localNotificationService.refreshAuthorizationStatus()
         
     }
     
     
-    isolated deinit {
-        self.authorizationStatusTask?.cancel()
+    deinit {
         self.logDeinit()
     }
     
     func requestPermissionIfNeeded() {
+        
+        self.log(message: "requestPermissionIfNeeded: \(self.shouldPromptForPermissions)")
         
         if self.shouldPromptForPermissions {
             requestPermission()
@@ -52,66 +58,8 @@ final class PushNotificationPermissionService: PushNotificationPermissionService
     
     func requestPermission() {
         
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        
-        UNUserNotificationCenter
-            .current()
-            .requestAuthorization(options: options) { accessGranted, _ in
-            
-            DispatchQueue.main.async {
-                
-                self.permissionGranted = accessGranted
-                self.shouldPromptForPermissions = false
-                UIApplication.shared.registerForRemoteNotifications()
-                
-            }
-            
-        }
-        
-    }
-    
-    private func checkAuthorizationStatus() async -> Bool {
-        
-        return await withCheckedContinuation { continuation in
-            
-            UNUserNotificationCenter
-                .current()
-                .getNotificationSettings { status in
-                
-                switch status.authorizationStatus {
-                case .notDetermined:
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.shouldPromptForPermissions = true
-                        continuation.resume(returning: true)
-                        
-                    }
-                    
-                case .authorized:
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.permissionGranted = true
-                        self.shouldPromptForPermissions = false
-                        continuation.resume(returning: false)
-                        
-                    }
-                    
-                default:
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.shouldPromptForPermissions = false
-                        continuation.resume(returning: false)
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        }
+        self.log(message: "requestPermission")
+        self.localNotificationService.requestPermission()
         
     }
     

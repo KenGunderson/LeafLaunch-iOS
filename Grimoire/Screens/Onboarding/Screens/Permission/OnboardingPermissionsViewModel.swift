@@ -103,6 +103,34 @@ final class OnboardingPermissionsViewModel: ViewModel {
           .store(in: &cancelBag)
 
     }
+    
+    func requestCameraPermissionIfNeeded() {
+        
+        self.log(message: "Onboarding camera permission tapped")
+        self.permissionService.cameraPermissionService.requestPermissionIfNeeded()
+        
+    }
+    
+    func requestMediaPermissionIfNeeded() {
+        
+        self.log(message: "Onboarding media permission tapped")
+        self.permissionService.mediaPermissionService.requestPermissionIfNeeded()
+        
+    }
+    
+    func requestNotificationPermissionIfNeeded() {
+        
+        self.log(message: "Onboarding notification permission tapped")
+        self.permissionService.pushNotificationPermissionService.requestPermissionIfNeeded()
+        
+    }
+    
+    func requestTrackingPermissionIfNeeded() {
+        
+        self.log(message: "Onboarding analytics permission tapped")
+        self.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
+        
+    }
 
 }
 

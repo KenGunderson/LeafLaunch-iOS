@@ -503,6 +503,39 @@ final class MockPushNotificationService: PushNotificationServiceProtocol, @unche
     
 }
 
+// MARK: - LocalNotificationServiceProtocol
+
+final class MockLocalNotificationService: LocalNotificationServiceProtocol, @unchecked Sendable {
+    
+    internal let loggerName: String = "LOCAL_NOTIFICATION_SERVICE"
+    internal let loggerEmoji: String = "⏰"
+    
+    var permissionGranted: Bool = false
+    var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    
+    var shouldPromptForPermissions: Bool = true
+    var shouldPromptForPermissionsPublisher = CurrentValueSubject<Bool, Never>(true).eraseToAnyPublisher()
+    
+    func refreshAuthorizationStatus() {}
+    func requestPermissionIfNeeded() {}
+    func requestPermission() {}
+    
+    func schedule(_ request: LocalNotificationScheduleRequest) async throws {}
+    
+    func getPlannedNotifications() async -> [LocalNotificationSnapshotItem] {
+        return []
+    }
+    
+    func getIncomingNotifications() async -> [LocalNotificationSnapshotItem] {
+        return []
+    }
+    
+    func clearPlannedNotifications() {}
+    func clearIncomingNotifications() {}
+    func clearAllNotifications() {}
+    
+}
+
 // MARK: - UserDefaultsServiceProtocol
 
 final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sendable {
@@ -581,6 +614,7 @@ final class MockServiceAssembly {
         container.userDefaultsService.register { @MainActor in MockUserDefaultsService() }
         container.connectivityService.register { @MainActor in MockConnectivityService() }
         container.pushNotificationService.register { @MainActor in MockPushNotificationService() }
+        container.localNotificationService.register { @MainActor in MockLocalNotificationService() }
         container.launchScreenService.register { @MainActor in MockLaunchScreenService() }
         container.cameraPermissionService.register { @MainActor in MockCameraPermissionService() }
         container.mediaPermissionService.register { @MainActor in MockMediaPermissionService() }

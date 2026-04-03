@@ -33,7 +33,7 @@ struct OnboardingPermissionsScreen: GPView {
                     title: "Camera",
                     icon: "camera.fill",
                     isEnabled: self.viewModel.cameraPermission.shouldPromptForPermissions ? nil : self.viewModel.cameraPermission.permissionGranted) {
-                        self.viewModel.permissionService.cameraPermissionService.requestPermissionIfNeeded()
+                        self.viewModel.requestCameraPermissionIfNeeded()
                     }
 
                 // Media
@@ -42,16 +42,16 @@ struct OnboardingPermissionsScreen: GPView {
                     title: "Photos",
                     icon: "photo.fill",
                     isEnabled: self.viewModel.mediaPermission.shouldPromptForPermissions ? nil : self.viewModel.mediaPermission.permissionGranted) {
-                        self.viewModel.permissionService.mediaPermissionService.requestPermissionIfNeeded()
+                        self.viewModel.requestMediaPermissionIfNeeded()
                     }
 
                 // Push Notifications
 
                 permissionView(
-                    title: "Push Notifications",
+                    title: "Notifications",
                     icon: "message.fill",
                     isEnabled: self.viewModel.pushNotificationPermission.shouldPromptForPermissions ? nil : self.viewModel.pushNotificationPermission.permissionGranted) {
-                        self.viewModel.permissionService.pushNotificationPermissionService.requestPermissionIfNeeded()
+                        self.viewModel.requestNotificationPermissionIfNeeded()
                     }
 
                 // Tracking
@@ -60,7 +60,7 @@ struct OnboardingPermissionsScreen: GPView {
                     title: "Analytics",
                     icon: "lock.fill",
                     isEnabled: self.viewModel.trackingPermission.shouldPromptForPermissions ? nil : self.viewModel.trackingPermission.permissionGranted) {
-                        self.viewModel.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
+                        self.viewModel.requestTrackingPermissionIfNeeded()
                     }
 
                 AttributedText {

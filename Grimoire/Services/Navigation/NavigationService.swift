@@ -287,6 +287,13 @@ extension View {
                 
                 DevImpersonateScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+                
+            case .localNotifications:
+                
+                let viewModel = Container.shared.devLocalNotificationsViewModel()
+                
+                DevLocalNotificationsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }

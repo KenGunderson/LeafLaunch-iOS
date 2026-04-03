@@ -129,6 +129,10 @@ class MockAppAssembler {
             return self.container.devImpersonateViewModel() as! T
         }
         
+        if type == DevLocalNotificationsViewModel.self {
+            return self.container.devLocalNotificationsViewModel() as! T
+        }
+        
         fatalError("No mock Factory registration for \(type)")
         
     }

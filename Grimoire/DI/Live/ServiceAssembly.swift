@@ -99,6 +99,15 @@ extension Container {
         .singleton
     }
     
+    // LOCAL NOTIFICATION
+    
+    var localNotificationService: Factory<LocalNotificationServiceProtocol> {
+        self { @MainActor in
+            LocalNotificationService()
+        }
+        .singleton
+    }
+    
     // LAUNCH
     
     var launchScreenService: Factory<LaunchScreenServiceProtocol> {
@@ -130,7 +139,9 @@ extension Container {
     
     var pushNotificationPermissionService: Factory<PushNotificationPermissionServiceProtocol> {
         self { @MainActor in
-            PushNotificationPermissionService()
+            PushNotificationPermissionService(
+                localNotificationService: self.localNotificationService()
+            )
         }
         .singleton
     }
