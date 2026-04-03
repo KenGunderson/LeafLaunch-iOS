@@ -209,6 +209,9 @@
 		A1B2C3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift */; };
 		A1B2C3082F80000100AAA001 /* NotificationPayloadOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3082F80000100AAA001 /* NotificationPayloadOrigin.swift */; };
 		A1B2C3092F80000100AAA001 /* NotificationPayloadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3092F80000100AAA001 /* NotificationPayloadRouter.swift */; };
+		A1B2C30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift */; };
+		A1B2C30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift */; };
+		A1B2C30C2F80000100AAA001 /* LocalNotificationMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30C2F80000100AAA001 /* LocalNotificationMonth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -423,6 +426,9 @@
 		A1B2D3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceCalculator.swift; sourceTree = "<group>"; };
 		A1B2D3082F80000100AAA001 /* NotificationPayloadOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayloadOrigin.swift; sourceTree = "<group>"; };
 		A1B2D3092F80000100AAA001 /* NotificationPayloadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayloadRouter.swift; sourceTree = "<group>"; };
+		A1B2D30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceBoundary.swift; sourceTree = "<group>"; };
+		A1B2D30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationCalendarSelector.swift; sourceTree = "<group>"; };
+		A1B2D30C2F80000100AAA001 /* LocalNotificationMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationMonth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -616,7 +622,10 @@
 			children = (
 				7577A1582F7F943300A9DB6A /* LocalNotification.swift */,
 				A1B2D3062F80000100AAA001 /* LocalNotificationPayload.swift */,
+				A1B2D30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift */,
+				A1B2D30C2F80000100AAA001 /* LocalNotificationMonth.swift */,
 				A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */,
+				A1B2D30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift */,
 				A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */,
 				A1B2D3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift */,
 				A1B2D3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift */,
@@ -1630,7 +1639,10 @@
 				75B70AB32F0CA0C10054E8C7 /* Tab.swift in Sources */,
 				7515DBB42ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
 				A1B2C3062F80000100AAA001 /* LocalNotificationPayload.swift in Sources */,
+				A1B2C30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift in Sources */,
+				A1B2C30C2F80000100AAA001 /* LocalNotificationMonth.swift in Sources */,
 				A1B2C3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift in Sources */,
+				A1B2C30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift in Sources */,
 				A1B2C3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift in Sources */,
 				A1B2C3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift in Sources */,
 				A1B2C3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift in Sources */,

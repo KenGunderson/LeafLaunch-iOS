@@ -10,11 +10,15 @@ import SwiftUI
 struct DevLocalNotificationsScreen: GPView {
     
     @StateObject var viewModel: DevLocalNotificationsViewModel
+    
     @State private var isModeDropdownPresented: Bool = false
     @State private var isPatternDropdownPresented: Bool = false
     @State private var isTimeSpanDropdownPresented: Bool = false
-    @State private var isCadenceDropdownPresented: Bool = false
-    @State private var isWeekdayDropdownPresented: Bool = false
+    @State private var isAnchoredCadenceDropdownPresented: Bool = false
+    @State private var isAnchoredBoundaryDropdownPresented: Bool = false
+    @State private var isCalendarCadenceDropdownPresented: Bool = false
+    @State private var isCalendarMonthDropdownPresented: Bool = false
+    
     @Environment(NavigationService.self) private var navigationService
     
     var body: some View {
@@ -29,8 +33,6 @@ struct DevLocalNotificationsScreen: GPView {
             
         }
         
-        // Lifecycle
-        
         .onFirstAppear {
             
             self.viewModel
@@ -41,13 +43,13 @@ struct DevLocalNotificationsScreen: GPView {
             
         }
         
-        // Animations
-        
         .animation(.bouncy, value: self.isModeDropdownPresented)
         .animation(.bouncy, value: self.isPatternDropdownPresented)
         .animation(.bouncy, value: self.isTimeSpanDropdownPresented)
-        .animation(.bouncy, value: self.isCadenceDropdownPresented)
-        .animation(.bouncy, value: self.isWeekdayDropdownPresented)
+        .animation(.bouncy, value: self.isAnchoredCadenceDropdownPresented)
+        .animation(.bouncy, value: self.isAnchoredBoundaryDropdownPresented)
+        .animation(.bouncy, value: self.isCalendarCadenceDropdownPresented)
+        .animation(.bouncy, value: self.isCalendarMonthDropdownPresented)
         
     }
     
@@ -149,12 +151,10 @@ struct DevLocalNotificationsScreen: GPView {
                 )
                 .appBorder(cornerRadius: .small, lineWidth: 1.5)
                 .onChange(of: self.isModeDropdownPresented) { _, isPresented in
-                    
                     if isPresented {
                         self.closeAllDropdowns()
                         self.isModeDropdownPresented = true
                     }
-                    
                 }
                 
                 CommonDropDownMenu(
@@ -168,12 +168,10 @@ struct DevLocalNotificationsScreen: GPView {
                 )
                 .appBorder(cornerRadius: .small, lineWidth: 1.5)
                 .onChange(of: self.isPatternDropdownPresented) { _, isPresented in
-                    
                     if isPresented {
                         self.closeAllDropdowns()
                         self.isPatternDropdownPresented = true
                     }
-                    
                 }
                 
             }
@@ -199,79 +197,152 @@ struct DevLocalNotificationsScreen: GPView {
                 )
                 .appBorder(cornerRadius: .small, lineWidth: 1.5)
                 .onChange(of: self.isTimeSpanDropdownPresented) { _, isPresented in
-                    
                     if isPresented {
                         self.closeAllDropdowns()
                         self.isTimeSpanDropdownPresented = true
                     }
-                    
                 }
+                .transition(.blurReplace.combined(with: .opacity))
                 
             }
             
             if self.viewModel.shouldShowAnchoredControls {
                 
                 CommonDropDownMenu(
-                    options: self.viewModel.allCadenceOptions,
+                    options: self.viewModel.allAnchoredCadenceOptions,
                     backgroundStyle: .color(.minimumOpacity),
                     shadow: .none,
                     textHorizontalPadding: .small,
                     animation: .spring,
-                    selectedOption: self.$viewModel.selectedCadenceString,
-                    showDropDown: self.$isCadenceDropdownPresented
+                    selectedOption: self.$viewModel.selectedAnchoredCadenceString,
+                    showDropDown: self.$isAnchoredCadenceDropdownPresented
                 )
                 .appBorder(cornerRadius: .small, lineWidth: 1.5)
-                .onChange(of: self.isCadenceDropdownPresented) { _, isPresented in
-                    
+                .onChange(of: self.isAnchoredCadenceDropdownPresented) { _, isPresented in
                     if isPresented {
                         self.closeAllDropdowns()
-                        self.isCadenceDropdownPresented = true
+                        self.isAnchoredCadenceDropdownPresented = true
                     }
-                    
                 }
+                .transition(.blurReplace.combined(with: .opacity))
                 
-                if self.viewModel.shouldShowWeekdayControl {
+                if self.viewModel.shouldShowAnchoredBoundaryControl {
                     
                     CommonDropDownMenu(
-                        options: self.viewModel.allWeekdayOptions,
+                        options: self.viewModel.allAnchoredBoundaryOptions,
                         backgroundStyle: .color(.minimumOpacity),
                         shadow: .none,
                         textHorizontalPadding: .small,
                         animation: .spring,
-                        selectedOption: self.$viewModel.selectedWeekdayString,
-                        showDropDown: self.$isWeekdayDropdownPresented
+                        selectedOption: self.$viewModel.selectedAnchoredBoundaryString,
+                        showDropDown: self.$isAnchoredBoundaryDropdownPresented
                     )
                     .appBorder(cornerRadius: .small, lineWidth: 1.5)
-                    .onChange(of: self.isWeekdayDropdownPresented) { _, isPresented in
-                        
+                    .onChange(of: self.isAnchoredBoundaryDropdownPresented) { _, isPresented in
                         if isPresented {
                             self.closeAllDropdowns()
-                            self.isWeekdayDropdownPresented = true
+                            self.isAnchoredBoundaryDropdownPresented = true
                         }
-                        
                     }
+                    .transition(.blurReplace.combined(with: .opacity))
                     
                 }
                 
-                HStack(spacing: Style.shared.spacing(.small)) {
+                self.timeFields()
+                
+            }
+            
+            if self.viewModel.shouldShowCalendarControls {
+                
+                CommonDropDownMenu(
+                    options: self.viewModel.allCalendarCadenceOptions,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$viewModel.selectedCalendarCadenceString,
+                    showDropDown: self.$isCalendarCadenceDropdownPresented
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                .onChange(of: self.isCalendarCadenceDropdownPresented) { _, isPresented in
+                    if isPresented {
+                        self.closeAllDropdowns()
+                        self.isCalendarCadenceDropdownPresented = true
+                    }
+                }
+                .transition(.blurReplace.combined(with: .opacity))
+                
+                if self.viewModel.shouldShowCalendarWeeklyControls {
                     
-                    TextField("Hour (0-23)", text: self.$viewModel.anchorHourText)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .keyboardType(.numberPad)
-                        .padding(8)
-                        .frame(height: 50)
-                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
-                    
-                    TextField("Minute (0-59)", text: self.$viewModel.anchorMinuteText)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .keyboardType(.numberPad)
-                        .padding(8)
-                        .frame(height: 50)
-                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    WStack {
+                        
+                        ForEach(self.viewModel.orderedWeekdays, id: \.self) { weekday in
+                            
+                            let isSelected = self.viewModel.selectedCalendarWeekdays.contains(weekday)
+                            
+                            TokenView(
+                                text: weekday.shortDisplayName,
+                                foregroundStyle: Style.shared.textColor(isSelected ? .button : .title),
+                                backgroundStyle: isSelected
+                                ? .color(.indigo)
+                                : Style.shared.background(.quinary)
+                            )
+                            .asButton {
+                                self.viewModel.toggleCalendarWeekday(weekday)
+                            }
+                            
+                        }
+                        
+                    }
+                    .transition(.blurReplace.combined(with: .opacity))
                     
                 }
+                
+                if self.viewModel.shouldShowCalendarMonthlyControls {
+                    
+                    TextField("Day Of Month (1-31)", text: self.$viewModel.calendarDayOfMonthText)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .keyboardType(.numberPad)
+                        .padding(.horizontal, 8)
+                        .frame(height: 50)
+                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                        .transition(.blurReplace.combined(with: .opacity))
+                    
+                }
+                
+                if self.viewModel.shouldShowCalendarYearlyControls {
+                    
+                    CommonDropDownMenu(
+                        options: self.viewModel.allCalendarMonthOptions,
+                        backgroundStyle: .color(.minimumOpacity),
+                        shadow: .none,
+                        textHorizontalPadding: .small,
+                        animation: .spring,
+                        selectedOption: self.$viewModel.selectedCalendarMonthString,
+                        showDropDown: self.$isCalendarMonthDropdownPresented
+                    )
+                    .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    .onChange(of: self.isCalendarMonthDropdownPresented) { _, isPresented in
+                        if isPresented {
+                            self.closeAllDropdowns()
+                            self.isCalendarMonthDropdownPresented = true
+                        }
+                    }
+                    .transition(.blurReplace.combined(with: .opacity))
+                    
+                    TextField("Day Of Month (1-31)", text: self.$viewModel.calendarYearDayOfMonthText)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .keyboardType(.numberPad)
+                        .padding(.horizontal, 8)
+                        .frame(height: 50)
+                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                        .transition(.blurReplace.combined(with: .opacity))
+                    
+                }
+                
+                self.timeFields()
                 
             }
             
@@ -285,6 +356,7 @@ struct DevLocalNotificationsScreen: GPView {
                     .appFont(with: .BODY_1)
                     .foregroundStyle(Style.shared.textColor(.body).source())
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .transition(.blurReplace.combined(with: .opacity))
                 
             }
             
@@ -342,13 +414,40 @@ struct DevLocalNotificationsScreen: GPView {
         
     }
     
+    @ViewBuilder
+    private func timeFields() -> some View {
+        
+        HStack(spacing: Style.shared.spacing(.small)) {
+            
+            TextField("Hour (0-23)", text: self.$viewModel.anchorHourText)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .keyboardType(.numberPad)
+                .padding(8)
+                .frame(height: 50)
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+            
+            TextField("Minute (0-59)", text: self.$viewModel.anchorMinuteText)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .keyboardType(.numberPad)
+                .padding(8)
+                .frame(height: 50)
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+            
+        }
+        
+    }
+    
     private func closeAllDropdowns() {
         
         self.isModeDropdownPresented = false
         self.isPatternDropdownPresented = false
         self.isTimeSpanDropdownPresented = false
-        self.isCadenceDropdownPresented = false
-        self.isWeekdayDropdownPresented = false
+        self.isAnchoredCadenceDropdownPresented = false
+        self.isAnchoredBoundaryDropdownPresented = false
+        self.isCalendarCadenceDropdownPresented = false
+        self.isCalendarMonthDropdownPresented = false
         
     }
     

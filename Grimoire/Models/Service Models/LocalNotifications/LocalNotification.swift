@@ -112,6 +112,7 @@ struct LocalNotificationScheduleRequest: Sendable {
         switch self.strategy {
         case .interval(let number, _): return number
         case .anchored: return nil
+        case .calendarType(_): return nil
         }
         
     }
@@ -121,17 +122,13 @@ struct LocalNotificationScheduleRequest: Sendable {
         switch self.strategy {
         case .interval(_, let timeSpan): return timeSpan
         case .anchored: return nil
+        case .calendarType(_): return nil
         }
         
     }
     
     var recurrenceRule: LocalNotificationRecurrenceRule? {
-        
-        switch self.strategy {
-        case .interval: return nil
-        case .anchored(let rule): return rule
-        }
-        
+        return self.strategy.recurrenceRule
     }
     
     var intervalSeconds: TimeInterval? {

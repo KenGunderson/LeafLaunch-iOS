@@ -29,12 +29,19 @@ final class DevLocalNotificationsViewModel: ViewModel {
     @Published var selectedPatternString: String? = LocalNotificationSchedulePattern.interval.displayName
     
     @Published var selectedTimeSpanString: String? = LocalNotificationTimeSpan.minute.displayName
-    @Published var selectedCadenceString: String? = LocalNotificationRecurrenceCadence.day.displayName
-    @Published var selectedWeekdayString: String? = LocalNotificationWeekday.monday.displayName
+    
+    @Published var selectedAnchoredCadenceString: String? = LocalNotificationRecurrenceCadence.day.displayName
+    @Published var selectedAnchoredBoundaryString: String? = LocalNotificationRecurrenceBoundary.start.displayName
+    
+    @Published var selectedCalendarCadenceString: String? = LocalNotificationRecurrenceCadence.week.displayName
+    @Published var selectedCalendarMonthString: String? = LocalNotificationMonth.january.displayName
+    @Published var selectedCalendarWeekdays: Set<LocalNotificationWeekday> = [.monday]
     
     @Published var incrementalNumberText: String = "1"
     @Published var anchorHourText: String = "8"
     @Published var anchorMinuteText: String = "0"
+    @Published var calendarDayOfMonthText: String = "3"
+    @Published var calendarYearDayOfMonthText: String = "1"
     
     @Published private(set) var plannedNotifications: [LocalNotificationSnapshotItem] = []
     @Published private(set) var incomingNotifications: [LocalNotificationSnapshotItem] = []
@@ -99,12 +106,29 @@ final class DevLocalNotificationsViewModel: ViewModel {
         return LocalNotificationTimeSpan.allCases.map(\.displayName)
     }
     
-    var allCadenceOptions: [String] {
+    var allAnchoredCadenceOptions: [String] {
         return LocalNotificationRecurrenceCadence.allCases.map(\.displayName)
     }
     
-    var allWeekdayOptions: [String] {
-        return LocalNotificationWeekday.allCases.map(\.displayName)
+    var allAnchoredBoundaryOptions: [String] {
+        return LocalNotificationRecurrenceBoundary.allCases.map(\.displayName)
+    }
+    
+    var allCalendarCadenceOptions: [String] {
+        return [
+            LocalNotificationRecurrenceCadence.week,
+            LocalNotificationRecurrenceCadence.month,
+            LocalNotificationRecurrenceCadence.year
+        ]
+        .map(\.displayName)
+    }
+    
+    var allCalendarMonthOptions: [String] {
+        return LocalNotificationMonth.allCases.map(\.displayName)
+    }
+    
+    var orderedWeekdays: [LocalNotificationWeekday] {
+        return LocalNotificationWeekday.orderedByCalendar()
     }
     
     var selectedMode: LocalNotificationScheduleMode {
@@ -149,31 +173,71 @@ final class DevLocalNotificationsViewModel: ViewModel {
         
     }
     
-    var selectedCadence: LocalNotificationRecurrenceCadence {
+    var selectedAnchoredCadence: LocalNotificationRecurrenceCadence {
         
         let fallback = LocalNotificationRecurrenceCadence.day
         
-        guard let selectedCadenceString else {
+        guard let selectedAnchoredCadenceString else {
             return fallback
         }
         
         return LocalNotificationRecurrenceCadence
             .allCases
-            .first(where: { $0.displayName == selectedCadenceString }) ?? fallback
+            .first(where: { $0.displayName == selectedAnchoredCadenceString }) ?? fallback
         
     }
     
-    var selectedWeekday: LocalNotificationWeekday {
+    var selectedAnchoredBoundary: LocalNotificationRecurrenceBoundary {
         
-        let fallback = LocalNotificationWeekday.monday
+        let fallback = LocalNotificationRecurrenceBoundary.start
         
-        guard let selectedWeekdayString else {
+        guard let selectedAnchoredBoundaryString else {
             return fallback
         }
         
-        return LocalNotificationWeekday
+        return LocalNotificationRecurrenceBoundary
             .allCases
-            .first(where: { $0.displayName == selectedWeekdayString }) ?? fallback
+            .first(where: { $0.displayName == selectedAnchoredBoundaryString }) ?? fallback
+        
+    }
+    
+    var selectedCalendarCadence: LocalNotificationRecurrenceCadence {
+        
+        let fallback = LocalNotificationRecurrenceCadence.week
+        
+        guard let selectedCalendarCadenceString else {
+            return fallback
+        }
+        
+        return [
+            LocalNotificationRecurrenceCadence.week,
+            LocalNotificationRecurrenceCadence.month,
+            LocalNotificationRecurrenceCadence.year
+        ]
+        .first(where: { $0.displayName == selectedCalendarCadenceString }) ?? fallback
+        
+    }
+    
+    var selectedCalendarMonth: LocalNotificationMonth {
+        
+        let fallback = LocalNotificationMonth.january
+        
+        guard let selectedCalendarMonthString else {
+            return fallback
+        }
+        
+        return LocalNotificationMonth
+            .allCases
+            .first(where: { $0.displayName == selectedCalendarMonthString }) ?? fallback
+        
+    }
+    
+    var selectedCalendarWeekdaysOrdered: [LocalNotificationWeekday] {
+        
+        let selected = self.selectedCalendarWeekdays
+        
+        return self.orderedWeekdays
+            .filter { selected.contains($0) }
         
     }
     
@@ -192,6 +256,14 @@ final class DevLocalNotificationsViewModel: ViewModel {
         return Int(self.anchorMinuteText)
     }
     
+    var calendarDayOfMonth: Int? {
+        return Int(self.calendarDayOfMonthText)
+    }
+    
+    var calendarYearDayOfMonth: Int? {
+        return Int(self.calendarYearDayOfMonthText)
+    }
+    
     var shouldShowIntervalControls: Bool {
         return self.selectedPattern == .interval
     }
@@ -200,8 +272,24 @@ final class DevLocalNotificationsViewModel: ViewModel {
         return self.selectedPattern == .anchored
     }
     
-    var shouldShowWeekdayControl: Bool {
-        return self.selectedPattern == .anchored && self.selectedCadence == .week
+    var shouldShowAnchoredBoundaryControl: Bool {
+        return self.selectedAnchoredCadence != .day
+    }
+    
+    var shouldShowCalendarControls: Bool {
+        return self.selectedPattern == .calendarType
+    }
+    
+    var shouldShowCalendarWeeklyControls: Bool {
+        return self.selectedPattern == .calendarType && self.selectedCalendarCadence == .week
+    }
+    
+    var shouldShowCalendarMonthlyControls: Bool {
+        return self.selectedPattern == .calendarType && self.selectedCalendarCadence == .month
+    }
+    
+    var shouldShowCalendarYearlyControls: Bool {
+        return self.selectedPattern == .calendarType && self.selectedCalendarCadence == .year
     }
     
     var isScheduleValid: Bool {
@@ -210,20 +298,36 @@ final class DevLocalNotificationsViewModel: ViewModel {
             return false
         }
         
+        guard let hour = self.anchorHour,
+              let minute = self.anchorMinute,
+              (0...23).contains(hour),
+              (0...59).contains(minute)
+        else {
+            return false
+        }
+        
         switch self.selectedPattern {
         case .interval:
             return true
+            
         case .anchored:
-            guard let anchorHour else { return false }
-            guard let anchorMinute else { return false }
-            guard (0...23).contains(anchorHour) else { return false }
-            guard (0...59).contains(anchorMinute) else { return false }
-            return self.anchoredRule != nil
+            guard let anchoredRule else {
+                return false
+            }
+            return anchoredRule.isValid(for: .anchored)
+            
+        case .calendarType:
+            guard let calendarRule else {
+                return false
+            }
+            return calendarRule.isValid(for: .calendarType)
         }
         
     }
     
     var schedulePreviewText: String {
+        
+        let timeLabel = self.formattedTimeLabel
         
         switch self.selectedPattern {
         case .interval:
@@ -241,31 +345,51 @@ final class DevLocalNotificationsViewModel: ViewModel {
             
         case .anchored:
             
-            guard let anchorHour else {
-                return "Enter a valid anchor hour (0-23)."
-            }
+            let cadence = self.selectedAnchoredCadence
+            let cadenceLabel = cadence.displayName
             
-            guard let anchorMinute else {
-                return "Enter a valid anchor minute (0-59)."
-            }
+            let anchorLabel: String
             
-            let cadenceLabel = self.selectedCadence.displayName.lowercased()
-            let cadenceTitle: String
-            
-            if self.selectedCadence == .week {
-                cadenceTitle = "\(self.selectedWeekday.displayName)"
+            if cadence == .day {
+                anchorLabel = "daily"
             }
             else {
-                cadenceTitle = cadenceLabel
+                anchorLabel = "\(self.selectedAnchoredBoundary.displayName.lowercased()) of \(cadenceLabel.lowercased())"
             }
-            
-            let timeLabel = String(format: "%02d:%02d", anchorHour, anchorMinute)
             
             switch self.selectedMode {
             case .oneTime:
-                return "Will fire on next \(cadenceTitle) at \(timeLabel) local time"
+                return "Will fire on next \(anchorLabel) at \(timeLabel)"
             case .recurring:
-                return "Will fire every \(self.incrementalNumber) \(cadenceLabel)(s) on \(cadenceTitle) at \(timeLabel)"
+                return "Will fire every \(self.incrementalNumber) \(cadenceLabel.lowercased())(s) at \(anchorLabel) \(timeLabel)"
+            }
+            
+        case .calendarType:
+            
+            let descriptor: String
+            
+            switch self.selectedCalendarCadence {
+            case .week:
+                let labels = self.selectedCalendarWeekdaysOrdered
+                    .map(\.shortDisplayName)
+                    .joined(separator: ", ")
+                descriptor = labels.isEmpty ? "selected weekdays" : labels
+                
+            case .month:
+                descriptor = "day \(self.calendarDayOfMonthText)"
+                
+            case .year:
+                descriptor = "\(self.selectedCalendarMonth.displayName) \(self.calendarYearDayOfMonthText)"
+                
+            case .day:
+                descriptor = "day"
+            }
+            
+            switch self.selectedMode {
+            case .oneTime:
+                return "Will fire on next \(descriptor) at \(timeLabel)"
+            case .recurring:
+                return "Will fire every \(self.incrementalNumber) \(self.selectedCalendarCadence.displayName.lowercased())(s) on \(descriptor) at \(timeLabel)"
             }
         }
         
@@ -273,14 +397,13 @@ final class DevLocalNotificationsViewModel: ViewModel {
     
     var nextOccurrencesPreviewText: String {
         
-        guard self.selectedPattern == .anchored,
-              let rule = self.anchoredRule
-        else {
+        guard let recurrenceInput else {
             return ""
         }
         
         let previewDates = self.recurrenceCalculator.nextOccurrences(
-            for: rule,
+            for: recurrenceInput.rule,
+            pattern: recurrenceInput.pattern,
             after: Date(),
             count: 3
         )
@@ -303,6 +426,17 @@ final class DevLocalNotificationsViewModel: ViewModel {
         }
         
         return lines.joined(separator: "\n")
+        
+    }
+    
+    func toggleCalendarWeekday(_ weekday: LocalNotificationWeekday) {
+        
+        if self.selectedCalendarWeekdays.contains(weekday) {
+            self.selectedCalendarWeekdays.remove(weekday)
+        }
+        else {
+            self.selectedCalendarWeekdays.insert(weekday)
+        }
         
     }
     
@@ -438,37 +572,94 @@ final class DevLocalNotificationsViewModel: ViewModel {
         
     }
     
+    private var formattedTimeLabel: String {
+        
+        let hour = Int(self.anchorHourText) ?? 0
+        let minute = Int(self.anchorMinuteText) ?? 0
+        return String(format: "%02d:%02d", hour, minute)
+        
+    }
+    
     private var anchoredRule: LocalNotificationRecurrenceRule? {
         
-        guard let anchorHour else { return nil }
-        guard let anchorMinute else { return nil }
+        guard let hour = self.anchorHour,
+              let minute = self.anchorMinute
+        else {
+            return nil
+        }
         
-        switch self.selectedCadence {
+        switch self.selectedAnchoredCadence {
         case .day:
-            return .startOfDay(
+            return .anchoredDaily(
                 every: self.incrementalNumber,
-                hour: anchorHour,
-                minute: anchorMinute
+                hour: hour,
+                minute: minute
             )
+            
+        case .week,
+                .month,
+                .year:
+            return .anchored(
+                cadence: self.selectedAnchoredCadence,
+                every: self.incrementalNumber,
+                boundary: self.selectedAnchoredBoundary,
+                hour: hour,
+                minute: minute
+            )
+        }
+        
+    }
+    
+    private var calendarRule: LocalNotificationRecurrenceRule? {
+        
+        guard let hour = self.anchorHour,
+              let minute = self.anchorMinute
+        else {
+            return nil
+        }
+        
+        switch self.selectedCalendarCadence {
         case .week:
-            return .startOfWeek(
+            return .calendarWeekly(
                 every: self.incrementalNumber,
-                weekday: self.selectedWeekday,
-                hour: anchorHour,
-                minute: anchorMinute
+                weekdays: self.selectedCalendarWeekdaysOrdered,
+                hour: hour,
+                minute: minute
             )
+            
         case .month:
-            return .startOfMonth(
+            
+            guard let dayOfMonth = self.calendarDayOfMonth,
+                  (1...31).contains(dayOfMonth)
+            else {
+                return nil
+            }
+            
+            return .calendarMonthly(
                 every: self.incrementalNumber,
-                hour: anchorHour,
-                minute: anchorMinute
+                dayOfMonth: dayOfMonth,
+                hour: hour,
+                minute: minute
             )
+            
         case .year:
-            return .startOfYear(
+            
+            guard let dayOfMonth = self.calendarYearDayOfMonth,
+                  (1...31).contains(dayOfMonth)
+            else {
+                return nil
+            }
+            
+            return .calendarYearly(
                 every: self.incrementalNumber,
-                hour: anchorHour,
-                minute: anchorMinute
+                month: self.selectedCalendarMonth.rawValue,
+                dayOfMonth: dayOfMonth,
+                hour: hour,
+                minute: minute
             )
+            
+        case .day:
+            return nil
         }
         
     }
@@ -481,11 +672,38 @@ final class DevLocalNotificationsViewModel: ViewModel {
                 number: self.incrementalNumber,
                 timeSpan: self.selectedTimeSpan
             )
+            
         case .anchored:
             guard let anchoredRule else {
                 return nil
             }
-            return .anchored(anchoredRule)
+            return .anchored(rule: anchoredRule)
+            
+        case .calendarType:
+            guard let calendarRule else {
+                return nil
+            }
+            return .calendarType(rule: calendarRule)
+        }
+        
+    }
+    
+    private var recurrenceInput: (pattern: LocalNotificationSchedulePattern,
+                                  rule: LocalNotificationRecurrenceRule)? {
+        
+        switch self.selectedPattern {
+        case .interval:
+            return nil
+        case .anchored:
+            guard let anchoredRule else {
+                return nil
+            }
+            return (.anchored, anchoredRule)
+        case .calendarType:
+            guard let calendarRule else {
+                return nil
+            }
+            return (.calendarType, calendarRule)
         }
         
     }
