@@ -7,7 +7,10 @@
 
 import UserNotifications
 
-enum LocalNotificationScheduleMode: String, CaseIterable, Hashable, Sendable {
+enum LocalNotificationScheduleMode: String,
+                                    CaseIterable,
+                                    Hashable,
+                                    Sendable {
     
     case oneTime
     case recurring
@@ -21,7 +24,10 @@ enum LocalNotificationScheduleMode: String, CaseIterable, Hashable, Sendable {
     
 }
 
-enum LocalNotificationTimeSpan: String, CaseIterable, Hashable, Sendable {
+enum LocalNotificationTimeSpan: String,
+                                CaseIterable,
+                                Hashable,
+                                Sendable {
     
     case minute
     case hour
@@ -79,6 +85,7 @@ struct LocalNotificationScheduleRequest: Sendable {
             number: incrementalNumber,
             timeSpan: timeSpan
         )
+        
         self.mode = mode
         self.title = title
         self.body = body
@@ -103,10 +110,8 @@ struct LocalNotificationScheduleRequest: Sendable {
     var incrementalNumber: Int? {
         
         switch self.strategy {
-        case .interval(let number, _):
-            return number
-        case .anchored:
-            return nil
+        case .interval(let number, _): return number
+        case .anchored: return nil
         }
         
     }
@@ -114,10 +119,8 @@ struct LocalNotificationScheduleRequest: Sendable {
     var timeSpan: LocalNotificationTimeSpan? {
         
         switch self.strategy {
-        case .interval(_, let timeSpan):
-            return timeSpan
-        case .anchored:
-            return nil
+        case .interval(_, let timeSpan): return timeSpan
+        case .anchored: return nil
         }
         
     }
@@ -125,10 +128,8 @@ struct LocalNotificationScheduleRequest: Sendable {
     var recurrenceRule: LocalNotificationRecurrenceRule? {
         
         switch self.strategy {
-        case .interval:
-            return nil
-        case .anchored(let rule):
-            return rule
+        case .interval: return nil
+        case .anchored(let rule): return rule
         }
         
     }
@@ -159,11 +160,15 @@ struct LocalNotificationScheduleRequest: Sendable {
     
 }
 
-struct LocalNotificationSnapshotItem: Identifiable, Sendable {
+struct LocalNotificationSnapshotItem: Identifiable,
+                                      Sendable {
     
-    enum Category: String, Sendable {
+    enum Category: String,
+                   Sendable {
+        
         case planned
         case incoming
+        
     }
     
     let id: String
