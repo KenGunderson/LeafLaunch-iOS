@@ -50,6 +50,8 @@ struct DevLocalNotificationsScreen: GPView {
         .animation(.bouncy, value: self.isAnchoredBoundaryDropdownPresented)
         .animation(.bouncy, value: self.isCalendarCadenceDropdownPresented)
         .animation(.bouncy, value: self.isCalendarMonthDropdownPresented)
+        .animation(.bouncy, value: self.viewModel.incomingNotifications)
+        .animation(.bouncy, value: self.viewModel.plannedNotifications)
         
     }
     
@@ -459,11 +461,15 @@ struct DevLocalNotificationsScreen: GPView {
         if self.viewModel.plannedNotifications.isEmpty {
             
             emptyStateCard(message: "No planned notifications.")
+                .transition(.blurReplace.combined(with: .scale))
             
         } else {
             
             ForEach(self.viewModel.plannedNotifications, id: \.id) { item in
+                
                 notificationItemView(item: item)
+                    .transition(.blurReplace.combined(with: .scale))
+                
             }
             
         }
@@ -478,11 +484,15 @@ struct DevLocalNotificationsScreen: GPView {
         if self.viewModel.incomingNotifications.isEmpty {
             
             emptyStateCard(message: "No incoming notifications.")
+                .transition(.blurReplace.combined(with: .scale))
             
         } else {
             
             ForEach(self.viewModel.incomingNotifications, id: \.id) { item in
+                
                 notificationItemView(item: item)
+                    .transition(.blurReplace.combined(with: .scale))
+                
             }
             
         }

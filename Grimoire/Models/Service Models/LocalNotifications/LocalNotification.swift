@@ -158,7 +158,8 @@ struct LocalNotificationScheduleRequest: Sendable {
 }
 
 struct LocalNotificationSnapshotItem: Identifiable,
-                                      Sendable {
+                                      Sendable,
+                                      Equatable {
     
     enum Category: String,
                    Sendable {
