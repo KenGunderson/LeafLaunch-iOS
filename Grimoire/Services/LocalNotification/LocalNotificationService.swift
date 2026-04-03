@@ -25,6 +25,7 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
     }
     
     private let notificationCenter: UNUserNotificationCenter
+    private let recurrenceCalculator = LocalNotificationRecurrenceCalculator()
     
     init(notificationCenter: UNUserNotificationCenter = .current()) {
         
@@ -114,56 +115,102 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
     
     func schedule(_ request: LocalNotificationScheduleRequest) async throws {
         
-        self.log(message: """
-        Scheduling local notification
-        mode: \(request.mode.rawValue)
-        interval_seconds: \(request.triggerIntervalSeconds)
-        unit: \(request.timeSpan.rawValue)
-        value: \(request.incrementalNumber)
-        """)
-        
-        let identifier = "local.notification.\(UUID().uuidString)"
-        
-        let content = UNMutableNotificationContent()
-        content.title = request.title
-        content.body = request.body
-        content.sound = .default
-        content.userInfo = self.userInfo(
-            for: request,
-            identifier: identifier
+        try await self.schedule(
+            request,
+            identifier: "local.notification.\(UUID().uuidString)",
+            preferredTriggerDate: nil
         )
         
-        let trigger = UNTimeIntervalNotificationTrigger(
-            timeInterval: request.triggerIntervalSeconds,
-            repeats: request.mode == .recurring
+    }
+    
+    func decodeScheduledLocalNotification(from notification: UNNotification) -> LocalNotificationPayload? {
+        
+        let payload = notification.request.content.userInfo
+        guard self.isLocalPayload(payload) else {
+            return nil
+        }
+        
+        let modeRawValue = payload[UserInfoKey.mode] as? String
+        let mode = LocalNotificationScheduleMode(rawValue: modeRawValue ?? "") ?? .oneTime
+        
+        let metadata = self.parseMetadata(from: payload)
+        
+        guard let strategy = self.parseStrategy(from: payload) else {
+            return nil
+        }
+        
+        let request = LocalNotificationScheduleRequest(
+            strategy: strategy,
+            mode: mode,
+            title: notification.request.content.title,
+            body: notification.request.content.body,
+            metadata: metadata
         )
         
-        let localRequest = UNNotificationRequest(
-            identifier: identifier,
-            content: content,
-            trigger: trigger
+        return LocalNotificationPayload(
+            identifier: notification.request.identifier,
+            request: request
+        )
+        
+    }
+    
+    func remakeScheduledLocalNotificationIfNeeded(from notification: UNNotification) async {
+        
+        guard let payload = self.decodeScheduledLocalNotification(from: notification) else {
+            return
+        }
+        
+        guard payload.request.mode == .recurring else {
+            return
+        }
+        
+        guard case .anchored(let rule) = payload.request.strategy else {
+            return
+        }
+        
+        let usesRepeatingCalendarTrigger = rule.interval == 1
+        && self.recurrenceCalculator.supportsRepeatingCalendarTrigger(for: rule)
+        
+        if usesRepeatingCalendarTrigger {
+            return
+        }
+        
+        guard let nextTriggerDate = self.nextRollingTriggerDate(
+            for: rule,
+            previousOccurrence: notification.date,
+            referenceDate: Date()
+        ) else {
+            return
+        }
+        
+        var metadata = payload.request.metadata
+        metadata["remade_from_notification_id"] = notification.request.identifier
+        
+        let remadeRequest = LocalNotificationScheduleRequest(
+            strategy: .anchored(rule),
+            mode: payload.request.mode,
+            title: payload.request.title,
+            body: payload.request.body,
+            metadata: metadata
         )
         
         do {
             
-            try await self.notificationCenter.add(localRequest)
+            try await self.schedule(
+                remadeRequest,
+                identifier: "local.notification.\(UUID().uuidString)",
+                preferredTriggerDate: nextTriggerDate
+            )
             
-            self.log(message: """
-            Scheduled local notification
-            id: \(identifier)
-            mode: \(request.mode.rawValue)
-            interval_seconds: \(request.triggerIntervalSeconds)
-            """)
+            self.log(message: "Remade local notification from \(notification.request.identifier)")
             
         }
         catch {
             
             self.logError(
-                title: "Local Notification Schedule Error",
+                title: "Remake Local Notification Error",
                 message: error.getMessageForError()
             )
-            
-            throw error
             
         }
         
@@ -308,6 +355,313 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
         
     }
     
+    private func schedule(_ request: LocalNotificationScheduleRequest,
+                          identifier: String,
+                          preferredTriggerDate: Date?) async throws {
+        
+        self.log(message: self.scheduleLogMessage(for: request))
+        
+        let content = UNMutableNotificationContent()
+        content.title = request.title
+        content.body = request.body
+        content.sound = .default
+        content.userInfo = self.userInfo(
+            for: request,
+            identifier: identifier
+        )
+        
+        let trigger = try self.trigger(
+            for: request,
+            preferredTriggerDate: preferredTriggerDate
+        )
+        
+        let localRequest = UNNotificationRequest(
+            identifier: identifier,
+            content: content,
+            trigger: trigger
+        )
+        
+        do {
+            
+            try await self.notificationCenter.add(localRequest)
+            
+            self.log(message: """
+            Scheduled local notification
+            id: \(identifier)
+            mode: \(request.mode.rawValue)
+            strategy: \(request.strategy.pattern.rawValue)
+            """)
+            
+        }
+        catch {
+            
+            self.logError(
+                title: "Local Notification Schedule Error",
+                message: error.getMessageForError()
+            )
+            
+            throw error
+            
+        }
+        
+    }
+    
+    private func trigger(for request: LocalNotificationScheduleRequest,
+                         preferredTriggerDate: Date?) throws -> UNNotificationTrigger {
+        
+        switch request.strategy {
+        case .interval:
+            
+            guard let triggerIntervalSeconds = request.triggerIntervalSeconds else {
+                throw NSError(
+                    domain: "LocalNotificationService",
+                    code: 1,
+                    userInfo: [NSLocalizedDescriptionKey: "Missing interval trigger seconds."]
+                )
+            }
+            
+            return UNTimeIntervalNotificationTrigger(
+                timeInterval: triggerIntervalSeconds,
+                repeats: request.mode == .recurring
+            )
+            
+        case .anchored(let rule):
+            
+            if request.mode == .recurring,
+               rule.interval == 1,
+               preferredTriggerDate == nil,
+               let repeatingComponents = self.recurrenceCalculator.repeatingDateComponents(for: rule) {
+                
+                return UNCalendarNotificationTrigger(
+                    dateMatching: repeatingComponents,
+                    repeats: true
+                )
+            }
+            
+            let triggerDate: Date?
+            
+            if let preferredTriggerDate {
+                triggerDate = preferredTriggerDate
+            }
+            else {
+                triggerDate = self.recurrenceCalculator.nextOccurrence(
+                    for: rule,
+                    after: Date()
+                )
+            }
+            
+            guard let triggerDate else {
+                throw NSError(
+                    domain: "LocalNotificationService",
+                    code: 2,
+                    userInfo: [NSLocalizedDescriptionKey: "Unable to compute anchored trigger date."]
+                )
+            }
+            
+            let calendar = Calendar.autoupdatingCurrent
+            let components = calendar.dateComponents(
+                [.year, .month, .day, .hour, .minute, .second],
+                from: triggerDate
+            )
+            
+            return UNCalendarNotificationTrigger(
+                dateMatching: components,
+                repeats: false
+            )
+        }
+        
+    }
+    
+    private func nextRollingTriggerDate(for rule: LocalNotificationRecurrenceRule,
+                                        previousOccurrence: Date,
+                                        referenceDate: Date) -> Date? {
+        
+        guard var candidate = self.recurrenceCalculator.nextOccurrenceAfterPrevious(
+            for: rule,
+            previousOccurrence: previousOccurrence
+        ) else {
+            return nil
+        }
+        
+        while candidate <= referenceDate {
+            
+            guard let next = self.recurrenceCalculator.nextOccurrenceAfterPrevious(
+                for: rule,
+                previousOccurrence: candidate
+            ) else {
+                return nil
+            }
+            
+            candidate = next
+            
+        }
+        
+        return candidate
+        
+    }
+    
+    private func scheduleLogMessage(for request: LocalNotificationScheduleRequest) -> String {
+        
+        switch request.strategy {
+        case .interval(let number, let timeSpan):
+            return """
+            Scheduling local notification
+            mode: \(request.mode.rawValue)
+            pattern: interval
+            value: \(number)
+            unit: \(timeSpan.rawValue)
+            trigger_interval_seconds: \(request.triggerIntervalSeconds ?? 0)
+            """
+        case .anchored(let rule):
+            return """
+            Scheduling local notification
+            mode: \(request.mode.rawValue)
+            pattern: anchored
+            cadence: \(rule.cadence.rawValue)
+            interval: \(rule.interval)
+            hour: \(rule.hour)
+            minute: \(rule.minute)
+            weekday: \(rule.weekday?.rawValue ?? 0)
+            """
+        }
+        
+    }
+    
+    private func parseStrategy(from payload: [AnyHashable: Any]) -> LocalNotificationScheduleStrategy? {
+        
+        if let patternRawValue = payload[UserInfoKey.schedulePattern] as? String,
+           patternRawValue == LocalNotificationSchedulePattern.anchored.rawValue {
+            return self.parseAnchoredStrategy(from: payload)
+        }
+        
+        if payload[UserInfoKey.recurrenceCadence] != nil {
+            return self.parseAnchoredStrategy(from: payload)
+        }
+        
+        guard let number = self.intValue(from: payload[UserInfoKey.incrementalNumber]),
+              let rawTimeSpan = payload[UserInfoKey.timeSpan] as? String,
+              let timeSpan = LocalNotificationTimeSpan(rawValue: rawTimeSpan)
+        else {
+            return nil
+        }
+        
+        return .interval(number: number, timeSpan: timeSpan)
+        
+    }
+    
+    private func parseAnchoredStrategy(from payload: [AnyHashable: Any]) -> LocalNotificationScheduleStrategy? {
+        
+        guard let cadenceRawValue = payload[UserInfoKey.recurrenceCadence] as? String,
+              let cadence = LocalNotificationRecurrenceCadence(rawValue: cadenceRawValue)
+        else {
+            return nil
+        }
+        
+        let interval = self.intValue(from: payload[UserInfoKey.recurrenceInterval]) ?? 1
+        let hour = self.intValue(from: payload[UserInfoKey.recurrenceHour]) ?? 8
+        let minute = self.intValue(from: payload[UserInfoKey.recurrenceMinute]) ?? 0
+        
+        let weekdayRawValue = self.intValue(from: payload[UserInfoKey.recurrenceWeekday])
+        let weekday = weekdayRawValue.flatMap(LocalNotificationWeekday.init(rawValue:))
+        
+        let dayOfMonth = self.intValue(from: payload[UserInfoKey.recurrenceDayOfMonth])
+        let month = self.intValue(from: payload[UserInfoKey.recurrenceMonth])
+        
+        let rule = LocalNotificationRecurrenceRule(
+            cadence: cadence,
+            interval: interval,
+            hour: hour,
+            minute: minute,
+            weekday: weekday,
+            dayOfMonth: dayOfMonth,
+            month: month
+        )
+        
+        guard rule.isValid else {
+            return nil
+        }
+        
+        return .anchored(rule)
+        
+    }
+    
+    private func parseMetadata(from payload: [AnyHashable: Any]) -> [String: String] {
+        
+        if let metadata = payload[UserInfoKey.metadata] as? [String: String] {
+            return metadata
+        }
+        
+        if let metadata = payload[UserInfoKey.metadata] as? [String: Any] {
+            
+            return metadata.reduce(into: [String: String]()) { partialResult, item in
+                
+                if let value = item.value as? String {
+                    partialResult[item.key] = value
+                }
+                
+            }
+            
+        }
+        
+        var metadata: [String: String] = [:]
+        
+        payload.forEach { key, value in
+            
+            guard let keyString = key as? String,
+                  keyString.hasPrefix("metadata."),
+                  let valueString = value as? String
+            else {
+                return
+            }
+            
+            let metadataKey = keyString.replacingOccurrences(of: "metadata.", with: "")
+            metadata[metadataKey] = valueString
+            
+        }
+        
+        return metadata
+        
+    }
+    
+    private func isLocalPayload(_ payload: [AnyHashable: Any]) -> Bool {
+        
+        if let explicitSource = payload[UserInfoKey.notificationSource] as? String,
+           explicitSource.lowercased() == "local" {
+            return true
+        }
+        
+        if let payloadType = payload[UserInfoKey.payloadType] as? String,
+           payloadType.lowercased() == "local" {
+            return true
+        }
+        
+        if let source = payload[UserInfoKey.source] as? String,
+           source == "local_notification_service" {
+            return true
+        }
+        
+        return false
+        
+    }
+    
+    private func intValue(from rawValue: Any?) -> Int? {
+        
+        if let intValue = rawValue as? Int {
+            return intValue
+        }
+        
+        if let numberValue = rawValue as? NSNumber {
+            return numberValue.intValue
+        }
+        
+        if let stringValue = rawValue as? String {
+            return Int(stringValue)
+        }
+        
+        return nil
+        
+    }
+    
     private func updateAuthorizationState(_ status: UNAuthorizationStatus) {
         
         switch status {
@@ -349,20 +703,53 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
     ) -> [AnyHashable: Any] {
         
         var userInfo: [AnyHashable: Any] = [
-            "source": "local_notification_service",
-            "notification_id": identifier,
-            "mode": request.mode.rawValue,
-            "incremental_number": request.incrementalNumber,
-            "time_span": request.timeSpan.rawValue,
-            "interval_seconds": request.intervalSeconds,
-            "trigger_interval_seconds": request.triggerIntervalSeconds,
-            "is_recurring": request.mode == .recurring,
-            "scheduled_at_unix": Date().timeIntervalSince1970
+            UserInfoKey.source: "local_notification_service",
+            UserInfoKey.notificationSource: "local",
+            UserInfoKey.payloadType: "local",
+            UserInfoKey.notificationIdentifier: identifier,
+            UserInfoKey.mode: request.mode.rawValue,
+            UserInfoKey.schedulePattern: request.strategy.pattern.rawValue,
+            UserInfoKey.isRecurring: request.mode == .recurring,
+            UserInfoKey.scheduledAtUnix: Date().timeIntervalSince1970
         ]
+        
+        switch request.strategy {
+        case .interval(let number, let timeSpan):
+            
+            userInfo[UserInfoKey.incrementalNumber] = number
+            userInfo[UserInfoKey.timeSpan] = timeSpan.rawValue
+            
+            if let intervalSeconds = request.intervalSeconds {
+                userInfo[UserInfoKey.intervalSeconds] = intervalSeconds
+            }
+            
+            if let triggerIntervalSeconds = request.triggerIntervalSeconds {
+                userInfo[UserInfoKey.triggerIntervalSeconds] = triggerIntervalSeconds
+            }
+            
+        case .anchored(let rule):
+            
+            userInfo[UserInfoKey.recurrenceCadence] = rule.cadence.rawValue
+            userInfo[UserInfoKey.recurrenceInterval] = rule.interval
+            userInfo[UserInfoKey.recurrenceHour] = rule.hour
+            userInfo[UserInfoKey.recurrenceMinute] = rule.minute
+            
+            if let recurrenceWeekday = rule.weekday?.rawValue {
+                userInfo[UserInfoKey.recurrenceWeekday] = recurrenceWeekday
+            }
+            
+            if let recurrenceDayOfMonth = rule.dayOfMonth {
+                userInfo[UserInfoKey.recurrenceDayOfMonth] = recurrenceDayOfMonth
+            }
+            
+            if let recurrenceMonth = rule.month {
+                userInfo[UserInfoKey.recurrenceMonth] = recurrenceMonth
+            }
+        }
         
         if !request.metadata.isEmpty {
             
-            userInfo["metadata"] = request.metadata
+            userInfo[UserInfoKey.metadata] = request.metadata
             
             request.metadata.forEach { key, value in
                 userInfo["metadata.\(key)"] = value
@@ -373,5 +760,34 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
         return userInfo
         
     }
+    
+}
+
+private enum UserInfoKey {
+    
+    static let source = "source"
+    static let payloadType = "payload_type"
+    static let notificationSource = "notification_source"
+    static let notificationIdentifier = "notification_id"
+    
+    static let mode = "mode"
+    static let schedulePattern = "schedule_pattern"
+    static let isRecurring = "is_recurring"
+    static let scheduledAtUnix = "scheduled_at_unix"
+    
+    static let incrementalNumber = "incremental_number"
+    static let timeSpan = "time_span"
+    static let intervalSeconds = "interval_seconds"
+    static let triggerIntervalSeconds = "trigger_interval_seconds"
+    
+    static let recurrenceCadence = "recurrence_cadence"
+    static let recurrenceInterval = "recurrence_interval"
+    static let recurrenceHour = "recurrence_hour"
+    static let recurrenceMinute = "recurrence_minute"
+    static let recurrenceWeekday = "recurrence_weekday"
+    static let recurrenceDayOfMonth = "recurrence_day_of_month"
+    static let recurrenceMonth = "recurrence_month"
+    
+    static let metadata = "metadata"
     
 }

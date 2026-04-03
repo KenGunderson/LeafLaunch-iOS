@@ -5,10 +5,6 @@
 //  Created by Sako Hovaguimian on 7/13/24.
 //
 
-// TODO: -
-/// Support year / month
-/// Use dropdown instead of segmented controller in DevLocalNotificationScreen
-
 import Combine
 @preconcurrency import UserNotifications
 import UIKit
@@ -20,10 +16,15 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     
     private var tabBarNavigationService: TabBarNavigationService?
     private let viewLifecycleService: ViewLifecycleServiceProtocol
+    private let localNotificationService: LocalNotificationServiceProtocol
+    private let payloadRouter = NotificationPayloadRouter()
+    private var remadeLocalNotificationIds: Set<String> = []
         
-    init(viewLifecycleService: ViewLifecycleServiceProtocol) {
+    init(viewLifecycleService: ViewLifecycleServiceProtocol,
+         localNotificationService: LocalNotificationServiceProtocol) {
         
         self.viewLifecycleService = viewLifecycleService
+        self.localNotificationService = localNotificationService
         super.init()
         
         self.logInit()
@@ -43,17 +44,59 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
         
         guard let pushNotification else { return }
         
-        self.log(message: "Parsing Push Notification: \(pushNotification.request.content)")
+        let origin = self.payloadRouter.origin(for: pushNotification.request.content.userInfo)
+        
+        switch origin {
+        case .local:
+            self.parseLocalNotification(
+                pushNotification,
+                isTapped: isTapped
+            )
+        case .remote:
+            self.parseRemoteNotification(
+                pushNotification,
+                isTapped: isTapped
+            )
+        }
+        
+    }
+    
+    func parseRemoteNotification(_ pushNotification: UNNotification,
+                                 isTapped: Bool) {
+        
+        self.log(message: "Parsing remote push notification: \(pushNotification.request.content)")
         
         guard let push = self.notification(from: pushNotification.request.content.userInfo) else { return }
         
-        self.log(message: "Did Parse Push Notification \(push)")
+        self.log(message: "Did parse remote push notification \(push)")
         
         if isTapped {
-            handleTestNotificationTapped(push)
-        } else {
-            handleNotificationReceived(push)
+            self.handleRemoteNotificationTapped(push)
         }
+        else {
+            self.handleRemoteNotificationReceived(push)
+        }
+        
+    }
+    
+    func parseLocalNotification(_ pushNotification: UNNotification,
+                                isTapped: Bool) {
+        
+        self.log(message: "Parsing local notification: \(pushNotification.request.content)")
+        
+        guard let localPayload = self.localNotificationService.decodeScheduledLocalNotification(from: pushNotification) else {
+            self.log(message: "Unable to decode local notification payload")
+            return
+        }
+        
+        if isTapped {
+            self.handleLocalNotificationTapped(localPayload)
+        }
+        else {
+            self.handleLocalNotificationReceived(localPayload)
+        }
+        
+        self.remakeAnchoredLocalNotificationIfNeeded(pushNotification)
         
     }
     
@@ -97,31 +140,53 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
         return notification
     }
     
-    private func handleNotificationReceived(_ notification: PushNotification) {
+    private func handleRemoteNotificationReceived(_ notification: PushNotification) {
 
-        self.log(message: "push received: \(notification.type.rawValue)")
-        handleNavigationForNotification(notification)
+        self.log(message: "remote push received: \(notification.type.rawValue)")
+        self.handleNavigationForRemoteNotification(notification)
         
     }
     
-    private func handleTestNotificationTapped(_ notification: PushNotification) {
+    private func handleRemoteNotificationTapped(_ notification: PushNotification) {
 
-        self.log(message: "push tapped: \(notification.type.rawValue)")
-        handleNavigationForNotification(notification)
+        self.log(message: "remote push tapped: \(notification.type.rawValue)")
+        self.handleNavigationForRemoteNotification(notification)
         
     }
     
-    private func handleNavigationForNotification(_ notification: PushNotification) {
+    private func handleNavigationForRemoteNotification(_ notification: PushNotification) {
         
         switch notification.type {
         case .test:
-            print("TEST PUSH") // call handle method to parse further and navigate to where you need
+            print("TEST PUSH")
         case .generic:
             print("THIS IS A GENERIC PUSH")
         }
         
     }
     
+    private func handleLocalNotificationReceived(_ localPayload: LocalNotificationPayload) {
+        self.log(message: "local notification received: \(localPayload.identifier)")
+    }
+    
+    private func handleLocalNotificationTapped(_ localPayload: LocalNotificationPayload) {
+        self.log(message: "local notification tapped: \(localPayload.identifier)")
+    }
+    
+    private func remakeAnchoredLocalNotificationIfNeeded(_ notification: UNNotification) {
+        
+        let notificationId = notification.request.identifier
+        
+        if self.remadeLocalNotificationIds.contains(notificationId) {
+            return
+        }
+        
+        self.remadeLocalNotificationIds.insert(notificationId)
+        
+        Task { [weak self] in
+            await self?.localNotificationService.remakeScheduledLocalNotificationIfNeeded(from: notification)
+        }
+        
+    }
+    
 }
-
-///

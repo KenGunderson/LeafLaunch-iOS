@@ -60,8 +60,7 @@ enum LocalNotificationTimeSpan: String, CaseIterable, Hashable, Sendable {
 
 struct LocalNotificationScheduleRequest: Sendable {
     
-    let incrementalNumber: Int
-    let timeSpan: LocalNotificationTimeSpan
+    let strategy: LocalNotificationScheduleStrategy
     let mode: LocalNotificationScheduleMode
     let title: String
     let body: String
@@ -76,8 +75,10 @@ struct LocalNotificationScheduleRequest: Sendable {
         metadata: [String: String] = [:]
     ) {
         
-        self.incrementalNumber = incrementalNumber
-        self.timeSpan = timeSpan
+        self.strategy = .interval(
+            number: incrementalNumber,
+            timeSpan: timeSpan
+        )
         self.mode = mode
         self.title = title
         self.body = body
@@ -85,17 +86,74 @@ struct LocalNotificationScheduleRequest: Sendable {
         
     }
     
-    var intervalSeconds: TimeInterval {
-        return Double(self.incrementalNumber) * self.timeSpan.secondsPerUnit
+    init(strategy: LocalNotificationScheduleStrategy,
+         mode: LocalNotificationScheduleMode,
+         title: String,
+         body: String,
+         metadata: [String: String] = [:]) {
+        
+        self.strategy = strategy
+        self.mode = mode
+        self.title = title
+        self.body = body
+        self.metadata = metadata
+        
     }
     
-    var triggerIntervalSeconds: TimeInterval {
+    var incrementalNumber: Int? {
         
-        if self.mode == .recurring {
-            return max(self.intervalSeconds, 60)
+        switch self.strategy {
+        case .interval(let number, _):
+            return number
+        case .anchored:
+            return nil
         }
         
-        return max(self.intervalSeconds, 1)
+    }
+    
+    var timeSpan: LocalNotificationTimeSpan? {
+        
+        switch self.strategy {
+        case .interval(_, let timeSpan):
+            return timeSpan
+        case .anchored:
+            return nil
+        }
+        
+    }
+    
+    var recurrenceRule: LocalNotificationRecurrenceRule? {
+        
+        switch self.strategy {
+        case .interval:
+            return nil
+        case .anchored(let rule):
+            return rule
+        }
+        
+    }
+    
+    var intervalSeconds: TimeInterval? {
+        
+        guard case .interval(let number, let timeSpan) = self.strategy else {
+            return nil
+        }
+        
+        return Double(number) * timeSpan.secondsPerUnit
+        
+    }
+    
+    var triggerIntervalSeconds: TimeInterval? {
+        
+        guard let intervalSeconds else {
+            return nil
+        }
+        
+        if self.mode == .recurring {
+            return max(intervalSeconds, 60)
+        }
+        
+        return max(intervalSeconds, 1)
         
     }
     

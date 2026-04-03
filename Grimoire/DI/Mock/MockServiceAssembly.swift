@@ -499,6 +499,8 @@ final class MockPushNotificationService: PushNotificationServiceProtocol, @unche
     internal let loggerEmoji: String = "🔔"
     
     func parsePushNotification(_ pushNotification: UNNotification?, isTapped: Bool) {}
+    func parseRemoteNotification(_ pushNotification: UNNotification, isTapped: Bool) {}
+    func parseLocalNotification(_ pushNotification: UNNotification, isTapped: Bool) {}
     func setup(tabBarNavigationService: TabBarNavigationService) {}
     
 }
@@ -521,6 +523,12 @@ final class MockLocalNotificationService: LocalNotificationServiceProtocol, @unc
     func requestPermission() {}
     
     func schedule(_ request: LocalNotificationScheduleRequest) async throws {}
+    
+    func decodeScheduledLocalNotification(from notification: UNNotification) -> LocalNotificationPayload? {
+        return nil
+    }
+    
+    func remakeScheduledLocalNotificationIfNeeded(from notification: UNNotification) async {}
     
     func getPlannedNotifications() async -> [LocalNotificationSnapshotItem] {
         return []

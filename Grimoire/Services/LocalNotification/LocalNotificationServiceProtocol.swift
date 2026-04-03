@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UserNotifications
 
 protocol LocalNotificationServiceProtocol: AnyObject, Loggable {
     
@@ -21,6 +22,8 @@ protocol LocalNotificationServiceProtocol: AnyObject, Loggable {
     func requestPermission()
     
     func schedule(_ request: LocalNotificationScheduleRequest) async throws
+    func decodeScheduledLocalNotification(from notification: UNNotification) -> LocalNotificationPayload?
+    func remakeScheduledLocalNotificationIfNeeded(from notification: UNNotification) async
     
     func getPlannedNotifications() async -> [LocalNotificationSnapshotItem]
     func getIncomingNotifications() async -> [LocalNotificationSnapshotItem]

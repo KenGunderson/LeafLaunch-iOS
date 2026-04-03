@@ -93,7 +93,8 @@ extension Container {
     var pushNotificationService: Factory<PushNotificationServiceProtocol> {
         self { @MainActor in
             PushNotificationService(
-                viewLifecycleService: self.viewLifecycleService()
+                viewLifecycleService: self.viewLifecycleService(),
+                localNotificationService: self.localNotificationService()
             )
         }
         .singleton

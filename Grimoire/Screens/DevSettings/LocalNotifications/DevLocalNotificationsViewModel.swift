@@ -18,6 +18,7 @@ final class DevLocalNotificationsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let localNotificationService: LocalNotificationServiceProtocol
+    private let recurrenceCalculator = LocalNotificationRecurrenceCalculator()
     
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -25,8 +26,15 @@ final class DevLocalNotificationsViewModel: ViewModel {
     private var scheduleTask: Task<Void, Never>?
     
     @Published var selectedModeString: String? = LocalNotificationScheduleMode.oneTime.displayName
+    @Published var selectedPatternString: String? = LocalNotificationSchedulePattern.interval.displayName
+    
     @Published var selectedTimeSpanString: String? = LocalNotificationTimeSpan.minute.displayName
+    @Published var selectedCadenceString: String? = LocalNotificationRecurrenceCadence.day.displayName
+    @Published var selectedWeekdayString: String? = LocalNotificationWeekday.monday.displayName
+    
     @Published var incrementalNumberText: String = "1"
+    @Published var anchorHourText: String = "8"
+    @Published var anchorMinuteText: String = "0"
     
     @Published private(set) var plannedNotifications: [LocalNotificationSnapshotItem] = []
     @Published private(set) var incomingNotifications: [LocalNotificationSnapshotItem] = []
@@ -83,8 +91,20 @@ final class DevLocalNotificationsViewModel: ViewModel {
         return LocalNotificationScheduleMode.allCases.map(\.displayName)
     }
     
+    var allPatternOptions: [String] {
+        return LocalNotificationSchedulePattern.allCases.map(\.displayName)
+    }
+    
     var allTimeSpanOptions: [String] {
         return LocalNotificationTimeSpan.allCases.map(\.displayName)
+    }
+    
+    var allCadenceOptions: [String] {
+        return LocalNotificationRecurrenceCadence.allCases.map(\.displayName)
+    }
+    
+    var allWeekdayOptions: [String] {
+        return LocalNotificationWeekday.allCases.map(\.displayName)
     }
     
     var selectedMode: LocalNotificationScheduleMode {
@@ -98,6 +118,20 @@ final class DevLocalNotificationsViewModel: ViewModel {
         return LocalNotificationScheduleMode
             .allCases
             .first(where: { $0.displayName == selectedModeString }) ?? fallback
+        
+    }
+    
+    var selectedPattern: LocalNotificationSchedulePattern {
+        
+        let fallback = LocalNotificationSchedulePattern.interval
+        
+        guard let selectedPatternString else {
+            return fallback
+        }
+        
+        return LocalNotificationSchedulePattern
+            .allCases
+            .first(where: { $0.displayName == selectedPatternString }) ?? fallback
         
     }
     
@@ -115,6 +149,34 @@ final class DevLocalNotificationsViewModel: ViewModel {
         
     }
     
+    var selectedCadence: LocalNotificationRecurrenceCadence {
+        
+        let fallback = LocalNotificationRecurrenceCadence.day
+        
+        guard let selectedCadenceString else {
+            return fallback
+        }
+        
+        return LocalNotificationRecurrenceCadence
+            .allCases
+            .first(where: { $0.displayName == selectedCadenceString }) ?? fallback
+        
+    }
+    
+    var selectedWeekday: LocalNotificationWeekday {
+        
+        let fallback = LocalNotificationWeekday.monday
+        
+        guard let selectedWeekdayString else {
+            return fallback
+        }
+        
+        return LocalNotificationWeekday
+            .allCases
+            .first(where: { $0.displayName == selectedWeekdayString }) ?? fallback
+        
+    }
+    
     var incrementalNumber: Int {
         
         let parsedNumber = Int(self.incrementalNumberText) ?? 0
@@ -122,22 +184,125 @@ final class DevLocalNotificationsViewModel: ViewModel {
         
     }
     
+    var anchorHour: Int? {
+        return Int(self.anchorHourText)
+    }
+    
+    var anchorMinute: Int? {
+        return Int(self.anchorMinuteText)
+    }
+    
+    var shouldShowIntervalControls: Bool {
+        return self.selectedPattern == .interval
+    }
+    
+    var shouldShowAnchoredControls: Bool {
+        return self.selectedPattern == .anchored
+    }
+    
+    var shouldShowWeekdayControl: Bool {
+        return self.selectedPattern == .anchored && self.selectedCadence == .week
+    }
+    
     var isScheduleValid: Bool {
-        return self.incrementalNumber >= 1
+        
+        guard self.incrementalNumber >= 1 else {
+            return false
+        }
+        
+        switch self.selectedPattern {
+        case .interval:
+            return true
+        case .anchored:
+            guard let anchorHour else { return false }
+            guard let anchorMinute else { return false }
+            guard (0...23).contains(anchorHour) else { return false }
+            guard (0...59).contains(anchorMinute) else { return false }
+            return self.anchoredRule != nil
+        }
+        
     }
     
     var schedulePreviewText: String {
         
-        let unit = self.incrementalNumber == 1
-        ? self.selectedTimeSpan.displayName.lowercased()
-        : self.selectedTimeSpan.displayNamePlural.lowercased()
-        
-        switch self.selectedMode {
-        case .oneTime:
-            return "Will fire in \(self.incrementalNumber) \(unit)"
-        case .recurring:
-            return "Will fire every \(self.incrementalNumber) \(unit)"
+        switch self.selectedPattern {
+        case .interval:
+            
+            let unit = self.incrementalNumber == 1
+            ? self.selectedTimeSpan.displayName.lowercased()
+            : self.selectedTimeSpan.displayNamePlural.lowercased()
+            
+            switch self.selectedMode {
+            case .oneTime:
+                return "Will fire in \(self.incrementalNumber) \(unit)"
+            case .recurring:
+                return "Will fire every \(self.incrementalNumber) \(unit)"
+            }
+            
+        case .anchored:
+            
+            guard let anchorHour else {
+                return "Enter a valid anchor hour (0-23)."
+            }
+            
+            guard let anchorMinute else {
+                return "Enter a valid anchor minute (0-59)."
+            }
+            
+            let cadenceLabel = self.selectedCadence.displayName.lowercased()
+            let cadenceTitle: String
+            
+            if self.selectedCadence == .week {
+                cadenceTitle = "\(self.selectedWeekday.displayName)"
+            }
+            else {
+                cadenceTitle = cadenceLabel
+            }
+            
+            let timeLabel = String(format: "%02d:%02d", anchorHour, anchorMinute)
+            
+            switch self.selectedMode {
+            case .oneTime:
+                return "Will fire on next \(cadenceTitle) at \(timeLabel) local time"
+            case .recurring:
+                return "Will fire every \(self.incrementalNumber) \(cadenceLabel)(s) on \(cadenceTitle) at \(timeLabel)"
+            }
         }
+        
+    }
+    
+    var nextOccurrencesPreviewText: String {
+        
+        guard self.selectedPattern == .anchored,
+              let rule = self.anchoredRule
+        else {
+            return ""
+        }
+        
+        let previewDates = self.recurrenceCalculator.nextOccurrences(
+            for: rule,
+            after: Date(),
+            count: 3
+        )
+        
+        if previewDates.isEmpty {
+            return ""
+        }
+        
+        let lines = previewDates.enumerated().map { index, date in
+            let formattedDate = date.formatted(
+                .dateTime
+                    .weekday()
+                    .day()
+                    .month()
+                    .year()
+                    .hour()
+                    .minute()
+            )
+            return "\(index + 1). \(formattedDate)"
+        }
+        
+        return lines.joined(separator: "\n")
         
     }
     
@@ -186,32 +351,32 @@ final class DevLocalNotificationsViewModel: ViewModel {
             
             self.logError(
                 title: "Invalid Local Notification Input",
-                message: "incremental_number must be 1 or greater."
+                message: "Please provide a valid schedule configuration."
             )
             
             return
             
         }
         
+        guard let strategy = self.scheduleStrategy else {
+            
+            self.logError(
+                title: "Invalid Schedule Strategy",
+                message: "Unable to build schedule strategy from current input."
+            )
+            
+            return
+        }
+        
         let mode = self.selectedMode
-        let timeSpan = self.selectedTimeSpan
-        let incrementalNumber = self.incrementalNumber
-        
-        let unit = incrementalNumber == 1
-        ? timeSpan.displayName.lowercased()
-        : timeSpan.displayNamePlural.lowercased()
-        
         let title = mode == .oneTime
         ? "Scheduled Local Notification"
         : "Recurring Local Notification"
         
-        let body = mode == .oneTime
-        ? "Your local notification fired after \(incrementalNumber) \(unit)."
-        : "Your local notification is repeating every \(incrementalNumber) \(unit)."
+        let body = self.schedulePreviewText
         
         let request = LocalNotificationScheduleRequest(
-            incrementalNumber: incrementalNumber,
-            timeSpan: timeSpan,
+            strategy: strategy,
             mode: mode,
             title: title,
             body: body,
@@ -270,6 +435,58 @@ final class DevLocalNotificationsViewModel: ViewModel {
         self.log(message: "Clear all notifications tapped")
         self.localNotificationService.clearAllNotifications()
         self.refreshNotifications()
+        
+    }
+    
+    private var anchoredRule: LocalNotificationRecurrenceRule? {
+        
+        guard let anchorHour else { return nil }
+        guard let anchorMinute else { return nil }
+        
+        switch self.selectedCadence {
+        case .day:
+            return .startOfDay(
+                every: self.incrementalNumber,
+                hour: anchorHour,
+                minute: anchorMinute
+            )
+        case .week:
+            return .startOfWeek(
+                every: self.incrementalNumber,
+                weekday: self.selectedWeekday,
+                hour: anchorHour,
+                minute: anchorMinute
+            )
+        case .month:
+            return .startOfMonth(
+                every: self.incrementalNumber,
+                hour: anchorHour,
+                minute: anchorMinute
+            )
+        case .year:
+            return .startOfYear(
+                every: self.incrementalNumber,
+                hour: anchorHour,
+                minute: anchorMinute
+            )
+        }
+        
+    }
+    
+    private var scheduleStrategy: LocalNotificationScheduleStrategy? {
+        
+        switch self.selectedPattern {
+        case .interval:
+            return .interval(
+                number: self.incrementalNumber,
+                timeSpan: self.selectedTimeSpan
+            )
+        case .anchored:
+            guard let anchoredRule else {
+                return nil
+            }
+            return .anchored(anchoredRule)
+        }
         
     }
     

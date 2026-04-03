@@ -11,7 +11,10 @@ struct DevLocalNotificationsScreen: GPView {
     
     @StateObject var viewModel: DevLocalNotificationsViewModel
     @State private var isModeDropdownPresented: Bool = false
+    @State private var isPatternDropdownPresented: Bool = false
     @State private var isTimeSpanDropdownPresented: Bool = false
+    @State private var isCadenceDropdownPresented: Bool = false
+    @State private var isWeekdayDropdownPresented: Bool = false
     @Environment(NavigationService.self) private var navigationService
     
     var body: some View {
@@ -26,6 +29,8 @@ struct DevLocalNotificationsScreen: GPView {
             
         }
         
+        // Lifecycle
+        
         .onFirstAppear {
             
             self.viewModel
@@ -35,6 +40,14 @@ struct DevLocalNotificationsScreen: GPView {
                 .setup(navigationService: self.navigationService)
             
         }
+        
+        // Animations
+        
+        .animation(.bouncy, value: self.isModeDropdownPresented)
+        .animation(.bouncy, value: self.isPatternDropdownPresented)
+        .animation(.bouncy, value: self.isTimeSpanDropdownPresented)
+        .animation(.bouncy, value: self.isCadenceDropdownPresented)
+        .animation(.bouncy, value: self.isWeekdayDropdownPresented)
         
     }
     
@@ -70,47 +83,43 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func permissionSection() -> some View {
         
-        AppCardView {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
-                
-                Text("Permission")
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
-                
-                Text(
-                    self.viewModel.isPermissionGranted
-                    ? "Notifications are allowed."
-                    : (
-                        self.viewModel.shouldPromptForPermissions
-                        ? "Permission has not been requested yet."
-                        : "Notifications are currently denied."
-                    )
+            Text("Permission")
+                .appFont(with: .HEADER_2)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            Text(
+                self.viewModel.isPermissionGranted
+                ? "Notifications are allowed."
+                : (
+                    self.viewModel.shouldPromptForPermissions
+                    ? "Permission has not been requested yet."
+                    : "Notifications are currently denied."
                 )
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+            )
+            .appFont(with: .TITLE_5)
+            .foregroundStyle(Style.shared.textColor(.body).source())
+            
+            VStack(spacing: Style.shared.spacing(.small)) {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
-                    
-                    CommonButton(
-                        title: self.viewModel.shouldPromptForPermissions ? "Request Permission" : "Request Again",
-                        titleColor: Style.shared.textColor(.button),
-                        icon: .systemImage("bell.badge.fill"),
-                        action: {
-                            self.viewModel.requestPermission()
-                        }
-                    )
-                    
-                    CommonButton(
-                        title: "Refresh",
-                        titleColor: Style.shared.textColor(.button),
-                        icon: .systemImage("arrow.clockwise"),
-                        action: {
-                            self.viewModel.refreshNotifications()
-                        }
-                    )
-                    
-                }
+                CommonButton(
+                    title: self.viewModel.shouldPromptForPermissions ? "Request Permission" : "Request Again",
+                    titleColor: Style.shared.textColor(.button),
+                    icon: .systemImage("bell.badge.fill"),
+                    action: {
+                        self.viewModel.requestPermission()
+                    }
+                )
+                
+                CommonButton(
+                    title: "Refresh",
+                    titleColor: Style.shared.textColor(.button),
+                    icon: .systemImage("arrow.clockwise"),
+                    action: {
+                        self.viewModel.refreshNotifications()
+                    }
+                )
                 
             }
             
@@ -121,13 +130,13 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func schedulerSection() -> some View {
         
-        AppCardView {
+        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
-                
-                Text("Scheduler")
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+            Text("Scheduler")
+                .appFont(with: .HEADER_2)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+            
+            HStack(alignment: .top) {
                 
                 CommonDropDownMenu(
                     options: self.viewModel.allModeOptions,
@@ -142,100 +151,204 @@ struct DevLocalNotificationsScreen: GPView {
                 .onChange(of: self.isModeDropdownPresented) { _, isPresented in
                     
                     if isPresented {
-                        self.isTimeSpanDropdownPresented = false
+                        self.closeAllDropdowns()
+                        self.isModeDropdownPresented = true
                     }
                     
                 }
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
-                    
-                    TextField("Incremental Number", text: self.$viewModel.incrementalNumberText)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
-                        .keyboardType(.numberPad)
-                        .padding(8)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
-                        }
-                    
-                    CommonDropDownMenu(
-                        options: self.viewModel.allTimeSpanOptions,
-                        backgroundStyle: .color(.minimumOpacity),
-                        shadow: .none,
-                        textHorizontalPadding: .small,
-                        animation: .spring,
-                        selectedOption: self.$viewModel.selectedTimeSpanString,
-                        showDropDown: self.$isTimeSpanDropdownPresented
-                    )
-                    .appBorder(cornerRadius: .small, lineWidth: 1.5)
-                    .onChange(of: self.isTimeSpanDropdownPresented) { _, isPresented in
-                        
-                        if isPresented {
-                            self.isModeDropdownPresented = false
-                        }
-                        
-                    }
-                    
-                }
-                
-                Text(self.viewModel.schedulePreviewText)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
-                
-                CommonButton(
-                    title: "Schedule Notification",
-                    titleColor: Style.shared.textColor(.button),
-                    icon: .systemImage("clock.badge.fill"),
-                    isEnabled: self.viewModel.isScheduleValid,
-                    action: {
-                        self.viewModel.scheduleNotification()
-                    }
+                CommonDropDownMenu(
+                    options: self.viewModel.allPatternOptions,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$viewModel.selectedPatternString,
+                    showDropDown: self.$isPatternDropdownPresented
                 )
-                
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                .onChange(of: self.isPatternDropdownPresented) { _, isPresented in
                     
-                    TokenView(
-                        text: "Refresh Lists",
-                        foregroundStyle: Style.shared.textColor(.button),
-                        backgroundStyle: .color(.indigo)
-                    )
-                    .asButton {
-                        self.viewModel.refreshNotifications()
-                    }
-                    
-                    TokenView(
-                        text: "Clear Planned",
-                        foregroundStyle: Style.shared.textColor(.button),
-                        backgroundStyle: .color(.orange)
-                    )
-                    .asButton {
-                        self.viewModel.clearPlannedNotifications()
-                    }
-                    
-                    TokenView(
-                        text: "Clear Incoming",
-                        foregroundStyle: Style.shared.textColor(.button),
-                        backgroundStyle: .color(.pink)
-                    )
-                    .asButton {
-                        self.viewModel.clearIncomingNotifications()
-                    }
-                    
-                    TokenView(
-                        text: "Clear All",
-                        foregroundStyle: Style.shared.textColor(.button),
-                        backgroundStyle: .color(.red)
-                    )
-                    .asButton {
-                        self.viewModel.clearAllNotifications()
+                    if isPresented {
+                        self.closeAllDropdowns()
+                        self.isPatternDropdownPresented = true
                     }
                     
                 }
                 
             }
             
+            TextField("Every N", text: self.$viewModel.incrementalNumberText)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(Style.shared.textColor(.title).source())
+                .keyboardType(.numberPad)
+                .padding(.horizontal, 8)
+                .frame(height: 50)
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+            
+            if self.viewModel.shouldShowIntervalControls {
+                
+                CommonDropDownMenu(
+                    options: self.viewModel.allTimeSpanOptions,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$viewModel.selectedTimeSpanString,
+                    showDropDown: self.$isTimeSpanDropdownPresented
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                .onChange(of: self.isTimeSpanDropdownPresented) { _, isPresented in
+                    
+                    if isPresented {
+                        self.closeAllDropdowns()
+                        self.isTimeSpanDropdownPresented = true
+                    }
+                    
+                }
+                
+            }
+            
+            if self.viewModel.shouldShowAnchoredControls {
+                
+                CommonDropDownMenu(
+                    options: self.viewModel.allCadenceOptions,
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$viewModel.selectedCadenceString,
+                    showDropDown: self.$isCadenceDropdownPresented
+                )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                .onChange(of: self.isCadenceDropdownPresented) { _, isPresented in
+                    
+                    if isPresented {
+                        self.closeAllDropdowns()
+                        self.isCadenceDropdownPresented = true
+                    }
+                    
+                }
+                
+                if self.viewModel.shouldShowWeekdayControl {
+                    
+                    CommonDropDownMenu(
+                        options: self.viewModel.allWeekdayOptions,
+                        backgroundStyle: .color(.minimumOpacity),
+                        shadow: .none,
+                        textHorizontalPadding: .small,
+                        animation: .spring,
+                        selectedOption: self.$viewModel.selectedWeekdayString,
+                        showDropDown: self.$isWeekdayDropdownPresented
+                    )
+                    .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    .onChange(of: self.isWeekdayDropdownPresented) { _, isPresented in
+                        
+                        if isPresented {
+                            self.closeAllDropdowns()
+                            self.isWeekdayDropdownPresented = true
+                        }
+                        
+                    }
+                    
+                }
+                
+                HStack(spacing: Style.shared.spacing(.small)) {
+                    
+                    TextField("Hour (0-23)", text: self.$viewModel.anchorHourText)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .keyboardType(.numberPad)
+                        .padding(8)
+                        .frame(height: 50)
+                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    
+                    TextField("Minute (0-59)", text: self.$viewModel.anchorMinuteText)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .keyboardType(.numberPad)
+                        .padding(8)
+                        .frame(height: 50)
+                        .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    
+                }
+                
+            }
+            
+            Text(self.viewModel.schedulePreviewText)
+                .appFont(with: .TITLE_5)
+                .foregroundStyle(Style.shared.textColor(.body).source())
+            
+            if !self.viewModel.nextOccurrencesPreviewText.isEmpty {
+                
+                Text(self.viewModel.nextOccurrencesPreviewText)
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
+            
+            CommonButton(
+                title: "Schedule Notification",
+                titleColor: Style.shared.textColor(.button),
+                icon: .systemImage("clock.badge.fill"),
+                isEnabled: self.viewModel.isScheduleValid,
+                action: {
+                    self.viewModel.scheduleNotification()
+                }
+            )
+            
+            WStack {
+                
+                TokenView(
+                    text: "Refresh Lists",
+                    foregroundStyle: Style.shared.textColor(.button),
+                    backgroundStyle: .color(.indigo)
+                )
+                .asButton {
+                    self.viewModel.refreshNotifications()
+                }
+                
+                TokenView(
+                    text: "Clear Planned",
+                    foregroundStyle: Style.shared.textColor(.button),
+                    backgroundStyle: .color(.orange)
+                )
+                .asButton {
+                    self.viewModel.clearPlannedNotifications()
+                }
+                
+                TokenView(
+                    text: "Clear Incoming",
+                    foregroundStyle: Style.shared.textColor(.button),
+                    backgroundStyle: .color(.pink)
+                )
+                .asButton {
+                    self.viewModel.clearIncomingNotifications()
+                }
+                
+                TokenView(
+                    text: "Clear All",
+                    foregroundStyle: Style.shared.textColor(.button),
+                    backgroundStyle: .color(.red)
+                )
+                .asButton {
+                    self.viewModel.clearAllNotifications()
+                }
+                
+            }
+            
         }
+        
+    }
+    
+    private func closeAllDropdowns() {
+        
+        self.isModeDropdownPresented = false
+        self.isPatternDropdownPresented = false
+        self.isTimeSpanDropdownPresented = false
+        self.isCadenceDropdownPresented = false
+        self.isWeekdayDropdownPresented = false
         
     }
     
@@ -283,7 +396,7 @@ struct DevLocalNotificationsScreen: GPView {
         VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
             
             Text(title)
-                .appFont(with: .HEADER_4)
+                .appFont(with: .HEADER_2)
                 .foregroundStyle(Style.shared.textColor(.title).source())
             
             Divider()

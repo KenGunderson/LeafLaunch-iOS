@@ -153,6 +153,15 @@
 		7577A1572F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */; };
 		7577A1592F7F943300A9DB6A /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1582F7F943300A9DB6A /* LocalNotification.swift */; };
 		7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */; };
+		A1B2C3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */; };
+		A1B2C3022F80000100AAA001 /* LocalNotificationWeekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3022F80000100AAA001 /* LocalNotificationWeekday.swift */; };
+		A1B2C3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */; };
+		A1B2C3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift */; };
+		A1B2C3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift */; };
+		A1B2C3062F80000100AAA001 /* LocalNotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3062F80000100AAA001 /* LocalNotificationPayload.swift */; };
+		A1B2C3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift */; };
+		A1B2C3082F80000100AAA001 /* NotificationPayloadOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3082F80000100AAA001 /* NotificationPayloadOrigin.swift */; };
+		A1B2C3092F80000100AAA001 /* NotificationPayloadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3092F80000100AAA001 /* NotificationPayloadRouter.swift */; };
 		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
@@ -363,6 +372,15 @@
 		7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationServiceProtocol.swift; sourceTree = "<group>"; };
 		7577A1582F7F943300A9DB6A /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
+		A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceCadence.swift; sourceTree = "<group>"; };
+		A1B2D3022F80000100AAA001 /* LocalNotificationWeekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationWeekday.swift; sourceTree = "<group>"; };
+		A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceRule.swift; sourceTree = "<group>"; };
+		A1B2D3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationSchedulePattern.swift; sourceTree = "<group>"; };
+		A1B2D3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationScheduleStrategy.swift; sourceTree = "<group>"; };
+		A1B2D3062F80000100AAA001 /* LocalNotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationPayload.swift; sourceTree = "<group>"; };
+		A1B2D3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceCalculator.swift; sourceTree = "<group>"; };
+		A1B2D3082F80000100AAA001 /* NotificationPayloadOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayloadOrigin.swift; sourceTree = "<group>"; };
+		A1B2D3092F80000100AAA001 /* NotificationPayloadRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayloadRouter.swift; sourceTree = "<group>"; };
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
@@ -562,6 +580,12 @@
 			isa = PBXGroup;
 			children = (
 				7577A1582F7F943300A9DB6A /* LocalNotification.swift */,
+				A1B2D3062F80000100AAA001 /* LocalNotificationPayload.swift */,
+				A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */,
+				A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */,
+				A1B2D3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift */,
+				A1B2D3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift */,
+				A1B2D3022F80000100AAA001 /* LocalNotificationWeekday.swift */,
 				7515DB8F2ECBEB3E00921AE9 /* AppEnvironment.swift */,
 				7515DB902ECBEB3E00921AE9 /* AppError.swift */,
 				7515DB912ECBEB3E00921AE9 /* AppNumberFormatter.swift */,
@@ -820,6 +844,8 @@
 		7537F4122DF661EA0031D9CF /* PushNotification */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2D3082F80000100AAA001 /* NotificationPayloadOrigin.swift */,
+				A1B2D3092F80000100AAA001 /* NotificationPayloadRouter.swift */,
 				7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */,
 				7537F4112DF661EA0031D9CF /* PushNotificationService.swift */,
 			);
@@ -1167,6 +1193,7 @@
 		7577A1552F7F940300A9DB6A /* LocalNotification */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2D3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift */,
 				7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */,
 				7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */,
 			);
@@ -1594,6 +1621,12 @@
 				7515DBB32ECBEB3E00921AE9 /* AppNumberFormatter.swift in Sources */,
 				75B70AB32F0CA0C10054E8C7 /* Tab.swift in Sources */,
 				7515DBB42ECBEB3E00921AE9 /* PushNotification.swift in Sources */,
+				A1B2C3062F80000100AAA001 /* LocalNotificationPayload.swift in Sources */,
+				A1B2C3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift in Sources */,
+				A1B2C3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift in Sources */,
+				A1B2C3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift in Sources */,
+				A1B2C3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift in Sources */,
+				A1B2C3022F80000100AAA001 /* LocalNotificationWeekday.swift in Sources */,
 				7515DBB52ECBEB3E00921AE9 /* Query.swift in Sources */,
 				7515DBB62ECBEB3E00921AE9 /* Trackable.swift in Sources */,
 				7515DBB72ECBEB3E00921AE9 /* ViewModel.swift in Sources */,
@@ -1611,6 +1644,8 @@
 				75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
 				7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */,
 				7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */,
+				A1B2C3082F80000100AAA001 /* NotificationPayloadOrigin.swift in Sources */,
+				A1B2C3092F80000100AAA001 /* NotificationPayloadRouter.swift in Sources */,
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
@@ -1651,6 +1686,7 @@
 				753EC1EB2DB8C4E800265B2A /* MockAssembler.swift in Sources */,
 				75573ABF2DD82CE100C7CA6E /* WelcomeViewModel.swift in Sources */,
 				7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */,
+				A1B2C3072F80000100AAA001 /* LocalNotificationRecurrenceCalculator.swift in Sources */,
 				753EC1EC2DB8C4E800265B2A /* ServiceAssembly.swift in Sources */,
 				75C682A32E4B82E400C1E1D9 /* NavBarButton.swift in Sources */,
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
