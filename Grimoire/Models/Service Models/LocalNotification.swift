@@ -27,6 +27,8 @@ enum LocalNotificationTimeSpan: String, CaseIterable, Hashable, Sendable {
     case hour
     case day
     case week
+    case month
+    case year
     
     var displayName: String {
         switch self {
@@ -34,6 +36,8 @@ enum LocalNotificationTimeSpan: String, CaseIterable, Hashable, Sendable {
         case .hour: return "Hour"
         case .day: return "Day"
         case .week: return "Week"
+        case .month: return "Month"
+        case .year: return "Year"
         }
     }
     
@@ -47,6 +51,8 @@ enum LocalNotificationTimeSpan: String, CaseIterable, Hashable, Sendable {
         case .hour: return 3600
         case .day: return 86_400
         case .week: return 604_800
+        case .month: return 2_592_000
+        case .year: return 31_536_000
         }
     }
     
@@ -59,6 +65,25 @@ struct LocalNotificationScheduleRequest: Sendable {
     let mode: LocalNotificationScheduleMode
     let title: String
     let body: String
+    let metadata: [String: String]
+    
+    init(
+        incrementalNumber: Int,
+        timeSpan: LocalNotificationTimeSpan,
+        mode: LocalNotificationScheduleMode,
+        title: String,
+        body: String,
+        metadata: [String: String] = [:]
+    ) {
+        
+        self.incrementalNumber = incrementalNumber
+        self.timeSpan = timeSpan
+        self.mode = mode
+        self.title = title
+        self.body = body
+        self.metadata = metadata
+        
+    }
     
     var intervalSeconds: TimeInterval {
         return Double(self.incrementalNumber) * self.timeSpan.secondsPerUnit

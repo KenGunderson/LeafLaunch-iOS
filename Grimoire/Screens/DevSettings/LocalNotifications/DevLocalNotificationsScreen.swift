@@ -10,6 +10,8 @@ import SwiftUI
 struct DevLocalNotificationsScreen: GPView {
     
     @StateObject var viewModel: DevLocalNotificationsViewModel
+    @State private var isModeDropdownPresented: Bool = false
+    @State private var isTimeSpanDropdownPresented: Bool = false
     @Environment(NavigationService.self) private var navigationService
     
     var body: some View {
@@ -127,13 +129,25 @@ struct DevLocalNotificationsScreen: GPView {
                     .appFont(with: .TITLE_4)
                     .foregroundStyle(Style.shared.textColor(.title).source())
                 
-                CommonSegmentedControl(
-                    selectedOption: self.$viewModel.selectedModeString,
+                CommonDropDownMenu(
                     options: self.viewModel.allModeOptions,
-                    selectedTextColor: Style.shared.textColor(.titleInverted)
+                    backgroundStyle: .color(.minimumOpacity),
+                    shadow: .none,
+                    textHorizontalPadding: .small,
+                    animation: .spring,
+                    selectedOption: self.$viewModel.selectedModeString,
+                    showDropDown: self.$isModeDropdownPresented
                 )
+                .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                .onChange(of: self.isModeDropdownPresented) { _, isPresented in
+                    
+                    if isPresented {
+                        self.isTimeSpanDropdownPresented = false
+                    }
+                    
+                }
                 
-                VStack {
+                VStack(spacing: Style.shared.spacing(.small)) {
                     
                     TextField("Incremental Number", text: self.$viewModel.incrementalNumberText)
                         .appFont(with: .TITLE_3)
@@ -145,11 +159,23 @@ struct DevLocalNotificationsScreen: GPView {
                                 .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
                         }
                     
-                    CommonSegmentedControl(
-                        selectedOption: self.$viewModel.selectedTimeSpanString,
+                    CommonDropDownMenu(
                         options: self.viewModel.allTimeSpanOptions,
-                        selectedTextColor: Style.shared.textColor(.titleInverted)
+                        backgroundStyle: .color(.minimumOpacity),
+                        shadow: .none,
+                        textHorizontalPadding: .small,
+                        animation: .spring,
+                        selectedOption: self.$viewModel.selectedTimeSpanString,
+                        showDropDown: self.$isTimeSpanDropdownPresented
                     )
+                    .appBorder(cornerRadius: .small, lineWidth: 1.5)
+                    .onChange(of: self.isTimeSpanDropdownPresented) { _, isPresented in
+                        
+                        if isPresented {
+                            self.isModeDropdownPresented = false
+                        }
+                        
+                    }
                     
                 }
                 
@@ -336,15 +362,6 @@ struct DevLocalNotificationsScreen: GPView {
         }
         
     }
-    
-}
-
-#Preview {
-    
-    DevSettingsScreen(
-        viewModel: mockResolve(DevSettingsViewModel.self)
-    )
-    .withMockServices(withNaivgationService: false)
     
 }
 

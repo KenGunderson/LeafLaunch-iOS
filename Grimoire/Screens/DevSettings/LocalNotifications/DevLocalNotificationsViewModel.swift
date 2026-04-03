@@ -214,7 +214,11 @@ final class DevLocalNotificationsViewModel: ViewModel {
             timeSpan: timeSpan,
             mode: mode,
             title: title,
-            body: body
+            body: body,
+            metadata: [
+                "scheduled_by": "dev_local_notifications",
+                "screen": "dev_settings_local_notifications"
+            ]
         )
         
         self.scheduleTask?.cancel()

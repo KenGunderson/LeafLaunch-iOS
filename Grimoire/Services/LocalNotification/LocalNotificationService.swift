@@ -5,8 +5,6 @@
 //  Created by Sako Hovaguimian on 4/2/26.
 //
 
-// TODO: - PASS METADATA DICT to content info
-
 import Combine
 @preconcurrency import UserNotifications
 import UIKit
@@ -124,23 +122,21 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
         value: \(request.incrementalNumber)
         """)
         
+        let identifier = "local.notification.\(UUID().uuidString)"
+        
         let content = UNMutableNotificationContent()
         content.title = request.title
         content.body = request.body
         content.sound = .default
-        content.userInfo = [
-            "source": "local_notification_service",
-            "mode": request.mode.rawValue,
-            "incremental_number": request.incrementalNumber,
-            "time_span": request.timeSpan.rawValue
-        ]
+        content.userInfo = self.userInfo(
+            for: request,
+            identifier: identifier
+        )
         
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: request.triggerIntervalSeconds,
             repeats: request.mode == .recurring
         )
-        
-        let identifier = "local.notification.\(UUID().uuidString)"
         
         let localRequest = UNNotificationRequest(
             identifier: identifier,
@@ -187,7 +183,7 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
                 
                 let formatted = triggerDate.preciseFutureRelativeString(
                     unitStyle: .full,
-                    allowedUnites: [.minute, .hour, .day, .weekOfMonth],
+                    allowedUnites: [.minute, .hour, .day, .weekOfMonth, .month, .year],
                     maximumUnitCount: 2
                 )
                 
@@ -244,7 +240,7 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
                 
                 let formatted = incomingDate.preciseRelativeString(
                     unitStyle: .full,
-                    allowedUnites: [.minute, .hour, .day, .weekOfMonth],
+                    allowedUnites: [.minute, .hour, .day, .weekOfMonth, .month, .year],
                     maximumUnitCount: 2
                 )
                 
@@ -344,6 +340,37 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
         }
         
         return nil
+        
+    }
+    
+    private func userInfo(
+        for request: LocalNotificationScheduleRequest,
+        identifier: String
+    ) -> [AnyHashable: Any] {
+        
+        var userInfo: [AnyHashable: Any] = [
+            "source": "local_notification_service",
+            "notification_id": identifier,
+            "mode": request.mode.rawValue,
+            "incremental_number": request.incrementalNumber,
+            "time_span": request.timeSpan.rawValue,
+            "interval_seconds": request.intervalSeconds,
+            "trigger_interval_seconds": request.triggerIntervalSeconds,
+            "is_recurring": request.mode == .recurring,
+            "scheduled_at_unix": Date().timeIntervalSince1970
+        ]
+        
+        if !request.metadata.isEmpty {
+            
+            userInfo["metadata"] = request.metadata
+            
+            request.metadata.forEach { key, value in
+                userInfo["metadata.\(key)"] = value
+            }
+            
+        }
+        
+        return userInfo
         
     }
     
