@@ -538,6 +538,8 @@ final class MockLocalNotificationService: LocalNotificationServiceProtocol, @unc
         return []
     }
     
+    func removeScheduledNotification(identifiers: [String]) {}
+    
     func clearPlannedNotifications() {}
     func clearIncomingNotifications() {}
     func clearAllNotifications() {}

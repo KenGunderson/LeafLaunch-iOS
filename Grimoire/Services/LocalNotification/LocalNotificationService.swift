@@ -354,6 +354,18 @@ final class LocalNotificationService: LocalNotificationServiceProtocol {
         
     }
     
+    func removeScheduledNotification(identifiers: [String]) {
+        
+        self.log(message: "Removing scheduled notifications: \(identifiers.joined(separator: ","))")
+        
+        self.notificationCenter
+            .removePendingNotificationRequests(withIdentifiers: identifiers)
+        
+        self.notificationCenter
+            .removeDeliveredNotifications(withIdentifiers: identifiers)
+        
+    }
+    
     func clearPlannedNotifications() {
         
         self.notificationCenter.removeAllPendingNotificationRequests()

@@ -28,6 +28,8 @@ protocol LocalNotificationServiceProtocol: AnyObject, Loggable {
     func getPlannedNotifications() async -> [LocalNotificationSnapshotItem]
     func getIncomingNotifications() async -> [LocalNotificationSnapshotItem]
     
+    func removeScheduledNotification(identifiers: [String])
+    
     func clearPlannedNotifications()
     func clearIncomingNotifications()
     func clearAllNotifications()
