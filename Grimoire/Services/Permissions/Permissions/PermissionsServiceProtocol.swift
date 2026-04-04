@@ -16,6 +16,8 @@ protocol PermissionsServiceProtocol: AnyObject, Loggable {
     var mediaPermissionService: MediaPermissionServiceProtocol { get }
     var pushNotificationPermissionService: PushNotificationPermissionServiceProtocol { get }
     var appTrackingPermissionService: AppTrackingPermissionServiceProtocol { get }
+    var microphonePermissionService: MicrophonePermissionServiceProtocol { get }
+    var speechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol { get }
     
     func validatePermissions()
     func requestPermission(_ permission: Permission)

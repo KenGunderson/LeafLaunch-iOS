@@ -63,6 +63,24 @@ struct OnboardingPermissionsScreen: GPView {
                         self.viewModel.requestTrackingPermissionIfNeeded()
                     }
 
+                // Microphone
+
+                permissionView(
+                    title: "Microphone",
+                    icon: "mic.fill",
+                    isEnabled: self.viewModel.microphonePermission.shouldPromptForPermissions ? nil : self.viewModel.microphonePermission.permissionGranted) {
+                        self.viewModel.requestMicrophonePermissionIfNeeded()
+                    }
+
+                // Speech Recognition
+
+                permissionView(
+                    title: "Speech Recognition",
+                    icon: "waveform.and.mic",
+                    isEnabled: self.viewModel.speechRecognitionPermission.shouldPromptForPermissions ? nil : self.viewModel.speechRecognitionPermission.permissionGranted) {
+                        self.viewModel.requestSpeechRecognitionPermissionIfNeeded()
+                    }
+
                 AttributedText {
 
                     Text("Need to update your permissions? You can always update your permissions by navigating to settings and tapping ")

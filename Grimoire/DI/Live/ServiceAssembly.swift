@@ -155,6 +155,24 @@ extension Container {
         }
         .singleton
     }
+
+    // MICROPHONE PERMISSION
+
+    var microphonePermissionService: Factory<MicrophonePermissionServiceProtocol> {
+        self { @MainActor in
+            MicrophonePermissionService()
+        }
+        .singleton
+    }
+
+    // SPEECH RECOGNITION PERMISSION
+
+    var speechRecognitionPermissionService: Factory<SpeechRecognitionPermissionServiceProtocol> {
+        self { @MainActor in
+            SpeechRecognitionPermissionService()
+        }
+        .singleton
+    }
     
     // VIEW LIFECYCLE
     
@@ -173,7 +191,21 @@ extension Container {
                 cameraPermissionService: self.cameraPermissionService(),
                 mediaPermissionService: self.mediaPermissionService(),
                 pushNotificationPermissionService: self.pushNotificationPermissionService(),
-                appTrackingPermissionService: self.appTrackingPermissionService()
+                appTrackingPermissionService: self.appTrackingPermissionService(),
+                microphonePermissionService: self.microphonePermissionService(),
+                speechRecognitionPermissionService: self.speechRecognitionPermissionService()
+            )
+        }
+        .singleton
+    }
+
+    // VOICE TRANSCRIPTION
+
+    var voiceTranscriptionService: Factory<VoiceTranscriptionServiceProtocol> {
+        self { @MainActor in
+            VoiceTranscriptionService(
+                microphonePermissionService: self.microphonePermissionService(),
+                speechRecognitionPermissionService: self.speechRecognitionPermissionService()
             )
         }
         .singleton

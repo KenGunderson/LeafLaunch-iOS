@@ -101,6 +101,7 @@ enum Route: Navigation, Hashable, Sendable {
         case analytics
         case impersonate
         case localNotifications
+        case voice
         
         var displayName: String {
             switch self {
@@ -110,6 +111,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return "Analytics"
             case .impersonate: return "Impersonate"
             case .localNotifications: return "Local Notifications"
+            case .voice: return "Voice"
             }
         }
         
@@ -121,6 +123,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return "chart.line.uptrend.xyaxis"
             case .impersonate: return "person.crop.square.filled.and.at.rectangle.fill"
             case .localNotifications: return "bell.badge.fill"
+            case .voice: return "waveform.and.mic"
             }
         }
         
@@ -132,6 +135,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return .devSetting(.analytics)
             case .impersonate: return .devSetting(.impersonate)
             case .localNotifications: return .devSetting(.localNotifications)
+            case .voice: return .devSetting(.voice)
             }
         }
         

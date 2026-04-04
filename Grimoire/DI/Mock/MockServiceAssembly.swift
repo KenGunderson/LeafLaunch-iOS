@@ -454,6 +454,81 @@ final class MockMediaPermissionService: MediaPermissionServiceProtocol, @uncheck
     
 }
 
+// MARK: - MicrophonePermissionServiceProtocol
+
+final class MockMicrophonePermissionService: MicrophonePermissionServiceProtocol, @unchecked Sendable {
+    
+    internal let loggerName: String = "MICROPHONE_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🎙️"
+    
+    var permissionGranted: Bool = false
+    var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    var shouldPromptForPermissions: Bool = false
+    var shouldPromptForPermissionsPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    
+    func requestPermissionIfNeeded() {}
+    func requestPermission() {}
+    
+}
+
+// MARK: - SpeechRecognitionPermissionServiceProtocol
+
+final class MockSpeechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol, @unchecked Sendable {
+    
+    internal let loggerName: String = "SPEECH_RECOGNITION_PERMISSION_SERVICE"
+    internal let loggerEmoji: String = "🗣️"
+    
+    var permissionGranted: Bool = false
+    var permissionGrantedPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    var shouldPromptForPermissions: Bool = false
+    var shouldPromptForPermissionsPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    
+    func requestPermissionIfNeeded() {}
+    func requestPermission() {}
+    
+}
+
+// MARK: - VoiceTranscriptionServiceProtocol
+
+final class MockVoiceTranscriptionService: VoiceTranscriptionServiceProtocol, @unchecked Sendable {
+    
+    internal let loggerName: String = "VOICE_TRANSCRIPTION_SERVICE"
+    internal let loggerEmoji: String = "🎤"
+    
+    var isRecording: Bool = false
+    var isRecordingPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    
+    var isTranscribing: Bool = false
+    var isTranscribingPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+    
+    var partialTranscript: String = ""
+    var partialTranscriptPublisher = CurrentValueSubject<String, Never>("").eraseToAnyPublisher()
+    
+    var finalTranscript: String = ""
+    var finalTranscriptPublisher = CurrentValueSubject<String, Never>("").eraseToAnyPublisher()
+    
+    var lastRecordingURL: URL? = nil
+    var lastRecordingURLPublisher = CurrentValueSubject<URL?, Never>(nil).eraseToAnyPublisher()
+    
+    var error: VoiceTranscriptionError? = nil
+    var errorPublisher = CurrentValueSubject<VoiceTranscriptionError?, Never>(nil).eraseToAnyPublisher()
+    
+    var tempRecordings: [VoiceRecordingFile] = []
+    var tempRecordingsPublisher = CurrentValueSubject<[VoiceRecordingFile], Never>([]).eraseToAnyPublisher()
+    
+    func startRecording() throws {}
+    func stopRecording() throws {}
+    func clearCurrentSession() {}
+    
+    func listTempRecordings() -> [VoiceRecordingFile] {
+        return self.tempRecordings
+    }
+    
+    func deleteTempFile(at url: URL) throws {}
+    func deleteAllTempFiles() throws {}
+    
+}
+
 // MARK: - PermissionsServiceProtocol
 
 final class MockPermissionsService: PermissionsServiceProtocol, @unchecked Sendable {
@@ -468,6 +543,8 @@ final class MockPermissionsService: PermissionsServiceProtocol, @unchecked Senda
     var mediaPermissionService: MediaPermissionServiceProtocol = MockMediaPermissionService()
     var pushNotificationPermissionService: PushNotificationPermissionServiceProtocol = MockPushNotificationPermissionService()
     var appTrackingPermissionService: AppTrackingPermissionServiceProtocol = MockAppTrackingPermissionService()
+    var microphonePermissionService: MicrophonePermissionServiceProtocol = MockMicrophonePermissionService()
+    var speechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol = MockSpeechRecognitionPermissionService()
     
     func validatePermissions() {}
     func requestPermission(_ permission: Permission) {}
@@ -630,8 +707,11 @@ final class MockServiceAssembly {
         container.mediaPermissionService.register { @MainActor in MockMediaPermissionService() }
         container.pushNotificationPermissionService.register { @MainActor in MockPushNotificationPermissionService() }
         container.appTrackingPermissionService.register { @MainActor in MockAppTrackingPermissionService() }
+        container.microphonePermissionService.register { @MainActor in MockMicrophonePermissionService() }
+        container.speechRecognitionPermissionService.register { @MainActor in MockSpeechRecognitionPermissionService() }
         container.viewLifecycleService.register { @MainActor in MockViewLifecycleService() }
         container.permissionsService.register { @MainActor in MockPermissionsService() }
+        container.voiceTranscriptionService.register { @MainActor in MockVoiceTranscriptionService() }
         container.apiService.register { @MainActor in MockAPIService() }
         container.authService.register { @MainActor in MockAuthService() }
         container.impersonateService.register { @MainActor in MockImpersonateService() }

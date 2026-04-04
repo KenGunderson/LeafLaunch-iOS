@@ -13,6 +13,8 @@ enum Permission: String, CaseIterable {
     case media
     case pushNotification
     case appTracking
+    case microphone
+    case speechRecognition
     
     var displayName: String {
         switch self {
@@ -20,6 +22,8 @@ enum Permission: String, CaseIterable {
         case .media: return "Media"
         case .pushNotification: return "Push Notification"
         case .appTracking: return "Analytics"
+        case .microphone: return "Microphone"
+        case .speechRecognition: return "Speech Recognition"
         }
     }
     
@@ -34,6 +38,8 @@ final class PermissionsService: PermissionsServiceProtocol {
     internal let mediaPermissionService: MediaPermissionServiceProtocol
     internal let pushNotificationPermissionService: PushNotificationPermissionServiceProtocol
     internal let appTrackingPermissionService: AppTrackingPermissionServiceProtocol
+    internal let microphonePermissionService: MicrophonePermissionServiceProtocol
+    internal let speechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol
        
     @Published private(set) var shouldShowPermissionView: Bool = false
     var shouldShowPermissionViewPublisher: AnyPublisher<Bool, Never> {
@@ -45,12 +51,16 @@ final class PermissionsService: PermissionsServiceProtocol {
     init(cameraPermissionService: CameraPermissionServiceProtocol,
          mediaPermissionService: MediaPermissionServiceProtocol,
          pushNotificationPermissionService: PushNotificationPermissionServiceProtocol,
-         appTrackingPermissionService: AppTrackingPermissionServiceProtocol) {
+         appTrackingPermissionService: AppTrackingPermissionServiceProtocol,
+         microphonePermissionService: MicrophonePermissionServiceProtocol,
+         speechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol) {
         
         self.cameraPermissionService = cameraPermissionService
         self.mediaPermissionService = mediaPermissionService
         self.pushNotificationPermissionService = pushNotificationPermissionService
         self.appTrackingPermissionService = appTrackingPermissionService
+        self.microphonePermissionService = microphonePermissionService
+        self.speechRecognitionPermissionService = speechRecognitionPermissionService
         
         self.logInit()
         
@@ -98,6 +108,22 @@ final class PermissionsService: PermissionsServiceProtocol {
                 self?.validatePermissions()
             }
             .store(in: &self.cancelBag)
+
+        self.microphonePermissionService
+            .shouldPromptForPermissionsPublisher
+            .receiveOnMain()
+            .sink { [weak self] _ in
+                self?.validatePermissions()
+            }
+            .store(in: &self.cancelBag)
+
+        self.speechRecognitionPermissionService
+            .shouldPromptForPermissionsPublisher
+            .receiveOnMain()
+            .sink { [weak self] _ in
+                self?.validatePermissions()
+            }
+            .store(in: &self.cancelBag)
         
     }
     
@@ -106,7 +132,9 @@ final class PermissionsService: PermissionsServiceProtocol {
         if (!self.cameraPermissionService.shouldPromptForPermissions &&
             !self.mediaPermissionService.shouldPromptForPermissions &&
             !self.pushNotificationPermissionService.shouldPromptForPermissions &&
-            !self.appTrackingPermissionService.shouldPromptForPermissions) {
+            !self.appTrackingPermissionService.shouldPromptForPermissions &&
+            !self.microphonePermissionService.shouldPromptForPermissions &&
+            !self.speechRecognitionPermissionService.shouldPromptForPermissions) {
             
             if self.shouldShowPermissionView {
                 
@@ -128,6 +156,8 @@ final class PermissionsService: PermissionsServiceProtocol {
         case .media: self.mediaPermissionService.requestPermission()
         case .pushNotification: self.pushNotificationPermissionService.requestPermission()
         case .appTracking: self.appTrackingPermissionService.requestPermission()
+        case .microphone: self.microphonePermissionService.requestPermission()
+        case .speechRecognition: self.speechRecognitionPermissionService.requestPermission()
         }
         
     }
@@ -145,6 +175,12 @@ final class PermissionsService: PermissionsServiceProtocol {
         }
         else if appTrackingPermissionService.shouldPromptForPermissions {
             self.appTrackingPermissionService.requestPermissionIfNeeded()
+        }
+        else if microphonePermissionService.shouldPromptForPermissions {
+            self.microphonePermissionService.requestPermissionIfNeeded()
+        }
+        else if speechRecognitionPermissionService.shouldPromptForPermissions {
+            self.speechRecognitionPermissionService.requestPermissionIfNeeded()
         }
         
     }

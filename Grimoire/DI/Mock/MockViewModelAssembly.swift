@@ -277,6 +277,20 @@ class MockViewModelAssembly {
             )
         }
 
+        // DevSettings - Voice
+
+        container.devVoiceViewModel.register { @MainActor in
+            DevVoiceViewModel(
+                analyticsService: container.analyticsService(),
+                authService: container.authService(),
+                viewLifecycleService: container.viewLifecycleService(),
+                environmentService: container.environmentService(),
+                voiceTranscriptionService: container.voiceTranscriptionService(),
+                microphonePermissionService: container.microphonePermissionService(),
+                speechRecognitionPermissionService: container.speechRecognitionPermissionService()
+            )
+        }
+
     }
     
 }

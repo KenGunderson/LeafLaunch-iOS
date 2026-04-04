@@ -389,5 +389,22 @@ extension Container {
             )
         }
     }
+
+    // DevSettings - Voice
+
+    @MainActor
+    var devVoiceViewModel: Factory<DevVoiceViewModel> {
+        self { @MainActor in
+            DevVoiceViewModel(
+                analyticsService: self.analyticsService(),
+                authService: self.authService(),
+                viewLifecycleService: self.viewLifecycleService(),
+                environmentService: self.environmentService(),
+                voiceTranscriptionService: self.voiceTranscriptionService(),
+                microphonePermissionService: self.microphonePermissionService(),
+                speechRecognitionPermissionService: self.speechRecognitionPermissionService()
+            )
+        }
+    }
     
 }

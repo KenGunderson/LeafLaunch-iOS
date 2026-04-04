@@ -35,6 +35,14 @@ final class OnboardingPermissionsViewModel: ViewModel {
         return self.permissionService.appTrackingPermissionService
     }
 
+    var microphonePermission: MicrophonePermissionServiceProtocol {
+        return self.permissionService.microphonePermissionService
+    }
+
+    var speechRecognitionPermission: SpeechRecognitionPermissionServiceProtocol {
+        return self.permissionService.speechRecognitionPermissionService
+    }
+
     private var cancelBag: CancelBag!
 
     init(analyticsService: AnalyticsServiceProtocol,
@@ -102,6 +110,24 @@ final class OnboardingPermissionsViewModel: ViewModel {
           }
           .store(in: &cancelBag)
 
+        permissionService
+          .microphonePermissionService
+          .permissionGrantedPublisher
+          .receiveOnMain()
+          .sink { [weak self] _ in
+              self?.count += 1
+          }
+          .store(in: &cancelBag)
+
+        permissionService
+          .speechRecognitionPermissionService
+          .permissionGrantedPublisher
+          .receiveOnMain()
+          .sink { [weak self] _ in
+              self?.count += 1
+          }
+          .store(in: &cancelBag)
+
     }
     
     func requestCameraPermissionIfNeeded() {
@@ -129,6 +155,20 @@ final class OnboardingPermissionsViewModel: ViewModel {
         
         self.log(message: "Onboarding analytics permission tapped")
         self.permissionService.appTrackingPermissionService.requestPermissionIfNeeded()
+        
+    }
+
+    func requestMicrophonePermissionIfNeeded() {
+        
+        self.log(message: "Onboarding microphone permission tapped")
+        self.permissionService.microphonePermissionService.requestPermissionIfNeeded()
+        
+    }
+
+    func requestSpeechRecognitionPermissionIfNeeded() {
+        
+        self.log(message: "Onboarding speech recognition permission tapped")
+        self.permissionService.speechRecognitionPermissionService.requestPermissionIfNeeded()
         
     }
 

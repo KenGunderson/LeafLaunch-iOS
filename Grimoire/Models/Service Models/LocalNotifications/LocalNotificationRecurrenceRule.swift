@@ -2,7 +2,7 @@
 //  LocalNotificationRecurrenceRule.swift
 //  Grimoire
 //
-//  Created by Codex on 4/3/26.
+//  Created by Sako Hovaguimian on 4/3/26.
 //
 
 import Foundation

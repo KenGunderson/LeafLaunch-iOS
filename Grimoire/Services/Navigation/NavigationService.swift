@@ -294,6 +294,13 @@ extension View {
                 
                 DevLocalNotificationsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
+
+            case .voice:
+                
+                let viewModel = Container.shared.devVoiceViewModel()
+                
+                DevVoiceScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
             }
             
         }
