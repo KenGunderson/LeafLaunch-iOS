@@ -167,6 +167,8 @@ extension View {
             view.environment(NavigationService())
         }
         .withWindowToastOverlay()
+        .withWindowTooltipOverlay()
+        .withWindowDynamicIslandService()
         .environment(TabBarNavigationService())
         
     }
