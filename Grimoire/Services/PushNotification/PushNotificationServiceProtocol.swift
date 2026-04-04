@@ -10,11 +10,13 @@ import Combine
 import UIKit
 
 protocol PushNotificationServiceProtocol: AnyObject, Loggable {
-        
+    
     func parsePushNotification(_ pushNotification: UNNotification?,
                                isTapped: Bool)
+    
     func parseRemoteNotification(_ pushNotification: UNNotification,
                                  isTapped: Bool)
+    
     func parseLocalNotification(_ pushNotification: UNNotification,
                                 isTapped: Bool)
     

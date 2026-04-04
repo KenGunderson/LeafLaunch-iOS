@@ -157,10 +157,8 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     private func handleNavigationForRemoteNotification(_ notification: PushNotification) {
         
         switch notification.type {
-        case .test:
-            print("TEST PUSH")
-        case .generic:
-            print("THIS IS A GENERIC PUSH")
+        case .test: print("TEST PUSH")
+        case .generic: print("THIS IS A GENERIC PUSH")
         }
         
     }
