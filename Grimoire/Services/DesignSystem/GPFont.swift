@@ -56,7 +56,7 @@ extension UIFont {
 }
 
 extension Theme.Fonts {
-
+    
     static var sfDisplay: Theme.Fonts {
         Theme.Fonts(
             BILLBOARD_1: .sfDisplay(size: 48, weight: .bold),
@@ -64,13 +64,13 @@ extension Theme.Fonts {
             BILLBOARD_3: .sfDisplay(size: 64, weight: .bold),
             BILLBOARD_4: .sfDisplay(size: 72, weight: .bold),
             BILLBOARD_5: .sfDisplay(size: 80, weight: .bold),
-
+            
             HEADER_5: .sfDisplay(size: 36, weight: .bold),
             HEADER_4: .sfDisplay(size: 28, weight: .bold),
             HEADER_3: .sfDisplay(size: 22, weight: .bold),
             HEADER_2: .sfDisplay(size: 20, weight: .bold),
             HEADER_1: .sfDisplay(size: 16, weight: .bold),
-
+            
             TITLE_1: .sfDisplay(size: 12, weight: .medium),
             TITLE_2: .sfDisplay(size: 12, weight: .semibold),
             TITLE_3: .sfDisplay(size: 14, weight: .semibold),
@@ -79,18 +79,18 @@ extension Theme.Fonts {
             TITLE_6: .sfDisplay(size: 22, weight: .semibold),
             TITLE_7: .sfDisplay(size: 24, weight: .semibold),
             
-            SUBTITLE_1: .rounded(size: 12, weight: .medium),
-            SUBTITLE_2: .rounded(size: 14, weight: .medium),
-            SUBTITLE_3: .rounded(size: 16, weight: .medium),
-            SUBTITLE_4: .rounded(size: 18, weight: .medium),
-            SUBTITLE_5: .rounded(size: 20, weight: .medium),
-
+            SUBTITLE_1: .sfDisplay(size: 12, weight: .medium),
+            SUBTITLE_2: .sfDisplay(size: 14, weight: .medium),
+            SUBTITLE_3: .sfDisplay(size: 16, weight: .medium),
+            SUBTITLE_4: .sfDisplay(size: 18, weight: .medium),
+            SUBTITLE_5: .sfDisplay(size: 20, weight: .medium),
+            
             BODY_1: .sfDisplay(size: 12, weight: .regular),
             BODY_2: .sfDisplay(size: 14, weight: .regular),
             BODY_3: .sfDisplay(size: 16, weight: .regular),
             BODY_4: .sfDisplay(size: 18, weight: .regular),
             BODY_5: .sfDisplay(size: 20, weight: .regular),
-
+            
             NOTE_1: .sfDisplay(size: 10, weight: .regular),
             NOTE_2: .sfDisplay(size: 10, weight: .ultraLight),
             NOTE_3: .sfDisplay(size: 12, weight: .ultraLight),
