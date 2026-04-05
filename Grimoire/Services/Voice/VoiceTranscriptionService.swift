@@ -60,6 +60,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recordingFile: AVAudioFile?
+    private var latestRecognizedTranscript: String = ""
     
     private var recordingDirectoryURL: URL {
         return self.fileManager
@@ -139,6 +140,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             self.error = nil
             self.partialTranscript = ""
             self.finalTranscript = ""
+            self.latestRecognizedTranscript = ""
             
             try ensureRecordingDirectoryExists()
             tearDownAudioPipeline()
@@ -217,7 +219,17 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         self.recognitionRequest?.endAudio()
         
         self.isRecording = false
+        self.isTranscribing = false
         self.recordingFile = nil
+        
+        let normalizedSnapshot = self.latestRecognizedTranscript.trimmed()
+        
+        if !normalizedSnapshot.isEmpty {
+            
+            self.finalTranscript = normalizedSnapshot
+            self.partialTranscript = ""
+            
+        }
         
         do {
             try self.audioSession.setActive(false, options: .notifyOthersOnDeactivation)
@@ -244,6 +256,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
         self.partialTranscript = ""
         self.finalTranscript = ""
+        self.latestRecognizedTranscript = ""
         self.lastRecordingURL = nil
         self.error = nil
         self.isTranscribing = false
@@ -401,14 +414,36 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
         if let partialTranscript {
             
-            self.partialTranscript = partialTranscript
+            let normalizedTranscript = partialTranscript.trimmed()
             
-            if isFinal {
+            if !normalizedTranscript.isEmpty {
                 
-                self.finalTranscript = partialTranscript
-                self.isTranscribing = false
-                self.persistTranscriptIfAvailable(for: self.lastRecordingURL)
-                self.refreshTempRecordings()
+                let partialDelta = self.partialDelta(
+                    previousSnapshot: self.latestRecognizedTranscript,
+                    currentSnapshot: normalizedTranscript
+                )
+                
+                if isFinal {
+                    
+                    self.latestRecognizedTranscript = normalizedTranscript
+                    self.finalTranscript = normalizedTranscript
+                    self.partialTranscript = ""
+                    
+                    if !self.isRecording {
+                        
+                        self.isTranscribing = false
+                        self.persistTranscriptIfAvailable(for: self.lastRecordingURL)
+                        self.refreshTempRecordings()
+                        
+                    }
+                    
+                }
+                else {
+                    
+                    self.latestRecognizedTranscript = normalizedTranscript
+                    self.partialTranscript = partialDelta
+                    
+                }
                 
             }
             
@@ -425,6 +460,32 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             self.error = .transcriptionFailed(message: errorMessage)
             
         }
+        
+    }
+    
+    private func partialDelta(previousSnapshot: String,
+                              currentSnapshot: String) -> String {
+        
+        let previous = previousSnapshot.trimmed()
+        let current = currentSnapshot.trimmed()
+        
+        guard !current.isEmpty else {
+            return ""
+        }
+        
+        guard !previous.isEmpty else {
+            return current
+        }
+        
+        guard current != previous else {
+            return ""
+        }
+        
+        if current.hasPrefix(previous) {
+            return String(current.dropFirst(previous.count)).trimmed()
+        }
+        
+        return current
         
     }
     
