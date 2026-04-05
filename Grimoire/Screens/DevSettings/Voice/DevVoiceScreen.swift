@@ -238,7 +238,7 @@ struct DevVoiceScreen: GPView {
                     if !self.viewModel.finalTranscript.trimmed().isEmpty {
                         
                         lineItemView(
-                            title: "Final",
+                            title: "Final Transcript",
                             subtitle: self.viewModel.finalTranscript
                         )
                         .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -249,7 +249,7 @@ struct DevVoiceScreen: GPView {
                         self.viewModel.finalTranscript.trimmed().isEmpty &&
                         self.viewModel.currentError == nil {
                         
-                        Text("No transcript yet. Start recording to stream partial text and finalize on stop.")
+                        Text("No transcript yet. Start recording to stream partial slivers, then finalize one full transcript on stop.")
                             .appFont(with: .TITLE_5)
                             .foregroundStyle(Style.shared.textColor(.body).source())
                             .frame(maxWidth: .infinity, alignment: .leading)

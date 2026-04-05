@@ -306,6 +306,10 @@ final class DevVoiceViewModel: ViewModel {
             .receiveOnMain()
             .sink { [weak self] transcript in
                 self?.finalTranscript = transcript
+                
+                if !transcript.trimmed().isEmpty {
+                    self?.partialTranscript = ""
+                }
             }
             .store(in: &self.cancelBag)
         
@@ -520,7 +524,9 @@ final class DevVoiceViewModel: ViewModel {
             queue: .main
         ) { [weak self] _ in
             
-            self?.stopPlaybackAndResetState()
+            Task { @MainActor [weak self] in
+                self?.stopPlaybackAndResetState()
+            }
             
         }
         
