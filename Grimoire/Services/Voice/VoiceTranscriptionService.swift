@@ -14,10 +14,24 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     internal let loggerName: String = "VOICE_TRANSCRIPTION_SERVICE"
     internal let loggerEmoji: String = "🎤"
     
+    // Recording
+    
     @Published private(set) var isRecording: Bool = false
     var isRecordingPublisher: AnyPublisher<Bool, Never> {
         return self.$isRecording.eraseToAnyPublisher()
     }
+    
+    @Published private(set) var lastRecordingURL: URL?
+    var lastRecordingURLPublisher: AnyPublisher<URL?, Never> {
+        return self.$lastRecordingURL.eraseToAnyPublisher()
+    }
+    
+    @Published private(set) var tempRecordings: [VoiceRecordingFile] = []
+    var tempRecordingsPublisher: AnyPublisher<[VoiceRecordingFile], Never> {
+        return self.$tempRecordings.eraseToAnyPublisher()
+    }
+    
+    // Transcriptions
     
     @Published private(set) var isTranscribing: Bool = false
     var isTranscribingPublisher: AnyPublisher<Bool, Never> {
@@ -34,39 +48,32 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         return self.$finalTranscript.eraseToAnyPublisher()
     }
     
-    @Published private(set) var lastRecordingURL: URL?
-    var lastRecordingURLPublisher: AnyPublisher<URL?, Never> {
-        return self.$lastRecordingURL.eraseToAnyPublisher()
-    }
-    
     @Published private(set) var error: VoiceTranscriptionError?
     var errorPublisher: AnyPublisher<VoiceTranscriptionError?, Never> {
         return self.$error.eraseToAnyPublisher()
     }
     
-    @Published private(set) var tempRecordings: [VoiceRecordingFile] = []
-    var tempRecordingsPublisher: AnyPublisher<[VoiceRecordingFile], Never> {
-        return self.$tempRecordings.eraseToAnyPublisher()
-    }
-    
     private let microphonePermissionService: MicrophonePermissionServiceProtocol
     private let speechRecognitionPermissionService: SpeechRecognitionPermissionServiceProtocol
+    
     private let fileManager: FileManager
     private let audioSession: AVAudioSession
     private let speechLocale: Locale
-    
     private let audioEngine = AVAudioEngine()
     private var speechRecognizer: SFSpeechRecognizer?
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recordingFile: AVAudioFile?
+    
     private var latestRecognitionSnapshot: String = ""
     private var lastRecognitionUpdateAt: Date?
     
     private var recordingDirectoryURL: URL {
+        
         return self.fileManager
             .temporaryDirectory
             .appendingPathComponent("voice-recordings", isDirectory: true)
+        
     }
     
     private let recordingAudioExtensions: Set<String> = ["m4a", "wav", "caf", "mp3", "aac"]
@@ -112,6 +119,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     
     func startRecording() throws {
         
+        // Check permissions and ensure healthy startup
+        
         if self.isRecording {
             try publishAndThrow(.recordingAlreadyActive)
         }
@@ -138,6 +147,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
         do {
             
+            // Clear out old values
+            
             self.error = nil
             self.partialTranscript = ""
             self.finalTranscript = ""
@@ -147,6 +158,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             try ensureRecordingDirectoryExists()
             tearDownAudioPipeline()
             try configureAudioSession()
+            
+            // Make new audo file and bind recording to it
             
             let recordingURL = makeRecordingFileURL()
             
@@ -193,6 +206,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         catch {
             
             self.tearDownAudioPipeline()
+            
             try publishAndThrow(
                 .recordingInitializationFailed(message: error.localizedDescription)
             )
@@ -732,18 +746,16 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
                 }
                 
             }
-
+            
             recognitionRequest?.append(buffer)
             
         }
         
     }
     
-    private nonisolated static func makeRecognitionTask(
-        speechRecognizer: SFSpeechRecognizer,
-        request: SFSpeechAudioBufferRecognitionRequest,
-        service: VoiceTranscriptionService
-    ) -> SFSpeechRecognitionTask {
+    private nonisolated static func makeRecognitionTask(speechRecognizer: SFSpeechRecognizer,
+                                                        request: SFSpeechAudioBufferRecognitionRequest,
+                                                        service: VoiceTranscriptionService) -> SFSpeechRecognitionTask {
         
         return speechRecognizer.recognitionTask(with: request) { [weak service] result, error in
             
@@ -783,10 +795,12 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             try self.audioSession.setActive(false, options: .notifyOthersOnDeactivation)
         }
         catch {
+            
             self.logError(
                 title: "Audio Session Tear Down Error",
                 message: error.localizedDescription
             )
+            
         }
         
     }
