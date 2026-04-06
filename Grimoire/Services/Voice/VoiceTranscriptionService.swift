@@ -64,6 +64,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recordingFile: AVAudioFile?
+    private var activeRecognitionCycleID: UUID?
     
     private var latestRecognitionSnapshot: String = ""
     private var lastRecognitionUpdateAt: Date?
@@ -154,6 +155,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             self.finalTranscript = ""
             self.latestRecognitionSnapshot = ""
             self.lastRecognitionUpdateAt = nil
+            self.activeRecognitionCycleID = nil
             
             try ensureRecordingDirectoryExists()
             tearDownAudioPipeline()
@@ -176,17 +178,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             self.recordingFile = recordingFile
             self.lastRecordingURL = recordingURL
             
-            let recognitionRequest = try self.startContinuousRecognitionTask()
-            
-            inputNode.removeTap(onBus: 0)
-            
-            Self.installInputTap(
-                inputNode: inputNode,
-                inputFormat: inputFormat,
-                recordingFile: recordingFile,
-                recognitionRequest: recognitionRequest,
-                service: self
-            )
+            _ = try self.startContinuousRecognitionTask()
             
             self.audioEngine.prepare()
             try self.audioEngine.start()
@@ -271,6 +263,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         self.finalTranscript = ""
         self.latestRecognitionSnapshot = ""
         self.lastRecognitionUpdateAt = nil
+        self.activeRecognitionCycleID = nil
         self.lastRecordingURL = nil
         self.error = nil
         self.isTranscribing = false
@@ -433,21 +426,53 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         request.shouldReportPartialResults = true
         request.requiresOnDeviceRecognition = true
         
+        let recognitionCycleID = UUID()
+        self.activeRecognitionCycleID = recognitionCycleID
+        
         self.recognitionRequest = request
         self.recognitionTask = Self.makeRecognitionTask(
             speechRecognizer: speechRecognizer,
             request: request,
+            recognitionCycleID: recognitionCycleID,
             service: self
         )
         
+        self.rebindInputTapIfNeeded(for: request)
+        
         return request
+        
+    }
+
+    private func rebindInputTapIfNeeded(for recognitionRequest: SFSpeechAudioBufferRecognitionRequest) {
+        
+        guard let recordingFile = self.recordingFile else {
+            return
+        }
+        
+        let inputNode = self.audioEngine.inputNode
+        let inputFormat = inputNode.outputFormat(forBus: 0)
+        
+        inputNode.removeTap(onBus: 0)
+        
+        Self.installInputTap(
+            inputNode: inputNode,
+            inputFormat: inputFormat,
+            recordingFile: recordingFile,
+            recognitionRequest: recognitionRequest,
+            service: self
+        )
         
     }
     
     @MainActor
     private func handleRecognitionCallback(partialTranscript: String?,
                                            isFinal: Bool,
-                                           errorMessage: String?) {
+                                           errorMessage: String?,
+                                           recognitionCycleID: UUID) {
+        
+        guard self.activeRecognitionCycleID == recognitionCycleID else {
+            return
+        }
         
         if let partialTranscript {
             
@@ -755,6 +780,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     
     private nonisolated static func makeRecognitionTask(speechRecognizer: SFSpeechRecognizer,
                                                         request: SFSpeechAudioBufferRecognitionRequest,
+                                                        recognitionCycleID: UUID,
                                                         service: VoiceTranscriptionService) -> SFSpeechRecognitionTask {
         
         return speechRecognizer.recognitionTask(with: request) { [weak service] result, error in
@@ -767,7 +793,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
                 service?.handleRecognitionCallback(
                     partialTranscript: partialTranscript,
                     isFinal: isFinal,
-                    errorMessage: errorMessage
+                    errorMessage: errorMessage,
+                    recognitionCycleID: recognitionCycleID
                 )
             }
             
@@ -789,6 +816,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         self.recognitionRequest = nil
         self.recordingFile = nil
         self.speechRecognizer = nil
+        self.activeRecognitionCycleID = nil
         self.isRecording = false
         
         do {
@@ -806,4 +834,3 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     }
     
 }
-
