@@ -60,7 +60,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recordingFile: AVAudioFile?
-    private var latestRecognizedTranscript: String = ""
+    private var latestRecognitionSnapshot: String = ""
+    private var lastRecognitionUpdateAt: Date?
     
     private var recordingDirectoryURL: URL {
         return self.fileManager
@@ -140,7 +141,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             self.error = nil
             self.partialTranscript = ""
             self.finalTranscript = ""
-            self.latestRecognizedTranscript = ""
+            self.latestRecognitionSnapshot = ""
+            self.lastRecognitionUpdateAt = nil
             
             try ensureRecordingDirectoryExists()
             tearDownAudioPipeline()
@@ -151,36 +153,27 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             let inputNode = self.audioEngine.inputNode
             let inputFormat = inputNode.outputFormat(forBus: 0)
             
-            let request = SFSpeechAudioBufferRecognitionRequest()
-            request.shouldReportPartialResults = true
-            request.requiresOnDeviceRecognition = true
-            
             let recordingSettings = recordingSettings(for: inputFormat)
             let recordingFile = try AVAudioFile(
                 forWriting: recordingURL,
                 settings: recordingSettings
             )
             
+            self.speechRecognizer = speechRecognizer
+            self.recordingFile = recordingFile
+            self.lastRecordingURL = recordingURL
+            
+            let recognitionRequest = try self.startContinuousRecognitionTask()
+            
             inputNode.removeTap(onBus: 0)
             
             Self.installInputTap(
                 inputNode: inputNode,
                 inputFormat: inputFormat,
-                request: request,
                 recordingFile: recordingFile,
+                recognitionRequest: recognitionRequest,
                 service: self
             )
-            
-            self.recognitionTask = Self.makeRecognitionTask(
-                speechRecognizer: speechRecognizer,
-                request: request,
-                service: self
-            )
-            
-            self.speechRecognizer = speechRecognizer
-            self.recognitionRequest = request
-            self.recordingFile = recordingFile
-            self.lastRecordingURL = recordingURL
             
             self.audioEngine.prepare()
             try self.audioEngine.start()
@@ -222,13 +215,19 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         self.isTranscribing = false
         self.recordingFile = nil
         
-        let normalizedSnapshot = self.latestRecognizedTranscript.trimmed()
+        var finalizedWithPendingPartial = self.mergeTranscript(
+            existingTranscript: self.finalTranscript,
+            incomingTranscript: self.latestRecognitionSnapshot
+        )
         
-        if !normalizedSnapshot.isEmpty {
-            
-            self.finalTranscript = normalizedSnapshot
+        finalizedWithPendingPartial = self.mergeTranscript(
+            existingTranscript: finalizedWithPendingPartial,
+            incomingTranscript: self.partialTranscript
+        )
+        
+        if !finalizedWithPendingPartial.trimmed().isEmpty {
+            self.finalTranscript = finalizedWithPendingPartial
             self.partialTranscript = ""
-            
         }
         
         do {
@@ -256,7 +255,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
         self.partialTranscript = ""
         self.finalTranscript = ""
-        self.latestRecognizedTranscript = ""
+        self.latestRecognitionSnapshot = ""
+        self.lastRecognitionUpdateAt = nil
         self.lastRecordingURL = nil
         self.error = nil
         self.isTranscribing = false
@@ -407,6 +407,29 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
     }
     
+    @discardableResult
+    private func startContinuousRecognitionTask() throws -> SFSpeechAudioBufferRecognitionRequest? {
+        
+        guard let speechRecognizer = self.speechRecognizer else { return nil }
+        
+        self.recognitionTask?.cancel()
+        self.recognitionRequest?.endAudio()
+        
+        let request = SFSpeechAudioBufferRecognitionRequest()
+        request.shouldReportPartialResults = true
+        request.requiresOnDeviceRecognition = true
+        
+        self.recognitionRequest = request
+        self.recognitionTask = Self.makeRecognitionTask(
+            speechRecognizer: speechRecognizer,
+            request: request,
+            service: self
+        )
+        
+        return request
+        
+    }
+    
     @MainActor
     private func handleRecognitionCallback(partialTranscript: String?,
                                            isFinal: Bool,
@@ -418,16 +441,16 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             
             if !normalizedTranscript.isEmpty {
                 
-                let partialDelta = self.partialDelta(
-                    previousSnapshot: self.latestRecognizedTranscript,
-                    currentSnapshot: normalizedTranscript
-                )
+                self.commitPreviousSnapshotIfNeeded(before: normalizedTranscript)
                 
                 if isFinal {
                     
-                    self.latestRecognizedTranscript = normalizedTranscript
-                    self.finalTranscript = normalizedTranscript
+                    self.finalTranscript = self.mergeTranscript(
+                        existingTranscript: self.finalTranscript,
+                        incomingTranscript: normalizedTranscript
+                    )
                     self.partialTranscript = ""
+                    self.latestRecognitionSnapshot = ""
                     
                     if !self.isRecording {
                         
@@ -440,16 +463,46 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
                 }
                 else {
                     
-                    self.latestRecognizedTranscript = normalizedTranscript
-                    self.partialTranscript = partialDelta
+                    self.latestRecognitionSnapshot = normalizedTranscript
+                    self.partialTranscript = self.extractInFlightTranscript(
+                        currentSnapshot: normalizedTranscript,
+                        finalizedTranscript: self.finalTranscript
+                    )
                     
                 }
+                
+                self.lastRecognitionUpdateAt = Date()
                 
             }
             
         }
         
-        if let errorMessage {
+        if (isFinal || errorMessage != nil) && self.isRecording {
+            
+            if !self.partialTranscript.trimmed().isEmpty {
+                
+                self.finalTranscript = self.mergeTranscript(
+                    existingTranscript: self.finalTranscript,
+                    incomingTranscript: self.partialTranscript
+                )
+                self.partialTranscript = ""
+                
+            }
+            
+            self.latestRecognitionSnapshot = ""
+            
+            do {
+                let _ = try self.startContinuousRecognitionTask()
+            }
+            catch {
+                self.error = .transcriptionFailed(message: "Could not resume transcription: \(error.localizedDescription)")
+            }
+            
+            return
+            
+        }
+        
+        if let errorMessage, !self.isRecording {
             
             self.isTranscribing = false
             
@@ -463,29 +516,137 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
     }
     
-    private func partialDelta(previousSnapshot: String,
-                              currentSnapshot: String) -> String {
+    private func commitPreviousSnapshotIfNeeded(before incomingSnapshot: String) {
         
-        let previous = previousSnapshot.trimmed()
-        let current = currentSnapshot.trimmed()
+        let previousSnapshot = self.latestRecognitionSnapshot.trimmed()
+        let incoming = incomingSnapshot.trimmed()
         
-        guard !current.isEmpty else {
+        guard !previousSnapshot.isEmpty,
+              !incoming.isEmpty else {
+            return
+        }
+        
+        guard self.shouldCommitPreviousSnapshot(
+            previousSnapshot: previousSnapshot,
+            incomingSnapshot: incoming
+        ) else {
+            return
+        }
+        
+        self.finalTranscript = self.mergeTranscript(
+            existingTranscript: self.finalTranscript,
+            incomingTranscript: previousSnapshot
+        )
+        
+    }
+    
+    private func shouldCommitPreviousSnapshot(previousSnapshot: String,
+                                              incomingSnapshot: String) -> Bool {
+        
+        guard previousSnapshot != incomingSnapshot else {
+            return false
+        }
+        
+        if incomingSnapshot.hasPrefix(previousSnapshot) ||
+            previousSnapshot.hasPrefix(incomingSnapshot) ||
+            incomingSnapshot.contains(previousSnapshot) ||
+            previousSnapshot.contains(incomingSnapshot) {
+            return false
+        }
+        
+        guard let lastRecognitionUpdateAt else {
+            return true
+        }
+        
+        return Date().timeIntervalSince(lastRecognitionUpdateAt) >= 1.0
+        
+    }
+    
+    private func extractInFlightTranscript(currentSnapshot: String,
+                                           finalizedTranscript: String) -> String {
+        
+        let snapshot = currentSnapshot.trimmed()
+        let finalized = finalizedTranscript.trimmed()
+        
+        guard !snapshot.isEmpty else {
             return ""
         }
         
-        guard !previous.isEmpty else {
-            return current
+        guard !finalized.isEmpty else {
+            return snapshot
         }
         
-        guard current != previous else {
+        if snapshot.hasPrefix(finalized) {
+            return String(snapshot.dropFirst(finalized.count)).trimmed()
+        }
+        
+        if finalized.contains(snapshot) {
             return ""
         }
         
-        if current.hasPrefix(previous) {
-            return String(current.dropFirst(previous.count)).trimmed()
+        return snapshot
+        
+    }
+    
+    private func mergeTranscript(existingTranscript: String,
+                                 incomingTranscript: String) -> String {
+        
+        let existing = existingTranscript.trimmed()
+        let incoming = incomingTranscript.trimmed()
+        
+        guard !incoming.isEmpty else {
+            return existing
         }
         
-        return current
+        guard !existing.isEmpty else {
+            return incoming
+        }
+        
+        guard existing != incoming else {
+            return existing
+        }
+        
+        if incoming.hasPrefix(existing) {
+            return incoming
+        }
+        
+        if existing.hasPrefix(incoming) {
+            return existing
+        }
+        
+        if incoming.contains(existing) {
+            return incoming
+        }
+        
+        if existing.contains(incoming) {
+            return existing
+        }
+        
+        return self.spaceAwareJoin(lhs: existing, rhs: incoming)
+        
+    }
+    
+    private func spaceAwareJoin(lhs: String,
+                                rhs: String) -> String {
+        
+        guard !lhs.isEmpty else {
+            return rhs
+        }
+        
+        guard !rhs.isEmpty else {
+            return lhs
+        }
+        
+        if lhs.hasSuffix(" ") || lhs.hasSuffix("\n") {
+            return lhs + rhs
+        }
+        
+        if let firstCharacter = rhs.first,
+           [".", ",", "!", "?", ";", ":"].contains(firstCharacter) {
+            return lhs + rhs
+        }
+        
+        return "\(lhs) \(rhs)"
         
     }
     
@@ -551,16 +712,14 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     
     private nonisolated static func installInputTap(inputNode: AVAudioInputNode,
                                                     inputFormat: AVAudioFormat,
-                                                    request: SFSpeechAudioBufferRecognitionRequest,
                                                     recordingFile: AVAudioFile,
+                                                    recognitionRequest: SFSpeechAudioBufferRecognitionRequest?,
                                                     service: VoiceTranscriptionService) {
         
         inputNode.installTap(onBus: 0,
                              bufferSize: 1024,
                              format: inputFormat) { [weak service] buffer, _ in
-            
-            request.append(buffer)
-            
+
             do {
                 try recordingFile.write(from: buffer)
             }
@@ -573,6 +732,8 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
                 }
                 
             }
+
+            recognitionRequest?.append(buffer)
             
         }
         
@@ -631,3 +792,4 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     }
     
 }
+
