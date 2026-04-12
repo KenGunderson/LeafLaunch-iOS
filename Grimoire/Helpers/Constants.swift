@@ -12,8 +12,9 @@ struct Constants {
     
     // MARK: - FEATURES
     
-    struct Feature {
+    struct Capabilities {
         
+        static let isAuthRequired: Bool = false
         static let isWhatsNewEnabled: Bool = true
         static let isOnboardingEnabled: Bool = true
         

@@ -66,6 +66,7 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
     private var recordingFile: AVAudioFile?
     private var activeRecognitionCycleID: UUID?
     
+    private var committedTranscript: String = ""
     private var latestRecognitionSnapshot: String = ""
     private var lastRecognitionUpdateAt: Date?
     
@@ -151,10 +152,9 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             // Clear out old values
             
             self.error = nil
-            self.partialTranscript = ""
+            self.clearRecognitionSnapshotState()
+            self.committedTranscript = ""
             self.finalTranscript = ""
-            self.latestRecognitionSnapshot = ""
-            self.lastRecognitionUpdateAt = nil
             self.activeRecognitionCycleID = nil
             
             try ensureRecordingDirectoryExists()
@@ -221,20 +221,9 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         self.isTranscribing = false
         self.recordingFile = nil
         
-        var finalizedWithPendingPartial = self.mergeTranscript(
-            existingTranscript: self.finalTranscript,
-            incomingTranscript: self.latestRecognitionSnapshot
-        )
-        
-        finalizedWithPendingPartial = self.mergeTranscript(
-            existingTranscript: finalizedWithPendingPartial,
-            incomingTranscript: self.partialTranscript
-        )
-        
-        if !finalizedWithPendingPartial.trimmed().isEmpty {
-            self.finalTranscript = finalizedWithPendingPartial
-            self.partialTranscript = ""
-        }
+        self.commitLatestRecognitionSnapshot()
+        self.commitRecognitionSnapshot(self.partialTranscript)
+        self.clearRecognitionSnapshotState()
         
         do {
             try self.audioSession.setActive(false, options: .notifyOthersOnDeactivation)
@@ -258,11 +247,10 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         if self.isRecording {
             try? self.stopRecording()
         }
-        
-        self.partialTranscript = ""
+
+        self.clearRecognitionSnapshotState()
+        self.committedTranscript = ""
         self.finalTranscript = ""
-        self.latestRecognitionSnapshot = ""
-        self.lastRecognitionUpdateAt = nil
         self.activeRecognitionCycleID = nil
         self.lastRecordingURL = nil
         self.error = nil
@@ -480,16 +468,16 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             
             if !normalizedTranscript.isEmpty {
                 
-                self.commitPreviousSnapshotIfNeeded(before: normalizedTranscript)
+                self.commitLatestRecognitionSnapshotIfNeeded(before: normalizedTranscript)
+                self.latestRecognitionSnapshot = self.mergeTranscript(
+                    existingTranscript: self.latestRecognitionSnapshot,
+                    incomingTranscript: normalizedTranscript
+                )
                 
                 if isFinal {
                     
-                    self.finalTranscript = self.mergeTranscript(
-                        existingTranscript: self.finalTranscript,
-                        incomingTranscript: normalizedTranscript
-                    )
-                    self.partialTranscript = ""
-                    self.latestRecognitionSnapshot = ""
+                    self.commitLatestRecognitionSnapshot()
+                    self.clearRecognitionSnapshotState()
                     
                     if !self.isRecording {
                         
@@ -502,11 +490,11 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
                 }
                 else {
                     
-                    self.latestRecognitionSnapshot = normalizedTranscript
                     self.partialTranscript = self.extractInFlightTranscript(
-                        currentSnapshot: normalizedTranscript,
-                        finalizedTranscript: self.finalTranscript
+                        currentSnapshot: self.latestRecognitionSnapshot,
+                        finalizedTranscript: self.committedTranscript
                     )
+                    self.publishRollingFinalTranscript()
                     
                 }
                 
@@ -518,17 +506,9 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
         if (isFinal || errorMessage != nil) && self.isRecording {
             
-            if !self.partialTranscript.trimmed().isEmpty {
-                
-                self.finalTranscript = self.mergeTranscript(
-                    existingTranscript: self.finalTranscript,
-                    incomingTranscript: self.partialTranscript
-                )
-                self.partialTranscript = ""
-                
-            }
-            
-            self.latestRecognitionSnapshot = ""
+            self.commitLatestRecognitionSnapshot()
+            self.commitRecognitionSnapshot(self.partialTranscript)
+            self.clearRecognitionSnapshotState()
             
             do {
                 let _ = try self.startContinuousRecognitionTask()
@@ -555,49 +535,101 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
         
     }
     
-    private func commitPreviousSnapshotIfNeeded(before incomingSnapshot: String) {
+    private func commitLatestRecognitionSnapshotIfNeeded(before incomingSnapshot: String) {
+        
+        guard self.shouldCommitLatestRecognitionSnapshot(before: incomingSnapshot) else {
+            return
+        }
+        
+        self.commitLatestRecognitionSnapshot()
+        self.clearRecognitionSnapshotState()
+        
+    }
+    
+    private func shouldCommitLatestRecognitionSnapshot(before incomingSnapshot: String) -> Bool {
         
         let previousSnapshot = self.latestRecognitionSnapshot.trimmed()
         let incoming = incomingSnapshot.trimmed()
         
         guard !previousSnapshot.isEmpty,
-              !incoming.isEmpty else {
-            return
-        }
-        
-        guard self.shouldCommitPreviousSnapshot(
-            previousSnapshot: previousSnapshot,
-            incomingSnapshot: incoming
-        ) else {
-            return
-        }
-        
-        self.finalTranscript = self.mergeTranscript(
-            existingTranscript: self.finalTranscript,
-            incomingTranscript: previousSnapshot
-        )
-        
-    }
-    
-    private func shouldCommitPreviousSnapshot(previousSnapshot: String,
-                                              incomingSnapshot: String) -> Bool {
-        
-        guard previousSnapshot != incomingSnapshot else {
+              !incoming.isEmpty,
+              previousSnapshot != incoming else {
             return false
         }
         
-        if incomingSnapshot.hasPrefix(previousSnapshot) ||
-            previousSnapshot.hasPrefix(incomingSnapshot) ||
-            incomingSnapshot.contains(previousSnapshot) ||
-            previousSnapshot.contains(incomingSnapshot) {
+        if incoming.hasPrefix(previousSnapshot) || incoming.contains(previousSnapshot) {
             return false
         }
         
         guard let lastRecognitionUpdateAt else {
+            return self.isLikelyRecognitionReset(
+                previousSnapshot: previousSnapshot,
+                incomingSnapshot: incoming
+            )
+        }
+        
+        let didPauseLongEnough = Date().timeIntervalSince(lastRecognitionUpdateAt) >= 1.0
+        
+        guard didPauseLongEnough else {
+            return false
+        }
+        
+        if previousSnapshot.hasPrefix(incoming) || previousSnapshot.contains(incoming) {
+            return self.isLikelyRecognitionReset(
+                previousSnapshot: previousSnapshot,
+                incomingSnapshot: incoming
+            )
+        }
+        
+        return true
+        
+    }
+    
+    private func isLikelyRecognitionReset(previousSnapshot: String,
+                                          incomingSnapshot: String) -> Bool {
+        
+        if previousSnapshot.hasSuffix(incomingSnapshot) {
             return true
         }
         
-        return Date().timeIntervalSince(lastRecognitionUpdateAt) >= 1.0
+        return self.wordCount(previousSnapshot) - self.wordCount(incomingSnapshot) >= 2
+        
+    }
+    
+    private func commitLatestRecognitionSnapshot() {
+        self.commitRecognitionSnapshot(self.latestRecognitionSnapshot)
+    }
+    
+    private func commitRecognitionSnapshot(_ transcript: String) {
+        
+        let normalizedTranscript = transcript.trimmed()
+        
+        guard !normalizedTranscript.isEmpty else {
+            return
+        }
+        
+        self.committedTranscript = self.mergeTranscript(
+            existingTranscript: self.committedTranscript,
+            incomingTranscript: normalizedTranscript
+        )
+        self.finalTranscript = self.committedTranscript
+        
+    }
+    
+    private func publishRollingFinalTranscript() {
+        
+        self.finalTranscript = self.mergeTranscript(
+            existingTranscript: self.committedTranscript,
+            incomingTranscript: self.latestRecognitionSnapshot
+        )
+        
+    }
+    
+    private func clearRecognitionSnapshotState() {
+        
+        self.partialTranscript = ""
+        self.latestRecognitionSnapshot = ""
+        self.lastRecognitionUpdateAt = nil
         
     }
     
@@ -623,7 +655,23 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             return ""
         }
         
-        return snapshot
+        let overlapWordCount = self.longestSuffixPrefixWordOverlap(
+            lhs: finalized,
+            rhs: snapshot
+        )
+        
+        guard overlapWordCount > 0 else {
+            return snapshot
+        }
+        
+        let snapshotWords = snapshot.wordTokens
+        let remainingWords = snapshotWords.dropFirst(overlapWordCount)
+        
+        guard !remainingWords.isEmpty else {
+            return ""
+        }
+        
+        return remainingWords.joined(separator: " ")
         
     }
     
@@ -661,7 +709,59 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             return existing
         }
         
-        return self.spaceAwareJoin(lhs: existing, rhs: incoming)
+        return self.overlapAwareJoin(lhs: existing, rhs: incoming)
+        
+    }
+    
+    private func overlapAwareJoin(lhs: String,
+                                  rhs: String) -> String {
+        
+        let overlapWordCount = self.longestSuffixPrefixWordOverlap(lhs: lhs, rhs: rhs)
+        
+        guard overlapWordCount > 0 else {
+            return self.spaceAwareJoin(lhs: lhs, rhs: rhs)
+        }
+        
+        let rhsWords = rhs.wordTokens
+        let remainingWords = rhsWords.dropFirst(overlapWordCount)
+        
+        guard !remainingWords.isEmpty else {
+            return lhs
+        }
+        
+        return self.spaceAwareJoin(
+            lhs: lhs,
+            rhs: remainingWords.joined(separator: " ")
+        )
+        
+    }
+    
+    private func longestSuffixPrefixWordOverlap(lhs: String,
+                                                rhs: String) -> Int {
+        
+        let lhsWords = lhs.wordTokens
+        let rhsWords = rhs.wordTokens
+        
+        let maxOverlap = min(lhsWords.count, rhsWords.count)
+        
+        guard maxOverlap > 0 else {
+            return 0
+        }
+        
+        for overlapCount in stride(from: maxOverlap, through: 1, by: -1) {
+            
+            if Array(lhsWords.suffix(overlapCount)) == Array(rhsWords.prefix(overlapCount)) {
+                return overlapCount
+            }
+            
+        }
+        
+        return 0
+        
+    }
+    
+    private func wordCount(_ transcript: String) -> Int {
+        return transcript.wordTokens.count
         
     }
     
@@ -831,6 +931,14 @@ final class VoiceTranscriptionService: VoiceTranscriptionServiceProtocol {
             
         }
         
+    }
+    
+}
+
+private extension String {
+    
+    var wordTokens: [String] {
+        return self.split(whereSeparator: \.isWhitespace).map(String.init)
     }
     
 }

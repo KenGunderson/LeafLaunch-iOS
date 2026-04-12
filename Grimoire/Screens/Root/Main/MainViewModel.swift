@@ -30,7 +30,7 @@ final class MainViewModel: ViewModel {
     private var presentModalsTask: Task<Void, Never>?
     private var whatsNewPresentationTask: Task<Void, Never>?
 
-    @Published private(set) var showShouldHomeScreen: Bool = false
+    @Published private(set) var showShouldHomeScreen: Bool = Constants.Capabilities.isAuthRequired
     @Published private(set) var shouldShowWelcomeScreen: Bool = false
 
     var readOnlyAlertService: any AlertServiceProtocol {
@@ -83,14 +83,14 @@ final class MainViewModel: ViewModel {
 
     var shouldShowOnboarding: Bool {
 
-        guard Constants.Feature.isOnboardingEnabled else { return false }
+        guard Constants.Capabilities.isOnboardingEnabled else { return false }
         return !self.userDefaultsService.didCompleteOnboarding
 
     }
 
     var shouldShowWhatsNew: Bool {
 
-        guard Constants.Feature.isWhatsNewEnabled else { return false }
+        guard Capabilities.Feature.isWhatsNewEnabled else { return false }
         guard let currentItem = Constants.WhatsNewItems.items.last else { return false }
 
         let defaultVersion = "0.0.0"
