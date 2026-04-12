@@ -90,7 +90,7 @@ final class MainViewModel: ViewModel {
 
     var shouldShowWhatsNew: Bool {
 
-        guard Capabilities.Feature.isWhatsNewEnabled else { return false }
+        guard Constants.Capabilities.isWhatsNewEnabled else { return false }
         guard let currentItem = Constants.WhatsNewItems.items.last else { return false }
 
         let defaultVersion = "0.0.0"
