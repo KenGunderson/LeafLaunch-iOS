@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C84F425ED298707264DC348 /* SpeechRecognitionPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */; };
+		10B9289361036909213C3AD4 /* VoiceTranscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */; };
 		4A4BDC3F2EADACAC002D0DD2 /* PainDiagram.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */; };
+		6A33BA64AE5A56676B98B75A /* DevVoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */; };
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
 		750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
@@ -144,6 +147,7 @@
 		75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573AC62DD82E6300C7CA6E /* LoginScreen.swift */; };
 		75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
+		7558F7D92F94326C007DF798 /* AppPrefersColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7562BBAE2EBF0AA000B84E4E /* Face.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBAA2EBF0AA000B84E4E /* Face.pdf */; };
 		7562BBAF2EBF0AA000B84E4E /* Body.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7562BBA82EBF0AA000B84E4E /* Body.pdf */; };
@@ -153,14 +157,6 @@
 		7577A1572F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */; };
 		7577A1592F7F943300A9DB6A /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1582F7F943300A9DB6A /* LocalNotification.swift */; };
 		7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */; };
-		8E8E7FE183FD8CFF520AE625 /* MicrophonePermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */; };
-		86DFCE7D83E26319933BC23A /* MicrophonePermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */; };
-		0C84F425ED298707264DC348 /* SpeechRecognitionPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */; };
-		977814F36AF62357A0B8B696 /* SpeechRecognitionPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */; };
-		10B9289361036909213C3AD4 /* VoiceTranscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */; };
-		F582A93F10C6F8F9FC9EB62F /* VoiceTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */; };
-		BCC673570CF16FE3D923C714 /* DevVoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */; };
-		6A33BA64AE5A56676B98B75A /* DevVoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */; };
 		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
@@ -208,6 +204,9 @@
 		75E7B50B2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		86DFCE7D83E26319933BC23A /* MicrophonePermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */; };
+		8E8E7FE183FD8CFF520AE625 /* MicrophonePermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */; };
+		977814F36AF62357A0B8B696 /* SpeechRecognitionPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */; };
 		A1B2C3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */; };
 		A1B2C3022F80000100AAA001 /* LocalNotificationWeekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3022F80000100AAA001 /* LocalNotificationWeekday.swift */; };
 		A1B2C3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */; };
@@ -220,6 +219,8 @@
 		A1B2C30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift */; };
 		A1B2C30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift */; };
 		A1B2C30C2F80000100AAA001 /* LocalNotificationMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D30C2F80000100AAA001 /* LocalNotificationMonth.swift */; };
+		BCC673570CF16FE3D923C714 /* DevVoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */; };
+		F582A93F10C6F8F9FC9EB62F /* VoiceTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionService.swift; sourceTree = "<group>"; };
+		21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevVoiceScreen.swift; sourceTree = "<group>"; };
+		426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionServiceProtocol.swift; sourceTree = "<group>"; };
 		4A4BDC3D2EADACAC002D0DD2 /* PainDiagram.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PainDiagram.pdf; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
@@ -371,6 +375,7 @@
 		75573AC62DD82E6300C7CA6E /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorScheme.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* Grimoire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grimoire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GrimoireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GrimoireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -383,14 +388,6 @@
 		7577A1562F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationServiceProtocol.swift; sourceTree = "<group>"; };
 		7577A1582F7F943300A9DB6A /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
-		CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionServiceProtocol.swift; sourceTree = "<group>"; };
-		7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionService.swift; sourceTree = "<group>"; };
-		426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionServiceProtocol.swift; sourceTree = "<group>"; };
-		0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionService.swift; sourceTree = "<group>"; };
-		E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranscriptionServiceProtocol.swift; sourceTree = "<group>"; };
-		9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranscriptionService.swift; sourceTree = "<group>"; };
-		A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevVoiceViewModel.swift; sourceTree = "<group>"; };
-		21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevVoiceScreen.swift; sourceTree = "<group>"; };
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
@@ -433,6 +430,8 @@
 		75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictCapture.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionService.swift; sourceTree = "<group>"; };
+		9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranscriptionService.swift; sourceTree = "<group>"; };
 		A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceCadence.swift; sourceTree = "<group>"; };
 		A1B2D3022F80000100AAA001 /* LocalNotificationWeekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationWeekday.swift; sourceTree = "<group>"; };
 		A1B2D3032F80000100AAA001 /* LocalNotificationRecurrenceRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceRule.swift; sourceTree = "<group>"; };
@@ -445,6 +444,9 @@
 		A1B2D30A2F80000100AAA001 /* LocalNotificationRecurrenceBoundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceBoundary.swift; sourceTree = "<group>"; };
 		A1B2D30B2F80000100AAA001 /* LocalNotificationCalendarSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationCalendarSelector.swift; sourceTree = "<group>"; };
 		A1B2D30C2F80000100AAA001 /* LocalNotificationMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationMonth.swift; sourceTree = "<group>"; };
+		A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevVoiceViewModel.swift; sourceTree = "<group>"; };
+		CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionServiceProtocol.swift; sourceTree = "<group>"; };
+		E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranscriptionServiceProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +487,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23D04B22A1374EF0018AE98B /* Voice */ = {
+			isa = PBXGroup;
+			children = (
+				E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */,
+				9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */,
+			);
+			path = Voice;
+			sourceTree = "<group>";
+		};
 		4A4BDC3C2EADAB8F002D0DD2 /* PDFs */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +507,24 @@
 				75260F592EB468BD00318960 /* Sample.pdf */,
 			);
 			path = PDFs;
+			sourceTree = "<group>";
+		};
+		5169DC468571681140985B2B /* Voice */ = {
+			isa = PBXGroup;
+			children = (
+				A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */,
+				21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */,
+			);
+			path = Voice;
+			sourceTree = "<group>";
+		};
+		62E413FD3DE976F1B1144A4B /* Microphone */ = {
+			isa = PBXGroup;
+			children = (
+				CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */,
+				7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */,
+			);
+			path = Microphone;
 			sourceTree = "<group>";
 		};
 		750B85F22E48DD9400417BA5 /* DesignSystem */ = {
@@ -851,24 +880,6 @@
 				7537F4092DF661EA0031D9CF /* MediaPermissionService.swift */,
 			);
 			path = Media;
-			sourceTree = "<group>";
-		};
-		62E413FD3DE976F1B1144A4B /* Microphone */ = {
-			isa = PBXGroup;
-			children = (
-				CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */,
-				7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */,
-			);
-			path = Microphone;
-			sourceTree = "<group>";
-		};
-		AAEA9A1C44429FEEDECF6CB8 /* SpeechRecognition */ = {
-			isa = PBXGroup;
-			children = (
-				426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */,
-				0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */,
-			);
-			path = SpeechRecognition;
 			sourceTree = "<group>";
 		};
 		7537F40E2DF661EA0031D9CF /* AppTracking */ = {
@@ -1231,6 +1242,7 @@
 		756687312EAC8C1500C3DC8E /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */,
 				75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */,
 			);
 			path = ViewModifiers;
@@ -1253,24 +1265,6 @@
 				7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */,
 			);
 			path = LocalNotification;
-			sourceTree = "<group>";
-		};
-		23D04B22A1374EF0018AE98B /* Voice */ = {
-			isa = PBXGroup;
-			children = (
-				E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */,
-				9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */,
-			);
-			path = Voice;
-			sourceTree = "<group>";
-		};
-		5169DC468571681140985B2B /* Voice */ = {
-			isa = PBXGroup;
-			children = (
-				A717457DE42EF281A3849A75 /* DevVoiceViewModel.swift */,
-				21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */,
-			);
-			path = Voice;
 			sourceTree = "<group>";
 		};
 		758DAEA12E0514F100311C7C /* Components */ = {
@@ -1438,6 +1432,15 @@
 				7537F3D12DF661EA0031D9CF /* APIService+Users.swift */,
 			);
 			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		AAEA9A1C44429FEEDECF6CB8 /* SpeechRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */,
+				0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */,
+			);
+			path = SpeechRecognition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1776,6 +1779,7 @@
 				75573AC52DD82E1F00C7CA6E /* LoginViewModel.swift in Sources */,
 				75CB87742E4F84AB00FB7D78 /* GPFont.swift in Sources */,
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
+				7558F7D92F94326C007DF798 /* AppPrefersColorScheme.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
 				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
@@ -1970,8 +1974,8 @@
 				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grimoire uses your microphone to record voice notes and capture spoken input for on-device transcription.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Grimoire uses on-device speech recognition to convert your recorded voice into text without sending audio to external services.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1981,6 +1985,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2016,8 +2021,8 @@
 				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grimoire uses your microphone to record voice notes and capture spoken input for on-device transcription.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Grimoire uses on-device speech recognition to convert your recorded voice into text without sending audio to external services.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2027,6 +2032,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2266,8 +2272,8 @@
 				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grimoire uses your microphone to record voice notes and capture spoken input for on-device transcription.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Grimoire uses on-device speech recognition to convert your recorded voice into text without sending audio to external services.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2277,6 +2283,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2312,8 +2319,8 @@
 				INFOPLIST_FILE = Grimoire/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Grimoire;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grimoire uses your camera so you can take photos directly in the app. This makes it easier to capture and upload images without leaving your workflow.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grimoire uses your microphone to record voice notes and capture spoken input for on-device transcription.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grimoire lets you choose photos from your photo library so you can upload existing images to the app whenever you need them.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Grimoire uses on-device speech recognition to convert your recorded voice into text without sending audio to external services.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Grimoire collects limited diagnostics data to help identify issues, monitor app performance, and improve reliability. This helps us understand what’s working well and what needs improvement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2323,6 +2330,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

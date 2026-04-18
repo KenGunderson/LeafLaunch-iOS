@@ -151,7 +151,7 @@ struct OnboardingScreen: View {
         .foregroundStyle(.black)
         .animation(.smooth(duration: 0.6), value: self.viewModel.currentPageIndex)
         .transition(.move(edge: .bottom).combined(with: .opacity))
-        .preferredColorScheme(.light)
+        .appPrefersColorScheme()
         
     }
     

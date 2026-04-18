@@ -195,7 +195,7 @@ struct ProfileScreen: GPView {
         .foregroundStyle(Style.shared.textColor(.title).source())
         .appFont(with: .TITLE_3)
         .padding(.top, Style.shared.spacing(.extraSmall))
-        .preferredColorScheme(.light)
+        .appPrefersColorScheme()
         
     }
     

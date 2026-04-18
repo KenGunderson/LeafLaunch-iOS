@@ -32,7 +32,7 @@ struct WelcomeScreen: GPView {
                 }
             
         }
-        .preferredColorScheme(.light)
+        .appPrefersColorScheme()
         .detectRotation { orientation in
             self.orientation = orientation
         }
