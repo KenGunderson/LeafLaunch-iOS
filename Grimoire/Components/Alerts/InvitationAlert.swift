@@ -70,7 +70,7 @@ extension AppCardConfig {
                 )))
             
         }
-        .padding(.horizontal, .extraLarge)
+        .padding(.horizontal, .large2)
         
     }
     .withMockServices()

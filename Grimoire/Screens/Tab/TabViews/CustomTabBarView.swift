@@ -191,7 +191,7 @@ struct FloatingNameTransitionTabBar: View {
                 selectedTab: $selectedTab,
                 style: .standard
             )
-            .padding(.horizontal, .extraLarge)
+            .padding(.horizontal, .large2)
             
             TabBarView(
                 selectedTab: $selectedTab,

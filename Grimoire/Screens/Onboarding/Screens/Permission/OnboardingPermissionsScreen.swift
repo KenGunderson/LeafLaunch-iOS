@@ -95,7 +95,7 @@ struct OnboardingPermissionsScreen: GPView {
                 .frame(maxWidth: .infinity, alignment: .center)
 
             }
-            .padding(.top, .extraLarge)
+            .padding(.top, .large2)
             .padding(.horizontal, .medium)
 
         }

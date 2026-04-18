@@ -66,7 +66,7 @@ struct WhatsNewScreen: GPView {
                 maxHeight: .infinity,
                 alignment: .top
             )
-            .padding(.bottom, .custom(64))
+            .padding(.bottom, .extraLarge2)
             
         }
         .scrollBounceBehavior(.basedOnSize)

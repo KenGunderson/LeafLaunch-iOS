@@ -157,7 +157,7 @@ struct DevImpersonateScreen: GPView {
             .bouncy(duration: 0.8),
             value: self.viewModel.isImpersonating
         )
-        .padding(.horizontal, .extraLarge)
+        .padding(.horizontal, .large2)
         
     }
     

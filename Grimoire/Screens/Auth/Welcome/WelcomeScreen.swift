@@ -71,7 +71,7 @@ struct WelcomeScreen: GPView {
                     .appFont(with: .BODY_4)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Style.shared.textColor(.body).source())
-                    .padding(.horizontal, .custom(48))
+                    .padding(.horizontal, .extraLarge)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

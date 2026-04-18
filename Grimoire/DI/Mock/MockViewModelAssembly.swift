@@ -44,6 +44,42 @@ class MockViewModelAssembly {
             )
         }
         
+        // Home
+        
+        container.tab1ViewModel.register { @MainActor in
+            Tab1ViewModel(
+                alertService: container.alertService(),
+                authService: container.authService(),
+                analyticsService: container.analyticsService(),
+                userDefaultsService: container.userDefaultsService(),
+            )
+        }
+        
+        // Board
+        
+        container.tab2ViewModel.register { @MainActor in
+            Tab2ViewModel(
+                alertService: container.alertService(),
+                authService: container.authService(),
+                analyticsService: container.analyticsService(),
+                userDefaultsService: container.userDefaultsService(),
+            )
+        }
+        
+        container.tab3ViewModel.register { @MainActor in
+            Tab3ViewModel(
+                authService: container.authService(),
+                analyticsService: container.analyticsService()
+            )
+        }
+        
+        container.tab4ViewModel.register { @MainActor in
+            Tab4ViewModel(
+                authService: container.authService(),
+                analyticsService: container.analyticsService(),
+            )
+        }
+        
         // Auth - Welcome
         
         container.welcomeViewModel.register { @MainActor in
