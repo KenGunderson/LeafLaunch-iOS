@@ -12,6 +12,7 @@ public extension Theme {
     @MainActor
     static let GLOW_PRO = Theme(
         id: "GLOW_PRO_THEME",
+        isLightMode: true,
         foreground: .init(
             primary:    .color(Color(hex: "#7AD8CE")),
             secondary:  .color(Color(hex: "#9bf7ed")),
