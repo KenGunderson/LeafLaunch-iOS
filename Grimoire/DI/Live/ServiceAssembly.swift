@@ -109,6 +109,17 @@ extension Container {
         .singleton
     }
     
+    // APP STORE SUBSCRIPTION
+    
+    var appStoreSubscriptionService: Factory<AppStoreSubscriptionServiceProtocol> {
+        self { @MainActor in
+            AppStoreSubscriptionService(
+                productIdentifiers: []
+            )
+        }
+        .singleton
+    }
+    
     // LAUNCH
     
     var launchScreenService: Factory<LaunchScreenServiceProtocol> {

@@ -623,6 +623,127 @@ final class MockLocalNotificationService: LocalNotificationServiceProtocol, @unc
     
 }
 
+// MARK: - AppStoreSubscriptionServiceProtocol
+
+final class MockAppStoreSubscriptionService: AppStoreSubscriptionServiceProtocol, @unchecked Sendable {
+    
+    internal let loggerName: String = "APP_STORE_SUBSCRIPTION_SERVICE"
+    internal let loggerEmoji: String = "🛍️"
+    
+    @Published private(set) var subscriptionStatus: SubscriptionStatus = .none
+    var subscriptionStatusPublisher: AnyPublisher<SubscriptionStatus, Never> {
+        return self.$subscriptionStatus.eraseToAnyPublisher()
+    }
+    
+    @Published private(set) var products: [SubscriptionProduct] = []
+    var productsPublisher: AnyPublisher<[SubscriptionProduct], Never> {
+        return self.$products.eraseToAnyPublisher()
+    }
+    
+    func configure() async throws {
+        self.products = self.mockProducts()
+        self.subscriptionStatus = .none
+    }
+    
+    func fetchProductOfferings() async throws -> [SubscriptionProduct] {
+        
+        if self.products.isEmpty {
+            try await self.configure()
+        }
+        
+        return self.products
+        
+    }
+    
+    func subscribe(to product: SubscriptionProduct) async throws -> SubscriptionStatus {
+        
+        let expiryDate: Date
+        
+        if product.id == "mock.subscription.monthly" {
+            
+            expiryDate = Calendar.current.date(
+                byAdding: .month,
+                value: 1,
+                to: Date()
+            ) ?? Date()
+            
+        } else {
+            
+            expiryDate = Calendar.current.date(
+                byAdding: .year,
+                value: 1,
+                to: Date()
+            ) ?? Date()
+            
+        }
+        
+        self.subscriptionStatus = .active(
+            productId: product.id,
+            expiryDate: expiryDate
+        )
+        
+        return self.subscriptionStatus
+        
+    }
+    
+    func checkSubscriptionStatus() async throws -> SubscriptionStatus {
+        return self.subscriptionStatus
+    }
+    
+    func restoreSubscriptions() async throws -> SubscriptionStatus {
+        
+        if let monthlyProduct = self.mockProducts().first {
+            
+            self.subscriptionStatus = .active(
+                productId: monthlyProduct.id,
+                expiryDate: Calendar.current.date(
+                    byAdding: .month,
+                    value: 1,
+                    to: Date()
+                )
+            )
+            
+        }
+        
+        return self.subscriptionStatus
+        
+    }
+    
+    func currentSubscriptionProduct() -> SubscriptionProduct? {
+        
+        guard case .active(let productId, _) = self.subscriptionStatus else {
+            return nil
+        }
+        
+        return self.mockProducts().first(where: { $0.id == productId })
+        
+    }
+    
+    private func mockProducts() -> [SubscriptionProduct] {
+        
+        return [
+            
+            SubscriptionProduct(
+                id: "mock.subscription.monthly",
+                title: "Monthly Membership",
+                description: "Enjoy premium features every month.",
+                price: 3.00,
+                displayPrice: "$3.00"
+            ),
+            SubscriptionProduct(
+                id: "mock.subscription.yearly",
+                title: "Yearly Membership",
+                description: "Enjoy premium features for the whole year.",
+                price: 24.00,
+                displayPrice: "$24.00"
+            )
+            
+        ]
+        
+    }
+    
+}
+
 // MARK: - UserDefaultsServiceProtocol
 
 final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sendable {
@@ -702,6 +823,7 @@ final class MockServiceAssembly {
         container.connectivityService.register { @MainActor in MockConnectivityService() }
         container.pushNotificationService.register { @MainActor in MockPushNotificationService() }
         container.localNotificationService.register { @MainActor in MockLocalNotificationService() }
+        container.appStoreSubscriptionService.register { @MainActor in MockAppStoreSubscriptionService() }
         container.launchScreenService.register { @MainActor in MockLaunchScreenService() }
         container.cameraPermissionService.register { @MainActor in MockCameraPermissionService() }
         container.mediaPermissionService.register { @MainActor in MockMediaPermissionService() }

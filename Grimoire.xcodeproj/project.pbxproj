@@ -26,6 +26,11 @@
 		750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
 		750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
 		750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
+		750E2BF42F9835AC00F85A2E /* AppStoreSubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BED2F9835AC00F85A2E /* AppStoreSubscriptionError.swift */; };
+		750E2BF52F9835AC00F85A2E /* AppStoreSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BF12F9835AC00F85A2E /* AppStoreSubscriptionService.swift */; };
+		750E2BF62F9835AC00F85A2E /* SubscriptionProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BEE2F9835AC00F85A2E /* SubscriptionProduct.swift */; };
+		750E2BF72F9835AC00F85A2E /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BEF2F9835AC00F85A2E /* SubscriptionStatus.swift */; };
+		750E2BF82F9835AC00F85A2E /* AppStoreSubscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BF22F9835AC00F85A2E /* AppStoreSubscriptionServiceProtocol.swift */; };
 		750EACE22EB3345200BA4A37 /* LoggedEventsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750EACE02EB3345200BA4A37 /* LoggedEventsStore.swift */; };
 		750F9E182E56116D00C72EA7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		7510A3C92D9D8AAF000A93CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */; };
@@ -260,6 +265,11 @@
 		750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevImpersonateScreen.swift; sourceTree = "<group>"; };
 		750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesViewModel.swift; sourceTree = "<group>"; };
 		750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesScreen.swift; sourceTree = "<group>"; };
+		750E2BED2F9835AC00F85A2E /* AppStoreSubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSubscriptionError.swift; sourceTree = "<group>"; };
+		750E2BEE2F9835AC00F85A2E /* SubscriptionProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionProduct.swift; sourceTree = "<group>"; };
+		750E2BEF2F9835AC00F85A2E /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStatus.swift; sourceTree = "<group>"; };
+		750E2BF12F9835AC00F85A2E /* AppStoreSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSubscriptionService.swift; sourceTree = "<group>"; };
+		750E2BF22F9835AC00F85A2E /* AppStoreSubscriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSubscriptionServiceProtocol.swift; sourceTree = "<group>"; };
 		750EACE02EB3345200BA4A37 /* LoggedEventsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedEventsStore.swift; sourceTree = "<group>"; };
 		750F9E172E56116B00C72EA7 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		7510A3C52D9D8AAF000A93CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -605,6 +615,26 @@
 				750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */,
 			);
 			path = Routes;
+			sourceTree = "<group>";
+		};
+		750E2BF02F9835AC00F85A2E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				750E2BED2F9835AC00F85A2E /* AppStoreSubscriptionError.swift */,
+				750E2BEE2F9835AC00F85A2E /* SubscriptionProduct.swift */,
+				750E2BEF2F9835AC00F85A2E /* SubscriptionStatus.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		750E2BF32F9835AC00F85A2E /* StoreKit */ = {
+			isa = PBXGroup;
+			children = (
+				750E2BF02F9835AC00F85A2E /* Models */,
+				750E2BF12F9835AC00F85A2E /* AppStoreSubscriptionService.swift */,
+				750E2BF22F9835AC00F85A2E /* AppStoreSubscriptionServiceProtocol.swift */,
+			);
+			path = StoreKit;
 			sourceTree = "<group>";
 		};
 		7510A3C62D9D8AAF000A93CA /* Preview Content */ = {
@@ -1232,6 +1262,7 @@
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				23D04B22A1374EF0018AE98B /* Voice */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
+				750E2BF32F9835AC00F85A2E /* StoreKit */,
 				751BC5D62F43D086007750E0 /* Startup */,
 				7537F4152DF661EA0031D9CF /* UserDefaults */,
 				7537F4182DF661EA0031D9CF /* ViewLifecycle */,
@@ -1754,6 +1785,11 @@
 				7537F48D2DF661EA0031D9CF /* APIService+Users.swift in Sources */,
 				7577A1572F7F941000A9DB6A /* LocalNotificationServiceProtocol.swift in Sources */,
 				7537F48E2DF661EA0031D9CF /* EnvironmentServiceProtocol.swift in Sources */,
+				750E2BF42F9835AC00F85A2E /* AppStoreSubscriptionError.swift in Sources */,
+				750E2BF52F9835AC00F85A2E /* AppStoreSubscriptionService.swift in Sources */,
+				750E2BF62F9835AC00F85A2E /* SubscriptionProduct.swift in Sources */,
+				750E2BF72F9835AC00F85A2E /* SubscriptionStatus.swift in Sources */,
+				750E2BF82F9835AC00F85A2E /* AppStoreSubscriptionServiceProtocol.swift in Sources */,
 				750F9E182E56116D00C72EA7 /* Section.swift in Sources */,
 				7537F48F2DF661EA0031D9CF /* ThemeRegistry.swift in Sources */,
 				7537F4902DF661EA0031D9CF /* APILogResponse.swift in Sources */,
