@@ -188,8 +188,7 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
     let networkSession: URLSession = .shared
     let requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout
     let resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout
-    let maxRetryCount: Int = 0
-    let retryBackoffNanoseconds: UInt64 = Constants.Runtime.apiRetryBackoffBaseNanoseconds
+    let retryPolicy: APIRetryPolicy = .noRetry
     
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)

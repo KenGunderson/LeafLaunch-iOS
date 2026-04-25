@@ -23,8 +23,7 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     var networkSession: URLSession { get }
     var requestTimeout: TimeInterval { get }
     var resourceTimeout: TimeInterval { get }
-    var maxRetryCount: Int { get }
-    var retryBackoffNanoseconds: UInt64 { get }
+    var retryPolicy: APIRetryPolicy { get }
     
 }
 
@@ -59,9 +58,9 @@ extension APIProtocol {
     func buildRequest(method: HTTPRequestMethod,
                       apiPath: APIPath,
                       queryParameters: [String: String] = [:],
-                      parameters: [String: Any] = [:]) async throws -> Data {
+                      parameters: [String: Any] = [:],
+                      retryPolicy: APIRetryPolicy? = nil) async throws -> Data {
         
-        let includeSensitiveLogData = shouldIncludeSensitiveAPILogData()
         var apiLogResponse: APILogResponse?
         
         defer {
@@ -82,22 +81,17 @@ extension APIProtocol {
         let (data, response, attemptCount) = try await performRequestWithRetry(
             request: request,
             method: method,
-            path: apiPath.path.buildURL
+            path: apiPath.path.buildURL,
+            retryPolicy: retryPolicy ?? self.retryPolicy
         )
         
         apiLogResponse = APILogResponse(
             method: method.rawValue,
             path: request.url?.absoluteString ?? "No URL Provided",
             statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-            headers: redactedHeaders(
-                request.allHTTPHeaderFields ?? [:],
-                includeSensitiveData: includeSensitiveLogData
-            ),
-            queryParameters: redactedQueryParameters(
-                queryParameters,
-                includeSensitiveData: includeSensitiveLogData
-            ),
-            body: redactedBody(parameters, includeSensitiveData: includeSensitiveLogData),
+            headers: request.allHTTPHeaderFields ?? [:],
+            queryParameters: queryParameters,
+            body: parameters,
             responseData: data,
             attemptCount: attemptCount
         )
@@ -116,9 +110,9 @@ extension APIProtocol {
     func buildMultipartRequest(method: HTTPRequestMethod,
                                apiPath: APIPath,
                                boundary: String,
-                               data: Data) async throws -> Data {
+                               data: Data,
+                               retryPolicy: APIRetryPolicy? = nil) async throws -> Data {
         
-        let includeSensitiveLogData = shouldIncludeSensitiveAPILogData()
         var apiLogResponse: APILogResponse?
         
         defer {
@@ -139,21 +133,16 @@ extension APIProtocol {
         let (data, response, attemptCount) = try await performRequestWithRetry(
             request: request,
             method: method,
-            path: apiPath.path.buildURL
+            path: apiPath.path.buildURL,
+            retryPolicy: retryPolicy ?? self.retryPolicy
         )
         
         apiLogResponse = APILogResponse(
             method: method.rawValue,
             path: request.url?.absoluteString ?? "No URL Provided",
             statusCode: (response as? HTTPURLResponse)?.statusCode ?? -1,
-            headers: redactedHeaders(
-                request.allHTTPHeaderFields ?? [:],
-                includeSensitiveData: includeSensitiveLogData
-            ),
-            queryParameters: redactedQueryParameters(
-                [:],
-                includeSensitiveData: includeSensitiveLogData
-            ),
+            headers: request.allHTTPHeaderFields ?? [:],
+            queryParameters: [:],
             body: [:],
             responseData: data,
             attemptCount: attemptCount
@@ -174,79 +163,15 @@ extension APIProtocol {
 
 extension APIProtocol {
     
-    private func shouldIncludeSensitiveAPILogData() -> Bool {
-        
-        guard let environment = self.environment else { return false }
-        
-        switch environment {
-        case .production:
-            return false
-        case .localhost, .development, .custom:
-            return true
-        }
-        
-    }
-    
-    private func redactedHeaders(_ headers: [String: String],
-                                 includeSensitiveData: Bool) -> [String: String] {
-        
-        guard !includeSensitiveData else { return headers }
-        
-        let sensitiveHeaderKeys: Set<String> = [
-            "authorization",
-            "cookie",
-            "set-cookie",
-            "x-api-key",
-            "api-key",
-            "token"
-        ]
-        
-        return headers.reduce(into: [String: String]()) { partialResult, item in
-            
-            if sensitiveHeaderKeys.contains(item.key.lowercased()) {
-                partialResult[item.key] = "<redacted>"
-            }
-            else {
-                partialResult[item.key] = item.value
-            }
-            
-        }
-        
-    }
-    
-    private func redactedQueryParameters(_ queryParameters: [String: String],
-                                         includeSensitiveData: Bool) -> [String: String] {
-        
-        guard !includeSensitiveData else { return queryParameters }
-        
-        return queryParameters.reduce(into: [String: String]()) { partialResult, item in
-            partialResult[item.key] = "<redacted>"
-        }
-        
-    }
-    
-    private func redactedBody(_ body: [String: Any],
-                              includeSensitiveData: Bool) -> [String: Any] {
-        
-        guard !includeSensitiveData else { return body }
-        guard !body.isEmpty else { return body }
-        
-        return [
-            "_redacted": true,
-            "_keys": body.keys.sorted()
-        ]
-        
-    }
-    
     private func performRequestWithRetry(request: URLRequest,
                                          method: HTTPRequestMethod,
-                                         path: String) async throws -> (Data, URLResponse, Int) {
+                                         path: String,
+                                         retryPolicy: APIRetryPolicy) async throws -> (Data, URLResponse, Int) {
         
         var attempt = 0
-        var currentBackoff = max(self.retryBackoffNanoseconds, 100_000_000)
         var latestResponse: (Data, URLResponse)?
         
-        while attempt <= self.maxRetryCount {
+        while attempt < retryPolicy.maxAttempts {
             
             attempt += 1
             
@@ -256,8 +181,11 @@ extension APIProtocol {
                 latestResponse = response
                 
                 if let httpResponse = response.1 as? HTTPURLResponse,
-                   shouldRetry(statusCode: httpResponse.statusCode),
-                   attempt <= self.maxRetryCount {
+                   retryPolicy.shouldRetry(
+                    statusCode: httpResponse.statusCode,
+                    attempt: attempt,
+                    method: method
+                   ) {
                     
                     self.log(
                         level: .info,
@@ -268,8 +196,7 @@ extension APIProtocol {
                         """
                     )
                     
-                    try await Task.sleep(nanoseconds: currentBackoff)
-                    currentBackoff *= 2
+                    try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
                     continue
                     
                 }
@@ -279,8 +206,7 @@ extension APIProtocol {
             }
             catch {
                 
-                guard shouldRetry(error: error),
-                      attempt <= self.maxRetryCount else {
+                guard retryPolicy.shouldRetry(error: error, attempt: attempt, method: method) else {
                     
                     self.logError(
                         title: "API Request Failed",
@@ -306,8 +232,7 @@ extension APIProtocol {
                     """
                 )
                 
-                try await Task.sleep(nanoseconds: currentBackoff)
-                currentBackoff *= 2
+                try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
                 
             }
             
@@ -318,30 +243,6 @@ extension APIProtocol {
         }
         
         throw APIError.unknownError
-        
-    }
-    
-    private func shouldRetry(statusCode: Int) -> Bool {
-        
-        let retryableStatusCodes: Set<Int> = [408, 425, 429, 500, 502, 503, 504]
-        return retryableStatusCodes.contains(statusCode)
-        
-    }
-    
-    private func shouldRetry(error: Error) -> Bool {
-        
-        guard let urlError = error as? URLError else { return false }
-        
-        let retryableCodes: Set<URLError.Code> = [
-            .timedOut,
-            .cannotFindHost,
-            .cannotConnectToHost,
-            .networkConnectionLost,
-            .dnsLookupFailed,
-            .notConnectedToInternet
-        ]
-        
-        return retryableCodes.contains(urlError.code)
         
     }
     
@@ -535,38 +436,19 @@ extension APIProtocol {
                          queryParameters: [String: String],
                          body: RequestBody) -> String {
         
-        let includeSensitiveData = shouldIncludeSensitiveAPILogData()
-        
         var customLog: String = """
         METHOD: \(method.rawValue.uppercased())
         OUTGOING URL: \(url?.absoluteString ?? "No URL Provided")
         """
         
         if !queryParameters.isEmpty {
-            
-            if includeSensitiveData {
-                customLog.append("\nQUERY PARAMS: \(queryParameters)")
-            }
-            else {
-                customLog.append("\nQUERY PARAMS: <redacted keys: \(queryParameters.keys.sorted())>")
-            }
+            customLog.append("\nQUERY PARAMS: \(queryParameters)")
             
         }
         
         if let params = body.jsonParameters,
            !params.isEmpty {
-            
-            if includeSensitiveData {
-                customLog.append("\nPARAMETERS: \(params)")
-            }
-            else {
-                customLog.append("\nPARAMETERS: <redacted keys: \(params.keys.sorted())>")
-            }
-            
-        }
-        
-        if !includeSensitiveData {
-            customLog.append("\nSENSITIVE PAYLOAD LOGGING: Disabled")
+            customLog.append("\nPARAMETERS: \(params)")
         }
         
         return customLog

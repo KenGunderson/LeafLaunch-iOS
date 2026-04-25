@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal enum HTTPRequestMethod: String {
+nonisolated internal enum HTTPRequestMethod: String, Sendable {
     
     case get = "GET"
     case post = "POST"

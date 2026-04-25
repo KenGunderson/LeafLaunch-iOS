@@ -131,6 +131,7 @@
 		754241D02E71CA9F00848F6F /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754241CE2E71CA9C00848F6F /* Ext+String.swift */; };
 		7548D23A2DD5612C008AE243 /* Rune in Frameworks */ = {isa = PBXBuildFile; productRef = 7548D2392DD5612C008AE243 /* Rune */; };
 		7548D23E2DD561EF008AE243 /* GlobalImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548D23D2DD561EE008AE243 /* GlobalImports.swift */; };
+		754A31CD2F9C53B30038D2A5 /* APIRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754A31CC2F9C53B30038D2A5 /* APIRetryPolicy.swift */; };
 		754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E51E12E54283900258225 /* InvitationAlert.swift */; };
 		75507FDC2F0CE67000CCB99F /* FAQItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC52F0CE67000CCB99F /* FAQItemView.swift */; };
 		75507FDD2F0CE67000CCB99F /* FeatureRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75507FC12F0CE67000CCB99F /* FeatureRequestScreen.swift */; };
@@ -364,6 +365,7 @@
 		753FA59C2EC84112002F69C3 /* Ext+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIApplication.swift"; sourceTree = "<group>"; };
 		754241CE2E71CA9C00848F6F /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
 		7548D23D2DD561EE008AE243 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
+		754A31CC2F9C53B30038D2A5 /* APIRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRetryPolicy.swift; sourceTree = "<group>"; };
 		754E51E12E54283900258225 /* InvitationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAlert.swift; sourceTree = "<group>"; };
 		75507FB42F0CE67000CCB99F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		75507FB52F0CE67000CCB99F /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 		7537F3D52DF661EA0031D9CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				754A31CC2F9C53B30038D2A5 /* APIRetryPolicy.swift */,
 				7537F3D22DF661EA0031D9CF /* APILogResponse.swift */,
 				7537F3D32DF661EA0031D9CF /* API.swift */,
 				7537F3D42DF661EA0031D9CF /* APIError.swift */,
@@ -1745,6 +1748,7 @@
 				A1B2C3042F80000100AAA001 /* LocalNotificationSchedulePattern.swift in Sources */,
 				A1B2C3052F80000100AAA001 /* LocalNotificationScheduleStrategy.swift in Sources */,
 				A1B2C3022F80000100AAA001 /* LocalNotificationWeekday.swift in Sources */,
+				754A31CD2F9C53B30038D2A5 /* APIRetryPolicy.swift in Sources */,
 				7515DBB52ECBEB3E00921AE9 /* Query.swift in Sources */,
 				7515DBB62ECBEB3E00921AE9 /* Trackable.swift in Sources */,
 				7515DBB72ECBEB3E00921AE9 /* ViewModel.swift in Sources */,

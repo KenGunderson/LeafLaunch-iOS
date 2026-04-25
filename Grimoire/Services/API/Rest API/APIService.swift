@@ -21,8 +21,7 @@ final class APIService: APIServiceProtocol {
     internal let networkSession: URLSession
     internal let requestTimeout: TimeInterval
     internal let resourceTimeout: TimeInterval
-    internal let maxRetryCount: Int
-    internal let retryBackoffNanoseconds: UInt64
+    internal let retryPolicy: APIRetryPolicy
     
     internal var accessToken: String?
     internal var deviceToken: String?
@@ -41,8 +40,7 @@ final class APIService: APIServiceProtocol {
          networkSession: URLSession? = nil,
          requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout,
          resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout,
-         maxRetryCount: Int = Constants.Runtime.apiRetryCount,
-         retryBackoffNanoseconds: UInt64 = Constants.Runtime.apiRetryBackoffBaseNanoseconds) {
+         retryPolicy: APIRetryPolicy = .default) {
         
         self.analyticsService = analyticsService
         self.environmentService = environmentService
@@ -50,8 +48,7 @@ final class APIService: APIServiceProtocol {
         self.firebaseService = firebaseService
         self.requestTimeout = requestTimeout
         self.resourceTimeout = resourceTimeout
-        self.maxRetryCount = maxRetryCount
-        self.retryBackoffNanoseconds = retryBackoffNanoseconds
+        self.retryPolicy = retryPolicy
         
         if let networkSession {
             self.networkSession = networkSession
