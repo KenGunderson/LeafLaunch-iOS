@@ -48,8 +48,10 @@ final class AuthService: AuthServiceProtocol {
     }
     
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
     
     @MainActor

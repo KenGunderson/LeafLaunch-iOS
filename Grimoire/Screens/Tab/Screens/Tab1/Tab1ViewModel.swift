@@ -36,8 +36,10 @@ final class Tab1ViewModel: ViewModel {
     }
     
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
     
     func setup(tabBarNavigationService: TabBarNavigationService) {

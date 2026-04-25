@@ -76,8 +76,10 @@ final class SettingsViewModel: ViewModel {
     }
 
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
 
     @MainActor

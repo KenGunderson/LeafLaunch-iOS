@@ -42,8 +42,10 @@ final class DevImpersonateViewModel: ViewModel {
     }
 
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
 
     func setup(navigationService: NavigationService) {

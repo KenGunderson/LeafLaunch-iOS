@@ -77,8 +77,10 @@ final class MainViewModel: ViewModel {
     }
 
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
 
     var shouldShowOnboarding: Bool {

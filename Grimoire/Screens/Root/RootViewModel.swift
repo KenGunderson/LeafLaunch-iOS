@@ -73,8 +73,10 @@ final class RootViewModel: ViewModel {
     }
     
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
     
     // MARK: - PUBLIC

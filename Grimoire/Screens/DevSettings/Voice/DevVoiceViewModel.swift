@@ -96,8 +96,10 @@ final class DevVoiceViewModel: ViewModel {
     }
     
     isolated deinit {
+        
         self.stopPlaybackAndResetState()
         self.logDeinit()
+        
     }
     
     func setup(navigationService: NavigationService) {

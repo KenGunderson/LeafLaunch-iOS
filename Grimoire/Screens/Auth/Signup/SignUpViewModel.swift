@@ -62,8 +62,10 @@ final class SignUpViewModel: ViewModel {
     }
 
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
 
     func set(nonce: String) {

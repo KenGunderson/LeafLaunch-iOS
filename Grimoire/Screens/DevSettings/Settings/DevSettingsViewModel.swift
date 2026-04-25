@@ -53,8 +53,10 @@ final class DevSettingsViewModel: ViewModel {
     }
 
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
 
     func loadData() {

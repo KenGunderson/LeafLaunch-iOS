@@ -62,8 +62,10 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     }
     
     isolated deinit {
+        
         cancelTasks()
         self.logDeinit()
+        
     }
     
     func setup(appDelegate: AppDelegate) {
