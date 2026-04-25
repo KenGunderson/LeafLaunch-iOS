@@ -19,9 +19,9 @@ internal struct APIRetryPolicy: Sendable {
                      attempt: Int,
                      method: HTTPRequestMethod) -> Bool {
         
-        guard attempt < maxAttempts else { return false }
-        guard retryableMethods.contains(method) else { return false }
-        return retryStatusCodes.contains(statusCode)
+        guard attempt < self.maxAttempts else { return false }
+        guard self.retryableMethods.contains(method) else { return false }
+        return self.retryStatusCodes.contains(statusCode)
         
     }
     
@@ -29,19 +29,19 @@ internal struct APIRetryPolicy: Sendable {
                      attempt: Int,
                      method: HTTPRequestMethod) -> Bool {
         
-        guard attempt < maxAttempts else { return false }
-        guard retryableMethods.contains(method) else { return false }
+        guard attempt < self.maxAttempts else { return false }
+        guard self.retryableMethods.contains(method) else { return false }
         guard let urlError = error as? URLError else { return false }
-        return retryURLCodes.contains(urlError.code)
+        return self.retryURLCodes.contains(urlError.code)
         
     }
     
     func delay(for attempt: Int) -> TimeInterval {
         
-        guard !rateLimitRetryDelays.isEmpty else { return 0 }
+        guard !self.rateLimitRetryDelays.isEmpty else { return 0 }
         
-        let delayIndex = max(0, min(attempt - 1, rateLimitRetryDelays.count - 1))
-        return rateLimitRetryDelays[delayIndex]
+        let delayIndex = max(0, min(attempt - 1, self.rateLimitRetryDelays.count - 1))
+        return self.rateLimitRetryDelays[delayIndex]
         
     }
     
