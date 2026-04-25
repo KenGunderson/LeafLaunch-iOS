@@ -7,7 +7,7 @@
 
 import Foundation
 
-nonisolated internal struct APIRetryPolicy: Sendable {
+internal struct APIRetryPolicy: Sendable {
     
     let maxAttempts: Int
     let rateLimitRetryDelays: [TimeInterval]
