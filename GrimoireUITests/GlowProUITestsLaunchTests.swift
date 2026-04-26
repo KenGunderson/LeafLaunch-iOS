@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class //  Grimoire UITestsLaunchTests: XCTestCase {
+final class GrimoireUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
