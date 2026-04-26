@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 final class APIService: APIServiceProtocol {
     
@@ -14,38 +13,44 @@ final class APIService: APIServiceProtocol {
     internal let loggerEmoji: String = "🌐"
     
     private let analyticsService: AnalyticsServiceProtocol
-    private let environmentService: EnvironmentServiceProtocol
-    private let appDelegateService: AppDelegateServiceProtocol
-    private let firebaseService: FirebaseServiceProtocol
+    private let environmentProvider: EnvironmentProviding
+    private let deviceTokenProvider: DeviceTokenProviding
+    private let authTokenProvider: APIAuthTokenProviding
     
     internal let networkSession: URLSession
     internal let requestTimeout: TimeInterval
     internal let resourceTimeout: TimeInterval
     internal let retryPolicy: APIRetryPolicy
-    
-    internal var accessToken: String?
-    internal var deviceToken: String?
-    internal var environment: AppEnvironment?
-    
-    private var cancelBag: CancelBag!
+
+    internal var accessToken: String? {
+        return self.authTokenProvider.authToken
+    }
+
+    internal var deviceToken: String? {
+        return self.deviceTokenProvider.deviceToken
+    }
+
+    internal var environment: AppEnvironment? {
+        return self.environmentProvider.environment
+    }
         
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)
     }
     
     init(analyticsService: AnalyticsServiceProtocol,
-         environmentService: EnvironmentServiceProtocol,
-         appDelegateService: AppDelegateServiceProtocol,
-         firebaseService: FirebaseServiceProtocol,
+         environmentProvider: EnvironmentProviding,
+         deviceTokenProvider: DeviceTokenProviding,
+         authTokenProvider: APIAuthTokenProviding,
          networkSession: URLSession? = nil,
          requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout,
          resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout,
          retryPolicy: APIRetryPolicy = .default) {
         
         self.analyticsService = analyticsService
-        self.environmentService = environmentService
-        self.appDelegateService = appDelegateService
-        self.firebaseService = firebaseService
+        self.environmentProvider = environmentProvider
+        self.deviceTokenProvider = deviceTokenProvider
+        self.authTokenProvider = authTokenProvider
         self.requestTimeout = requestTimeout
         self.resourceTimeout = resourceTimeout
         self.retryPolicy = retryPolicy
@@ -63,7 +68,6 @@ final class APIService: APIServiceProtocol {
         }
         
         self.logInit()
-        bindSubscribers()
         
     }
     
@@ -71,45 +75,6 @@ final class APIService: APIServiceProtocol {
         
         self.logDeinit()
         
-    }
-    
-    private func bindSubscribers() {
-        
-        self.cancelBag = CancelBag()
-        
-        self.appDelegateService
-            .deviceTokenPublisher
-            .receiveOnMain()
-            .sink { [weak self] deviceToken in
-                
-                self?.log(message: "Device token: \(deviceToken ?? "NIL")")
-                self?.deviceToken = deviceToken
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.environmentService
-            .environmentPublisher
-            .receiveOnMain()
-            .sink { [weak self] environment in
-                
-                self?.log(message: "Environment: \(environment?.displayName ?? "NIL")")
-                self?.environment = environment
-                
-            }
-            .store(in: &self.cancelBag)
-        
-        self.firebaseService
-            .currentAccessTokenPublisher
-            .receiveOnMain()
-            .sink { [weak self] firebaseAccessToken in
-                
-                self?.log(message: "Firebase token: \(firebaseAccessToken ?? "NIL")")
-                self?.accessToken = firebaseAccessToken
-                
-            }
-            .store(in: &self.cancelBag)
-                
     }
     
 }

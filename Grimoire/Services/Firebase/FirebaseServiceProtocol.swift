@@ -11,7 +11,13 @@ import FirebaseStorage
 import AuthenticationServices
 import Combine
 
-protocol FirebaseServiceProtocol: AnyObject, Sendable, Loggable {
+protocol APIAuthTokenProviding: AnyObject {
+
+    var authToken: String? { get }
+
+}
+
+protocol FirebaseServiceProtocol: APIAuthTokenProviding, Sendable, Loggable {
     
     var user: FirebaseAuth.User? { get }
     var userPublisher: AnyPublisher<FirebaseAuth.User?, Never> { get }
@@ -41,4 +47,12 @@ protocol FirebaseServiceProtocol: AnyObject, Sendable, Loggable {
     func uploadImage(imageData: Data,
                      bucket: Query.Bucket) async throws -> URL
     
+}
+
+extension FirebaseServiceProtocol {
+
+    var authToken: String? {
+        return self.currentAccessToken
+    }
+
 }

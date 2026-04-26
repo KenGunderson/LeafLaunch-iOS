@@ -67,8 +67,6 @@ final class AuthService: AuthServiceProtocol {
                 password: password
             )
             
-            self.apiService.accessToken = self.firebaseService.currentAccessToken
-            
             let _ = try await self.apiService
                 .createUser(user: .init(
                     id: "",
@@ -159,9 +157,6 @@ final class AuthService: AuthServiceProtocol {
             
             try await self.firebaseService
                 .getAccessTokenForCurrentUser()
-            
-            self.apiService
-                .accessToken = self.firebaseService.currentAccessToken
                         
             let user = try await self.apiService
                 .getUserProfile()

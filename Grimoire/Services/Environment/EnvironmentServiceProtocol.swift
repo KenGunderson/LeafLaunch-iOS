@@ -8,7 +8,13 @@
 import Foundation
 import Combine
 
-protocol EnvironmentServiceProtocol: AnyObject, Loggable {
+protocol EnvironmentProviding: AnyObject {
+
+    var environment: AppEnvironment? { get }
+
+}
+
+protocol EnvironmentServiceProtocol: EnvironmentProviding, Loggable {
     
     var environment: AppEnvironment? { get }
     var environmentPublisher: AnyPublisher<AppEnvironment?, Never> { get }

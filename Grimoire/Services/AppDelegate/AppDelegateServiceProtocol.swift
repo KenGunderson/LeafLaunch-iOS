@@ -9,7 +9,13 @@ import Combine
 import UserNotifications
 import UIKit
 
-protocol AppDelegateServiceProtocol: AnyObject, Loggable {
+protocol DeviceTokenProviding: AnyObject {
+
+    var deviceToken: String? { get }
+
+}
+
+protocol AppDelegateServiceProtocol: DeviceTokenProviding, Loggable {
     
     var deviceToken: String? { get }
     var deviceTokenPublisher: AnyPublisher<String?, Never> { get }

@@ -19,7 +19,7 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var accessToken: String? { get set }
+    var accessToken: String? { get }
     var networkSession: URLSession { get }
     var requestTimeout: TimeInterval { get }
     var resourceTimeout: TimeInterval { get }
@@ -29,7 +29,7 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
 
 protocol APIServiceProtocol: APIProtocol {
     
-    var accessToken: String? { get set }
+    var accessToken: String? { get }
     var deviceToken: String? { get }
     var environment: AppEnvironment? { get }
     var hostURL: String { get }

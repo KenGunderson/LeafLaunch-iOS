@@ -229,9 +229,9 @@ extension Container {
             MockAPIService() // TODO: - REPLACE WITH LIVE
 //            APIService(
 //                analyticsService: self.analyticsService(),
-//                environmentService: self.environmentService(),
-//                appDelegateService: self.appDelegateService(),
-//                firebaseService: self.firebaseService()
+//                environmentProvider: self.environmentService(),
+//                deviceTokenProvider: self.appDelegateService(),
+//                authTokenProvider: self.firebaseService()
 //            )
         }
         .singleton
