@@ -33,12 +33,12 @@ struct DevSettingsScreen: GPView {
             }
             // Lifecycle
             
-            .onFirstAppear {
+            .onFirstAppear { [weak viewModel] in
                 
-                self.viewModel
+                viewModel?
                     .handleFirstAppear()
                 
-                self.viewModel.setup(
+                viewModel?.setup(
                     navigationService: self.navigationService,
                     dismissAction: {
                         dismiss()
@@ -123,10 +123,10 @@ struct DevSettingsScreen: GPView {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
                             }
-                            .onSubmit {
+                            .onSubmit { [weak viewModel] in
                                 
-                                let customEnv: AppEnvironment = .custom(address: self.viewModel.customAPIEnviornmentPath)
-                                self.viewModel.set(environment: customEnv)
+                                let customEnv: AppEnvironment = .custom(address: viewModel?.customAPIEnviornmentPath ?? "")
+                                viewModel?.set(environment: customEnv)
                                 
                             }
                             .transition(

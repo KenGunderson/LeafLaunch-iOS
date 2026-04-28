@@ -743,6 +743,36 @@ final class MockAppStoreSubscriptionService: AppStoreSubscriptionServiceProtocol
     
 }
 
+// MARK: - StatsigServiceProtocol
+
+final class MockStatsigService: StatsigServiceProtocol, @unchecked Sendable {
+
+    internal let loggerName: String = "STATSIG_SERVICE"
+    internal let loggerEmoji: String = "🚩"
+
+    @Published var isReady: Bool = true
+    var isReadyPublisher = CurrentValueSubject<Bool, Never>(true).eraseToAnyPublisher()
+
+    func setup(appDelegateService: AppDelegateServiceProtocol,
+               environmentService: EnvironmentProviding,
+               authProvider: AuthProviding) {}
+
+    func identify(user: GPUser?) async {
+        self.log(message: "identify: \(user?.id ?? "logged-out") (mock)")
+    }
+
+    func isEnabled(_ flag: FeatureFlag) -> Bool {
+        self.log(message: "isEnabled: \(flag.displayName) [\(flag.rawValue)] → false (mock)")
+        return flag.defaultValue
+    }
+
+    func value<Value>(_ parameter: DynamicConfigParameter<Value>) -> Value {
+        self.log(message: "value: \(parameter.config.displayName).\(parameter.key) → default (mock)")
+        return parameter.defaultValue
+    }
+
+}
+
 // MARK: - UserDefaultsServiceProtocol
 
 final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sendable {
@@ -836,6 +866,7 @@ final class MockServiceAssembly {
         container.apiService.register { @MainActor in MockAPIService() }
         container.authService.register { @MainActor in MockAuthService() }
         container.impersonateService.register { @MainActor in MockImpersonateService() }
+        container.statsigService.register { @MainActor in MockStatsigService() }
         container.rootStartupService.register { @MainActor in
             RootStartupService(
                 launchService: container.launchScreenService(),
@@ -846,7 +877,8 @@ final class MockServiceAssembly {
                 firebaseService: container.firebaseService(),
                 appDelegateService: container.appDelegateService(),
                 connectivityService: container.connectivityService(),
-                viewLifecycleService: container.viewLifecycleService()
+                viewLifecycleService: container.viewLifecycleService(),
+                statsigService: container.statsigService()
             )
         }
         

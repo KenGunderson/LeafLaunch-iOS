@@ -35,16 +35,16 @@ struct RootScreen: GPView {
         
         // Lifecycle
         
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .track()
             
         }
         
-        .onAppear {
+        .onAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .setNavigationService(self.tabBarNavigationService)
             
             globalTabBarNavigationService = self.tabBarNavigationService
@@ -114,8 +114,11 @@ struct RootScreen: GPView {
         }
         .opacity(self.viewModel.launchState == .completed ? 0 : 1)
         .animation(.smooth(duration: 0.6), value: viewModel.launchState)
-        .onFirstAppear {
-            self.viewModel.trackLauchScreen()
+        .onFirstAppear { [weak viewModel] in
+            
+            viewModel?
+                .trackLauchScreen()
+            
         }
         
     }

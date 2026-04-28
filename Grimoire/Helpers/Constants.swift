@@ -67,6 +67,28 @@ struct Constants {
         static let AMPLITUDE_KEY = "9352310171a2e540fb3f609be7490127"
         
     }
+
+    // MARK: - STATSIG
+
+    struct Statsig {
+
+        static let developmentSDKKey: String? = nil
+        static let productionSDKKey: String? = nil
+
+        static func sdkKey(for environment: AppEnvironment?) -> String? {
+
+            switch environment {
+            case .production:
+                return self.productionSDKKey
+            case .development, .custom:
+                return self.developmentSDKKey
+            case .localhost, .none:
+                return nil
+            }
+
+        }
+
+    }
     
     // MARK: - URLS
     

@@ -36,18 +36,18 @@ struct SettingsScreen: GPView {
             
             // Lifecycle
             
-            .onFirstAppear {
+            .onFirstAppear { [weak viewModel] in
                 
-                self.viewModel
+                viewModel?
                     .handleFirstAppear()
                 
-                self.viewModel
+                viewModel?
                     .setup(navigationService: self.navigationService)
                 
             }
-            .task {
+            .task { [weak viewModel] in
                 
-                self.viewModel
+                viewModel?
                     .loadData(showHud: self.viewModel.isFirstLoad)
                 
             }

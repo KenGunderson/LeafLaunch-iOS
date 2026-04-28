@@ -67,12 +67,12 @@ struct MainScreen: GPView {
         
         // Lifecycle
         
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .handleFirstAppear()
             
-            self.viewModel
+            viewModel?
                 .setup(tabBarNavigationService: self.tabBarNavigationService)
             
         }

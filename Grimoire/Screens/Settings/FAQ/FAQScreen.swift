@@ -25,18 +25,18 @@ struct FAQScreen: GPView {
         
         // Lifecycle
         
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .handleFirstAppear()
             
-            self.viewModel
+            viewModel?
                 .setup(navigationService: self.navigationService)
             
         }
-        .task {
+        .task { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .loadData()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

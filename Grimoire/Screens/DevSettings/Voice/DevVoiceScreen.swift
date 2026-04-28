@@ -23,12 +23,12 @@ struct DevVoiceScreen: GPView {
             content()
             
         }
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .handleFirstAppear()
             
-            self.viewModel
+            viewModel?
                 .setup(navigationService: self.navigationService)
             
         }

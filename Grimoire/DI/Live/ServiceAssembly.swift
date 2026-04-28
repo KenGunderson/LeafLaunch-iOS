@@ -265,6 +265,15 @@ extension Container {
         .singleton
     }
     
+    // STATSIG
+
+    var statsigService: Factory<StatsigServiceProtocol> {
+        self { @MainActor in
+            StatsigService()
+        }
+        .singleton
+    }
+
     // ROOT STARTUP
     
     var rootStartupService: Factory<RootStartupServiceProtocol> {
@@ -278,7 +287,8 @@ extension Container {
                 firebaseService: self.firebaseService(),
                 appDelegateService: self.appDelegateService(),
                 connectivityService: self.connectivityService(),
-                viewLifecycleService: self.viewLifecycleService()
+                viewLifecycleService: self.viewLifecycleService(),
+                statsigService: self.statsigService()
             )
         }
         .singleton

@@ -45,6 +45,9 @@
 		7515DBC52ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
 		751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
 		751BC5DE2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
+		75A1B0052FA0000100C0D001 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0022FA0000100C0D001 /* FeatureFlag.swift */; };
+		75A1B0062FA0000100C0D001 /* StatsigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0032FA0000100C0D001 /* StatsigService.swift */; };
+		75A1B0072FA0000100C0D001 /* StatsigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */; };
 		7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F4592DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -279,6 +282,9 @@
 		7515DBA52ECBEB3E00921AE9 /* GPUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUser.swift; sourceTree = "<group>"; };
 		751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupServiceProtocol.swift; sourceTree = "<group>"; };
 		751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupService.swift; sourceTree = "<group>"; };
+		75A1B0022FA0000100C0D001 /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
+		75A1B0032FA0000100C0D001 /* StatsigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigService.swift; sourceTree = "<group>"; };
+		75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -820,6 +826,16 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
+		75A1B0012FA0000100C0D001 /* Statsig */ = {
+			isa = PBXGroup;
+			children = (
+				75A1B0022FA0000100C0D001 /* FeatureFlag.swift */,
+				75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */,
+				75A1B0032FA0000100C0D001 /* StatsigService.swift */,
+			);
+			path = Statsig;
+			sourceTree = "<group>";
+		};
 		7537F3F32DF661EA0031D9CF /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -1239,6 +1255,7 @@
 				7537F40F2DF661EA0031D9CF /* Permissions */,
 				23D04B22A1374EF0018AE98B /* Voice */,
 				7537F4122DF661EA0031D9CF /* PushNotification */,
+				75A1B0012FA0000100C0D001 /* Statsig */,
 				750E2BF32F9835AC00F85A2E /* StoreKit */,
 				751BC5D62F43D086007750E0 /* Startup */,
 				7537F4152DF661EA0031D9CF /* UserDefaults */,
@@ -1682,6 +1699,7 @@
 				7537F47C2DF661EA0031D9CF /* AnalyticsServiceProtocol.swift in Sources */,
 				75E5D5002EE93DFD0027DD04 /* SafariView.swift in Sources */,
 				7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */,
+				75A1B0052FA0000100C0D001 /* FeatureFlag.swift in Sources */,
 				7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */,
 				7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */,
 				75507FFC2F0CE6F800CCB99F /* LegalItem.swift in Sources */,
@@ -1739,6 +1757,8 @@
 				7537F4892DF661EA0031D9CF /* AppTrackingPermissionService.swift in Sources */,
 				7537F48A2DF661EA0031D9CF /* LaunchScreenService.swift in Sources */,
 				7537F48B2DF661EA0031D9CF /* AuthServiceProtocol.swift in Sources */,
+				75A1B0072FA0000100C0D001 /* StatsigServiceProtocol.swift in Sources */,
+				75A1B0062FA0000100C0D001 /* StatsigService.swift in Sources */,
 				7537F48C2DF661EA0031D9CF /* ScreenEvent.swift in Sources */,
 				75B429A82E70061500DE7852 /* PlaceholderView.swift in Sources */,
 				75507FDC2F0CE67000CCB99F /* FAQItemView.swift in Sources */,

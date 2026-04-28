@@ -29,9 +29,9 @@ struct GrimoireApp: App {
         WindowGroup {
             
             RootScreen(viewModel: self.rootViewModel)
-                .onAppear {
+                .onAppear { [weak rootViewModel] in
                     
-                    self.rootViewModel
+                    rootViewModel?
                         .setup(appDelegate: self.appDelegate)
                     
                 }

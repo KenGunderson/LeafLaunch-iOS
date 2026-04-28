@@ -21,6 +21,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private let appDelegateService: AppDelegateServiceProtocol
     private let connectivityService: ConnectivityServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
+    private let statsigService: StatsigServiceProtocol
     
     private var cancelBag: CancelBag!
     private var foregroundUserRefreshTask: Task<Void, Never>?
@@ -41,7 +42,8 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
          firebaseService: FirebaseServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
          connectivityService: ConnectivityServiceProtocol,
-         viewLifecycleService: ViewLifecycleServiceProtocol) {
+         viewLifecycleService: ViewLifecycleServiceProtocol,
+         statsigService: StatsigServiceProtocol) {
         
         self.launchService = launchService
         self.environmentService = environmentService
@@ -52,6 +54,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         self.appDelegateService = appDelegateService
         self.connectivityService = connectivityService
         self.viewLifecycleService = viewLifecycleService
+        self.statsigService = statsigService
         
         self.logInit()
         
@@ -72,6 +75,13 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         
         self.appDelegateService
             .setup(appDelegate: appDelegate)
+
+        self.statsigService
+            .setup(
+                appDelegateService: self.appDelegateService,
+                environmentService: self.environmentService,
+                authProvider: self.authService
+            )
         
     }
     

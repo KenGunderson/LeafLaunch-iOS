@@ -37,9 +37,9 @@ struct WhatsNewScreen: GPView {
         
         // Lifecycle
         
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .track()
             
         }

@@ -24,9 +24,9 @@ struct WelcomeScreen: GPView {
                     footer
                 }
             
-                .onFirstAppear {
+                .onFirstAppear { [weak viewModel] in
                     
-                    self.viewModel
+                    viewModel?
                         .handleFirstAppear()
                     
                 }
@@ -36,9 +36,9 @@ struct WelcomeScreen: GPView {
         .detectRotation { orientation in
             self.orientation = orientation
         }
-        .task {
+        .task { [weak viewModel] in
             
-            self.viewModel
+            viewModel?
                 .setup(navigationService: self.navigationService)
             
         }

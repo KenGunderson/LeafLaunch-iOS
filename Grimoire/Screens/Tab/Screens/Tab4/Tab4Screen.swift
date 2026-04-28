@@ -29,18 +29,18 @@ struct TabBar4Screen: View {
             }
             // Lifecycle
             
-            .onFirstAppear {
+            .onFirstAppear { [weak viewModel] in
                 
-                self.viewModel
+                viewModel?
                     .track()
                 
-                self.viewModel
+                viewModel?
                     .setup(tabBarNavigationService: self.tabBarNavigationService)
                 
             }
-            .task {
+            .task { [weak viewModel] in
                 
-                self.viewModel
+                viewModel?
                     .loadData(showHud: true)
                 
             }

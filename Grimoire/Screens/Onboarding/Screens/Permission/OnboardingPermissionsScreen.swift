@@ -100,9 +100,9 @@ struct OnboardingPermissionsScreen: GPView {
 
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .onFirstAppear {
+        .onFirstAppear { [weak viewModel] in
 
-            self.viewModel
+            viewModel?
                 .handleFirstAppear()
 
         }
