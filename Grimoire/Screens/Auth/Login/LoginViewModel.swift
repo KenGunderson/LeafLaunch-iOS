@@ -170,8 +170,8 @@ final class LoginViewModel: ViewModel {
         self.loginTask?.cancel()
 
         let authService = self.authService
-        let email = self.email
-        let password = self.password
+        let email = self.email.trimmed()
+        let password = self.password.trimmed()
 
         self.loginTask = Task { [weak self] in
 

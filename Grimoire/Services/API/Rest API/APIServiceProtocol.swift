@@ -59,7 +59,7 @@ extension APIProtocol {
                       apiPath: APIPath,
                       queryParameters: [String: String] = [:],
                       parameters: [String: Any] = [:],
-                      retryPolicy: APIRetryPolicy? = nil) async throws -> Data {
+                      retryPolicy: APIRetryPolicy? = nil) async throws(APIError) -> Data {
         
         var apiLogResponse: APILogResponse?
         
@@ -111,7 +111,7 @@ extension APIProtocol {
                                apiPath: APIPath,
                                boundary: String,
                                data: Data,
-                               retryPolicy: APIRetryPolicy? = nil) async throws -> Data {
+                               retryPolicy: APIRetryPolicy? = nil) async throws(APIError) -> Data {
         
         var apiLogResponse: APILogResponse?
         
@@ -166,7 +166,7 @@ extension APIProtocol {
     private func performRequestWithRetry(request: URLRequest,
                                          method: HTTPRequestMethod,
                                          path: String,
-                                         retryPolicy: APIRetryPolicy) async throws -> (Data, URLResponse, Int) {
+                                         retryPolicy: APIRetryPolicy) async throws(APIError) -> (Data, URLResponse, Int) {
         
         var attempt = 0
         var latestResponse: (Data, URLResponse)?
@@ -182,9 +182,9 @@ extension APIProtocol {
                 
                 if let httpResponse = response.1 as? HTTPURLResponse,
                    retryPolicy.shouldRetry(
-                    statusCode: httpResponse.statusCode,
-                    attempt: attempt,
-                    method: method
+                       statusCode: httpResponse.statusCode,
+                       attempt: attempt,
+                       method: method
                    ) {
                     
                     self.log(
@@ -196,7 +196,12 @@ extension APIProtocol {
                         """
                     )
                     
-                    try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
+                    do {
+                        try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
+                    }
+                    catch {
+                        throw self.mapToAPIError(error)
+                    }
                     continue
                     
                 }
@@ -206,7 +211,11 @@ extension APIProtocol {
             }
             catch {
                 
-                guard retryPolicy.shouldRetry(error: error, attempt: attempt, method: method) else {
+                guard retryPolicy.shouldRetry(
+                    error: error,
+                    attempt: attempt,
+                    method: method
+                ) else {
                     
                     self.logError(
                         title: "API Request Failed",
@@ -218,7 +227,8 @@ extension APIProtocol {
                         """
                     )
                     
-                    throw error
+                    let apiError = self.mapToAPIError(error)
+                    throw apiError
                     
                 }
                 
@@ -232,7 +242,12 @@ extension APIProtocol {
                     """
                 )
                 
-                try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
+                do {
+                    try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
+                }
+                catch {
+                    throw self.mapToAPIError(error)
+                }
                 
             }
             
@@ -247,11 +262,39 @@ extension APIProtocol {
     }
     
     @concurrent
-    func parseData<T: Decodable>(data: Data) async throws -> T {
-        
+    func parseData<T: Decodable>(data: Data) async throws(APIError) -> T {
+
         do {
-            
-            return try JSONDecoder().decode(T.self, from: data)
+
+            let responseDecoder = JSONDecoder()
+            responseDecoder.dateDecodingStrategy = .custom { decoder in
+
+                let container = try decoder.singleValueContainer()
+                let dateString = try container.decode(String.self)
+
+                let fractionalSecondsFormatter = ISO8601DateFormatter()
+                fractionalSecondsFormatter.formatOptions = [
+                    .withInternetDateTime,
+                    .withFractionalSeconds
+                ]
+
+                if let date = fractionalSecondsFormatter.date(from: dateString) {
+                    return date
+                }
+
+                let formatter = ISO8601DateFormatter()
+
+                if let date = formatter.date(from: dateString) {
+                    return date
+                }
+
+                throw DecodingError.dataCorruptedError(
+                    in: container,
+                    debugDescription: "Expected ISO-8601 date string."
+                )
+
+            }
+            return try responseDecoder.decode(T.self, from: data)
             
         } catch let error as DecodingError {
             
@@ -304,11 +347,7 @@ extension APIProtocol {
             
         }
         
-        throw NSError(
-            domain: "NetworkAPIError",
-            code: 3,
-            userInfo: [NSLocalizedDescriptionKey: "JSON decode error"]
-        )
+        throw APIError.decodingError
         
     }
     
@@ -369,6 +408,25 @@ extension APIProtocol {
         return "Field '\(path)': \(message) (expected \(expected), received \(received)) [\(code)]"
     }
     
+    private func mapToAPIError(_ error: Error) -> APIError {
+        
+        if let apiError = error as? APIError {
+            return apiError
+        }
+        
+        if error is DecodingError {
+            return .decodingError
+        }
+        
+        if let urlError = error as? URLError,
+           urlError.code == .badURL {
+            return .badURL
+        }
+        
+        return .unknownError
+        
+    }
+    
 }
 
 extension APIProtocol {
@@ -376,10 +434,10 @@ extension APIProtocol {
     func makeRequest(method: HTTPRequestMethod,
                      apiPath: APIPath,
                      queryParameters: [String: String],
-                     body: RequestBody) throws -> URLRequest {
+                     body: RequestBody) throws(APIError) -> URLRequest {
         
         guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
-            throw URLError(.badURL)
+            throw APIError.badURL
         }
         
         if !queryParameters.isEmpty {
@@ -387,7 +445,7 @@ extension APIProtocol {
         }
         
         guard let url = urlComponents.url else {
-            throw URLError(.badURL)
+            throw APIError.badURL
         }
         
         var request = URLRequest(url: url)
@@ -407,8 +465,13 @@ extension APIProtocol {
         case .json(let parameters):
             
             if !parameters.isEmpty {
-                
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+
+                do {
+                    request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                }
+                catch {
+                    throw APIError.unknownError
+                }
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 
             }
@@ -443,7 +506,6 @@ extension APIProtocol {
         
         if !queryParameters.isEmpty {
             customLog.append("\nQUERY PARAMS: \(queryParameters)")
-            
         }
         
         if let params = body.jsonParameters,

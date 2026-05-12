@@ -18,18 +18,11 @@ extension APIService {
         ]
         .compact()
         
-        do {
-            
-            let _ = try await buildRequest(
-                method: .post,
-                apiPath: .init(path: .device("")),
-                parameters: parameters
-            )
-            
-        }
-        catch {
-            throw error
-        }
+        let _ = try await buildRequest(
+            method: .post,
+            apiPath: .init(path: .device("")),
+            parameters: parameters
+        )
         
     }
     

@@ -14,17 +14,10 @@ extension APIService {
     @concurrent
     func getHealth() async throws {
         
-        do {
-            
-            let _ = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .health)
-            )
-            
-        }
-        catch {
-            throw error
-        }
+        let _ = try await buildRequest(
+            method: .get,
+            apiPath: .init(path: .health)
+        )
         
     }
     

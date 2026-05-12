@@ -8,11 +8,15 @@
 import Foundation
 
 extension String {
-    
-    func trimmed() -> Self {
+
+    nonisolated func trimmed() -> Self {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
+
+    nonisolated var nilIfEmpty: String? {
+        return self.isEmpty ? nil : self
+    }
+
     func isValidEmail() -> Bool {
         
         let pattern = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#

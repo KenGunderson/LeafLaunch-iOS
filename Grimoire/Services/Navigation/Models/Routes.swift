@@ -62,16 +62,16 @@ enum Route: Navigation, Hashable, Sendable {
         
         var icon: ImageSource {
             switch self {
-            case .profile: return .image(.iconPerson)
+            case .profile: return .systemImage("person.fill")
             case .updatePermissions: return .systemImage("shield.fill")
-            case .aboutUs: return .image(.iconInfoCircle)
-            case .frequentlyAskedQuestions: return .image(.iconQuestionMark)
-            case .contactSupport: return .image(.iconMail)
+            case .aboutUs: return .systemImage("info.circle.fill")
+            case .frequentlyAskedQuestions: return .systemImage("questionmark")
+            case .contactSupport: return .systemImage("envelope")
             case .featureRequest: return .systemImage("lightbulb.fill")
             case .rateApp: return .systemImage("star.fill")
-            case .privacyPolicy: return .image(.iconLock)
+            case .privacyPolicy: return .systemImage("lock.fill")
             case .termsOfService: return .systemImage("clipboard.fill")
-            case .logout: return .image(.iconCloseCircle)
+            case .logout: return .systemImage("xmark.circle.fill")
             }
         }
         

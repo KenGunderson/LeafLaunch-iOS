@@ -124,10 +124,10 @@ final class SignUpViewModel: ViewModel {
         self.signUpTask?.cancel()
 
         let authService = self.authService
-        let firstName = self.firstName.capitalized
-        let lastName = self.lastName.capitalized
-        let email = self.email
-        let password = self.password
+        let firstName = self.firstName.capitalized.trimmed()
+        let lastName = self.lastName.capitalized.trimmed()
+        let email = self.email.trimmed()
+        let password = self.password.trimmed()
 
         self.signUpTask = Task { [weak self] in
 

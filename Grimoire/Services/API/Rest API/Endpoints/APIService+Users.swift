@@ -9,78 +9,57 @@ import Foundation
 import SwiftDate
 
 extension APIService {
-    
+
     // MARK: - USERS
 
     @concurrent
     func getUser(id: String) async throws -> GPUser {
         
-        do {
-            
-            let data = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .user("\(id)"))
-            )
-            
-            let result: GPUser = try await parseData(data: data)
-            return result
-            
-        }
-        catch {
-            throw error
-        }
+        let data = try await buildRequest(
+            method: .get,
+            apiPath: .init(path: .user("\(id)"))
+        )
         
+        let result: GPUser = try await parseData(data: data)
+        return result
+
     }
-    
+
     @concurrent
     func getUserProfile() async throws -> GPUser {
         
-        do {
-            
-            let data = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .user("profile"))
-            )
-            
-            let result: GPUser = try await parseData(data: data)
-            return result
-            
-        }
-        catch {
-            throw error
-        }
+        let data = try await buildRequest(
+            method: .get,
+            apiPath: .init(path: .user("profile"))
+        )
         
+        let result: GPUser = try await parseData(data: data)
+        return result
+
     }
-    
+
     @concurrent
     func getFirebaseTokenForUser(email: String) async throws -> String {
         
-        do {
-            
-            let data = try await buildRequest(
-                method: .get,
-                apiPath: .init(path: .user("token/\(email)"))
-            )
-            
-            let json: [String: String] = try await parseData(data: data)
-            
-            if let token = json["token"] {
-                return token
-            }
-            
-            throw APIError.decodingError
-            
-        }
-        catch {
-            throw error
+        let data = try await buildRequest(
+            method: .get,
+            apiPath: .init(path: .user("token/\(email)"))
+        )
+        
+        let json: [String: String] = try await parseData(data: data)
+        
+        if let token = json["token"] {
+            return token
         }
         
+        throw APIError.decodingError
+
     }
-    
+
     @concurrent
     func createUser(user: GPUser) async throws -> GPUser {
-        
-        let parameters: [String : Any] = await [
+
+        let parameters: [String: Any] = await [
             "first_name": user.firstName,
             "last_name": user.lastName,
             "email": user.email,
@@ -89,30 +68,24 @@ extension APIService {
             "image_url": user.imageURL?.absoluteString,
             "date_of_birth": user.dateOfBirth?.toISO()
         ]
-        .compact()
+            .compact()
+
         
-        do {
-            
-            let data = try await buildRequest(
-                method: .post,
-                apiPath: .init(path: .user("")),
-                parameters: parameters
-            )
-            
-            let result: GPUser = try await parseData(data: data)
-            return result
-            
-        }
-        catch {
-            throw error
-        }
+        let data = try await buildRequest(
+            method: .post,
+            apiPath: .init(path: .user("")),
+            parameters: parameters
+        )
         
+        let result: GPUser = try await parseData(data: data)
+        return result
+
     }
-    
+
     @concurrent
     func updateUser(user: GPUser) async throws {
-        
-        let parameters: [String : Any] = [
+
+        let parameters: [String: Any] = [
             "id": user.id,
             "external_id": user.externalId,
             "first_name": user.firstName,
@@ -122,38 +95,26 @@ extension APIService {
             "image_url": user.imageURL?.absoluteString,
             "date_of_birth": await user.dateOfBirth?.toISO(),
         ]
-        .compact()
+            .compact()
+
         
-        do {
-            
-            let _ = try await buildRequest(
-                method: .put,
-                apiPath: .init(path: .user("\(user.id)")),
-                parameters: parameters
-            )
-            
-        }
-        catch {
-            throw error
-        }
-        
+        _ = try await buildRequest(
+            method: .put,
+            apiPath: .init(path: .user("\(user.id)")),
+            parameters: parameters
+        )
+
     }
-    
+
     @concurrent
     func deleteUser(user: GPUser) async throws {
+
         
-        do {
-            
-            let _ = try await buildRequest(
-                method: .delete,
-                apiPath: .init(path: .user("\(user.id)"))
-            )
-            
-        }
-        catch {
-            throw error
-        }
-        
+        _ = try await buildRequest(
+            method: .delete,
+            apiPath: .init(path: .user("\(user.id)"))
+        )
+
     }
-    
+
 }
