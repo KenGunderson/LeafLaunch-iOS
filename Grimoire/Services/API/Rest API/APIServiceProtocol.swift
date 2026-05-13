@@ -354,38 +354,43 @@ extension APIProtocol {
     private func handleErrorResponse(data: Data,
                                      response: URLResponse) -> APIError? {
         
-        let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-        
-        let zodErrorMessage = zodErrorDescription(errorJson)
-        
-        let errorMessage = errorJson?["error"] as? String
-        
-        let errorDescription = errorJson?["message"] as? String
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            let statusCode = httpResponse.statusCode
-            
-            let badStatusCodes = 400...599
-            
-            if badStatusCodes.contains(statusCode) {
-                
-                let message = zodErrorMessage ?? errorDescription ?? errorMessage
-                
-                self.logError(
-                        title: "API Service Error",
-                        message: message ?? "We don't know what went wrong, but it did!"
-                    )
-                
-                return APIError.serverError(
-                    statusCode: statusCode,
-                    errorMessage: message ?? "We don't know what went wrong, but it did!"
-                )
-                
-            }
-            
+        guard let httpResponse = response as? HTTPURLResponse else {
+            return nil
         }
         
-        return nil
+        let statusCode = httpResponse.statusCode
+        let badStatusCodes = 400...599
+        
+        guard badStatusCodes.contains(statusCode) else {
+            return nil
+        }
+        
+        let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        let zodErrorMessage = zodErrorDescription(errorJson)
+        
+        let decodedError = try? JSONDecoder().decode(
+            APIErrorResponse.self,
+            from: data
+        )
+        
+        let message = zodErrorMessage
+            ?? decodedError?.message
+            ?? decodedError?.error
+            ?? "We don't know what went wrong, but it did!"
+        
+        self.logError(
+            title: "API Service Error",
+            message: message
+        )
+        
+        if let platformError = decodedError?.metadata {
+            return .platformError(platformError)
+        }
+        
+        return .serverError(
+            statusCode: statusCode,
+            errorMessage: message
+        )
         
     }
     
