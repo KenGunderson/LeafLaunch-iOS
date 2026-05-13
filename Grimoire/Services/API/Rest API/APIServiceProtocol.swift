@@ -375,7 +375,6 @@ extension APIProtocol {
         
         let message = zodErrorMessage
             ?? decodedError?.message
-            ?? decodedError?.error
             ?? "We don't know what went wrong, but it did!"
         
         self.logError(
