@@ -102,7 +102,7 @@ struct FeatureRequestScreen: GPView {
                     
                     CommonTextEditView(
                         text: self.$viewModel.featureRequestText,
-                        placehoderText: "...",
+                        placeholderText: "...",
                         isFocused: self.isFocused,
                         shadow: .none,
                         lineLimit: 10...10

@@ -325,7 +325,7 @@ extension Constants {
 
 extension Constants {
     
-    static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+    static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
         
         .init(
             title: "API Down 🙃",
@@ -333,10 +333,10 @@ extension Constants {
             message: "We seem to be experiences technical difficulties. Please try again later.",
             messageColor: Style.shared.textColor(.body),
             image: Image(systemName: "stethoscope.circle.fill"),
-            imageColor: Style.shared.background(.error),
+            imageColor: Style.shared.palette(.error),
             buttonTitle: "Try Again",
             buttonTitleColor: Style.shared.textColor(.button),
-            buttonColor: Style.shared.background(.error),
+            buttonColor: Style.shared.palette(.error),
             action: {
                 action()
             }
@@ -344,7 +344,7 @@ extension Constants {
         
     }
     
-    static func NO_NETWORK_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+    static func NO_NETWORK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
         
         .init(
             title: "No Network",
@@ -363,7 +363,7 @@ extension Constants {
         
     }
     
-    static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> ()) -> EnviornmentAlertViewConfig {
+    static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
         
         .init(
             title: "Old App Version",

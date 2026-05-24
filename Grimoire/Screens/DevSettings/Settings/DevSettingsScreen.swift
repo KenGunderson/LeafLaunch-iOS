@@ -283,7 +283,7 @@ struct DevSettingsScreen: GPView {
                     listSectionItemView(
                         title: "Logout",
                         icon: "person.fill",
-                        colorOverride: Style.shared.background(.error)
+                        colorOverride: Style.shared.palette(.error)
                     )
                     .asButton {
                         

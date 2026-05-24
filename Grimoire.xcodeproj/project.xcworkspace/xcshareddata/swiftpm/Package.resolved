@@ -123,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "2ef543ee21d63734e1c004ad6c870255e8716c50",
-        "version" : "7.12.0"
+        "revision" : "cf8be20d07654570554c8a8a4952bc8a5766a8b0",
+        "version" : "8.9.0"
       }
     },
     {
@@ -160,7 +160,7 @@
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
         "branch" : "main",
-        "revision" : "c0ee86f493098f032c4511a85183538a6c8d8a95"
+        "revision" : "1c1e2d37e2e504b6ab31c6637a0394b8fc11f9fa"
       }
     },
     {

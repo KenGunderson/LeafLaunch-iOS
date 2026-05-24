@@ -77,7 +77,7 @@ enum Route: Navigation, Hashable, Sendable {
         
         var tintColor: ColorSource {
             switch self {
-            case .logout: Style.shared.background(.error)
+            case .logout: Style.shared.palette(.error)
             default: Style.shared.accent
             }
         }

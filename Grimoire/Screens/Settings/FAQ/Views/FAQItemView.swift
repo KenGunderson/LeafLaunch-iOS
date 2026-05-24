@@ -27,7 +27,7 @@ public struct FAQItemView: View {
     
     public var body: some View {
         
-        CollapsableView(isExpanded: $isExpanded, backgroundColor: Style.shared.background(.primary)) {
+        CollapsibleView(isExpanded: $isExpanded, backgroundColor: Style.shared.background(.primary)) {
             collapsedView()
         } expandedView: {
             expandedView()

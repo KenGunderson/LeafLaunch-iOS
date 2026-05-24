@@ -157,7 +157,7 @@ struct OnboardingPermissionsScreen: GPView {
 
         var buttonColor: ColorSource {
             if let isEnabled {
-                return isEnabled ? Style.shared.accent : Style.shared.background(.error)
+                return isEnabled ? Style.shared.accent : Style.shared.palette(.error)
             }
 
             return Style.shared.background(.quaternary)

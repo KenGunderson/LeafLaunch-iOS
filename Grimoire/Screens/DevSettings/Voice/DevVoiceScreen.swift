@@ -160,7 +160,7 @@ struct DevVoiceScreen: GPView {
                         title: "Stop Recording",
                         titleColor: Style.shared.textColor(.button),
                         icon: .systemImage("stop.circle.fill"),
-                        backgroundStyle: self.viewModel.canStopRecording ? Style.shared.background(.error) : Style.shared.background(.tertiary),
+                        backgroundStyle: self.viewModel.canStopRecording ? Style.shared.palette(.error) : Style.shared.background(.tertiary),
                         isEnabled: self.viewModel.canStopRecording,
                         action: {
                             self.viewModel.stopRecording()
@@ -180,7 +180,7 @@ struct DevVoiceScreen: GPView {
                         title: "Delete All Temp Files",
                         titleColor: Style.shared.textColor(.button),
                         icon: .systemImage("trash.fill"),
-                        backgroundStyle: Style.shared.background(.error),
+                        backgroundStyle: Style.shared.palette(.error),
                         action: {
                             self.viewModel.deleteAllTempFiles()
                         }
@@ -213,7 +213,7 @@ struct DevVoiceScreen: GPView {
                             
                             Text(error.title)
                                 .appFont(with: .TITLE_5)
-                                .foregroundStyle(Style.shared.background(.error).source())
+                                .foregroundStyle(Style.shared.palette(.error).source())
                             
                             Text(error.message)
                                 .appFont(with: .BODY_3)
@@ -365,7 +365,7 @@ struct DevVoiceScreen: GPView {
                         title: "Delete",
                         titleColor: Style.shared.textColor(.button),
                         icon: .systemImage("trash.fill"),
-                        backgroundStyle: Style.shared.background(.error),
+                        backgroundStyle: Style.shared.palette(.error),
                         action: {
                             self.viewModel.deleteTempFile(file)
                         }
