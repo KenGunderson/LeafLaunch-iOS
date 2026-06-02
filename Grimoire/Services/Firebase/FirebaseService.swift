@@ -236,7 +236,20 @@ final class FirebaseService: FirebaseServiceProtocol {
     
     func getAccessTokenForCurrentUser() async throws {
         
-        guard let user = self.user else { throw FirebaseError.notFound }
+        guard try await self.freshAuthToken() != nil else {
+            throw FirebaseError.notFound
+        }
+
+    }
+
+    func freshAuthToken() async throws -> String? {
+
+        guard let user = Auth.auth().currentUser ?? self.user else {
+
+            self.currentAccessToken = nil
+            return nil
+
+        }
         
         do {
             
@@ -246,6 +259,8 @@ final class FirebaseService: FirebaseServiceProtocol {
             await MainActor.run { [weak self, result] in
                 self?.log(message: "Firebase User Token \(result.token)")
             }
+
+            return result.token
             
         } catch let error {
             

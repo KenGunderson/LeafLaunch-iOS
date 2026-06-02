@@ -193,6 +193,10 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(.localhost)
     }
+
+    func freshAccessToken() async throws(APIError) -> String? {
+        return self.accessToken
+    }
     
     private var currentUser: GPUser
     
@@ -418,6 +422,7 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, completion: @escaping (String?, String?, String, String, Error?) -> ()) {}
     func logout() throws {}
     func getAccessTokenForCurrentUser() async throws {}
+    func freshAuthToken() async throws -> String? { return self.currentAccessToken }
     func resetPassword(email: String) async throws {}
     func updateEmail(newEmail: String) async throws {}
     func uploadImage(imageData: Data, bucket: Query.Bucket) async throws -> URL { URL(string: "https://example.com")! }

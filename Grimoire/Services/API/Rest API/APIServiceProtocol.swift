@@ -24,6 +24,8 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     var requestTimeout: TimeInterval { get }
     var resourceTimeout: TimeInterval { get }
     var retryPolicy: APIRetryPolicy { get }
+
+    func freshAccessToken() async throws(APIError) -> String?
     
 }
 
@@ -71,11 +73,14 @@ extension APIProtocol {
             
         }
         
+        let accessToken = try await freshAccessToken()
+
         let request = try makeRequest(
             method: method,
             apiPath: apiPath,
             queryParameters: queryParameters,
-            body: .json(parameters)
+            body: .json(parameters),
+            accessToken: accessToken
         )
         
         let (data, response, attemptCount) = try await performRequestWithRetry(
@@ -123,11 +128,14 @@ extension APIProtocol {
             
         }
         
+        let accessToken = try await freshAccessToken()
+
         let request = try makeRequest(
             method: method,
             apiPath: apiPath,
             queryParameters: [:],
-            body: .multipart(boundary: boundary, data: data)
+            body: .multipart(boundary: boundary, data: data),
+            accessToken: accessToken
         )
         
         let (data, response, attemptCount) = try await performRequestWithRetry(
@@ -438,7 +446,8 @@ extension APIProtocol {
     func makeRequest(method: HTTPRequestMethod,
                      apiPath: APIPath,
                      queryParameters: [String: String],
-                     body: RequestBody) throws(APIError) -> URLRequest {
+                     body: RequestBody,
+                     accessToken: String?) throws(APIError) -> URLRequest {
         
         guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
             throw APIError.badURL
@@ -457,7 +466,7 @@ extension APIProtocol {
         request.timeoutInterval = self.requestTimeout
         request.setValue(Self.appVersion, forHTTPHeaderField: "App-Version")
         
-        if let accessToken = self.accessToken,
+        if let accessToken,
            !accessToken.isEmpty {
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }

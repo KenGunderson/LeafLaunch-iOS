@@ -14,6 +14,7 @@ import Combine
 protocol APIAuthTokenProviding: AnyObject {
 
     var authToken: String? { get }
+    func freshAuthToken() async throws -> String?
 
 }
 

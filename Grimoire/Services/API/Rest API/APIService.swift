@@ -38,6 +38,24 @@ final class APIService: APIServiceProtocol {
         return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)
     }
     
+    func freshAccessToken() async throws(APIError) -> String? {
+
+        do {
+            return try await self.authTokenProvider.freshAuthToken()
+        }
+        catch {
+
+            self.logError(
+                title: "Auth Token Refresh Error",
+                message: error.getMessageForError()
+            )
+
+            throw APIError.unknownError
+
+        }
+
+    }
+
     init(analyticsService: AnalyticsServiceProtocol,
          environmentProvider: EnvironmentProviding,
          deviceTokenProvider: DeviceTokenProviding,
