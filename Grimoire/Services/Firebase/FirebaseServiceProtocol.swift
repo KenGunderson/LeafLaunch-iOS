@@ -25,6 +25,7 @@ protocol FirebaseServiceProtocol: APIAuthTokenProviding, Sendable, Loggable {
     
     var currentAccessToken: String? { get }
     var currentAccessTokenPublisher: AnyPublisher<String?, Never> { get }
+    var currentAccessTokenExpirationDate: Date? { get }
     
     var isSignUpContext: Bool { get }
     var isLoginContext: Bool { get }

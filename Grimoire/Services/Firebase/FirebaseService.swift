@@ -62,7 +62,11 @@ final class FirebaseService: FirebaseServiceProtocol {
     var currentAccessTokenPublisher: AnyPublisher<String?, Never> {
         return self.$currentAccessToken.eraseToAnyPublisher()
     }
-    
+
+    @Published private(set) var currentAccessTokenExpirationDate: Date?
+
+    private let accessTokenRefreshLeeway: TimeInterval = 60
+
     private var idTokenDidChangeListener: NSObjectProtocol?
     private var idTokenUpdateTask: Task<Void, Never>?
     
@@ -279,16 +283,20 @@ final class FirebaseService: FirebaseServiceProtocol {
 
         guard let user = Auth.auth().currentUser ?? self.user else {
 
-            self.currentAccessToken = nil
+            self.clearCurrentAccessToken()
             return nil
 
         }
-        
+
+        if self.hasValidCachedAccessToken() {
+            return self.currentAccessToken
+        }
+
         do {
-            
+
             let result = try await user.getIDTokenResult(forcingRefresh: true)
-            self.currentAccessToken = result.token
-            
+            self.setAccessToken(result)
+
             await MainActor.run { [weak self, result] in
                 self?.log(message: "Firebase User Token \(result.token)")
             }
@@ -351,7 +359,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             try Auth.auth().signOut()
             
             self.user = nil
-            self.currentAccessToken = nil
+            self.clearCurrentAccessToken()
             self.clearAuthContext()
             
         } catch let error {
@@ -489,7 +497,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                 
                 guard let user = user else {
                     
-                    await MainActor.run { self.currentAccessToken = nil }
+                    await MainActor.run { self.clearCurrentAccessToken() }
                     return
                     
                 }
@@ -499,7 +507,7 @@ final class FirebaseService: FirebaseServiceProtocol {
                     let result = try await user.getIDTokenResult(forcingRefresh: false)
                     
                     await MainActor.run {
-                        self.currentAccessToken = result.token
+                        self.setAccessToken(result)
                     }
                     
                 } catch {
@@ -518,5 +526,31 @@ final class FirebaseService: FirebaseServiceProtocol {
         }
         
     }
-    
+
+    private func hasValidCachedAccessToken(now: Date = Date()) -> Bool {
+
+        guard let currentAccessToken,
+              !currentAccessToken.isEmpty,
+              let currentAccessTokenExpirationDate else {
+            return false
+        }
+
+        return now < currentAccessTokenExpirationDate.addingTimeInterval(-self.accessTokenRefreshLeeway)
+
+    }
+
+    private func setAccessToken(_ result: AuthTokenResult) {
+
+        self.currentAccessToken = result.token
+        self.currentAccessTokenExpirationDate = result.expirationDate
+
+    }
+
+    private func clearCurrentAccessToken() {
+
+        self.currentAccessToken = nil
+        self.currentAccessTokenExpirationDate = nil
+
+    }
+
 }

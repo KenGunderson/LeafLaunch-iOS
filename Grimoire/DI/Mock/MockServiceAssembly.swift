@@ -409,6 +409,7 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     var userPublisher = CurrentValueSubject<FirebaseAuth.User?, Never>(nil).eraseToAnyPublisher()
     var currentAccessToken: String? = nil
     var currentAccessTokenPublisher = CurrentValueSubject<String?, Never>(nil).eraseToAnyPublisher()
+    var currentAccessTokenExpirationDate: Date? = nil
     
     var isSignUpContext: Bool = false
     var isLoginContext: Bool = false
