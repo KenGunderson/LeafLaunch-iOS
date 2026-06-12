@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class APIService: APIServiceProtocol {
     
@@ -13,26 +14,20 @@ final class APIService: APIServiceProtocol {
     internal let loggerEmoji: String = "🌐"
     
     private let analyticsService: AnalyticsServiceProtocol
-    private let environmentProvider: EnvironmentProviding
-    private let deviceTokenProvider: DeviceTokenProviding
-    private let authTokenProvider: APIAuthTokenProviding
+    private let environmentService: EnvironmentServiceProtocol
+    private let appDelegateService: AppDelegateServiceProtocol
+    private let firebaseService: FirebaseServiceProtocol
     
     internal let networkSession: URLSession
     internal let requestTimeout: TimeInterval
     internal let resourceTimeout: TimeInterval
     internal let retryPolicy: APIRetryPolicy
 
-    internal var accessToken: String? {
-        return self.authTokenProvider.authToken
-    }
+    internal var accessToken: String?
+    internal var deviceToken: String?
+    internal var environment: AppEnvironment?
 
-    internal var deviceToken: String? {
-        return self.deviceTokenProvider.deviceToken
-    }
-
-    internal var environment: AppEnvironment? {
-        return self.environmentProvider.environment
-    }
+    private var cancelBag: CancelBag!
         
     var hostURL: String {
         return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)
@@ -41,7 +36,11 @@ final class APIService: APIServiceProtocol {
     func freshAccessToken() async throws(APIError) -> String? {
 
         do {
-            return try await self.authTokenProvider.freshAuthToken()
+
+            let token = try await self.firebaseService.freshAuthToken()
+            self.accessToken = token
+            return token
+
         }
         catch {
 
@@ -57,18 +56,18 @@ final class APIService: APIServiceProtocol {
     }
 
     init(analyticsService: AnalyticsServiceProtocol,
-         environmentProvider: EnvironmentProviding,
-         deviceTokenProvider: DeviceTokenProviding,
-         authTokenProvider: APIAuthTokenProviding,
+         environmentService: EnvironmentServiceProtocol,
+         appDelegateService: AppDelegateServiceProtocol,
+         firebaseService: FirebaseServiceProtocol,
          networkSession: URLSession? = nil,
          requestTimeout: TimeInterval = Constants.Runtime.apiRequestTimeout,
          resourceTimeout: TimeInterval = Constants.Runtime.apiResourceTimeout,
          retryPolicy: APIRetryPolicy = .default) {
         
         self.analyticsService = analyticsService
-        self.environmentProvider = environmentProvider
-        self.deviceTokenProvider = deviceTokenProvider
-        self.authTokenProvider = authTokenProvider
+        self.environmentService = environmentService
+        self.appDelegateService = appDelegateService
+        self.firebaseService = firebaseService
         self.requestTimeout = requestTimeout
         self.resourceTimeout = resourceTimeout
         self.retryPolicy = retryPolicy
@@ -86,6 +85,7 @@ final class APIService: APIServiceProtocol {
         }
         
         self.logInit()
+        bindSubscribers()
         
     }
     
@@ -95,4 +95,43 @@ final class APIService: APIServiceProtocol {
         
     }
     
+    private func bindSubscribers() {
+
+        self.cancelBag = CancelBag()
+
+        self.appDelegateService
+            .deviceTokenPublisher
+            .receiveOnMain()
+            .sink { [weak self] deviceToken in
+
+                self?.log(message: "Device token: \(deviceToken ?? "NIL")")
+                self?.deviceToken = deviceToken
+
+            }
+            .store(in: &self.cancelBag)
+
+        self.environmentService
+            .environmentPublisher
+            .receiveOnMain()
+            .sink { [weak self] environment in
+
+                self?.log(message: "Environment: \(environment?.displayName ?? "NIL")")
+                self?.environment = environment
+
+            }
+            .store(in: &self.cancelBag)
+
+        self.firebaseService
+            .currentAccessTokenPublisher
+            .receiveOnMain()
+            .sink { [weak self] firebaseAccessToken in
+
+                self?.log(message: "Firebase token: \(firebaseAccessToken ?? "NIL")")
+                self?.accessToken = firebaseAccessToken
+
+            }
+            .store(in: &self.cancelBag)
+
+    }
+
 }

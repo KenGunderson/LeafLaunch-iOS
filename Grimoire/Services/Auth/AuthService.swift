@@ -60,6 +60,10 @@ final class AuthService: AuthServiceProtocol {
                 email: String,
                 password: String) async throws {
         
+        defer {
+            self.firebaseService.clearAuthContext()
+        }
+
         do {
             
             try await self.firebaseService.signup(
@@ -67,6 +71,8 @@ final class AuthService: AuthServiceProtocol {
                 password: password
             )
             
+            self.apiService.accessToken = self.firebaseService.currentAccessToken
+
             let _ = try await self.apiService
                 .createUser(user: .init(
                     id: "",
@@ -83,8 +89,8 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            if self.currentUser != nil {
-                self.logoutDetached()
+            if self.currentUser != nil || self.firebaseService.user != nil {
+                try? await self.logout()
             }
                         
             self.logError(
@@ -102,6 +108,10 @@ final class AuthService: AuthServiceProtocol {
     func login(email: String,
                password: String) async throws {
         
+        defer {
+            self.firebaseService.clearAuthContext()
+        }
+
         do {
             
             try await self.firebaseService.login(
@@ -114,8 +124,8 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
             
-            if self.currentUser != nil {
-                self.logoutDetached()
+            if self.currentUser != nil || self.firebaseService.user != nil {
+                try? await self.logout()
             }
                         
             self.logError(
@@ -158,6 +168,9 @@ final class AuthService: AuthServiceProtocol {
             try await self.firebaseService
                 .getAccessTokenForCurrentUser()
                         
+            self.apiService
+                .accessToken = self.firebaseService.currentAccessToken
+
             let user = try await self.apiService
                 .getUserProfile()
             
@@ -210,6 +223,8 @@ final class AuthService: AuthServiceProtocol {
         
         do {
             
+            self.initialUserLoadTask?.cancel()
+
             globalTabBarNavigationService?.resetPathItems()
             try self.firebaseService.logout()
             await self.userDefaultsService.logout()
@@ -282,6 +297,10 @@ final class AuthService: AuthServiceProtocol {
                                   authorization: ASAuthorization,
                                   isLogin: Bool) async throws {
         
+        defer {
+            self.firebaseService.clearAuthContext()
+        }
+
         let authResult: (name: String?,
                          email: String?,
                          idTokenString: String,
@@ -308,34 +327,61 @@ final class AuthService: AuthServiceProtocol {
             
         }
         
-        try await self.firebaseService.login(
-            token: authResult.idTokenString,
-            nonce: authResult.nonce
-        )
-        
-        if let name = authResult.name,
-           let email = authResult.email {
-            
-            let user = try await self.apiService
-                .createUser(user: .init(
-                    id: "",
-                    firstName: name.firstName,
-                    lastName: name.lastName,
-                    email: email,
-                    externalId: self.firebaseService.user?.uid ?? "",
-                    dateOfBirth: nil,
-                    imageURL: nil
-                ))
-            
-            self.currentUser = user
-            
+        if isLogin {
+            self.firebaseService.beginLoginContext()
         }
         else {
+            self.firebaseService.beginSignUpContext()
+        }
+        
+        do {
             
-            let user = try await self.apiService
-                .getUserProfile()
+            try await self.firebaseService.login(
+                token: authResult.idTokenString,
+                nonce: authResult.nonce
+            )
             
-            self.currentUser = user
+            self.apiService.accessToken = self.firebaseService.currentAccessToken
+
+            if let name = authResult.name,
+               let email = authResult.email {
+
+                let user = try await self.apiService
+                    .createUser(user: .init(
+                        id: "",
+                        firstName: name.firstName,
+                        lastName: name.lastName,
+                        email: email,
+                        externalId: self.firebaseService.user?.uid ?? "",
+                        dateOfBirth: nil,
+                        imageURL: nil
+                    ))
+
+                self.currentUser = user
+
+            }
+            else {
+
+                let user = try await self.apiService
+                    .getUserProfile()
+
+                self.currentUser = user
+
+            }
+            
+        }
+        catch {
+            
+            if self.currentUser != nil || self.firebaseService.user != nil {
+                try? await self.logout()
+            }
+            
+            self.logError(
+                title: "Apple Auth Error",
+                message: error.getMessageForError()
+            )
+
+            throw error
             
         }
         
@@ -373,7 +419,8 @@ final class AuthService: AuthServiceProtocol {
                 
                 guard let self else { return }
                 guard let user else { return }
-                guard !self.firebaseService.isSignUpContext else { return }
+                guard !self.firebaseService.isSignUpContext,
+                      !self.firebaseService.isLoginContext else { return }
                 
                 loadInitialUser(user)
                 

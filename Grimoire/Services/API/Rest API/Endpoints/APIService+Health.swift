@@ -16,7 +16,8 @@ extension APIService {
         
         let _ = try await buildRequest(
             method: .get,
-            apiPath: .init(path: .health)
+            apiPath: .init(path: .health),
+            requiresAuthentication: false
         )
         
     }

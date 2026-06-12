@@ -71,7 +71,7 @@ final class FirebaseService: FirebaseServiceProtocol {
         
     init() {
         
-        FirebaseApp.configure()
+        FirebaseApp.configureIfNeeded()
         
         self.user = Auth.auth().currentUser
         self.logInit()
@@ -97,23 +97,47 @@ final class FirebaseService: FirebaseServiceProtocol {
         return self
     }
     
+    func beginSignUpContext() {
+
+        self.isSignUpContext = true
+        self.isLoginContext = false
+
+    }
+
+    func beginLoginContext() {
+
+        self.isSignUpContext = false
+        self.isLoginContext = true
+
+    }
+
+    func clearAuthContext() {
+
+        self.isSignUpContext = false
+        self.isLoginContext = false
+
+    }
+
     func signup(email: String,
                 password: String) async throws {
         
         do {
             
+            self.beginSignUpContext()
+
             let result = try await Auth.auth().createUser(
                 withEmail: email,
                 password: password
             )
             
-            self.isSignUpContext = true
             self.user = result.user
             
             try await self.getAccessTokenForCurrentUser()
             
         } catch let error {
             
+            self.clearAuthContext()
+
             self.logError(
                 title: "Sign Up Error",
                 message: error.getMessageForError()
@@ -139,16 +163,19 @@ final class FirebaseService: FirebaseServiceProtocol {
         
         do {
             
+            self.beginLoginContext()
+
             let result = try await Auth.auth().signIn(
                 withEmail: email,
                 password: password
             )
             
-            self.isLoginContext = true
             self.user = result.user
             
         } catch let error {
             
+            self.clearAuthContext()
+
             self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()
@@ -178,11 +205,15 @@ final class FirebaseService: FirebaseServiceProtocol {
         
         do {
             
+            self.beginLoginContext()
+
             let result = try await Auth.auth().signIn(withCustomToken: customUserToken)
             self.user = result.user
             
         } catch let error {
             
+            self.clearAuthContext()
+
             self.logError(
                 title: "Login Error",
                 message: error.getMessageForError()
@@ -223,6 +254,8 @@ final class FirebaseService: FirebaseServiceProtocol {
             
         } catch let error {
             
+            self.clearAuthContext()
+
             self.logError(
                 title: "Apple Login Error",
                 message: error.getMessageForError()
@@ -319,6 +352,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             
             self.user = nil
             self.currentAccessToken = nil
+            self.clearAuthContext()
             
         } catch let error {
             

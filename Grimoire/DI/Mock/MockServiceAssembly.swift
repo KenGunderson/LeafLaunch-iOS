@@ -413,6 +413,21 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     var isSignUpContext: Bool = false
     var isLoginContext: Bool = false
     
+    func beginSignUpContext() {
+        self.isSignUpContext = true
+        self.isLoginContext = false
+    }
+
+    func beginLoginContext() {
+        self.isSignUpContext = false
+        self.isLoginContext = true
+    }
+
+    func clearAuthContext() {
+        self.isSignUpContext = false
+        self.isLoginContext = false
+    }
+
     func setup() -> Self { self }
     
     func signup(email: String, password: String) async throws {}

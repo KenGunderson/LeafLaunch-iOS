@@ -58,6 +58,7 @@ enum APIError: Error, AppCustomError {
     }
 
     case badURL
+    case missingAccessToken
     case serverError(statusCode: Int, errorMessage: String)
     case decodingError
     case unknownError
@@ -67,6 +68,7 @@ enum APIError: Error, AppCustomError {
         
         switch self {
         case .badURL: return "Invalid URL"
+        case .missingAccessToken: return "Missing access token"
         case .serverError(_, let errorMessage): return errorMessage
         case .decodingError: return "There was an error decoding the response."
         case .unknownError: return "An unknown error occurred."
@@ -82,4 +84,3 @@ enum APIError: Error, AppCustomError {
     }
 
 }
-

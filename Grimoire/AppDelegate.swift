@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import UserNotificationsUI
 import Combine
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate, Loggable {
     
@@ -23,6 +24,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
+        FirebaseApp.configureIfNeeded()
+
         UIApplication.shared.registerForRemoteNotifications()
         
         UNUserNotificationCenter.current().delegate = self

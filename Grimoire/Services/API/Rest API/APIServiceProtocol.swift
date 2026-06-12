@@ -19,7 +19,7 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
     
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
-    var accessToken: String? { get }
+    var accessToken: String? { get set }
     var networkSession: URLSession { get }
     var requestTimeout: TimeInterval { get }
     var resourceTimeout: TimeInterval { get }
@@ -31,7 +31,7 @@ protocol APIProtocol: AnyObject, Sendable, Loggable {
 
 protocol APIServiceProtocol: APIProtocol {
     
-    var accessToken: String? { get }
+    var accessToken: String? { get set }
     var deviceToken: String? { get }
     var environment: AppEnvironment? { get }
     var hostURL: String { get }
@@ -61,7 +61,8 @@ extension APIProtocol {
                       apiPath: APIPath,
                       queryParameters: [String: String] = [:],
                       parameters: [String: Any] = [:],
-                      retryPolicy: APIRetryPolicy? = nil) async throws(APIError) -> Data {
+                      retryPolicy: APIRetryPolicy? = nil,
+                      requiresAuthentication: Bool = true) async throws(APIError) -> Data {
         
         var apiLogResponse: APILogResponse?
         
@@ -73,7 +74,7 @@ extension APIProtocol {
             
         }
         
-        let accessToken = try await freshAccessToken()
+        let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
 
         let request = try makeRequest(
             method: method,
@@ -116,7 +117,8 @@ extension APIProtocol {
                                apiPath: APIPath,
                                boundary: String,
                                data: Data,
-                               retryPolicy: APIRetryPolicy? = nil) async throws(APIError) -> Data {
+                               retryPolicy: APIRetryPolicy? = nil,
+                               requiresAuthentication: Bool = true) async throws(APIError) -> Data {
         
         var apiLogResponse: APILogResponse?
         
@@ -128,7 +130,7 @@ extension APIProtocol {
             
         }
         
-        let accessToken = try await freshAccessToken()
+        let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
 
         let request = try makeRequest(
             method: method,
@@ -167,6 +169,22 @@ extension APIProtocol {
         
     }
     
+}
+
+extension APIProtocol {
+
+    private func accessTokenIfNeeded(requiresAuthentication: Bool) async throws(APIError) -> String? {
+
+        guard requiresAuthentication else { return nil }
+        guard let accessToken = try await freshAccessToken(),
+              !accessToken.isEmpty else {
+            throw .missingAccessToken
+        }
+
+        return accessToken
+
+    }
+
 }
 
 extension APIProtocol {

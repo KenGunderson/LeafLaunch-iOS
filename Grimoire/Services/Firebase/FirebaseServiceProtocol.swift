@@ -29,6 +29,10 @@ protocol FirebaseServiceProtocol: APIAuthTokenProviding, Sendable, Loggable {
     var isSignUpContext: Bool { get }
     var isLoginContext: Bool { get }
     
+    func beginSignUpContext()
+    func beginLoginContext()
+    func clearAuthContext()
+
     func setup() -> Self
     
     func signup(email: String, password: String) async throws
