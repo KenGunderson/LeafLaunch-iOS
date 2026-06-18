@@ -23,6 +23,7 @@ final class MainViewModel: ViewModel {
     private let pushNotificationsService: PushNotificationServiceProtocol
     private let permissionsService: PermissionsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
+    private let launchScreenService: LaunchScreenServiceProtocol
     let userDefaultsService: UserDefaultsServiceProtocol
 
     private(set) var tabBarNavigationService: TabBarNavigationService?
@@ -60,7 +61,8 @@ final class MainViewModel: ViewModel {
          viewLifecycleService: ViewLifecycleServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
          permissionsService: PermissionsServiceProtocol,
-         environmentService: EnvironmentServiceProtocol) {
+         environmentService: EnvironmentServiceProtocol,
+         launchScreenService: LaunchScreenServiceProtocol) {
 
         self.alertService = alertService
         self.appDelegateService = appDelegateService
@@ -72,6 +74,7 @@ final class MainViewModel: ViewModel {
         self.pushNotificationsService = pushNotificationsService
         self.permissionsService = permissionsService
         self.environmentService = environmentService
+        self.launchScreenService = launchScreenService
 
         self.logInit()
     }
@@ -204,6 +207,19 @@ final class MainViewModel: ViewModel {
 
             }
             .store(in: &self.cancelBag)
+        
+        self.launchScreenService
+            .onLaunchStateChanged
+            .receiveOnMain()
+            .sink { [weak self] state in
+                
+                guard state == .completed else { return }
+                guard self?.authService.currentUser != nil else { return }
+                
+                self?.schedulePresentModalsIfNeeded()
+                
+            }
+            .store(in: &self.cancelBag)
 
     }
 
@@ -245,6 +261,8 @@ final class MainViewModel: ViewModel {
     }
 
     private func schedulePresentModalsIfNeeded() {
+        
+        guard self.launchScreenService.onLaunchStateChanged.value == .completed else { return }
 
         self.presentModalsTask?.cancel()
 
