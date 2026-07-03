@@ -134,7 +134,6 @@ struct DevUserDefaultsScreen: GPView {
             
             Toggle("didCompleteOnboarding", isOn: self.$viewModel.didCompleteOnboarding)
             Toggle("didCompletePermission", isOn: self.$viewModel.didCompletePermission)
-            Toggle("didViewChecklistCompletionSheet", isOn: self.$viewModel.didViewChecklistCompletionSheet)
             Toggle("didRateMyAppAlertShow", isOn: self.$viewModel.didRateMyAppAlertShow)
             Toggle("shouldHideScreenshots", isOn: self.$viewModel.shouldHideScreenshots)
             
@@ -171,19 +170,6 @@ struct DevUserDefaultsScreen: GPView {
                 title: "Themes",
                 contentView: themeChoicesView()
             )
-            
-            if let data = self.viewModel.impersonatedUserData,
-               let json = try? JSONSerialization.jsonObject(with: data) as? [String : Any] {
-                
-                let contentView = JSONPreviewView(jsonData: json)
-                    .padding(.horizontal, .medium)
-                
-                outlineView(
-                    title: "Impersonating User",
-                    contentView: contentView
-                )
-                
-            }
             
         }
         

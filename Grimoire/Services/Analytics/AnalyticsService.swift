@@ -9,7 +9,6 @@ import Combine
 import Observation
 import Amplitude
 import AdSupport
-import FactoryKit
 
 final class AnalyticsService: AnalyticsServiceProtocol {
     
@@ -20,17 +19,12 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     private(set) var environmentService: EnvironmentServiceProtocol
     private(set) var permissionService: PermissionsServiceProtocol
-    @LazyInjected(\.impersonateService) private var impersonateService: ImpersonateServiceProtocol
     
     private(set) var currentUserId = CurrentValueSubject<String?, Never>(nil)
     
     @Published private(set) var sessionEvents: [EventData] = []
     var sessionEventsPublisher: AnyPublisher<[EventData], Never> {
         return self.$sessionEvents.eraseToAnyPublisher()
-    }
-    
-    private var isImpersonating: Bool {
-        return (self.impersonateService).isImpersonating
     }
     
     private var currentIdfa: String = "00000000-0000-0000-0000-000000000000"
@@ -51,10 +45,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     deinit {
         self.logDeinit()
-    }
-    
-    func set(impersonateService: ImpersonateServiceProtocol) {
-        self.impersonateService = impersonateService
     }
     
     private func bindSubscribers() {
@@ -104,8 +94,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     func identifyUser(_ userId: String?) {
         
-        guard !self.isImpersonating else { return }
-                
         self.log(message: "identify: \(userId ?? "nil")")
 
         self.currentUserId.send(userId)
@@ -129,8 +117,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
     
     func setUserProperty(_ key: String,
                          value: String) {
-        
-        guard !self.isImpersonating else { return }
         
         self.log(message: "user_property: [\(key): \(value)]")
         
@@ -208,8 +194,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         }
 
         self.log(message: "\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
-        
-        guard !self.isImpersonating else { return }
         
         sessionEvents.append(data)
         

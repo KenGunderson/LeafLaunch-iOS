@@ -281,13 +281,6 @@ extension View {
                 DevAnalyticsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
-            case .impersonate:
-                
-                let viewModel = Container.shared.devImpersonateViewModel()
-                
-                DevImpersonateScreen(viewModel: viewModel)
-                    .navigationBarBackButtonHidden()
-                
             case .localNotifications:
                 
                 let viewModel = Container.shared.devLocalNotificationsViewModel()

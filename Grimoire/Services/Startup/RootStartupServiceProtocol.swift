@@ -17,7 +17,6 @@ protocol RootStartupServiceProtocol: AnyObject {
     
     func start(
         onLaunchStateChanged: @escaping (LaunchScreenService.State) -> Void,
-        onImpersonationStateChanged: @escaping (Bool) -> Void,
         onAuthError: @escaping (Error) -> Void,
         onNoNetwork: @escaping () -> Void,
         onHealthCheckResult: @escaping (_ requiresForceUpdate: Bool) -> Void

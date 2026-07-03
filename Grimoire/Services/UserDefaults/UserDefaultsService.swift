@@ -22,10 +22,8 @@ enum Setting: String, CaseIterable {
     case theme
     case didCompleteOnboarding
     case didCompletePermission
-    case didViewChecklistCompletionSheet
     case lastViewedWhatsNewVersion
     case didRateMyAppAlertShow
-    case impersonatedUser
     case securityPinsDictionaryData
     case shouldHideScreenshots
         
@@ -54,12 +52,6 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
     }
     
-    @AppStorage(Setting.didViewChecklistCompletionSheet.rawValue) private(set) var didViewChecklistCompletionSheet: Bool = false {
-        didSet {
-            self.didViewChecklistCompletionSheetPublisher.send(self.didViewChecklistCompletionSheet)
-        }
-    }
-    
     @AppStorage(Setting.lastViewedWhatsNewVersion.rawValue) private(set) var lastViewedWhatsNewVersion: String? {
         didSet {
             self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
@@ -69,12 +61,6 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     @AppStorage(Setting.didRateMyAppAlertShow.rawValue) private(set) var didRateMyAppAlertShow: Bool = false {
         didSet {
             self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
-        }
-    }
-    
-    @AppStorage(Setting.impersonatedUser.rawValue) private(set) var impersonatingUserData: Data? {
-        didSet {
-            self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
         }
     }
     
@@ -94,10 +80,8 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
     var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
     var didShowPermissionScreenPublisher = PassthroughSubject<Bool, Never>()
-    var didViewChecklistCompletionSheetPublisher = PassthroughSubject<Bool, Never>()
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
-    var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
@@ -109,10 +93,8 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.themePublisher.send(self.theme)
         self.didCompleteOnboardingPublisher.send(self.didCompleteOnboarding)
         self.didCompletePermissionPublisher.send(self.didCompletePermission)
-        self.didViewChecklistCompletionSheetPublisher.send(self.didViewChecklistCompletionSheet)
         self.lastViewedWhatsNewVersionPublisher.send(self.lastViewedWhatsNewVersion)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
-        self.impersonatingUserDataPublisher.send(self.impersonatingUserData)
         self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
         self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
         
@@ -137,32 +119,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         self.didCompletePermission = didCompletePermission
     }
     
-    func set(didViewChecklistCompletionSheet: Bool) {
-        self.didViewChecklistCompletionSheet = didViewChecklistCompletionSheet
-    }
-    
     func set(lastViewedWhatsNewVersion: String?) {
         self.lastViewedWhatsNewVersion = lastViewedWhatsNewVersion
     }
     
     func set(didRateMyAppAlertShow: Bool) {
         self.didRateMyAppAlertShow = didRateMyAppAlertShow
-    }
-    
-    func set(impersonatedUser: ImpersonatingUser?) {
-        
-        if let impersonatedUser {
-            
-            if let data = try? JSONEncoder().encode(impersonatedUser) {
-                self.impersonatingUserData = data
-            }
-            
-        } else {
-            
-            self.impersonatingUserData = nil
-            
-        }
-        
     }
     
     func set(securityPin: String?, businessId: String) {
@@ -198,7 +160,6 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
         self.set(didCompleteOnboarding: false)
         self.set(didCompletePermission: false)
-        self.set(didViewChecklistCompletionSheet: false)
         self.set(didRateMyAppAlertShow: false)
         self.set(lastViewedWhatsNewVersion: nil)
         self.set(shouldHideScreenshots: false)
@@ -232,7 +193,6 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         
         // Manually Reset
         
-        self.set(impersonatedUser: nil)
         self.set(lastViewedWhatsNewVersion: nil)
         self.set(didCompleteOnboarding: false)
         self.set(shouldHideScreenshots: false)

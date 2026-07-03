@@ -99,7 +99,6 @@ enum Route: Navigation, Hashable, Sendable {
         case routes
         case deeplinks
         case analytics
-        case impersonate
         case localNotifications
         case voice
         
@@ -109,7 +108,6 @@ enum Route: Navigation, Hashable, Sendable {
             case .routes: return "Routes"
             case .deeplinks: return "Deeplinks"
             case .analytics: return "Analytics"
-            case .impersonate: return "Impersonate"
             case .localNotifications: return "Local Notifications"
             case .voice: return "Voice"
             }
@@ -121,7 +119,6 @@ enum Route: Navigation, Hashable, Sendable {
             case .routes: return "car.rear.road.lane"
             case .deeplinks: return "link.circle.fill"
             case .analytics: return "chart.line.uptrend.xyaxis"
-            case .impersonate: return "person.crop.square.filled.and.at.rectangle.fill"
             case .localNotifications: return "bell.badge.fill"
             case .voice: return "waveform.and.mic"
             }
@@ -133,7 +130,6 @@ enum Route: Navigation, Hashable, Sendable {
             case .routes: return .devSetting(.routes)
             case .deeplinks: return .devSetting(.deeplinks)
             case .analytics: return .devSetting(.analytics)
-            case .impersonate: return .devSetting(.impersonate)
             case .localNotifications: return .devSetting(.localNotifications)
             case .voice: return .devSetting(.voice)
             }

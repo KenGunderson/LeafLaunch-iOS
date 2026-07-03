@@ -227,7 +227,6 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
         
     }
     
-    func getFirebaseTokenForUser(email: String) async throws -> String { return "MOCK_TOKEN" }
     func updateUser(user: GPUser) async throws {}
     func createUser(user: GPUser) async throws -> GPUser { user }
     func deleteUser(user: GPUser) async throws {}
@@ -311,33 +310,6 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
     func updateEmail(_ email: String) async throws {}
     func resetPassword(email: String) async throws {}
     func logout() async throws {}
-    
-}
-
-// MARK: IMPERSONATE
-
-final class MockImpersonateService: ImpersonateServiceProtocol, @unchecked Sendable {
-    
-    internal let loggerName: String = "IMPERSONATE_SERVICE"
-    internal let loggerEmoji: String = "🥷🏻"
-    
-    internal var apiService: APIServiceProtocol = MockAPIService()
-    internal var authService: AuthServiceProtocol = MockAuthService()
-    internal var firebaseService: FirebaseServiceProtocol = MockFirebaseService()
-    
-    var originalUser: GPUser? = nil
-    var originalUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
-    
-    var impersonatedUser: GPUser? = nil
-    var impersonatedUserPublisher = CurrentValueSubject<GPUser?, Never>(nil).eraseToAnyPublisher()
-    
-    var isImpersonating: Bool {
-        return false
-    }
-    
-    func impersonateUser(email: String) async throws {}
-    func revert() async throws {}
-    func logout() {}
     
 }
 
@@ -433,7 +405,6 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     
     func signup(email: String, password: String) async throws {}
     func login(email: String, password: String) async throws {}
-    func login(customUserToken: String) async throws {}
     func login(token: String, nonce: String) async throws {}
     func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, completion: @escaping (String?, String?, String, String, Error?) -> ()) {}
     func logout() throws {}
@@ -804,30 +775,24 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sen
     var theme: AvailableTheme = .lightCyan
     var didCompleteOnboarding: Bool = false
     var didCompletePermission: Bool = false
-    var didViewChecklistCompletionSheet: Bool = false
     var lastViewedWhatsNewVersion: String?
     var didRateMyAppAlertShow: Bool = false
-    var impersonatingUserData: Data?
     var securityPinsDictionaryData: Data?
     var shouldHideScreenshots: Bool = false
     
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didCompleteOnboardingPublisher = PassthroughSubject<Bool, Never>()
     var didCompletePermissionPublisher = PassthroughSubject<Bool, Never>()
-    var didViewChecklistCompletionSheetPublisher = PassthroughSubject<Bool, Never>()
     var lastViewedWhatsNewVersionPublisher = PassthroughSubject<String?, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
-    var impersonatingUserDataPublisher = PassthroughSubject<Data?, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
     func set(theme: AvailableTheme) {}
     func set(didCompleteOnboarding: Bool) {}
     func set(didCompletePermission: Bool) {}
-    func set(didViewChecklistCompletionSheet: Bool) {}
     func set(lastViewedWhatsNewVersion: String?) {}
     func set(didRateMyAppAlertShow: Bool) {}
-    func set(impersonatedUser: ImpersonatingUser?) {}
     func set(securityPin: String?, businessId: String) {}
     func set(shouldHideScreenshots: Bool) {}
     func resetDevFlags() {}
@@ -886,7 +851,6 @@ final class MockServiceAssembly {
         container.voiceTranscriptionService.register { @MainActor in MockVoiceTranscriptionService() }
         container.apiService.register { @MainActor in MockAPIService() }
         container.authService.register { @MainActor in MockAuthService() }
-        container.impersonateService.register { @MainActor in MockImpersonateService() }
         container.statsigService.register { @MainActor in MockStatsigService() }
         container.rootStartupService.register { @MainActor in
             RootStartupService(
@@ -894,7 +858,6 @@ final class MockServiceAssembly {
                 environmentService: container.environmentService(),
                 apiService: container.apiService(),
                 authService: container.authService(),
-                impersonateService: container.impersonateService(),
                 firebaseService: container.firebaseService(),
                 appDelegateService: container.appDelegateService(),
                 connectivityService: container.connectivityService(),

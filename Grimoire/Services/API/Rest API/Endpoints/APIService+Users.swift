@@ -39,24 +39,6 @@ extension APIService {
     }
 
     @concurrent
-    func getFirebaseTokenForUser(email: String) async throws -> String {
-        
-        let data = try await buildRequest(
-            method: .get,
-            apiPath: .init(path: .user("token/\(email)"))
-        )
-        
-        let json: [String: String] = try await parseData(data: data)
-        
-        if let token = json["token"] {
-            return token
-        }
-        
-        throw APIError.decodingError
-
-    }
-
-    @concurrent
     func createUser(user: GPUser) async throws -> GPUser {
 
         let parameters: [String: Any] = await [

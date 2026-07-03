@@ -20,7 +20,6 @@ final class SettingsViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
-    private let impersonateService: ImpersonateServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -59,8 +58,7 @@ final class SettingsViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
-         viewLifecycleService: ViewLifecycleServiceProtocol,
-         impersonateService: ImpersonateServiceProtocol) {
+         viewLifecycleService: ViewLifecycleServiceProtocol) {
 
         self.authService = authService
         self.apiService = apiService
@@ -69,7 +67,6 @@ final class SettingsViewModel: ViewModel {
         self.environmentService = environmentService
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
-        self.impersonateService = impersonateService
 
         self.logInit()
 
@@ -154,8 +151,6 @@ final class SettingsViewModel: ViewModel {
         self.logoutTask?.cancel()
 
         let authService = self.authService
-        let impersonateService = self.impersonateService
-
         self.logoutTask = Task { [weak self] in
 
             do {
@@ -165,9 +160,6 @@ final class SettingsViewModel: ViewModel {
                 return
             }
             guard !Task.isCancelled else { return }
-
-            impersonateService
-                .logout()
 
             self?.shouldDismiss = true
 

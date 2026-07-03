@@ -141,7 +141,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case deeplinks
         case userDefaults
         case analytics
-        case impersonate
         case companyStats
         case localNotifications
         case voice
@@ -157,7 +156,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .deeplinks: name = "deeplinks"
             case .userDefaults: name = "user_defaults"
             case .analytics: name = "analytics"
-            case .impersonate: name = "impersonate"
             case .companyStats: name = "company_stats"
             case .localNotifications: name = "local_notifications"
             case .voice: name = "voice"

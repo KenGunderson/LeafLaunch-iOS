@@ -38,7 +38,6 @@ protocol FirebaseServiceProtocol: APIAuthTokenProviding, Sendable, Loggable {
     
     func signup(email: String, password: String) async throws
     func login(email: String, password: String) async throws
-    func login(customUserToken: String) async throws
     func login(token: String, nonce: String) async throws
     
     func handleAppleSignupOrLogin(currentNonce: String?,

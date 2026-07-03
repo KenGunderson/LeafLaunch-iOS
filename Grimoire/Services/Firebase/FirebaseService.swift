@@ -205,40 +205,6 @@ final class FirebaseService: FirebaseServiceProtocol {
         
     }
     
-    func login(customUserToken: String) async throws {
-        
-        do {
-            
-            self.beginLoginContext()
-
-            let result = try await Auth.auth().signIn(withCustomToken: customUserToken)
-            self.user = result.user
-            
-        } catch let error {
-            
-            self.clearAuthContext()
-
-            self.logError(
-                title: "Login Error",
-                message: error.getMessageForError()
-            )
-            
-            if let code = AuthErrorCode(rawValue: error._code) {
-                
-                switch code {
-                case .userNotFound: throw FirebaseError.notFound
-                case .accountExistsWithDifferentCredential: throw FirebaseError.wrongPassword
-                default: throw FirebaseError.generic(error)
-                }
-                
-            }
-            
-            throw FirebaseError.generic(error)
-            
-        }
-        
-    }
-    
     func login(token: String,
                nonce: String) async throws {
         

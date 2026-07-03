@@ -18,7 +18,6 @@ final class DevSettingsViewModel: ViewModel {
     private let analyticsService: AnalyticsServiceProtocol
     let firebaseService: FirebaseServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
-    private let impersonateService: ImpersonateServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
 
@@ -36,7 +35,6 @@ final class DevSettingsViewModel: ViewModel {
          authService: AuthServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
-         impersonateService: ImpersonateServiceProtocol,
          alertService: AlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
@@ -45,7 +43,6 @@ final class DevSettingsViewModel: ViewModel {
         self.authService = authService
         self.firebaseService = firebaseService
         self.appDelegateService = appDelegateService
-        self.impersonateService = impersonateService
         self.alertService = alertService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
@@ -181,16 +178,6 @@ final class DevSettingsViewModel: ViewModel {
 
     var currentUserEmail: String {
         return self.user?.email ?? "Unavailable"
-    }
-
-    var impersonationState: String {
-
-        guard self.impersonateService.isImpersonating else {
-            return "Inactive"
-        }
-
-        return self.impersonateService.impersonatedUser?.email ?? "Active"
-
     }
 
     private func bindSubscribers() {

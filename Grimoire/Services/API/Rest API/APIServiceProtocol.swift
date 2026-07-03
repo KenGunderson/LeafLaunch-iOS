@@ -48,7 +48,6 @@ protocol APIServiceProtocol: APIProtocol {
     
     @concurrent func getUser(id: String) async throws -> GPUser
     @concurrent func getUserProfile() async throws -> GPUser
-    @concurrent func getFirebaseTokenForUser(email: String) async throws -> String
     @concurrent func updateUser(user: GPUser) async throws
     @concurrent func createUser(user: GPUser) async throws -> GPUser
     @concurrent func deleteUser(user: GPUser) async throws

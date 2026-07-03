@@ -125,10 +125,6 @@ class MockAppAssembler {
             return self.container.devAnalyticsViewModel() as! T
         }
         
-        if type == DevImpersonateViewModel.self {
-            return self.container.devImpersonateViewModel() as! T
-        }
-        
         if type == DevLocalNotificationsViewModel.self {
             return self.container.devLocalNotificationsViewModel() as! T
         }

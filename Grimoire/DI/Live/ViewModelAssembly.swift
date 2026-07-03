@@ -19,7 +19,6 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService(),
                 authService: self.authService(),
-                impersonateService: self.impersonateService(),
                 pushNotificationService: self.pushNotificationService(),
                 userDefaultsService: self.userDefaultsService(),
                 deeplinkService: self.deeplinkService(),
@@ -185,8 +184,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 environmentService: self.environmentService(),
                 userDefaultsService: self.userDefaultsService(),
-                viewLifecycleService: self.viewLifecycleService(),
-                impersonateService: self.impersonateService()
+                viewLifecycleService: self.viewLifecycleService()
             )
         }
     }
@@ -294,7 +292,6 @@ extension Container {
                 authService: self.authService(),
                 firebaseService: self.firebaseService(),
                 appDelegateService: self.appDelegateService(),
-                impersonateService: self.impersonateService(),
                 alertService: self.alertService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
@@ -356,21 +353,6 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
-                environmentService: self.environmentService()
-            )
-        }
-    }
-    
-    // DevSettings - Impersonate
-    
-    @MainActor
-    var devImpersonateViewModel: Factory<DevImpersonateViewModel> {
-        self { @MainActor in
-            DevImpersonateViewModel(
-                analyticsService: self.analyticsService(),
-                impersonateService: self.impersonateService(),
-                viewLifecycleService: self.viewLifecycleService(),
-                alertService: self.alertService(),
                 environmentService: self.environmentService()
             )
         }

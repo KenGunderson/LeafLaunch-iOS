@@ -230,11 +230,6 @@ struct DevSettingsScreen: GPView {
                         subtitle: self.viewModel.currentUserEmail
                     )
                     
-                    lineItemView(
-                        title: "Impersonation",
-                        subtitle: self.viewModel.impersonationState
-                    )
-                    
                 }
                 
             }

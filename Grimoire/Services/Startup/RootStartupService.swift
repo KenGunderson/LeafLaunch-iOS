@@ -16,7 +16,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private let environmentService: EnvironmentServiceProtocol
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
-    private let impersonateService: ImpersonateServiceProtocol
     private let firebaseService: FirebaseServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
     private let connectivityService: ConnectivityServiceProtocol
@@ -38,7 +37,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
          environmentService: EnvironmentServiceProtocol,
          apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
-         impersonateService: ImpersonateServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
          connectivityService: ConnectivityServiceProtocol,
@@ -49,7 +47,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         self.environmentService = environmentService
         self.apiService = apiService
         self.authService = authService
-        self.impersonateService = impersonateService
         self.firebaseService = firebaseService
         self.appDelegateService = appDelegateService
         self.connectivityService = connectivityService
@@ -101,7 +98,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     }
     
     func start(onLaunchStateChanged: @escaping (LaunchScreenService.State) -> Void,
-               onImpersonationStateChanged: @escaping (Bool) -> Void,
                onAuthError: @escaping (Error) -> Void,
                onNoNetwork: @escaping () -> Void,
                onHealthCheckResult: @escaping (_ requiresForceUpdate: Bool) -> Void) {
@@ -181,8 +177,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
                 
                 guard user != nil else { return }
                 guard let deviceToken = self?.appDelegateService.deviceToken else { return }
-                guard !(self?.impersonateService.isImpersonating ?? false) else { return }
-                
                 self?.registerDeviceToken(deviceToken)
                 
             }
@@ -236,14 +230,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             .sink { [weak self] _ in
                 self?.scheduleForegroundUserRefresh()
                 
-            }
-            .store(in: &self.cancelBag)
-        
-        self.impersonateService
-            .impersonatedUserPublisher
-            .receiveOnMain()
-            .sink { impersonatingUser in
-                onImpersonationStateChanged(impersonatingUser != nil)
             }
             .store(in: &self.cancelBag)
         

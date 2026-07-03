@@ -19,7 +19,6 @@ class MockViewModelAssembly {
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService(),
                 authService: container.authService(),
-                impersonateService: container.impersonateService(),
                 pushNotificationService: container.pushNotificationService(),
                 userDefaultsService: container.userDefaultsService(),
                 deeplinkService: container.deeplinkService(),
@@ -148,8 +147,7 @@ class MockViewModelAssembly {
                 analyticsService: container.analyticsService(),
                 environmentService: container.environmentService(),
                 userDefaultsService: container.userDefaultsService(),
-                viewLifecycleService: container.viewLifecycleService(),
-                impersonateService: container.impersonateService()
+                viewLifecycleService: container.viewLifecycleService()
             )
         }
         
@@ -236,7 +234,6 @@ class MockViewModelAssembly {
                 authService: container.authService(),
                 firebaseService: container.firebaseService(),
                 appDelegateService: container.appDelegateService(),
-                impersonateService: container.impersonateService(),
                 alertService: container.alertService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
@@ -286,18 +283,6 @@ class MockViewModelAssembly {
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
-                environmentService: container.environmentService()
-            )
-        }
-        
-        // DevSettings - Impersonate
-        
-        container.devImpersonateViewModel.register { @MainActor in
-            DevImpersonateViewModel(
-                analyticsService: container.analyticsService(),
-                impersonateService: container.impersonateService(),
-                viewLifecycleService: container.viewLifecycleService(),
-                alertService: container.alertService(),
                 environmentService: container.environmentService()
             )
         }

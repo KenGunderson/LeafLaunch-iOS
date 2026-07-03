@@ -27,7 +27,6 @@ final class DevUserDefaultsViewModel: ViewModel {
     @Published var theme: AvailableTheme!
     @Published var didCompleteOnboarding: Bool!
     @Published var didShowPermissionScreen: Bool!
-    @Published var didViewChecklistCompletionSheet: Bool!
     @Published var didCompletePermission: Bool!
     @Published var didRateMyAppAlertShow: Bool!
     @Published var shouldHideScreenshots: Bool!
@@ -37,8 +36,6 @@ final class DevUserDefaultsViewModel: ViewModel {
     @Published var shouldShowForceUpdateError: Bool = false
 
     @Published var lastViewedWhatsNewVersion: String?
-
-    private(set) var impersonatedUserData: Data?
 
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
@@ -62,10 +59,8 @@ final class DevUserDefaultsViewModel: ViewModel {
         self.theme = userDefaultsService.theme
         self.didCompleteOnboarding = userDefaultsService.didCompleteOnboarding
         self.didCompletePermission = userDefaultsService.didCompletePermission
-        self.didViewChecklistCompletionSheet = userDefaultsService.didViewChecklistCompletionSheet
         self.didRateMyAppAlertShow = userDefaultsService.didRateMyAppAlertShow
         self.shouldHideScreenshots = userDefaultsService.shouldHideScreenshots
-        self.impersonatedUserData = userDefaultsService.impersonatingUserData
         self.lastViewedWhatsNewVersion = userDefaultsService.lastViewedWhatsNewVersion
 
         self.logInit()
@@ -111,14 +106,6 @@ final class DevUserDefaultsViewModel: ViewModel {
 
         self.cancelBag = CancelBag()
 
-        self.userDefaultsService
-            .impersonatingUserDataPublisher
-            .receiveOnMain()
-            .sink { [weak self] data in
-                self?.impersonatedUserData = data
-            }
-            .store(in: &self.cancelBag)
-
         self.$didCompleteOnboarding
             .dropFirst()
             .receiveOnMain()
@@ -137,17 +124,6 @@ final class DevUserDefaultsViewModel: ViewModel {
 
                 guard let didCompletePermission else { return }
                 self?.userDefaultsService.set(didCompletePermission: didCompletePermission)
-
-            }
-            .store(in: &self.cancelBag)
-
-        self.$didViewChecklistCompletionSheet
-            .dropFirst()
-            .receiveOnMain()
-            .sink { [weak self] didViewChecklistCompletionSheet in
-
-                guard let didViewChecklistCompletionSheet else { return }
-                self?.userDefaultsService.set(didViewChecklistCompletionSheet: didViewChecklistCompletionSheet)
 
             }
             .store(in: &self.cancelBag)
@@ -270,7 +246,6 @@ final class DevUserDefaultsViewModel: ViewModel {
         self.userDefaultsService.resetDevFlags()
         self.didCompleteOnboarding = self.userDefaultsService.didCompleteOnboarding
         self.didCompletePermission = self.userDefaultsService.didCompletePermission
-        self.didViewChecklistCompletionSheet = self.userDefaultsService.didViewChecklistCompletionSheet
         self.didRateMyAppAlertShow = self.userDefaultsService.didRateMyAppAlertShow
         self.shouldHideScreenshots = self.userDefaultsService.shouldHideScreenshots
         self.lastViewedWhatsNewVersion = self.userDefaultsService.lastViewedWhatsNewVersion

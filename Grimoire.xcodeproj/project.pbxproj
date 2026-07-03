@@ -21,8 +21,6 @@
 		750DFBCF2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBCC2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift */; };
 		750DFBD72DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD22DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift */; };
 		750DFBD92DC6ED1200A2AB74 /* DevAnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBD32DC6ED1200A2AB74 /* DevAnalyticsScreen.swift */; };
-		750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDA2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift */; };
-		750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */; };
 		750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */; };
 		750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */; };
 		750E2BF42F9835AC00F85A2E /* AppStoreSubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2BED2F9835AC00F85A2E /* AppStoreSubscriptionError.swift */; };
@@ -53,7 +51,6 @@
 		7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
 		7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4032DF661EA0031D9CF /* PushNotificationPermissionService.swift */; };
 		7537F45D2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C52DF661EA0031D9CF /* AnalyticsEvent.swift */; };
-		7537F45E2DF661EA0031D9CF /* ImpersonateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */; };
 		7537F45F2DF661EA0031D9CF /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4062DF661EA0031D9CF /* CameraPermissionService.swift */; };
 		7537F4602DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */; };
 		7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4002DF661EA0031D9CF /* PermissionsService.swift */; };
@@ -85,7 +82,6 @@
 		7537F47D2DF661EA0031D9CF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3DC2DF661EA0031D9CF /* AuthService.swift */; };
 		7537F47F2DF661EA0031D9CF /* FirebaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */; };
 		7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4082DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift */; };
-		7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */; };
 		7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D82DF661EA0031D9CF /* AppDelegateServiceProtocol.swift */; };
 		7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C42DF661EA0031D9CF /* AnalyticsService.swift */; };
 		7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */; };
@@ -259,8 +255,6 @@
 		750DFBCC2DC6E97500A2AB74 /* DevUserDefaultsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevUserDefaultsScreen.swift; sourceTree = "<group>"; };
 		750DFBD22DC6ED1200A2AB74 /* DevAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		750DFBD32DC6ED1200A2AB74 /* DevAnalyticsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevAnalyticsScreen.swift; sourceTree = "<group>"; };
-		750DFBDA2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevImpersonateViewModel.swift; sourceTree = "<group>"; };
-		750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevImpersonateScreen.swift; sourceTree = "<group>"; };
 		750DFBDF2DC6F34F00A2AB74 /* DevRoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesViewModel.swift; sourceTree = "<group>"; };
 		750DFBE02DC6F34F00A2AB74 /* DevRoutesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevRoutesScreen.swift; sourceTree = "<group>"; };
 		750E2BED2F9835AC00F85A2E /* AppStoreSubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSubscriptionError.swift; sourceTree = "<group>"; };
@@ -317,8 +311,6 @@
 		7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3E82DF661EA0031D9CF /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseApp+ConfigureIfNeeded.swift"; sourceTree = "<group>"; };
-		7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpersonateServiceProtocol.swift; sourceTree = "<group>"; };
-		7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpersonateService.swift; sourceTree = "<group>"; };
 		7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenService.swift; sourceTree = "<group>"; };
 		7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+OSLogType.swift"; sourceTree = "<group>"; };
@@ -543,7 +535,6 @@
 				750DFBC82DC6E7F400A2AB74 /* Deeplinks */,
 				750DFBCD2DC6E97500A2AB74 /* UserDefaults */,
 				750DFBD62DC6ED1200A2AB74 /* Analytics */,
-				750DFBDC2DC6EFEC00A2AB74 /* Impersonate */,
 			);
 			path = DevSettings;
 			sourceTree = "<group>";
@@ -582,15 +573,6 @@
 				750DFBD32DC6ED1200A2AB74 /* DevAnalyticsScreen.swift */,
 			);
 			path = Analytics;
-			sourceTree = "<group>";
-		};
-		750DFBDC2DC6EFEC00A2AB74 /* Impersonate */ = {
-			isa = PBXGroup;
-			children = (
-				750DFBDA2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift */,
-				750DFBDB2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift */,
-			);
-			path = Impersonate;
 			sourceTree = "<group>";
 		};
 		750DFBE12DC6F34F00A2AB74 /* Routes */ = {
@@ -809,15 +791,6 @@
 				75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */,
 			);
 			path = Firebase;
-			sourceTree = "<group>";
-		};
-		7537F3EC2DF661EA0031D9CF /* Impersonate */ = {
-			isa = PBXGroup;
-			children = (
-				7537F3EA2DF661EA0031D9CF /* ImpersonateServiceProtocol.swift */,
-				7537F3EB2DF661EA0031D9CF /* ImpersonateService.swift */,
-			);
-			path = Impersonate;
 			sourceTree = "<group>";
 		};
 		7537F3EF2DF661EA0031D9CF /* Launch */ = {
@@ -1250,7 +1223,6 @@
 				750B85F22E48DD9400417BA5 /* DesignSystem */,
 				7537F3E62DF661EA0031D9CF /* Environment */,
 				7537F3E92DF661EA0031D9CF /* Firebase */,
-				7537F3EC2DF661EA0031D9CF /* Impersonate */,
 				7537F3EF2DF661EA0031D9CF /* Launch */,
 				7577A1552F7F940300A9DB6A /* LocalNotification */,
 				7537F3F32DF661EA0031D9CF /* Logger */,
@@ -1657,7 +1629,6 @@
 				7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */,
 				7537F45C2DF661EA0031D9CF /* PushNotificationPermissionService.swift in Sources */,
 				7537F45D2DF661EA0031D9CF /* AnalyticsEvent.swift in Sources */,
-				7537F45E2DF661EA0031D9CF /* ImpersonateService.swift in Sources */,
 				7537F45F2DF661EA0031D9CF /* CameraPermissionService.swift in Sources */,
 				7537F4602DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift in Sources */,
 				7537F4612DF661EA0031D9CF /* PermissionsService.swift in Sources */,
@@ -1719,7 +1690,6 @@
 				75B70ADE2F0CA0D90054E8C7 /* Tab1ViewModel.swift in Sources */,
 				75B70ADF2F0CA0D90054E8C7 /* Tab3ViewModel.swift in Sources */,
 				7537F4802DF661EA0031D9CF /* MediaPermissionServiceProtocol.swift in Sources */,
-				7537F4812DF661EA0031D9CF /* ImpersonateServiceProtocol.swift in Sources */,
 				75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */,
 				7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */,
 				7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */,
@@ -1813,10 +1783,8 @@
 				75573AC82DD82E6300C7CA6E /* LoginScreen.swift in Sources */,
 				7558F7D92F94326C007DF798 /* AppPrefersColorScheme.swift in Sources */,
 				753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */,
-				750DFBDD2DC6EFEC00A2AB74 /* DevImpersonateViewModel.swift in Sources */,
 				75E72BA22E54CA2E00B51203 /* BaseAppCardConfigView.swift in Sources */,
 				75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */,
-				750DFBDE2DC6EFEC00A2AB74 /* DevImpersonateScreen.swift in Sources */,
 				750DFBE22DC6F34F00A2AB74 /* DevRoutesViewModel.swift in Sources */,
 				750DFBE32DC6F34F00A2AB74 /* DevRoutesScreen.swift in Sources */,
 				75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */,

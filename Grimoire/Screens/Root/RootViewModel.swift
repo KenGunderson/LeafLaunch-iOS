@@ -17,7 +17,6 @@ final class RootViewModel: ViewModel {
     private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
-    private let impersonateService: ImpersonateServiceProtocol
     private let pushNotificationService: PushNotificationServiceProtocol
     private(set) var userDefaultsService: UserDefaultsServiceProtocol
     private let deeplinkService: DeeplinkServiceProtocol
@@ -26,24 +25,17 @@ final class RootViewModel: ViewModel {
     @LazyInjected(\.mainViewModel) private(set) var mainViewModel: MainViewModel
     
     @Published private(set) var launchState: LaunchScreenService.State = .loading
-    @Published private(set) var isImpersonatingUser: Bool = false
     @Published var shouldPresentDevSettings: Bool = false
     
     private(set) weak var navigationService: NavigationService?
     private var tabBarAppearanceTask: Task<Void, Never>?
-    private var revertImpersonationTask: Task<Void, Never>?
     private var logoutTask: Task<Void, Never>?
-    
-    var impersonatingUserEmail: String {
-        return self.impersonateService.impersonatedUser?.email ?? ""
-    }
     
     var observableAlertServiceWrapper: ObservableAlertServiceWrapper!
     
     init(analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol,
          authService: AuthServiceProtocol,
-         impersonateService: ImpersonateServiceProtocol,
          pushNotificationService: PushNotificationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          deeplinkService: DeeplinkServiceProtocol,
@@ -52,7 +44,6 @@ final class RootViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.alertService = alertService
         self.authService = authService
-        self.impersonateService = impersonateService
         self.pushNotificationService = pushNotificationService
         self.userDefaultsService = userDefaultsService
         self.deeplinkService = deeplinkService
@@ -119,26 +110,6 @@ final class RootViewModel: ViewModel {
         
     }
     
-    func revertImpersonatingUser() {
-        
-        self.revertImpersonationTask?.cancel()
-        
-        let impersonateService = self.impersonateService
-        
-        self.revertImpersonationTask = Task { @MainActor [weak self] in
-            
-            do {
-                try await impersonateService.revert()
-            }
-            catch {
-                guard !Task.isCancelled else { return }
-                self?.logError(message: error.getMessageForError())
-            }
-            
-        }
-        
-    }
-    
     func setNavigationService(_ tabBarNavigationService: TabBarNavigationService) {
         
         self.deeplinkService
@@ -187,9 +158,6 @@ final class RootViewModel: ViewModel {
             onLaunchStateChanged: { [weak self] state in
                 self?.launchState = state
             },
-            onImpersonationStateChanged: { [weak self] isImpersonating in
-                self?.isImpersonatingUser = isImpersonating
-            },
             onAuthError: { [weak self] error in
                 
                 self?.logError(message: error.getMessageForError())
@@ -224,8 +192,6 @@ final class RootViewModel: ViewModel {
                            
                            guard let self else { return }
                            
-                           self.impersonateService.logout()
-                           
                            self.logoutTask?.cancel()
                            
                            let authService = self.authService
@@ -249,7 +215,6 @@ final class RootViewModel: ViewModel {
     private func cancelTasks() {
         
         self.tabBarAppearanceTask?.cancel()
-        self.revertImpersonationTask?.cancel()
         self.logoutTask?.cancel()
         
     }

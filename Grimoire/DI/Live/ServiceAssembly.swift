@@ -251,20 +251,6 @@ extension Container {
         .singleton
     }
 
-    // IMPERSONATE
-
-    var impersonateService: Factory<ImpersonateServiceProtocol> {
-        self { @MainActor in
-            ImpersonateService(
-                firebaseService: self.firebaseService(),
-                apiService: self.apiService(),
-                authService: self.authService(),
-                userDefaultsService: self.userDefaultsService()
-            )
-        }
-        .singleton
-    }
-
     // STATSIG
 
     var statsigService: Factory<StatsigServiceProtocol> {
@@ -283,7 +269,6 @@ extension Container {
                 environmentService: self.environmentService(),
                 apiService: self.apiService(),
                 authService: self.authService(),
-                impersonateService: self.impersonateService(),
                 firebaseService: self.firebaseService(),
                 appDelegateService: self.appDelegateService(),
                 connectivityService: self.connectivityService(),
