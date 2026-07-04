@@ -49,7 +49,7 @@ struct WelcomeScreen: GPView {
         
         VStack(spacing: Style.shared.spacing(.none)) {
             
-            Image(.illustrationWelcome)
+            Image(systemName: "person.fill")
                 .resizable()
                 .if(self.orientation == .landscapeLeft || self.orientation == .landscapeRight) { view in
                     view.scaledToFit().cornerRadius(.large)
@@ -61,7 +61,7 @@ struct WelcomeScreen: GPView {
             
             VStack(spacing: Style.shared.spacing(.large)) {
                 
-                Image(.illustrationLogo)
+                Image(systemName: "person.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 50)

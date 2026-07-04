@@ -53,7 +53,7 @@ struct NavHeader: View {
             
             if self.showLogo {
                 
-                Image(.illustrationLogo)
+                Image(systemName: "person.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 24)

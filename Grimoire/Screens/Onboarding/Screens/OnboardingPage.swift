@@ -42,11 +42,11 @@ enum OnboardingPage: String, CaseIterable, Identifiable {
     
     var illustration: ImageSource {
         switch self {
-        case .businessSetup: return .image(.illustrationTutorial1)
-        case .locationControl: return .image(.illustrationTutorial2)
-        case .photos: return .image(.illustrationTutorial3)
-        case .beforeAndAfter: return .image(.illustrationTutorial4)
-        case .documentation: return .image(.illustrationTutorial5)
+        case .businessSetup: return .systemImage("person.fill")
+        case .locationControl: return .systemImage("person.fill")
+        case .photos: return .systemImage("person.fill")
+        case .beforeAndAfter: return .systemImage("person.fill")
+        case .documentation: return .systemImage("person.fill")
         case .permission: fatalError("Unsupported case: \(self)")
         }
     }

@@ -67,7 +67,7 @@ struct AboutUsScreen: GPView {
             
             if self.onAppearAnimation {
                 
-                Image(.illustrationLogo)
+                Image(systemName: "person.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 48)
