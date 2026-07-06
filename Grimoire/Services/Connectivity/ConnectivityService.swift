@@ -37,6 +37,7 @@ final class ConnectivityService: ConnectivityServiceProtocol {
     
     deinit {
         
+        self.networkMonitor.pathUpdateHandler = nil
         self.logDeinit()
         
     }

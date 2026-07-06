@@ -30,6 +30,11 @@ final class DeeplinkService: DeeplinkServiceProtocol {
     private var tabBarNavigationService: TabBarNavigationService?
     private var mainViewModel: MainViewModel?
     private let lifecycleService: ViewLifecycleServiceProtocol
+    
+    private var pendingURL: URL?
+    private var lastProcessedURLString: String?
+    private var lastProcessedAt: Date?
+    private let duplicateSuppressionInterval: TimeInterval = 1
         
     init(lifecycleService: ViewLifecycleServiceProtocol) {
         
@@ -48,9 +53,40 @@ final class DeeplinkService: DeeplinkServiceProtocol {
         self.mainViewModel = mainViewModel
         self.tabBarNavigationService = tabBarNavigationService
         
+        if let pendingURL = self.pendingURL {
+            
+            self.pendingURL = nil
+            self.handle(url: pendingURL)
+            
+        }
+        
     }
     
     func handle(url: URL) {
+        
+        guard self.tabBarNavigationService != nil else {
+            
+            self.pendingURL = url
+            self.log(message: "Queue URL until navigation is ready: \(url)")
+            
+            return
+            
+        }
+        
+        let now = Date()
+        let urlString = url.absoluteString
+        
+        if self.lastProcessedURLString == urlString,
+           let lastProcessedAt = self.lastProcessedAt,
+           now.timeIntervalSince(lastProcessedAt) < self.duplicateSuppressionInterval {
+            
+            self.log(message: "Ignore duplicate URL \(url)")
+            return
+            
+        }
+        
+        self.lastProcessedURLString = urlString
+        self.lastProcessedAt = now
         
         self.log(message: "Handle URL \(url)")
         
