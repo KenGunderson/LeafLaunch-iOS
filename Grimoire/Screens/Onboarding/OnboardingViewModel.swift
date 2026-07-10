@@ -48,6 +48,18 @@ final class OnboardingViewModel: ViewModel {
         self.currentPageIndex == self.pages.count - 1
     }
 
+    var canGoBack: Bool {
+        return self.currentPageIndex > 0
+    }
+
+    var featurePages: [OnboardingPage] {
+        return self.pages.filter { isFeaturePage($0) }
+    }
+
+    var isCurrentPageComplete: Bool {
+        return self.currentPage == .permission ? self.didAcknowledgePermissions : true
+    }
+
     private var cancelBag: CancelBag!
 
     init(analyticsService: AnalyticsServiceProtocol,
@@ -74,6 +86,7 @@ final class OnboardingViewModel: ViewModel {
 
         self.pages = pages
         self.currentPage = pages.first ?? .businessSetup
+        self.currentPageIndex = self.pages.firstIndex(of: self.currentPage) ?? 0
 
         return self
 
@@ -96,13 +109,17 @@ final class OnboardingViewModel: ViewModel {
 
             let nextPage = self.pages[self.currentPageIndex + 1]
             self.currentPageIndex += 1
+            self.currentPage = nextPage
 
             switch nextPage {
-            case .businessSetup: self.navigationService?.push(.onboarding(.businessSetup))
-            case .locationControl: self.navigationService?.push(.onboarding(.locationControl))
-            case .photos: self.navigationService?.push(.onboarding(.photos))
-            case .beforeAndAfter: self.navigationService?.push(.onboarding(.beforeAndAfter))
-            case .documentation: self.navigationService?.push(.onboarding(.documentation))
+            case .businessSetup,
+                    .locationControl,
+                    .photos,
+                    .beforeAndAfter,
+                    .documentation:
+
+                return
+
             case .permission: self.navigationService?.push(.onboarding(.permission))
             }
 
@@ -110,12 +127,47 @@ final class OnboardingViewModel: ViewModel {
 
     }
 
+    func previousPage() {
+
+        guard self.canGoBack else { return }
+        guard let currentPage else { return }
+
+        if isFeaturePage(currentPage) {
+
+            let previousIndex = self.currentPageIndex - 1
+
+            guard self.pages.indices.contains(previousIndex) else { return }
+
+            self.currentPageIndex = previousIndex
+            self.currentPage = self.pages[previousIndex]
+            return
+
+        }
+
+        self.navigationService?.pop()
+
+    }
+
+    func updateCurrentFeaturePage(_ page: OnboardingPage) {
+
+        guard self.featurePages.contains(page) else { return }
+
+        self.currentPage = page
+        self.currentPageIndex = self.pages.firstIndex(of: page) ?? 0
+
+    }
+
     func findNavigationRouteIndex(routes: [Route]) {
 
         if routes.isEmpty {
 
-            self.currentPage = .businessSetup
-            self.currentPageIndex = self.pages.firstIndex(of: .businessSetup) ?? 0
+            if let currentPage, isFeaturePage(currentPage) {
+                return
+            }
+
+            let fallbackPage = self.featurePages.last ?? self.pages.first ?? .businessSetup
+            self.currentPage = fallbackPage
+            self.currentPageIndex = self.pages.firstIndex(of: fallbackPage) ?? 0
             return
 
         }
@@ -192,6 +244,23 @@ final class OnboardingViewModel: ViewModel {
 
             }
             .store(in: &self.cancelBag)
+
+    }
+
+    private func isFeaturePage(_ page: OnboardingPage) -> Bool {
+
+        switch page {
+        case .businessSetup,
+                .locationControl,
+                .photos,
+                .beforeAndAfter,
+                .documentation:
+
+            return true
+
+        case .permission:
+            return false
+        }
 
     }
 

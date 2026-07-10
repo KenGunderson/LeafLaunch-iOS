@@ -28,7 +28,7 @@ struct OnboardingScreen: View {
         ZStack(alignment: .top) {
             
             AppRootView(navigationService: self.$navigationService) {
-                OnboardingFeaturesScreen(onboardingPage: .businessSetup)
+                OnboardingFeaturesScreen()
             }
             
             headerView()
@@ -40,6 +40,7 @@ struct OnboardingScreen: View {
                 .padding(.horizontal, .medium)
             
         }
+        .environmentObject(self.viewModel)
         .onFirstAppear { [weak viewModel] in
             
             viewModel?
@@ -49,11 +50,8 @@ struct OnboardingScreen: View {
                 .setup(navigationService: self.navigationService)
             
         }
-        .onChange(of: self.navigationService.routes) { oldValue, newValue in
-            
-            guard !oldValue.isEmpty else { return }
+        .onChange(of: self.navigationService.routes) { _, newValue in
             self.viewModel.findNavigationRouteIndex(routes: newValue)
-            
         }
         .animation(.smooth(duration: 0.6), value: self.viewModel.currentPage)
         .animation(.smooth(duration: 0.6), value: self.viewModel.currentPageIndex)
@@ -68,11 +66,11 @@ struct OnboardingScreen: View {
                 .appFont(with: .TITLE_3)
                 .foregroundStyle(.foreground(.primary))
                 .frame(height: self.headerSize.height)
-                .disabled(self.navigationService.routes.isEmpty)
-                .opacity(self.navigationService.routes.isEmpty ? 0.6 : 1)
-                .allowsHitTesting(!self.navigationService.routes.isEmpty)
+                .disabled(!self.viewModel.canGoBack)
+                .opacity(self.viewModel.canGoBack ? 1 : 0.6)
+                .allowsHitTesting(self.viewModel.canGoBack)
                 .asButton {
-                    self.navigationService.routes.removeLast()
+                    self.viewModel.previousPage()
                 }
             
             ProgressView(
@@ -89,7 +87,7 @@ struct OnboardingScreen: View {
             .tint(.init(.foreground(.primary)))
             .contentTransition(.numericText())
             
-            let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
+            let isButtonEnabled = self.viewModel.isCurrentPageComplete
             
             Text("Next")
                 .appFont(with: .TITLE_3)
@@ -125,7 +123,7 @@ struct OnboardingScreen: View {
     
     private var bottomButtonView: some View {
         
-        let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
+        let isButtonEnabled = self.viewModel.isCurrentPageComplete
                 
         return HStack(spacing: Style.shared.spacing(.small)) {
             

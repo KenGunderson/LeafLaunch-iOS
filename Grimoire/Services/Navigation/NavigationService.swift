@@ -162,27 +162,27 @@ extension View {
             switch route {
             case .businessSetup:
                 
-                OnboardingFeaturesScreen(onboardingPage: .businessSetup)
+                OnboardingFeaturesScreen()
                     .navigationBarBackButtonHidden()
                 
             case .locationControl:
                 
-                OnboardingFeaturesScreen(onboardingPage: .locationControl)
+                OnboardingFeaturesScreen()
                     .navigationBarBackButtonHidden()
                 
             case .photos:
                 
-                OnboardingFeaturesScreen(onboardingPage: .photos)
+                OnboardingFeaturesScreen()
                     .navigationBarBackButtonHidden()
                 
             case .beforeAndAfter:
                 
-                OnboardingFeaturesScreen(onboardingPage: .beforeAndAfter)
+                OnboardingFeaturesScreen()
                     .navigationBarBackButtonHidden()
                 
             case .documentation:
                 
-                OnboardingFeaturesScreen(onboardingPage: .documentation)
+                OnboardingFeaturesScreen()
                     .navigationBarBackButtonHidden()
                 
             case .permission:
