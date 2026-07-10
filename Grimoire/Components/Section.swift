@@ -18,7 +18,7 @@ struct SectionView: View {
     
     init(leadingTitle: String,
          leadingTitleFont: Theme.FontKey = .TITLE_6,
-         leadingForegroundColor: ColorSource = Rune.Style.shared.textColor(.title),
+         leadingForegroundColor: ColorSource = .text(.title),
          showDivider: Bool = false,
          trailingTitle: String = "View All",
          trailingAction: (() -> Void)? = nil) {
@@ -40,7 +40,7 @@ struct SectionView: View {
                 
                 Text(self.leadingTitle)
                     .appFont(with: self.leadingTitleFont)
-                    .foregroundStyle(self.leadingForegroundColor.source())
+                    .foregroundStyle(self.leadingForegroundColor)
                     .frame(
                         maxWidth: .infinity,
                         alignment: .leading
@@ -59,7 +59,7 @@ struct SectionView: View {
                             .frame(width: 12, height: 12)
                         
                     }
-                    .foregroundStyle(Rune.Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .asButton {
                         trailingAction()
                     }
@@ -71,7 +71,7 @@ struct SectionView: View {
             if self.showDivider {
                 
                 Capsule()
-                    .fill(Style.shared.background(.quaternary).source())
+                    .fill(.background(.quaternary))
                     .frame(height: 1.5)
                 
             }

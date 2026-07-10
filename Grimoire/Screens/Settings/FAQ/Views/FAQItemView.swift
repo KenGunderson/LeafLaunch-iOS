@@ -27,7 +27,7 @@ public struct FAQItemView: View {
     
     public var body: some View {
         
-        CollapsibleView(isExpanded: $isExpanded, backgroundColor: Style.shared.background(.primary)) {
+        CollapsibleView(isExpanded: $isExpanded, backgroundColor: .background(.primary)) {
             collapsedView()
         } expandedView: {
             expandedView()
@@ -44,7 +44,7 @@ public struct FAQItemView: View {
                 
                 Text(self.question)
                     .appFont(with: .TITLE_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 Spacer(minLength: 0)
                 Image(systemName: "plus")
@@ -53,12 +53,12 @@ public struct FAQItemView: View {
             }
             
             Divider()
-                .background(Style.shared.background(.border).source())
+                .background(.background(.border))
                 .frame(maxWidth: .infinity)
                 .frame(height: 1)
             
         }
-        .foregroundStyle(Style.shared.textColor(.title).source())
+        .foregroundStyle(.text(.title))
         .compositingGroup()
         
     }
@@ -70,7 +70,7 @@ public struct FAQItemView: View {
             
             Text(self.answer)
                 .appFont(with: .BODY_2)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 .fixedSize(horizontal: false, vertical: true)
             
         }

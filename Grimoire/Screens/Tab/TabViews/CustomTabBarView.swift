@@ -27,7 +27,7 @@ struct FloatingTabBar: View {
             
         }
         .padding(.vertical, 12)
-        .background(Style.shared.background(.primary).source().opacity(1))
+        .background(.background(.primary).opacity(1))
         .cornerRadius(20)
         .padding(.horizontal, 24)
         .padding(.bottom, -16)
@@ -58,7 +58,7 @@ struct FloatingTransitionTabBar: View {
                     if self.selectedTab == tab {
                         
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Style.shared.accent.source().opacity(0.1))
+                            .fill(.foreground(.primary).opacity(0.1))
                             .padding(.vertical, -4)
                             .padding(.horizontal, 8)
                             .matchedGeometryEffect(id: "id", in: namespace)
@@ -71,7 +71,7 @@ struct FloatingTransitionTabBar: View {
             
         }
         .padding(.vertical, 12)
-        .background(Style.shared.background(.primary).source().opacity(1))
+        .background(.background(.primary).opacity(1))
         .cornerRadius(20)
         .padding(.horizontal, 24)
         .padding(.bottom, -16)
@@ -98,7 +98,7 @@ struct FloatingNameTransitionTabBar: View {
                         if self.selectedTab == tab {
                             
                             RoundedRectangle(cornerRadius: 99)
-                                .fill(Style.shared.accent.source().opacity(0.1))
+                                .fill(.foreground(.primary).opacity(0.1))
                                 .padding(.vertical, -4)
                                 .padding(.horizontal, 6)
                                 .matchedGeometryEffect(id: "id", in: namespace)
@@ -112,7 +112,7 @@ struct FloatingNameTransitionTabBar: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
-        .background(Style.shared.background(.primary).source().opacity(1))
+        .background(.background(.primary).opacity(1))
         .clipShape(.capsule)
         .padding(.horizontal, 24)
         .padding(.bottom, -16)
@@ -124,7 +124,7 @@ struct FloatingNameTransitionTabBar: View {
     private func tabBarItem(_ tab: Tab) -> some View {
         
         let isSelectedTab = tab == self.selectedTab
-        let foregroundColor: ColorSource = isSelectedTab ? Style.shared.accent : .color(.gray)
+        let foregroundColor: ColorSource = isSelectedTab ? .foreground(.primary) : .color(.gray)
         
         HStack(spacing: 8) {
             
@@ -134,14 +134,14 @@ struct FloatingNameTransitionTabBar: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 26, maxHeight: 28)
-                    .foregroundStyle(foregroundColor.source())
+                    .foregroundStyle(foregroundColor)
                     .transition(.asymmetric(
                         insertion: .move(edge: .bottom).combined(with: .opacity),
                         removal: .opacity
                     ))
                 
                 Text(tab.title)
-                    .foregroundStyle(foregroundColor.source())
+                    .foregroundStyle(foregroundColor)
                     .appFont(with: .TITLE_2)
                     .fontWeight(.semibold)
                     .transition(.asymmetric(
@@ -156,7 +156,7 @@ struct FloatingNameTransitionTabBar: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 26, maxHeight: 28)
-                    .foregroundStyle(foregroundColor.source())
+                    .foregroundStyle(foregroundColor)
                 
             }
             
@@ -183,7 +183,7 @@ struct FloatingNameTransitionTabBar: View {
     
     @Previewable @State var selectedTab: Tab = .tab1
     
-    AppBaseView(backgroundStyle: Style.shared.background(.quaternary)) {
+    AppBaseView(backgroundStyle: .background(.quaternary)) {
     
         VStack(spacing: 24) {
             

@@ -50,7 +50,7 @@ struct BaseAppCardConfigView: View {
             .view()
             .aspectRatio(contentMode: .fit)
             .frame(height: 80)
-            .foregroundStyle(self.tintColor.source())
+            .foregroundStyle(self.tintColor)
         
     }
     
@@ -60,7 +60,7 @@ struct BaseAppCardConfigView: View {
             
             Text(self.title)
                 .appFont(with: .HEADER_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             self.attributedText
                 .multilineTextAlignment(.center)
@@ -122,7 +122,7 @@ struct BaseAppCardConfigView: View {
                                 cornerRadius: Style.shared.radius(.extraLarge),
                                 backgroundCardInset: .init(top: 0, left: 24, bottom: 250, right: 24),
                                 contentCardInset: .init(top: 40, left: 16, bottom: 40, right: 16),
-                                cardBackgroundColor: Style.shared.background(.secondary),
+                                cardBackgroundColor: .background(.secondary),
                                 shouldDismissOnOutsideTouch: false,
                                 shouldDismissOnDrag: true
                 ))))

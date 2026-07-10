@@ -12,11 +12,11 @@ struct PlaceholderView: View {
     var body: some View {
             
         RoundedRectangle(cornerRadius: Style.shared.radius(.small))
-            .fill(Style.shared.background(.quaternary).source())
+            .fill(.background(.quaternary))
             .overlay {
                 
                 AppLoadingView(style: .circleRunner(
-                    color: Style.shared.background(.primary),
+                    color: .background(.primary),
                     size: 24
                 ))
                 

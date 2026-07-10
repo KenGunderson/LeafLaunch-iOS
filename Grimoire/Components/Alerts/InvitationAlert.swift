@@ -17,12 +17,12 @@ extension AppCardConfig {
         let attributedText = AttributedText {
             
             Text(name)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .font(Style.shared.font(.HEADER_1))
             
             Text(" has been invited to join \(businessName). They will receive an email with next steps.")
                 .font(Style.shared.font(.BODY_3))
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
             
         }
         
@@ -44,7 +44,7 @@ extension AppCardConfig {
             cornerRadius: Style.shared.radius(.large),
             backgroundCardInset: .init(top: 0, left: 24, bottom: 250, right: 24),
             contentCardInset: .init(top: 40, left: 16, bottom: 40, right: 16),
-            cardBackgroundColor: Style.shared.background(.secondary),
+            cardBackgroundColor: .background(.secondary),
             shouldDismissOnOutsideTouch: false,
             shouldDismissOnDrag: false
         )

@@ -329,14 +329,14 @@ extension Constants {
         
         .init(
             title: "API Down 🙃",
-            titleColor: Style.shared.textColor(.title),
+            titleColor: .text(.title),
             message: "We seem to be experiences technical difficulties. Please try again later.",
-            messageColor: Style.shared.textColor(.body),
+            messageColor: .text(.body),
             image: Image(systemName: "stethoscope.circle.fill"),
-            imageColor: Style.shared.palette(.error),
+            imageColor: .palette(.error),
             buttonTitle: "Try Again",
-            buttonTitleColor: Style.shared.textColor(.button),
-            buttonColor: Style.shared.palette(.error),
+            buttonTitleColor: .text(.button),
+            buttonColor: .palette(.error),
             action: {
                 action()
             }
@@ -348,14 +348,14 @@ extension Constants {
         
         .init(
             title: "No Network",
-            titleColor: Style.shared.textColor(.title),
+            titleColor: .text(.title),
             message: "You seem to me be missing your internet connection.",
-            messageColor: Style.shared.textColor(.body),
+            messageColor: .text(.body),
             image: Image(systemName: "wifi.slash"),
-            imageColor: Style.shared.accent,
+            imageColor: .foreground(.primary),
             buttonTitle: "Try Again",
-            buttonTitleColor: Style.shared.textColor(.button),
-            buttonColor: Style.shared.accent,
+            buttonTitleColor: .text(.button),
+            buttonColor: .foreground(.primary),
             action: {
                 action()
             }
@@ -367,13 +367,13 @@ extension Constants {
         
         .init(
             title: "Old App Version",
-            titleColor: Style.shared.textColor(.title),
+            titleColor: .text(.title),
             message: "Your app version is too old. Please go to the store and download the latest build.",
-            messageColor: Style.shared.textColor(.body),
+            messageColor: .text(.body),
             image: Image(systemName: "building.2.crop.circle.fill"),
             imageColor: .color(.blue),
             buttonTitle: "Update Now",
-            buttonTitleColor: Style.shared.textColor(.button),
+            buttonTitleColor: .text(.button),
             buttonColor: .color(.blue),
             action: {
                 action()

@@ -87,12 +87,12 @@ struct WhatsNewScreen: GPView {
             VStack {
                 
                 Text("What's New")
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                     .appFont(with: .BILLBOARD_1)
                     .multilineTextAlignment(.center)
                 
                 Text("Version: \(whatsNewItem.version.description)")
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .appFont(with: .BODY_1)
                     .multilineTextAlignment(.center)
                 
@@ -125,16 +125,16 @@ struct WhatsNewScreen: GPView {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 28, height: 28)
-                    .foregroundStyle(item.foregroundStyle.source())
+                    .foregroundStyle(item.foregroundStyle)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     
                     Text(item.title)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                         .appFont(with: .TITLE_4)
                     
                     Text(item.message)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .appFont(with: .BODY_2)
                     
                 }

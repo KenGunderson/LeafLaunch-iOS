@@ -100,7 +100,7 @@ struct DevSettingsScreen: GPView {
             
             Text("Information")
                 .appFont(with: .TITLE_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             AppCardView {
                 
@@ -109,7 +109,7 @@ struct DevSettingsScreen: GPView {
                     CommonSegmentedControl(
                         selectedOption: self.$viewModel.selectedEnviornment,
                         options: self.viewModel.getAppEnviornments(),
-                        selectedTextColor: Style.shared.textColor(.titleInverted)
+                        selectedTextColor: .text(.titleInverted)
                     )
                     .padding(.bottom, .small)
                     
@@ -117,7 +117,7 @@ struct DevSettingsScreen: GPView {
                         
                         TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
                             .appFont(with: .TITLE_3)
-                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .foregroundStyle(.text(.title))
                             .padding(8)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 10)
@@ -154,7 +154,7 @@ struct DevSettingsScreen: GPView {
                     
                     Text("Copy Auth Token")
                         .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, Style.shared.spacing(.small))
                         .padding(.vertical, Style.shared.spacing(.medium))
@@ -163,7 +163,7 @@ struct DevSettingsScreen: GPView {
                             
                             RoundedRectangle(cornerRadius: Style.shared.radius(.small))
                                 .stroke(
-                                    Style.shared.background(.tertiary).source(),
+                                    .background(.tertiary),
                                     lineWidth: 2
                                 )
                             
@@ -189,7 +189,7 @@ struct DevSettingsScreen: GPView {
             
             Text("Diagnostics")
                 .appFont(with: .TITLE_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             AppCardView {
                 
@@ -246,7 +246,7 @@ struct DevSettingsScreen: GPView {
             
             Text("Sections")
                 .appFont(with: .TITLE_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             VStack {
                 
@@ -278,7 +278,7 @@ struct DevSettingsScreen: GPView {
                     listSectionItemView(
                         title: "Logout",
                         icon: "person.fill",
-                        colorOverride: Style.shared.palette(.error)
+                        colorOverride: .palette(.error)
                     )
                     .asButton {
                         
@@ -313,14 +313,14 @@ struct DevSettingsScreen: GPView {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             
         }
-        .foregroundStyle(Style.shared.textColor(.title).source())
+        .foregroundStyle(.text(.title))
         
     }
     
     @ViewBuilder
     func listSectionItemView(title: String,
                              icon: String,
-                             colorOverride: ColorSource = Style.shared.accent) -> some View {
+                             colorOverride: ColorSource = .foreground(.primary)) -> some View {
         
         AppCardView {
             
@@ -336,7 +336,7 @@ struct DevSettingsScreen: GPView {
                 Image(systemName: "chevron.right")
                 
             }
-            .foregroundStyle(colorOverride.source())
+            .foregroundStyle(colorOverride)
             
         }
         

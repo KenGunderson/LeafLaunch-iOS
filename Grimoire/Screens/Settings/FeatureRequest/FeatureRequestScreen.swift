@@ -93,7 +93,7 @@ struct FeatureRequestScreen: GPView {
                     
                     Text("Your feedback and suggestions are very valuable to us. Please share what you would like to see added to GlowPro.")
                         .appFont(with: .BODY_4)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .multilineTextAlignment(.leading)
                         .frame(
                             maxWidth: .infinity,

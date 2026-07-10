@@ -70,17 +70,17 @@ struct WelcomeScreen: GPView {
                 Text("Capture photos, create before & afters, and showcase your results.")
                     .appFont(with: .BODY_4)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .padding(.horizontal, .extraLarge)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .background(Style.shared.background(.primary).source())
+            .background(.background(.primary))
             .padding(.bottom, self.footerSize.height + Style.shared.spacing(.medium))
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Style.shared.background(.primary).source())
+        .background(.background(.primary))
         .ignoresSafeArea()
         
     }
@@ -107,7 +107,7 @@ struct WelcomeScreen: GPView {
         
         CommonButton(
             title: "Sign Up",
-            titleColor: Style.shared.textColor(.button),
+            titleColor: .text(.button),
             action: {
                 self.viewModel.navigateToSignUp()
             })
@@ -119,7 +119,7 @@ struct WelcomeScreen: GPView {
         CommonButton(
             style: .outline(lineWidth: 3),
             title: "Login",
-            titleColor: Style.shared.accent,
+            titleColor: .foreground(.primary),
             action: {
                 self.viewModel.navigateToLogin()
             })

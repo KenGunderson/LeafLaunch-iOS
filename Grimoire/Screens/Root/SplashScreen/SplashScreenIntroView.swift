@@ -53,7 +53,11 @@ struct SplashScreenIntroView: View {
         
     }
     
+    @ViewBuilder
     private func wordsView() -> some View {
+
+        let foregroundStyle: ColorSource = self.completionBackground ? .color(.white) : .foreground(.primary)
+        let backgroundStyle: ColorSource = self.completionBackground ? .foreground(.primary) : .background(.primary)
         
         HStack(spacing: 0) {
             
@@ -64,19 +68,19 @@ struct SplashScreenIntroView: View {
                     jumpHeight: self.jumpHeight,
                     isShown: self.lettersShown[safe: index] ?? false
                 )
-                .foregroundStyle(self.completionBackground ? AnyShapeStyle(.white) : Style.shared.accent.source())
+                .foregroundStyle(foregroundStyle)
                 
             }
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(self.completionBackground ? Style.shared.accent.source() : Style.shared.background(.primary).source())
+        .background(backgroundStyle)
         .background {
             
             VStack {
                 
                 Rectangle()
-                    .fill(self.completionBackground ? Style.shared.accent.source() : Style.shared.background(.primary).source())
+                    .fill(backgroundStyle)
                     .frame(height: self.completionBackground ? nil : 0, alignment: .bottom)
                     .ignoresSafeArea()
                 

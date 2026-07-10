@@ -31,9 +31,9 @@ struct StandardTabBarView: View {
             .frame(maxWidth: .infinity)
             .padding(.top, 12)
             .padding(.bottom, 4)
-            .background(Style.shared.background(.primary).source())
+            .background(.background(.primary))
             .overlay(alignment: .top) {
-                Rectangle().fill(Style.shared.background(.quaternary).source())
+                Rectangle().fill(.background(.quaternary))
                     .frame(height: 1)
                     .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 1)
             }

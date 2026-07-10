@@ -75,7 +75,7 @@ struct DevAnalyticsScreen: GPView {
         return CommonSegmentedControl(
             selectedOption: self.$viewModel.selectedDisplayTypeString,
             options: allOptions,
-            selectedTextColor: Style.shared.textColor(.titleInverted)
+            selectedTextColor: .text(.titleInverted)
         )
         .padding(.top, .small)
         .padding(.horizontal, .medium)
@@ -89,7 +89,7 @@ struct DevAnalyticsScreen: GPView {
             filters: self.viewModel.allOSLogOptions,
             selectedFilter: self.$viewModel.selectedOSLogTypeString,
             selectedFilterColor: .color(self.viewModel.selectedOSLogType?.color() ?? .clear),
-            filterSelectedText: Style.shared.textColor(.titleInverted)
+            filterSelectedText: .text(.titleInverted)
         )
         .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, .small)
@@ -104,7 +104,7 @@ struct DevAnalyticsScreen: GPView {
             
             TokenView(
                 text: "\(self.viewModel.clearActionTitle) (\(self.viewModel.selectedDisplayCount))",
-                foregroundStyle: Style.shared.textColor(.button),
+                foregroundStyle: .text(.button),
                 backgroundStyle: .color(.red)
             )
             .asButton {
@@ -165,10 +165,10 @@ struct DevAnalyticsScreen: GPView {
                 
                 Text(title)
                     .appFont(with: .HEADER_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 Divider()
-                    .background(Style.shared.textColor(.body).source())
+                    .background(.text(.body))
                 
             }
             
@@ -230,7 +230,7 @@ struct DevAnalyticsScreen: GPView {
                 
                 Text(eventData.name)
                     .appFont(with: .TITLE_3)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 if let properties = eventData.properties {
                     JSONPreviewView(jsonData: properties)
@@ -241,7 +241,7 @@ struct DevAnalyticsScreen: GPView {
                     format: .dateTime.day().month().year().hour().minute().second()
                 )
                 .appFont(with: .BODY_1)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 
             }
             
@@ -261,7 +261,7 @@ struct DevAnalyticsScreen: GPView {
                         
                         Text("Method: \(apiLogResponse.method)")
                             .appFont(with: .TITLE_3)
-                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .foregroundStyle(.text(.title))
                         
                         Text("Status Code: \(apiLogResponse.statusCode)")
                             .appFont(with: .TITLE_3)
@@ -269,7 +269,7 @@ struct DevAnalyticsScreen: GPView {
                         
                         Text("Path: \(apiLogResponse.path)")
                             .appFont(with: .BODY_1)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .foregroundStyle(.text(.body))
                         
                     }
                     
@@ -332,7 +332,7 @@ struct DevAnalyticsScreen: GPView {
                     format: .dateTime.day().month().year().hour().minute().second()
                 )
                 .appFont(with: .BODY_1)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 
             }
             
@@ -345,7 +345,7 @@ struct DevAnalyticsScreen: GPView {
                 
                 Text(title)
                     .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 JSONPreviewView(
                     jsonData: json,
@@ -393,11 +393,11 @@ struct DevAnalyticsScreen: GPView {
                     
                     Text(logEvent.title)
                         .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                     
                     Text(logEvent.message)
                         .appFont(with: .BODY_3)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .padding(.top, .custom(2))
                     
                     VStack(alignment: .leading) {
@@ -408,7 +408,7 @@ struct DevAnalyticsScreen: GPView {
                                 
                                 Text(emoji)
                                     .appFont(with: .TITLE_3)
-                                    .foregroundStyle(Style.shared.textColor(.title).source())
+                                    .foregroundStyle(.text(.title))
                                 
                             }
                             
@@ -425,7 +425,7 @@ struct DevAnalyticsScreen: GPView {
                         
                     }
                     .padding(.top, .medium)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     
                 }
                 .padding(.leading, .small)
@@ -443,8 +443,8 @@ struct DevAnalyticsScreen: GPView {
         
         TokenView(
             text: text,
-            foregroundStyle: Style.shared.textColor(.title),
-            backgroundStyle: Style.shared.accent
+            foregroundStyle: .text(.title),
+            backgroundStyle: .foreground(.primary)
         )
         
     }

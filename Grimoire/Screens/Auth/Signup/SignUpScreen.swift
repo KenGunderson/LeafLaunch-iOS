@@ -78,11 +78,11 @@ struct SignUpScreen: GPView {
                 
                 Text("Join Grimoire")
                     .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 Text("Enter your details below to create an account.")
                     .appFont(with: .BODY_3)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
             }
             
@@ -125,12 +125,12 @@ struct SignUpScreen: GPView {
                 )
                 .toggleStyle(.checkmarkFilled(
                     height: 30,
-                    unselectedColor: Style.shared.background(.quaternary),
+                    unselectedColor: .background(.quaternary),
                     horizontalSpacing: .small,
                     cornerRadius: .extraSmall,
                     animation: .bouncy(duration: 0.3, extraBounce: 0.2)
                 ))
-                .foregroundStyle(Style.shared.textColor(.titleInverted).source())
+                .foregroundStyle(.text(.titleInverted))
                 .appFont(with: .TITLE_5)
                 .contentTransition(.symbolEffect(.replace))
 //                .animation(.bouncy(duration: 0.10), value: self.viewModel.agreedToTerms)
@@ -140,12 +140,12 @@ struct SignUpScreen: GPView {
                 AttributedText {
                     
                     Text("By signing up, you agree to our ")
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .font(Style.shared.font(.BODY_2))
                     
                     Text("[Terms Of Service](https://apple.com)")
                         .font(Style.shared.font(.BODY_2))
-                        .foregroundStyle(Style.shared.accent.source())
+                        .foregroundStyle(.foreground(.primary))
                         .underline()
                     
                 }
@@ -157,7 +157,7 @@ struct SignUpScreen: GPView {
                     return .handled
                     
                 }))
-                .tint(Style.shared.accent.source())
+                .tint(.init(.foreground(.primary)))
                 
             }
                         
@@ -165,7 +165,7 @@ struct SignUpScreen: GPView {
             
             CommonButton(
                 title: "Create Account",
-                titleColor: Style.shared.textColor(.button),
+                titleColor: .text(.button),
                 isEnabled: self.viewModel.isButtonEnabled,
                 disabledOpacity: 0.7
             ) {
@@ -177,7 +177,7 @@ struct SignUpScreen: GPView {
             .padding(.vertical, .small)
             
         }
-        .background(Style.shared.background(.primary).source())
+        .background(.background(.primary))
         .padding(.horizontal, .medium)
         .opacity(self.focusedField == nil ? 1 : 0)
         
@@ -241,7 +241,7 @@ struct SignUpScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
+                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
                 
             } else {
@@ -249,7 +249,7 @@ struct SignUpScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
+                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
                 
             }
@@ -298,7 +298,7 @@ struct SignUpScreen: GPView {
             Image(systemName: self.showPassword ? "eye.slash" : "eye")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(Style.shared.textColor(.placeholder).source())
+                .foregroundStyle(.text(.placeholder))
                 .frame(width: 24, height: 24)
                 .asButton {
                     

@@ -147,18 +147,18 @@ struct SettingsScreen: GPView {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .appFont(with: .TITLE_4)
-                    .foregroundStyle(item.tintColor.source())
+                    .foregroundStyle(item.tintColor)
                 
                 Text(item.displayName)
                     .appFont(with: .TITLE_4)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                     .opacity(0.5)
                 
             }
-            .foregroundStyle(Style.shared.textColor(.body).source())
+            .foregroundStyle(.text(.body))
             
         }
         .asButton {
@@ -184,16 +184,16 @@ struct SettingsScreen: GPView {
                     
                     Image(systemName: "iphone")
                         .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.accent.source())
+                        .foregroundStyle(.foreground(.primary))
                     
                     Text("App Version")
                         .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                     
                     Text(self.viewModel.appVersion)
                         .appFont(with: .HEADER_1)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                     
                 }
                 

@@ -24,7 +24,7 @@ struct WhatsNewItem: Identifiable, Equatable {
         init(title: String,
              message: String,
              icon: String,
-             foregroundStyle: ColorSource = Style.shared.accent) {
+             foregroundStyle: ColorSource = .foreground(.primary)) {
             
             self.title = title
             self.message = message

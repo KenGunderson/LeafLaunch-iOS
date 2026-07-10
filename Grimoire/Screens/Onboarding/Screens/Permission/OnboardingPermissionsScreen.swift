@@ -23,7 +23,7 @@ struct OnboardingPermissionsScreen: GPView {
 
             Text("This allows us to give you a better experience.")
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal, .medium)
 
@@ -85,10 +85,10 @@ struct OnboardingPermissionsScreen: GPView {
 
                     Text("Need to update your permissions? You can always update your permissions by navigating to settings and tapping ")
                         .font(Style.shared.font(.BODY_3))
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
 
                     Text("Update Permissions.")
-                        .foregroundStyle(Style.shared.accent.source())
+                        .foregroundStyle(.foreground(.primary))
                         .font(Style.shared.font(.HEADER_1))
 
                 }
@@ -149,25 +149,25 @@ struct OnboardingPermissionsScreen: GPView {
 
         var buttonTitleColor: ColorSource {
             if isEnabled != nil {
-                return Style.shared.textColor(.titleInverted)
+                return .text(.titleInverted)
             }
 
-            return Style.shared.textColor(.title)
+            return .text(.title)
         }
 
         var buttonColor: ColorSource {
             if let isEnabled {
-                return isEnabled ? Style.shared.accent : Style.shared.palette(.error)
+                return isEnabled ? .foreground(.primary) : .palette(.error)
             }
 
-            return Style.shared.background(.quaternary)
+            return .background(.quaternary)
         }
 
         return HStack {
 
             Text("\(title)")
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
 
             Spacer()
 

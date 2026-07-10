@@ -51,7 +51,7 @@ struct NavBarButton: View {
     private let action: () -> Void
     
     init(style: Style,
-         foregroundColor: ColorSource = Rune.Style.shared.textColor(.title),
+         foregroundColor: ColorSource = .text(.title),
          action: @escaping () -> Void) {
         
         self.style = style
@@ -69,7 +69,7 @@ struct NavBarButton: View {
             .scaledToFit()
             .frame(width: frame, height: frame)
             .padding(4)
-            .foregroundStyle(self.foregroundColor.source())
+            .foregroundStyle(self.foregroundColor)
             .background(.backgroundTappable)
             .asButton {
                 action()
@@ -100,7 +100,7 @@ struct NavBarButton: View {
             .padding(.vertical, 1.3)
             .foregroundStyle(.white)
             .lineLimit(1)
-            .background(Rune.Style.shared.accent.source())
+            .background(.foreground(.primary))
             .cornerRadius(.custom(99))
             .offset(x: 0, y: -3.5)
             .fixedSize(horizontal: true, vertical: false)

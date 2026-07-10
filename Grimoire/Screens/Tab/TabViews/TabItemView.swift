@@ -12,7 +12,7 @@ struct TabItemView: View {
     var tab: Tab
     @Binding var selectedTab: Tab
     
-    let accentColor = Style.shared.accent
+    let accentColor: ColorSource = .foreground(.primary)
     
     var body: some View {
         
@@ -24,13 +24,13 @@ struct TabItemView: View {
             Image(systemName: isSelectedTab ? self.tab.selectedIcon : self.tab.unselectedIcon)
                 .frame(maxWidth: 24, maxHeight: 24)
                 .scaleEffect(isSelectedTab ? 1.10 : 1.0)
-                .foregroundStyle(foregroundColor.source())
+                .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_4)
                 .contentTransition(.symbolEffect(.replace))
             
             Text(self.tab.title)
                 .scaleEffect(isSelectedTab ? 1.10 : 1.0)
-                .foregroundStyle(foregroundColor.source())
+                .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_1)
                 .fontWeight(isSelectedTab ? .semibold : .regular)
                 .transition(.opacity)

@@ -197,8 +197,8 @@ struct DevUserDefaultsScreen: GPView {
                 
                 TokenView(
                     text: "Set To Latest",
-                    foregroundStyle: Style.shared.textColor(.button),
-                    backgroundStyle: Style.shared.accent
+                    foregroundStyle: .text(.button),
+                    backgroundStyle: .foreground(.primary)
                 )
                 .asButton {
                     
@@ -239,7 +239,7 @@ struct DevUserDefaultsScreen: GPView {
                 contentView
                 
             }
-            .foregroundStyle(Style.shared.textColor(.title).source())
+            .foregroundStyle(.text(.title))
             
         }
         
@@ -274,7 +274,7 @@ struct DevUserDefaultsScreen: GPView {
         .overlay {
             
             RoundedRectangle(cornerRadius: Style.shared.radius(.small2))
-                .stroke(Style.shared.background(.tertiary).source())
+                .stroke(.background(.tertiary))
             
         }
         
@@ -291,7 +291,7 @@ struct DevUserDefaultsScreen: GPView {
                 
                 Text("Selected Theme: ")
                     .appFont(with: .TITLE_3)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
                 let titleConversion = selectedTheme?.rawValue.convertNamingStyle(
                     from: .camelCase,
@@ -301,10 +301,10 @@ struct DevUserDefaultsScreen: GPView {
                 
                 Text(titleConversion ?? "N/A")
                     .appFont(with: .TITLE_3)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
                 Circle()
-                    .fill(selectedTheme?.theme().foreground.primary.source() ?? AnyShapeStyle(Color.red))
+                    .fill(selectedTheme?.theme().foreground.primary ?? .color(.red))
                     .frame(width: 32, height: 32)
                     .padding(.horizontal, .small)
                 
@@ -355,7 +355,7 @@ struct DevUserDefaultsScreen: GPView {
                 .fontWeight(.heavy)
             
             Circle()
-                .fill(themeChoice.theme().foreground.primary.source())
+                .fill(themeChoice.theme().foreground.primary)
                 .frame(width: 64, height: 64)
             
         }

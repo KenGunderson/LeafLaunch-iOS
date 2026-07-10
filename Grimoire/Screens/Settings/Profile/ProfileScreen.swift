@@ -143,8 +143,8 @@ struct ProfileScreen: GPView {
                 title: placeholder,
                 style: .border(cornerRadius: .custom(6)),
                 isFocused: isFocused,
-                foregroundColor: Style.shared.textColor(.title),
-                backgroundColor: fieldToFocus == .email ? Style.shared.background(.quaternary) : .color(.clear),
+                foregroundColor: .text(.title),
+                backgroundColor: fieldToFocus == .email ? .background(.quaternary) : .color(.clear),
                 textFieldFont: .BODY_3
             )
             .focused(self.$focusedField, equals: fieldToFocus)
@@ -185,14 +185,14 @@ struct ProfileScreen: GPView {
                 selection: self.$viewModel.dateOfBirth,
                 displayedComponents: .date
             )
-            .tint(Style.shared.accent.source())
+            .tint(.init(.foreground(.primary)))
             .datePickerStyle(.compact)
             .fixedSize()
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, -8)
             
         }
-        .foregroundStyle(Style.shared.textColor(.title).source())
+        .foregroundStyle(.text(.title))
         .appFont(with: .TITLE_3)
         .padding(.top, Style.shared.spacing(.extraSmall))
         .appPrefersColorScheme()
@@ -221,7 +221,7 @@ struct ProfileScreen: GPView {
                 .combined(with: .opacity)
                 .animation(.bouncy(duration: 0.3))
             )
-            .background(Style.shared.background(.primary).source())
+            .background(.background(.primary))
             
         }
         

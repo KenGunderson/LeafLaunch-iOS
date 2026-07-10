@@ -21,7 +21,7 @@ struct NavHeader: View {
     init(title: String,
          subtitle: String? = nil,
          showLogo: Bool = false,
-         backgroundStyle: ColorSource = Style.shared.background(.primary),
+         backgroundStyle: ColorSource = .background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
@@ -77,11 +77,11 @@ struct NavHeader: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        .background(self.backgroundStyle.source())
+        .background(self.backgroundStyle)
         .background {
             
             Rectangle()
-                .fill(self.backgroundStyle.source())
+                .fill(self.backgroundStyle)
                 .blur(radius: 2)
                 .offset(y: 10)
             
@@ -96,13 +96,13 @@ struct NavHeader: View {
             
             Text(self.title)
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             if let subtitle = self.subtitle {
                 
                 Text(subtitle)
                     .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .minimumScaleFactor(0.5)
                 
             }

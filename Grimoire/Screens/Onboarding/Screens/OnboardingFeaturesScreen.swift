@@ -33,12 +33,12 @@ struct OnboardingFeaturesScreen: GPView {
                 
                 Text(self.onboardingPage.title)
                     .appFont(with: .HEADER_3)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                     .padding(.horizontal, .large2)
                 
                 Text(self.onboardingPage.message)
                     .appFont(with: .BODY_4)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, .large2)
                 

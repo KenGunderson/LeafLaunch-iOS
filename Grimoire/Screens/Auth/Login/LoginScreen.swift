@@ -83,11 +83,11 @@ struct LoginScreen: GPView {
                 
                 Text("Welcome Back")
                     .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 Text("Sign in to your Grimoire account to continue capturing beautiful results")
                     .appFont(with: .BODY_3)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
             }
             
@@ -126,7 +126,7 @@ struct LoginScreen: GPView {
         
         Text("Forgot Password?")
             .appFont(with: .TITLE_3)
-            .foregroundStyle(Style.shared.accent.source())
+            .foregroundStyle(.foreground(.primary))
             .asButton {
                 self.viewModel.handleForgotPassword()
             }
@@ -137,7 +137,7 @@ struct LoginScreen: GPView {
         
         CommonButton(
             title: "Login",
-            titleColor: Style.shared.textColor(.button),
+            titleColor: .text(.button),
             isEnabled: self.viewModel.isButtonEnabled,
             disabledOpacity: 0.75
         ) {
@@ -165,7 +165,7 @@ struct LoginScreen: GPView {
                 SecureField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
+                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
 
                 
@@ -174,7 +174,7 @@ struct LoginScreen: GPView {
                 TextField(
                     placeholder,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(Style.shared.textColor(.placeholder).source())
+                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
                 
             }
@@ -229,7 +229,7 @@ struct LoginScreen: GPView {
                     }
                     
                 }
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 .padding(.trailing, .medium)
                 .padding(.bottom, .custom(10))
                 .contentTransition(.symbolEffect(.replace))

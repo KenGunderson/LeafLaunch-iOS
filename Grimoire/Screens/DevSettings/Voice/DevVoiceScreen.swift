@@ -78,7 +78,7 @@ struct DevVoiceScreen: GPView {
             
             Text("Permissions")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             AppCardView {
                 
@@ -92,7 +92,7 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: self.viewModel.shouldPromptForMicrophonePermission ? "Request Microphone" : "Request Again",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("mic.fill"),
                         action: {
                             self.viewModel.requestMicrophonePermission()
@@ -107,7 +107,7 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: self.viewModel.shouldPromptForSpeechPermission ? "Request Speech" : "Request Again",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("waveform.and.mic"),
                         action: {
                             self.viewModel.requestSpeechPermission()
@@ -129,7 +129,7 @@ struct DevVoiceScreen: GPView {
             
             Text("Controls")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             AppCardView {
                 
@@ -147,9 +147,9 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: "Start Recording",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("record.circle.fill"),
-                        backgroundStyle: self.viewModel.canStartRecording ? Style.shared.accent : Style.shared.background(.tertiary),
+                        backgroundStyle: self.viewModel.canStartRecording ? .foreground(.primary) : .background(.tertiary),
                         isEnabled: self.viewModel.canStartRecording,
                         action: {
                             self.viewModel.startRecording()
@@ -158,9 +158,9 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: "Stop Recording",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("stop.circle.fill"),
-                        backgroundStyle: self.viewModel.canStopRecording ? Style.shared.palette(.error) : Style.shared.background(.tertiary),
+                        backgroundStyle: self.viewModel.canStopRecording ? .palette(.error) : .background(.tertiary),
                         isEnabled: self.viewModel.canStopRecording,
                         action: {
                             self.viewModel.stopRecording()
@@ -169,7 +169,7 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: "Clear Session",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("arrow.clockwise"),
                         action: {
                             self.viewModel.clearSession()
@@ -178,9 +178,9 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: "Delete All Temp Files",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("trash.fill"),
-                        backgroundStyle: Style.shared.palette(.error),
+                        backgroundStyle: .palette(.error),
                         action: {
                             self.viewModel.deleteAllTempFiles()
                         }
@@ -201,7 +201,7 @@ struct DevVoiceScreen: GPView {
             
             Text("Transcript")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             AppCardView {
                 
@@ -213,11 +213,11 @@ struct DevVoiceScreen: GPView {
                             
                             Text(error.title)
                                 .appFont(with: .TITLE_5)
-                                .foregroundStyle(Style.shared.palette(.error).source())
+                                .foregroundStyle(.palette(.error))
                             
                             Text(error.message)
                                 .appFont(with: .BODY_3)
-                                .foregroundStyle(Style.shared.textColor(.body).source())
+                                .foregroundStyle(.text(.body))
                                 .fixedSize(horizontal: false, vertical: true)
                             
                         }
@@ -251,7 +251,7 @@ struct DevVoiceScreen: GPView {
                         
                         Text("No transcript yet. Start recording to stream partial slivers, then finalize one full transcript on stop.")
                             .appFont(with: .TITLE_5)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .foregroundStyle(.text(.body))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .transition(.opacity)
                         
@@ -274,7 +274,7 @@ struct DevVoiceScreen: GPView {
             
             Text("Temp Files")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             if self.viewModel.tempRecordings.isEmpty {
                 
@@ -282,7 +282,7 @@ struct DevVoiceScreen: GPView {
                     
                     Text("No temp files found.")
                         .appFont(with: .TITLE_5)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                 }
@@ -315,32 +315,32 @@ struct DevVoiceScreen: GPView {
                 HStack(alignment: .top, spacing: Style.shared.spacing(.small)) {
                     
                     Image(systemName: "waveform")
-                        .foregroundStyle(Style.shared.accent.source())
+                        .foregroundStyle(.foreground(.primary))
                     
                     VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                         
                         Text(file.fileName)
                             .appFont(with: .TITLE_5)
-                            .foregroundStyle(Style.shared.textColor(.title).source())
+                            .foregroundStyle(.text(.title))
                             .lineLimit(2)
                         
                         Text("\(file.formattedCreatedAt) • \(file.formattedSize)")
                             .appFont(with: .BODY_3)
-                            .foregroundStyle(Style.shared.textColor(.body).source())
+                            .foregroundStyle(.text(.body))
                             .lineLimit(1)
                         
                         if self.viewModel.isPlaybackActive(for: file) {
                             
                             Text("Now Playing")
                                 .appFont(with: .BODY_2)
-                                .foregroundStyle(Style.shared.accent.source())
+                                .foregroundStyle(.foreground(.primary))
                             
                         }
                         else if self.viewModel.isPlaybackPaused(for: file) {
                             
                             Text("Paused")
                                 .appFont(with: .BODY_2)
-                                .foregroundStyle(Style.shared.textColor(.body).source())
+                                .foregroundStyle(.text(.body))
                             
                         }
                         
@@ -353,7 +353,7 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: self.viewModel.playbackButtonTitle(for: file),
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage(self.viewModel.playbackButtonIconName(for: file)),
                         backgroundStyle: playbackButtonBackgroundStyle(for: file),
                         action: {
@@ -363,9 +363,9 @@ struct DevVoiceScreen: GPView {
                     
                     CommonButton(
                         title: "Delete",
-                        titleColor: Style.shared.textColor(.button),
+                        titleColor: .text(.button),
                         icon: .systemImage("trash.fill"),
-                        backgroundStyle: Style.shared.palette(.error),
+                        backgroundStyle: .palette(.error),
                         action: {
                             self.viewModel.deleteTempFile(file)
                         }
@@ -374,17 +374,17 @@ struct DevVoiceScreen: GPView {
                 }
                 
                 Divider()
-                    .background(Style.shared.background(.quinary).source())
+                    .background(.background(.quinary))
                 
                 VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
                     
                     Text("Full Transcript")
                         .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                     
                     Text(file.normalizedTranscript ?? "Transcript unavailable for this file.")
                         .appFont(with: .BODY_3)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                     
@@ -399,14 +399,14 @@ struct DevVoiceScreen: GPView {
     private func playbackButtonBackgroundStyle(for file: VoiceRecordingFile) -> ColorSource {
         
         if self.viewModel.isPlaybackActive(for: file) {
-            return Style.shared.accent
+            return .foreground(.primary)
         }
         
         if self.viewModel.isPlaybackPaused(for: file) {
-            return Style.shared.background(.quaternary)
+            return .background(.quaternary)
         }
         
-        return Style.shared.background(.tertiary)
+        return .background(.tertiary)
         
     }
     
@@ -429,11 +429,11 @@ struct DevVoiceScreen: GPView {
             
             Text(title)
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             Text(subtitle)
                 .appFont(with: .BODY_3)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
             

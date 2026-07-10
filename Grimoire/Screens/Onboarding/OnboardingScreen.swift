@@ -66,7 +66,7 @@ struct OnboardingScreen: View {
             
             Text("Back")
                 .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.accent.source())
+                .foregroundStyle(.foreground(.primary))
                 .frame(height: self.headerSize.height)
                 .disabled(self.navigationService.routes.isEmpty)
                 .opacity(self.navigationService.routes.isEmpty ? 0.6 : 1)
@@ -86,14 +86,14 @@ struct OnboardingScreen: View {
                 }
                 
             )
-            .tint(Style.shared.accent.source())
+            .tint(.init(.foreground(.primary)))
             .contentTransition(.numericText())
             
             let isButtonEnabled = self.viewModel.isLastPage ? self.viewModel.didAcknowledgePermissions : true
             
             Text("Next")
                 .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.accent.source())
+                .foregroundStyle(.foreground(.primary))
                 .frame(height: self.headerSize.height)
                 .disabled(!isButtonEnabled)
                 .opacity(isButtonEnabled ? 1 : 0.6)

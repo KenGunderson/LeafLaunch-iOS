@@ -88,7 +88,7 @@ struct TabBar1Screen: View {
         .overlay(alignment: .bottom) {
             
             Rectangle()
-                .fill(Style.shared.background(.quaternary).source())
+                .fill(.background(.quaternary))
                 .frame(height: 1.5)
                 .offset(y: Style.shared.spacing(.extraSmall))
             

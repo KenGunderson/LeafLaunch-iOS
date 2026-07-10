@@ -19,19 +19,19 @@ struct EmptyStateView: View {
                 .image
                 .view()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .frame(width: 100, height: 120)
             
             Text(self.config.title)
                 .appFont(with: .HEADER_4)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .multilineTextAlignment(.center)
             
             if let message = self.config.message {
                 
                 Text(message)
                     .appFont(with: .BODY_3)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .multilineTextAlignment(.center)
                 
             }

@@ -96,7 +96,7 @@ struct LegalScreen: View {
             
             Text(legalItem.title)
                 .appFont(with: .HEADER_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
                 
@@ -104,7 +104,7 @@ struct LegalScreen: View {
                     
                     Text(message)
                         .appFont(with: .BODY_2)
-                        .foregroundStyle(Style.shared.textColor(.body).source())
+                        .foregroundStyle(.text(.body))
                     
                 }
                 

@@ -101,7 +101,7 @@ struct DevDeeplinksScreen: GPView {
             }
             
         }
-        .foregroundStyle(Style.shared.textColor(.title).source())
+        .foregroundStyle(.text(.title))
         
     }
     
@@ -124,7 +124,7 @@ struct DevDeeplinksScreen: GPView {
             }
             
         }
-        .foregroundStyle(Style.shared.textColor(.title).source())
+        .foregroundStyle(.text(.title))
         .appOnTapGesture {
             
             if let deeplinkURL = URL(string: "\(self.basePath)\(deeplink)") {

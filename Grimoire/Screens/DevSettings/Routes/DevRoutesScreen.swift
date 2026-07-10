@@ -102,10 +102,10 @@ struct DevRoutesScreen: GPView {
                 
                 Text(title)
                     .appFont(with: .HEADER_4)
-                    .foregroundStyle(Style.shared.textColor(.title).source())
+                    .foregroundStyle(.text(.title))
                 
                 Divider()
-                    .background(Style.shared.background(.quaternary).source())
+                    .background(.background(.quaternary))
                 
             }
             
@@ -121,7 +121,7 @@ struct DevRoutesScreen: GPView {
             
             Text(title)
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
         }
         .appOnTapGesture {
@@ -141,7 +141,7 @@ struct DevRoutesScreen: GPView {
             
             Text(title)
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
         }
         .appOnTapGesture {

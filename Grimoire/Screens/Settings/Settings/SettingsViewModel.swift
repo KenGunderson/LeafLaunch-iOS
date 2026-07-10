@@ -192,12 +192,12 @@ final class SettingsViewModel: ViewModel {
                 primaryButtonAction: { [weak self] in
                     self?.logout()
                 },
-                primaryButtonBackgroundColor: Style.shared.accent,
-                primaryButtonTextColor: Style.shared.textColor(.button),
+                primaryButtonBackgroundColor: .foreground(.primary),
+                primaryButtonTextColor: .text(.button),
                 secondaryButtonTitle: "No",
                 secondaryButtonAction: {},
-                secondaryButtonBackgroundColor: Style.shared.background(.quaternary),
-                secondaryButtonTextColor: Style.shared.textColor(.title)
+                secondaryButtonBackgroundColor: .background(.quaternary),
+                secondaryButtonTextColor: .text(.title)
             ))))
 
     }

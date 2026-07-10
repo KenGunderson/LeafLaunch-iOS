@@ -91,7 +91,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             Text("Permission")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             Text(
                 self.viewModel.isPermissionGranted
@@ -103,13 +103,13 @@ struct DevLocalNotificationsScreen: GPView {
                 )
             )
             .appFont(with: .TITLE_5)
-            .foregroundStyle(Style.shared.textColor(.body).source())
+            .foregroundStyle(.text(.body))
             
             VStack(spacing: Style.shared.spacing(.small)) {
                 
                 CommonButton(
                     title: self.viewModel.shouldPromptForPermissions ? "Request Permission" : "Request Again",
-                    titleColor: Style.shared.textColor(.button),
+                    titleColor: .text(.button),
                     icon: .systemImage("bell.badge.fill"),
                     action: {
                         self.viewModel.requestPermission()
@@ -118,7 +118,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 CommonButton(
                     title: "Refresh",
-                    titleColor: Style.shared.textColor(.button),
+                    titleColor: .text(.button),
                     icon: .systemImage("arrow.clockwise"),
                     action: {
                         self.viewModel.refreshNotifications()
@@ -138,7 +138,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             Text("Scheduler")
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             HStack(alignment: .top) {
                 
@@ -180,7 +180,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             TextField("Every N", text: self.$viewModel.incrementalNumberText)
                 .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .keyboardType(.numberPad)
                 .padding(.horizontal, 8)
                 .frame(height: 50)
@@ -284,10 +284,10 @@ struct DevLocalNotificationsScreen: GPView {
                             
                             TokenView(
                                 text: weekday.shortDisplayName,
-                                foregroundStyle: Style.shared.textColor(isSelected ? .button : .title),
+                                foregroundStyle: .text(isSelected ? .button : .title),
                                 backgroundStyle: isSelected
                                 ? .color(.indigo)
-                                : Style.shared.background(.quinary)
+                                : .background(.quinary)
                             )
                             .asButton {
                                 self.viewModel.toggleCalendarWeekday(weekday)
@@ -304,7 +304,7 @@ struct DevLocalNotificationsScreen: GPView {
                     
                     TextField("Day Of Month (1-31)", text: self.$viewModel.calendarDayOfMonthText)
                         .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                         .keyboardType(.numberPad)
                         .padding(.horizontal, 8)
                         .frame(height: 50)
@@ -335,7 +335,7 @@ struct DevLocalNotificationsScreen: GPView {
                     
                     TextField("Day Of Month (1-31)", text: self.$viewModel.calendarYearDayOfMonthText)
                         .appFont(with: .TITLE_3)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                         .keyboardType(.numberPad)
                         .padding(.horizontal, 8)
                         .frame(height: 50)
@@ -350,13 +350,13 @@ struct DevLocalNotificationsScreen: GPView {
             
             Text(self.viewModel.schedulePreviewText)
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
             
             if !self.viewModel.nextOccurrencesPreviewText.isEmpty {
                 
                 Text(self.viewModel.nextOccurrencesPreviewText)
                     .appFont(with: .BODY_1)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .transition(.blurReplace.combined(with: .opacity))
                 
@@ -364,7 +364,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             CommonButton(
                 title: "Schedule Notification",
-                titleColor: Style.shared.textColor(.button),
+                titleColor: .text(.button),
                 icon: .systemImage("clock.badge.fill"),
                 isEnabled: self.viewModel.isScheduleValid,
                 action: {
@@ -376,7 +376,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 TokenView(
                     text: "Refresh Lists",
-                    foregroundStyle: Style.shared.textColor(.button),
+                    foregroundStyle: .text(.button),
                     backgroundStyle: .color(.indigo)
                 )
                 .asButton {
@@ -385,7 +385,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 TokenView(
                     text: "Clear Planned",
-                    foregroundStyle: Style.shared.textColor(.button),
+                    foregroundStyle: .text(.button),
                     backgroundStyle: .color(.orange)
                 )
                 .asButton {
@@ -394,7 +394,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 TokenView(
                     text: "Clear Incoming",
-                    foregroundStyle: Style.shared.textColor(.button),
+                    foregroundStyle: .text(.button),
                     backgroundStyle: .color(.pink)
                 )
                 .asButton {
@@ -403,7 +403,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 TokenView(
                     text: "Clear All",
-                    foregroundStyle: Style.shared.textColor(.button),
+                    foregroundStyle: .text(.button),
                     backgroundStyle: .color(.red)
                 )
                 .asButton {
@@ -423,7 +423,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             TextField("Hour (0-23)", text: self.$viewModel.anchorHourText)
                 .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .keyboardType(.numberPad)
                 .padding(8)
                 .frame(height: 50)
@@ -431,7 +431,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             TextField("Minute (0-59)", text: self.$viewModel.anchorMinuteText)
                 .appFont(with: .TITLE_3)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
                 .keyboardType(.numberPad)
                 .padding(8)
                 .frame(height: 50)
@@ -506,10 +506,10 @@ struct DevLocalNotificationsScreen: GPView {
             
             Text(title)
                 .appFont(with: .HEADER_2)
-                .foregroundStyle(Style.shared.textColor(.title).source())
+                .foregroundStyle(.text(.title))
             
             Divider()
-                .background(Style.shared.textColor(.body).source())
+                .background(.text(.body))
             
         }
         
@@ -522,7 +522,7 @@ struct DevLocalNotificationsScreen: GPView {
             
             Text(message)
                 .appFont(with: .TITLE_5)
-                .foregroundStyle(Style.shared.textColor(.body).source())
+                .foregroundStyle(.text(.body))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
         }
@@ -540,7 +540,7 @@ struct DevLocalNotificationsScreen: GPView {
                     
                     Text(item.title)
                         .appFont(with: .TITLE_4)
-                        .foregroundStyle(Style.shared.textColor(.title).source())
+                        .foregroundStyle(.text(.title))
                     
                     Spacer(minLength: 0)
                     
@@ -548,7 +548,7 @@ struct DevLocalNotificationsScreen: GPView {
                         
                         TokenView(
                             text: "Repeats",
-                            foregroundStyle: Style.shared.textColor(.button),
+                            foregroundStyle: .text(.button),
                             backgroundStyle: .color(.indigo)
                         )
                         
@@ -558,7 +558,7 @@ struct DevLocalNotificationsScreen: GPView {
                 
                 Text(item.body)
                     .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
                 if let date = item.date {
                     
@@ -567,17 +567,17 @@ struct DevLocalNotificationsScreen: GPView {
                         format: .dateTime.day().month().year().hour().minute().second()
                     )
                     .appFont(with: .BODY_1)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                     
                 }
                 
                 Text(item.relativeDescription)
                     .appFont(with: .TITLE_5)
-                    .foregroundStyle(Style.shared.accent.source())
+                    .foregroundStyle(.foreground(.primary))
                 
                 Text(item.id)
                     .appFont(with: .BODY_2)
-                    .foregroundStyle(Style.shared.textColor(.body).source())
+                    .foregroundStyle(.text(.body))
                 
             }
             

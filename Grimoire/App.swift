@@ -35,6 +35,7 @@ struct GrimoireApp: App {
                         .setup(appDelegate: self.appDelegate)
                     
                 }
+                .runeStyle()
             
         }
         

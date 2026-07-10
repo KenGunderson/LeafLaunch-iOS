@@ -87,7 +87,7 @@ struct FAQScreen: GPView {
             SectionView(
                 leadingTitle: item.title,
                 leadingTitleFont: .TITLE_6,
-                leadingForegroundColor: Style.shared.accent,
+                leadingForegroundColor: .foreground(.primary),
                 showDivider: true
             )
             
