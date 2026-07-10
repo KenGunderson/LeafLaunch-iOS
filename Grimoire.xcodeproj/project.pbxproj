@@ -43,9 +43,6 @@
 		7515DBC52ECBEB3E00921AE9 /* GPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DBA52ECBEB3E00921AE9 /* GPUser.swift */; };
 		751BC5DA2F43D09F007750E0 /* RootStartupServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */; };
 		751BC5DE2F43D0B9007750E0 /* RootStartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */; };
-		75A1B0052FA0000100C0D001 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0022FA0000100C0D001 /* FeatureFlag.swift */; };
-		75A1B0062FA0000100C0D001 /* StatsigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0032FA0000100C0D001 /* StatsigService.swift */; };
-		75A1B0072FA0000100C0D001 /* StatsigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */; };
 		7537F4582DF661EA0031D9CF /* APIService+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D02DF661EA0031D9CF /* APIService+Health.swift */; };
 		7537F4592DF661EA0031D9CF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FA2DF661EA0031D9CF /* Routes.swift */; };
 		7537F45B2DF661EA0031D9CF /* Loggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C02DF661EA0031D9CF /* Loggable.swift */; };
@@ -102,15 +99,12 @@
 		7537F4942DF661EA0031D9CF /* ViewLifecycleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4172DF661EA0031D9CF /* ViewLifecycleService.swift */; };
 		7537F4952DF661EA0031D9CF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3F22DF661EA0031D9CF /* LogEvent.swift */; };
 		7537F4962DF661EA0031D9CF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3E82DF661EA0031D9CF /* FirebaseService.swift */; };
-		75FBFA022FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */; };
 		75388C332F4ADA41000D70A0 /* WhatsNewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C302F4ADA41000D70A0 /* WhatsNewScreen.swift */; };
 		75388C342F4ADA41000D70A0 /* WhatsNewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75388C312F4ADA41000D70A0 /* WhatsNewViewModel.swift */; };
 		753EC1B22DB8BD3900265B2A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B12DB8BD3900265B2A /* Constants.swift */; };
 		753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B72DB8BE1700265B2A /* FirebaseAuth */; };
 		753EC1BA2DB8BE1700265B2A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B92DB8BE1700265B2A /* FirebaseStorage */; };
-		75FBFA032FC1234500C0DE01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */; };
-		75FBFA042FC1234500C0DE01 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */; };
 		753EC1BF2DB8BE6700265B2A /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1BE2DB8BE6700265B2A /* Amplitude */; };
 		753EC1C12DB8BE7200265B2A /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C02DB8BE7200265B2A /* SwiftDate */; };
 		753EC1C32DB8BE7900265B2A /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C22DB8BE7900265B2A /* FactoryKit */; };
@@ -161,6 +155,9 @@
 		7577A1592F7F943300A9DB6A /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1582F7F943300A9DB6A /* LocalNotification.swift */; };
 		7577A15B2F7F946900A9DB6A /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */; };
 		75A109302E4CE13500C25BE2 /* NavHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1092F2E4CE12400C25BE2 /* NavHeader.swift */; };
+		75A1B0052FA0000100C0D001 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0022FA0000100C0D001 /* FeatureFlag.swift */; };
+		75A1B0062FA0000100C0D001 /* StatsigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0032FA0000100C0D001 /* StatsigService.swift */; };
+		75A1B0072FA0000100C0D001 /* StatsigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */; };
 		75A46EF32E5EB44D0057EF72 /* Ext+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */; };
 		75AA75552E529488002F1990 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75542E529485002F1990 /* EmptyStateView.swift */; };
 		75AA755A2E529ABD002F1990 /* EmptyStateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */; };
@@ -206,6 +203,9 @@
 		75E7B50B2EB71B41000F4696 /* RestrictCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */; };
 		75E95C202DF7B5F700C82381 /* StyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */; };
 		75F024FD2E16E2D2005163FC /* OnboardingPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */; };
+		75FBFA022FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */; };
+		75FBFA032FC1234500C0DE01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */; };
+		75FBFA042FC1234500C0DE01 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */; };
 		86DFCE7D83E26319933BC23A /* MicrophonePermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */; };
 		8E8E7FE183FD8CFF520AE625 /* MicrophonePermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAECD42BC118D04025E96F8E /* MicrophonePermissionServiceProtocol.swift */; };
 		977814F36AF62357A0B8B696 /* SpeechRecognitionPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */; };
@@ -279,9 +279,6 @@
 		7515DBA52ECBEB3E00921AE9 /* GPUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUser.swift; sourceTree = "<group>"; };
 		751BC5D72F43D09F007750E0 /* RootStartupServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupServiceProtocol.swift; sourceTree = "<group>"; };
 		751BC5DB2F43D0B9007750E0 /* RootStartupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStartupService.swift; sourceTree = "<group>"; };
-		75A1B0022FA0000100C0D001 /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
-		75A1B0032FA0000100C0D001 /* StatsigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigService.swift; sourceTree = "<group>"; };
-		75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3C02DF661EA0031D9CF /* Loggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggable.swift; sourceTree = "<group>"; };
 		7537F3C12DF661EA0031D9CF /* ThemeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeRegistry.swift; sourceTree = "<group>"; };
 		7537F3C32DF661EA0031D9CF /* AnalyticsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -312,7 +309,6 @@
 		7537F3E52DF661EA0031D9CF /* EnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentService.swift; sourceTree = "<group>"; };
 		7537F3E72DF661EA0031D9CF /* FirebaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3E82DF661EA0031D9CF /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
-		75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseApp+ConfigureIfNeeded.swift"; sourceTree = "<group>"; };
 		7537F3ED2DF661EA0031D9CF /* LaunchScreenServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenService.swift; sourceTree = "<group>"; };
 		7537F3F12DF661EA0031D9CF /* Ext+OSLogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+OSLogType.swift"; sourceTree = "<group>"; };
@@ -392,6 +388,9 @@
 		7577A1582F7F943300A9DB6A /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		7577A15A2F7F946900A9DB6A /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		75A1092F2E4CE12400C25BE2 /* NavHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHeader.swift; sourceTree = "<group>"; };
+		75A1B0022FA0000100C0D001 /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
+		75A1B0032FA0000100C0D001 /* StatsigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigService.swift; sourceTree = "<group>"; };
+		75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsigServiceProtocol.swift; sourceTree = "<group>"; };
 		75A46EF22E5EB44A0057EF72 /* Ext+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Date.swift"; sourceTree = "<group>"; };
 		75AA75542E529485002F1990 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateConfig.swift; sourceTree = "<group>"; };
@@ -432,6 +431,7 @@
 		75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictCapture.swift; sourceTree = "<group>"; };
 		75E95C1F2DF7B5F700C82381 /* StyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConverter.swift; sourceTree = "<group>"; };
 		75F024FC2E16E2CF005163FC /* OnboardingPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionsViewModel.swift; sourceTree = "<group>"; };
+		75FBFA012FC1234500C0DE01 /* FirebaseApp+ConfigureIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseApp+ConfigureIfNeeded.swift"; sourceTree = "<group>"; };
 		7FC989D24BF8CACB689893EE /* MicrophonePermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionService.swift; sourceTree = "<group>"; };
 		9F8C6FA40C54AA5C8B0EFE4F /* VoiceTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTranscriptionService.swift; sourceTree = "<group>"; };
 		A1B2D3012F80000100AAA001 /* LocalNotificationRecurrenceCadence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationRecurrenceCadence.swift; sourceTree = "<group>"; };
@@ -804,16 +804,6 @@
 				7537F3EE2DF661EA0031D9CF /* LaunchScreenService.swift */,
 			);
 			path = Launch;
-			sourceTree = "<group>";
-		};
-		75A1B0012FA0000100C0D001 /* Statsig */ = {
-			isa = PBXGroup;
-			children = (
-				75A1B0022FA0000100C0D001 /* FeatureFlag.swift */,
-				75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */,
-				75A1B0032FA0000100C0D001 /* StatsigService.swift */,
-			);
-			path = Statsig;
 			sourceTree = "<group>";
 		};
 		7537F3F32DF661EA0031D9CF /* Logger */ = {
@@ -1248,6 +1238,7 @@
 			children = (
 				7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */,
 				75E7B5092EB71B3B000F4696 /* RestrictCapture.swift */,
+				75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -1285,6 +1276,16 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		75A1B0012FA0000100C0D001 /* Statsig */ = {
+			isa = PBXGroup;
+			children = (
+				75A1B0022FA0000100C0D001 /* FeatureFlag.swift */,
+				75A1B0042FA0000100C0D001 /* StatsigServiceProtocol.swift */,
+				75A1B0032FA0000100C0D001 /* StatsigService.swift */,
+			);
+			path = Statsig;
+			sourceTree = "<group>";
+		};
 		75A46EF52E5EB4540057EF72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1301,7 +1302,6 @@
 			children = (
 				75AA75582E529ABD002F1990 /* EmptyStateConfig.swift */,
 				75AA75542E529485002F1990 /* EmptyStateView.swift */,
-				75AA755B2E529ABF002F1990 /* EmptyStateOverlayModifier.swift */,
 			);
 			path = "Empty State";
 			sourceTree = "<group>";
@@ -2567,16 +2567,6 @@
 			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
 		753EC1BE2DB8BE6700265B2A /* Amplitude */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 753EC1BC2DB8BE5E00265B2A /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
@@ -2631,6 +2621,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 75E5F0C22E31D94500162C72 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
 			productName = StripePaymentsUI;
+		};
+		75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

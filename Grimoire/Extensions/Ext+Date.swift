@@ -86,33 +86,6 @@ extension Date {
     
 }
 
-extension Date {
-    
-    static func getNextBillingDate() -> String {
-        
-        let calendar = Calendar.current
-        let now = Date()
-        
-        // 1. Add one month
-        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: now) else {
-            return ""
-        }
-        
-        // 2. Get the first day of that month
-        let components = calendar.dateComponents([.year, .month], from: nextMonth)
-        guard let firstDay = calendar.date(from: components) else {
-            return ""
-        }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"   // “January 1, 2026”
-        
-        return formatter.string(from: firstDay)
-        
-    }
-    
-}
-
 #Preview {
     
     AppBaseView {

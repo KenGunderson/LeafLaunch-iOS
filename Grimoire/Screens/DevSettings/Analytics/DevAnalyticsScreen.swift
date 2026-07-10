@@ -439,16 +439,6 @@ struct DevAnalyticsScreen: GPView {
         
     }
     
-    private func tokenView(text: String) -> some View {
-        
-        TokenView(
-            text: text,
-            foregroundStyle: .text(.title),
-            backgroundStyle: .foreground(.primary)
-        )
-        
-    }
-    
 }
 
 #Preview {

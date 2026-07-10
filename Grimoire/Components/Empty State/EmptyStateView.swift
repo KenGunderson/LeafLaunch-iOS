@@ -54,14 +54,66 @@ struct EmptyStateView: View {
 
 #Preview {
     
-    EmptyStateView(config: .init(
-        title: "No Clients Found",
-        message: "Start building your client base by adding your first client",
-        image: .systemImage("magnifyingglass"),
-        actionTitle: "Add Your First Client",
-        action: {
-            print("Do Something")
+    @Previewable @State var showEmptyState: Bool = true
+    
+    AppBaseView {
+        
+        ScrollView {
+            
+            Group {
+            
+                if !showEmptyState {
+                    
+                    ForEach(0...50) { index in
+                        
+                        Text("\(index)")
+                            .appFont(with: .TITLE_5)
+                            .foregroundStyle(.text(.title))
+                        
+                    }
+                    .border(.red)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .bottom).combined(with: .opacity),
+                        removal: .init(.blurReplace)
+                    ))
+                    
+                }
+                
+            }
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity,
+                alignment: .top
+            )
+            
         }
-    ))
+        
+    }
+    .emptyStateOverlay(
+        shouldShow: showEmptyState,
+        config: .init(
+            title: "No Clients Found",
+            message: "Start building your client base by adding your first client",
+            image: .systemImage("magnifyingglass"),
+            actionTitle: "Add Your First Client",
+            action: {
+                print("Do Something")
+            }
+        ),
+        transition: .asymmetric(
+            insertion: .move(edge: .bottom).combined(with: .opacity),
+            removal: .init(.blurReplace)
+        ),
+        animation: .bouncy
+    )
+    .safeAreaInset(edge: .bottom) {
+        
+        CommonButton(title: "Show / Hide") {
+            showEmptyState.toggle()
+        }
+        .padding(.horizontal, .large)
+        
+    }
+    .animation(.bouncy, value: showEmptyState)
     
 }
