@@ -77,7 +77,7 @@ final class AboutUsViewModel: ViewModel {
 extension AboutUsViewModel {
 
     func track() {
-        self.analyticsService.track(screen: .settings(.faq))
+        self.analyticsService.track(screen: .settings(.aboutUs))
     }
 
 }

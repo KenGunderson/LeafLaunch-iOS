@@ -35,7 +35,7 @@ enum AppEvent: AnalyticsEvent {
             }
             
             return EventData(
-                name: "onboarding.\(eventName)",
+                name: "onboarding_\(eventName)",
                 properties: properties
             )
             

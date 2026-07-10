@@ -17,6 +17,12 @@
 	</array>
 	<key>Environment</key>
 	<string>$(APP_ENVIRONMENT)</string>
+	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
+	<false/>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
+	<key>FirebaseCrashlyticsCollectionEnabled</key>
+	<false/>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 </dict>

@@ -29,7 +29,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .permission: name = "permission"
             }
             
-            return "onboarding.\(name)"
+            return "onboarding_\(name)"
             
         }
         
@@ -55,7 +55,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             }
             
             return EventData(
-                name: "main.\(eventName)",
+                name: "main_\(eventName)",
                 properties: properties
             )
             
@@ -75,7 +75,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .profile: name = "user_profile"
             }
             
-            return "profile.\(name)"
+            return "profile_\(name)"
             
         }
         
@@ -113,7 +113,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .featureRequest: name = "feature_request"
             }
             
-            return "settings.\(name)"
+            return "settings_\(name)"
             
         }
         
@@ -161,7 +161,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
             case .voice: name = "voice"
             }
             
-            return "dev_settings.\(name)"
+            return "dev_settings_\(name)"
             
         }
         

@@ -32,11 +32,10 @@ extension Container {
 
     var analyticsService: Factory<AnalyticsServiceProtocol> {
         self { @MainActor in
-            MockAnalyticsService() // TODO: - REPLACE WITH LIVE
-//            AnalyticsService(
-//                environmentService: self.environmentService(),
-//                permissionService: self.permissionsService()
-//            )
+            AnalyticsService(
+                environmentService: self.environmentService(),
+                permissionService: self.permissionsService()
+            )
         }
         .singleton
     }

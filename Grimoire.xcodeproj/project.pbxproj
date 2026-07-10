@@ -109,6 +109,8 @@
 		753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B72DB8BE1700265B2A /* FirebaseAuth */; };
 		753EC1BA2DB8BE1700265B2A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B92DB8BE1700265B2A /* FirebaseStorage */; };
+		75FBFA032FC1234500C0DE01 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */; };
+		75FBFA042FC1234500C0DE01 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */; };
 		753EC1BF2DB8BE6700265B2A /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1BE2DB8BE6700265B2A /* Amplitude */; };
 		753EC1C12DB8BE7200265B2A /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C02DB8BE7200265B2A /* SwiftDate */; };
 		753EC1C32DB8BE7900265B2A /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C22DB8BE7900265B2A /* FactoryKit */; };
@@ -460,6 +462,8 @@
 				75E5F0E42E31D95B00162C72 /* StripePaymentSheet in Frameworks */,
 				75E5F0CC2E31D94500162C72 /* StripeFinancialConnections in Frameworks */,
 				753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */,
+				75FBFA032FC1234500C0DE01 /* FirebaseAnalytics in Frameworks */,
+				75FBFA042FC1234500C0DE01 /* FirebaseCrashlytics in Frameworks */,
 				75E5F0CA2E31D94500162C72 /* StripeConnect in Frameworks */,
 				753EC1C12DB8BE7200265B2A /* SwiftDate in Frameworks */,
 				753EC1BF2DB8BE6700265B2A /* Amplitude in Frameworks */,
@@ -1453,6 +1457,7 @@
 				755C97E52D9CC86900437D5D /* Sources */,
 				755C97E62D9CC86900437D5D /* Frameworks */,
 				755C97E72D9CC86900437D5D /* Resources */,
+				75FBFA072FC1234500C0DE01 /* Upload dSYMs to Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1462,6 +1467,8 @@
 			packageProductDependencies = (
 				753EC1B72DB8BE1700265B2A /* FirebaseAuth */,
 				753EC1B92DB8BE1700265B2A /* FirebaseStorage */,
+				75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */,
+				75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */,
 				753EC1BE2DB8BE6700265B2A /* Amplitude */,
 				753EC1C02DB8BE7200265B2A /* SwiftDate */,
 				753EC1C22DB8BE7900265B2A /* FactoryKit */,
@@ -1597,6 +1604,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75FBFA072FC1234500C0DE01 /* Upload dSYMs to Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Upload dSYMs to Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -d \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\" ]; then\n  \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		755C97E52D9CC86900437D5D /* Sources */ = {
@@ -2532,6 +2566,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		753EC1BE2DB8BE6700265B2A /* Amplitude */ = {
 			isa = XCSwiftPackageProductDependency;
