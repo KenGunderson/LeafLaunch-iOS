@@ -128,24 +128,14 @@ final class PermissionsService: PermissionsServiceProtocol {
     }
     
     func validatePermissions() {
-                
-        if (!self.cameraPermissionService.shouldPromptForPermissions &&
-            !self.mediaPermissionService.shouldPromptForPermissions &&
-            !self.pushNotificationPermissionService.shouldPromptForPermissions &&
-            !self.appTrackingPermissionService.shouldPromptForPermissions &&
-            !self.microphonePermissionService.shouldPromptForPermissions &&
-            !self.speechRecognitionPermissionService.shouldPromptForPermissions) {
-            
-            if self.shouldShowPermissionView {
-                
-                self.shouldShowPermissionView = false
-                return
-                
-            }
-            
-        }
-        
-        self.shouldShowPermissionView = true
+
+        self.shouldShowPermissionView =
+            (self.cameraPermissionService.shouldPromptForPermissions ||
+            self.mediaPermissionService.shouldPromptForPermissions ||
+            self.pushNotificationPermissionService.shouldPromptForPermissions ||
+            self.appTrackingPermissionService.shouldPromptForPermissions ||
+            self.microphonePermissionService.shouldPromptForPermissions ||
+            self.speechRecognitionPermissionService.shouldPromptForPermissions)
         
     }
     
