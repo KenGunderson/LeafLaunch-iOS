@@ -1,5 +1,5 @@
 //
-//  PlaceholderView.swift
+//  LoadingPlaceholderView.swift
 //  Grimoire
 //
 //  Created by Sako Hovaguimian on 9/8/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaceholderView: View {
+struct LoadingPlaceholderView: View {
     
     var body: some View {
             
@@ -21,6 +21,20 @@ struct PlaceholderView: View {
                 ))
                 
             }
+        
+    }
+    
+}
+
+#Preview {
+    
+    AppBaseView {
+        
+        LoadingPlaceholderView()
+            .frame(
+                width: 128,
+                height: 128
+            )
         
     }
     
