@@ -31,8 +31,8 @@ final class MainViewModel: ViewModel {
     private var presentModalsTask: Task<Void, Never>?
     private var whatsNewPresentationTask: Task<Void, Never>?
 
-    @Published private(set) var showShouldHomeScreen: Bool = Constants.Capabilities.isAuthRequired
-    @Published private(set) var shouldShowWelcomeScreen: Bool = false
+    @Published private(set) var showShouldHomeScreen: Bool = !Constants.Capabilities.isAuthRequired
+    @Published private(set) var shouldShowWelcomeScreen: Bool = Constants.Capabilities.isAuthRequired
 
     var readOnlyAlertService: any AlertServiceProtocol {
         return self.alertService
@@ -145,8 +145,8 @@ final class MainViewModel: ViewModel {
                 let isFirebaseUserMissing = firebaseUser == nil
                 let shouldShowWelcomeScreen = isUserMissing && isFirebaseUserMissing
 
-                self?.showShouldHomeScreen = !isUserMissing
-                self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen
+                self?.showShouldHomeScreen = !isUserMissing || !Constants.Capabilities.isAuthRequired
+                self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen && Constants.Capabilities.isAuthRequired
 
                 let isLoggedIn = !isUserMissing && !isFirebaseUserMissing
 

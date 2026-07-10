@@ -14,7 +14,7 @@ struct Constants {
     
     struct Capabilities {
         
-        static let isAuthRequired: Bool = false
+        static let isAuthRequired: Bool = true
         static let isWhatsNewEnabled: Bool = true
         static let isOnboardingEnabled: Bool = true
         
