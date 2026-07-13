@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		019F5387027B7791AC870002 /* AppPrefersColorSchemeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */; };
 		0C84F425ED298707264DC348 /* SpeechRecognitionPermissionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */; };
 		10B9289361036909213C3AD4 /* VoiceTranscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665BB052962EA9CFF0F1691 /* VoiceTranscriptionServiceProtocol.swift */; };
 		6A33BA64AE5A56676B98B75A /* DevVoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */; };
@@ -148,7 +149,6 @@
 		75573ACB2DD83C0100C7CA6E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */; };
 		75573ACF2DD83C6300C7CA6E /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */; };
 		7558F7D92F94326C007DF798 /* AppPrefersColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */; };
-		019F5387027B7791AC870002 /* AppPrefersColorSchemeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */; };
 		7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7560ACD82E2835ED00A30E55 /* MockModels.swift */; };
 		7577A1522F7F939100A9DB6A /* DevLocalNotificationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1512F7F939100A9DB6A /* DevLocalNotificationsScreen.swift */; };
 		7577A1542F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577A1532F7F93A000A9DB6A /* DevLocalNotificationsViewModel.swift */; };
@@ -244,6 +244,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorSchemeModifier.swift; sourceTree = "<group>"; };
 		0A07BC7D6CD91D8444D8D4EA /* SpeechRecognitionPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionService.swift; sourceTree = "<group>"; };
 		21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevVoiceScreen.swift; sourceTree = "<group>"; };
 		426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionServiceProtocol.swift; sourceTree = "<group>"; };
@@ -379,7 +380,6 @@
 		75573ACA2DD83C0100C7CA6E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		75573ACD2DD83C6300C7CA6E /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		7558F7D82F94326C007DF798 /* AppPrefersColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorScheme.swift; sourceTree = "<group>"; };
-		019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorSchemeModifier.swift; sourceTree = "<group>"; };
 		755C97E92D9CC86900437D5D /* Grimoire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grimoire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C97F92D9CC86A00437D5D /* GrimoireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C98032D9CC86A00437D5D /* GrimoireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrimoireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2546,7 +2546,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SakoHovaguimian/Rune";
 			requirement = {
-				branch = "new-theme-system";
+				branch = main;
 				kind = branch;
 			};
 		};
