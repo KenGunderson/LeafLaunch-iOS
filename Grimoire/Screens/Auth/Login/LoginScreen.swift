@@ -10,6 +10,8 @@ import SwiftUI
 import AuthenticationServices
 
 struct LoginScreen: GPView {
+
+    @Environment(\.style) private var style
     
     enum FocusedField: Hashable {
         
@@ -73,7 +75,7 @@ struct LoginScreen: GPView {
     
     private var headerView: some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             NavBarButton(style: .back) {
                 self.navigationService.pop()
@@ -99,11 +101,11 @@ struct LoginScreen: GPView {
     
     private var contentView: some View {
         
-        VStack(alignment: .trailing, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .trailing, spacing: self.style.spacing(.small)) {
             
             // Textfields
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: self.style.spacing(.medium)) {
                 
                 textField(fieldToFocus: .email)
                 

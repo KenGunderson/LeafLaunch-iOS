@@ -9,6 +9,8 @@ import SwiftUI
 import StoreKit
 
 struct SettingsScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.requestReview) var requestReview
@@ -139,7 +141,7 @@ struct SettingsScreen: GPView {
         
         AppCardView(shadow: .subtle) {
             
-            HStack(spacing: Style.shared.spacing(.small)) {
+            HStack(spacing: self.style.spacing(.small)) {
                 
                 item
                     .icon
@@ -180,7 +182,7 @@ struct SettingsScreen: GPView {
             
             AppCardView(shadow: .subtle) {
                 
-                HStack(spacing: Style.shared.spacing(.small)) {
+                HStack(spacing: self.style.spacing(.small)) {
                     
                     Image(systemName: "iphone")
                         .appFont(with: .TITLE_4)

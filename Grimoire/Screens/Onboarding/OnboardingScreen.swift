@@ -9,6 +9,8 @@ import SwiftUI
 import Foundation
 
 struct OnboardingScreen: View {
+
+    @Environment(\.style) private var style
     
     @Environment(\.dismiss) private var dismiss
     
@@ -60,7 +62,7 @@ struct OnboardingScreen: View {
     
     private func headerView() -> some View {
         
-        HStack(spacing: Style.shared.spacing(.medium)) {
+        HStack(spacing: self.style.spacing(.medium)) {
             
             Text("Back")
                 .appFont(with: .TITLE_3)
@@ -79,7 +81,7 @@ struct OnboardingScreen: View {
                 currentValueLabel: {
                     
                     Text(self.viewModel.formattedProgressPercentage)
-                        .font(Style.shared.font(.TITLE_4))
+                        .font(self.style.font(.TITLE_4))
                     
                 }
                 
@@ -125,7 +127,7 @@ struct OnboardingScreen: View {
         
         let isButtonEnabled = self.viewModel.isCurrentPageComplete
                 
-        return HStack(spacing: Style.shared.spacing(.small)) {
+        return HStack(spacing: self.style.spacing(.small)) {
             
             CommonButton(
                 title: self.viewModel.isLastPage ? "Finish" : "Next",

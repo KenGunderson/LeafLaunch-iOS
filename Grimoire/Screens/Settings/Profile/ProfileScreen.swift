@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct ProfileScreen: GPView {
+
+    @Environment(\.style) private var style
     
     enum FocusedField: Hashable {
         
@@ -194,7 +196,7 @@ struct ProfileScreen: GPView {
         }
         .foregroundStyle(.text(.title))
         .appFont(with: .TITLE_3)
-        .padding(.top, Style.shared.spacing(.extraSmall))
+        .padding(.top, self.style.spacing(.extraSmall))
         .appPrefersColorScheme()
         
     }

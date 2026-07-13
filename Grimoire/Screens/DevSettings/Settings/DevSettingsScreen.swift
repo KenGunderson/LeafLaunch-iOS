@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DevSettingsScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DevSettingsViewModel
@@ -104,7 +106,7 @@ struct DevSettingsScreen: GPView {
             
             AppCardView {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
+                VStack(spacing: self.style.spacing(.small)) {
                     
                     CommonSegmentedControl(
                         selectedOption: self.$viewModel.selectedEnviornment,
@@ -156,12 +158,12 @@ struct DevSettingsScreen: GPView {
                         .appFont(with: .TITLE_5)
                         .foregroundStyle(.text(.title))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, Style.shared.spacing(.small))
-                        .padding(.vertical, Style.shared.spacing(.medium))
+                        .padding(.horizontal, self.style.spacing(.small))
+                        .padding(.vertical, self.style.spacing(.medium))
                         .background(.backgroundTappable)
                         .background {
                             
-                            RoundedRectangle(cornerRadius: Style.shared.radius(.small))
+                            RoundedRectangle(cornerRadius: self.style.radius(.small))
                                 .stroke(
                                     .background(.tertiary),
                                     lineWidth: 2
@@ -193,7 +195,7 @@ struct DevSettingsScreen: GPView {
             
             AppCardView {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
+                VStack(spacing: self.style.spacing(.small)) {
                     
                     lineItemView(
                         title: "Version",

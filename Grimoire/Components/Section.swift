@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SectionView<Trailing: View>: View {
+
+    @Environment(\.style) private var style
     
     let leadingTitle: String
     let leadingTitleFont: Theme.FontKey
@@ -62,7 +64,7 @@ struct SectionView<Trailing: View>: View {
         
         VStack(
             alignment: .leading,
-            spacing: Style.shared.spacing(.extraSmall)
+            spacing: self.style.spacing(.extraSmall)
         ) {
             
             HStack {

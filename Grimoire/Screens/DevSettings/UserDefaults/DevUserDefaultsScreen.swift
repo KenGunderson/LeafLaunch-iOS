@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct DevUserDefaultsScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevUserDefaultsViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -55,7 +57,7 @@ struct DevUserDefaultsScreen: GPView {
     
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
          
             sectionView(
                 title: "Flags",
@@ -159,7 +161,7 @@ struct DevUserDefaultsScreen: GPView {
     @ViewBuilder
     private func data() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
             
             outlineView(
                 title: "Last Seen What's New Version",
@@ -258,7 +260,7 @@ struct DevUserDefaultsScreen: GPView {
                     Text(title)
                         .appFont(with: .TITLE_5)
                         .fontWeight(.heavy)
-                        .padding(.horizontal, Style.shared.spacing(.medium))
+                        .padding(.horizontal, self.style.spacing(.medium))
                     
                     contentView
                     
@@ -270,10 +272,10 @@ struct DevUserDefaultsScreen: GPView {
             }
             
         }
-        .cornerRadius(Style.shared.radius(.small2))
+        .cornerRadius(self.style.radius(.small2))
         .overlay {
             
-            RoundedRectangle(cornerRadius: Style.shared.radius(.small2))
+            RoundedRectangle(cornerRadius: self.style.radius(.small2))
                 .stroke(.background(.tertiary))
             
         }
@@ -285,9 +287,9 @@ struct DevUserDefaultsScreen: GPView {
         let selectedTheme = self.viewModel.theme
         
         return VStack(alignment: .leading,
-                      spacing: Style.shared.spacing(.small)) {
+                      spacing: self.style.spacing(.small)) {
             
-            HStack(spacing: Style.shared.spacing(.none)) {
+            HStack(spacing: self.style.spacing(.none)) {
                 
                 Text("Selected Theme: ")
                     .appFont(with: .TITLE_3)
@@ -313,7 +315,7 @@ struct DevUserDefaultsScreen: GPView {
             
             ScrollView(.horizontal) {
                 
-                HStack(spacing: Style.shared.spacing(.medium)) {
+                HStack(spacing: self.style.spacing(.medium)) {
                     
                     ForEach(AvailableTheme.allCases, id: \.self) { themeChoice in
                         
@@ -332,7 +334,7 @@ struct DevUserDefaultsScreen: GPView {
                     }
                     
                 }
-                .padding(.horizontal, Style.shared.spacing(.medium))
+                .padding(.horizontal, self.style.spacing(.medium))
                 
             }
             

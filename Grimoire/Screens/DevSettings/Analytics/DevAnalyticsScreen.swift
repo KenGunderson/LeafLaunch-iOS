@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct DevAnalyticsScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevAnalyticsViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -121,7 +123,7 @@ struct DevAnalyticsScreen: GPView {
     
     private func content() -> some View {
         
-        LazyVStack(spacing: Style.shared.spacing(.medium)) {
+        LazyVStack(spacing: self.style.spacing(.medium)) {
             
             switch self.viewModel.selectedDisplayType {
             case .logs:
@@ -161,7 +163,7 @@ struct DevAnalyticsScreen: GPView {
         
         Group {
             
-            LazyVStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            LazyVStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                 
                 Text(title)
                     .appFont(with: .HEADER_4)
@@ -180,7 +182,7 @@ struct DevAnalyticsScreen: GPView {
         
         let events = self.viewModel.logEvents.reversed()
         
-        return LazyVStack(spacing: Style.shared.spacing(.medium)) {
+        return LazyVStack(spacing: self.style.spacing(.medium)) {
             
             section(title: "Log Events")
             
@@ -196,7 +198,7 @@ struct DevAnalyticsScreen: GPView {
         
         let events = self.viewModel.events.reversed()
         
-        return LazyVStack(spacing: Style.shared.spacing(.medium)) {
+        return LazyVStack(spacing: self.style.spacing(.medium)) {
             
             section(title: "Analytic Events")
             
@@ -210,7 +212,7 @@ struct DevAnalyticsScreen: GPView {
     
     private func apiList() -> some View {
                 
-        return LazyVStack(spacing: Style.shared.spacing(.medium)) {
+        return LazyVStack(spacing: self.style.spacing(.medium)) {
             
             section(title: "API Logs")
             
@@ -253,11 +255,11 @@ struct DevAnalyticsScreen: GPView {
         
         return AppCardView {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
                 
                 Group {
                     
-                    VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                    VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                         
                         Text("Method: \(apiLogResponse.method)")
                             .appFont(with: .TITLE_3)

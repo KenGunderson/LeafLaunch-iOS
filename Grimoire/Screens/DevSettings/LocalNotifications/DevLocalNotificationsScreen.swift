@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DevLocalNotificationsScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevLocalNotificationsViewModel
     
@@ -73,7 +75,7 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             permissionSection()
             schedulerSection()
@@ -87,7 +89,7 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func permissionSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Permission")
                 .appFont(with: .HEADER_2)
@@ -105,7 +107,7 @@ struct DevLocalNotificationsScreen: GPView {
             .appFont(with: .TITLE_5)
             .foregroundStyle(.text(.body))
             
-            VStack(spacing: Style.shared.spacing(.small)) {
+            VStack(spacing: self.style.spacing(.small)) {
                 
                 CommonButton(
                     title: self.viewModel.shouldPromptForPermissions ? "Request Permission" : "Request Again",
@@ -134,7 +136,7 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func schedulerSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Scheduler")
                 .appFont(with: .HEADER_2)
@@ -419,7 +421,7 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func timeFields() -> some View {
         
-        HStack(spacing: Style.shared.spacing(.small)) {
+        HStack(spacing: self.style.spacing(.small)) {
             
             TextField("Hour (0-23)", text: self.$viewModel.anchorHourText)
                 .appFont(with: .TITLE_3)
@@ -502,7 +504,7 @@ struct DevLocalNotificationsScreen: GPView {
     @ViewBuilder
     private func section(title: String) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
             
             Text(title)
                 .appFont(with: .HEADER_2)
@@ -534,7 +536,7 @@ struct DevLocalNotificationsScreen: GPView {
         
         AppCardView {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
                 
                 HStack {
                     

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WhatsNewScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: WhatsNewViewModel
@@ -50,7 +52,7 @@ struct WhatsNewScreen: GPView {
         
         ScrollView {
             
-            VStack(spacing: Style.shared.spacing(.large)) {
+            VStack(spacing: self.style.spacing(.large)) {
                 
                 // Header
                 
@@ -75,7 +77,7 @@ struct WhatsNewScreen: GPView {
     
     private func headerView(whatsNewItem: WhatsNewItem) -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             Image(.appIcon)
                 .resizable()
@@ -104,7 +106,7 @@ struct WhatsNewScreen: GPView {
     
     private func itemList(items: [WhatsNewItem.Item]) -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             ForEach(items) { item in
                 itemView(item)

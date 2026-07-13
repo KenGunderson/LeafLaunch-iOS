@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct DevDeeplinksScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevDeeplinksViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -57,7 +59,7 @@ struct DevDeeplinksScreen: GPView {
     
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             // Tab
             
@@ -91,7 +93,7 @@ struct DevDeeplinksScreen: GPView {
         
         Group {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                 
                 Text(title)
                     .appFont(with: .HEADER_4)
@@ -111,7 +113,7 @@ struct DevDeeplinksScreen: GPView {
         AppCardView {
             
             VStack(alignment: .leading,
-                   spacing: Style.shared.spacing(.small2)
+                   spacing: self.style.spacing(.small2)
             ) {
              
                 Text(title)

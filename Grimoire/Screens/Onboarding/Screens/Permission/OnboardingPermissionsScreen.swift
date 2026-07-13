@@ -9,6 +9,8 @@ import SwiftUI
 
 struct OnboardingPermissionsScreen: GPView {
 
+    @Environment(\.style) private var style
+
     @StateObject var viewModel: OnboardingPermissionsViewModel
     @State private var shouldAnimate: Bool = false
 
@@ -27,7 +29,7 @@ struct OnboardingPermissionsScreen: GPView {
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal, .medium)
 
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: self.style.spacing(.medium)) {
 
                 permissionView(
                     title: "Camera",
@@ -84,12 +86,12 @@ struct OnboardingPermissionsScreen: GPView {
                 AttributedText {
 
                     Text("Need to update your permissions? You can always update your permissions by navigating to settings and tapping ")
-                        .font(Style.shared.font(.BODY_3))
+                        .font(self.style.font(.BODY_3))
                         .foregroundStyle(.text(.body))
 
                     Text("Update Permissions.")
                         .foregroundStyle(.foreground(.primary))
-                        .font(Style.shared.font(.HEADER_1))
+                        .font(self.style.font(.HEADER_1))
 
                 }
                 .frame(maxWidth: .infinity, alignment: .center)

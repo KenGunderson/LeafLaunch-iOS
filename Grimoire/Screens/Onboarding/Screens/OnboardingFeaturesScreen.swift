@@ -9,6 +9,8 @@ import SwiftUI
 
 struct OnboardingFeaturesScreen: GPView {
 
+    @Environment(\.style) private var style
+
     @EnvironmentObject private var onboardingViewModel: OnboardingViewModel
     
     @State private var shouldAnimate: Bool = false
@@ -16,11 +18,11 @@ struct OnboardingFeaturesScreen: GPView {
     
     var body: some View {
         
-        VStack(spacing: Style.shared.spacing(.none)) {
+        VStack(spacing: self.style.spacing(.none)) {
 
             ScrollView(.horizontal) {
 
-                HStack(spacing: Style.shared.spacing(.none)) {
+                HStack(spacing: self.style.spacing(.none)) {
                     featureScreens()
                 }
                 .scrollTargetLayout()
@@ -77,7 +79,7 @@ struct OnboardingFeaturesScreen: GPView {
 
     private func featurePageContent(page: OnboardingPage) -> some View {
 
-        VStack(spacing: Style.shared.spacing(.none)) {
+        VStack(spacing: self.style.spacing(.none)) {
 
             page
                 .illustration
@@ -87,7 +89,7 @@ struct OnboardingFeaturesScreen: GPView {
                 .padding([.top], .large)
                 .zIndex(-1)
 
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: self.style.spacing(.medium)) {
 
                 Text(page.title)
                     .appFont(with: .HEADER_3)

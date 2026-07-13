@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SakoHovaguimian/Rune",
       "state" : {
-        "branch" : "main",
-        "revision" : "4971a1eb0386ea1530bae470b904ca615c2eb0c1"
+        "branch" : "new-theme-system",
+        "revision" : "d992887e180d42fe441ee879201d9c0ac489eb81"
       }
     },
     {

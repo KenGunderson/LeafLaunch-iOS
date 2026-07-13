@@ -73,7 +73,7 @@ extension Container {
 
     var userDefaultsService: Factory<UserDefaultsServiceProtocol> {
         self { @MainActor in
-            UserDefaultsService()
+            UserDefaultsService(style: Style.shared)
         }
         .singleton
     }

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct EmptyStateView: View {
+
+    @Environment(\.style) private var style
     
     let config: EmptyStateConfig
     
     var body: some View {
         
-        VStack(spacing: Style.shared.spacing(.small2)) {
+        VStack(spacing: self.style.spacing(.small2)) {
             
             self.config
                 .image

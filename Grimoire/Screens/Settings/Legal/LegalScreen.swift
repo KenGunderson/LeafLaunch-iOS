@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct LegalScreen: View {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: LegalViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -68,7 +70,7 @@ struct LegalScreen: View {
                 if !items.isEmpty {
                     
                     VStack(alignment: .leading,
-                           spacing: Style.shared.spacing(.medium)) {
+                           spacing: self.style.spacing(.medium)) {
                         
                         ForEach(items, id: \.id) {
                             
@@ -92,13 +94,13 @@ struct LegalScreen: View {
     private func section(legalItem: LegalItem) -> some View {
         
         VStack(alignment: .leading,
-               spacing: Style.shared.spacing(.small)) {
+               spacing: self.style.spacing(.small)) {
             
             Text(legalItem.title)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(.text(.title))
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.custom(6))) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.custom(6))) {
                 
                 ForEach(legalItem.sections, id: \.self) { message in
                     

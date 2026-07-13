@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WelcomeScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: WelcomeViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -47,7 +49,7 @@ struct WelcomeScreen: GPView {
     
     var content: some View {
         
-        VStack(spacing: Style.shared.spacing(.none)) {
+        VStack(spacing: self.style.spacing(.none)) {
             
             Image(systemName: "person.fill")
                 .resizable()
@@ -59,7 +61,7 @@ struct WelcomeScreen: GPView {
                 }
                 .ignoresSafeArea()
             
-            VStack(spacing: Style.shared.spacing(.large)) {
+            VStack(spacing: self.style.spacing(.large)) {
                 
                 Image(systemName: "person.fill")
                     .resizable()
@@ -76,7 +78,7 @@ struct WelcomeScreen: GPView {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(.background(.primary))
-            .padding(.bottom, self.footerSize.height + Style.shared.spacing(.medium))
+            .padding(.bottom, self.footerSize.height + self.style.spacing(.medium))
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

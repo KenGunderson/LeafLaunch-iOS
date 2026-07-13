@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NavHeader: View {
+
+    @Environment(\.style) private var style
     
     private let title: String
     private let subtitle: String?
@@ -40,7 +42,7 @@ struct NavHeader: View {
     
     var body: some View {
         
-        HStack(spacing: Style.shared.spacing(.custom(10))) {
+        HStack(spacing: self.style.spacing(.custom(10))) {
             
             if !self.leadingNavButtons.isEmpty {
                 
@@ -116,7 +118,7 @@ struct NavHeader: View {
     private func navButtons(_ buttons: [NavBarButton.Style],
                             action: ((NavBarButton.Style) -> ())? = nil) -> some View {
         
-        HStack(spacing: Style.shared.spacing(.small)) {
+        HStack(spacing: self.style.spacing(.small)) {
             
             ForEach(buttons, id: \.self) { navStyle in
                 

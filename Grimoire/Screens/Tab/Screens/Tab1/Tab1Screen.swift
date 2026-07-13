@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TabBar1Screen: View {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: Tab1ViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
@@ -90,7 +92,7 @@ struct TabBar1Screen: View {
             Rectangle()
                 .fill(.background(.quaternary))
                 .frame(height: 1.5)
-                .offset(y: Style.shared.spacing(.extraSmall))
+                .offset(y: self.style.spacing(.extraSmall))
             
         }
         

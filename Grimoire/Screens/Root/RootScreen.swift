@@ -9,6 +9,8 @@ import SwiftUI
 import FactoryKit
 
 struct RootScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: RootViewModel    
     @State private var shouldShowHealthCheckView: Bool = false
@@ -62,7 +64,7 @@ struct RootScreen: GPView {
     
     private func backgroundView() -> some View {
         
-        Style.shared
+        self.style
             .background(.primary)
             .view()
             .ignoresSafeArea()
@@ -73,7 +75,7 @@ struct RootScreen: GPView {
         
         GeometryReader { _ in
             
-            VStack(spacing: Style.shared.spacing(.none)) {
+            VStack(spacing: self.style.spacing(.none)) {
                                         
                 MainScreen(viewModel: self.viewModel.mainViewModel)
                     .restrictCapture(self.viewModel.userDefaultsService.shouldHideScreenshots)

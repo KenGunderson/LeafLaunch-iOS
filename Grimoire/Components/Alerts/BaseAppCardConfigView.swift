@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BaseAppCardConfigView: View {
+
+    @Environment(\.style) private var style
     
     let image: ImageSource
     let title: String
@@ -34,7 +36,7 @@ struct BaseAppCardConfigView: View {
     
     var body: some View {
         
-        VStack(spacing: Style.shared.spacing(.large)) {
+        VStack(spacing: self.style.spacing(.large)) {
          
             icon()
             titleMessage()
@@ -64,7 +66,7 @@ struct BaseAppCardConfigView: View {
             
             self.attributedText
                 .multilineTextAlignment(.center)
-                .padding(.top, -Style.shared.spacing(.small2))
+                .padding(.top, -self.style.spacing(.small2))
                 .padding(.horizontal, .medium)
             
         }

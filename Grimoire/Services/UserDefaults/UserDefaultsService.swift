@@ -30,6 +30,8 @@ enum Setting: String, CaseIterable {
 }
 
 final class UserDefaultsService: UserDefaultsServiceProtocol {
+
+    private let style: any StyleProtocol
     
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
@@ -85,10 +87,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
     
-    init() {
+    init(style: any StyleProtocol) {
+
+        self.style = style
         
         self.logInit()
-        Style.shared.updateTheme(self.theme.theme())
+        self.style.updateTheme(self.theme.theme())
         
         self.themePublisher.send(self.theme)
         self.didCompleteOnboardingPublisher.send(self.didCompleteOnboarding)
@@ -107,7 +111,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     func set(theme: AvailableTheme) {
         
         self.theme = theme
-        Style.shared.updateTheme(self.theme.theme())
+        self.style.updateTheme(self.theme.theme())
         
     }
     

@@ -10,13 +10,7 @@ import SwiftUI
 extension View {
     
     func appPrefersColorScheme() -> some View {
-        
-        let isDarkMode = !Style.shared.theme.isLightMode
-        
-        return self.preferredColorScheme(
-            isDarkMode ? .dark : .light
-        )
-        
+        modifier(AppPrefersColorSchemeModifier())
     }
     
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FeatureRequestScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: FeatureRequestViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -83,9 +85,9 @@ struct FeatureRequestScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        let config = Constants.StaggerAnimation.config(interitemSpacing: Style.shared.spacing(.small2))
+        let config = Constants.StaggerAnimation.config(interitemSpacing: self.style.spacing(.small2))
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             StaggeredView(config: config) {
                 

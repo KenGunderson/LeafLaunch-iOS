@@ -9,6 +9,8 @@ import SwiftUI
 import Charts
 
 struct FAQScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: FAQViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -82,7 +84,7 @@ struct FAQScreen: GPView {
     
     private func section(item: FAQViewModel.FAQItemSection) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small2)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
             
             SectionView(
                 leadingTitle: item.title,

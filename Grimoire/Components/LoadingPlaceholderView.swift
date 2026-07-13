@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct LoadingPlaceholderView: View {
+
+    @Environment(\.style) private var style
     
     var body: some View {
             
-        RoundedRectangle(cornerRadius: Style.shared.radius(.small))
+        RoundedRectangle(cornerRadius: self.style.radius(.small))
             .fill(.background(.quaternary))
             .overlay {
                 

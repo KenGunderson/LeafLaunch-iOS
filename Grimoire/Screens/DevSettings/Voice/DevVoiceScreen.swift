@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DevVoiceScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevVoiceViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -60,7 +62,7 @@ struct DevVoiceScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             permissionSection()
             controlSection()
@@ -74,7 +76,7 @@ struct DevVoiceScreen: GPView {
     @ViewBuilder
     private func permissionSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Permissions")
                 .appFont(with: .HEADER_2)
@@ -82,7 +84,7 @@ struct DevVoiceScreen: GPView {
             
             AppCardView {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
+                VStack(spacing: self.style.spacing(.small)) {
                     
                     permissionLineItem(
                         title: "Microphone",
@@ -125,7 +127,7 @@ struct DevVoiceScreen: GPView {
     @ViewBuilder
     private func controlSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Controls")
                 .appFont(with: .HEADER_2)
@@ -133,7 +135,7 @@ struct DevVoiceScreen: GPView {
             
             AppCardView {
                 
-                VStack(spacing: Style.shared.spacing(.small)) {
+                VStack(spacing: self.style.spacing(.small)) {
                     
                     lineItemView(
                         title: "State",
@@ -197,7 +199,7 @@ struct DevVoiceScreen: GPView {
     @ViewBuilder
     private func transcriptSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Transcript")
                 .appFont(with: .HEADER_2)
@@ -205,11 +207,11 @@ struct DevVoiceScreen: GPView {
             
             AppCardView {
                 
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
                     
                     if let error = self.viewModel.currentError {
                         
-                        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                             
                             Text(error.title)
                                 .appFont(with: .TITLE_5)
@@ -270,7 +272,7 @@ struct DevVoiceScreen: GPView {
     @ViewBuilder
     private func tempFilesSection() -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             Text("Temp Files")
                 .appFont(with: .HEADER_2)
@@ -290,7 +292,7 @@ struct DevVoiceScreen: GPView {
             }
             else {
                 
-                LazyVStack(spacing: Style.shared.spacing(.small)) {
+                LazyVStack(spacing: self.style.spacing(.small)) {
                     
                     ForEach(self.viewModel.tempRecordings, id: \.id) { file in
                         tempRecordingCard(file: file)
@@ -310,14 +312,14 @@ struct DevVoiceScreen: GPView {
         
         AppCardView {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
                 
-                HStack(alignment: .top, spacing: Style.shared.spacing(.small)) {
+                HStack(alignment: .top, spacing: self.style.spacing(.small)) {
                     
                     Image(systemName: "waveform")
                         .foregroundStyle(.foreground(.primary))
                     
-                    VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                    VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                         
                         Text(file.fileName)
                             .appFont(with: .TITLE_5)
@@ -349,7 +351,7 @@ struct DevVoiceScreen: GPView {
                     
                 }
                 
-                HStack(spacing: Style.shared.spacing(.small)) {
+                HStack(spacing: self.style.spacing(.small)) {
                     
                     CommonButton(
                         title: self.viewModel.playbackButtonTitle(for: file),
@@ -376,7 +378,7 @@ struct DevVoiceScreen: GPView {
                 Divider()
                     .background(.background(.quinary))
                 
-                VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+                VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                     
                     Text("Full Transcript")
                         .appFont(with: .TITLE_4)
@@ -425,7 +427,7 @@ struct DevVoiceScreen: GPView {
     private func lineItemView(title: String,
                               subtitle: String) -> some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
             
             Text(title)
                 .appFont(with: .TITLE_5)

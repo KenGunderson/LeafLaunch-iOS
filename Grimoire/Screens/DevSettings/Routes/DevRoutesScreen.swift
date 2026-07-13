@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DevRoutesScreen: GPView {
+
+    @Environment(\.style) private var style
     
     @StateObject var viewModel: DevRoutesViewModel
     @Environment(NavigationService.self) private var navigationService
@@ -55,7 +57,7 @@ struct DevRoutesScreen: GPView {
     
     private func content() -> some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             // Sheets
             
@@ -98,7 +100,7 @@ struct DevRoutesScreen: GPView {
         
         Group {
             
-            VStack(alignment: .leading, spacing: Style.shared.spacing(.extraSmall)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
                 
                 Text(title)
                     .appFont(with: .HEADER_4)

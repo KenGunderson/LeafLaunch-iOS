@@ -159,10 +159,6 @@ enum AvailableTheme: String, CaseIterable, Sendable {
 
     }
 
-    static var currentStyleTheme: AvailableTheme? {
-        return AvailableTheme(theme: Style.shared.theme)
-    }
-    
     func theme() -> Theme {
 
         switch self {

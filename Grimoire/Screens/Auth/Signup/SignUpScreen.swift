@@ -9,6 +9,8 @@ import SwiftUI
 import AuthenticationServices
 
 struct SignUpScreen: GPView {
+
+    @Environment(\.style) private var style
     
     enum FocusedField: Hashable {
         
@@ -68,7 +70,7 @@ struct SignUpScreen: GPView {
     
     private var headerView: some View {
         
-        VStack(alignment: .leading, spacing: Style.shared.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
             
             NavBarButton(style: .back) {
                 self.navigationService.pop()
@@ -94,11 +96,11 @@ struct SignUpScreen: GPView {
     
     private var contentView: some View {
         
-        VStack(spacing: Style.shared.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(.medium)) {
             
             // TextFields
             
-            VStack(spacing: Style.shared.spacing(.medium)) {
+            VStack(spacing: self.style.spacing(.medium)) {
                 
                 textField(fieldToFocus: .firstName)
                 textField(fieldToFocus: .lastName)
@@ -115,7 +117,7 @@ struct SignUpScreen: GPView {
         
         VStack(alignment: .leading) {
             
-            HStack(spacing: Style.shared.spacing(.none)) {
+            HStack(spacing: self.style.spacing(.none)) {
                 
                 // Checkbox
                 
@@ -141,10 +143,10 @@ struct SignUpScreen: GPView {
                     
                     Text("By signing up, you agree to our ")
                         .foregroundStyle(.text(.body))
-                        .font(Style.shared.font(.BODY_2))
+                        .font(self.style.font(.BODY_2))
                     
                     Text("[Terms Of Service](https://apple.com)")
-                        .font(Style.shared.font(.BODY_2))
+                        .font(self.style.font(.BODY_2))
                         .foregroundStyle(.foreground(.primary))
                         .underline()
                     
