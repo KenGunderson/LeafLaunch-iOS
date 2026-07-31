@@ -45,6 +45,13 @@ final class Tab2ViewModel: ViewModel {
     func loadData(showHud: Bool = false) {
         
     }
+
+    func setRandomTheme() {
+
+        self.userDefaultsService
+            .set(theme: AvailableTheme.allCases.randomElement()!)
+
+    }
     
     func presentAlert() {
         

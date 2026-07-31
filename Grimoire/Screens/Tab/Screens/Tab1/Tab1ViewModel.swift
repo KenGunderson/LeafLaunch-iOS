@@ -20,6 +20,8 @@ final class Tab1ViewModel: ViewModel {
     private var tabBarNavigationService: TabBarNavigationService?
     private var cancelBag: CancelBag!
     private var logoutTask: Task<Void, Never>?
+
+    @Published private(set) var projects: [String] = []
     
     init(alertService: AlertServiceProtocol,
          authService: AuthServiceProtocol,
@@ -48,6 +50,28 @@ final class Tab1ViewModel: ViewModel {
     
     func loadData(showHud: Bool = false) {
         
+    }
+
+    var shouldShowEmptyState: Bool {
+        self.projects.isEmpty
+    }
+
+    var hasProjects: Bool {
+        !self.projects.isEmpty
+    }
+
+    func createProject() {
+
+        let projectNumber = self.projects.count + 1
+
+        self.projects.append("Example Project \(projectNumber)")
+
+    }
+
+    func remove(project: String) {
+
+        self.projects.removeAll { $0 == project }
+
     }
     
     func logout() {

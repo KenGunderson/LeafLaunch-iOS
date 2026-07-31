@@ -12,12 +12,6 @@ struct TabBar2Screen: View {
     @StateObject var viewModel: Tab2ViewModel
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
     
-    @State private var time = WheelTime(
-        hour: 1,
-        minute: 00,
-        period: .am
-    )
-    
     let tab: Tab
     
     var body: some View {
@@ -40,8 +34,7 @@ struct TabBar2Screen: View {
                 viewModel?
                     .track()
                 
-                viewModel?
-                    .setup(tabBarNavigationService: self.tabBarNavigationService)
+                viewModel?.setup(tabBarNavigationService: self.tabBarNavigationService)
                 
             }
             .task { [weak viewModel] in
@@ -57,11 +50,44 @@ struct TabBar2Screen: View {
     }
     
     private func content() -> some View {
-        
-        WheelTimePicker(
-            time: self.$time
-        )
-        
+
+        VStack(spacing: Style.shared.spacing(.medium)) {
+
+            GrimoireCardView(title: "Capsule Buttons") {
+
+                Text("Screens use GrimoireButton instead of configuring CommonButton directly.")
+                    .appFont(with: .BODY_3)
+                    .foregroundStyle(.text(.body))
+
+                GrimoireButton(
+                    title: "Show Alert",
+                    icon: .systemImage("bell")
+                ) {
+
+                    self.viewModel.presentAlert()
+
+                }
+
+            }
+
+            GrimoireCardView(title: "App-Owned Card") {
+
+                Text("The wrapper owns the card padding, radius, shadow, and title hierarchy.")
+                    .appFont(with: .BODY_3)
+                    .foregroundStyle(.text(.body))
+
+                GrimoireButton(
+                    title: "Change Theme",
+                    icon: .systemImage("paintpalette")
+                ) {
+
+                    self.viewModel.setRandomTheme()
+
+                }
+
+            }
+
+        }
         
     }
     

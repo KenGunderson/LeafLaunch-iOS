@@ -31,6 +31,10 @@ struct TabBar1Screen: View {
                 content()
                 
             }
+            .emptyStateOverlay(
+                shouldShow: self.viewModel.shouldShowEmptyState,
+                config: emptyStateConfig
+            )
             // Lifecycle
             
             .onFirstAppear { [weak viewModel] in
@@ -38,8 +42,7 @@ struct TabBar1Screen: View {
                 viewModel?
                     .track()
                 
-                viewModel?
-                    .setup(tabBarNavigationService: self.tabBarNavigationService)
+                viewModel?.setup(tabBarNavigationService: self.tabBarNavigationService)
                 
             }
             .task { [weak viewModel] in
@@ -101,13 +104,60 @@ struct TabBar1Screen: View {
     @ViewBuilder
     private func content() -> some View {
         
-        CommonButton(title: "Logout") {
+        if self.viewModel.hasProjects {
             
-            self.viewModel
-                .logout()
+            VStack(spacing: self.style.spacing(.medium)) {
+
+                ForEach(self.viewModel.projects, id: \.self) { project in
+
+                    GrimoireCardView(title: project) {
+
+                        Text("This card and its actions are composed with app-owned components.")
+                            .appFont(with: .BODY_3)
+                            .foregroundStyle(.text(.body))
+
+                        GrimoireButton(
+                            title: "Remove Project",
+                            icon: .systemImage("trash")
+                        ) {
+
+                            self.viewModel.remove(project: project)
+
+                        }
+
+                    }
+
+                }
+
+                GrimoireButton(
+                    title: "Add Project",
+                    icon: .systemImage("plus")
+                ) {
+
+                    self.viewModel.createProject()
+
+                }
+
+            }
             
         }
         
+    }
+
+    private var emptyStateConfig: EmptyStateConfig {
+
+        .init(
+            title: "No Projects",
+            message: "Create a project from this empty state to see the populated list example.",
+            image: .systemImage("square.stack.3d.up"),
+            actionTitle: "Create Project",
+            action: {
+
+                self.viewModel.createProject()
+
+            }
+        )
+
     }
     
 }

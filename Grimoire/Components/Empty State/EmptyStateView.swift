@@ -40,7 +40,7 @@ struct EmptyStateView: View {
             
             if let actionTitle = self.config.actionTitle {
                 
-                CommonButton(title: actionTitle) {
+                GrimoireButton(title: actionTitle) {
                     self.config.action?()
                 }
                 .padding(.top, .small)

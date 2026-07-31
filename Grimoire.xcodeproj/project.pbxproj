@@ -13,6 +13,8 @@
 		6A33BA64AE5A56676B98B75A /* DevVoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4C1133F1A9D19D7E28373 /* DevVoiceScreen.swift */; };
 		7502DC312E6D3A3E0051DD3F /* SplashScreenIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */; };
 		75038C802E074B9C00659A52 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038C7E2E074B9C00659A52 /* AppRootView.swift */; };
+		A1B2D3E62F90000100AAA001 /* GrimoireButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3E42F90000100AAA001 /* GrimoireButton.swift */; };
+		A1B2D3E72F90000100AAA001 /* GrimoireCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3E52F90000100AAA001 /* GrimoireCardView.swift */; };
 		750B85F02E48DD5400417BA5 /* GPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750B85EE2E48DD5100417BA5 /* GPColor.swift */; };
 		750DFBC42DC6CDC500A2AB74 /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		750DFBC52DC6CDC500A2AB74 /* DevSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */; };
@@ -250,6 +252,8 @@
 		426AFF2147D506A3807632D3 /* SpeechRecognitionPermissionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionPermissionServiceProtocol.swift; sourceTree = "<group>"; };
 		7502DC2F2E6D3A3E0051DD3F /* SplashScreenIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenIntroView.swift; sourceTree = "<group>"; };
 		75038C7E2E074B9C00659A52 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		A1B2D3E42F90000100AAA001 /* GrimoireButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireButton.swift; sourceTree = "<group>"; };
+		A1B2D3E52F90000100AAA001 /* GrimoireCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrimoireCardView.swift; sourceTree = "<group>"; };
 		750B85EE2E48DD5100417BA5 /* GPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPColor.swift; sourceTree = "<group>"; };
 		750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsViewModel.swift; sourceTree = "<group>"; };
 		750DFBC22DC6CDC500A2AB74 /* DevSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsScreen.swift; sourceTree = "<group>"; };
@@ -1017,6 +1021,8 @@
 			isa = PBXGroup;
 			children = (
 				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
+				A1B2D3E42F90000100AAA001 /* GrimoireButton.swift */,
+				A1B2D3E52F90000100AAA001 /* GrimoireCardView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1754,6 +1760,8 @@
 				754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
+				A1B2D3E62F90000100AAA001 /* GrimoireButton.swift in Sources */,
+				A1B2D3E72F90000100AAA001 /* GrimoireCardView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				7537F4862DF661EA0031D9CF /* PermissionsServiceProtocol.swift in Sources */,
 				75B70AAF2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
