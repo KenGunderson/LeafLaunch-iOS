@@ -223,7 +223,7 @@ struct DevSettingsScreen: GPView {
                     )
                     
                     lineItemView(
-                        title: "Push Token",
+                        title: "FCM Registration Token",
                         subtitle: self.viewModel.pushToken
                     )
                     

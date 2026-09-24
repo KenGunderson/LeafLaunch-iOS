@@ -108,6 +108,7 @@
 		753EC1B42DB8BD4D00265B2A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC1B32DB8BD4A00265B2A /* Globals.swift */; };
 		753EC1B82DB8BE1700265B2A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B72DB8BE1700265B2A /* FirebaseAuth */; };
 		753EC1BA2DB8BE1700265B2A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1B92DB8BE1700265B2A /* FirebaseStorage */; };
+		75AFC0013000000000000001 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 75AFC0013000000000000002 /* FirebaseMessaging */; };
 		753EC1BF2DB8BE6700265B2A /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1BE2DB8BE6700265B2A /* Amplitude */; };
 		753EC1C12DB8BE7200265B2A /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C02DB8BE7200265B2A /* SwiftDate */; };
 		753EC1C32DB8BE7900265B2A /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 753EC1C22DB8BE7900265B2A /* FactoryKit */; };
@@ -474,6 +475,7 @@
 				753EC1C12DB8BE7200265B2A /* SwiftDate in Frameworks */,
 				753EC1BF2DB8BE6700265B2A /* Amplitude in Frameworks */,
 				753EC1BA2DB8BE1700265B2A /* FirebaseStorage in Frameworks */,
+				75AFC0013000000000000001 /* FirebaseMessaging in Frameworks */,
 				7548D23A2DD5612C008AE243 /* Rune in Frameworks */,
 				75E5F0E22E31D95B00162C72 /* StripePayments in Frameworks */,
 				753EC1C32DB8BE7900265B2A /* FactoryKit in Frameworks */,
@@ -1476,6 +1478,7 @@
 			packageProductDependencies = (
 				753EC1B72DB8BE1700265B2A /* FirebaseAuth */,
 				753EC1B92DB8BE1700265B2A /* FirebaseStorage */,
+				75AFC0013000000000000002 /* FirebaseMessaging */,
 				75FBFA052FC1234500C0DE01 /* FirebaseAnalytics */,
 				75FBFA062FC1234500C0DE01 /* FirebaseCrashlytics */,
 				753EC1BE2DB8BE6700265B2A /* Amplitude */,
@@ -2578,6 +2581,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		75AFC0013000000000000002 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 753EC1B62DB8BE1700265B2A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		753EC1BE2DB8BE6700265B2A /* Amplitude */ = {
 			isa = XCSwiftPackageProductDependency;

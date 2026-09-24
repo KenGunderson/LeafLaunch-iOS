@@ -10,13 +10,14 @@ import UIKit
 import UserNotificationsUI
 import Combine
 import FirebaseCore
+@preconcurrency import FirebaseMessaging
 
-class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate, Loggable {
+class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate, @preconcurrency MessagingDelegate, Loggable {
     
     internal let loggerName: String = "APP_DELEGATE"
     internal let loggerEmoji: String = "🪈"
     
-    private(set) var deviceTokenPublisher = PassthroughSubject<String, Never>()
+    private(set) var deviceTokenPublisher = CurrentValueSubject<String?, Never>(nil)
     private(set) var pushNotificationPublisher = PassthroughSubject<UNNotification, Never>()
     private(set) var pushNotificationTappedPublisher = PassthroughSubject<UNNotification, Never>()
     private(set) var appWillTerminatePublisher = PassthroughSubject<Void, Never>()
@@ -25,6 +26,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         FirebaseApp.configureIfNeeded()
+        Messaging.messaging().delegate = self
 
         UIApplication.shared.registerForRemoteNotifications()
         
@@ -52,13 +54,43 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
 
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+
+        Messaging.messaging().apnsToken = deviceToken
+
+        Messaging.messaging().token { [weak self] token, error in
+
+            Task { @MainActor [weak self] in
+
+                if let error {
+                    self?.logError(
+                        title: "FCM Registration Token Error",
+                        message: error.getMessageForError()
+                    )
+                    return
+                }
+
+                if let token {
+                    self?.publishFCMToken(token)
+                }
+
+            }
+
+        }
         
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        
+    }
+
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+
+        guard messaging.apnsToken != nil, let fcmToken else { return }
+        self.publishFCMToken(fcmToken)
+
+    }
+
+    private func publishFCMToken(_ token: String) {
+
+        guard self.deviceTokenPublisher.value != token else { return }
         self.deviceTokenPublisher.send(token)
-        self.log(message: "DEVICE TOKEN: \(token)")
-        
+
     }
     
     func application(_ application: UIApplication,
