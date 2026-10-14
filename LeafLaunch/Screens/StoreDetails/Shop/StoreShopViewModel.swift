@@ -59,6 +59,7 @@ final class StoreShopViewModel: ViewModel {
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
+        
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
         self.analyticsService = analyticsService
@@ -73,6 +74,7 @@ final class StoreShopViewModel: ViewModel {
         self.loadProductsTask?.cancel()
         self.searchTask?.cancel()
         self.favoritesSubscription?.cancel()
+        
         logDeinit()
 
     }

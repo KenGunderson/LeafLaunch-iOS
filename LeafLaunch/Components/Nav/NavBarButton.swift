@@ -74,6 +74,9 @@ struct NavBarButton: View {
             .asButton {
                 action()
             }
+            .if(self.style == .settings) { view in
+                view.accessibilityLabel(String(localized: "Settings"))
+            }
             .overlay(alignment: .topTrailing) {
                 
                 switch self.style {

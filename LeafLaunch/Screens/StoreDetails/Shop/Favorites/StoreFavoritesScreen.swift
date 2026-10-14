@@ -57,6 +57,7 @@ struct StoreFavoritesScreen: GPView {
 
         }
         .foregroundStyle(.text(.body))
+        .tabFlowContentSpacing()
 
     }
 

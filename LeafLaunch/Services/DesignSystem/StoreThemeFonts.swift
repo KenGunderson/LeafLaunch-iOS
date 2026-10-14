@@ -7,12 +7,13 @@ import UIKit
 
 extension Theme.Fonts {
 
-    static func storeBranding(familyName: String?, fallback: Theme.Fonts) -> Theme.Fonts {
+    static func storeBranding(familyName: StoreAppFontFamily?, fallback: Theme.Fonts) -> Theme.Fonts {
 
-        guard let familyName, !UIFont.fontNames(forFamilyName: familyName).isEmpty else { return fallback }
+        guard let familyName, familyName != .system,
+              !UIFont.fontNames(forFamilyName: familyName.rawValue).isEmpty else { return fallback }
 
         func font(_ base: UIFont) -> UIFont {
-            UIFont(descriptor: base.fontDescriptor.withFamily(familyName), size: base.pointSize)
+            UIFont(descriptor: base.fontDescriptor.withFamily(familyName.rawValue), size: base.pointSize)
         }
 
         return Theme.Fonts(

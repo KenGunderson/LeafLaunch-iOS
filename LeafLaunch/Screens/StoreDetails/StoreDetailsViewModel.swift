@@ -24,6 +24,7 @@ final class StoreDetailsViewModel: ViewModel {
          shopViewModel: StoreShopViewModel,
          favoritesViewModel: StoreFavoritesViewModel,
          accountViewModel: StoreAccountViewModel) {
+        
         self.storeSessionService = storeSessionService
         self.tabBarNavigationService = tabBarNavigationService
         self.analyticsService = analyticsService

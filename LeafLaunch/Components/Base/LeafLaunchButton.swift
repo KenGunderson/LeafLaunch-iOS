@@ -28,7 +28,7 @@ struct LeafLaunchButton: View {
         CommonButton(
             title: self.title,
             icon: self.icon,
-            cornerRadius: .custom(999),
+            cornerRadius: .medium,
             action: self.action
         )
 

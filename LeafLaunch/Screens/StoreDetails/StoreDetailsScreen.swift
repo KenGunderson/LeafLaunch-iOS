@@ -12,38 +12,86 @@ struct StoreDetailsScreen: GPView {
 
     var body: some View {
 
-        @Bindable var tabBarNavigationService = self.viewModel.tabBarNavigationService
+        let navigation = Bindable(self.viewModel.tabBarNavigationService)
 
-        TabView(selection: $tabBarNavigationService.selectedTab) {
+        ZStack {
 
-            AppRootView(navigationService: Bindable(tabBarNavigationService.tab1NavigationService)) {
-                StoreOverviewScreen(viewModel: self.viewModel.overviewViewModel)
-            }
-            .tabItem { Text(Tab.tab1.title) }
-            .tag(Tab.tab1)
+            tabContent(selectedTab: navigation.selectedTab)
 
-            AppRootView(navigationService: Bindable(tabBarNavigationService.tab2NavigationService)) {
-                StoreShopScreen(viewModel: self.viewModel.shopViewModel)
-            }
-            .tabItem { Text(Tab.tab2.title) }
-            .tag(Tab.tab2)
-
-            AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
-                StoreFavoritesScreen(viewModel: self.viewModel.favoritesViewModel)
-            }
-            .tabItem { Text(Tab.tab3.title) }
-            .tag(Tab.tab3)
-
-            AppRootView(navigationService: Bindable(tabBarNavigationService.tab4NavigationService)) {
-                StoreAccountScreen(viewModel: self.viewModel.accountViewModel)
-            }
-            .tabItem { Text(Tab.tab4.title) }
-            .tag(Tab.tab4)
+            TabBarScreen(
+                selectedTab: Binding(
+                    get: { self.viewModel.tabBarNavigationService.selectedTab },
+                    set: { self.viewModel.tabBarNavigationService.select($0) }
+                ),
+                isTabBarVisible: navigation.isTabBarVisible
+            )
 
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(self.style.background(.primary))
         .tint(.init(.foreground(.primary)))
+        .environment(self.viewModel.tabBarNavigationService)
         .onFirstAppear { [weak viewModel] in viewModel?.handleFirstAppear() }
+
+    }
+
+    @ViewBuilder
+    private func tabContent(selectedTab: Binding<Tab>) -> some View {
+
+        let tabBarNavigationService = self.viewModel.tabBarNavigationService
+
+        TabView(selection: selectedTab) {
+
+            ForEach(Tab.allCases, id: \.self) { tab in
+
+                switch tab {
+                case .tab1:
+
+                    AppRootView(navigationService: Bindable(tabBarNavigationService.tab1NavigationService)) {
+                        StoreOverviewScreen(viewModel: self.viewModel.overviewViewModel)
+                    }
+                    .tag(tab)
+
+                case .tab2:
+
+                    AppRootView(navigationService: Bindable(tabBarNavigationService.tab2NavigationService)) {
+                        StoreShopScreen(viewModel: self.viewModel.shopViewModel)
+                    }
+                    .tag(tab)
+
+                case .tab3:
+
+                    AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
+                        StoreFavoritesScreen(viewModel: self.viewModel.favoritesViewModel)
+                    }
+                    .tag(tab)
+
+                case .tab4:
+
+                    AppRootView(navigationService: Bindable(tabBarNavigationService.tab4NavigationService)) {
+                        StoreAccountScreen(viewModel: self.viewModel.accountViewModel)
+                    }
+                    .safeAreaInset(edge: .bottom, spacing: 0) {
+
+                        if let route = tabBarNavigationService.tab4NavigationService.routes.last,
+                           case .auth = route {
+
+                            Color.clear
+                                .frame(height: 0)
+                                .tabFlowContentSpacing()
+
+                        }
+
+                    }
+                    .tag(tab)
+
+                }
+
+            }
+
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .ignoresSafeArea(.container, edges: .bottom)
 
     }
 

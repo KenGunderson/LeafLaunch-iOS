@@ -79,6 +79,7 @@ struct ProductDetailsScreen: GPView {
         }
         .appFont(with: .BODY_2)
         .foregroundStyle(.text(.body))
+        .tabFlowContentSpacing()
 
     }
 

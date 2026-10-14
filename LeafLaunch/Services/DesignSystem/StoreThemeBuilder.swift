@@ -12,54 +12,65 @@ enum StoreThemeBuilder {
 
         guard let branding = validatedDefinition(branding: branding) else { return nil }
 
-        let isLightMode = branding.backgroundColor.map(isLightColor) ?? baseTheme.theme().isLightMode
+        let isLightMode = branding.backgroundColor.map { StoreThemeColor.lightness($0) >= 0.6 } ?? baseTheme.theme().isLightMode
         let fallback = (isLightMode ? AvailableTheme.light : .dark).theme()
-        let primary = colorSource(branding.primaryColor) ?? fallback.foreground.primary
-        let accent = colorSource(branding.accentColor) ?? fallback.foreground.secondary
-        let background = colorSource(branding.backgroundColor) ?? fallback.background.primary
-        let text = colorSource(branding.textColor)
-        let buttonText = branding.primaryColor.map {
-            ColorSource.color(isLightColor($0) ? Color(hex: "#111827") : .white)
-        } ?? fallback.textColor.button
+        guard let background = hexColor(fallback.background.primary),
+              let contentBackground = hexColor(fallback.background.secondary),
+              let title = hexColor(fallback.textColor.title),
+              let body = hexColor(fallback.textColor.body),
+              let accent = hexColor(fallback.palette.link),
+              let button = hexColor(fallback.foreground.primary),
+              let icon = hexColor(fallback.foreground.secondary) else { return nil }
+
+        let colors = StoreThemeColors.resolve(
+            branding: branding,
+            defaults: StoreThemeBaseColors(background: background,
+                                           contentBackground: contentBackground,
+                                           title: title,
+                                           body: body,
+                                           accent: accent,
+                                           button: button,
+                                           icon: icon)
+        )
 
         return Theme(
             id: themeId(branding: branding, baseTheme: baseTheme),
             isLightMode: isLightMode,
             foreground: .init(
-                primary: primary,
-                secondary: accent,
-                tertiary: fallback.foreground.tertiary,
-                quaternary: fallback.foreground.quaternary,
-                disabled: fallback.foreground.disabled
+                primary: colorSource(colors.foreground["primary"]) ?? fallback.foreground.primary,
+                secondary: colorSource(colors.foreground["secondary"]) ?? fallback.foreground.secondary,
+                tertiary: colorSource(colors.foreground["tertiary"]) ?? fallback.foreground.tertiary,
+                quaternary: colorSource(colors.foreground["quaternary"]) ?? fallback.foreground.quaternary,
+                disabled: colorSource(colors.foreground["disabled"]) ?? fallback.foreground.disabled
             ),
             background: .init(
-                primary: background,
-                secondary: fallback.background.secondary,
-                tertiary: fallback.background.tertiary,
-                quaternary: fallback.background.quaternary,
-                quinary: fallback.background.quinary,
-                border: fallback.background.border
+                primary: colorSource(colors.background["primary"]) ?? fallback.background.primary,
+                secondary: colorSource(colors.background["secondary"]) ?? fallback.background.secondary,
+                tertiary: colorSource(colors.background["tertiary"]) ?? fallback.background.tertiary,
+                quaternary: colorSource(colors.background["quaternary"]) ?? fallback.background.quaternary,
+                quinary: colorSource(colors.background["quinary"]) ?? fallback.background.quinary,
+                border: colorSource(colors.background["border"]) ?? fallback.background.border
             ),
             textColor: .init(
-                title: text ?? fallback.textColor.title,
-                titleInverted: fallback.textColor.titleInverted,
-                body: text ?? fallback.textColor.body,
-                bodyInverted: fallback.textColor.bodyInverted,
-                button: buttonText,
-                placeholder: fallback.textColor.placeholder
+                title: colorSource(colors.textColor["title"]) ?? fallback.textColor.title,
+                titleInverted: colorSource(colors.textColor["titleInverted"]) ?? fallback.textColor.titleInverted,
+                body: colorSource(colors.textColor["body"]) ?? fallback.textColor.body,
+                bodyInverted: colorSource(colors.textColor["bodyInverted"]) ?? fallback.textColor.bodyInverted,
+                button: colorSource(colors.textColor["button"]) ?? fallback.textColor.button,
+                placeholder: colorSource(colors.textColor["placeholder"]) ?? fallback.textColor.placeholder
             ),
             palette: .init(
                 success: fallback.palette.success,
                 warning: fallback.palette.warning,
                 error: fallback.palette.error,
                 info: fallback.palette.info,
-                link: primary,
-                highlight: accent,
+                link: colorSource(colors.palette["link"]) ?? fallback.palette.link,
+                highlight: colorSource(colors.palette["highlight"]) ?? fallback.palette.highlight,
                 premium: fallback.palette.premium,
                 destructive: fallback.palette.destructive,
                 online: fallback.palette.online,
                 offline: fallback.palette.offline,
-                skeleton: fallback.palette.skeleton
+                skeleton: colorSource(colors.palette["skeleton"]) ?? fallback.palette.skeleton
             ),
             spacing: fallback.spacing,
             radius: .init(
@@ -83,7 +94,7 @@ enum StoreThemeBuilder {
     // Rune's UI values remain reconstructed rather than serialized.
     static func validatedDefinition(branding: StoreAppBranding) -> StoreAppBranding? {
 
-        let colorValues = [branding.primaryColor, branding.accentColor, branding.backgroundColor, branding.textColor]
+        let colorValues = [branding.contentBackgroundColor, branding.titleColor, branding.bodyColor, branding.iconColor, branding.accentColor, branding.buttonColor, branding.buttonTitleColor, branding.backgroundColor]
         let mediaKeys = [branding.logoObjectKey, branding.iconObjectKey, branding.splashObjectKey]
         let mediaPrefix = "stores/\(BusinessConfig.businessId)/app/"
         let hasValidMedia = mediaKeys.compactMap { $0 }.allSatisfy {
@@ -91,23 +102,22 @@ enum StoreThemeBuilder {
             $0.hasPrefix(mediaPrefix) && !$0.contains("..") && $0.count <= 500
 
         }
-        let hasValidFont = branding.fontFamily.map {
-            !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.count <= 100
-        } ?? true
-
         guard colorValues.compactMap({ $0 }).allSatisfy(isValidHexColor),
               branding.radius?.isValid != false,
-              hasValidMedia,
-              hasValidFont else { return nil }
+              hasValidMedia else { return nil }
 
         let radius = branding.radius
         let fallback = LeafLaunchThemeTokens.radius
 
         return StoreAppBranding(
-            primaryColor: branding.primaryColor,
+            contentBackgroundColor: branding.contentBackgroundColor,
+            titleColor: branding.titleColor,
+            bodyColor: branding.bodyColor,
+            iconColor: branding.iconColor,
             accentColor: branding.accentColor,
+            buttonColor: branding.buttonColor,
+            buttonTitleColor: branding.buttonTitleColor,
             backgroundColor: branding.backgroundColor,
-            textColor: branding.textColor,
             logoObjectKey: branding.logoObjectKey,
             iconObjectKey: branding.iconObjectKey,
             splashObjectKey: branding.splashObjectKey,
@@ -133,28 +143,30 @@ enum StoreThemeBuilder {
         hex.range(of: "^#[0-9a-fA-F]{6}$", options: .regularExpression) != nil
     }
 
-    private static func isLightColor(_ hex: String) -> Bool {
+    private static func hexColor(_ source: ColorSource) -> String? {
 
-        guard let value = UInt32(hex.dropFirst(), radix: 16) else { return true }
-        let red = Double((value >> 16) & 0xFF) / 255
-        let green = Double((value >> 8) & 0xFF) / 255
-        let blue = Double(value & 0xFF) / 255
-
-        return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue) > 0.5
+        guard let color = source.asColor else { return nil }
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        guard UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha) else { return nil }
+        return String(format: "#%02X%02X%02X", Int((red * 255).rounded()), Int((green * 255).rounded()), Int((blue * 255).rounded()))
 
     }
 
     private static func themeId(branding: StoreAppBranding, baseTheme: AvailableTheme) -> String {
 
         [
-            "store",
+            "store-rune-color-v1",
             BusinessConfig.businessId,
             baseTheme.rawValue,
-            branding.primaryColor ?? "",
+            branding.contentBackgroundColor ?? "",
+            branding.titleColor ?? "",
+            branding.bodyColor ?? "",
+            branding.iconColor ?? "",
             branding.accentColor ?? "",
+            branding.buttonColor ?? "",
+            branding.buttonTitleColor ?? "",
             branding.backgroundColor ?? "",
-            branding.textColor ?? "",
-            branding.fontFamily ?? "",
+            branding.fontFamily?.rawValue ?? "",
             String(branding.radius?.extraSmall ?? 0),
             String(branding.radius?.small ?? 0),
             String(branding.radius?.small2 ?? 0),

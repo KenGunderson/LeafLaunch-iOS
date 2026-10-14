@@ -33,11 +33,7 @@ public final class TabBarNavigationService: Sendable {
     }
 
     func select(_ tab: Tab) {
-
-        withAnimation {
-            self.selectedTab = tab
-        }
-
+        self.selectedTab = tab
     }
 
     func resetPathItems() {
@@ -50,11 +46,7 @@ public final class TabBarNavigationService: Sendable {
     }
 
     func shouldShowTabBar(_ shouldShow: Bool) {
-
-        withAnimation {
-            self.isTabBarVisible = shouldShow
-        }
-
+        self.isTabBarVisible = shouldShow
     }
 
     func currentNavigationService() -> NavigationService {

@@ -14,8 +14,8 @@ final class NavigationService: NavigationServiceProtocol, Equatable {
     
     static func == (lhs: NavigationService, rhs: NavigationService) -> Bool {
         
-        lhs.routes == rhs.routes &&
-        lhs.fullScreenCover == rhs.fullScreenCover
+        // Each navigation stack must remain a distinct SwiftUI environment value.
+        lhs === rhs
         
     }
     

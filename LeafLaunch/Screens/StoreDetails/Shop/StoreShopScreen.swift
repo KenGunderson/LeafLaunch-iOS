@@ -42,6 +42,7 @@ struct StoreShopScreen: GPView {
 
         }
         .foregroundStyle(.text(.body))
+        .tabFlowContentSpacing()
 
     }
 

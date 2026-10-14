@@ -14,7 +14,7 @@ struct StoreAccountScreen: GPView {
     var body: some View {
 
         AppHeaderScrollView(horizontalPadding: .medium) {
-            NavHeader(title: String(localized: "Account"))
+            navHeader()
         } scrollViewContent: {
             content()
         }
@@ -24,10 +24,19 @@ struct StoreAccountScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
-
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }
+
+    }
+
+    private func navHeader() -> some View {
+
+        NavHeader(
+            title: String(localized: "Account"),
+            trailingNavButtons: [.settings],
+            trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.presentSettings() }
+        )
 
     }
 
@@ -60,6 +69,7 @@ struct StoreAccountScreen: GPView {
         }
         .appFont(with: .BODY_2)
         .foregroundStyle(.text(.body))
+        .tabFlowContentSpacing()
 
     }
 

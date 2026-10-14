@@ -8,4 +8,6 @@ API `StoreAppBranding` colors and available font families flow through [StoreThe
 
 Customer screens use the environment style, semantic typography, native controls, `GroupBox` wireframes, and existing app/Rune components. Selection must be readable through text and control state. Avoid decorative motion, new palettes, fixed marketing layouts, and custom component systems. Product gallery media remains functional; placeholder boxes cover unavailable media.
 
+Store Details uses JobLens iOS's `BubbleTabBarView` over a `TabView` with the system tab bar hidden. Preserve its 42pt top corners, secondary background, card shadow, accent/body selection colors, and selection keyframes. LeafLaunch supplies its own Store, Shop, Favorites, and Account titles and icons; badge counts remain zero. Keep the bar mounted in its keyboard-independent overlay and animate visibility through its vertical offset. Scroll content uses the shared `tabFlowContentSpacing()` modifier to stay above the overlay.
+
 Native SwiftUI controls own focus, scrolling, safe-area behavior, accessibility, and dynamic sizing. English is the current application language; dates, currency, and numeric formatting follow Foundation and location currency/timezone metadata. See [UX-CONTRACT](UX-CONTRACT.md) for workflow ownership and recovery.

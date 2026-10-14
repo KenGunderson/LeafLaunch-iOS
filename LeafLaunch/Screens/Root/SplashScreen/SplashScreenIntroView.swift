@@ -56,8 +56,8 @@ struct SplashScreenIntroView: View {
     @ViewBuilder
     private func wordsView() -> some View {
 
-        let foregroundStyle: ColorSource = self.completionBackground ? .color(.white) : .foreground(.primary)
-        let backgroundStyle: ColorSource = self.completionBackground ? .foreground(.primary) : .background(.primary)
+        let foregroundStyle: ColorSource = self.completionBackground ? .text(.titleInverted) : .palette(.link)
+        let backgroundStyle: ColorSource = self.completionBackground ? .palette(.highlight) : .background(.primary)
         
         HStack(spacing: 0) {
             

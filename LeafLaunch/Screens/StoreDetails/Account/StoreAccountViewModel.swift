@@ -70,6 +70,10 @@ final class StoreAccountViewModel: ViewModel {
 
     }
 
+    func presentSettings() {
+        self.navigationService?.modal(fullScreenCover: .settings)
+    }
+
     func register() {
         self.navigationService?.push(.auth(.signup))
     }
