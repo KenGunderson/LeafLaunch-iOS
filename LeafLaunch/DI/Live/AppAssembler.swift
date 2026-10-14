@@ -13,7 +13,13 @@ class AppAssembler {
     let container: Container
     
     init() {
+
         self.container = Container.shared
+
+#if LEAFLAUNCH_MOCK
+        MockServiceAssembly().assembleRuntime(container: self.container)
+#endif
+
     }
     
 }

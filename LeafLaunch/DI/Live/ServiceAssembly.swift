@@ -119,13 +119,31 @@ extension Container {
 
     var apiService: Factory<APIServiceProtocol> {
         self { @MainActor in
-        MockAPIService() // TODO: - REPLACE WITH LIVE
-            // APIService(
-            //     analyticsService: self.analyticsService(),
-            //     environmentService: self.environmentService(),
-            //     appDelegateService: self.appDelegateService(),
-            //     firebaseService: self.firebaseService()
-            // )
+            APIService(
+                analyticsService: self.analyticsService(),
+                environmentService: self.environmentService(),
+                appDelegateService: self.appDelegateService(),
+                firebaseService: self.firebaseService()
+            )
+        }
+        .singleton
+    }
+
+    // CUSTOMER STORE SESSION
+
+    var tabBarNavigationService: Factory<TabBarNavigationService> {
+        self { @MainActor in TabBarNavigationService() }
+            .singleton
+    }
+
+    var storeSessionService: Factory<StoreSessionServiceProtocol> {
+        self { @MainActor in
+            StoreSessionService(
+                apiService: self.apiService(),
+                authService: self.authService(),
+                userDefaultsService: self.userDefaultsService(),
+                tabBarNavigationService: self.tabBarNavigationService()
+            )
         }
         .singleton
     }
@@ -156,7 +174,8 @@ extension Container {
                 firebaseService: self.firebaseService(),
                 appDelegateService: self.appDelegateService(),
                 connectivityService: self.connectivityService(),
-                viewLifecycleService: self.viewLifecycleService()
+                viewLifecycleService: self.viewLifecycleService(),
+                storeSessionService: self.storeSessionService()
             )
         }
         .singleton

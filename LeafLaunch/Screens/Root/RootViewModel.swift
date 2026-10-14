@@ -22,7 +22,7 @@ final class RootViewModel: ViewModel {
     private let deeplinkService: DeeplinkServiceProtocol
     private let startupService: RootStartupServiceProtocol
     
-    @LazyInjected(\.mainViewModel) private(set) var mainViewModel: MainViewModel
+    let mainViewModel: MainViewModel
     
     @Published private(set) var launchState: LaunchScreenService.State = .loading
     @Published var shouldPresentDevSettings: Bool = false
@@ -38,7 +38,8 @@ final class RootViewModel: ViewModel {
          pushNotificationService: PushNotificationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          deeplinkService: DeeplinkServiceProtocol,
-         startupService: RootStartupServiceProtocol) {
+         startupService: RootStartupServiceProtocol,
+         mainViewModel: MainViewModel) {
         
         self.analyticsService = analyticsService
         self.alertService = alertService
@@ -47,10 +48,10 @@ final class RootViewModel: ViewModel {
         self.userDefaultsService = userDefaultsService
         self.deeplinkService = deeplinkService
         self.startupService = startupService
+        self.mainViewModel = mainViewModel
         self.observableAlertServiceWrapper = ObservableAlertServiceWrapper(alertService: alertService)
         
         self.logInit()
-        bindStartupCoordinator()
 
     }
     
@@ -78,6 +79,10 @@ final class RootViewModel: ViewModel {
         self.deeplinkService
             .handle(url: url)
         
+    }
+
+    func loadData() {
+        bindStartupCoordinator()
     }
     
     func setLaunchState(_ state: LaunchScreenService.State) {
@@ -112,8 +117,9 @@ final class RootViewModel: ViewModel {
     func presentHealthCheckAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(config: Constants.HEALTH_CHECK_ENV_ALERT {
-                // TODO: - RETRY
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.HEALTH_CHECK_ENV_ALERT { [weak self] in
+                self?.alertService.dismissAll()
+                self?.mainViewModel.retryStoreLoading()
             }))))
         
     }
@@ -121,8 +127,9 @@ final class RootViewModel: ViewModel {
     func presentNoNetworkAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(config: Constants.NO_NETWORK_ENV_ALERT {
-                // TODO: - RETRY
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.NO_NETWORK_ENV_ALERT { [weak self] in
+                self?.alertService.dismissAll()
+                self?.mainViewModel.retryStoreLoading()
             }))))
         
     }
@@ -130,8 +137,15 @@ final class RootViewModel: ViewModel {
     func presentForceUpdateAlert() {
         
         self.alertService
-            .showAlert(.init(.enviornmentAlert(.init(config: Constants.FORCE_UPDATE_ENV_ALERT {
-                // TODO: - RETRY
+            .showAlert(.init(.enviornmentAlert(.init(config: Constants.FORCE_UPDATE_ENV_ALERT { [weak self] in
+
+                guard let self else { return }
+                self.alertService.dismissAll()
+
+                if let updateURL = self.mainViewModel.updateURL {
+                    UIApplication.shared.open(updateURL)
+                }
+
             }))))
         
     }

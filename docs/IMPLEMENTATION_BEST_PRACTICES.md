@@ -40,7 +40,7 @@ An expanded lifecycle method has breathing room inside its braces; a one-stateme
 func handleFirstAppear() {
 
     track()
-    loadUser()
+    bindSubscribers()
 
 }
 
@@ -100,7 +100,7 @@ AppHeaderScrollView {
 - Keep `track()` in the final same-type extension in the primary ViewModel file. Track screen views through `self.analyticsService.track(screen:)` there.
 - Add the matching [ScreenEvent](../LeafLaunch/Services/Analytics/Models/ScreenEvent.swift) case and preserve its `screen_view` mapping. Include applicable LeafLaunch context, such as a user ID or legal context; compact nil properties before emission. Do not import unrelated domain IDs from another app.
 - Keep intent, success, mutation, and error analytics beside the action that causes them rather than in screen `track()`.
-- Use `.task { [weak viewModel] in ... }` for initial async loading when the entry point and existing lifecycle support it. Preserve structured cancellation; do not start the same load from both `.task` and first appearance.
+- Use `.task { [weak viewModel] in viewModel?.loadData(showHud: true) }` for initial loading and reappearance refresh on every fetch-backed screen. Keep `handleFirstAppear()` focused on tracking and idempotent subscriber binding; it must not start the same fetch. The loader owns its named cancellable tasks and accepts `showHud` when a loading alert applies. Root's `.task` starts the startup coordinator while the splash owns launch feedback. Screens with no initial data load do not need empty task hooks.
 - Forward `.onDisappear { [weak viewModel] in ... }` cleanup for active capture, realtime, playback, recording, or similar sessions. Do not add empty lifecycle hooks to screens without that responsibility.
 - Root, splash, and startup surfaces have nonstandard lifecycle sequencing. Preserve their documented ownership and timing; do not mechanically apply standard screen wiring to them.
 
@@ -124,6 +124,8 @@ AppHeaderScrollView {
 - Use `defer` for paired cleanup and loading-state completion. A cancelled operation must still dismiss the presentation it owns, without committing results or marking initial loading successful. A superseded task's cleanup must not clear a newer task's loading state or presentation; preserve existing ownership guards.
 - For fetch-backed screens that distinguish initial loading from empty content, keep `isLoading`, `hasCompletedInitialLoad`, `hasContent`, and `shouldShowEmptyState` (or equivalent existing state) coherent. Show empty state only after an initial load has completed, while not loading and without content; do not treat a cancelled/failed initial request as a successful empty response.
 - Reuse the current loading alert and error helpers, including `AlertServiceProtocol`, `.simpleLoadingIndicator`, `dismissLoadingIndicator()`, and `Constants.Message.errorMessage(_:)` where applicable. Do not invent a second loading/error presentation mechanism.
+- Present screen errors directly from the ViewModel through its injected `AlertServiceProtocol`; never use the view-level `.errorHandler` modifier or a published `Error` solely to trigger one. Follow JobLens's `ProjectWalkthroughCreateEditViewModel+Draft`: a focused error helper calls `alertService.showAlert(.init(.appAlert(.error(...))))`, and catches invoke it only after cancellation/ownership guards. Keep an inline `errorMessage` only when it explains a persistent failure/retry state.
+- For independently owned loading alerts, snapshot the AlertService, create a unique `RuneAlert(.simpleLoadingIndicator)` inside the task, and dismiss that exact instance with `dismissAlert(loadingIndicator)` in `defer`. A cancelled/superseded task must not dismiss another task's loader or error alert.
 
 ## Rune and app-owned UI
 

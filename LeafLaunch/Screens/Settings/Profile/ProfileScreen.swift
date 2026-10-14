@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
-import Charts
 
 struct ProfileScreen: GPView {
 
     @Environment(\.style) private var style
-    
+    @Environment(NavigationService.self) private var navigationService
+
+    @StateObject private var viewModel: ProfileViewModel
+
+    @FocusState private var focusedField: FocusedField?
+
     enum FocusedField: Hashable {
         
         case firstName
@@ -28,11 +32,18 @@ struct ProfileScreen: GPView {
         
     }
 
-    @Environment(NavigationService.self) private var navigationService
+    init(viewModel: ProfileViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
 
-    @StateObject var viewModel: ProfileViewModel
-    
-    @FocusState private var focusedField: FocusedField?
+    private func handleOnSubmit() {
+
+        switch self.focusedField {
+        case .firstName: self.focusedField = .lastName
+        default: self.focusedField = nil
+        }
+
+    }
                 
     var body: some View {
         
@@ -48,16 +59,13 @@ struct ProfileScreen: GPView {
         // Lifecycle
         
         .onFirstAppear { [weak viewModel] in
-            
-            viewModel?
-                .loadData()
-            
-            viewModel?
-                .handleFirstAppear()
-            
-            viewModel?
-                .setup(navigationService: self.navigationService)
-            
+
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
+
+        }
+        .task { [weak viewModel] in
+            viewModel?.loadData(showHud: true)
         }
         
         // Tap
@@ -98,7 +106,6 @@ struct ProfileScreen: GPView {
                 textField(fieldToFocus: .firstName)
                 textField(fieldToFocus: .lastName)
                 textField(fieldToFocus: .email)
-                dateOfBirthPicker()
                 
             }
             
@@ -158,46 +165,6 @@ struct ProfileScreen: GPView {
                 self.focusedField = fieldToFocus
             }
             .allowsHitTesting(fieldToFocus != .email)
-        
-    }
-    
-    private func handleOnSubmit() {
-        
-        var nextFocusedField: FocusedField? = nil
-        
-        switch self.focusedField {
-        case .firstName: nextFocusedField = .lastName
-        case .lastName: nextFocusedField = nil
-        default: nextFocusedField = nil
-        }
-        
-        self.focusedField = nextFocusedField
-        
-    }
-    
-    @ViewBuilder
-    private func dateOfBirthPicker() -> some View {
-        
-        VStack(alignment: .leading) {
-            
-            Text("Date Of Birth (Optional)")
-            
-            DatePicker(
-                "",
-                selection: self.$viewModel.dateOfBirth,
-                displayedComponents: .date
-            )
-            .tint(.init(.foreground(.primary)))
-            .datePickerStyle(.compact)
-            .fixedSize()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, -8)
-            
-        }
-        .foregroundStyle(.text(.title))
-        .appFont(with: .TITLE_3)
-        .padding(.top, self.style.spacing(.extraSmall))
-        .appPrefersColorScheme()
         
     }
     

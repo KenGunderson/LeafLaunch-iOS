@@ -111,8 +111,25 @@ extension View {
             case .auth(let route): auth(route: route)
             case .settings(let route): settings(route: route)
             case .devSetting(let route): devSettings(route: route)
+            case .customer(let route): customer(route: route)
             }
             
+        }
+
+        @ViewBuilder
+        func customer(route: Route.CustomerRoute) -> some View {
+
+            switch route {
+            case .product(let locationId, let productId):
+
+                let viewModel = Container.shared.productDetailsViewModel()
+                    .setup(locationId: locationId, productId: productId)
+
+                ProductDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
+            }
+
         }
         
         @ViewBuilder

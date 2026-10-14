@@ -22,7 +22,8 @@ class MockViewModelAssembly {
                 pushNotificationService: container.pushNotificationService(),
                 userDefaultsService: container.userDefaultsService(),
                 deeplinkService: container.deeplinkService(),
-                startupService: container.rootStartupService()
+                startupService: container.rootStartupService(),
+                mainViewModel: container.mainViewModel()
             )
         }
 
@@ -33,10 +34,13 @@ class MockViewModelAssembly {
                 alertService: container.alertService(),
                 appDelegateService: container.appDelegateService(),
                 analyticsService: container.analyticsService(),
-                firebaseService: container.firebaseService(),
-                authService: container.authService(),
                 pushNotificationsService: container.pushNotificationService(),
-                environmentService: container.environmentService()
+                environmentService: container.environmentService(),
+                storeSessionService: container.storeSessionService(),
+                tabBarNavigationService: container.tabBarNavigationService(),
+                locationsViewModel: container.locationsViewModel(),
+                ageVerificationViewModel: container.ageVerificationViewModel(),
+                makeStoreDetailsViewModel: { container.storeDetailsViewModel() }
             )
         }
         
@@ -46,42 +50,6 @@ class MockViewModelAssembly {
             HomeViewModel(analyticsService: container.analyticsService())
         }
 
-        // Tab 1
-        
-        container.tab1ViewModel.register { @MainActor in
-            Tab1ViewModel(
-                alertService: container.alertService(),
-                authService: container.authService(),
-                analyticsService: container.analyticsService(),
-                userDefaultsService: container.userDefaultsService(),
-            )
-        }
-        
-        // Board
-        
-        container.tab2ViewModel.register { @MainActor in
-            Tab2ViewModel(
-                alertService: container.alertService(),
-                authService: container.authService(),
-                analyticsService: container.analyticsService(),
-                userDefaultsService: container.userDefaultsService(),
-            )
-        }
-        
-        container.tab3ViewModel.register { @MainActor in
-            Tab3ViewModel(
-                authService: container.authService(),
-                analyticsService: container.analyticsService()
-            )
-        }
-        
-        container.tab4ViewModel.register { @MainActor in
-            Tab4ViewModel(
-                authService: container.authService(),
-                analyticsService: container.analyticsService(),
-            )
-        }
-        
         // Auth - Welcome
         
         container.welcomeViewModel.register { @MainActor in
@@ -98,6 +66,7 @@ class MockViewModelAssembly {
         
         container.loginViewModel.register { @MainActor in
             LoginViewModel(
+                alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),

@@ -18,6 +18,9 @@ struct LeafLaunchApp: App {
     
     init() {
         
+        self.appAssembler.container.userDefaultsService()
+            .restoreCachedStoreTheme()
+
         self.rootViewModel = self.appAssembler
             .container
             .rootViewModel()

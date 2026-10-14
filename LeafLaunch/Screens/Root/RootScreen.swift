@@ -12,9 +12,12 @@ struct RootScreen: GPView {
 
     @Environment(\.style) private var style
     
-    @StateObject var viewModel: RootViewModel    
-    @State private var shouldShowHealthCheckView: Bool = false
+    @StateObject private var viewModel: RootViewModel
     @State private var navigationService = NavigationService()
+
+    init(viewModel: RootViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
      
@@ -31,21 +34,16 @@ struct RootScreen: GPView {
         // Lifecycle
         
         .onFirstAppear { [weak viewModel] in
-            
-            viewModel?
-                .track()
-            
-        }
-        
-        .onAppear { [weak viewModel] in
-            
-            viewModel?
-                .setNavigationService(self.navigationService)
-            
+
+            viewModel?.setNavigationService(self.navigationService)
+            viewModel?.track()
             globalNavigationService = self.navigationService
-            
+
         }
-        
+
+        .task { [weak viewModel] in
+            viewModel?.loadData()
+        }
         
         // Deeplinks
         
@@ -78,8 +76,12 @@ struct RootScreen: GPView {
             
             VStack(spacing: self.style.spacing(.none)) {
                                         
-                MainScreen(viewModel: self.viewModel.mainViewModel)
-                    .restrictCapture(self.viewModel.userDefaultsService.shouldHideScreenshots)
+                if self.viewModel.launchState == .completed {
+
+                    MainScreen(viewModel: self.viewModel.mainViewModel)
+                        .restrictCapture(self.viewModel.userDefaultsService.shouldHideScreenshots)
+
+                }
                 
             }
             
@@ -96,6 +98,7 @@ struct RootScreen: GPView {
                         
         }
         .opacity(self.viewModel.launchState == .completed ? 0 : 1)
+        .allowsHitTesting(self.viewModel.launchState != .completed)
         .animation(.smooth(duration: 0.6), value: viewModel.launchState)
         .onFirstAppear { [weak viewModel] in
             

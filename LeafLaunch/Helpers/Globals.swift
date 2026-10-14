@@ -7,7 +7,5 @@
 
 import SwiftUI
 
-/// For fun; not actually keeping
 @MainActor var globalTabBarNavigationService: TabBarNavigationService?
-
 @MainActor weak var globalNavigationService: NavigationService?

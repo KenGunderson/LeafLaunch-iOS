@@ -45,6 +45,8 @@ internal enum AppRoute {
     
     case health
     case search
+    case customerPublic(String)
+    case customer(String)
     
     case user(String, version: Version = .none)
     case device(String, version: Version = .none)
@@ -80,6 +82,8 @@ internal enum AppRoute {
         switch self {
         case .health: return "health"
         case .search: return "search"
+        case .customerPublic: return "public"
+        case .customer: return "customer"
         case .user: return "users"
         case .device: return "devices"
         case .business: return "businesses"
@@ -107,6 +111,11 @@ internal enum AppRoute {
     var buildURL: String {
         
         switch self {
+        case .customerPublic(let route),
+             .customer(let route):
+
+            return buildURL(category: category, route: route, version: .v1)
+
         case .health,
              .search:
             

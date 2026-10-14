@@ -32,15 +32,16 @@ final class SignUpViewModel: ViewModel {
     @Published var agreedToTerms: Bool = false
 
     @Published private var currentNonce: String?
-    @Published var error: Error?
+    @Published private(set) var isLoading: Bool = false
 
     var isButtonEnabled: Bool {
 
         return (
-            self.email.count > 3 &&
+            !self.isLoading &&
+            self.email.trimmed().count > 3 &&
             self.password.count >= 6 &&
-            self.firstName.count >= 2 &&
-            self.lastName.count >= 2
+            self.firstName.trimmed().count >= 2 &&
+            self.lastName.trimmed().count >= 2
         )
 
     }
@@ -57,14 +58,14 @@ final class SignUpViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
 
-        self.logInit()
+        logInit()
 
     }
 
     isolated deinit {
         
         cancelTasks()
-        self.logDeinit()
+        logDeinit()
         
     }
 
@@ -75,16 +76,33 @@ final class SignUpViewModel: ViewModel {
     @MainActor
     func handleAppleAuthoriziation(result: Result<ASAuthorization, any Error>) {
 
+        guard !self.isLoading else { return }
+
         switch result {
         case .success(let authorization):
 
             self.appleAuthorizationTask?.cancel()
+            self.isLoading = true
 
+            let alertService = self.alertService
             let analyticsService = self.analyticsService
             let authService = self.authService
             let currentNonce = self.currentNonce
 
-            self.appleAuthorizationTask = Task { [weak self] in
+            self.appleAuthorizationTask = Task { @MainActor [weak self] in
+
+                guard !Task.isCancelled else { return }
+
+                let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+                alertService.showAlert(loadingIndicator)
+
+                defer {
+
+                    alertService.dismissAlert(loadingIndicator)
+                    self?.isLoading = false
+                    self?.appleAuthorizationTask = nil
+
+                }
 
                 analyticsService
                     .track(.auth(.appleSignupIntent))
@@ -101,16 +119,17 @@ final class SignUpViewModel: ViewModel {
                     self?.dismiss()
 
                 }
-                catch(let error) {
+                catch {
 
                     guard !Task.isCancelled else { return }
-                    self?.error = error
+                    self?.presentAuthError(error)
 
                 }
 
             }
 
-        case .failure(let error): self.error = error
+        case .failure(let error):
+            presentAuthError(error)
         }
 
     }
@@ -118,18 +137,35 @@ final class SignUpViewModel: ViewModel {
     @MainActor
     func handleSignUp() {
 
+        guard self.isButtonEnabled else { return }
+
         self.analyticsService
             .track(.auth(.signupIntent))
 
         self.signUpTask?.cancel()
+        self.isLoading = true
 
+        let alertService = self.alertService
         let authService = self.authService
         let firstName = self.firstName.capitalized.trimmed()
         let lastName = self.lastName.capitalized.trimmed()
         let email = self.email.trimmed()
-        let password = self.password.trimmed()
+        let password = self.password
 
-        self.signUpTask = Task { [weak self] in
+        self.signUpTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            alertService.showAlert(loadingIndicator)
+
+            defer {
+
+                alertService.dismissAlert(loadingIndicator)
+                self?.isLoading = false
+                self?.signUpTask = nil
+
+            }
 
             do {
 
@@ -146,10 +182,10 @@ final class SignUpViewModel: ViewModel {
                     .popToRoot()
 
             }
-            catch(let error) {
+            catch {
 
                 guard !Task.isCancelled else { return }
-                self?.error = error
+                self?.presentAuthError(error)
 
             }
 
@@ -173,7 +209,27 @@ final class SignUpViewModel: ViewModel {
     }
 
     private func bindSubscribers() {
+
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
+
+    }
+
+    private func presentAuthError(_ error: Error) {
+
+        guard !(error is CancellationError) else { return }
+        if let authorizationError = error as? ASAuthorizationError,
+           authorizationError.code == .canceled { return }
+
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: error.getMessageForError(),
+                    action: {}
+                )
+            )
+        ))
+
     }
 
     private func cancelTasks() {

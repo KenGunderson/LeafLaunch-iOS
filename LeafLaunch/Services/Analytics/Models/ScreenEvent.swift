@@ -155,6 +155,7 @@ indirect enum ScreenEvent: AnalyticsEvent {
     case launch
     case main(MainEvent)
     case home
+    case customer(CustomerScreenEvent)
     case auth(AuthScreen)
     case profile(ProfileScreen)
     case settings(Settings)
@@ -178,6 +179,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
             properties = screen.data.properties 
             
         case .home: screenName = "home"
+        case .customer(let screen):
+
+            screenName = screen.screenName
+            properties = screen.properties
+
         case .auth(let screen): screenName = screen.screenName
         case .devSettings(let screen): screenName = screen.screenName
         case .settings(let screen): screenName = screen.screenName

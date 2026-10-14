@@ -31,6 +31,7 @@ final class AuthService: AuthServiceProtocol {
     var cancelBag: CancelBag!
     private var logoutTask: Task<Void, Never>?
     private var initialUserLoadTask: Task<Void, Never>?
+    private var initialUserLoadId: UUID?
     
     init(firebaseService: FirebaseServiceProtocol,
          apiService: APIServiceProtocol,
@@ -64,6 +65,10 @@ final class AuthService: AuthServiceProtocol {
             self.firebaseService.clearAuthContext()
         }
 
+        guard let locationId = self.userDefaultsService.lastSelectedLocationId else {
+            throw APIError.serverError(statusCode: 400, errorMessage: "Choose a store before creating an account.")
+        }
+
         do {
             
             try await self.firebaseService.signup(
@@ -73,16 +78,11 @@ final class AuthService: AuthServiceProtocol {
             
             self.apiService.accessToken = self.firebaseService.currentAccessToken
 
-            let _ = try await self.apiService
-                .createUser(user: .init(
-                    id: "",
-                    firstName: firstName.capitalized.trimmed(),
-                    lastName: lastName.capitalized.trimmed(),
-                    email: email,
-                    externalId: self.firebaseService.user?.uid ?? "",
-                    dateOfBirth: nil,
-                    imageURL: nil
-                ))
+            _ = try await self.apiService.registerCustomerAccount(
+                locationId: locationId,
+                displayName: "\(firstName.trimmed()) \(lastName.trimmed())".trimmed()
+            )
+            try Task.checkCancellation()
             
             try await fetchUserInfoWithToken()
             
@@ -163,6 +163,10 @@ final class AuthService: AuthServiceProtocol {
     @MainActor
     func fetchUserInfoWithToken() async throws {
         
+        guard let firebaseUser = self.firebaseService.user else { return }
+        let externalId = firebaseUser.uid
+        let email = firebaseUser.email ?? ""
+
         do {
             
             try await self.firebaseService
@@ -171,9 +175,17 @@ final class AuthService: AuthServiceProtocol {
             self.apiService
                 .accessToken = self.firebaseService.currentAccessToken
 
-            let user = try await self.apiService
-                .getUserProfile()
-            
+            let account = try await self.apiService.getCustomerAccount()
+            try Task.checkCancellation()
+
+            guard self.firebaseService.user?.uid == externalId else { return }
+
+            let user = GPUser(
+                customerAccount: account,
+                externalId: externalId,
+                email: email
+            )
+
             self.currentUser = user
             
             if self.analyticsService.currentUserId.value == nil {
@@ -199,10 +211,7 @@ final class AuthService: AuthServiceProtocol {
         
         do {
             
-            let user = try await self.apiService
-                .getUserProfile()
-            
-            self.currentUser = user
+            try await fetchUserInfoWithToken()
             
         }
         catch {
@@ -224,6 +233,22 @@ final class AuthService: AuthServiceProtocol {
         do {
             
             self.initialUserLoadTask?.cancel()
+
+            if self.currentUser != nil, self.firebaseService.user != nil {
+
+                do {
+                    try await self.apiService.signOutCustomerDevice(installationId: Constants.Device.deviceId)
+                }
+                catch {
+
+                    self.logError(
+                        title: "Device Sign Out Error",
+                        message: error.getMessageForError()
+                    )
+
+                }
+
+            }
 
             globalTabBarNavigationService?.resetPathItems()
             try self.firebaseService.logout()
@@ -265,12 +290,12 @@ final class AuthService: AuthServiceProtocol {
     @MainActor
     func deleteUser() async throws {
         
-        guard let currentUser = self.currentUser else { return }
+        guard self.currentUser != nil else { return }
         
         do {
             
-            try await self.apiService
-                .deleteUser(user: currentUser)
+            try await self.apiService.deleteCustomerAccount()
+            try Task.checkCancellation()
             
             try self.firebaseService.logout()
             await self.userDefaultsService.logout()
@@ -343,31 +368,23 @@ final class AuthService: AuthServiceProtocol {
             
             self.apiService.accessToken = self.firebaseService.currentAccessToken
 
-            if let name = authResult.name,
-               let email = authResult.email {
+            if !isLogin {
 
-                let user = try await self.apiService
-                    .createUser(user: .init(
-                        id: "",
-                        firstName: name.firstName,
-                        lastName: name.lastName,
-                        email: email,
-                        externalId: self.firebaseService.user?.uid ?? "",
-                        dateOfBirth: nil,
-                        imageURL: nil
-                    ))
+                guard let locationId = self.userDefaultsService.lastSelectedLocationId else {
+                    throw APIError.serverError(statusCode: 400, errorMessage: "Choose a store before creating an account.")
+                }
 
-                self.currentUser = user
+                let displayName = authResult.name ?? self.firebaseService.user?.displayName ?? "Customer"
+
+                _ = try await self.apiService.registerCustomerAccount(
+                    locationId: locationId,
+                    displayName: displayName
+                )
+                try Task.checkCancellation()
 
             }
-            else {
 
-                let user = try await self.apiService
-                    .getUserProfile()
-
-                self.currentUser = user
-
-            }
+            try await fetchUserInfoWithToken()
             
         }
         catch {
@@ -417,9 +434,16 @@ final class AuthService: AuthServiceProtocol {
             .receiveOnMain()
             .sink { [weak self] user in
 
-                guard Constants.Capabilities.isAuthRequired else { return }
                 guard let self else { return }
-                guard let user else { return }
+
+                guard let user else {
+
+                    self.initialUserLoadTask?.cancel()
+                    self.currentUser = nil
+                    self.onInitialLoadCompleted.send(true)
+                    return
+
+                }
                 guard !self.firebaseService.isSignUpContext,
                       !self.firebaseService.isLoginContext else { return }
                 
@@ -433,32 +457,59 @@ final class AuthService: AuthServiceProtocol {
     private func loadInitialUser(_ user: User) {
         
         self.initialUserLoadTask?.cancel()
+
+        let loadId = UUID()
+        self.initialUserLoadId = loadId
+
+        let firebaseService = self.firebaseService
+        let apiService = self.apiService
+        let analyticsService = self.analyticsService
+        let externalId = user.uid
+        let email = user.email ?? ""
         
-        self.initialUserLoadTask = Task { [weak self] in
-            
-            guard let self else { return }
+        self.initialUserLoadTask = Task { @MainActor [weak self] in
             
             defer {
-                self.onInitialLoadCompleted.send(true)
+
+                if self?.initialUserLoadId == loadId {
+                    self?.onInitialLoadCompleted.send(true)
+                }
+
             }
-            
-            guard let _ = self.firebaseService.user else { return }
 
             do {
-                try await fetchUserInfoWithToken()
+
+                try await firebaseService.getAccessTokenForCurrentUser()
+                try Task.checkCancellation()
+
+                apiService.accessToken = firebaseService.currentAccessToken
+
+                let account = try await apiService.getCustomerAccount()
+                try Task.checkCancellation()
+
+                guard self?.initialUserLoadId == loadId,
+                      firebaseService.user?.uid == externalId else { return }
+
+                self?.currentUser = GPUser(
+                    customerAccount: account,
+                    externalId: externalId,
+                    email: email
+                )
+                analyticsService.identifyUser(account.id)
+
             }
             catch {
+
+                guard !Task.isCancelled,
+                      self?.initialUserLoadId == loadId else { return }
                 
-                self.logError(
+                self?.logError(
                     title: "Load Initial User Error",
                     message: error.getMessageForError()
                 )
-                
-                // TODO: - This causes two errors because the throw goes to LoginViewModel / SignupViewModel
-                // But this OnError presents on the RootViewModel. We need a way to know if this endpoint failed before or after the user has signed in. If old sign in then this onError should be good.
-                
-                if self.onInitialLoadCompleted.value {
-                    self.onError.send(error)
+
+                if self?.onInitialLoadCompleted.value == true {
+                    self?.onError.send(error)
                 }
                 
             }

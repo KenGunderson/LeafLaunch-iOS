@@ -25,9 +25,44 @@ class MockAppAssembler {
         MockViewModelAssembly()
             .assemble(container: self.container)
 
+        MockCustomerViewModelAssembly()
+            .assemble(container: self.container)
+
     }
 
     func resolve<T>(_ type: T.Type) -> T {
+
+        if type == LocationsViewModel.self {
+            return self.container.locationsViewModel() as! T
+        }
+
+        if type == AgeVerificationViewModel.self {
+            return self.container.ageVerificationViewModel() as! T
+        }
+
+        if type == StoreDetailsViewModel.self {
+            return self.container.storeDetailsViewModel() as! T
+        }
+
+        if type == StoreOverviewViewModel.self {
+            return self.container.storeOverviewViewModel() as! T
+        }
+
+        if type == StoreShopViewModel.self {
+            return self.container.storeShopViewModel() as! T
+        }
+
+        if type == StoreFavoritesViewModel.self {
+            return self.container.storeFavoritesViewModel() as! T
+        }
+
+        if type == ProductDetailsViewModel.self {
+            return self.container.productDetailsViewModel() as! T
+        }
+
+        if type == StoreAccountViewModel.self {
+            return self.container.storeAccountViewModel() as! T
+        }
 
         if type == AlertServiceProtocol.self {
             return self.container.alertService() as! T
@@ -56,22 +91,6 @@ class MockAppAssembler {
 
         if type == SignUpViewModel.self {
             return self.container.signUpViewModel() as! T
-        }
-
-        if type == Tab1ViewModel.self {
-            return self.container.tab1ViewModel() as! T
-        }
-
-        if type == Tab2ViewModel.self {
-            return self.container.tab2ViewModel() as! T
-        }
-
-        if type == Tab3ViewModel.self {
-            return self.container.tab3ViewModel() as! T
-        }
-
-        if type == Tab4ViewModel.self {
-            return self.container.tab4ViewModel() as! T
         }
 
         if type == SettingsViewModel.self {

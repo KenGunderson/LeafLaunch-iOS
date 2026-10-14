@@ -14,6 +14,7 @@ final class LoginViewModel: ViewModel {
     internal let loggerName: String = "LOGIN_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
 
+    private let alertService: AlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -31,35 +32,38 @@ final class LoginViewModel: ViewModel {
     @Published private(set) var currentNonce: String?
 
     @Published var shouldPresentForgotPassword = false
-    @Published var error: Error?
+    @Published private(set) var isLoading: Bool = false
 
     var isButtonEnabled: Bool {
 
         return (
-            self.email.count > 3 &&
+            !self.isLoading &&
+            self.email.trimmed().count > 3 &&
             self.password.count >= 6
         )
 
     }
 
-    init(analyticsService: AnalyticsServiceProtocol,
+    init(alertService: AlertServiceProtocol,
+         analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
 
+        self.alertService = alertService
         self.analyticsService = analyticsService
         self.authService = authService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
 
-        self.logInit()
+        logInit()
 
     }
 
     isolated deinit {
 
         cancelTasks()
-        self.logDeinit()
+        logDeinit()
 
     }
 
@@ -72,6 +76,8 @@ final class LoginViewModel: ViewModel {
     }
 
     func handleForgotPassword() {
+
+        guard !self.isLoading else { return }
 
         self.analyticsService.track(.auth(.forgotPasswordIntent))
         self.shouldPresentForgotPassword = true
@@ -92,16 +98,33 @@ final class LoginViewModel: ViewModel {
     @MainActor
     func handleAppleAuthoriziation(result: Result<ASAuthorization, any Error>) {
 
+        guard !self.isLoading else { return }
+
         switch result {
         case .success(let authorization):
 
             self.appleAuthorizationTask?.cancel()
+            self.isLoading = true
 
+            let alertService = self.alertService
             let analyticsService = self.analyticsService
             let authService = self.authService
             let currentNonce = self.currentNonce
 
-            self.appleAuthorizationTask = Task { [weak self] in
+            self.appleAuthorizationTask = Task { @MainActor [weak self] in
+
+                guard !Task.isCancelled else { return }
+
+                let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+                alertService.showAlert(loadingIndicator)
+
+                defer {
+
+                    alertService.dismissAlert(loadingIndicator)
+                    self?.isLoading = false
+                    self?.appleAuthorizationTask = nil
+
+                }
 
                 analyticsService
                     .track(.auth(.appleLoginIntent))
@@ -118,16 +141,17 @@ final class LoginViewModel: ViewModel {
                     self?.dismiss()
 
                 }
-                catch(let error) {
+                catch {
 
                     guard !Task.isCancelled else { return }
-                    self?.error = error
+                    self?.presentAuthError(error)
 
                 }
 
             }
 
-        case .failure(let error): self.error = error
+        case .failure(let error):
+            presentAuthError(error)
         }
 
     }
@@ -135,25 +159,54 @@ final class LoginViewModel: ViewModel {
     @MainActor
     func handleForgetPassword(email: String) {
 
-        self.forgotPasswordTask?.cancel()
+        guard !self.isLoading else { return }
 
+        self.forgotPasswordTask?.cancel()
+        self.isLoading = true
+        self.shouldPresentForgotPassword = false
+
+        let alertService = self.alertService
         let authService = self.authService
         let analyticsService = self.analyticsService
+        let email = email.trimmed()
 
-        self.forgotPasswordTask = Task { [weak self] in
+        self.forgotPasswordTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            alertService.showAlert(loadingIndicator)
+
+            defer {
+
+                alertService.dismissAlert(loadingIndicator)
+                self?.isLoading = false
+                self?.forgotPasswordTask = nil
+
+            }
 
             do {
 
                 try await authService.resetPassword(email: email)
+                guard !Task.isCancelled else { return }
 
                 analyticsService
                     .track(.auth(.forgotPassword(email: email)))
 
+                alertService.showAlert(.init(
+                    .appAlert(
+                        .success(
+                            message: "If an account exists for that email, password reset instructions are on the way.",
+                            action: {}
+                        )
+                    )
+                ))
+
             }
-            catch(let error) {
+            catch {
 
                 guard !Task.isCancelled else { return }
-                self?.error = error
+                self?.presentAuthError(error)
 
             }
 
@@ -164,16 +217,33 @@ final class LoginViewModel: ViewModel {
     @MainActor
     func handleLogin() {
 
+        guard self.isButtonEnabled else { return }
+
         self.analyticsService
             .track(.auth(.loginIntent))
 
         self.loginTask?.cancel()
+        self.isLoading = true
 
+        let alertService = self.alertService
         let authService = self.authService
         let email = self.email.trimmed()
-        let password = self.password.trimmed()
+        let password = self.password
 
-        self.loginTask = Task { [weak self] in
+        self.loginTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            alertService.showAlert(loadingIndicator)
+
+            defer {
+
+                alertService.dismissAlert(loadingIndicator)
+                self?.isLoading = false
+                self?.loginTask = nil
+
+            }
 
             do {
 
@@ -186,10 +256,10 @@ final class LoginViewModel: ViewModel {
                 self?.dismiss()
 
             }
-            catch(let error) {
+            catch {
 
                 guard !Task.isCancelled else { return }
-                self?.error = error
+                self?.presentAuthError(error)
 
             }
 
@@ -198,7 +268,27 @@ final class LoginViewModel: ViewModel {
     }
 
     private func bindSubscribers() {
+
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
+
+    }
+
+    private func presentAuthError(_ error: Error) {
+
+        guard !(error is CancellationError) else { return }
+        if let authorizationError = error as? ASAuthorizationError,
+           authorizationError.code == .canceled { return }
+
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: error.getMessageForError(),
+                    action: {}
+                )
+            )
+        ))
+
     }
 
     private func cancelTasks() {

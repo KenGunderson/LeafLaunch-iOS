@@ -20,17 +20,21 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private let appDelegateService: AppDelegateServiceProtocol
     private let connectivityService: ConnectivityServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
+    private let storeSessionService: StoreSessionServiceProtocol
     
     private var cancelBag: CancelBag!
     private var foregroundUserRefreshTask: Task<Void, Never>?
     private var registerDeviceTokenTask: Task<Void, Never>?
     private var healthCheckTask: Task<Void, Never>?
+    private var storeBootstrapTask: Task<Void, Never>?
     private var hasStarted: Bool = false
     private var isSplashAnimationCompleted: Bool = false
     private var isAuthBootstrapCompleted: Bool = false
     private var hasResolvedLaunchGate: Bool = false
     private var didResolveInitialAuthState: Bool = false
     private var wasLoggedInAtStartup: Bool = false
+    private var hasStartedStoreBootstrap: Bool = false
+    private var isStoreBootstrapCompleted: Bool = false
     
     init(launchService: LaunchScreenServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
@@ -39,7 +43,8 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
          firebaseService: FirebaseServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
          connectivityService: ConnectivityServiceProtocol,
-         viewLifecycleService: ViewLifecycleServiceProtocol) {
+         viewLifecycleService: ViewLifecycleServiceProtocol,
+         storeSessionService: StoreSessionServiceProtocol) {
         
         self.launchService = launchService
         self.environmentService = environmentService
@@ -49,6 +54,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         self.appDelegateService = appDelegateService
         self.connectivityService = connectivityService
         self.viewLifecycleService = viewLifecycleService
+        self.storeSessionService = storeSessionService
         
         self.logInit()
         
@@ -103,14 +109,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             .sink(receiveValue: onLaunchStateChanged)
             .store(in: &self.cancelBag)
 
-        guard Constants.Capabilities.isAuthRequired else {
-
-            self.isAuthBootstrapCompleted = true
-            resolveLaunchIfPossible()
-            return
-
-        }
-        
         self.firebaseService
             .userPublisher
             .receiveOnMain()
@@ -269,8 +267,28 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private func resolveLaunchIfPossible() {
         
         guard !self.hasResolvedLaunchGate else { return }
-        guard self.isSplashAnimationCompleted else { return }
         guard self.isAuthBootstrapCompleted else { return }
+
+        if !self.hasStartedStoreBootstrap {
+
+            self.hasStartedStoreBootstrap = true
+
+            let storeSessionService = self.storeSessionService
+
+            self.storeBootstrapTask = Task { @MainActor [weak self] in
+
+                await storeSessionService.bootstrap()
+                guard !Task.isCancelled else { return }
+
+                self?.isStoreBootstrapCompleted = true
+                self?.resolveLaunchIfPossible()
+
+            }
+
+        }
+
+        guard self.isStoreBootstrapCompleted else { return }
+        guard self.isSplashAnimationCompleted else { return }
         
         self.hasResolvedLaunchGate = true
         self.log(message: "Launch gate: completed")
@@ -333,6 +351,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         self.foregroundUserRefreshTask?.cancel()
         self.registerDeviceTokenTask?.cancel()
         self.healthCheckTask?.cancel()
+        self.storeBootstrapTask?.cancel()
         
     }
     

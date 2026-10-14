@@ -190,7 +190,7 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
     let retryPolicy: APIRetryPolicy = .noRetry
 
     var hostURL: String {
-        return Constants.URLs.urlForEnvironment(.localhost)
+        return MockCustomerModels.hostURL
     }
 
     func freshAccessToken() async throws(APIError) -> String? {
@@ -198,6 +198,9 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
     }
 
     private var currentUser: GPUser
+
+    var customerAccount: CustomerAccount = MockCustomerModels.account
+    var customerMemberships: [String: CustomerLocationMembership] = MockCustomerModels.memberships
 
     init() {
 
@@ -261,35 +264,102 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
     internal let loggerName: String = "AUTH_SERVICE"
     internal let loggerEmoji: String = "🪪"
 
-    private let apiService: APIServiceProtocol = MockAPIService()
+    private let apiService: APIServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
 
-    var currentUser: GPUser? = MockModels.MockUser.user1
-    var currentUserPublisher = CurrentValueSubject<GPUser?, Never>(MockModels.MockUser.user1).eraseToAnyPublisher()
-    var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(false)
+    @Published private(set) var currentUser: GPUser?
+    var currentUserPublisher: AnyPublisher<GPUser?, Never> {
+        return self.$currentUser.eraseToAnyPublisher()
+    }
+
+    var onInitialLoadCompleted = CurrentValueSubject<Bool, Never>(true)
     var onError = CurrentValueSubject<Error?, Never>(nil)
 
-    init() {
-        self.currentUser = MockModels.MockUser.user1
+    init(apiService: APIServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol) {
+        self.apiService = apiService
+        self.userDefaultsService = userDefaultsService
+        self.currentUser = MockCustomerModels.user
+
     }
 
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
-        self.currentUser = MockModels.MockUser.user1
+
+        let locationId = self.userDefaultsService.lastSelectedLocationId ?? MockCustomerModels.locationDetails.location.id
+        let account = try await self.apiService.registerCustomerAccount(
+            locationId: locationId,
+            displayName: "\(firstName) \(lastName)".trimmed()
+        )
+        try Task.checkCancellation()
+
+        self.currentUser = GPUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
+
     }
 
     func login(email: String, password: String) async throws {
 
-        let currentUser = MockModels.MockUser.user1
-        self.currentUser = currentUser
+        let account = try await self.apiService.getCustomerAccount()
+        try Task.checkCancellation()
+
+        self.currentUser = GPUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
 
     }
 
-    func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, isLogin: Bool) async throws {}
-    func fetchUserInfoWithToken() async throws {}
-    func reloadUser() async throws {}
-    func deleteUser() async throws {}
-    func updateEmail(_ email: String) async throws {}
+    func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, isLogin: Bool) async throws {
+        try await login(email: MockModels.MockUser.user1.email, password: "")
+    }
+
+    func fetchUserInfoWithToken() async throws {
+        try await reloadUser()
+    }
+
+    func reloadUser() async throws {
+
+        guard let currentUser = self.currentUser else { return }
+
+        let account = try await self.apiService.getCustomerAccount()
+        try Task.checkCancellation()
+
+        guard self.currentUser?.id == currentUser.id else { return }
+        self.currentUser = GPUser(
+            customerAccount: account,
+            externalId: currentUser.externalId,
+            email: currentUser.email
+        )
+
+    }
+
+    func deleteUser() async throws {
+
+        try await self.apiService.deleteCustomerAccount()
+        try Task.checkCancellation()
+
+        self.currentUser = nil
+
+    }
+
+    func updateEmail(_ email: String) async throws {
+
+        guard let currentUser = self.currentUser else { return }
+
+        self.currentUser = GPUser(
+            id: currentUser.id,
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
+            email: email,
+            externalId: currentUser.externalId
+        )
+
+    }
+
     func resetPassword(email: String) async throws {}
-    func logout() async throws {}
+
+    func logout() async throws {
+
+        await self.userDefaultsService.logout()
+        self.currentUser = nil
+
+    }
 
 }
 
@@ -375,7 +445,9 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     func freshAuthToken() async throws -> String? { return self.currentAccessToken }
     func resetPassword(email: String) async throws {}
     func updateEmail(newEmail: String) async throws {}
-    func uploadImage(imageData: Data, bucket: Query.Bucket) async throws -> URL { URL(string: "https://example.com")! }
+    func uploadImage(imageData: Data, bucket: Query.Bucket) async throws -> URL {
+        MockCustomerModels.imageURL(seed: MockCustomerModels.externalId)
+    }
 
 }
 
@@ -387,7 +459,9 @@ final class MockLaunchScreenService: LaunchScreenServiceProtocol, @unchecked Sen
     internal let loggerEmoji: String = "🚀"
 
     var onLaunchStateChanged = CurrentValueSubject<LaunchScreenService.State, Never>(.loading)
-    func setState(_ state: LaunchScreenService.State) {}
+    func setState(_ state: LaunchScreenService.State) {
+        self.onLaunchStateChanged.send(state)
+    }
 
 }
 
@@ -416,12 +490,26 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sen
     var securityPinsDictionaryData: Data?
     var shouldHideScreenshots: Bool = false
 
+    var lastSelectedLocationId: String?
+    let guestIdentityId = MockCustomerModels.guestIdentityId
+    var ageVerificationApprovals: [String: [String]] = [:]
+    var favoriteProductIds: Set<String> = []
+    let favoriteProductIdsPublisher = CurrentValueSubject<Set<String>, Never>([])
+    var cachedStoreBranding: StoreAppBranding?
+    var customerTheme: Theme?
+
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
 
-    func set(theme: AvailableTheme) {}
+    func set(theme: AvailableTheme) {
+
+        self.theme = theme
+        self.themePublisher.send(theme)
+        applyStoreTheme(branding: self.cachedStoreBranding)
+
+    }
     func set(didRateMyAppAlertShow: Bool) {}
     func set(securityPin: String?, businessId: String) {}
     func set(shouldHideScreenshots: Bool) {}
@@ -456,6 +544,24 @@ final class MockViewLifecycleService: ViewLifecycleServiceProtocol, @unchecked S
 
 final class MockServiceAssembly {
 
+    // Keep real navigation, alerts, persistence, splash, and lifecycle behavior.
+    // Install these overrides on Container.shared before any ViewModel resolves.
+    @MainActor
+    func assembleRuntime(container: Container) {
+
+        container.analyticsService.register { @MainActor in MockAnalyticsService() }
+        container.firebaseService.register { @MainActor in MockFirebaseService() }
+        container.connectivityService.register { @MainActor in MockConnectivityService() }
+        container.apiService.register { @MainActor in MockAPIService() }
+        container.authService.register { @MainActor in
+            MockAuthService(
+                apiService: container.apiService(),
+                userDefaultsService: container.userDefaultsService()
+            )
+        }
+
+    }
+
     func assemble(container: Container) {
 
         container.environmentService.register { @MainActor in MockEnvironmentService() }
@@ -470,7 +576,21 @@ final class MockServiceAssembly {
         container.launchScreenService.register { @MainActor in MockLaunchScreenService() }
         container.viewLifecycleService.register { @MainActor in MockViewLifecycleService() }
         container.apiService.register { @MainActor in MockAPIService() }
-        container.authService.register { @MainActor in MockAuthService() }
+        container.authService.register { @MainActor in
+            MockAuthService(
+                apiService: container.apiService(),
+                userDefaultsService: container.userDefaultsService()
+            )
+        }
+        container.tabBarNavigationService.register { @MainActor in TabBarNavigationService() }
+        container.storeSessionService.register { @MainActor in
+            StoreSessionService(
+                apiService: container.apiService(),
+                authService: container.authService(),
+                userDefaultsService: container.userDefaultsService(),
+                tabBarNavigationService: container.tabBarNavigationService()
+            )
+        }
         container.rootStartupService.register { @MainActor in
             RootStartupService(
                 launchService: container.launchScreenService(),
@@ -480,7 +600,8 @@ final class MockServiceAssembly {
                 firebaseService: container.firebaseService(),
                 appDelegateService: container.appDelegateService(),
                 connectivityService: container.connectivityService(),
-                viewLifecycleService: container.viewLifecycleService()
+                viewLifecycleService: container.viewLifecycleService(),
+                storeSessionService: container.storeSessionService()
             )
         }
 

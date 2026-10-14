@@ -1,0 +1,7 @@
+// This target is dedicated to the seeded LeafLaunch customer business.
+// Give each additional business its own target and configuration file.
+LEAFLAUNCH_BUSINESS_ID = ba6266df-513d-5b44-a58b-6e209284ceac
+LEAFLAUNCH_APP_KEY = 2fec1b48-f628-5ad6-8772-e15f432c8d14
+LEAFLAUNCH_LOGO_ASSET_NAME = App_Icon
+LEAFLAUNCH_BUNDLE_IDENTIFIER = com.lltemplate
+

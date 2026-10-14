@@ -25,10 +25,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
+#if !LEAFLAUNCH_MOCK
         FirebaseApp.configureIfNeeded()
         Messaging.messaging().delegate = self
 
         UIApplication.shared.registerForRemoteNotifications()
+#endif
         
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().setBadgeCount(0) { [weak self] error in
@@ -55,6 +57,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 
+#if !LEAFLAUNCH_MOCK
         Messaging.messaging().apnsToken = deviceToken
 
         Messaging.messaging().token { [weak self] token, error in
@@ -76,13 +79,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
             }
 
         }
+#endif
         
     }
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 
+#if !LEAFLAUNCH_MOCK
         guard messaging.apnsToken != nil, let fcmToken else { return }
         self.publishFCMToken(fcmToken)
+#endif
 
     }
 

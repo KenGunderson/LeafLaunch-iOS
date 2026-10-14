@@ -1,8 +1,3 @@
-//
-//  MainScreen.swift
-//  LeafLaunch
-//
-
 import SwiftUI
 
 struct MainScreen: GPView {
@@ -10,40 +5,127 @@ struct MainScreen: GPView {
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject var viewModel: MainViewModel
+    @StateObject private var viewModel: MainViewModel
+
+    init(viewModel: MainViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
 
-        ZStack {
+        customerFlow()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(self.style.background(.primary))
+            .environment(self.viewModel.tabBarNavigationService)
+            .withWindowToastOverlay()
+            .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
+            .withWindowDynamicIslandService()
+            .withFullScreenCover(Bindable(self.navigationService).fullScreenCover)
+            .fullScreenCover(isPresented: ageVerificationBinding()) {
+                AgeVerificationScreen(viewModel: self.viewModel.ageVerificationViewModel)
+                    .interactiveDismissDisabled()
+            }
+            .withDevSettingsOverlay(isEnabled: self.viewModel.isDevSettingsEnabled) {
+                self.navigationService.modal(fullScreenCover: .devSettings)
+            }
+            .onFirstAppear { [weak viewModel] in
 
-            self.style.background(.primary).view().ignoresSafeArea()
+                viewModel?.setup(navigationService: self.navigationService)
+                viewModel?.handleFirstAppear()
 
-            if self.viewModel.showShouldHomeScreen {
+            }
 
-                AppRootView(navigationService: Bindable(self.navigationService)) {
-                    HomeScreen(viewModel: self.viewModel.homeViewModel)
+    }
+
+    private func ageVerificationBinding() -> Binding<Bool> {
+
+        Binding(
+            get: { self.viewModel.storeState == .ageVerification },
+            set: { _ in }
+        )
+
+    }
+
+    @ViewBuilder
+    private func customerFlow() -> some View {
+
+        switch self.viewModel.storeState {
+        case .loading:
+            statusBox(title: "Loading stores") { ProgressView() }
+
+        case .locations:
+            AppRootView(navigationService: Bindable(self.navigationService)) {
+                LocationsScreen(viewModel: self.viewModel.locationsViewModel)
+            }
+
+        case .ageVerification:
+            statusBox(title: "Age verification required") {
+                Text("Confirm your age to enter this store.")
+            }
+
+        case .store:
+            if let locationId = self.viewModel.storeLocationId,
+               let storeDetailsViewModel = self.viewModel.storeDetailsViewModel {
+
+                StoreDetailsScreen(viewModel: storeDetailsViewModel)
+                    .id(locationId)
+
+            }
+
+        case .configurationRequired:
+            statusBox(title: "Store configuration required") {
+                Text("This app is waiting for its store configuration.")
+            }
+
+        case .unavailable:
+            statusBox(title: "Store unavailable") {
+
+                Text("There are no stores available to browse right now.")
+                LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
+
+            }
+
+        case .updateRequired:
+            statusBox(title: "App update required") {
+
+                Text("Update this app to continue browsing.")
+
+                if let updateURL = self.viewModel.updateURL {
+                    Link("Update app", destination: updateURL)
                 }
 
+                LeafLaunchButton(title: "Check again") { self.viewModel.retryStoreLoading() }
+
             }
 
-            if self.viewModel.shouldShowWelcomeScreen {
-                WelcomeScreen(viewModel: self.viewModel.welcomeViewModel)
+        case .failed:
+            statusBox(title: "Unable to load stores") {
+
+                Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
+                LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
+                Button("Choose another location") { self.viewModel.chooseAnotherLocation() }
+
             }
 
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .withWindowToastOverlay()
-        .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
-        .withWindowDynamicIslandService()
-        .withDevSettingsOverlay(isEnabled: self.viewModel.isDevSettingsEnabled) {
-            self.navigationService.modal(fullScreenCover: .devSettings)
-        }
-        .onFirstAppear { [weak viewModel] in
 
-            viewModel?.setup(navigationService: self.navigationService)
-            viewModel?.handleFirstAppear()
+    }
+
+    private func statusBox<Content: View>(title: LocalizedStringKey,
+                                         @ViewBuilder content: () -> Content) -> some View {
+
+        GroupBox {
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+
+                Text(title).appFont(with: .TITLE_3)
+                content()
+
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
         }
+        .padding(self.style.spacing(.medium))
 
     }
 

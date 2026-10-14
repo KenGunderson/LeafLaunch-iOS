@@ -22,7 +22,8 @@ extension Container {
                 pushNotificationService: self.pushNotificationService(),
                 userDefaultsService: self.userDefaultsService(),
                 deeplinkService: self.deeplinkService(),
-                startupService: self.rootStartupService()
+                startupService: self.rootStartupService(),
+                mainViewModel: self.mainViewModel()
             )
         }
     }
@@ -36,10 +37,13 @@ extension Container {
                 alertService: self.alertService(),
                 appDelegateService: self.appDelegateService(),
                 analyticsService: self.analyticsService(),
-                firebaseService: self.firebaseService(),
-                authService: self.authService(),
                 pushNotificationsService: self.pushNotificationService(),
-                environmentService: self.environmentService()
+                environmentService: self.environmentService(),
+                storeSessionService: self.storeSessionService(),
+                tabBarNavigationService: self.tabBarNavigationService(),
+                locationsViewModel: self.locationsViewModel(),
+                ageVerificationViewModel: self.ageVerificationViewModel(),
+                makeStoreDetailsViewModel: { self.storeDetailsViewModel() }
             )
         }
     }
@@ -72,6 +76,7 @@ extension Container {
     var loginViewModel: Factory<LoginViewModel> {
         self { @MainActor in
             LoginViewModel(
+                alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
@@ -91,58 +96,6 @@ extension Container {
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
-            )
-        }
-    }
-    
-    // Tab 1 ViewModel
-    
-    @MainActor
-    var tab1ViewModel: Factory<Tab1ViewModel> {
-        self { @MainActor in
-            Tab1ViewModel(
-                alertService: self.alertService(),
-                authService: self.authService(),
-                analyticsService: self.analyticsService(),
-                userDefaultsService: self.userDefaultsService()
-            )
-        }
-    }
-    
-    // Tab 2 ViewModel
-    
-    @MainActor
-    var tab2ViewModel: Factory<Tab2ViewModel> {
-        self { @MainActor in
-            Tab2ViewModel(
-                alertService: self.alertService(),
-                authService: self.authService(),
-                analyticsService: self.analyticsService(),
-                userDefaultsService: self.userDefaultsService()
-            )
-        }
-    }
-    
-    // Tab 3 ViewModel
-    
-    @MainActor
-    var tab3ViewModel: Factory<Tab3ViewModel> {
-        self { @MainActor in
-            Tab3ViewModel(
-                authService: self.authService(),
-                analyticsService: self.analyticsService()
-            )
-        }
-    }
-    
-    // Tab 4 ViewModel
-    
-    @MainActor
-    var tab4ViewModel: Factory<Tab4ViewModel> {
-        self { @MainActor in
-            Tab4ViewModel(
-                authService: self.authService(),
-                analyticsService: self.analyticsService()
             )
         }
     }

@@ -17,6 +17,14 @@
 	</array>
 	<key>Environment</key>
 	<string>$(APP_ENVIRONMENT)</string>
+	<key>LeafLaunchBusinessId</key>
+	<string>$(LEAFLAUNCH_BUSINESS_ID)</string>
+	<key>LeafLaunchAppKey</key>
+	<string>$(LEAFLAUNCH_APP_KEY)</string>
+	<key>LeafLaunchLogoAssetName</key>
+	<string>$(LEAFLAUNCH_LOGO_ASSET_NAME)</string>
+	<key>LeafLaunchBundleIdentifier</key>
+	<string>$(LEAFLAUNCH_BUNDLE_IDENTIFIER)</string>
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
 	<false/>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>

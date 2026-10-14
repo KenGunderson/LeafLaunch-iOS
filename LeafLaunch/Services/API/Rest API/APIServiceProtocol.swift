@@ -43,6 +43,7 @@ protocol APIServiceProtocol: APIProtocol {
     // Device
     
     @concurrent func registerDevice(token: String, userId: String) async throws
+    @concurrent func signOutCustomerDevice(installationId: String) async throws
     
     // Users
     
@@ -51,6 +52,27 @@ protocol APIServiceProtocol: APIProtocol {
     @concurrent func updateUser(user: GPUser) async throws
     @concurrent func createUser(user: GPUser) async throws -> GPUser
     @concurrent func deleteUser(user: GPUser) async throws
+
+    // Customer launch and catalog
+
+    @concurrent func getCustomerBootstrap(appKey: String) async throws -> CustomerBootstrap
+    @concurrent func getCustomerLocation(businessId: String, locationId: String) async throws -> CustomerLocationDetails
+    @concurrent func getCustomerCategories(locationId: String) async throws -> [ProductCategory]
+    @concurrent func getCustomerProducts(locationId: String, query: ProductQuery) async throws -> CustomerPage<Product>
+    @concurrent func getCustomerProduct(locationId: String, productId: String) async throws -> Product
+    @concurrent func getCustomerProductImageURL(locationId: String, productId: String, mediaId: String) async throws -> URL
+    @concurrent func getCustomerPromotions(locationId: String) async throws -> [Promotion]
+    @concurrent func getCustomerEvents(locationId: String, offset: Int) async throws -> CustomerPage<StoreEvent>
+
+    // Customer account and loyalty
+
+    @concurrent func getCustomerAccount() async throws -> CustomerAccount
+    @concurrent func registerCustomerAccount(locationId: String, displayName: String) async throws -> CustomerAccount
+    @concurrent func updateCustomerAccount(displayName: String) async throws -> CustomerAccount
+    @concurrent func deleteCustomerAccount() async throws
+    @concurrent func getCustomerMembership(locationId: String) async throws -> CustomerLocationMembership
+    @concurrent func joinCustomerMembership(locationId: String) async throws -> CustomerLocationMembership
+    @concurrent func getCustomerLoyaltyHistory(locationId: String, offset: Int) async throws -> CustomerPage<LoyaltyHistoryEntry>
     
 }
 
@@ -60,6 +82,7 @@ extension APIProtocol {
                       apiPath: APIPath,
                       queryParameters: [String: String] = [:],
                       parameters: [String: Any] = [:],
+                      headers: [String: String] = [:],
                       retryPolicy: APIRetryPolicy? = nil,
                       requiresAuthentication: Bool = true) async throws(APIError) -> Data {
         
@@ -80,7 +103,8 @@ extension APIProtocol {
             apiPath: apiPath,
             queryParameters: queryParameters,
             body: .json(parameters),
-            accessToken: accessToken
+            accessToken: accessToken,
+            headers: headers
         )
         
         let (data, response, attemptCount) = try await performRequestWithRetry(
@@ -464,7 +488,8 @@ extension APIProtocol {
                      apiPath: APIPath,
                      queryParameters: [String: String],
                      body: RequestBody,
-                     accessToken: String?) throws(APIError) -> URLRequest {
+                     accessToken: String?,
+                     headers: [String: String] = [:]) throws(APIError) -> URLRequest {
         
         guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
             throw APIError.badURL
@@ -482,6 +507,10 @@ extension APIProtocol {
         request.httpMethod = method.rawValue
         request.timeoutInterval = self.requestTimeout
         request.setValue(Self.appVersion, forHTTPHeaderField: "App-Version")
+
+        for (name, value) in headers {
+            request.setValue(value, forHTTPHeaderField: name)
+        }
         
         if let accessToken,
            !accessToken.isEmpty {

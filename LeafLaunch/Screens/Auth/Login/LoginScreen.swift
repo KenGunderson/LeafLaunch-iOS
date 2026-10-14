@@ -12,7 +12,13 @@ import AuthenticationServices
 struct LoginScreen: GPView {
 
     @Environment(\.style) private var style
-    
+    @Environment(NavigationService.self) private var navigationService
+
+    @StateObject private var viewModel: LoginViewModel
+    @State private var showPassword: Bool = false
+
+    @FocusState private var focusedField: FocusedField?
+
     enum FocusedField: Hashable {
         
         case email
@@ -20,11 +26,19 @@ struct LoginScreen: GPView {
         
     }
     
-    @StateObject var viewModel: LoginViewModel
-    @Environment(NavigationService.self) private var navigationService
-    @FocusState private var focusedField: FocusedField?
-    
-    @State private var showPassword: Bool = false
+    init(viewModel: LoginViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+
+    private func handleOnSubmit() {
+
+        if self.focusedField == .email {
+            self.focusedField = .password
+        } else {
+            self.focusedField = nil
+        }
+
+    }
     
     var body: some View {
         
@@ -49,26 +63,11 @@ struct LoginScreen: GPView {
             })
         )
         
-        .errorHandler(
-            error: self.$viewModel.error,
-            alertStyle: .simpleError(
-                title: "Sign In Failed",
-                message: (self.viewModel.error?.getMessageForError() ?? ""),
-                action: {
-                    self.viewModel.error = nil
-                }
-                
-            )
-        )
-        
         .onFirstAppear { [weak viewModel] in
-            
-            viewModel?
-                .handleFirstAppear()
-            
-            viewModel?
-                .setup(navigationService: self.navigationService)
-            
+
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
+
         }
         
     }
@@ -156,7 +155,7 @@ struct LoginScreen: GPView {
         
         let text = fieldToFocus == .email ? self.$viewModel.email : self.$viewModel.password
         let placeholder = fieldToFocus == .email ? "Email" : "Password"
-        let isFocused = fieldToFocus == .email ? (focusedField == .email) : (focusedField == .password)
+        let isFocused = fieldToFocus == .email ? (self.focusedField == .email) : (self.focusedField == .password)
         
         Group {
             
@@ -201,17 +200,6 @@ struct LoginScreen: GPView {
         }
         .appOnTapGesture {
             self.focusedField = fieldToFocus
-        }
-        
-    }
-    
-    private func handleOnSubmit() {
-        
-        if self.focusedField == .email {
-            self.focusedField = .password
-        }
-        else {
-            self.focusedField = nil
         }
         
     }

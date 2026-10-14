@@ -1,0 +1,8 @@
+// Local-only customer app for the LeafLaunch-Web High Standards owner demo.
+LEAFLAUNCH_BUSINESS_ID = 80000000-0000-4000-8000-000000000001
+LEAFLAUNCH_APP_KEY = 1f5673ac-ce3a-4f11-94a0-62b26f96fcd5
+LEAFLAUNCH_LOGO_ASSET_NAME = App_Icon
+LEAFLAUNCH_BUNDLE_IDENTIFIER = com.lltemplate.mock
+
+// Applied to every configuration, including Release and Archive.
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) LEAFLAUNCH_MOCK

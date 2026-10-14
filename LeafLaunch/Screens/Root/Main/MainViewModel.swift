@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import FactoryKit
 
 final class MainViewModel: ViewModel {
 
@@ -17,16 +16,33 @@ final class MainViewModel: ViewModel {
     private let alertService: AlertServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let firebaseService: FirebaseServiceProtocol
-    private let authService: AuthServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
+    private let storeSessionService: StoreSessionServiceProtocol
+
+    let tabBarNavigationService: TabBarNavigationService
+    let locationsViewModel: LocationsViewModel
+    let ageVerificationViewModel: AgeVerificationViewModel
+    private let makeStoreDetailsViewModel: @MainActor () -> StoreDetailsViewModel
 
     private(set) weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
 
-    @Published private(set) var showShouldHomeScreen: Bool = !Constants.Capabilities.isAuthRequired
-    @Published private(set) var shouldShowWelcomeScreen: Bool = Constants.Capabilities.isAuthRequired
+    @Published private(set) var storeState: StoreSessionState = .loading
+    @Published private(set) var storeDetailsViewModel: StoreDetailsViewModel?
+    private var retryTask: Task<Void, Never>?
+
+    var storeLocationId: String? {
+        return self.storeSessionService.locationDetails?.location.id
+    }
+
+    var storeErrorMessage: String? {
+        return self.storeSessionService.error?.getMessageForError()
+    }
+
+    var updateURL: URL? {
+        return self.storeSessionService.configuration?.updateURL
+    }
 
     var readOnlyAlertService: any AlertServiceProtocol {
         return self.alertService
@@ -36,38 +52,43 @@ final class MainViewModel: ViewModel {
         return self.environmentService.environment != .production
     }
 
-    // ViewModels
-
-    @LazyInjected(\.welcomeViewModel) private(set) var welcomeViewModel: WelcomeViewModel
-    @LazyInjected(\.homeViewModel) private(set) var homeViewModel: HomeViewModel
-
     init(alertService: AlertServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         firebaseService: FirebaseServiceProtocol,
-         authService: AuthServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
-         environmentService: EnvironmentServiceProtocol) {
+         environmentService: EnvironmentServiceProtocol,
+         storeSessionService: StoreSessionServiceProtocol,
+         tabBarNavigationService: TabBarNavigationService,
+         locationsViewModel: LocationsViewModel,
+         ageVerificationViewModel: AgeVerificationViewModel,
+         makeStoreDetailsViewModel: @escaping @MainActor () -> StoreDetailsViewModel) {
 
         self.alertService = alertService
         self.appDelegateService = appDelegateService
         self.analyticsService = analyticsService
-        self.firebaseService = firebaseService
-        self.authService = authService
         self.pushNotificationsService = pushNotificationsService
         self.environmentService = environmentService
+        self.storeSessionService = storeSessionService
+        self.tabBarNavigationService = tabBarNavigationService
+        self.locationsViewModel = locationsViewModel
+        self.ageVerificationViewModel = ageVerificationViewModel
+        self.makeStoreDetailsViewModel = makeStoreDetailsViewModel
 
         self.logInit()
     }
 
-    deinit {
+    isolated deinit {
 
+        self.retryTask?.cancel()
         self.logDeinit()
 
     }
 
     func setup(navigationService: NavigationService) {
+
         self.navigationService = navigationService
+        globalTabBarNavigationService = self.tabBarNavigationService
+
     }
 
     func handleFirstAppear() {
@@ -77,29 +98,53 @@ final class MainViewModel: ViewModel {
 
     }
 
+    func retryStoreLoading() {
+
+        self.retryTask?.cancel()
+
+        let storeSessionService = self.storeSessionService
+
+        self.retryTask = Task {
+            await storeSessionService.bootstrap()
+        }
+
+    }
+
+    func chooseAnotherLocation() {
+        self.storeSessionService.showLocations()
+    }
+
     private func bindSubscribers() {
 
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
 
-        Publishers
-            .CombineLatest(self.authService.currentUserPublisher, self.firebaseService.userPublisher)
-            .filter { authUser, fbUser in
+        self.storeSessionService.statePublisher
+            .sink { [weak self] state in
 
-                let bothPresent = authUser != nil && fbUser != nil
-                let bothMissing = authUser == nil && fbUser == nil
+                guard let self else { return }
 
-                return bothPresent || bothMissing
+                if let locationId = self.storeLocationId {
 
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authServiceCurrentUser, firebaseUser in
+                    if state == .store,
+                       self.storeState != .store || self.storeDetailsViewModel?.locationId != locationId {
 
-                let isUserMissing = authServiceCurrentUser == nil
-                let isFirebaseUserMissing = firebaseUser == nil
-                let shouldShowWelcomeScreen = isUserMissing && isFirebaseUserMissing
+                        self.storeDetailsViewModel = self.makeStoreDetailsViewModel()
+                            .setup(locationId: locationId)
 
-                self?.showShouldHomeScreen = !isUserMissing || !Constants.Capabilities.isAuthRequired
-                self?.shouldShowWelcomeScreen = shouldShowWelcomeScreen && Constants.Capabilities.isAuthRequired
+                    }
+
+                    if state == .ageVerification {
+                        self.ageVerificationViewModel.setup(locationId: locationId)
+                    }
+
+                }
+
+                if state != .store {
+                    self.storeDetailsViewModel = nil
+                }
+
+                self.storeState = state
 
             }
             .store(in: &self.cancelBag)

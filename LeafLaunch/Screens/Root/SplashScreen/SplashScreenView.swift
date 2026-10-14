@@ -1,43 +1,39 @@
-//
-//  SplashScreenView.swift
-//  LeafLaunch
-//
-//  Created by Sako Hovaguimian on 7/15/24.
-//
-
 import SwiftUI
 
 struct SplashScreenView: View {
-    
-    @State private var isLoading: Bool = true
-    private let didFinishAction: () -> ()
-    
-    init(didFinishAction: @escaping () -> ()) {
+
+    @Environment(\.style) private var style
+
+    private let didFinishAction: () -> Void
+
+    init(didFinishAction: @escaping () -> Void) {
         self.didFinishAction = didFinishAction
     }
-    
+
     var body: some View {
-        
-        SplashScreenIntroView(
-            isLoading: self.$isLoading,
-            text: "LeafLaunch"
-        )
-        .onChange(of: self.isLoading) { oldValue, newValue in
-            
-            if !newValue {
-                self.didFinishAction()
-            }
-            
+
+        VStack(spacing: self.style.spacing(.medium)) {
+
+            ImageSource.image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
+                .view()
+                .frame(width: 64, height: 64)
+                .accessibilityLabel("App logo")
+
+            Text("Loading your store").appFont(with: .BODY_2)
+            ProgressView()
+
         }
-        
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(self.style.background(.primary))
+        .onFirstAppear { self.didFinishAction() }
+
     }
-    
+
 }
 
 #Preview {
-    
-    SplashScreenView {
-        print("Splash complete")
-    }
-    
+
+    SplashScreenView {}
+        .withMockServices()
+
 }

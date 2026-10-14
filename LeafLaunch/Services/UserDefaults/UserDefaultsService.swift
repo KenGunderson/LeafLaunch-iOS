@@ -17,18 +17,10 @@ import Combine
 //    }
 //}
 
-enum Setting: String, CaseIterable {
-    
-    case theme
-    case didRateMyAppAlertShow
-    case securityPinsDictionaryData
-    case shouldHideScreenshots
-        
-}
-
 final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     private let style: any StyleProtocol
+    private let defaults = UserDefaults.standard
     
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
@@ -61,18 +53,63 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
     var shouldHideScreenshotsPublisher = PassthroughSubject<Bool, Never>()
+    let favoriteProductIdsPublisher = CurrentValueSubject<Set<String>, Never>([])
+
+    var lastSelectedLocationId: String? {
+        self.defaults.string(forKey: customerKey(.lastSelectedLocationId))
+    }
+
+    var guestIdentityId: String {
+
+        let key = customerKey(.guestIdentityId)
+
+        if let identity = self.defaults.string(forKey: key),
+           identity.hasPrefix("guest:"),
+           UUID(uuidString: String(identity.dropFirst(6))) != nil {
+            return identity
+        }
+
+        let identity = "guest:\(UUID().uuidString)"
+        self.defaults.set(identity, forKey: key)
+        return identity
+
+    }
+
+    var ageVerificationApprovals: [String: [String]] {
+
+        let key = customerKey(.ageVerificationApprovals)
+
+        guard let data = self.defaults.data(forKey: key) else { return [:] }
+        guard let approvals = try? JSONDecoder().decode([String: [String]].self, from: data) else {
+
+            self.defaults.removeObject(forKey: key)
+            return [:]
+
+        }
+
+        return approvals
+
+    }
+
+    var favoriteProductIds: Set<String> {
+
+        let identifiers = self.defaults.stringArray(forKey: customerKey(.favoriteProductIds)) ?? []
+        return Set(identifiers.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty })
+
+    }
     
     init(style: any StyleProtocol) {
 
         self.style = style
         
         self.logInit()
-        self.style.updateTheme(self.theme.theme())
+        restoreCachedStoreTheme()
         
         self.themePublisher.send(self.theme)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
         self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
+        self.favoriteProductIdsPublisher.send(self.favoriteProductIds)
         
     }
     
@@ -82,8 +119,14 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
     
     func set(theme: AvailableTheme) {
         
+        let cachedBranding = loadCachedStoreTheme()?.branding
         self.theme = theme
-        self.style.updateTheme(self.theme.theme())
+
+        if let cachedBranding {
+            applyStoreTheme(branding: cachedBranding)
+        } else {
+            self.style.updateTheme(self.theme.theme())
+        }
         
     }
     
@@ -138,24 +181,148 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         return nil
         
     }
+
+    @discardableResult
+    func restoreCachedStoreTheme() -> Bool {
+
+        guard let cachedTheme = loadCachedStoreTheme(),
+              let baseTheme = AvailableTheme(rawValue: cachedTheme.baseTheme),
+              let storeTheme = StoreThemeBuilder.makeTheme(branding: cachedTheme.branding, baseTheme: baseTheme) else {
+
+            self.defaults.removeObject(forKey: customerKey(.cachedStoreTheme))
+            self.style.updateTheme(self.theme.theme())
+            return false
+
+        }
+
+        self.style.updateTheme(storeTheme)
+        return true
+
+    }
+
+    @discardableResult
+    func applyStoreTheme(branding: StoreAppBranding?) -> Bool {
+
+        let key = customerKey(.cachedStoreTheme)
+
+        guard let branding else {
+
+            self.defaults.removeObject(forKey: key)
+            self.style.updateTheme(self.theme.theme())
+            return true
+
+        }
+
+        guard BusinessConfig.isConfigured,
+              let storeTheme = StoreThemeBuilder.makeTheme(branding: branding, baseTheme: self.theme),
+              let encodedTheme = try? JSONEncoder().encode(CachedStoreTheme(branding: branding, baseTheme: self.theme)) else {
+
+            self.defaults.removeObject(forKey: key)
+            self.style.updateTheme(self.theme.theme())
+            return false
+
+        }
+
+        self.defaults.set(encodedTheme, forKey: key)
+        self.style.updateTheme(storeTheme)
+        return true
+
+    }
+
+    func set(lastSelectedLocationId: String?) {
+
+        let key = customerKey(.lastSelectedLocationId)
+        let locationId = lastSelectedLocationId?.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard let locationId, !locationId.isEmpty else {
+
+            self.defaults.removeObject(forKey: key)
+            return
+
+        }
+
+        self.defaults.set(locationId, forKey: key)
+
+    }
+
+    func hasApprovedAge(userId: String, state: String) -> Bool {
+
+        let approvedState = normalizedState(state)
+        guard !userId.isEmpty, !approvedState.isEmpty else { return false }
+
+        return self.ageVerificationApprovals[userId]?.contains(approvedState) == true
+
+    }
+
+    func approveAge(userId: String, state: String) {
+
+        let approvedState = normalizedState(state)
+        guard !userId.isEmpty, !approvedState.isEmpty else { return }
+
+        var approvals = self.ageVerificationApprovals
+        var approvedStates = Set(approvals[userId] ?? [])
+        approvedStates.insert(approvedState)
+        approvals[userId] = approvedStates.sorted()
+
+        guard let data = try? JSONEncoder().encode(approvals) else { return }
+        self.defaults.set(data, forKey: customerKey(.ageVerificationApprovals))
+
+    }
+
+    func setFavorite(productId: String, isFavorite: Bool) {
+
+        let identifier = productId.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !identifier.isEmpty else { return }
+
+        var favoriteIds = self.favoriteProductIds
+
+        if isFavorite {
+            favoriteIds.insert(identifier)
+        } else {
+            favoriteIds.remove(identifier)
+        }
+
+        self.defaults.set(favoriteIds.sorted(), forKey: customerKey(.favoriteProductIds))
+        self.favoriteProductIdsPublisher.send(favoriteIds)
+
+    }
+
+    private func loadCachedStoreTheme() -> CachedStoreTheme? {
+
+        let key = customerKey(.cachedStoreTheme)
+
+        guard let data = self.defaults.data(forKey: key) else { return nil }
+        guard let cachedTheme = try? JSONDecoder().decode(CachedStoreTheme.self, from: data),
+              cachedTheme.matchesCurrentTarget else {
+
+            self.defaults.removeObject(forKey: key)
+            return nil
+
+        }
+
+        return cachedTheme
+
+    }
+
+    private func customerKey(_ setting: Setting) -> String {
+        "LeafLaunch.Customer.\(BusinessConfig.bundleIdentifier).\(BusinessConfig.businessId).\(BusinessConfig.appKey).\(setting.rawValue)"
+    }
+
+    private func normalizedState(_ state: String) -> String {
+
+        let value = state.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        return Constants.USState.allCases.first { $0.description.uppercased() == value }?.rawValue ?? value
+
+    }
     
     @MainActor
     func logout() async {
-        
-        if let bundleID = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }
-        
-        Setting
-            .allCases
-            .forEach {
-                UserDefaults.standard.removeObject(forKey: $0.rawValue)
-            }
-        
-        // Manually Reset
-        
-        self.set(shouldHideScreenshots: false)
-        
+
+        // Customer exploration preferences remain available after sign-out.
+        // Approvals stay keyed by identity; guest approval never signs in a user.
+        self.securityPinsDictionaryData = nil
+        set(shouldHideScreenshots: false)
+
     }
     
 }

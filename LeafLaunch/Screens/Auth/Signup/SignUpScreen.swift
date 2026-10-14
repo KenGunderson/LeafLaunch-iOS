@@ -11,7 +11,13 @@ import AuthenticationServices
 struct SignUpScreen: GPView {
 
     @Environment(\.style) private var style
-    
+    @Environment(NavigationService.self) private var navigationService
+
+    @StateObject private var viewModel: SignUpViewModel
+    @State private var showPassword: Bool = false
+
+    @FocusState private var focusedField: FocusedField?
+
     enum FocusedField: Hashable {
         
         case firstName
@@ -21,12 +27,21 @@ struct SignUpScreen: GPView {
         
     }
     
-    @StateObject var viewModel: SignUpViewModel
-    @Environment(NavigationService.self) private var navigationService
+    init(viewModel: SignUpViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
 
-    @State private var showPassword: Bool = false
-    
-    @FocusState private var focusedField: FocusedField?
+    private func handleOnSubmit() {
+
+        switch self.focusedField {
+        case .firstName: self.focusedField = .lastName
+        case .lastName: self.focusedField = .email
+        case .email: self.focusedField = .password
+        case .password: self.focusedField = nil
+        default: self.focusedField = nil
+        }
+
+    }
     
     var body: some View {
         
@@ -39,17 +54,6 @@ struct SignUpScreen: GPView {
             bottomBar()
         }
         .scrollBounceBehavior(.basedOnSize)
-        .errorHandler(
-            error: self.$viewModel.error,
-            alertStyle: .simpleError(
-                
-                message: (self.viewModel.error?.getMessageForError() ?? ""),
-                action: {
-                    self.viewModel.error = nil
-                }
-                
-        ))
-        
         // Tap
     
         .onSubmit {
@@ -57,13 +61,10 @@ struct SignUpScreen: GPView {
         }
         
         .onFirstAppear { [weak viewModel] in
-            
-            viewModel?
-                .handleFirstAppear()
-            
-            viewModel?
-                .setup(navigationService: self.navigationService)
-            
+
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
+
         }
         
     }
@@ -276,18 +277,6 @@ struct SignUpScreen: GPView {
         }
         .appOnTapGesture {
             self.focusedField = fieldToFocus // We do this to increate tappable area
-        }
-        
-    }
-    
-    private func handleOnSubmit() {
-        
-        switch self.focusedField {
-        case .firstName: return self.focusedField = .lastName
-        case .lastName: return self.focusedField = .email
-        case .email: return self.focusedField = .password
-        case .password: return self.focusedField = nil
-        default: return self.focusedField = nil
         }
         
     }

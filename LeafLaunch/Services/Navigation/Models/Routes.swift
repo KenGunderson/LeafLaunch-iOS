@@ -12,6 +12,12 @@ protocol Navigation {
 }
 
 enum Route: Navigation, Hashable, Sendable {
+
+    enum CustomerRoute: Hashable, Sendable {
+
+        case product(locationId: String, productId: String)
+
+    }
     
     enum AuthRoute {
         
@@ -109,5 +115,6 @@ enum Route: Navigation, Hashable, Sendable {
     case auth(AuthRoute)
     case settings(SettingRoute)
     case devSetting(DevSettingRoute)
+    case customer(CustomerRoute)
     
 }
