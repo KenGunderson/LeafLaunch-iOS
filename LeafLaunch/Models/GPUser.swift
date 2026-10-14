@@ -83,18 +83,9 @@ struct GPUser: Codable,
 extension GPUser {
     
     static func DUMMY_DATA() -> Self {
-        
-        return .init(
-            id: "1",
-            firstName: "Sako",
-            lastName: "Hovaguimian",
-            email: "sako@me.com",
-            phoneNumber: "8185225755",
-            externalId: "1",
-            dateOfBirth: nil,
-            imageURL: URL(string: "https://fastly.picsum.photos/id/580/200/300.jpg?hmac=ETV-og2PgiTBmJBERthfeRRRuLpWGxM4Zq_3z8pXndA")
-        )
-        
+
+        MockCustomerModels.user
+
     }
     
 }

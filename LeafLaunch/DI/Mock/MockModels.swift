@@ -471,7 +471,7 @@ enum MockCustomerModels {
     static func events(locationId: String) -> [StoreEvent] {
 
         guard locationId == primaryLocationId || locationId == tertiaryLocationId else { return [] }
-        let titles = ["Meet the Grower", "Product Showcase", "Neighborhood Open House", "Member Gathering", "Seasonal Preview", "Local Maker Visit", "Weekend Workshop", "Community Evening"]
+        let titles = ["Community Evening", "Meet the Grower", "Product Showcase", "Neighborhood Open House", "Member Gathering", "Seasonal Preview", "Local Maker Visit", "Weekend Workshop"]
         let locationNumber = locationId == primaryLocationId ? 1 : 5
 
         return (0..<32).filter { $0 % 6 == 1 }.map { index in
@@ -526,7 +526,10 @@ enum MockCustomerModels {
                            existingMembership: CustomerLocationMembership? = nil) -> CustomerLocationMembership {
 
         let isSeededCustomer = customerAccount.id == account.id
+        let isSeededMembership = isSeededCustomer && (locationId == primaryLocationId || locationId == secondaryLocationId)
         let membershipIndex = locationId == primaryLocationId ? 1 : (locationId == secondaryLocationId ? 9 : 14)
+        let joinedAt = existingMembership?.joinedAt
+            ?? (isSeededMembership ? createdAt.addingTimeInterval(locationId == secondaryLocationId ? -20 * 3_600 : 0) : Date())
 
         return CustomerLocationMembership(
             id: existingMembership?.id ?? (isSeededCustomer ? fixtureId("98600000", membershipIndex) : UUID().uuidString),
@@ -537,11 +540,10 @@ enum MockCustomerModels {
             membershipCode: isSeededCustomer ? "LEAF2345" : "NEWC2345",
             status: .active,
             cachedPointsBalance: isSeededCustomer ? "1235" : "0",
-            joinedAt: existingMembership?.joinedAt
-                ?? (isSeededCustomer ? createdAt.addingTimeInterval(locationId == secondaryLocationId ? -20 * 3_600 : 0) : Date()),
+            joinedAt: joinedAt,
             leftAt: nil,
-            createdAt: existingMembership?.createdAt ?? (isSeededCustomer ? createdAt : Date()),
-            updatedAt: existingMembership?.updatedAt ?? (isSeededCustomer ? sessionDate.addingTimeInterval(-3_600) : Date()),
+            createdAt: existingMembership?.createdAt ?? joinedAt,
+            updatedAt: existingMembership?.updatedAt ?? (isSeededMembership ? sessionDate.addingTimeInterval(-3_600) : Date()),
             notificationPreference: nil,
             customerDisplayName: customerAccount.displayName
         )
