@@ -1,0 +1,66 @@
+//
+//  TabBar3Screen.swift
+//  LeafLaunch
+//
+//  Created by Sako Hovaguimian on 4/23/25.
+//
+
+import SwiftUI
+
+struct TabBar3Screen: View {
+    
+    @StateObject var viewModel: Tab3ViewModel
+    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
+    
+    let tab: Tab
+    
+    var body: some View {
+        
+        let nav = Bindable(self.tabBarNavigationService.tab3NavigationService)
+        
+        AppRootView(navigationService: nav) {
+            
+            AppHeaderScrollView(horizontalPadding: .medium) {
+                
+            } scrollViewContent: {
+                
+                content()
+                
+            }
+            // Lifecycle
+            
+            .onFirstAppear { [weak viewModel] in
+                
+                viewModel?
+                    .track()
+                
+                viewModel?
+                    .setup(tabBarNavigationService: self.tabBarNavigationService)
+                
+            }
+            .task { [weak viewModel] in
+                
+                viewModel?
+                    .loadData(showHud: true)
+                
+            }
+            
+        }
+        .tag(self.tab)
+        
+    }
+    
+    private func content() -> some View {
+        EmptyView()
+    }
+    
+}
+
+#Preview {
+    
+    let viewModel = mockResolve(Tab3ViewModel.self)
+    
+    TabBar3Screen(viewModel: viewModel, tab: .tab3)
+        .withMockServices()
+    
+}

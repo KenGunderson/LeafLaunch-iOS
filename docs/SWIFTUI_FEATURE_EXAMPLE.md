@@ -1,12 +1,12 @@
 # SwiftUI Feature Example
 
-This documentation-only example shows a user-profile screen using the [implementation rules](IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse Grimoire's existing `GPUser`, `APIServiceProtocol.getUser(id:)`, profile analytics event, navigation service, and UI components.
+This documentation-only example shows a user-profile screen using the [implementation rules](IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse LeafLaunch's existing `GPUser`, `APIServiceProtocol.getUser(id:)`, profile analytics event, navigation service, and UI components.
 
 The screen owns presentation and lifecycle wiring. Its ViewModel owns fetching and navigation actions. The card receives a user, loading state, and an action, so it does not need a ViewModel or service dependency.
 
-The snippets follow the user's corrected spacing: expanded bodies and nested groups have blank lines inside their braces, while short helpers and closures stay compact. Preserve this layout when using the example; it is Grimoire's default style, not an exception for older files.
+The snippets follow the user's corrected spacing: expanded bodies and nested groups have blank lines inside their braces, while short helpers and closures stay compact. Preserve this layout when using the example; it is LeafLaunch's default style, not an exception for older files.
 
-If implemented, keep the files together under `Grimoire/Screens/UserDetails/`, with the card in its `Views/` subdirectory. No new model or service protocol is necessary. The integration excerpts later in this document show the wiring the example would require; none has been applied to production code.
+If implemented, keep the files together under `LeafLaunch/Screens/UserDetails/`, with the card in its `Views/` subdirectory. No new model or service protocol is necessary. The integration excerpts later in this document show the wiring the example would require; none has been applied to production code.
 
 ## ViewModel: UserDetailsViewModel.swift
 
@@ -201,7 +201,7 @@ struct UserDetailsScreen: GPView {
 
             } else if !self.viewModel.isLoading {
 
-                GrimoireButton(title: String(localized: "Load Profile")) {
+                LeafLaunchButton(title: String(localized: "Load Profile")) {
                     self.viewModel.loadUser()
                 }
 
@@ -254,7 +254,7 @@ struct UserDetailsCard: View {
 
     var body: some View {
 
-        GrimoireCardView(title: self.user.fullName) {
+        LeafLaunchCardView(title: self.user.fullName) {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
@@ -263,7 +263,7 @@ struct UserDetailsCard: View {
                     .foregroundStyle(.text(.body))
                     .textSelection(.enabled)
 
-                GrimoireButton(
+                LeafLaunchButton(
                     title: String(localized: "Refresh"),
                     icon: .systemImage("arrow.clockwise"),
                     action: self.onRefresh
@@ -294,13 +294,13 @@ struct UserDetailsCard: View {
 }
 ```
 
-The component uses environment spacing, semantic text styling, and `ImageSource` through `GrimoireButton`. It receives immutable values rather than creating another `@StateObject`. An extracted form that edits the same screen state would instead use `@ObservedObject` with the screen's existing ViewModel instance.
+The component uses environment spacing, semantic text styling, and `ImageSource` through `LeafLaunchButton`. It receives immutable values rather than creating another `@StateObject`. An extracted form that edits the same screen state would instead use `@ObservedObject` with the screen's existing ViewModel instance.
 
 ## Integration excerpts
 
 These excerpts illustrate the existing FactoryKit and navigation patterns. They are documentation, not changes to the files linked below. Applying the three Swift types to the app would also require all applicable wiring here and explicit target membership in `project.pbxproj`.
 
-In [live ViewModel factories](../Grimoire/DI/Live/ViewModelAssembly.swift), add the factory using only the three dependencies the feature needs:
+In [live ViewModel factories](../LeafLaunch/DI/Live/ViewModelAssembly.swift), add the factory using only the three dependencies the feature needs:
 
 ```swift
 extension Container {
@@ -319,7 +319,7 @@ extension Container {
 }
 ```
 
-Inside the existing [mock ViewModel assembly](../Grimoire/DI/Mock/MockViewModelAssembly.swift) `assemble(container:)`, register the same constructor against mock services:
+Inside the existing [mock ViewModel assembly](../LeafLaunch/DI/Mock/MockViewModelAssembly.swift) `assemble(container:)`, register the same constructor against mock services:
 
 ```swift
 container.userDetailsViewModel.register { @MainActor in
@@ -333,7 +333,7 @@ container.userDetailsViewModel.register { @MainActor in
 }
 ```
 
-Inside the existing [mock resolver](../Grimoire/DI/Mock/MockAssembler.swift) `resolve<T>(_:)`, before its fallback, follow the current resolver convention:
+Inside the existing [mock resolver](../LeafLaunch/DI/Mock/MockAssembler.swift) `resolve<T>(_:)`, before its fallback, follow the current resolver convention:
 
 ```swift
 if type == UserDetailsViewModel.self {
@@ -341,13 +341,13 @@ if type == UserDetailsViewModel.self {
 }
 ```
 
-For a dedicated destination, a new case in the existing [Route enum](../Grimoire/Services/Navigation/Models/Routes.swift) would carry its required context:
+For a dedicated destination, a new case in the existing [Route enum](../LeafLaunch/Services/Navigation/Models/Routes.swift) would carry its required context:
 
 ```swift
 case userDetails(userId: String)
 ```
 
-Its corresponding branch in the outer route switch of the existing [navigation destination builder](../Grimoire/Services/Navigation/NavigationService.swift) would configure the resolved ViewModel before constructing the screen:
+Its corresponding branch in the outer route switch of the existing [navigation destination builder](../LeafLaunch/Services/Navigation/NavigationService.swift) would configure the resolved ViewModel before constructing the screen:
 
 ```swift
 case .userDetails(let userId):

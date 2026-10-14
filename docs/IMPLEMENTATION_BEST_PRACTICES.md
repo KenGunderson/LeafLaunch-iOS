@@ -1,6 +1,6 @@
 # Implementation Best Practices
 
-These conventions apply to new work and the relevant parts of code being changed in Grimoire, a Swift 6 SwiftUI app using FactoryKit and Rune. Read the matching contracts and closest same-layer implementation through [AGENTS.md](../AGENTS.md) before editing. Existing files can contain legacy deviations; they do not require an unrelated cleanup or override the explicit rules below.
+These conventions apply to new work and the relevant parts of code being changed in LeafLaunch, a Swift 6 SwiftUI app using FactoryKit and Rune. Read the matching contracts and closest same-layer implementation through [AGENTS.md](../AGENTS.md) before editing. Existing files can contain legacy deviations; they do not require an unrelated cleanup or override the explicit rules below.
 
 For a concrete ViewModel, screen, and view component using these conventions, see the [SwiftUI feature example](SWIFTUI_FEATURE_EXAMPLE.md). It includes illustrative live/mock/preview and route wiring without changing production code.
 
@@ -53,9 +53,9 @@ The worked example is the spacing reference for initializers, nested SwiftUI gro
 
 ### Naming and file ownership
 
-- Use canonical Grimoire domain language and nearby model names. Avoid vague abbreviations, generic `data`/`item` names where the domain is known, and type names that obscure lifecycle or ownership.
-- Split independent models and independently owned top-level types into focused Swift files whenever possible. Keep feature/service-specific models near their owner; put shared domain models in the established [Models](../Grimoire/Models/) area. Do not extract a private implementation detail into a new abstraction merely to create another file.
-- Keep screens, their ViewModels, and feature-only views together under [Screens](../Grimoire/Screens/). Put genuinely reusable UI in [Components](../Grimoire/Components/).
+- Use canonical LeafLaunch domain language and nearby model names. Avoid vague abbreviations, generic `data`/`item` names where the domain is known, and type names that obscure lifecycle or ownership.
+- Split independent models and independently owned top-level types into focused Swift files whenever possible. Keep feature/service-specific models near their owner; put shared domain models in the established [Models](../LeafLaunch/Models/) area. Do not extract a private implementation detail into a new abstraction merely to create another file.
+- Keep screens, their ViewModels, and feature-only views together under [Screens](../LeafLaunch/Screens/). Put genuinely reusable UI in [Components](../LeafLaunch/Components/).
 - When renaming a primary type, synchronize its filename, file header, references, and explicit Xcode project membership. Use `// MARK: -` only when it improves navigation.
 - Logger names use fully separated `SCREAMING_SNAKE_CASE`, including every lexical word: `PROJECT_CHAT_VIEW_MODEL`, never `PROJECTCHAT_VIEW_MODEL`.
 
@@ -86,10 +86,10 @@ AppHeaderScrollView {
 
 ### ViewModel contract and ownership
 
-- Standard screen ViewModels are `final class` types conforming to [ViewModel](../Grimoire/Models/System/ViewModel.swift) or an existing specialized project ViewModel protocol. Preserve the project's actor-isolation contract; UI mutation belongs on `@MainActor`.
+- Standard screen ViewModels are `final class` types conforming to [ViewModel](../LeafLaunch/Models/System/ViewModel.swift) or an existing specialized project ViewModel protocol. Preserve the project's actor-isolation contract; UI mutation belongs on `@MainActor`.
 - Treat `loggerName`, `loggerEmoji`, `logInit()`, and `logDeinit()` as one lifecycle contract. Pair initialization logging with deinitialization logging and owned-task cleanup.
 - Hold screen-injected navigation services weakly. Do not make navigation state a second ownership root.
-- For route-created screens, install every required route/context value with `@discardableResult func setup(...) -> Self` before the screen can track, appear, or load. Follow the existing [LegalViewModel](../Grimoire/Screens/Settings/Legal/LegalViewModel.swift) route-setup pattern; this does not require unrelated navigation-only setup methods to become chainable.
+- For route-created screens, install every required route/context value with `@discardableResult func setup(...) -> Self` before the screen can track, appear, or load. Follow the existing [LegalViewModel](../LeafLaunch/Screens/Settings/Legal/LegalViewModel.swift) route-setup pattern; this does not require unrelated navigation-only setup methods to become chainable.
 - Let the screen own its injected ViewModel with `@StateObject`; when providing an explicit initializer, initialize `_viewModel = StateObject(wrappedValue: viewModel)`. Child views and extracted forms use `@ObservedObject` to observe the same instance. Do not create a second owner or resolve a replacement during view construction.
 - Never bind screen publishers in `init`. Temporary navigation-destination construction must not create live subscriptions. Repeated binding must be idempotent: guard existing bindings or intentionally replace the `CancelBag` before rebinding.
 
@@ -98,7 +98,7 @@ AppHeaderScrollView {
 - Use `.onFirstAppear { [weak viewModel] in ... }` for standard first-appearance wiring. Inject navigation before calling `handleFirstAppear()` or starting work that can navigate.
 - Make `handleFirstAppear()` call `track()` exactly once for the first-appearance flow, before applicable subscriber binding. Standard screens that use this entry point must not also call `viewModel.track()` directly.
 - Keep `track()` in the final same-type extension in the primary ViewModel file. Track screen views through `self.analyticsService.track(screen:)` there.
-- Add the matching [ScreenEvent](../Grimoire/Services/Analytics/Models/ScreenEvent.swift) case and preserve its `screen_view` mapping. Include applicable Grimoire context, such as a user ID or legal context; compact nil properties before emission. Do not import unrelated domain IDs from another app.
+- Add the matching [ScreenEvent](../LeafLaunch/Services/Analytics/Models/ScreenEvent.swift) case and preserve its `screen_view` mapping. Include applicable LeafLaunch context, such as a user ID or legal context; compact nil properties before emission. Do not import unrelated domain IDs from another app.
 - Keep intent, success, mutation, and error analytics beside the action that causes them rather than in screen `track()`.
 - Use `.task { [weak viewModel] in ... }` for initial async loading when the entry point and existing lifecycle support it. Preserve structured cancellation; do not start the same load from both `.task` and first appearance.
 - Forward `.onDisappear { [weak viewModel] in ... }` cleanup for active capture, realtime, playback, recording, or similar sessions. Do not add empty lifecycle hooks to screens without that responsibility.
@@ -127,8 +127,8 @@ AppHeaderScrollView {
 
 ## Rune and app-owned UI
 
-- Search [Grimoire components](../Grimoire/Components/) and the [Rune component catalog](UBIQUITOUS_COMPONENTS_GLOBAL.md) before implementing custom UI. Verify the actual API in the relevant source; a catalog entry is a discovery aid.
-- Prefer an existing Grimoire wrapper when it covers the use case. For example, [GrimoireButton](../Grimoire/Components/Base/GrimoireButton.swift) owns app-specific button defaults while using Rune's `CommonButton` internally.
+- Search [LeafLaunch components](../LeafLaunch/Components/) and the [Rune component catalog](UBIQUITOUS_COMPONENTS_GLOBAL.md) before implementing custom UI. Verify the actual API in the relevant source; a catalog entry is a discovery aid.
+- Prefer an existing LeafLaunch wrapper when it covers the use case. For example, [LeafLaunchButton](../LeafLaunch/Components/Base/LeafLaunchButton.swift) owns app-specific button defaults while using Rune's `CommonButton` internally.
 - Add a small app component only when a repeated treatment or concrete product-specific behavior justifies it. Keep Rune details inside that component and expose a focused API expressing product intent, rather than forwarding every Rune parameter. Do not wrap every primitive solely for naming consistency.
 - Raw Rune components remain appropriate inside wrappers and when no app wrapper covers the need. Promote repeated app-specific treatments before they spread. Flag custom components/raw visual tokens only when an existing Rune or app primitive clearly covers the same use case; record the concrete gap when a new reusable component is necessary.
 - Use `@Environment(\.style)` and `self.style` in production views with environment access. Reserve `Style.shared` for static defaults or contexts without environment access.
@@ -166,15 +166,15 @@ Keep `content()` focused on the populated screen tree. If the empty state alread
 
 Apply only the integrations affected by the change; do not create unused services, events, routes, or mock infrastructure to satisfy a checklist.
 
-- For a new or changed ViewModel, keep [live factories](../Grimoire/DI/Live/ViewModelAssembly.swift), [mock factories](../Grimoire/DI/Mock/MockViewModelAssembly.swift), and the [mock resolver](../Grimoire/DI/Mock/MockAssembler.swift) in parity. Match actor annotations and constructor signatures.
-- For a service dependency, update its protocol and relevant [live](../Grimoire/DI/Live/ServiceAssembly.swift) and [mock](../Grimoire/DI/Mock/MockServiceAssembly.swift) registrations and direct callers.
-- Build previews with `mockResolve(...)`, required chainable route/context setup, existing shared fixtures such as [MockModels](../Grimoire/DI/Mock/MockModels.swift), and `.withMockServices()` for service/style environments. Do not duplicate fixture construction or accidentally resolve live services.
-- Pair each new [route](../Grimoire/Services/Navigation/Models/Routes.swift) with its [navigation destination](../Grimoire/Services/Navigation/NavigationService.swift). Resolve the live ViewModel and install route context before the screen can track or load. Preserve route families, tab ownership, sheets, adaptive sheets where used, and full-screen-cover behavior.
-- For API work, update [APIServiceProtocol](<../Grimoire/Services/API/Rest API/APIServiceProtocol.swift>) first, then the applicable live endpoint, mock endpoint, and fixtures. Preserve signatures, isolation, request/response contracts, and expected errors.
-- Find the actual mock endpoint authority instead of assuming it lives in DI. Grimoire's `MockAPIService` is currently defined in [MockServiceAssembly.swift](../Grimoire/DI/Mock/MockServiceAssembly.swift); inspect it and the [live endpoint extensions](<../Grimoire/Services/API/Rest API/Endpoints/>) for the affected call.
+- For a new or changed ViewModel, keep [live factories](../LeafLaunch/DI/Live/ViewModelAssembly.swift), [mock factories](../LeafLaunch/DI/Mock/MockViewModelAssembly.swift), and the [mock resolver](../LeafLaunch/DI/Mock/MockAssembler.swift) in parity. Match actor annotations and constructor signatures.
+- For a service dependency, update its protocol and relevant [live](../LeafLaunch/DI/Live/ServiceAssembly.swift) and [mock](../LeafLaunch/DI/Mock/MockServiceAssembly.swift) registrations and direct callers.
+- Build previews with `mockResolve(...)`, required chainable route/context setup, existing shared fixtures such as [MockModels](../LeafLaunch/DI/Mock/MockModels.swift), and `.withMockServices()` for service/style environments. Do not duplicate fixture construction or accidentally resolve live services.
+- Pair each new [route](../LeafLaunch/Services/Navigation/Models/Routes.swift) with its [navigation destination](../LeafLaunch/Services/Navigation/NavigationService.swift). Resolve the live ViewModel and install route context before the screen can track or load. Preserve route families, tab ownership, sheets, adaptive sheets where used, and full-screen-cover behavior.
+- For API work, update [APIServiceProtocol](<../LeafLaunch/Services/API/Rest API/APIServiceProtocol.swift>) first, then the applicable live endpoint, mock endpoint, and fixtures. Preserve signatures, isolation, request/response contracts, and expected errors.
+- Find the actual mock endpoint authority instead of assuming it lives in DI. LeafLaunch's `MockAPIService` is currently defined in [MockServiceAssembly.swift](../LeafLaunch/DI/Mock/MockServiceAssembly.swift); inspect it and the [live endpoint extensions](<../LeafLaunch/Services/API/Rest API/Endpoints/>) for the affected call.
 - Reuse shared request encoding, response decoding, query conversion, and existing configurable mock error/value helpers where available. Make fixtures realistic enough for the filtering or pagination behavior the UI uses; do not build unused mock configuration layers.
 - Reuse centralized domain permission helpers when applicable. Do not duplicate role, membership, mutation, or visibility decisions in screens or ViewModels, or invent a new permission architecture for a feature that does not need it.
-- Add new Swift files to the appropriate target in [project.pbxproj](../Grimoire.xcodeproj/project.pbxproj); Grimoire uses explicit file references.
+- Add new Swift files to the appropriate target in [project.pbxproj](../LeafLaunch.xcodeproj/project.pbxproj); LeafLaunch uses explicit file references.
 
 ## Verification and scope
 
@@ -185,7 +185,7 @@ Apply only the integrations affected by the change; do not create unused service
 
 ## Source references
 
-Adapted from Skillet's [Swift semantic-linter references](https://github.com/SakoHovaguimian/Skillet/tree/main/skills/swift-sako-semantic-linter/references), reviewed at commit `88d780b09a34313c66fadea4a6a343cc12353fb4`. The rules above are local guidance, so applying them does not require fetching the source on every task. Grimoire-specific names, placement, lifecycle exceptions, and the simplicity/scope requirements above govern their application. The spacious whitespace convention follows the user's corrected worked example and takes precedence over the upstream advice against spacing inside braces.
+Adapted from Skillet's [Swift semantic-linter references](https://github.com/SakoHovaguimian/Skillet/tree/main/skills/swift-sako-semantic-linter/references), reviewed at commit `88d780b09a34313c66fadea4a6a343cc12353fb4`. The rules above are local guidance, so applying them does not require fetching the source on every task. LeafLaunch-specific names, placement, lifecycle exceptions, and the simplicity/scope requirements above govern their application. The spacious whitespace convention follows the user's corrected worked example and takes precedence over the upstream advice against spacing inside braces.
 
 - [Core Swift](https://github.com/SakoHovaguimian/Skillet/blob/88d780b09a34313c66fadea4a6a343cc12353fb4/skills/swift-sako-semantic-linter/references/core-swift.md): member access, formatting, naming, ownership, and safety boundaries.
 - [Screens and ViewModels](https://github.com/SakoHovaguimian/Skillet/blob/88d780b09a34313c66fadea4a6a343cc12353fb4/skills/swift-sako-semantic-linter/references/screen-viewmodel.md): member order, ownership, lifecycle, composition, and analytics.
