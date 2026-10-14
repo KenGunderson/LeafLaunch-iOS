@@ -12,6 +12,7 @@ enum Setting: String, CaseIterable {
     case cachedStoreTheme
     case lastSelectedLocationId = "last_selected_location_id"
     case ageVerificationApprovals
+    case ageVerificationApprovalMetadata
     case favoriteProductIds
     case guestIdentityId
 

@@ -33,7 +33,7 @@ struct Constants {
         static let apiRequestTimeout: TimeInterval = 30
         static let apiResourceTimeout: TimeInterval = 90
         
-        static let fallbackEnvironment: AppEnvironment = .development
+        static let fallbackEnvironment: AppEnvironment = .production
         
         @MainActor
         static let deviceHeight: CGFloat = UIScreen.currentHeight ?? 0
@@ -73,14 +73,45 @@ struct Constants {
         static let defaultCustomEnvironmentAddress = "http://localhost:3000/api"
                 
         static func urlForEnvironment(_ env: AppEnvironment) -> String {
-            
+
             switch env {
-            case .custom(let address): return "\(address)"
+            case .custom(let address): return validatedAPIURL(address) ?? ""
             case .localhost: return self.defaultCustomEnvironmentAddress
-            // Replace with the provisioned LeafLaunch endpoints before release.
-            case .development, .production: return self.defaultCustomEnvironmentAddress
+            case .development: return validatedAPIURL(BusinessConfig.developmentAPIURL) ?? ""
+            case .production: return validatedAPIURL(BusinessConfig.productionAPIURL, production: true) ?? ""
             }
-            
+
+        }
+
+        private static func validatedAPIURL(_ value: String?, production: Bool = false) -> String? {
+
+            guard let value,
+                  let components = URLComponents(string: value.trimmingCharacters(in: .whitespacesAndNewlines)),
+                  let scheme = components.scheme?.lowercased(),
+                  ["http", "https"].contains(scheme),
+                  let host = components.host?.lowercased(),
+                  !host.isEmpty,
+                  components.user == nil,
+                  components.password == nil,
+                  components.query == nil,
+                  components.fragment == nil,
+                  let url = components.url else { return nil }
+
+            if production {
+
+                guard scheme == "https",
+                      host != "localhost",
+                      !host.hasSuffix(".localhost"),
+                      host != "::1",
+                      host != "[::1]",
+                      !host.hasPrefix("127.") else { return nil }
+
+            }
+
+            var address = url.absoluteString
+            while address.hasSuffix("/") { address.removeLast() }
+            return address
+
         }
         
     }

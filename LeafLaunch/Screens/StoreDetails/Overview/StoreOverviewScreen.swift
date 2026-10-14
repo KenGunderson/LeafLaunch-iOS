@@ -146,7 +146,28 @@ struct StoreOverviewScreen: GPView {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-                Text(self.viewModel.configuration?.publicName ?? "").appFont(with: .TITLE_4)
+                if let store = self.viewModel.store {
+
+                    Text(store.name).appFont(with: .TITLE_4)
+
+                    if let legalName = store.legalName, legalName != store.name {
+                        Text(legalName)
+                    }
+
+                    if let supportEmail = store.supportEmail {
+                        Text(supportEmail)
+                    }
+
+                    if let supportPhone = store.supportPhone {
+                        Text(supportPhone)
+                    }
+
+                    if let websiteURL = store.websiteURL {
+                        Link(String(localized: "Business Website"), destination: websiteURL)
+                    }
+
+                }
+
                 if let details = self.viewModel.locationDetails {
 
                     Text(details.location.name)

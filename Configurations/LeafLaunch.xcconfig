@@ -5,3 +5,9 @@ LEAFLAUNCH_APP_KEY = 2fec1b48-f628-5ad6-8772-e15f432c8d14
 LEAFLAUNCH_LOGO_ASSET_NAME = App_Icon
 LEAFLAUNCH_BUNDLE_IDENTIFIER = com.lltemplate
 
+// $() preserves the URL's double slash in xcconfig syntax.
+// Development matches the existing local API configuration. Set the confirmed
+// HTTPS production base URL (including /api) before a Production release.
+LEAFLAUNCH_DEVELOPMENT_API_URL = http:/$()/localhost:3000/api
+LEAFLAUNCH_PRODUCTION_API_URL =
+

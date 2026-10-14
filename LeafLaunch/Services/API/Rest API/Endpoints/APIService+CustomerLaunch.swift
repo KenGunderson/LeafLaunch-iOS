@@ -8,13 +8,19 @@ extension APIService {
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .customerPublic("apps/\(appKey)/bootstrap")),
-            queryParameters: ["platform": "IOS", "version": await Self.appVersion],
+            queryParameters: [
+                "platform": "IOS",
+                "version": await Self.appVersion,
+                "store_id": await BusinessConfig.businessId
+            ],
             requiresAuthentication: false
         )
         let bootstrap: CustomerBootstrap = try await parseData(data: data)
         try Task.checkCancellation()
 
-        guard bootstrap.appKey.lowercased() == appKey.lowercased() else {
+        guard bootstrap.appKey.lowercased() == appKey.lowercased(),
+              bootstrap.storeId.lowercased() == (await BusinessConfig.businessId).lowercased(),
+              bootstrap.store.id.lowercased() == bootstrap.storeId.lowercased() else {
             throw APIError.decodingError
         }
 
@@ -28,6 +34,8 @@ extension APIService {
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .customerPublic("locations/\(locationId)/hours")),
+            queryParameters: ["store_id": businessId],
+            headers: await customerHeaders(locationId: locationId),
             requiresAuthentication: false
         )
         let details: CustomerLocationDetails = try await parseData(data: data)

@@ -1,10 +1,10 @@
 # SwiftUI Feature Example
 
-This documentation-only example shows a user-profile screen using the [implementation rules](IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse LeafLaunch's existing `GPUser`, `AuthServiceProtocol.reloadUser()`, profile analytics event, navigation service, and UI components.
+This documentation-only example shows a user-profile screen using the [implementation rules](IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse LeafLaunch's existing `LLUser`, `AuthServiceProtocol.reloadUser()`, profile analytics event, navigation service, and UI components.
 
 The screen owns lifecycle wiring. Its ViewModel owns fetching, AlertService presentation, and navigation actions. The card receives a user, loading state, and an action, so it does not need a ViewModel or service dependency.
 
-The snippets follow the user's corrected spacing: expanded bodies and nested groups have blank lines inside their braces, while short helpers and closures stay compact. Preserve this layout when using the example; it is LeafLaunch's default style, not an exception for older files.
+The snippets follow the project's Swift formatting: expanded bodies and nested groups have blank lines inside their braces, while short helpers and closures stay compact. Preserve this layout when using the example; it is LeafLaunch's default style, not an exception for older files.
 
 If implemented, keep the files together under `LeafLaunch/Screens/UserDetails/`, with the card in its `views/` subdirectory. No new model or service protocol is necessary. The integration excerpts later in this document show the wiring the example would require; none has been applied to production code.
 
@@ -29,12 +29,13 @@ final class UserDetailsViewModel: ViewModel {
     private var userId: String?
     private var loadUserTask: Task<Void, Never>?
 
-    @Published private(set) var user: GPUser?
+    @Published private(set) var user: LLUser?
     @Published private(set) var isLoading: Bool = false
 
     init(authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
+
         self.authService = authService
         self.analyticsService = analyticsService
         self.alertService = alertService
@@ -247,11 +248,11 @@ struct UserDetailsCard: View {
 
     @Environment(\.style) private var style
 
-    private let user: GPUser
+    private let user: LLUser
     private let isRefreshing: Bool
     private let onRefresh: () -> Void
 
-    init(user: GPUser,
+    init(user: LLUser,
          isRefreshing: Bool,
          onRefresh: @escaping () -> Void) {
 

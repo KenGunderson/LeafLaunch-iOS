@@ -53,23 +53,34 @@ extension MockUserDefaultsService {
 
     }
 
-    func hasApprovedAge(userId: String, state: String) -> Bool {
+    func hasApprovedAge(userId: String, state: String, policy: EffectiveAgePolicy) -> Bool {
 
         let approvedState = normalizedCustomerState(state)
-        guard !userId.isEmpty, !approvedState.isEmpty else { return false }
+        guard !userId.isEmpty,
+              policy.isValid,
+              approvedState == normalizedCustomerState(policy.approvalState(businessId: BusinessConfig.businessId)),
+              self.ageVerificationApprovals[userId]?.contains(approvedState) == true,
+              let metadata = self.ageVerificationApprovalMetadata[userId]?[approvedState] else { return false }
 
-        return self.ageVerificationApprovals[userId]?.contains(approvedState) == true
+        return metadata.approves(policy: policy)
 
     }
 
-    func approveAge(userId: String, state: String) {
+    func approveAge(userId: String, state: String, policy: EffectiveAgePolicy) {
 
         let approvedState = normalizedCustomerState(state)
-        guard !userId.isEmpty, !approvedState.isEmpty else { return }
+        guard !userId.isEmpty,
+              policy.isValid,
+              policy.required,
+              approvedState == normalizedCustomerState(policy.approvalState(businessId: BusinessConfig.businessId)) else { return }
 
         var approvedStates = Set(self.ageVerificationApprovals[userId] ?? [])
         approvedStates.insert(approvedState)
         self.ageVerificationApprovals[userId] = approvedStates.sorted()
+
+        var metadata = self.ageVerificationApprovalMetadata[userId] ?? [:]
+        metadata[approvedState] = AgeVerificationApproval(policy: policy)
+        self.ageVerificationApprovalMetadata[userId] = metadata
 
     }
 

@@ -30,7 +30,7 @@ final class APIService: APIServiceProtocol {
     private var cancelBag: CancelBag!
         
     var hostURL: String {
-        return Constants.URLs.urlForEnvironment(self.environment ?? .localhost)
+        return Constants.URLs.urlForEnvironment(self.environment ?? Constants.Runtime.fallbackEnvironment)
     }
     
     func freshAccessToken() async throws(APIError) -> String? {

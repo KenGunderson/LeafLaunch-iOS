@@ -20,7 +20,7 @@ final class StoreAccountViewModel: ViewModel {
     private var requestId: UUID?
     private var nextHistoryOffset: Int?
 
-    @Published private(set) var user: GPUser?
+    @Published private(set) var user: LLUser?
     @Published private(set) var account: CustomerAccount?
     @Published private(set) var membership: CustomerLocationMembership?
     @Published private(set) var history: [LoyaltyHistoryEntry] = []
@@ -270,7 +270,7 @@ final class StoreAccountViewModel: ViewModel {
 
     }
 
-    private func updateUser(_ user: GPUser?) {
+    private func updateUser(_ user: LLUser?) {
 
         self.loadAccountTask?.cancel()
         self.loadAccountTask = nil
@@ -298,7 +298,7 @@ final class StoreAccountViewModel: ViewModel {
 
     }
 
-    private func handleUserChange(_ user: GPUser?) {
+    private func handleUserChange(_ user: LLUser?) {
 
         guard self.authService.currentUser == user,
               self.user != user else { return }

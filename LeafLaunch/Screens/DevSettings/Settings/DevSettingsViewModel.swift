@@ -26,7 +26,7 @@ final class DevSettingsViewModel: ViewModel {
     private var cancelBag: CancelBag!
     private var logoutTask: Task<Void, Never>?
 
-    @Published private(set) var user: GPUser?
+    @Published private(set) var user: LLUser?
     @Published private(set) var isCustomEnvSelected: Bool = false
     @Published var selectedEnviornment: AppEnvironment? = .development
     @Published var customAPIEnviornmentPath: String = Constants.URLs.defaultCustomEnvironmentAddress

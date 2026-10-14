@@ -23,6 +23,10 @@
 	<string>$(LEAFLAUNCH_APP_KEY)</string>
 	<key>LeafLaunchLogoAssetName</key>
 	<string>$(LEAFLAUNCH_LOGO_ASSET_NAME)</string>
+	<key>LeafLaunchDevelopmentAPIURL</key>
+	<string>$(LEAFLAUNCH_DEVELOPMENT_API_URL)</string>
+	<key>LeafLaunchProductionAPIURL</key>
+	<string>$(LEAFLAUNCH_PRODUCTION_API_URL)</string>
 	<key>LeafLaunchBundleIdentifier</key>
 	<string>$(LEAFLAUNCH_BUNDLE_IDENTIFIER)</string>
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>

@@ -35,8 +35,8 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     @discardableResult
     func applyStoreTheme(branding: StoreAppBranding?) -> Bool
     func set(lastSelectedLocationId: String?)
-    func hasApprovedAge(userId: String, state: String) -> Bool
-    func approveAge(userId: String, state: String)
+    func hasApprovedAge(userId: String, state: String, policy: EffectiveAgePolicy) -> Bool
+    func approveAge(userId: String, state: String, policy: EffectiveAgePolicy)
     func setFavorite(productId: String, isFavorite: Bool)
     @MainActor
     func logout() async

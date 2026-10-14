@@ -27,7 +27,10 @@ nonisolated struct Product: Codable, Equatable, Hashable, Identifiable, Sendable
     let variants: [ProductPricing]
 
     var minimumPrice: Decimal? {
-        self.variants.compactMap(\.displayPrice).min()
+
+        guard self.status == .published else { return nil }
+        return self.variants.filter { $0.availability == .available }.compactMap(\.displayPrice).min()
+
     }
 
     private enum CodingKeys: String, CodingKey {

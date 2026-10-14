@@ -11,6 +11,8 @@ nonisolated struct CustomerBootstrap: Codable, Equatable, Sendable {
     }
 
     let appKey: String
+    let storeId: String
+    let store: PublicStore
     let publicName: String
     let state: State
     let updateURL: URL?
@@ -24,6 +26,8 @@ nonisolated struct CustomerBootstrap: Codable, Equatable, Sendable {
     private enum CodingKeys: String, CodingKey {
 
         case appKey = "app_key"
+        case storeId = "store_id"
+        case store
         case publicName = "public_name"
         case state
         case updateURL = "update_url"

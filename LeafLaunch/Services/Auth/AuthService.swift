@@ -20,8 +20,8 @@ final class AuthService: AuthServiceProtocol {
     private let analyticsService: AnalyticsServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     
-    @Published private(set) var currentUser: GPUser?
-    var currentUserPublisher: AnyPublisher<GPUser?, Never> {
+    @Published private(set) var currentUser: LLUser?
+    var currentUserPublisher: AnyPublisher<LLUser?, Never> {
         return self.$currentUser.eraseToAnyPublisher()
     }
     
@@ -180,7 +180,7 @@ final class AuthService: AuthServiceProtocol {
 
             guard self.firebaseService.user?.uid == externalId else { return }
 
-            let user = GPUser(
+            let user = LLUser(
                 customerAccount: account,
                 externalId: externalId,
                 email: email
@@ -490,7 +490,7 @@ final class AuthService: AuthServiceProtocol {
                 guard self?.initialUserLoadId == loadId,
                       firebaseService.user?.uid == externalId else { return }
 
-                self?.currentUser = GPUser(
+                self?.currentUser = LLUser(
                     customerAccount: account,
                     externalId: externalId,
                     email: email

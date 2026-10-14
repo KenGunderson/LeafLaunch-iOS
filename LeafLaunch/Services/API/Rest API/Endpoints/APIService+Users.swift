@@ -13,33 +13,33 @@ extension APIService {
     // MARK: - USERS
 
     @concurrent
-    func getUser(id: String) async throws -> GPUser {
+    func getUser(id: String) async throws -> LLUser {
         
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .user("\(id)"))
         )
         
-        let result: GPUser = try await parseData(data: data)
+        let result: LLUser = try await parseData(data: data)
         return result
 
     }
 
     @concurrent
-    func getUserProfile() async throws -> GPUser {
+    func getUserProfile() async throws -> LLUser {
         
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .user("profile"))
         )
         
-        let result: GPUser = try await parseData(data: data)
+        let result: LLUser = try await parseData(data: data)
         return result
 
     }
 
     @concurrent
-    func createUser(user: GPUser) async throws -> GPUser {
+    func createUser(user: LLUser) async throws -> LLUser {
 
         let parameters: [String: Any] = await [
             "first_name": user.firstName,
@@ -59,13 +59,13 @@ extension APIService {
             parameters: parameters
         )
         
-        let result: GPUser = try await parseData(data: data)
+        let result: LLUser = try await parseData(data: data)
         return result
 
     }
 
     @concurrent
-    func updateUser(user: GPUser) async throws {
+    func updateUser(user: LLUser) async throws {
 
         let parameters: [String: Any] = [
             "id": user.id,
@@ -89,7 +89,7 @@ extension APIService {
     }
 
     @concurrent
-    func deleteUser(user: GPUser) async throws {
+    func deleteUser(user: LLUser) async throws {
 
         
         _ = try await buildRequest(

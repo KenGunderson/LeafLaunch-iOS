@@ -28,6 +28,7 @@ struct AgeVerificationScreen: GPView {
                     LeafLaunchButton(title: String(localized: "I am \(self.viewModel.minimumAge) or older")) {
                         self.viewModel.approve()
                     }
+                    .disabled(self.viewModel.isApproving)
 
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

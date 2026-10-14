@@ -15,6 +15,7 @@ final class StoreShopViewModel: ViewModel {
     private weak var navigationService: NavigationService?
     private var locationId: String?
     private var loadProductsTask: Task<Void, Never>?
+    private var searchTask: Task<Void, Never>?
     private var loadId: UUID?
     private var favoritesSubscription: AnyCancellable?
     private var nextOffset: Int?
@@ -28,8 +29,27 @@ final class StoreShopViewModel: ViewModel {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var hasMoreProducts: Bool = false
-    @Published var search: String = ""
-    @Published var sort: ProductSort = .featured
+    @Published var search: String = "" {
+
+        didSet {
+
+            guard self.search != oldValue else { return }
+            scheduleSearch()
+
+        }
+
+    }
+
+    @Published var sort: ProductSort = .featured {
+
+        didSet {
+
+            guard self.sort != oldValue else { return }
+            loadData(showHud: true)
+
+        }
+
+    }
 
     var subcategories: [ProductSubcategory] {
         return self.categories.first(where: { $0.id == self.selectedCategoryId })?.subcategories ?? []
@@ -51,6 +71,7 @@ final class StoreShopViewModel: ViewModel {
     isolated deinit {
 
         self.loadProductsTask?.cancel()
+        self.searchTask?.cancel()
         self.favoritesSubscription?.cancel()
         logDeinit()
 
@@ -94,7 +115,11 @@ final class StoreShopViewModel: ViewModel {
     }
 
     func loadData(showHud: Bool) {
+
+        self.searchTask?.cancel()
+        self.searchTask = nil
         loadProducts(reset: true, showHud: showHud)
+
     }
 
     func clearSearch() {
@@ -137,12 +162,12 @@ final class StoreShopViewModel: ViewModel {
         let apiService = self.apiService
         let alertService = self.alertService
         let loadId = UUID()
-        let sort = self.sort
         let needsCategories = !self.hasLoadedCategories
         let query = ProductQuery(
             search: self.search,
             categoryId: self.selectedCategoryId,
             subcategoryId: self.selectedSubcategoryId,
+            sort: self.sort,
             offset: reset ? 0 : (self.nextOffset ?? 0),
             limit: 100
         )
@@ -191,46 +216,23 @@ final class StoreShopViewModel: ViewModel {
 
                 }
 
-                var page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
-                guard !Task.isCancelled, self?.loadId == loadId else { return }
-
-                var loadedProducts = page.data
-
-                // The public API has no sorting parameter. Load every matching page
-                // before sorting, so a menu-wide order is never a page-only order.
-                if sort != .featured {
-
-                    var sortedQuery = query
-
-                    while page.page.hasMore, let offset = page.page.nextOffset,
-                          offset > sortedQuery.offset {
-
-                        sortedQuery.offset = offset
-                        page = try await apiService.getCustomerProducts(locationId: locationId, query: sortedQuery)
-                        guard !Task.isCancelled, self?.loadId == loadId else { return }
-
-                        loadedProducts.append(contentsOf: page.data)
-
-                    }
-
-                }
-
+                let page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
                 guard !Task.isCancelled, self?.loadId == loadId else { return }
 
                 if reset {
 
                     var seenIds: Set<String> = []
-                    self?.products = sort.sorted(loadedProducts.filter { seenIds.insert($0.id).inserted })
+                    self?.products = page.data.filter { seenIds.insert($0.id).inserted }
 
                 } else {
 
                     let existingIds = Set(self?.products.map(\.id) ?? [])
-                    self?.products.append(contentsOf: loadedProducts.filter { !existingIds.contains($0.id) })
+                    self?.products.append(contentsOf: page.data.filter { !existingIds.contains($0.id) })
 
                 }
 
                 self?.nextOffset = page.page.nextOffset
-                self?.hasMoreProducts = sort == .featured && page.page.hasMore &&
+                self?.hasMoreProducts = page.page.hasMore &&
                     (page.page.nextOffset ?? query.offset) > query.offset
                 self?.hasCompletedInitialLoad = true
 
@@ -239,6 +241,36 @@ final class StoreShopViewModel: ViewModel {
                 guard !Task.isCancelled, self?.loadId == loadId else { return }
                 self?.presentProductsError(context: .get)
 
+            }
+
+        }
+
+    }
+
+    private func scheduleSearch() {
+
+        self.searchTask?.cancel()
+        self.loadProductsTask?.cancel()
+        self.loadProductsTask = nil
+        self.loadId = nil
+        self.products = []
+        self.nextOffset = nil
+        self.hasMoreProducts = false
+        self.hasCompletedInitialLoad = false
+        self.isLoading = false
+
+        self.searchTask = Task { [weak self] in
+
+            do {
+
+                try await Task.sleep(for: .milliseconds(300))
+                guard !Task.isCancelled else { return }
+
+                self?.searchTask = nil
+                self?.loadProducts(reset: true, showHud: false)
+
+            } catch {
+                return
             }
 
         }

@@ -10,8 +10,8 @@ import Combine
 
 protocol AuthProviding: AnyObject {
     
-    var currentUser: GPUser? { get }
-    var currentUserPublisher: AnyPublisher<GPUser?, Never> { get }
+    var currentUser: LLUser? { get }
+    var currentUserPublisher: AnyPublisher<LLUser?, Never> { get }
 
 }
 

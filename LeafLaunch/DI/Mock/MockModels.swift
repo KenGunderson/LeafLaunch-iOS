@@ -16,11 +16,11 @@ enum MockModels {
 
     enum MockUser {
 
-        static var user1: GPUser { MockCustomerModels.user }
+        static var user1: LLUser { MockCustomerModels.user }
 
     }
 
-    static var allUsers: [GPUser] { [MockUser.user1] }
+    static var allUsers: [LLUser] { [MockUser.user1] }
 
 }
 
@@ -48,10 +48,22 @@ enum MockCustomerModels {
 
         CustomerBootstrap(
             appKey: appKey,
+            storeId: businessId,
+            store: store,
             publicName: "High Standards",
             state: .available,
             updateURL: nil,
-            branding: nil,
+            branding: StoreAppBranding(
+                radius: StoreAppRadius(
+                    extraSmall: 2,
+                    small: 4,
+                    small2: 6,
+                    medium: 10,
+                    medium2: 14,
+                    large: 20,
+                    extraLarge: 28
+                )
+            ),
             ageGateRequired: true,
             minimumAge: 21,
             ageGateVersion: 1,
@@ -64,10 +76,40 @@ enum MockCustomerModels {
                     id: location.id,
                     name: location.name,
                     timezone: location.timezone ?? "America/Los_Angeles",
-                    currencyCode: location.currencyCode ?? "USD"
+                    currencyCode: location.currencyCode ?? "USD",
+                    countryCode: location.countryCode,
+                    region: location.region,
+                    agePolicy: agePolicy(for: location)
                 )
 
             }
+        )
+
+    }
+
+    static var store: PublicStore {
+
+        PublicStore(
+            id: businessId,
+            name: "High Standards",
+            legalName: "High Standards Retail LLC",
+            supportEmail: nil,
+            supportPhone: nil,
+            websiteURL: nil
+        )
+
+    }
+
+    static func agePolicy(for location: StoreLocation) -> EffectiveAgePolicy {
+
+        // The demo business maintains this requirement for its locations.
+        EffectiveAgePolicy(
+            required: true,
+            minimumAge: 21,
+            countryCode: location.countryCode,
+            region: location.region,
+            gateVersion: 1,
+            approvalRevision: 1
         )
 
     }
@@ -86,8 +128,8 @@ enum MockCustomerModels {
 
     }
 
-    static var user: GPUser {
-        GPUser(customerAccount: account, externalId: externalId, email: email)
+    static var user: LLUser {
+        LLUser(customerAccount: account, externalId: externalId, email: email)
     }
 
     static func newAccount(displayName: String) -> CustomerAccount {
@@ -338,6 +380,7 @@ enum MockCustomerModels {
 
         return CustomerLocationDetails(
             location: location,
+            agePolicy: agePolicy(for: location),
             openNow: isOpen(location: location, at: now, calendar: calendar),
             localDate: localDate(now, calendar: calendar),
             mapsAddress: location.address

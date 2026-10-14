@@ -47,11 +47,11 @@ protocol APIServiceProtocol: APIProtocol {
     
     // Users
     
-    @concurrent func getUser(id: String) async throws -> GPUser
-    @concurrent func getUserProfile() async throws -> GPUser
-    @concurrent func updateUser(user: GPUser) async throws
-    @concurrent func createUser(user: GPUser) async throws -> GPUser
-    @concurrent func deleteUser(user: GPUser) async throws
+    @concurrent func getUser(id: String) async throws -> LLUser
+    @concurrent func getUserProfile() async throws -> LLUser
+    @concurrent func updateUser(user: LLUser) async throws
+    @concurrent func createUser(user: LLUser) async throws -> LLUser
+    @concurrent func deleteUser(user: LLUser) async throws
 
     // Customer launch and catalog
 
@@ -73,6 +73,11 @@ protocol APIServiceProtocol: APIProtocol {
     @concurrent func getCustomerMembership(locationId: String) async throws -> CustomerLocationMembership
     @concurrent func joinCustomerMembership(locationId: String) async throws -> CustomerLocationMembership
     @concurrent func getCustomerLoyaltyHistory(locationId: String, offset: Int) async throws -> CustomerPage<LoyaltyHistoryEntry>
+
+    // Customer age policy
+
+    @concurrent func getCustomerAgeGateAcceptance(locationId: String) async throws -> AgeGateAcceptance?
+    @concurrent func acceptCustomerAgeGate(locationId: String, policy: EffectiveAgePolicy) async throws -> AgeGateAcceptance
     
 }
 
@@ -97,6 +102,7 @@ extension APIProtocol {
         }
         
         let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
+        guard !Task.isCancelled else { throw APIError.unknownError }
 
         let request = try makeRequest(
             method: method,
@@ -154,6 +160,7 @@ extension APIProtocol {
         }
         
         let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
+        guard !Task.isCancelled else { throw APIError.unknownError }
 
         let request = try makeRequest(
             method: method,
@@ -490,8 +497,20 @@ extension APIProtocol {
                      body: RequestBody,
                      accessToken: String?,
                      headers: [String: String] = [:]) throws(APIError) -> URLRequest {
+
+        guard !self.hostURL.isEmpty else {
+            throw APIError.serverError(statusCode: 503, errorMessage: "The API URL is not configured for this app target.")
+        }
         
-        guard var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
+        guard let baseComponents = URLComponents(string: self.hostURL),
+              let scheme = baseComponents.scheme?.lowercased(),
+              ["http", "https"].contains(scheme),
+              let host = baseComponents.host, !host.isEmpty,
+              baseComponents.user == nil,
+              baseComponents.password == nil,
+              baseComponents.query == nil,
+              baseComponents.fragment == nil,
+              var urlComponents = URLComponents(string: "\(self.hostURL)/\(apiPath.path.buildURL)") else {
             throw APIError.badURL
         }
         

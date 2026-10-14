@@ -16,7 +16,8 @@ final class MockCustomerViewModelAssembly {
         container.ageVerificationViewModel.register { @MainActor in
             AgeVerificationViewModel(
                 storeSessionService: container.storeSessionService(),
-                analyticsService: container.analyticsService()
+                analyticsService: container.analyticsService(),
+                alertService: container.alertService()
             )
         }
 

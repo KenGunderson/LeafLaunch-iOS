@@ -6,6 +6,9 @@ nonisolated struct BootstrapLocation: Codable, Equatable, Hashable, Identifiable
     let name: String
     let timezone: String?
     let currencyCode: String?
+    let countryCode: String?
+    let region: String?
+    let agePolicy: EffectiveAgePolicy
 
     private enum CodingKeys: String, CodingKey {
 
@@ -13,6 +16,9 @@ nonisolated struct BootstrapLocation: Codable, Equatable, Hashable, Identifiable
         case name
         case timezone
         case currencyCode = "currency_code"
+        case countryCode = "country_code"
+        case region
+        case agePolicy = "age_policy"
 
     }
 

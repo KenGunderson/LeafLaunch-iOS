@@ -197,10 +197,11 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
         return self.accessToken
     }
 
-    private var currentUser: GPUser
+    private var currentUser: LLUser
 
     var customerAccount: CustomerAccount = MockCustomerModels.account
     var customerMemberships: [String: CustomerLocationMembership] = MockCustomerModels.memberships
+    var customerAgeAcceptances: [String: [String: AgeGateAcceptance]] = [:]
 
     init() {
 
@@ -215,23 +216,23 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
 
     // Users
 
-    func getUser(id: String) async throws -> GPUser {
+    func getUser(id: String) async throws -> LLUser {
 
         let user = MockModels.MockUser.user1
         return user
 
     }
 
-    func getUserProfile() async throws -> GPUser {
+    func getUserProfile() async throws -> LLUser {
 
         let user = MockModels.MockUser.user1
         return user
 
     }
 
-    func updateUser(user: GPUser) async throws {}
-    func createUser(user: GPUser) async throws -> GPUser { user }
-    func deleteUser(user: GPUser) async throws {}
+    func updateUser(user: LLUser) async throws {}
+    func createUser(user: LLUser) async throws -> LLUser { user }
+    func deleteUser(user: LLUser) async throws {}
 
     // Device
 
@@ -267,8 +268,8 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
     private let apiService: APIServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
 
-    @Published private(set) var currentUser: GPUser?
-    var currentUserPublisher: AnyPublisher<GPUser?, Never> {
+    @Published private(set) var currentUser: LLUser?
+    var currentUserPublisher: AnyPublisher<LLUser?, Never> {
         return self.$currentUser.eraseToAnyPublisher()
     }
 
@@ -292,7 +293,7 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
         )
         try Task.checkCancellation()
 
-        self.currentUser = GPUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
+        self.currentUser = LLUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
 
     }
 
@@ -301,7 +302,7 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
         let account = try await self.apiService.getCustomerAccount()
         try Task.checkCancellation()
 
-        self.currentUser = GPUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
+        self.currentUser = LLUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
 
     }
 
@@ -321,7 +322,7 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
         try Task.checkCancellation()
 
         guard self.currentUser?.id == currentUser.id else { return }
-        self.currentUser = GPUser(
+        self.currentUser = LLUser(
             customerAccount: account,
             externalId: currentUser.externalId,
             email: currentUser.email
@@ -342,7 +343,7 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
 
         guard let currentUser = self.currentUser else { return }
 
-        self.currentUser = GPUser(
+        self.currentUser = LLUser(
             id: currentUser.id,
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
@@ -493,6 +494,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sen
     var lastSelectedLocationId: String?
     let guestIdentityId = MockCustomerModels.guestIdentityId
     var ageVerificationApprovals: [String: [String]] = [:]
+    var ageVerificationApprovalMetadata: [String: [String: AgeVerificationApproval]] = [:]
     var favoriteProductIds: Set<String> = []
     let favoriteProductIdsPublisher = CurrentValueSubject<Set<String>, Never>([])
     var cachedStoreBranding: StoreAppBranding?

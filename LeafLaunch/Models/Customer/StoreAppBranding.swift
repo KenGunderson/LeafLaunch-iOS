@@ -10,6 +10,7 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
     let iconObjectKey: String?
     let splashObjectKey: String?
     let fontFamily: String?
+    let radius: StoreAppRadius?
 
     init(primaryColor: String? = nil,
          accentColor: String? = nil,
@@ -18,7 +19,8 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
          logoObjectKey: String? = nil,
          iconObjectKey: String? = nil,
          splashObjectKey: String? = nil,
-         fontFamily: String? = nil) {
+         fontFamily: String? = nil,
+         radius: StoreAppRadius? = nil) {
 
         self.primaryColor = primaryColor
         self.accentColor = accentColor
@@ -28,6 +30,7 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
         self.iconObjectKey = iconObjectKey
         self.splashObjectKey = splashObjectKey
         self.fontFamily = fontFamily
+        self.radius = radius
 
     }
 
@@ -41,6 +44,7 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
         case iconObjectKey = "icon_object_key"
         case splashObjectKey = "splash_object_key"
         case fontFamily = "font_family"
+        case radius
 
     }
 

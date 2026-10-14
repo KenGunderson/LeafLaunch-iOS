@@ -6,7 +6,7 @@ extension MockAPIService {
 
     func getCustomerBootstrap(appKey: String) async throws -> CustomerBootstrap {
 
-        guard appKey == MockCustomerModels.appKey else { throw customerNotFound() }
+        guard appKey.lowercased() == MockCustomerModels.appKey.lowercased() else { throw customerNotFound() }
         return MockCustomerModels.bootstrap
 
     }
@@ -33,7 +33,7 @@ extension MockAPIService {
     func getCustomerProducts(locationId: String, query: ProductQuery) async throws -> CustomerPage<Product> {
 
         try validateCustomerLocation(locationId)
-        let search = query.search.trimmingCharacters(in: .whitespacesAndNewlines)
+        let search = String(query.search.trimmingCharacters(in: .whitespacesAndNewlines).prefix(200))
 
         let products = MockCustomerModels.products(locationId: locationId).filter { product in
 
@@ -50,7 +50,7 @@ extension MockAPIService {
 
         }
 
-        return customerPage(products, offset: query.offset, limit: query.limit)
+        return customerPage(sortedCustomerProducts(products, sort: query.sort), offset: query.offset, limit: query.limit)
 
     }
 
@@ -147,6 +147,7 @@ extension MockAPIService {
             updatedAt: Date()
         )
         self.customerMemberships.removeAll()
+        self.customerAgeAcceptances.removeValue(forKey: account.id)
 
     }
 
@@ -189,6 +190,82 @@ extension MockAPIService {
         _ = try await getCustomerMembership(locationId: locationId)
         let history = self.customerAccount.id == MockCustomerModels.account.id ? MockCustomerModels.loyaltyHistory : []
         return customerPage(history, offset: offset)
+
+    }
+
+    func getCustomerAgeGateAcceptance(locationId: String) async throws -> AgeGateAcceptance? {
+
+        try validateCustomerLocation(locationId)
+        let account = try await getCustomerAccount()
+        guard let details = MockCustomerModels.locationDetails(for: locationId) else { throw customerNotFound() }
+        guard details.agePolicy.required else { return nil }
+
+        return self.customerAgeAcceptances[account.id]?.values.first {
+            $0.applies(to: details.agePolicy, businessId: MockCustomerModels.businessId, customerAccountId: account.id)
+        }
+
+    }
+
+    func acceptCustomerAgeGate(locationId: String, policy: EffectiveAgePolicy) async throws -> AgeGateAcceptance {
+
+        try validateCustomerLocation(locationId)
+        let account = try await getCustomerAccount()
+        guard let details = MockCustomerModels.locationDetails(for: locationId) else { throw customerNotFound() }
+
+        let effectivePolicy = details.agePolicy
+        guard effectivePolicy.required,
+              policy.minimumAge == effectivePolicy.minimumAge,
+              policy.gateVersion == effectivePolicy.gateVersion else {
+            throw APIError.serverError(statusCode: 409, errorMessage: "The age policy changed. Refresh the store and confirm again.")
+        }
+        try Task.checkCancellation()
+
+        let acceptance = AgeGateAcceptance(
+            id: UUID().uuidString,
+            customerAccountId: account.id,
+            storeId: MockCustomerModels.businessId,
+            locationId: locationId,
+            countryCode: effectivePolicy.canonicalCountryCode,
+            region: effectivePolicy.canonicalRegion,
+            minimumAge: effectivePolicy.minimumAge,
+            gateVersion: effectivePolicy.gateVersion,
+            approvalRevision: effectivePolicy.approvalRevision,
+            acceptedAt: Date()
+        )
+        var acceptances = self.customerAgeAcceptances[account.id] ?? [:]
+        acceptances[effectivePolicy.approvalState(businessId: MockCustomerModels.businessId)] = acceptance
+        self.customerAgeAcceptances[account.id] = acceptances
+
+        return acceptance
+
+    }
+
+    private func sortedCustomerProducts(_ products: [Product], sort: ProductSort) -> [Product] {
+
+        guard sort != .featured else { return products }
+
+        return products.sorted { lhs, rhs in
+
+            if sort == .priceAscending || sort == .priceDescending {
+
+                switch (lhs.minimumPrice, rhs.minimumPrice) {
+                case (nil, nil): break
+                case (nil, _): return false
+                case (_, nil): return true
+                case (let lhsPrice?, let rhsPrice?) where lhsPrice != rhsPrice:
+                    return sort == .priceAscending ? lhsPrice < rhsPrice : lhsPrice > rhsPrice
+                default: break
+                }
+
+            }
+
+            let lhsName = lhs.displayName.lowercased()
+            let rhsName = rhs.displayName.lowercased()
+            if lhsName != rhsName { return lhsName < rhsName }
+            if lhs.displayName != rhs.displayName { return lhs.displayName < rhs.displayName }
+            return lhs.id < rhs.id
+
+        }
 
     }
 

@@ -15,6 +15,8 @@ enum BusinessConfig {
     static let bundleIdentifier = configurationValue(for: "LeafLaunchBundleIdentifier")
         ?? Bundle.main.bundleIdentifier
         ?? ""
+    static let developmentAPIURL = configurationValue(for: "LeafLaunchDevelopmentAPIURL")
+    static let productionAPIURL = configurationValue(for: "LeafLaunchProductionAPIURL")
 
     static var isConfigured: Bool {
 

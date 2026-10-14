@@ -64,6 +64,7 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
 
     @Published private(set) var currentAccessTokenExpirationDate: Date?
+    private var accessTokenUserId: String?
 
     private let accessTokenRefreshLeeway: TimeInterval = 60
 
@@ -247,30 +248,33 @@ final class FirebaseService: FirebaseServiceProtocol {
 
     func freshAuthToken() async throws -> String? {
 
-        guard let user = Auth.auth().currentUser ?? self.user else {
+        guard let user = Auth.auth().currentUser else {
 
             self.clearCurrentAccessToken()
             return nil
 
         }
 
-        if self.hasValidCachedAccessToken() {
+        if self.accessTokenUserId == user.uid, hasValidCachedAccessToken() {
             return self.currentAccessToken
         }
 
         do {
 
             let result = try await user.getIDTokenResult(forcingRefresh: true)
-            self.setAccessToken(result)
-
-            await MainActor.run { [weak self, result] in
-                self?.log(message: "Firebase User Token \(result.token)")
+            try Task.checkCancellation()
+            guard Auth.auth().currentUser?.uid == user.uid else {
+                throw CancellationError()
             }
+
+            setAccessToken(result, userId: user.uid)
 
             return result.token
             
         } catch let error {
-            
+
+            if error is CancellationError { throw error }
+
             self.logError(
                 title: "Access Token Error",
                 message: error.getMessageForError()
@@ -323,7 +327,8 @@ final class FirebaseService: FirebaseServiceProtocol {
         do {
             
             try Auth.auth().signOut()
-            
+
+            self.idTokenUpdateTask?.cancel()
             self.user = nil
             self.clearCurrentAccessToken()
             self.clearAuthContext()
@@ -453,17 +458,17 @@ final class FirebaseService: FirebaseServiceProtocol {
         self.idTokenDidChangeListener = Auth.auth().addIDTokenDidChangeListener { [weak self] auth, user in
             
             guard let self = self else { return }
+            if self.accessTokenUserId != user?.uid { self.clearCurrentAccessToken() }
             self.user = user
             
             self.idTokenUpdateTask?.cancel()
             
             self.idTokenUpdateTask = Task { [weak self] in
-                
-                guard let self else { return }
-                
+
                 guard let user = user else {
-                    
-                    await MainActor.run { self.clearCurrentAccessToken() }
+
+                    guard !Task.isCancelled else { return }
+                    await MainActor.run { self?.clearCurrentAccessToken() }
                     return
                     
                 }
@@ -471,16 +476,21 @@ final class FirebaseService: FirebaseServiceProtocol {
                 do {
                     
                     let result = try await user.getIDTokenResult(forcingRefresh: false)
-                    
-                    await MainActor.run {
-                        self.setAccessToken(result)
+                    try Task.checkCancellation()
+
+                    await MainActor.run { [weak self] in
+
+                        guard !Task.isCancelled,
+                              Auth.auth().currentUser?.uid == user.uid else { return }
+                        self?.setAccessToken(result, userId: user.uid)
+
                     }
                     
                 } catch {
                     
                     guard !Task.isCancelled else { return }
                     
-                    self.logError(
+                    self?.logError(
                         title: "IDToken Listener Error",
                         message: error.getMessageForError()
                     )
@@ -505,8 +515,9 @@ final class FirebaseService: FirebaseServiceProtocol {
 
     }
 
-    private func setAccessToken(_ result: AuthTokenResult) {
+    private func setAccessToken(_ result: AuthTokenResult, userId: String) {
 
+        self.accessTokenUserId = userId
         self.currentAccessToken = result.token
         self.currentAccessTokenExpirationDate = result.expirationDate
 
@@ -514,6 +525,7 @@ final class FirebaseService: FirebaseServiceProtocol {
 
     private func clearCurrentAccessToken() {
 
+        self.accessTokenUserId = nil
         self.currentAccessToken = nil
         self.currentAccessTokenExpirationDate = nil
 

@@ -115,6 +115,51 @@ extension APIService {
 
     }
 
+    @concurrent
+    func getCustomerAgeGateAcceptance(locationId: String) async throws -> AgeGateAcceptance? {
+
+        let data = try await buildRequest(
+            method: .get,
+            apiPath: .init(path: .customer("age-gate")),
+            queryParameters: ["location_id": locationId],
+            headers: await customerHeaders(locationId: locationId)
+        )
+        let acceptance: AgeGateAcceptance? = try await parseData(data: data)
+        try Task.checkCancellation()
+
+        return acceptance
+
+    }
+
+    @concurrent
+    func acceptCustomerAgeGate(locationId: String, policy: EffectiveAgePolicy) async throws -> AgeGateAcceptance {
+
+        guard policy.isValid else { throw APIError.decodingError }
+
+        let input = AgeGateAcceptanceInput(
+            minimumAge: policy.minimumAge,
+            gateVersion: policy.gateVersion,
+            locationId: locationId,
+            accepted: true
+        )
+        let data = try await buildRequest(
+            method: .put,
+            apiPath: .init(path: .customer("age-gate")),
+            parameters: [
+                "minimum_age": input.minimumAge,
+                "gate_version": input.gateVersion,
+                "location_id": input.locationId,
+                "accepted": input.accepted
+            ],
+            headers: await customerHeaders(locationId: locationId)
+        )
+        let acceptance: AgeGateAcceptance = try await parseData(data: data)
+        try Task.checkCancellation()
+
+        return acceptance
+
+    }
+
     func customerHeaders(locationId: String? = nil) -> [String: String] {
 
         var headers = ["x-app-key": BusinessConfig.appKey]

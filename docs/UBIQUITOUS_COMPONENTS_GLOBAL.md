@@ -4,15 +4,7 @@ _Generated: 2026-03-31T18:45:38-07:00_
 
 ## Scope
 
-- **Workspace:** `/Users/sakohovaguimian/Desktop/Personal/Rune`
-- **Output:** `/Users/sakohovaguimian/.codex/shared/ubiquitous-components/rune/UBIQUITOUS_COMPONENTS.md`
-- **Global Rune Output:** `/Users/sakohovaguimian/.codex/shared/ubiquitous-components/rune/UBIQUITOUS_COMPONENTS.md`
-
-### Source Roots
-
-| Source | Kind | Root |
-| --- | --- | --- |
-| Rune | rune | `/Users/sakohovaguimian/Desktop/Personal/Rune/Sources/Rune` |
+This generated Rune inventory is a discovery reference, not a verified API contract. Its generation date above describes the snapshot. Before using a component, inspect the Rune revision pinned in [Package.resolved](../LeafLaunch.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved) and its implementation under the package's `Sources/Rune` directory. File names and line numbers below refer to the snapshot and can change between revisions.
 
 ### Coverage Summary
 
@@ -28,7 +20,7 @@ _Generated: 2026-03-31T18:45:38-07:00_
 
 - This file is intentionally compact: one row per declaration with summarized entry points.
 - Private/fileprivate declarations are excluded to focus on offered surface area.
-- Use source file links (`File`) to inspect implementation details only where needed.
+- The `File` column identifies package source to inspect when needed.
 - For deep audits, regenerate with a custom script variant that emits full per-API parameter tables.
 
 ## Category: Components

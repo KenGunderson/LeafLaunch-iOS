@@ -91,6 +91,22 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     }
 
+    private var ageVerificationApprovalMetadata: [String: [String: AgeVerificationApproval]] {
+
+        let key = customerKey(.ageVerificationApprovalMetadata)
+
+        guard let data = self.defaults.data(forKey: key) else { return [:] }
+        guard let metadata = try? JSONDecoder().decode([String: [String: AgeVerificationApproval]].self, from: data) else {
+
+            self.defaults.removeObject(forKey: key)
+            return [:]
+
+        }
+
+        return metadata
+
+    }
+
     var favoriteProductIds: Set<String> {
 
         let identifiers = self.defaults.stringArray(forKey: customerKey(.favoriteProductIds)) ?? []
@@ -214,8 +230,9 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
 
         guard BusinessConfig.isConfigured,
-              let storeTheme = StoreThemeBuilder.makeTheme(branding: branding, baseTheme: self.theme),
-              let encodedTheme = try? JSONEncoder().encode(CachedStoreTheme(branding: branding, baseTheme: self.theme)) else {
+              let cachedTheme = CachedStoreTheme(branding: branding, baseTheme: self.theme),
+              let storeTheme = StoreThemeBuilder.makeTheme(branding: cachedTheme.branding, baseTheme: self.theme),
+              let encodedTheme = try? JSONEncoder().encode(cachedTheme) else {
 
             self.defaults.removeObject(forKey: key)
             self.style.updateTheme(self.theme.theme())
@@ -245,27 +262,42 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     }
 
-    func hasApprovedAge(userId: String, state: String) -> Bool {
+    func hasApprovedAge(userId: String, state: String, policy: EffectiveAgePolicy) -> Bool {
 
         let approvedState = normalizedState(state)
-        guard !userId.isEmpty, !approvedState.isEmpty else { return false }
+        guard !userId.isEmpty,
+              policy.isValid,
+              approvedState == normalizedState(policy.approvalState(businessId: BusinessConfig.businessId)),
+              self.ageVerificationApprovals[userId]?.contains(approvedState) == true,
+              let metadata = self.ageVerificationApprovalMetadata[userId]?[approvedState] else { return false }
 
-        return self.ageVerificationApprovals[userId]?.contains(approvedState) == true
+        return metadata.approves(policy: policy)
 
     }
 
-    func approveAge(userId: String, state: String) {
+    func approveAge(userId: String, state: String, policy: EffectiveAgePolicy) {
 
         let approvedState = normalizedState(state)
-        guard !userId.isEmpty, !approvedState.isEmpty else { return }
+        guard !userId.isEmpty,
+              policy.isValid,
+              policy.required,
+              approvedState == normalizedState(policy.approvalState(businessId: BusinessConfig.businessId)) else { return }
 
         var approvals = self.ageVerificationApprovals
         var approvedStates = Set(approvals[userId] ?? [])
         approvedStates.insert(approvedState)
         approvals[userId] = approvedStates.sorted()
 
-        guard let data = try? JSONEncoder().encode(approvals) else { return }
-        self.defaults.set(data, forKey: customerKey(.ageVerificationApprovals))
+        var metadata = self.ageVerificationApprovalMetadata
+        var userMetadata = metadata[userId] ?? [:]
+        userMetadata[approvedState] = AgeVerificationApproval(policy: policy)
+        metadata[userId] = userMetadata
+
+        guard let approvalData = try? JSONEncoder().encode(approvals),
+              let metadataData = try? JSONEncoder().encode(metadata) else { return }
+
+        self.defaults.set(metadataData, forKey: customerKey(.ageVerificationApprovalMetadata))
+        self.defaults.set(approvalData, forKey: customerKey(.ageVerificationApprovals))
 
     }
 
@@ -293,14 +325,23 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
         guard let data = self.defaults.data(forKey: key) else { return nil }
         guard let cachedTheme = try? JSONDecoder().decode(CachedStoreTheme.self, from: data),
-              cachedTheme.matchesCurrentTarget else {
+              cachedTheme.matchesCurrentTarget,
+              let baseTheme = AvailableTheme(rawValue: cachedTheme.baseTheme),
+              let currentTheme = CachedStoreTheme(branding: cachedTheme.branding, baseTheme: baseTheme) else {
 
             self.defaults.removeObject(forKey: key)
             return nil
 
         }
 
-        return cachedTheme
+        // Version 1 stored only colors/fonts/media. Resolve the established radius
+        // defaults once and persist the complete version 2 definition synchronously.
+        if cachedTheme.schemaVersion != CachedStoreTheme.currentSchemaVersion,
+           let migratedData = try? JSONEncoder().encode(currentTheme) {
+            self.defaults.set(migratedData, forKey: key)
+        }
+
+        return currentTheme
 
     }
 
@@ -310,8 +351,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     private func normalizedState(_ state: String) -> String {
 
-        let value = state.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        return Constants.USState.allCases.first { $0.description.uppercased() == value }?.rawValue ?? value
+        state.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
     }
     

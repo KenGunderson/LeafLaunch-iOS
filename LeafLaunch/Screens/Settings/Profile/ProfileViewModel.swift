@@ -264,7 +264,7 @@ final class ProfileViewModel: ViewModel {
         "\(self.firstName.trimmed()) \(self.lastName.trimmed())".trimmed()
     }
 
-    private func populateProfile(user: GPUser) {
+    private func populateProfile(user: LLUser) {
 
         self.loadedUserId = user.id
         self.firstName = user.firstName

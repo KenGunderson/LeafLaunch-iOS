@@ -15,6 +15,9 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     private var userSubscription: AnyCancellable?
     private var selectLocationTask: Task<Void, Never>?
     private var selectionId: UUID?
+    private var ageVerificationTask: Task<Void, Never>?
+    private var acceptAgeTask: Task<AgeGateAcceptance, Error>?
+    private var ageEvaluationId: UUID?
     private var isBootstrapping: Bool = false
 
     private(set) var configuration: CustomerBootstrap?
@@ -31,19 +34,15 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         return self.configuration?.locations ?? []
     }
 
+    var store: PublicStore? { self.configuration?.store }
+
     var minimumAge: Int {
-        return max(18, self.configuration?.minimumAge ?? 18)
+        return self.locationDetails?.agePolicy.minimumAge ?? self.configuration?.minimumAge ?? 1
     }
 
     var ageVerificationState: String {
-
-        let location = self.locationDetails?.location
-        let region = location?.region?.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if let region, !region.isEmpty { return region }
-
-        // A missing region must never bypass a required gate.
-        return "\(location?.countryCode ?? "UNKNOWN"):\(BusinessConfig.businessId)"
-
+        return self.locationDetails?.agePolicy.approvalState(businessId: BusinessConfig.businessId)
+            ?? "UNKNOWN:\(BusinessConfig.businessId)"
     }
 
     init(apiService: APIServiceProtocol,
@@ -62,6 +61,8 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     isolated deinit {
 
         self.selectLocationTask?.cancel()
+        self.ageVerificationTask?.cancel()
+        self.acceptAgeTask?.cancel()
         self.userSubscription?.cancel()
         logDeinit()
 
@@ -78,6 +79,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         }
 
         self.isBootstrapping = true
+        cancelAgeEvaluation()
         self.selectLocationTask?.cancel()
         self.selectLocationTask = nil
         self.selectionId = nil
@@ -92,6 +94,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
             let configuration = try await self.apiService.getCustomerBootstrap(appKey: BusinessConfig.appKey)
             guard !Task.isCancelled else { return }
+            try validate(configuration: configuration)
 
             self.configuration = configuration
             self.userDefaultsService.applyStoreTheme(branding: configuration.branding)
@@ -129,6 +132,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
                     guard !Task.isCancelled else { return }
                     self.userDefaultsService.set(lastSelectedLocationId: nil)
+                    self.error = error
                     self.state = .locations
 
                 }
@@ -179,6 +183,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         guard self.locations.contains(where: { $0.id.lowercased() == id.lowercased() }) else { return }
 
         self.selectLocationTask?.cancel()
+        cancelAgeEvaluation()
         let selectionId = UUID()
         let apiService = self.apiService
         let businessId = BusinessConfig.businessId
@@ -222,6 +227,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     func showLocations() {
 
         self.selectLocationTask?.cancel()
+        cancelAgeEvaluation()
         self.selectLocationTask = nil
         self.selectionId = nil
         self.locationDetails = nil
@@ -231,13 +237,100 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
     }
 
-    func approveAgeVerification() {
+    func approveAgeVerification() async throws {
 
-        guard self.state == .ageVerification, self.locationDetails != nil else { return }
+        try Task.checkCancellation()
 
+        guard self.state == .ageVerification,
+              let details = self.locationDetails else { return }
+
+        let policy = details.agePolicy
+        guard policy.isValid, policy.required else { throw StoreSessionError.invalidAgePolicy }
+
+        cancelAgeEvaluation()
+
+        let evaluationId = UUID()
+        let locationId = details.location.id
         let userId = self.authService.currentUser?.id ?? self.userDefaultsService.guestIdentityId
-        self.userDefaultsService.approveAge(userId: userId, state: self.ageVerificationState)
-        evaluateAgeVerification()
+        let isAuthenticated = self.authService.currentUser != nil
+        let apiService = self.apiService
+
+        self.ageEvaluationId = evaluationId
+
+        defer {
+
+            if self.ageEvaluationId == evaluationId {
+                self.acceptAgeTask = nil
+            }
+
+        }
+
+        if isAuthenticated {
+
+            let acceptanceTask = Task {
+
+                try Task.checkCancellation()
+                return try await apiService.acceptCustomerAgeGate(locationId: locationId, policy: policy)
+
+            }
+            self.acceptAgeTask = acceptanceTask
+
+            let acceptance: AgeGateAcceptance
+
+            do {
+
+                acceptance = try await withTaskCancellationHandler {
+                    try await acceptanceTask.value
+                } onCancel: {
+                    acceptanceTask.cancel()
+                }
+
+            } catch {
+
+                guard !Task.isCancelled,
+                      self.ageEvaluationId == evaluationId,
+                      self.authService.currentUser?.id == userId,
+                      self.locationDetails?.location.id == locationId,
+                      self.locationDetails?.agePolicy == policy else { throw CancellationError() }
+
+                if case APIError.serverError(let statusCode, _) = error, statusCode == 409 {
+                    await bootstrap()
+                }
+
+                throw error
+
+            }
+            try Task.checkCancellation()
+
+            guard self.ageEvaluationId == evaluationId,
+                  self.authService.currentUser?.id == userId,
+                  self.locationDetails?.location.id == locationId,
+                  self.locationDetails?.agePolicy == policy else { throw CancellationError() }
+            guard acceptance.applies(to: policy, businessId: BusinessConfig.businessId, customerAccountId: userId) else {
+                throw StoreSessionError.invalidAgePolicy
+            }
+
+        }
+
+        try Task.checkCancellation()
+        guard self.ageEvaluationId == evaluationId else { throw CancellationError() }
+
+        self.userDefaultsService.approveAge(
+            userId: userId,
+            state: policy.approvalState(businessId: BusinessConfig.businessId),
+            policy: policy
+        )
+        enterStore(locationId: locationId)
+
+    }
+
+    private func validate(configuration: CustomerBootstrap) throws {
+
+        guard configuration.appKey.lowercased() == BusinessConfig.appKey.lowercased(),
+              configuration.storeId.lowercased() == BusinessConfig.businessId.lowercased(),
+              configuration.store.id.lowercased() == configuration.storeId.lowercased() else {
+            throw StoreSessionError.invalidConfiguration
+        }
 
     }
 
@@ -250,29 +343,136 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
             throw StoreSessionError.invalidLocation
         }
 
+        let policy = details.agePolicy
+        guard policy.isValid,
+              policy.canonicalCountryCode == normalizedScope(details.location.countryCode),
+              policy.canonicalRegion == normalizedScope(details.location.region),
+              self.configuration?.ageGateRequired != true ||
+                (policy.required && policy.minimumAge >= (self.configuration?.minimumAge ?? 1)) else {
+            throw StoreSessionError.invalidAgePolicy
+        }
+
+    }
+
+    private func normalizedScope(_ value: String?) -> String? {
+
+        let scope = value?.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        return scope?.isEmpty == false ? scope : nil
+
     }
 
     private func evaluateAgeVerification() {
 
-        guard let location = self.locationDetails?.location else { return }
+        cancelAgeEvaluation()
+
+        guard let details = self.locationDetails else { return }
         guard self.configuration?.state == .available else { return }
 
-        let userId = self.authService.currentUser?.id ?? self.userDefaultsService.guestIdentityId
-        let requiresApproval = self.configuration?.ageGateRequired == true &&
-            !self.userDefaultsService.hasApprovedAge(userId: userId, state: self.ageVerificationState)
+        let locationId = details.location.id
+        let policy = details.agePolicy
+        guard policy.isValid else {
 
-        self.userDefaultsService.set(lastSelectedLocationId: location.id)
-
-        if requiresApproval {
-
-            self.state = .ageVerification
-
-        } else {
-
-            self.tabBarNavigationService.initializeStoreExperience(locationId: location.id)
-            self.state = .store
+            self.error = StoreSessionError.invalidAgePolicy
+            self.state = .failed
+            return
 
         }
+
+        self.userDefaultsService.set(lastSelectedLocationId: locationId)
+        self.error = nil
+
+        guard policy.required else {
+
+            enterStore(locationId: locationId)
+            return
+
+        }
+
+        guard let userId = self.authService.currentUser?.id else {
+
+            let isApproved = self.userDefaultsService.hasApprovedAge(
+                userId: self.userDefaultsService.guestIdentityId,
+                state: policy.approvalState(businessId: BusinessConfig.businessId),
+                policy: policy
+            )
+
+            if isApproved {
+                enterStore(locationId: locationId)
+            } else {
+                self.state = .ageVerification
+            }
+
+            return
+
+        }
+
+        let evaluationId = UUID()
+        let apiService = self.apiService
+        let businessId = BusinessConfig.businessId
+
+        self.ageEvaluationId = evaluationId
+        self.state = .loading
+
+        self.ageVerificationTask = Task { [weak self] in
+
+            defer {
+
+                if self?.ageEvaluationId == evaluationId {
+                    self?.ageVerificationTask = nil
+                }
+
+            }
+
+            do {
+
+                let acceptance = try await apiService.getCustomerAgeGateAcceptance(locationId: locationId)
+                guard !Task.isCancelled,
+                      self?.ageEvaluationId == evaluationId,
+                      self?.authService.currentUser?.id == userId,
+                      self?.locationDetails?.location.id == locationId,
+                      self?.locationDetails?.agePolicy == policy else { return }
+
+                guard acceptance?.applies(to: policy, businessId: businessId, customerAccountId: userId) == true else {
+
+                    self?.state = .ageVerification
+                    return
+
+                }
+
+                self?.userDefaultsService.approveAge(
+                    userId: userId,
+                    state: policy.approvalState(businessId: businessId),
+                    policy: policy
+                )
+                self?.enterStore(locationId: locationId)
+
+            } catch {
+
+                guard !Task.isCancelled, self?.ageEvaluationId == evaluationId else { return }
+                self?.error = error
+                self?.state = .ageVerification
+
+            }
+
+        }
+
+    }
+
+    private func enterStore(locationId: String) {
+
+        self.error = nil
+        self.tabBarNavigationService.initializeStoreExperience(locationId: locationId)
+        self.state = .store
+
+    }
+
+    private func cancelAgeEvaluation() {
+
+        self.ageVerificationTask?.cancel()
+        self.ageVerificationTask = nil
+        self.acceptAgeTask?.cancel()
+        self.acceptAgeTask = nil
+        self.ageEvaluationId = nil
 
     }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-extension GPUser {
+extension LLUser {
 
     init(customerAccount: CustomerAccount,
          externalId: String,

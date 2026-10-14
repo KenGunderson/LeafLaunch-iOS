@@ -26,8 +26,6 @@ struct StoreShopScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
-        .onChange(of: self.viewModel.sort) { [weak viewModel] _, _ in viewModel?.loadData(showHud: true) }
-
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }

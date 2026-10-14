@@ -21,7 +21,8 @@ extension Container {
         self { @MainActor in
             AgeVerificationViewModel(
                 storeSessionService: self.storeSessionService(),
-                analyticsService: self.analyticsService()
+                analyticsService: self.analyticsService(),
+                alertService: self.alertService()
             )
         }
 

@@ -9,7 +9,7 @@ import Foundation
 // validated definition and reconstruct the actual Rune Theme before rendering.
 nonisolated struct CachedStoreTheme: Codable, Sendable {
 
-    static let currentSchemaVersion = 1
+    static let currentSchemaVersion = 2
 
     let schemaVersion: Int
     let businessId: String
@@ -19,25 +19,29 @@ nonisolated struct CachedStoreTheme: Codable, Sendable {
     let branding: StoreAppBranding
 
     @MainActor
-    init(branding: StoreAppBranding, baseTheme: AvailableTheme) {
+    init?(branding: StoreAppBranding, baseTheme: AvailableTheme) {
+
+        guard let definition = StoreThemeBuilder.validatedDefinition(branding: branding) else { return nil }
+
         self.schemaVersion = Self.currentSchemaVersion
         self.businessId = BusinessConfig.businessId
         self.appKey = BusinessConfig.appKey
         self.bundleIdentifier = BusinessConfig.bundleIdentifier
         self.baseTheme = baseTheme.rawValue
-        self.branding = branding
+        self.branding = definition
 
     }
 
     @MainActor
     var matchesCurrentTarget: Bool {
 
-        self.schemaVersion == Self.currentSchemaVersion
+        (self.schemaVersion == 1 || self.schemaVersion == Self.currentSchemaVersion)
             && BusinessConfig.isConfigured
             && self.businessId == BusinessConfig.businessId
             && self.appKey == BusinessConfig.appKey
             && self.bundleIdentifier == BusinessConfig.bundleIdentifier
             && AvailableTheme(rawValue: self.baseTheme) != nil
+            && (self.schemaVersion == 1 || self.branding.radius?.isComplete == true)
 
     }
 

@@ -25,6 +25,7 @@ final class StoreOverviewViewModel: ViewModel {
     @Published private(set) var hasMoreEvents: Bool = false
 
     var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
+    var store: PublicStore? { self.storeSessionService.store }
     var locationDetails: CustomerLocationDetails? { self.storeSessionService.locationDetails }
 
     init(apiService: APIServiceProtocol,

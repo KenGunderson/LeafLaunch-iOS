@@ -25,6 +25,7 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private var cancelBag: CancelBag!
     private var foregroundUserRefreshTask: Task<Void, Never>?
     private var registerDeviceTokenTask: Task<Void, Never>?
+    private var deviceRegistrationId: UUID?
     private var healthCheckTask: Task<Void, Never>?
     private var storeBootstrapTask: Task<Void, Never>?
     private var hasStarted: Bool = false
@@ -113,7 +114,11 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             .userPublisher
             .receiveOnMain()
             .sink { [weak self] user in
-                
+
+                self?.registerDeviceTokenTask?.cancel()
+                self?.registerDeviceTokenTask = nil
+                self?.deviceRegistrationId = nil
+
                 guard let self else { return }
                 guard !self.didResolveInitialAuthState else { return }
                 
@@ -176,7 +181,11 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             .currentUserPublisher
             .receiveOnMain()
             .sink { [weak self] user in
-                
+
+                self?.registerDeviceTokenTask?.cancel()
+                self?.registerDeviceTokenTask = nil
+                self?.deviceRegistrationId = nil
+
                 guard user != nil else { return }
                 guard let deviceToken = self?.appDelegateService.deviceToken else { return }
                 self?.registerDeviceToken(deviceToken)
@@ -230,29 +239,53 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     }
     
     private func registerDeviceToken(_ token: String) {
-        
+
         guard let user = self.authService.currentUser,
-              self.firebaseService.user != nil else { return }
-        
+              let externalId = self.firebaseService.user?.uid,
+              user.externalId == externalId else { return }
+
         self.registerDeviceTokenTask?.cancel()
-        
+
         let apiService = self.apiService
+        let authService = self.authService
+        let firebaseService = self.firebaseService
         let userId = user.id
-        
+        let registrationId = UUID()
+        self.deviceRegistrationId = registrationId
+
         self.registerDeviceTokenTask = Task { @MainActor [weak self] in
-            
+
+            defer {
+
+                if self?.deviceRegistrationId == registrationId {
+
+                    self?.registerDeviceTokenTask = nil
+                    self?.deviceRegistrationId = nil
+
+                }
+
+            }
+
             do {
-                
+
+                guard !Task.isCancelled,
+                      self?.deviceRegistrationId == registrationId,
+                      authService.currentUser?.id == userId,
+                      firebaseService.user?.uid == externalId else { return }
+
                 try await apiService.registerDevice(
                     token: token,
                     userId: userId
                 )
-                
+
             }
             catch {
-                
-                guard !Task.isCancelled else { return }
-                
+
+                guard !Task.isCancelled,
+                      self?.deviceRegistrationId == registrationId,
+                      authService.currentUser?.id == userId,
+                      firebaseService.user?.uid == externalId else { return }
+
                 self?.logError(
                     title: "Device Token Registration Error",
                     message: error.getMessageForError()
@@ -337,38 +370,41 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     }
     
     private func scheduleForegroundUserRefresh() {
-        
+
         self.foregroundUserRefreshTask?.cancel()
-        
+
+        let authService = self.authService
+        let storeSessionService = self.storeSessionService
+
         self.foregroundUserRefreshTask = Task { [weak self] in
-            await self?.refreshForegroundUserInfo()
+
+            do {
+                try await authService.fetchUserInfoWithToken()
+            }
+            catch {
+
+                guard !Task.isCancelled else { return }
+                self?.logError(
+                    title: "Foreground User Refresh Error",
+                    message: error.getMessageForError()
+                )
+
+            }
+
+            guard !Task.isCancelled else { return }
+            await storeSessionService.bootstrap()
+
         }
-        
+
     }
-    
+
     private func cancelTasks() {
-        
+
         self.foregroundUserRefreshTask?.cancel()
         self.registerDeviceTokenTask?.cancel()
         self.healthCheckTask?.cancel()
         self.storeBootstrapTask?.cancel()
-        
-    }
-    
-    private func refreshForegroundUserInfo() async {
-        
-        do {
-            try await self.authService.fetchUserInfoWithToken()
-        }
-        catch {
-            
-            self.logError(
-                title: "Foreground User Refresh Error",
-                message: error.getMessageForError()
-            )
-            
-        }
-        
+
     }
     
 }

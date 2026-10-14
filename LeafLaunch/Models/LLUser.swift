@@ -1,5 +1,5 @@
 //
-//  GPUser.swift
+//  LLUser.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 4/19/24.
@@ -7,13 +7,7 @@
 
 import Foundation
 
-protocol Mockable {
-    
-    static func DUMMY_DATA() -> Self
-    
-}
-
-struct GPUser: Codable,
+struct LLUser: Codable,
                Equatable,
                Hashable,
                Sendable,
@@ -80,7 +74,7 @@ struct GPUser: Codable,
     
 }
 
-extension GPUser {
+extension LLUser {
     
     static func DUMMY_DATA() -> Self {
 

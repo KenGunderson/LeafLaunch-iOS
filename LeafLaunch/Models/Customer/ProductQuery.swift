@@ -5,12 +5,14 @@ nonisolated struct ProductQuery: Codable, Equatable, Sendable {
     var search: String = ""
     var categoryId: String?
     var subcategoryId: String?
+    var sort: ProductSort = .featured
     var offset: Int = 0
     var limit: Int = 100
 
     var parameters: [String: String] {
 
         var parameters = [
+            "sort": self.sort.rawValue,
             "offset": String(max(0, self.offset)),
             "limit": String(min(100, max(1, self.limit)))
         ]
