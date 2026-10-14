@@ -20,11 +20,11 @@ extension APIService {
         try Task.checkCancellation()
 
     }
-    
+
     @concurrent
     func registerDevice(token: String,
                         userId: String) async throws {
-        
+
         let parameters: [String: Any] = await [
             "installation_id": Constants.Device.deviceId,
             "app_identifier": BusinessConfig.bundleIdentifier,
@@ -32,14 +32,14 @@ extension APIService {
             "status": "ACTIVE",
             "fcm_token": token
         ]
-        
+
         let _ = try await buildRequest(
             method: .post,
             apiPath: .init(path: .customer("devices")),
             parameters: parameters,
             headers: await customerHeaders()
         )
-        
+
     }
-    
+
 }

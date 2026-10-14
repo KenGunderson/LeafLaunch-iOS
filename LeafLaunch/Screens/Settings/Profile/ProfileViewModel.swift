@@ -9,10 +9,10 @@ import SwiftUI
 import Combine
 
 final class ProfileViewModel: ViewModel {
-    
+
     internal let loggerName: String = "PROFILE_VIEW_MODEL"
     internal let loggerEmoji: String = "⚙️"
-    
+
     private let apiService: APIServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
@@ -21,24 +21,24 @@ final class ProfileViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private weak var navigationService: NavigationService?
-    
+
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var email: String = ""
     @Published private(set) var isLoading: Bool = true
     @Published private(set) var isUpdating: Bool = false
-    
+
     var isSubmitButtonEnabled: Bool {
         return isSaveButtonEnabled()
     }
-    
+
     private(set) var businessId: String?
     private var cancelBag: CancelBag!
     private var loadDataTask: Task<Void, Never>?
     private var updateTask: Task<Void, Never>?
     private var loadRequestId: UUID?
     private var loadedUserId: String?
-        
+
     init(apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
@@ -46,7 +46,7 @@ final class ProfileViewModel: ViewModel {
          userDefaultsService: UserDefaultsServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
-        
+
         self.apiService = apiService
         self.analyticsService = analyticsService
         self.authService = authService
@@ -54,29 +54,29 @@ final class ProfileViewModel: ViewModel {
         self.userDefaultsService = userDefaultsService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
-        
+
         logInit()
-        
+
     }
-    
+
     isolated deinit {
-        
+
         cancelTasks()
         logDeinit()
-        
+
     }
-    
+
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
     }
 
     func handleFirstAppear() {
-        
+
         track()
         bindSubscribers()
-        
+
     }
-    
+
     func loadData(showHud: Bool = true) {
 
         guard !self.isUpdating else { return }
@@ -165,14 +165,14 @@ final class ProfileViewModel: ViewModel {
         }
 
     }
-    
+
     func dismiss() {
-        
+
         self.navigationService?
             .pop()
-        
+
     }
-    
+
     func update() {
 
         guard self.isSubmitButtonEnabled,
@@ -237,9 +237,9 @@ final class ProfileViewModel: ViewModel {
         }
 
     }
-    
+
     private func isSaveButtonEnabled() -> Bool {
-        
+
 
         guard !self.isLoading, !self.isUpdating,
               let user = self.authService.currentUser,
@@ -250,7 +250,7 @@ final class ProfileViewModel: ViewModel {
         return !self.displayName.isEmpty
             && self.displayName.count <= 120
             && self.displayName != currentName
-        
+
     }
 
     private func bindSubscribers() {
@@ -285,20 +285,20 @@ final class ProfileViewModel: ViewModel {
         ))
 
     }
-    
+
     private func cancelTasks() {
-        
+
         self.loadDataTask?.cancel()
         self.updateTask?.cancel()
-        
+
     }
-    
+
 }
 
 extension ProfileViewModel {
-    
+
     func track() {
         self.analyticsService.track(screen: .settings(.profile))
     }
-    
+
 }

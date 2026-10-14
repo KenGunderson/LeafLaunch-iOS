@@ -42,21 +42,21 @@ enum ErrorEvent: AnalyticsEvent {
 
             properties["name"] = "auth"
             properties["message"] = message
-            
+
         case .api(let error):
 
             properties["name"] = "api"
             properties["message"] = error.message
-            
+
             switch error {
             case .serverError(let statusCode, let errorMessage):
-                
+
                 properties["status_code"] = statusCode
                 properties["message"] = errorMessage
-                
+
             default: break
             }
-            
+
         }
 
         // Error
@@ -68,7 +68,7 @@ enum ErrorEvent: AnalyticsEvent {
             properties["description"] = nsError.getMessageForError()
 
         }
-        
+
         return EventData(
             name: "error",
             properties: properties

@@ -8,9 +8,9 @@
 import Foundation
 
 protocol DeeplinkServiceProtocol: AnyObject, Loggable {
-    
+
     func handle(url: URL)
-    
+
     func setup(navigationService: NavigationService)
-    
+
 }

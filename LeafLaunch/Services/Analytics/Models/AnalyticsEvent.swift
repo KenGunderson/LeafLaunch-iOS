@@ -8,20 +8,20 @@
 import Foundation
 
 protocol AnalyticsEvent {
-    
+
     var eventType: EventType { get }
     var eventData: EventData { get }
-    
+
 }
 
 extension AnalyticsEvent {
-    
+
     var name: String {
         return self.eventData.name
     }
-    
+
     var properties: [String: Any]? {
         return self.eventData.properties
     }
-    
+
 }

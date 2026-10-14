@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
-    
+
     var theme: AvailableTheme { get }
     var didRateMyAppAlertShow: Bool { get }
     var securityPinsDictionaryData: Data? { get }
@@ -18,13 +18,13 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     var guestIdentityId: String { get }
     var ageVerificationApprovals: [String: [String]] { get }
     var favoriteProductIds: Set<String> { get }
-    
+
     var themePublisher: PassthroughSubject<AvailableTheme, Never> { get }
     var didRateMyAppAlertShowPublisher: PassthroughSubject<Bool, Never> { get }
     var securityPinsDictionaryDataPublisher: PassthroughSubject<Data?, Never> { get }
     var shouldHideScreenshotsPublisher: PassthroughSubject<Bool, Never> { get }
     var favoriteProductIdsPublisher: CurrentValueSubject<Set<String>, Never> { get }
-    
+
     func set(theme: AvailableTheme)
     func set(didRateMyAppAlertShow: Bool)
     func set(securityPin: String?, businessId: String)
@@ -40,7 +40,7 @@ protocol UserDefaultsServiceProtocol: AnyObject, Sendable, Loggable {
     func setFavorite(productId: String, isFavorite: Bool)
     @MainActor
     func logout() async
-    
+
     func getSecurityPinForBusinessId(_ businessId: String) -> String?
-    
+
 }

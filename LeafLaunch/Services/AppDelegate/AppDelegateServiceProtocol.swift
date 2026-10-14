@@ -16,15 +16,15 @@ protocol DeviceTokenProviding: AnyObject {
 }
 
 protocol AppDelegateServiceProtocol: DeviceTokenProviding, Loggable {
-    
+
     var deviceToken: String? { get }
     var deviceTokenPublisher: AnyPublisher<String?, Never> { get }
-    
+
     var onNotificationPublisher: PassthroughSubject<UNNotification?, Never> { get }
     var onTappedNotificationPublisher: PassthroughSubject<UNNotification?, Never> { get }
     var appWillTerminatePublisher: PassthroughSubject<Void, Never> { get }
-    
+
     func setup(appDelegate: AppDelegate)
     func clearNotification()
-    
+
 }

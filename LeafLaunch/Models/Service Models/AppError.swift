@@ -12,15 +12,15 @@ protocol AppCustomError {
 }
 
 extension Error {
-    
+
     func getMessageForError() -> String {
-        
+
         if let appCustomError = self as? AppCustomError {
             return appCustomError.message
         }
-        
+
         return self.localizedDescription
-        
+
     }
-    
+
 }

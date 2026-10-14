@@ -291,8 +291,8 @@ extension MockAPIService {
     }
 
     private func customerPage<Value: Codable & Sendable>(_ values: [Value],
-                                                        offset: Int,
-                                                        limit: Int = 20) -> CustomerPage<Value> {
+                                                         offset: Int,
+                                                         limit: Int = 20) -> CustomerPage<Value> {
 
         let offset = max(0, offset)
         let limit = min(100, max(1, limit))

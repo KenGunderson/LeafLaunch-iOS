@@ -9,69 +9,69 @@ import UIKit
 import SwiftUI
 
 struct Constants {
-    
+
     // MARK: - FEATURES
-    
+
     struct Capabilities {
-        
+
         static let isAuthRequired: Bool = false
-        
+
     }
-    
+
     // MARK: - DEVICE
-    
+
     struct PList {
-        
+
         static let url: URL = Bundle.main.url(forResource: "Info", withExtension: "plist")!
-        
+
     }
 
     // MARK: - RUNTIME
 
     struct Runtime {
-        
+
         static let apiRequestTimeout: TimeInterval = 30
         static let apiResourceTimeout: TimeInterval = 90
-        
+
         static let fallbackEnvironment: AppEnvironment = .production
-        
+
         @MainActor
         static let deviceHeight: CGFloat = UIScreen.currentHeight ?? 0
 
     }
-    
+
     @MainActor
     struct Device {
-        
+
         static let deviceId: String = UIDevice.current.identifierForVendor?.uuidString ?? "unknown_device_id"
-        
+
     }
-    
+
     // MARK: - APP
-    
+
     struct App {
-        
+
         static let appName: String = "LeafLaunch"
         static let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unavailable"
         static let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "Unavailable"
         static let bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "Unavailable"
-        
+
     }
-    
+
     // MARK: - ANALYTICS
-    
+
     struct Analytics {
-        
+
         static let amplitudeAPIKey = "4fe5df3ce9eed89782d872771f69fab9"
-        
+
     }
 
     // MARK: - URLS
-    
+
     struct URLs {
-        
+
         static let defaultCustomEnvironmentAddress = "http://localhost:3000/api"
-                
+
         static func urlForEnvironment(_ env: AppEnvironment) -> String {
 
             switch env {
@@ -113,19 +113,19 @@ struct Constants {
             return address
 
         }
-        
+
     }
-    
+
     // MARK: - ANIMATIONS
-    
+
     struct LottieFile {
-        
+
     }
-    
+
     struct StaggerAnimation {
-        
+
         static func config(interitemSpacing: CGFloat = 8) -> StaggeredConfig {
-            
+
             return StaggeredConfig(
                 delay: 0.05,
                 maxDelay: 0.05,
@@ -138,47 +138,47 @@ struct Constants {
                 disappearInSameDirection: true,
                 noDisappearAnimation: false
             )
-            
+
         }
-        
+
     }
-    
+
     // MARK: - LEGAL
-    
+
     struct Legal {
-        
+
         static let supportEmail: String = "support@leaflaunch.app"
-        
+
         // MARK: - PRIVACY POLICY
-        
+
         static let privacyPolicy = ""
-        
+
         // MARK: - TERMS OF SERVICE
-        
+
         static let termsOfService = ""
-        
+
     }
-    
+
     // MARK: - CAMERA
-    
+
     struct Camera {
-        
+
         static let DEFAULT_OPACITY: Double = 0.85
         static let DEFAULT_SCALE: Double = 0.50
-        
+
     }
-    
+
     // MARK: - LOGGER
-    
+
     struct Message {
-        
+
         enum Context {
-            
+
             case get
             case create
             case update
             case delete
-            
+
             var verbDescription: String {
                 switch self {
                 case .get: return "getting"
@@ -187,39 +187,39 @@ struct Constants {
                 case .delete: return "deleting"
                 }
             }
-            
+
         }
-        
+
         static func errorMessage(context: Context = .get, _ topic: String) -> String {
             return "Something went wrong while \(context.verbDescription) your \(topic). Please try again later."
         }
-        
+
         static func deleteConfirmationTitle(_ topic: String) -> String {
             return "Delete \(topic)?"
         }
-        
+
         static func deleteConfirmationMessage(_ topic: String) -> String {
             return "You are attemping to delete your \(topic). This action cannot be undone. Are you sure you wish to continue?"
         }
-        
+
     }
 
 }
 
 extension Constants {
-    
+
     // MARK: - STATES
-    
+
     enum USState: String, CaseIterable, Selectable {
-        
+
         var id: String { return self.rawValue }
-        
+
         case AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA
         case HI, ID, IL, IN, IA, KS, KY, LA, ME, MD
         case MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ
         case NM, NY, NC, ND, OH, OK, OR, PA, RI, SC
         case SD, TN, TX, UT, VT, VA, WA, WV, WI, WY
-        
+
         var description: String {
             switch self {
             case .AL: return "Alabama"
@@ -275,30 +275,30 @@ extension Constants {
             }
         }
     }
-    
+
 }
 
 extension Constants {
-    
+
     // MARK: - ALERTS
-    
+
     static func INVALID_EMAIL_ALERT() -> RuneAlert {
-        
+
         return .init(.appAlert(.error(
             message: "Your email address is invalid. Please try again.",
             buttonTitle: "Okay",
             action: {
-                
+
             })))
-        
+
     }
-    
+
 }
 
 extension Constants {
-    
+
     static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
-        
+
         .init(
             title: "API Down 🙃",
             titleColor: .text(.title),
@@ -313,11 +313,11 @@ extension Constants {
                 action()
             }
         )
-        
+
     }
-    
+
     static func NO_NETWORK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
-        
+
         .init(
             title: "No Network",
             titleColor: .text(.title),
@@ -332,11 +332,11 @@ extension Constants {
                 action()
             }
         )
-        
+
     }
-    
+
     static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
-        
+
         .init(
             title: "Old App Version",
             titleColor: .text(.title),
@@ -351,7 +351,7 @@ extension Constants {
                 action()
             }
         )
-        
+
     }
-    
+
 }

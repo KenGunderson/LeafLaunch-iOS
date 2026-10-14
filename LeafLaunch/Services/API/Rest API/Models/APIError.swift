@@ -8,12 +8,12 @@
 import Foundation
 
 struct APIErrorResponse: Decodable {
-    
+
     let name: String
     let statusCode: Int?
     let message: String?
     let metadata: APIError.PlatformError?
-    
+
 }
 
 enum APIError: Error, AppCustomError {
@@ -24,12 +24,12 @@ enum APIError: Error, AppCustomError {
         case unknown(code: String, message: String?)
 
         private enum CodingKeys: String, CodingKey {
-            
+
             case code
             case name
             case type
             case message
-            
+
         }
 
         init(from decoder: Decoder) throws {
@@ -39,14 +39,14 @@ enum APIError: Error, AppCustomError {
 
             switch type {
             case "test":
-                
+
                 self = .test(
                     name: try container.decode(String.self, forKey: .name),
                     test: try container.decode(String.self, forKey: .type)
                 )
 
             default:
-                
+
                 self = .unknown(
                     code: "unkown",
                     message: try container.decodeIfPresent(String.self, forKey: .message)
@@ -65,7 +65,7 @@ enum APIError: Error, AppCustomError {
     case platformError(PlatformError)
 
     var message: String {
-        
+
         switch self {
         case .badURL: return "Invalid URL"
         case .missingAccessToken: return "Missing access token"
@@ -73,14 +73,14 @@ enum APIError: Error, AppCustomError {
         case .decodingError: return "There was an error decoding the response."
         case .unknownError: return "An unknown error occurred."
         case .platformError(let error):
-            
+
             switch error {
             case .test(let name, let test): return "\(name) \(test)"
             case .unknown(_, let message): return message ?? "An unknown platform error occurred."
             }
-            
+
         }
-        
+
     }
 
 }

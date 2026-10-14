@@ -406,7 +406,7 @@ enum MockCustomerModels {
             let exceptions = (location.scheduleExceptions ?? []).filter { $0.localDate == date }
             let intervals: [(String?, String?, Bool)] = exceptions.isEmpty
                 ? (location.hours ?? []).filter { $0.weekday == calendar.component(.weekday, from: day) - 1 }
-                    .map { ($0.opensAt, $0.closesAt, $0.closed) }
+                .map { ($0.opensAt, $0.closesAt, $0.closed) }
                 : exceptions.map { ($0.opensAt, $0.closesAt, $0.closed) }
 
             for (opens, closes, closed) in intervals {

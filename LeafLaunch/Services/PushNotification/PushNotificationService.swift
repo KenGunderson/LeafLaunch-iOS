@@ -13,56 +13,56 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
 
     internal let loggerName: String = "PUSH_NOTIFICATIONS_SERVICE"
     internal let loggerEmoji: String = "🔔"
-    
+
     private weak var navigationService: NavigationService?
     private let viewLifecycleService: ViewLifecycleServiceProtocol
-        
+
     init(viewLifecycleService: ViewLifecycleServiceProtocol) {
-        
+
         self.viewLifecycleService = viewLifecycleService
         super.init()
-        
+
         self.logInit()
-        
+
     }
-    
+
     deinit {
         self.logDeinit()
     }
-    
+
     func setup(navigationService: NavigationService) {
         self.navigationService = navigationService
     }
-    
+
     func parsePushNotification(_ pushNotification: UNNotification?,
                                isTapped: Bool) {
-        
+
         guard let pushNotification else { return }
-        
+
         guard pushNotification.request.trigger is UNPushNotificationTrigger else { return }
 
         parseRemoteNotification(pushNotification, isTapped: isTapped)
-        
+
     }
-    
+
     func parseRemoteNotification(_ pushNotification: UNNotification,
                                  isTapped: Bool) {
-        
+
         self.log(message: "Parsing remote push notification: \(pushNotification.request.content)")
-        
+
         guard let push = self.notification(from: pushNotification.request.content.userInfo) else { return }
-        
+
         self.log(message: "Did parse remote push notification \(push)")
-        
+
         if isTapped {
             self.handleRemoteNotificationTapped(push)
         }
         else {
             self.handleRemoteNotificationReceived(push)
         }
-        
+
     }
-    
+
     private func notification(from payload: [AnyHashable: Any],
                               delivery: PushNotification.Delivery? = nil) -> PushNotification? {
 
@@ -102,28 +102,28 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
 
         return notification
     }
-    
+
     private func handleRemoteNotificationReceived(_ notification: PushNotification) {
 
         self.log(message: "remote push received: \(notification.type.rawValue)")
         self.handleNavigationForRemoteNotification(notification)
-        
+
     }
-    
+
     private func handleRemoteNotificationTapped(_ notification: PushNotification) {
 
         self.log(message: "remote push tapped: \(notification.type.rawValue)")
         self.handleNavigationForRemoteNotification(notification)
-        
+
     }
-    
+
     private func handleNavigationForRemoteNotification(_ notification: PushNotification) {
-        
+
         switch notification.type {
         case .test: print("TEST PUSH")
         case .generic: print("THIS IS A GENERIC PUSH")
         }
-        
+
     }
 
 }

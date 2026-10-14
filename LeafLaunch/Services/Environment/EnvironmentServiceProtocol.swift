@@ -15,10 +15,10 @@ protocol EnvironmentProviding: AnyObject {
 }
 
 protocol EnvironmentServiceProtocol: EnvironmentProviding, Loggable {
-    
+
     var environment: AppEnvironment? { get }
     var environmentPublisher: AnyPublisher<AppEnvironment?, Never> { get }
-    
+
     func setEnvironment(_ environment: AppEnvironment)
-    
+
 }

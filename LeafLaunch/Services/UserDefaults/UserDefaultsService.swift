@@ -21,34 +21,34 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     private let style: any StyleProtocol
     private let defaults = UserDefaults.standard
-    
+
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
     internal let loggerEmoji: String = "🔐"
-    
+
     @AppStorage(Setting.theme.rawValue) private(set) var theme: AvailableTheme = .light {
         didSet {
             self.themePublisher.send(self.theme)
         }
     }
-    
+
     @AppStorage(Setting.didRateMyAppAlertShow.rawValue) private(set) var didRateMyAppAlertShow: Bool = false {
         didSet {
             self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         }
     }
-    
+
     @AppStorage(Setting.securityPinsDictionaryData.rawValue) private(set) var securityPinsDictionaryData: Data? {
         didSet {
             self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
         }
     }
-    
+
     @AppStorage(Setting.shouldHideScreenshots.rawValue) private(set) var shouldHideScreenshots: Bool = false {
         didSet {
             self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
         }
     }
-    
+
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
     var securityPinsDictionaryDataPublisher = PassthroughSubject<Data?, Never>()
@@ -113,28 +113,28 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         return Set(identifiers.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty })
 
     }
-    
+
     init(style: any StyleProtocol) {
 
         self.style = style
-        
+
         self.logInit()
         restoreCachedStoreTheme()
-        
+
         self.themePublisher.send(self.theme)
         self.didRateMyAppAlertShowPublisher.send(self.didRateMyAppAlertShow)
         self.securityPinsDictionaryDataPublisher.send(self.securityPinsDictionaryData)
         self.shouldHideScreenshotsPublisher.send(self.shouldHideScreenshots)
         self.favoriteProductIdsPublisher.send(self.favoriteProductIds)
-        
+
     }
-    
+
     deinit {
         self.logDeinit()
     }
-    
+
     func set(theme: AvailableTheme) {
-        
+
         let cachedBranding = loadCachedStoreTheme()?.branding
         self.theme = theme
 
@@ -143,59 +143,59 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         } else {
             self.style.updateTheme(self.theme.theme())
         }
-        
+
     }
-    
+
     func set(didRateMyAppAlertShow: Bool) {
         self.didRateMyAppAlertShow = didRateMyAppAlertShow
     }
-    
+
     func set(securityPin: String?, businessId: String) {
-        
+
         let key = self.securityPinsDictionaryData
-        
+
         if var dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
-            
+
             dict[businessId] = securityPin
-            
+
             if let data = try? JSONEncoder().encode(dict) {
                 self.securityPinsDictionaryData = data
             }
-            
+
         } else {
-            
+
             var dict = [String: String?]()
             dict[businessId] = securityPin
-            
+
             if let data = try? JSONEncoder().encode(dict) {
                 self.securityPinsDictionaryData = data
             }
-            
+
         }
-        
+
     }
-    
+
     func set(shouldHideScreenshots: Bool) {
         self.shouldHideScreenshots = shouldHideScreenshots
     }
-    
+
     func resetDevFlags() {
-        
+
         self.set(didRateMyAppAlertShow: false)
         self.set(shouldHideScreenshots: false)
-        
+
     }
-    
+
     func getSecurityPinForBusinessId(_ businessId: String) -> String? {
-        
+
         let key = self.securityPinsDictionaryData
-        
+
         if let dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
             return dict[businessId] ?? nil
         }
-        
+
         return nil
-        
+
     }
 
     @discardableResult
@@ -354,7 +354,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         state.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
     }
-    
+
     @MainActor
     func logout() async {
 
@@ -364,5 +364,5 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         set(shouldHideScreenshots: false)
 
     }
-    
+
 }

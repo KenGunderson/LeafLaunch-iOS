@@ -37,10 +37,19 @@ enum CustomerScreenEvent {
              .shop(let locationId),
              .favorites(let locationId),
              .account(let locationId):
-            return ["business_id": BusinessConfig.businessId, "location_id": locationId]
+
+            return [
+                "business_id": BusinessConfig.businessId,
+                "location_id": locationId
+            ]
 
         case .product(let locationId, let productId):
-            return ["business_id": BusinessConfig.businessId, "location_id": locationId, "product_id": productId]
+
+            return [
+                "business_id": BusinessConfig.businessId,
+                "location_id": locationId,
+                "product_id": productId
+            ]
         }
 
     }

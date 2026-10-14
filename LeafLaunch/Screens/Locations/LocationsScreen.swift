@@ -18,6 +18,7 @@ struct LocationsScreen: GPView {
         } scrollViewContent: {
             content()
         }
+        .interactiveDismissDisabled()
         .onFirstAppear { [weak viewModel] in
 
             viewModel?.setup(navigationService: self.navigationService)

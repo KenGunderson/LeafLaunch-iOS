@@ -8,14 +8,14 @@
 import Foundation
 
 internal enum HTTPRequestMethod: String, Sendable {
-    
+
     case get = "GET"
     case post = "POST"
     case put = "PUT"
     case delete = "DELETE"
     case patch = "PATCH"
     case head = "HEAD"
-    
+
 }
 
 internal struct APIPath {
@@ -23,16 +23,16 @@ internal struct APIPath {
 }
 
 internal enum AppRoute {
-    
+
     enum Version {
-        
+
         case none
         case v1
         case v2
         case custom(String)
-        
+
         var rawValue: String {
-            
+
             switch self {
             case .none: return ""
             case .v1: return "v1"
@@ -40,44 +40,44 @@ internal enum AppRoute {
             case .custom(let version): return version
             }
         }
-        
+
     }
-    
+
     case health
     case search
     case customerPublic(String)
     case customer(String)
-    
+
     case user(String, version: Version = .none)
     case device(String, version: Version = .none)
     case business(String, version: Version = .none)
     case businessSetting(String, version: Version = .none)
-    
+
     case location(String, version: Version = .none)
     case locationEmployee(String, version: Version = .none)
-    
+
     case employedLocation(String, version: Version = .none)
     case employee(String, version: Version = .none)
     case employeeInvite(String, version: Version = .none)
-    
+
     case client(String, version: Version = .none)
-    
+
     case media(String, version: Version = .none)
     case mediaFavorite(String, version: Version = .none)
     case mediaTags(String, version: Version = .none)
     case mediaTagRelations(String, version: Version = .none)
-    
+
     case collage(String, version: Version = .none)
-    
+
     case notes(String, version: Version = .none)
     case forms(String, version: Version = .none)
     case activity(String, version: Version = .none)
-    
+
     case subscriptions(String, version: Version = .none)
-    
+
     case uploadMedia(String, version: Version = .none)
     case system(String, version: Version = .none)
-    
+
     var category: String {
         switch self {
         case .health: return "health"
@@ -107,9 +107,9 @@ internal enum AppRoute {
         case .system: return "system"
         }
     }
-    
+
     var buildURL: String {
-        
+
         switch self {
         case .customerPublic(let route),
              .customer(let route):
@@ -118,9 +118,9 @@ internal enum AppRoute {
 
         case .health,
              .search:
-            
+
             return category
-            
+
         case .user(let route, let version),
              .device(let route, let version),
              .business(let route, let version),
@@ -142,34 +142,34 @@ internal enum AppRoute {
              .subscriptions(let route, let version),
              .uploadMedia(let route, let version),
              .system(let route, let version):
-            
+
             return buildURL(
                 category: category,
                 route: route,
                 version: version
             )
         }
-        
+
     }
-    
+
     private func buildURL(category: String,
                           route: String,
                           version: Version) -> String {
-        
+
         var components: [String] = []
-        
+
         if !version.rawValue.isEmpty {
             components.append(version.rawValue)
         }
-        
+
         components.append(category)
-        
+
         if !route.isEmpty {
             components.append(route)
         }
-        
+
         return components.joined(separator: "/")
-        
+
     }
-    
+
 }

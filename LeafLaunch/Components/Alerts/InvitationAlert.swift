@@ -9,26 +9,26 @@ import SwiftUI
 
 @MainActor
 extension AppCardConfig {
-    
+
     static func invitationAlert(name: String,
                                 businessName: String,
                                 doneAction: @escaping () -> Void) -> AppCardConfig {
-        
+
         let attributedText = AttributedText {
-            
+
             Text(name)
                 .foregroundStyle(.text(.title))
                 .font(Style.shared.font(.HEADER_1))
-            
+
             Text(" has been invited to join \(businessName). They will receive an email with next steps.")
                 .font(Style.shared.font(.BODY_3))
                 .foregroundStyle(.text(.body))
-            
+
         }
-        
+
         return .init(
             viewBuilder: { dismissAction in
-                
+
                 BaseAppCardConfigView(
                     image: .systemImage("envelope.circle.fill"),
                     title: "Invitation Sent!",
@@ -38,8 +38,8 @@ extension AppCardConfig {
                         dismissAction()
                         doneAction()
                     })
-                .asAnyView()
-                
+                    .asAnyView()
+
             },
             cornerRadius: Style.shared.radius(.large),
             backgroundCardInset: .init(top: 0, left: 24, bottom: 250, right: 24),
@@ -49,17 +49,17 @@ extension AppCardConfig {
             shouldDismissOnDrag: false
         )
     }
-    
+
 }
 
 #Preview {
-    
+
     let alertService = mockResolve(AlertServiceProtocol.self)
-    
+
     AppBaseView(alignment: .bottom) {
-        
+
         CommonButton(title: "Show Alert") {
-            
+
             alertService.showAlert(
                 .init(.card(.invitationAlert(
                     name: "Sako Hovaguimian",
@@ -68,11 +68,11 @@ extension AppCardConfig {
                     print("Testing")
                 }
                 )))
-            
+
         }
         .padding(.horizontal, .large2)
-        
+
     }
     .withMockServices()
-    
+
 }

@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 extension OSLogType {
-    
+
     static func allOptions() -> [String] {
         return [
             "Default",
@@ -19,9 +19,9 @@ extension OSLogType {
             "Fault"
         ]
     }
-    
+
     func displayName() -> String {
-        
+
         switch self {
         case .default: return "Default"
         case .info: return "Info"
@@ -30,11 +30,11 @@ extension OSLogType {
         case .fault: return "Fault"
         default: return "Unknown"
         }
-        
+
     }
-    
+
     func color() -> Color {
-        
+
         switch self {
         case .default: return .black
         case .info: return .blue
@@ -43,9 +43,9 @@ extension OSLogType {
         case .fault: return .orange
         default: return .gray
         }
-        
+
     }
-    
+
     func systemImage() -> String {
 
         switch self {
@@ -56,7 +56,7 @@ extension OSLogType {
         case .fault: return "exclamationmark.triangle"
         default: return "questionmark.circle"
         }
-        
+
     }
-    
+
 }

@@ -21,10 +21,7 @@ struct MainScreen: GPView {
             .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
             .withWindowDynamicIslandService()
             .withFullScreenCover(Bindable(self.navigationService).fullScreenCover)
-            .fullScreenCover(isPresented: ageVerificationBinding()) {
-                AgeVerificationScreen(viewModel: self.viewModel.ageVerificationViewModel)
-                    .interactiveDismissDisabled()
-            }
+            .withSheet(Bindable(self.navigationService).sheet)
             .withDevSettingsOverlay(isEnabled: self.viewModel.isDevSettingsEnabled) {
                 self.navigationService.modal(fullScreenCover: .devSettings)
             }
@@ -37,47 +34,23 @@ struct MainScreen: GPView {
 
     }
 
-    private func ageVerificationBinding() -> Binding<Bool> {
-
-        Binding(
-            get: { self.viewModel.storeState == .ageVerification },
-            set: { _ in }
-        )
-
-    }
-
     @ViewBuilder
     private func customerFlow() -> some View {
 
         switch self.viewModel.storeState {
-        case .loading:
-            statusBox(title: "Loading stores") { ProgressView() }
+        case .loading, .locations, .ageVerification, .store:
 
-        case .locations:
-            AppRootView(navigationService: Bindable(self.navigationService)) {
-                LocationsScreen(viewModel: self.viewModel.locationsViewModel)
-            }
-
-        case .ageVerification:
-            statusBox(title: "Age verification required") {
-                Text("Confirm your age to enter this store.")
-            }
-
-        case .store:
-            if let locationId = self.viewModel.storeLocationId,
-               let storeDetailsViewModel = self.viewModel.storeDetailsViewModel {
-
-                StoreDetailsScreen(viewModel: storeDetailsViewModel)
-                    .id(locationId)
-
-            }
+            StoreDetailsScreen(viewModel: self.viewModel.storeDetailsViewModel)
+                .id(self.viewModel.storeDetailsViewModel.locationId)
 
         case .configurationRequired:
+
             statusBox(title: "Store configuration required") {
                 Text("This app is waiting for its store configuration.")
             }
 
         case .unavailable:
+
             statusBox(title: "Store unavailable") {
 
                 Text("There are no stores available to browse right now.")
@@ -86,6 +59,7 @@ struct MainScreen: GPView {
             }
 
         case .updateRequired:
+
             statusBox(title: "App update required") {
 
                 Text("Update this app to continue browsing.")
@@ -112,7 +86,7 @@ struct MainScreen: GPView {
     }
 
     private func statusBox<Content: View>(title: LocalizedStringKey,
-                                         @ViewBuilder content: () -> Content) -> some View {
+                                          @ViewBuilder content: () -> Content) -> some View {
 
         GroupBox {
 

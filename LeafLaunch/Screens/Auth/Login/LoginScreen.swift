@@ -20,12 +20,12 @@ struct LoginScreen: GPView {
     @FocusState private var focusedField: FocusedField?
 
     enum FocusedField: Hashable {
-        
+
         case email
         case password
-        
+
     }
-    
+
     init(viewModel: LoginViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -39,9 +39,9 @@ struct LoginScreen: GPView {
         }
 
     }
-    
+
     var body: some View {
-        
+
         AppHeaderScrollView(horizontalPadding: .medium) {
             headerView
         } scrollViewContent: {
@@ -54,7 +54,7 @@ struct LoginScreen: GPView {
         .onSubmit {
             handleOnSubmit()
         }
-        
+
         .alertView(
             isPresented: self.$viewModel.shouldPresentForgotPassword,
             shouldDismissOnTouch: true,
@@ -62,80 +62,80 @@ struct LoginScreen: GPView {
                 self.viewModel.handleForgetPassword(email: email)
             })
         )
-        
+
         .onFirstAppear { [weak viewModel] in
 
             viewModel?.setup(navigationService: self.navigationService)
             viewModel?.handleFirstAppear()
 
         }
-        
+
     }
-    
+
     private var headerView: some View {
-        
+
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-            
+
             NavBarButton(style: .back) {
                 self.navigationService.pop()
             }
-            
+
             VStack(alignment: .leading, spacing: 0) {
-                
+
                 Text("Welcome Back")
                     .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
                     .foregroundStyle(.text(.title))
-                
+
                 Text("Sign in to your LeafLaunch account to continue capturing beautiful results")
                     .appFont(with: .BODY_3)
                     .foregroundStyle(.text(.body))
-                
+
             }
-            
+
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        
+
     }
-    
+
     private var contentView: some View {
-        
+
         VStack(alignment: .trailing, spacing: self.style.spacing(.small)) {
-            
+
             // Textfields
-            
+
             VStack(spacing: self.style.spacing(.medium)) {
-                
+
                 textField(fieldToFocus: .email)
-                
+
                 textField(
                     fieldToFocus: .password,
                     isSecureEntry: true
                 )
-                
+
             }
-            
+
             // Forgot Password
-            
+
             forgotPassword
-            
+
         }
-        
+
     }
-    
+
     private var forgotPassword: some View {
-        
+
         Text("Forgot Password?")
             .appFont(with: .TITLE_3)
             .foregroundStyle(.foreground(.primary))
             .asButton {
                 self.viewModel.handleForgotPassword()
             }
-        
+
     }
-    
+
     private func bottomButton() -> some View {
-        
+
         CommonButton(
             title: "Login",
             titleColor: .text(.button),
@@ -146,40 +146,40 @@ struct LoginScreen: GPView {
         }
         .padding(.vertical, .small)
         .padding(.horizontal, .medium)
-        
+
     }
-    
+
     @ViewBuilder
     private func textField(fieldToFocus: FocusedField,
                            isSecureEntry: Bool = false) -> some View {
-        
+
         let text = fieldToFocus == .email ? self.$viewModel.email : self.$viewModel.password
         let placeholder = fieldToFocus == .email ? "Email" : "Password"
         let isFocused = fieldToFocus == .email ? (self.focusedField == .email) : (self.focusedField == .password)
-        
+
         Group {
-            
+
             let hidePassword = !self.showPassword
-            
+
             if isSecureEntry && hidePassword {
-                
+
                 SecureField(
                     placeholder,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
 
-                
+
             } else {
-                
+
                 TextField(
                     placeholder,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
-                
+
             }
-            
+
         }
         .titleUnderlineTextFieldStyle(
             text: text.wrappedValue,
@@ -201,40 +201,40 @@ struct LoginScreen: GPView {
         .appOnTapGesture {
             self.focusedField = fieldToFocus
         }
-        
+
     }
-    
+
     @ViewBuilder
     private func passwordEyeOverlay(isSecureEntry: Bool) -> some View {
-        
+
         if isSecureEntry {
-            
+
             Image(systemName: self.showPassword ? "eye.slash" : "eye")
                 .scaledToFit()
                 .frame(maxWidth: 24, maxHeight: 24)
                 .asButton {
-                    
+
                     withAnimation(.smooth) {
                         self.showPassword.toggle()
                     }
-                    
+
                 }
                 .foregroundStyle(.text(.body))
                 .padding(.trailing, .medium)
                 .padding(.bottom, .custom(10))
                 .contentTransition(.symbolEffect(.replace))
-            
+
         }
-        
+
     }
-    
+
 }
 
 #Preview {
-    
+
     LoginScreen(
         viewModel: mockResolve(LoginViewModel.self)
     )
     .withMockServices()
-    
+
 }

@@ -10,38 +10,38 @@ import FactoryKit
 
 @main
 struct LeafLaunchApp: App {
-    
+
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    
+
     private let appAssembler: AppAssembler = AppAssembler()
     private let rootViewModel: RootViewModel
-    
+
     init() {
-        
+
         self.appAssembler.container.userDefaultsService()
             .restoreCachedStoreTheme()
 
         self.rootViewModel = self.appAssembler
             .container
             .rootViewModel()
-        
+
     }
-    
+
     var body: some Scene {
-        
+
         WindowGroup {
-            
+
             RootScreen(viewModel: self.rootViewModel)
                 .onAppear { [weak rootViewModel] in
-                    
+
                     rootViewModel?
                         .setup(appDelegate: self.appDelegate)
-                    
+
                 }
                 .runeStyle()
-            
+
         }
-        
+
     }
-    
+
 }

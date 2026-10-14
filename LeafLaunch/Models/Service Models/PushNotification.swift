@@ -9,12 +9,12 @@ import UIKit
 import UserNotifications
 
 struct PushNotification {
-    
+
     enum PushNotificationType: String {
-        
+
         case test = "test"
         case generic = "_generic"
-        
+
     }
 
     enum Delivery: String {

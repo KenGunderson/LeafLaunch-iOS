@@ -10,36 +10,36 @@ import UserNotifications
 import UIKit
 
 final class AppDelegateService: AppDelegateServiceProtocol {
-    
+
     internal let loggerName: String = "APP_DELEGATE_SERVICE"
     internal let loggerEmoji: String = "📱"
-    
+
     @Published private(set) var deviceToken: String?
     var deviceTokenPublisher: AnyPublisher<String?, Never> {
         return self.$deviceToken.eraseToAnyPublisher()
     }
-    
+
     // prefix with on
     var onNotificationPublisher = PassthroughSubject<UNNotification?, Never>()
     var onTappedNotificationPublisher = PassthroughSubject<UNNotification?, Never>()
     var appWillTerminatePublisher: PassthroughSubject<Void, Never> = .init()
-    
+
     private var appDelegate: AppDelegate!
     private var cancelBag: CancelBag!
-        
+
     init() {
         self.logInit()
     }
-    
+
     deinit {
         self.logDeinit()
     }
-    
+
     func setup(appDelegate: AppDelegate) {
-        
+
         self.appDelegate = appDelegate
         self.cancelBag = CancelBag()
-        
+
         self.appDelegate
             .deviceTokenPublisher
             .receiveOnMain()
@@ -47,7 +47,7 @@ final class AppDelegateService: AppDelegateServiceProtocol {
                 self?.deviceToken = deviceToken
             }
             .store(in: &self.cancelBag)
-        
+
         self.appDelegate
             .pushNotificationPublisher
             .receiveOnMain()
@@ -55,7 +55,7 @@ final class AppDelegateService: AppDelegateServiceProtocol {
                 self?.onNotificationPublisher.send(notification)
             }
             .store(in: &self.cancelBag)
-        
+
         self.appDelegate
             .pushNotificationTappedPublisher
             .receiveOnMain()
@@ -63,18 +63,18 @@ final class AppDelegateService: AppDelegateServiceProtocol {
                 self?.onTappedNotificationPublisher.send(notification)
             }
             .store(in: &self.cancelBag)
-        
+
         self.appDelegate
             .appWillTerminatePublisher
             .sink { [weak self] in
                 self?.appWillTerminatePublisher.send()
             }
             .store(in: &self.cancelBag)
-        
+
     }
-    
+
     func clearNotification() {
         self.onNotificationPublisher.send(nil)
     }
-    
+
 }

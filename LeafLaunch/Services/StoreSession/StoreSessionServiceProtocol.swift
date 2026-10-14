@@ -11,12 +11,13 @@ protocol StoreSessionServiceProtocol: AnyObject, Sendable {
     var locationDetails: CustomerLocationDetails? { get }
     var locations: [BootstrapLocation] { get }
     var error: Error? { get }
+    var ageVerificationLocationId: String? { get }
     var minimumAge: Int { get }
     var ageVerificationState: String { get }
 
     func bootstrap() async
     func selectLocation(id: String)
     func showLocations()
-    func approveAgeVerification() async throws
+    func approveAgeVerification() throws
 
 }

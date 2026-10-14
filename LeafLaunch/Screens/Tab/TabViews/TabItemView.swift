@@ -19,6 +19,7 @@ struct TabItemView: View {
     init(tab: Tab,
          selectedTab: Binding<Tab>,
          badgeCount: Int) {
+
         self.tab = tab
         self._selectedTab = selectedTab
         self.badgeCount = badgeCount

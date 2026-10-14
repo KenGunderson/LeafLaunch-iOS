@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension View {
-    
+
     func appPrefersColorScheme() -> some View {
         modifier(AppPrefersColorSchemeModifier())
     }
-    
+
 }

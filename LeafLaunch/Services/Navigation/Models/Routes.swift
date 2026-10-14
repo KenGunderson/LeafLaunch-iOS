@@ -18,24 +18,24 @@ enum Route: Navigation, Hashable, Sendable {
         case product(locationId: String, productId: String)
 
     }
-    
+
     enum AuthRoute {
-        
+
         case welcome
         case login
         case signup
-        
+
     }
-    
+
     enum SettingRoute: String, CaseIterable {
-        
+
         case profile
         case contactSupport
         case rateApp
         case privacyPolicy
         case termsOfService
         case logout
-        
+
         var displayName: String {
             switch self {
             case .profile: return "Update Profile"
@@ -46,7 +46,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .logout: return "Logout"
             }
         }
-        
+
         var icon: ImageSource {
             switch self {
             case .profile: return .systemImage("person.fill")
@@ -57,14 +57,14 @@ enum Route: Navigation, Hashable, Sendable {
             case .logout: return .systemImage("xmark.circle.fill")
             }
         }
-        
+
         var tintColor: ColorSource {
             switch self {
             case .logout: .palette(.error)
             default: .foreground(.primary)
             }
         }
-        
+
         var category: String {
             switch self {
             case .profile: return "Account"
@@ -73,16 +73,16 @@ enum Route: Navigation, Hashable, Sendable {
             case .logout: return "Logout"
             }
         }
-        
+
     }
-    
+
     enum DevSettingRoute: String, CaseIterable {
-        
+
         case userDefaults
         case routes
         case deeplinks
         case analytics
-        
+
         var displayName: String {
             switch self {
             case .userDefaults: return "User Defaults"
@@ -91,7 +91,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return "Analytics"
             }
         }
-        
+
         var icon: String {
             switch self {
             case .userDefaults: return "flag.fill"
@@ -100,7 +100,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return "chart.line.uptrend.xyaxis"
             }
         }
-        
+
         var routeForDevSetting: Route {
             switch self {
             case .userDefaults: return .devSetting(.userDefaults)
@@ -109,12 +109,12 @@ enum Route: Navigation, Hashable, Sendable {
             case .analytics: return .devSetting(.analytics)
             }
         }
-        
+
     }
 
     case auth(AuthRoute)
     case settings(SettingRoute)
     case devSetting(DevSettingRoute)
     case customer(CustomerRoute)
-    
+
 }

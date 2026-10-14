@@ -8,18 +8,18 @@
 import Foundation
 
 extension APIService {
-    
+
     // MARK: - HEALTH
-    
+
     @concurrent
     func getHealth() async throws {
-        
+
         let _ = try await buildRequest(
             method: .get,
             apiPath: .init(path: .health),
             requiresAuthentication: false
         )
-        
+
     }
-    
+
 }

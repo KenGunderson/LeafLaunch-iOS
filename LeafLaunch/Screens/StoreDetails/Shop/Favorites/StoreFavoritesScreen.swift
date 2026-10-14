@@ -50,11 +50,6 @@ struct StoreFavoritesScreen: GPView {
 
             }
 
-            LeafLaunchButton(title: String(localized: "Refresh Favorites")) {
-                self.viewModel.loadData(showHud: true)
-            }
-            .disabled(self.viewModel.isLoading)
-
         }
         .foregroundStyle(.text(.body))
         .tabFlowContentSpacing()

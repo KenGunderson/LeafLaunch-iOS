@@ -54,11 +54,6 @@ struct StoreAccountScreen: GPView {
                 loyalty()
                 pointsHistory()
 
-                LeafLaunchButton(title: String(localized: "Refresh Account")) {
-                    self.viewModel.loadData(showHud: true)
-                }
-                .disabled(self.viewModel.isLoading)
-
                 Button(String(localized: "Sign Out")) {
                     self.viewModel.logout()
                 }

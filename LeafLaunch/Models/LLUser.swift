@@ -8,11 +8,11 @@
 import Foundation
 
 struct LLUser: Codable,
-               Equatable,
-               Hashable,
-               Sendable,
-               Mockable {
-    
+    Equatable,
+    Hashable,
+    Sendable,
+    Mockable {
+
     let id: String
     let firstName: String
     let lastName: String
@@ -20,9 +20,9 @@ struct LLUser: Codable,
     let phoneNumber: String?
     let externalId: String
     let imageURL: URL?
-    
+
     private var _dateOfBirth: String?
-    
+
     var dateOfBirth: Date? {
 
         self._dateOfBirth?
@@ -30,11 +30,11 @@ struct LLUser: Codable,
             .date
 
     }
-    
+
     var fullName: String {
         return self.firstName + " " + self.lastName
     }
-    
+
     init(id: String,
          firstName: String,
          lastName: String,
@@ -43,7 +43,7 @@ struct LLUser: Codable,
          externalId: String,
          dateOfBirth: String? = nil,
          imageURL: URL? = nil) {
-        
+
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
@@ -52,15 +52,15 @@ struct LLUser: Codable,
         self.externalId = externalId
         self._dateOfBirth = dateOfBirth
         self.imageURL = imageURL
-        
+
     }
-    
+
     mutating func setDateOfBirth(dateString: String) {
         self._dateOfBirth = dateString
     }
-    
+
     private enum CodingKeys: String, CodingKey {
-        
+
         case id
         case firstName = "first_name"
         case lastName = "last_name"
@@ -69,17 +69,17 @@ struct LLUser: Codable,
         case externalId = "external_id"
         case _dateOfBirth = "date_of_birth"
         case imageURL = "image_url"
-        
+
     }
-    
+
 }
 
 extension LLUser {
-    
+
     static func DUMMY_DATA() -> Self {
 
         MockCustomerModels.user
 
     }
-    
+
 }

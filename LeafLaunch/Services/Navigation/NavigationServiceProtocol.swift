@@ -11,9 +11,10 @@ import Combine
 protocol NavigationServiceProtocol: Sendable {
 
     var routes: [Route] { get set }
-    
+
     var fullScreenCover: FullScreenCover? { get set }
-    
+    var sheet: NavigationSheet? { get set }
+
     func push(_ route: Route)
     func push(_ routes: [Route])
     func pop()
@@ -25,5 +26,8 @@ protocol NavigationServiceProtocol: Sendable {
 
     func modal(fullScreenCover: FullScreenCover)
     func dismissFullScreenCover()
-    
+
+    func modal(sheet: NavigationSheet)
+    func dismissSheet()
+
 }

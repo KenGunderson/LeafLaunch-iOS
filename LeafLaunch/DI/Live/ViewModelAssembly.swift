@@ -9,9 +9,9 @@ import Foundation
 import FactoryKit
 
 extension Container {
-    
+
     // RootViewModel
-    
+
     @MainActor
     var rootViewModel: Factory<RootViewModel> {
         self { @MainActor in
@@ -27,9 +27,9 @@ extension Container {
             )
         }
     }
-    
+
     // MainViewModel
-    
+
     @MainActor
     var mainViewModel: Factory<MainViewModel> {
         self { @MainActor in
@@ -41,13 +41,11 @@ extension Container {
                 environmentService: self.environmentService(),
                 storeSessionService: self.storeSessionService(),
                 tabBarNavigationService: self.tabBarNavigationService(),
-                locationsViewModel: self.locationsViewModel(),
-                ageVerificationViewModel: self.ageVerificationViewModel(),
                 makeStoreDetailsViewModel: { self.storeDetailsViewModel() }
             )
         }
     }
-    
+
     // Home
 
     @MainActor
@@ -56,7 +54,7 @@ extension Container {
     }
 
     // Auth - Welcome
-    
+
     @MainActor
     var welcomeViewModel: Factory<WelcomeViewModel> {
         self { @MainActor in
@@ -69,9 +67,9 @@ extension Container {
             )
         }
     }
-    
+
     // Auth - Login
-    
+
     @MainActor
     var loginViewModel: Factory<LoginViewModel> {
         self { @MainActor in
@@ -84,9 +82,9 @@ extension Container {
             )
         }
     }
-    
+
     // Auth - SignUp
-    
+
     @MainActor
     var signUpViewModel: Factory<SignUpViewModel> {
         self { @MainActor in
@@ -99,9 +97,9 @@ extension Container {
             )
         }
     }
-    
+
     // Settings
-    
+
     @MainActor
     var settingsViewModel: Factory<SettingsViewModel> {
         self { @MainActor in
@@ -116,9 +114,9 @@ extension Container {
             )
         }
     }
-    
+
     // Settings - PROFILE
-    
+
     @MainActor
     var profileViewModel: Factory<ProfileViewModel> {
         self { @MainActor in
@@ -133,9 +131,9 @@ extension Container {
             )
         }
     }
-    
+
     // Settings - Legal
-    
+
     @MainActor
     var legalViewModel: Factory<LegalViewModel> {
         self { @MainActor in
@@ -149,9 +147,9 @@ extension Container {
             )
         }
     }
-    
+
     // DevSettings
-    
+
     @MainActor
     var devSettingsViewModel: Factory<DevSettingsViewModel> {
         self { @MainActor in
@@ -166,9 +164,9 @@ extension Container {
             )
         }
     }
-    
+
     // DevSettings - Routes
-    
+
     @MainActor
     var devRoutesViewModel: Factory<DevRoutesViewModel> {
         self { @MainActor in
@@ -180,9 +178,9 @@ extension Container {
             )
         }
     }
-    
+
     // DevSettings - Deeplinks
-    
+
     @MainActor
     var devDeeplinksViewModel: Factory<DevDeeplinksViewModel> {
         self { @MainActor in
@@ -194,9 +192,9 @@ extension Container {
             )
         }
     }
-    
+
     // DevSettings - UserDefaults
-    
+
     @MainActor
     var devUserDefaultsViewModel: Factory<DevUserDefaultsViewModel> {
         self { @MainActor in
@@ -210,9 +208,9 @@ extension Container {
             )
         }
     }
-    
+
     // DevSettings - Analytics
-    
+
     @MainActor
     var devAnalyticsViewModel: Factory<DevAnalyticsViewModel> {
         self { @MainActor in

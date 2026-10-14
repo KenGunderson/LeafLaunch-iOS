@@ -38,8 +38,8 @@ final class LoginViewModel: ViewModel {
 
         return (
             !self.isLoading &&
-            self.email.trimmed().count > 3 &&
-            self.password.count >= 6
+                self.email.trimmed().count > 3 &&
+                self.password.count >= 6
         )
 
     }

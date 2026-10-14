@@ -38,10 +38,18 @@ public final class TabBarNavigationService: Sendable {
 
     func resetPathItems() {
 
-        self.tab1NavigationService.routes = []
-        self.tab2NavigationService.routes = []
-        self.tab3NavigationService.routes = []
-        self.tab4NavigationService.routes = []
+        for navigationService in [
+            self.tab1NavigationService,
+            self.tab2NavigationService,
+            self.tab3NavigationService,
+            self.tab4NavigationService
+        ] {
+
+            navigationService.popToRoot()
+            navigationService.dismissFullScreenCover()
+            navigationService.dismissSheet()
+
+        }
 
     }
 

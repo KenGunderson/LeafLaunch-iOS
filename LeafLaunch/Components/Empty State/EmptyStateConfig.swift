@@ -6,11 +6,11 @@
 //
 
 struct EmptyStateConfig {
-    
+
     let title: String
     let message: String?
     let image: ImageSource
     let actionTitle: String?
     let action: (() -> Void)?
-    
+
 }

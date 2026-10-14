@@ -21,20 +21,14 @@ final class MainViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
 
     let tabBarNavigationService: TabBarNavigationService
-    let locationsViewModel: LocationsViewModel
-    let ageVerificationViewModel: AgeVerificationViewModel
     private let makeStoreDetailsViewModel: @MainActor () -> StoreDetailsViewModel
 
     private(set) weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
 
     @Published private(set) var storeState: StoreSessionState = .loading
-    @Published private(set) var storeDetailsViewModel: StoreDetailsViewModel?
+    @Published private(set) var storeDetailsViewModel: StoreDetailsViewModel
     private var retryTask: Task<Void, Never>?
-
-    var storeLocationId: String? {
-        return self.storeSessionService.locationDetails?.location.id
-    }
 
     var storeErrorMessage: String? {
         return self.storeSessionService.error?.getMessageForError()
@@ -59,8 +53,6 @@ final class MainViewModel: ViewModel {
          environmentService: EnvironmentServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          tabBarNavigationService: TabBarNavigationService,
-         locationsViewModel: LocationsViewModel,
-         ageVerificationViewModel: AgeVerificationViewModel,
          makeStoreDetailsViewModel: @escaping @MainActor () -> StoreDetailsViewModel) {
 
         self.alertService = alertService
@@ -70,17 +62,17 @@ final class MainViewModel: ViewModel {
         self.environmentService = environmentService
         self.storeSessionService = storeSessionService
         self.tabBarNavigationService = tabBarNavigationService
-        self.locationsViewModel = locationsViewModel
-        self.ageVerificationViewModel = ageVerificationViewModel
         self.makeStoreDetailsViewModel = makeStoreDetailsViewModel
+        self.storeDetailsViewModel = makeStoreDetailsViewModel()
 
-        self.logInit()
+        logInit()
+
     }
 
     isolated deinit {
 
         self.retryTask?.cancel()
-        self.logDeinit()
+        logDeinit()
 
     }
 
@@ -114,6 +106,42 @@ final class MainViewModel: ViewModel {
         self.storeSessionService.showLocations()
     }
 
+    private func handleStoreNavigation(_ state: StoreSessionState) {
+
+        guard let navigationService = self.navigationService else { return }
+
+        switch state {
+        case .locations:
+            navigationService.modal(sheet: .locations)
+
+        case .ageVerification:
+
+            guard let locationId = self.storeSessionService.ageVerificationLocationId else { return }
+            navigationService.modal(sheet: .ageVerification(locationId: locationId))
+
+        case .store:
+
+            guard let locationId = self.storeSessionService.locationDetails?.location.id else { return }
+
+            if self.storeDetailsViewModel.locationId != locationId {
+
+                self.storeDetailsViewModel = self.makeStoreDetailsViewModel()
+                    .setup(locationId: locationId)
+
+            }
+
+            navigationService.dismissSheet()
+
+        case .loading:
+            break
+
+        case .configurationRequired, .unavailable, .updateRequired, .failed:
+            navigationService.dismissSheet()
+
+        }
+
+    }
+
     private func bindSubscribers() {
 
         guard self.cancelBag == nil else { return }
@@ -124,27 +152,8 @@ final class MainViewModel: ViewModel {
 
                 guard let self else { return }
 
-                if let locationId = self.storeLocationId {
-
-                    if state == .store,
-                       self.storeState != .store || self.storeDetailsViewModel?.locationId != locationId {
-
-                        self.storeDetailsViewModel = self.makeStoreDetailsViewModel()
-                            .setup(locationId: locationId)
-
-                    }
-
-                    if state == .ageVerification {
-                        self.ageVerificationViewModel.setup(locationId: locationId)
-                    }
-
-                }
-
-                if state != .store {
-                    self.storeDetailsViewModel = nil
-                }
-
                 self.storeState = state
+                self.handleStoreNavigation(state)
 
             }
             .store(in: &self.cancelBag)

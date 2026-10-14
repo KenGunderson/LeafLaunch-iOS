@@ -11,16 +11,16 @@ struct TabBarScreen: View {
 
     @Binding var selectedTab: Tab
     @Binding var isTabBarVisible: Bool
-    
+
     init(selectedTab: Binding<Tab>,
          isTabBarVisible: Binding<Bool>) {
         self._selectedTab = selectedTab
         self._isTabBarVisible = isTabBarVisible
 
     }
-    
+
     var body: some View {
-        
+
         VStack {
 
             Spacer()
@@ -33,18 +33,18 @@ struct TabBarScreen: View {
         .ignoresSafeArea(.keyboard)
 
     }
-    
+
 }
 
 #Preview {
-    
+
     @Previewable @State var selectedTab: Tab = .tab1
     @Previewable @State var isTabBarVisible: Bool = true
-    
+
     TabBarScreen(
         selectedTab: $selectedTab,
         isTabBarVisible: $isTabBarVisible
     )
     .withMockServices()
-    
+
 }

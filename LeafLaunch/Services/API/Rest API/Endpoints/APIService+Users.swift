@@ -14,12 +14,12 @@ extension APIService {
 
     @concurrent
     func getUser(id: String) async throws -> LLUser {
-        
+
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .user("\(id)"))
         )
-        
+
         let result: LLUser = try await parseData(data: data)
         return result
 
@@ -27,12 +27,12 @@ extension APIService {
 
     @concurrent
     func getUserProfile() async throws -> LLUser {
-        
+
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .user("profile"))
         )
-        
+
         let result: LLUser = try await parseData(data: data)
         return result
 
@@ -52,13 +52,13 @@ extension APIService {
         ]
             .compact()
 
-        
+
         let data = try await buildRequest(
             method: .post,
             apiPath: .init(path: .user("")),
             parameters: parameters
         )
-        
+
         let result: LLUser = try await parseData(data: data)
         return result
 
@@ -79,7 +79,7 @@ extension APIService {
         ]
             .compact()
 
-        
+
         _ = try await buildRequest(
             method: .put,
             apiPath: .init(path: .user("\(user.id)")),
@@ -91,7 +91,7 @@ extension APIService {
     @concurrent
     func deleteUser(user: LLUser) async throws {
 
-        
+
         _ = try await buildRequest(
             method: .delete,
             apiPath: .init(path: .user("\(user.id)"))

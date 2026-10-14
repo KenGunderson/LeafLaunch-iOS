@@ -8,16 +8,16 @@
 import Foundation
 
 enum AppEnvironment: Selectable {
-    
+
     var id: String {
         return description
     }
-        
+
     case custom(address: String)
     case localhost
     case development
     case production
-    
+
     var displayName: String {
         switch self {
         case .custom(let address): return "LocalHost: \(address)"
@@ -26,7 +26,7 @@ enum AppEnvironment: Selectable {
         case .production: return "Production"
         }
     }
-    
+
     var description: String {
         switch self {
         case .custom: return "Custom"
@@ -35,5 +35,5 @@ enum AppEnvironment: Selectable {
         case .production: return "Prod"
         }
     }
-    
+
 }

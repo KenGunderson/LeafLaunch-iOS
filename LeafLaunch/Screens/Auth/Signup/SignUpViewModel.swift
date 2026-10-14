@@ -38,10 +38,10 @@ final class SignUpViewModel: ViewModel {
 
         return (
             !self.isLoading &&
-            self.email.trimmed().count > 3 &&
-            self.password.count >= 6 &&
-            self.firstName.trimmed().count >= 2 &&
-            self.lastName.trimmed().count >= 2
+                self.email.trimmed().count > 3 &&
+                self.password.count >= 6 &&
+                self.firstName.trimmed().count >= 2 &&
+                self.lastName.trimmed().count >= 2
         )
 
     }
@@ -63,10 +63,10 @@ final class SignUpViewModel: ViewModel {
     }
 
     isolated deinit {
-        
+
         cancelTasks()
         logDeinit()
-        
+
     }
 
     func set(nonce: String) {

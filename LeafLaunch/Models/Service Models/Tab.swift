@@ -8,15 +8,15 @@
 import Foundation
 
 enum Tab: String, CaseIterable, Selectable {
-    
+
     var id: String { self.rawValue }
     var description: String { self.title }
-    
+
     case tab1
     case tab2
     case tab3
     case tab4
-    
+
     var title: String {
 
         switch self {
@@ -27,7 +27,7 @@ enum Tab: String, CaseIterable, Selectable {
         }
 
     }
-    
+
     var unselectedIcon: String {
         switch self {
         case .tab1: return "house"
@@ -36,7 +36,7 @@ enum Tab: String, CaseIterable, Selectable {
         case .tab4: return "person.circle"
         }
     }
-    
+
     var selectedIcon: String {
         switch self {
         case .tab1: return "house.fill"
@@ -45,5 +45,5 @@ enum Tab: String, CaseIterable, Selectable {
         case .tab4: return "person.circle.fill"
         }
     }
-    
+
 }

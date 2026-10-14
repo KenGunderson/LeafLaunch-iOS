@@ -12,68 +12,68 @@ protocol NumericConvertible {
 }
 
 extension CGFloat: NumericConvertible {
-    
+
     var nsNumber: NSNumber {
         return NSNumber(value: self)
     }
-    
+
 }
 
 extension Float: NumericConvertible {
-    
+
     var nsNumber: NSNumber {
         return NSNumber(value: self)
     }
-    
+
 }
 
 extension Double: NumericConvertible {
-    
+
     var nsNumber: NSNumber {
         return NSNumber(value: self)
     }
-    
+
 }
 
 extension Int: NumericConvertible {
-    
+
     var nsNumber: NSNumber {
         return NSNumber(value: self)
     }
-    
+
 }
 
 struct AppNumberFormatter {
 
     static func format<T: NumericConvertible>(amount: T) -> String {
-        
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
 
         return formatter.string(from: amount.nsNumber)!
-        
+
     }
-    
+
     static func formattedNumber<T: NumericConvertible>(amount: T) -> Double {
-        
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
 
         let formattedNumber = formatter.string(from: amount.nsNumber)!
         return formatter.number(from: formattedNumber)?.doubleValue ?? 0
-        
+
     }
-    
+
     static func formattedAbbreviatedNumber<T: NumericConvertible>(amount: T) -> String {
-        
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 1
-        
+
         let doubleValueConversion = amount.nsNumber.doubleValue
-        
+
         // Format
 
         let thousand = doubleValueConversion / 1000
@@ -86,7 +86,7 @@ struct AppNumberFormatter {
         } else {
             return "\(formatter.string(from: amount.nsNumber)!)"
         }
-        
+
     }
-    
+
 }

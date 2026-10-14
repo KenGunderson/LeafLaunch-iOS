@@ -56,7 +56,7 @@ struct StoreShopScreen: GPView {
                     .textFieldStyle(.roundedBorder)
                     .focused(self.$isSearchFocused)
                     .submitLabel(.search)
-                    .onSubmit { self.viewModel.loadData(showHud: true) }
+                    .onSubmit { self.viewModel.loadData(showHud: false) }
 
                 if !self.viewModel.search.isEmpty {
 
@@ -73,7 +73,7 @@ struct StoreShopScreen: GPView {
                     title: String(localized: "Search"),
                     icon: .systemImage("magnifyingglass")
                 ) {
-                    self.viewModel.loadData(showHud: true)
+                    self.viewModel.loadData(showHud: false)
                 }
 
                 Picker(String(localized: "Sort"), selection: self.$viewModel.sort) {
@@ -152,6 +152,14 @@ struct StoreShopScreen: GPView {
 
         LazyVStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
+            if self.viewModel.isLoading {
+
+                ProgressView(String(localized: "Loading products"))
+                    .tint(self.style.accent)
+                    .frame(maxWidth: .infinity)
+
+            }
+
             if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
                 Text(String(localized: "No products match these filters."))
             }
@@ -179,7 +187,7 @@ struct StoreShopScreen: GPView {
             if !self.viewModel.isLoading {
 
                 Button(String(localized: "Refresh Products")) {
-                    self.viewModel.loadData(showHud: true)
+                    self.viewModel.loadData(showHud: false)
                 }
 
             }

@@ -10,86 +10,86 @@ import SwiftUI
 struct EmptyStateView: View {
 
     @Environment(\.style) private var style
-    
+
     let config: EmptyStateConfig
-    
+
     var body: some View {
-        
+
         VStack(spacing: self.style.spacing(.small2)) {
-            
+
             self.config
                 .image
                 .view()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.text(.title))
                 .frame(width: 100, height: 120)
-            
+
             Text(self.config.title)
                 .appFont(with: .HEADER_4)
                 .foregroundStyle(.text(.title))
                 .multilineTextAlignment(.center)
-            
+
             if let message = self.config.message {
-                
+
                 Text(message)
                     .appFont(with: .BODY_3)
                     .foregroundStyle(.text(.body))
                     .multilineTextAlignment(.center)
-                
+
             }
-            
+
             if let actionTitle = self.config.actionTitle {
-                
+
                 LeafLaunchButton(title: actionTitle) {
                     self.config.action?()
                 }
                 .padding(.top, .small)
-                
+
             }
-            
+
         }
         .padding(.horizontal, .large)
-        
+
     }
-    
+
 }
 
 #Preview {
-    
+
     @Previewable @State var showEmptyState: Bool = true
-    
+
     AppBaseView {
-        
+
         ScrollView {
-            
+
             Group {
-            
+
                 if !showEmptyState {
-                    
+
                     ForEach(0...50) { index in
-                        
+
                         Text("\(index)")
                             .appFont(with: .TITLE_5)
                             .foregroundStyle(.text(.title))
-                        
+
                     }
                     .border(.red)
                     .transition(.asymmetric(
                         insertion: .move(edge: .bottom).combined(with: .opacity),
                         removal: .init(.blurReplace)
                     ))
-                    
+
                 }
-                
+
             }
             .frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,
                 alignment: .top
             )
-            
+
         }
-        
+
     }
     .emptyStateOverlay(
         shouldShow: showEmptyState,
@@ -109,13 +109,13 @@ struct EmptyStateView: View {
         animation: .bouncy
     )
     .safeAreaInset(edge: .bottom) {
-        
+
         CommonButton(title: "Show / Hide") {
             showEmptyState.toggle()
         }
         .padding(.horizontal, .large)
-        
+
     }
     .animation(.bouncy, value: showEmptyState)
-    
+
 }

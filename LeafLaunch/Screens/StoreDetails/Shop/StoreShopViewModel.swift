@@ -45,7 +45,7 @@ final class StoreShopViewModel: ViewModel {
         didSet {
 
             guard self.sort != oldValue else { return }
-            loadData(showHud: true)
+            loadData(showHud: false)
 
         }
 
@@ -59,7 +59,7 @@ final class StoreShopViewModel: ViewModel {
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
-        
+
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
         self.analyticsService = analyticsService
@@ -74,7 +74,7 @@ final class StoreShopViewModel: ViewModel {
         self.loadProductsTask?.cancel()
         self.searchTask?.cancel()
         self.favoritesSubscription?.cancel()
-        
+
         logDeinit()
 
     }
@@ -101,9 +101,11 @@ final class StoreShopViewModel: ViewModel {
     func selectCategory(id: String?) {
 
         guard self.selectedCategoryId != id else { return }
+        guard id == nil || self.categories.contains(where: { $0.id == id }) else { return }
+
         self.selectedCategoryId = id
         self.selectedSubcategoryId = nil
-        loadData(showHud: true)
+        loadData(showHud: false)
 
     }
 
@@ -111,8 +113,9 @@ final class StoreShopViewModel: ViewModel {
 
         guard self.selectedSubcategoryId != id else { return }
         guard id == nil || self.subcategories.contains(where: { $0.id == id }) else { return }
+
         self.selectedSubcategoryId = id
-        loadData(showHud: true)
+        loadData(showHud: false)
 
     }
 
@@ -127,11 +130,11 @@ final class StoreShopViewModel: ViewModel {
     func clearSearch() {
 
         self.search = ""
-        loadData(showHud: true)
+        loadData(showHud: false)
 
     }
 
-    func loadMore(showHud: Bool = true) {
+    func loadMore(showHud: Bool = false) {
 
         guard self.hasMoreProducts else { return }
         loadProducts(reset: false, showHud: showHud)

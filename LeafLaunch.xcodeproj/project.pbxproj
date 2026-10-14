@@ -226,6 +226,8 @@
 		7537F4822DF661EA0031D9CF /* AppDelegateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D82DF661EA0031D9CF /* AppDelegateServiceProtocol.swift */; };
 		7537F4832DF661EA0031D9CF /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3C42DF661EA0031D9CF /* AnalyticsService.swift */; };
 		7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */; };
+		B36EBD720A9B4E4189382B12 /* NavigationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EBD720A9B4E4189382B11 /* NavigationSheet.swift */; };
+		B36EBD720A9B4E4189382B13 /* NavigationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EBD720A9B4E4189382B11 /* NavigationSheet.swift */; };
 		7537F4852DF661EA0031D9CF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D32DF661EA0031D9CF /* API.swift */; };
 		7537F4872DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4162DF661EA0031D9CF /* ViewLifecycleServiceProtocol.swift */; };
 		7537F4882DF661EA0031D9CF /* PushNotificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */; };
@@ -609,6 +611,7 @@
 		7537F3F82DF661EA0031D9CF /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
 		7537F3FA2DF661EA0031D9CF /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCover.swift; sourceTree = "<group>"; };
+		B36EBD720A9B4E4189382B11 /* NavigationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSheet.swift; sourceTree = "<group>"; };
 		7537F4102DF661EA0031D9CF /* PushNotificationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationServiceProtocol.swift; sourceTree = "<group>"; };
 		7537F4112DF661EA0031D9CF /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		7537F4132DF661EA0031D9CF /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -1042,8 +1045,8 @@
 			children = (
 				7515DB942ECBEB3E00921AE9 /* Service Models */,
 				7515DB982ECBEB3E00921AE9 /* System */,
-				7515DBA52ECBEB3E00921AE9 /* LLUser.swift */,
 				3DB37BB7E807BEA20DEB101B /* Customer */,
+				7515DBA52ECBEB3E00921AE9 /* LLUser.swift */,
 				7D48B3C087BB419B83E0F318 /* LLUser+CustomerAccount.swift */,
 			);
 			path = Models;
@@ -1193,6 +1196,7 @@
 			children = (
 				7537F3FA2DF661EA0031D9CF /* Routes.swift */,
 				7537F3FC2DF661EA0031D9CF /* FullScreenCover.swift */,
+				B36EBD720A9B4E4189382B11 /* NavigationSheet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1998,6 +2002,7 @@
 				7560ACD92E2835EE00A30E55 /* MockModels.swift in Sources */,
 				754E51E22E54284C00258225 /* InvitationAlert.swift in Sources */,
 				7537F4842DF661EA0031D9CF /* FullScreenCover.swift in Sources */,
+				B36EBD720A9B4E4189382B12 /* NavigationSheet.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				A1B2D3E62F90000100AAA001 /* LeafLaunchButton.swift in Sources */,
 				A1B2D3E72F90000100AAA001 /* LeafLaunchCardView.swift in Sources */,
@@ -2237,6 +2242,7 @@
 				A6E2DCAD68DF4E8E8301C453 /* MockModels.swift in Sources */,
 				860D3747298B4A9F8AC41D50 /* InvitationAlert.swift in Sources */,
 				AD21D263510746FAAC322B99 /* FullScreenCover.swift in Sources */,
+				B36EBD720A9B4E4189382B13 /* NavigationSheet.swift in Sources */,
 				5DC2DAE6C0A149BCA58224AE /* AppRootView.swift in Sources */,
 				872BD3EC4AB84A2D9E48F113 /* LeafLaunchButton.swift in Sources */,
 				58EAB3D79E904882BD04CD46 /* LeafLaunchCardView.swift in Sources */,

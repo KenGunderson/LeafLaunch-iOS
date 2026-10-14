@@ -54,11 +54,6 @@ struct StoreOverviewScreen: GPView {
             events()
             storeInfo()
 
-            LeafLaunchButton(title: String(localized: "Refresh Store")) {
-                self.viewModel.loadData(showHud: true)
-            }
-            .disabled(self.viewModel.isLoading)
-
         }
         .foregroundStyle(.text(.body))
         .tabFlowContentSpacing()

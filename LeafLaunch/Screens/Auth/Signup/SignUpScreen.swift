@@ -19,14 +19,14 @@ struct SignUpScreen: GPView {
     @FocusState private var focusedField: FocusedField?
 
     enum FocusedField: Hashable {
-        
+
         case firstName
         case lastName
         case email
         case password
-        
+
     }
-    
+
     init(viewModel: SignUpViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -42,9 +42,9 @@ struct SignUpScreen: GPView {
         }
 
     }
-    
+
     var body: some View {
-        
+
         AppHeaderScrollView(horizontalPadding: .medium) {
             headerView
         } scrollViewContent: {
@@ -55,73 +55,73 @@ struct SignUpScreen: GPView {
         }
         .scrollBounceBehavior(.basedOnSize)
         // Tap
-    
+
         .onSubmit {
             handleOnSubmit()
         }
-        
+
         .onFirstAppear { [weak viewModel] in
 
             viewModel?.setup(navigationService: self.navigationService)
             viewModel?.handleFirstAppear()
 
         }
-        
+
     }
-    
+
     private var headerView: some View {
-        
+
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-            
+
             NavBarButton(style: .back) {
                 self.navigationService.pop()
             }
-            
+
             VStack(alignment: .leading, spacing: 0) {
-                
+
                 Text("Join LeafLaunch")
                     .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
                     .foregroundStyle(.text(.title))
-                
+
                 Text("Enter your details below to create an account.")
                     .appFont(with: .BODY_3)
                     .foregroundStyle(.text(.body))
-                
+
             }
-            
+
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        
+
     }
-    
+
     private var contentView: some View {
-        
+
         VStack(spacing: self.style.spacing(.medium)) {
-            
+
             // TextFields
-            
+
             VStack(spacing: self.style.spacing(.medium)) {
-                
+
                 textField(fieldToFocus: .firstName)
                 textField(fieldToFocus: .lastName)
                 textField(fieldToFocus: .email)
                 textField(fieldToFocus: .password)
-                
+
             }
-            
+
         }
-        
+
     }
-    
+
     private func bottomBar() -> some View {
-        
+
         VStack(alignment: .leading) {
-            
+
             HStack(spacing: self.style.spacing(.none)) {
-                
+
                 // Checkbox
-                
+
                 Toggle(
                     "",
                     isOn: self.$viewModel.agreedToTerms
@@ -137,66 +137,66 @@ struct SignUpScreen: GPView {
                 .appFont(with: .TITLE_5)
                 .contentTransition(.symbolEffect(.replace))
 //                .animation(.bouncy(duration: 0.10), value: self.viewModel.agreedToTerms)
-                
+
                 // Attributed Text
-                
+
                 AttributedText {
-                    
+
                     Text("By signing up, you agree to our ")
                         .foregroundStyle(.text(.body))
                         .font(self.style.font(.BODY_2))
-                    
+
                     Text("[Terms Of Service](https://apple.com)")
                         .font(self.style.font(.BODY_2))
                         .foregroundStyle(.foreground(.primary))
                         .underline()
-                    
+
                 }
                 .environment(\.openURL, .init(handler: { url in
-                    
+
 //                    self.navigationService
 //                        .push(.setting(.termsOfService))
-                    
+
                     return .handled
-                    
+
                 }))
                 .tint(.init(.foreground(.primary)))
-                
+
             }
-                        
+
             // LoginButton
-            
+
             CommonButton(
                 title: "Create Account",
                 titleColor: .text(.button),
                 isEnabled: self.viewModel.isButtonEnabled,
                 disabledOpacity: 0.7
             ) {
-                
+
                 self.viewModel
                     .handleSignUp()
-                
+
             }
             .padding(.vertical, .small)
-            
+
         }
         .background(.background(.primary))
         .padding(.horizontal, .medium)
         .opacity(self.focusedField == nil ? 1 : 0)
-        
+
     }
 
     private func textField(fieldToFocus: FocusedField) -> some View {
-        
+
         var text: Binding<String> = .constant("")
         var placeholder: String = ""
         var isFocused: Bool = false
         var keyboardType: UIKeyboardType = .default
         var textContentType: UITextContentType = .emailAddress
         var submitLabel: SubmitLabel = .next
-        
+
         let isNameFields: Bool = (fieldToFocus == .firstName) || (fieldToFocus == .lastName)
-        
+
         switch fieldToFocus {
         case .firstName:
 
@@ -206,7 +206,7 @@ struct SignUpScreen: GPView {
             keyboardType = .default
             textContentType = .name
             submitLabel = .next
-            
+
         case .lastName:
 
             text = self.$viewModel.lastName
@@ -215,18 +215,18 @@ struct SignUpScreen: GPView {
             keyboardType = .default
             textContentType = .name
             submitLabel = .next
-            
+
         case .email:
-            
+
             text = self.$viewModel.email
             placeholder = "Email"
             isFocused = self.focusedField == .email
             keyboardType = .emailAddress
             textContentType = .emailAddress
             submitLabel = .next
-            
+
         case .password:
-            
+
             text = self.$viewModel.password
             placeholder = "Password"
             isFocused = self.focusedField == .password
@@ -234,29 +234,29 @@ struct SignUpScreen: GPView {
             textContentType = .password
             submitLabel = .next
         }
-        
+
         return Group {
-            
+
             let hidePassword = !self.showPassword
-            
+
             if fieldToFocus == .password && hidePassword {
-                
+
                 SecureField(
                     placeholder,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
-                
+
             } else {
-                
+
                 TextField(
                     placeholder,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
-                
+
             }
-            
+
         }
         .titleUnderlineTextFieldStyle(
             text: text.wrappedValue,
@@ -278,41 +278,41 @@ struct SignUpScreen: GPView {
         .appOnTapGesture {
             self.focusedField = fieldToFocus // We do this to increate tappable area
         }
-        
+
     }
-    
+
     @ViewBuilder
     private func passwordEyeOverlay(fieldToFocus: FocusedField) -> some View {
-        
+
         if fieldToFocus == .password {
-            
+
             Image(systemName: self.showPassword ? "eye.slash" : "eye")
                 .resizable()
                 .scaledToFit()
                 .foregroundStyle(.text(.placeholder))
                 .frame(width: 24, height: 24)
                 .asButton {
-                    
+
                     withAnimation(.spring) {
                         self.showPassword.toggle()
                     }
-                    
+
                 }
                 .padding(.trailing, .medium)
                 .padding(.bottom, .custom(10))
                 .contentTransition(.symbolEffect(.replace))
-            
+
         }
-        
+
     }
-    
+
 }
 
 #Preview {
-    
+
     SignUpScreen(
         viewModel: mockResolve(SignUpViewModel.self)
     )
     .withMockServices()
-    
+
 }

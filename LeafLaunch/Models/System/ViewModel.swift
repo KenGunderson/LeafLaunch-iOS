@@ -12,13 +12,13 @@ typealias ViewModelDefinition = (AnyObject & Identifiable & Trackable & Loggable
 protocol ViewModel: ViewModelDefinition, ObservableObject {}
 
 extension ViewModel {
-    
-  static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs === rhs
-  }
-  
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(self.id)
-  }
-    
+
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs === rhs
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+
 }

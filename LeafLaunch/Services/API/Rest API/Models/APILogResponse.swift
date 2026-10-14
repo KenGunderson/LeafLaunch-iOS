@@ -8,7 +8,7 @@
 import Foundation
 
 public struct APILogResponse: Sendable {
-    
+
     public let method: String
     public let path: String
     public let statusCode: Int
@@ -18,20 +18,20 @@ public struct APILogResponse: Sendable {
     public let attemptCount: Int
     public let date = Date()
     private let responseData: Data?
-    
+
     public var error: Error?
-    
+
     public var responseJSON: [String: Any]? {
-        
+
         if let responseData,
            let json = try? JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any] {
             return json
         }
-        
+
         return nil
-        
+
     }
-    
+
     public init(method: String,
                 path: String,
                 statusCode: Int,
@@ -40,7 +40,7 @@ public struct APILogResponse: Sendable {
                 body: [String : Any],
                 responseData: Data?,
                 attemptCount: Int = 1) {
-        
+
         self.method = method
         self.path = path
         self.statusCode = statusCode
@@ -49,7 +49,7 @@ public struct APILogResponse: Sendable {
         self.body = body
         self.responseData = responseData
         self.attemptCount = attemptCount
-        
+
     }
-    
+
 }
