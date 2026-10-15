@@ -173,11 +173,6 @@ extension View {
         func settings(route: Route.SettingRoute) -> some View {
 
             switch route {
-            case .profile:
-
-                let viewModel = Container.shared.profileViewModel()
-                ProfileScreen(viewModel: viewModel)
-
             case .contactSupport: EmptyView()
             case .rateApp: EmptyView()
             case .privacyPolicy:

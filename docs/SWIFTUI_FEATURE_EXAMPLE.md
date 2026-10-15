@@ -230,7 +230,7 @@ struct UserDetailsScreen: GPView {
         viewModel: mockResolve(UserDetailsViewModel.self)
             .setup(userId: MockModels.MockUser.user1.id)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }
 ```

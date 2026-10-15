@@ -169,6 +169,15 @@ final class StoreOverviewViewModel: ViewModel {
         self.storeSessionService.showLocations()
     }
 
+    func openProduct(_ product: PromotionLinkedProduct) {
+
+        guard let locationId = self.locationId,
+              product.storeLocationId == locationId else { return }
+
+        self.navigationService?.push(.customer(.product(locationId: locationId, productId: product.id)))
+
+    }
+
     private func presentOverviewError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(

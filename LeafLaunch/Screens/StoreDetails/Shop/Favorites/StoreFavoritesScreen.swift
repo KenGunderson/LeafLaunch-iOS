@@ -3,7 +3,9 @@ import SwiftUI
 struct StoreFavoritesScreen: GPView {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(NavigationService.self) private var navigationService
+    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
 
     @StateObject private var viewModel: StoreFavoritesViewModel
 
@@ -14,7 +16,7 @@ struct StoreFavoritesScreen: GPView {
     var body: some View {
 
         AppHeaderScrollView(horizontalPadding: .medium) {
-            NavHeader(title: String(localized: "Favorites"))
+            navHeader()
         } scrollViewContent: {
             content()
         }
@@ -24,35 +26,93 @@ struct StoreFavoritesScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
-
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }
 
     }
 
+    private func navHeader() -> some View {
+        NavHeader(title: String(localized: "Favorites"), subtitle: String(localized: "Good finds, saved for later"))
+    }
+
     private func content() -> some View {
 
-        LazyVStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
-            if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
-                Text(String(localized: "No favorite products are available at this location."))
+            if self.viewModel.isLoading && self.viewModel.products.isEmpty {
+
+                ProgressView(String(localized: "Loading favorites"))
+                    .tint(self.style.accent)
+                    .appFont(with: .BODY_2)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, .large)
+
             }
 
-            ForEach(self.viewModel.products, id: \.id) { product in
+            emptyContent()
 
-                ProductWireframeRow(
-                    product: product,
-                    isFavorite: true,
-                    onOpen: { self.viewModel.openProduct(id: product.id) },
-                    onFavorite: { self.viewModel.removeFavorite(id: product.id) }
+            if !self.viewModel.products.isEmpty {
+
+                CommerceSectionHeader(
+                    title: String(localized: "Your collection"),
+                    subtitle: String(localized: "Available at this location")
                 )
+
+                ProductGridView(
+                    products: self.viewModel.products,
+                    imageURLs: self.viewModel.imageURLs,
+                    loadingImageProductIds: self.viewModel.loadingImageProductIds,
+                    favoriteProductIds: Set(self.viewModel.products.map(\.id)),
+                    onOpen: { self.viewModel.openProduct(id: $0) },
+                    onFavorite: { self.viewModel.removeFavorite(id: $0) }
+                )
+                .animation(self.reduceMotion ? nil : .bouncy, value: self.viewModel.products.map(\.id))
 
             }
 
         }
-        .foregroundStyle(.text(.body))
+        .foregroundStyle(self.style.textColor(.body))
         .tabFlowContentSpacing()
+
+    }
+
+    @ViewBuilder
+    private func emptyContent() -> some View {
+
+        if self.viewModel.hasLoadFailed && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(.small)) {
+
+                CommerceEmptyState(
+                    systemImage: "wifi.exclamationmark",
+                    title: String(localized: "Favorites couldn't load"),
+                    message: String(localized: "Check your connection and try again.")
+                )
+
+                LeafLaunchButton(title: String(localized: "Try again")) {
+                    self.viewModel.loadData(showHud: false)
+                }
+
+            }
+
+        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(.small)) {
+
+                CommerceEmptyState(
+                    systemImage: "heart",
+                    title: String(localized: "Make room for favorites"),
+                    message: String(localized: "Tap the heart on a product to save it here. Saved products appear when available at this location.")
+                )
+
+                LeafLaunchButton(title: String(localized: "Browse products"), icon: .systemImage("arrow.right")) {
+                    self.tabBarNavigationService.select(.tab2)
+                }
+
+            }
+
+        }
 
     }
 
@@ -64,6 +124,6 @@ struct StoreFavoritesScreen: GPView {
         viewModel: mockResolve(StoreFavoritesViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

@@ -34,34 +34,64 @@ struct LocationsScreen: GPView {
 
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             if self.viewModel.locations.isEmpty {
-                Text(String(localized: "There are no available locations."))
-            }
 
-            ForEach(self.viewModel.locations, id: \.id) { location in
+                CommerceEmptyState(
+                    systemImage: "mappin.and.ellipse",
+                    title: String(localized: "No locations available"),
+                    message: String(localized: "There are no available locations.")
+                )
 
-                GroupBox {
+            } else {
 
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+                introduction()
 
-                        Text(location.name).appFont(with: .TITLE_4)
-                        Text(location.timezone ?? "").appFont(with: .BODY_2)
+                LazyVStack(spacing: self.style.spacing(.medium)) {
 
-                        LeafLaunchButton(title: String(localized: "Open Location")) {
-                            self.viewModel.selectLocation(id: location.id)
+                    ForEach(self.viewModel.locations, id: \.id) { location in
+
+                        LocationSelectionCard(location: location) { [weak viewModel] in
+                            viewModel?.selectLocation(id: location.id)
                         }
 
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 }
 
             }
 
         }
-        .foregroundStyle(.text(.body))
+        .foregroundStyle(self.style.textColor(.body))
+        .padding(.bottom, self.style.spacing(.large))
+
+    }
+
+    private func introduction() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+
+            ImageSource.systemImage("storefront")
+                .view(shouldResize: false)
+                .appFont(with: .HEADER_3)
+                .foregroundStyle(self.style.foreground(.primary))
+                .padding(self.style.spacing(.medium))
+                .background(self.style.background(.tertiary), in: Circle())
+                .accessibilityHidden(true)
+
+            Text(String(localized: "Find your local store."))
+                .appFont(with: .HEADER_3)
+                .foregroundStyle(self.style.textColor(.title))
+                .accessibilityAddTraits(.isHeader)
+
+            Text(String(localized: "Choose a location to explore its shop and latest updates."))
+                .appFont(with: .BODY_2)
+                .foregroundStyle(self.style.textColor(.body))
+                .fixedSize(horizontal: false, vertical: true)
+
+        }
+        .padding(.vertical, self.style.spacing(.small))
 
     }
 
@@ -70,6 +100,6 @@ struct LocationsScreen: GPView {
 #Preview {
 
     LocationsScreen(viewModel: mockResolve(LocationsViewModel.self))
-        .withMockServices()
+        .withMockPreviews()
 
 }

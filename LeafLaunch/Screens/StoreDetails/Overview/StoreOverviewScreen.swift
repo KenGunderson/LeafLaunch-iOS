@@ -11,13 +11,6 @@ struct StoreOverviewScreen: GPView {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    private func weekday(_ value: Int) -> String {
-
-        let symbols = DateFormatter().weekdaySymbols ?? []
-        return symbols.indices.contains(value) ? symbols[value] : String(value)
-
-    }
-
     var body: some View {
 
         AppHeaderScrollView(horizontalPadding: .medium) {
@@ -31,7 +24,6 @@ struct StoreOverviewScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
-
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }
@@ -39,20 +31,52 @@ struct StoreOverviewScreen: GPView {
     }
 
     private func navHeader() -> some View {
-        NavHeader(title: self.viewModel.locationDetails?.location.name ?? String(localized: "Store"))
+        NavHeader(title: self.viewModel.store?.name ?? String(localized: "Store"))
     }
 
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large2)) {
 
-            LeafLaunchButton(title: String(localized: "Change Location")) {
-                self.viewModel.changeLocation()
+            if let details = self.viewModel.locationDetails {
+
+                StoreLocationCard(details: details) {
+                    self.viewModel.changeLocation()
+                }
+
+            } else {
+
+                LeafLaunchButton(
+                    title: String(localized: "Change Location"),
+                    icon: .systemImage("mappin.and.ellipse")
+                ) {
+                    self.viewModel.changeLocation()
+                }
+
             }
 
             promotions()
             events()
-            storeInfo()
+
+            if self.viewModel.store != nil || self.viewModel.locationDetails != nil {
+
+                StoreInformationCard(
+                    store: self.viewModel.store,
+                    details: self.viewModel.locationDetails
+                )
+
+            }
+
+            if !self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
+
+                LeafLaunchButton(
+                    title: String(localized: "Reload Store"),
+                    icon: .systemImage("arrow.clockwise")
+                ) {
+                    self.viewModel.loadData(showHud: true)
+                }
+
+            }
 
         }
         .foregroundStyle(.text(.body))
@@ -60,30 +84,37 @@ struct StoreOverviewScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func promotions() -> some View {
 
-        GroupBox(String(localized: "Promos")) {
+        if !self.viewModel.promotions.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-                if self.viewModel.hasCompletedInitialLoad && self.viewModel.promotions.isEmpty {
-                    Text(String(localized: "No current promotions."))
-                }
+                CommerceSectionHeader(
+                    title: String(localized: "In the spotlight"),
+                    subtitle: String(localized: "Promotions from your store.")
+                )
 
-                ForEach(self.viewModel.promotions, id: \.id) { promotion in
+                ForEach(self.viewModel.promotions) { promotion in
 
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                        Text(promotion.title).appFont(with: .TITLE_4)
-                        Text(promotion.description ?? "").appFont(with: .BODY_2)
-                        Divider()
-
-                    }
+                    StorePromotionCard(
+                        promotion: promotion,
+                        location: self.viewModel.locationDetails?.location,
+                        onSelectProduct: self.viewModel.openProduct
+                    )
 
                 }
 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+
+        } else if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
+
+            CommerceEmptyState(
+                systemImage: "tag",
+                title: String(localized: "No current promotions"),
+                message: String(localized: "Check back for the latest from your store.")
+            )
 
         }
 
@@ -91,103 +122,43 @@ struct StoreOverviewScreen: GPView {
 
     private func events() -> some View {
 
-        GroupBox(String(localized: "Upcoming Events")) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            CommerceSectionHeader(
+                title: String(localized: "At your store"),
+                subtitle: String(localized: "Upcoming events and local happenings.")
+            )
 
-                if self.viewModel.hasCompletedInitialLoad && self.viewModel.events.isEmpty {
-                    Text(String(localized: "No upcoming events."))
-                }
+            if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading && self.viewModel.events.isEmpty {
 
-                ForEach(self.viewModel.events, id: \.id) { event in
-
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                        Text(event.title).appFont(with: .TITLE_4)
-                        Text(event.description ?? "").appFont(with: .BODY_2)
-
-                        if let startsAt = event.startsAt {
-                            Text(startsAt.formatted(date: .abbreviated, time: .shortened))
-                        }
-
-                        if let externalURL = event.externalURL {
-                            Link(String(localized: "Event Details"), destination: externalURL)
-                        }
-
-                        Divider()
-
-                    }
-
-                }
-
-                if self.viewModel.hasMoreEvents {
-
-                    LeafLaunchButton(title: String(localized: "Load More Events")) {
-                        self.viewModel.loadMoreEvents()
-                    }
-                    .disabled(self.viewModel.isLoadingEvents)
-
-                }
+                CommerceEmptyState(
+                    systemImage: "calendar",
+                    title: String(localized: "No upcoming events"),
+                    message: String(localized: "New events will appear here when announced.")
+                )
 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-        }
+            ForEach(self.viewModel.events) { event in
 
-    }
-
-    private func storeInfo() -> some View {
-
-        GroupBox(String(localized: "Store Info")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                if let store = self.viewModel.store {
-
-                    Text(store.name).appFont(with: .TITLE_4)
-
-                    if let legalName = store.legalName, legalName != store.name {
-                        Text(legalName)
-                    }
-
-                    if let supportEmail = store.supportEmail {
-                        Text(supportEmail)
-                    }
-
-                    if let supportPhone = store.supportPhone {
-                        Text(supportPhone)
-                    }
-
-                    if let websiteURL = store.websiteURL {
-                        Link(String(localized: "Business Website"), destination: websiteURL)
-                    }
-
-                }
-
-                if let details = self.viewModel.locationDetails {
-
-                    Text(details.location.name)
-                    Text(details.mapsAddress)
-                    Text(details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
-                    Text(details.location.timezone ?? "")
-
-                    ForEach(details.location.hours ?? [], id: \.id) { hours in
-
-                        HStack {
-
-                            Text(weekday(hours.weekday))
-                            Spacer()
-                            Text(hours.closed ? String(localized: "Closed") : "\(hours.opensAt ?? "—") – \(hours.closesAt ?? "—")")
-
-                        }
-
-                    }
-
-                }
+                StoreEventCard(
+                    event: event,
+                    location: self.viewModel.locationDetails?.location
+                )
 
             }
-            .appFont(with: .BODY_2)
-            .frame(maxWidth: .infinity, alignment: .leading)
+
+            if self.viewModel.hasMoreEvents {
+
+                LeafLaunchButton(
+                    title: String(localized: "Load More Events"),
+                    icon: .systemImage("arrow.down")
+                ) {
+                    self.viewModel.loadMoreEvents()
+                }
+                .disabled(self.viewModel.isLoadingEvents || self.viewModel.isLoading)
+
+            }
 
         }
 
@@ -201,6 +172,6 @@ struct StoreOverviewScreen: GPView {
         viewModel: mockResolve(StoreOverviewViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

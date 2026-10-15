@@ -37,7 +37,7 @@ Main keeps StoreDetails and its TabBarNavigationService at the root, with one Na
 - `Overview/`: promotions, upcoming events, business summary, actual location, and opening hours.
 - `Shop/`: category/subcategory filtering, search, menu sorting, paginated products, nested product details, and favorites.
 - `Account/`: guest registration/login actions, customer profile, loyalty balance, and ledger history.
-- `Shared/`: product wireframe rows and shared tab content.
+- `Shared/`: shared image-led product cards, price/media/favorite treatments, and an adaptive product grid.
 
 Each screen owns one StateObject ViewModel. Child screens have dedicated paired files. Fetch-backed screens use `.task { [weak viewModel] in viewModel?.loadData(showHud: true) }` for initial/reappearance loading. First appearance installs navigation, tracks, and binds subscribers without duplicating the fetch. ViewModels present errors through focused AlertService helpers and dismiss each task's unique loading alert in `defer`; views do not use `.errorHandler`. Shared domain models are split in `Models/Customer/`; feature-specific models live in lower-case `models/` folders.
 
@@ -59,6 +59,10 @@ Each screen owns one StateObject ViewModel. Child screens have dedicated paired 
 Public calls explicitly bypass bearer authentication while carrying public tenant context. Customer calls obtain a fresh Firebase bearer token and pass `x-app-key` plus location context where required. Page responses retain server metadata; money uses Decimal, points preserve API strings, and product attribute values support the API’s primitive/array union.
 
 `ProductQuery.sort` sends `featured`, `name`, `price_ascending`, or `price_descending`. The API orders the full filtered result before pagination. StoreShop never downloads the whole catalog to sort it; filter, search, and sort changes cancel old requests and reset paging, and load-more retains the selected order. Price ordering and the row’s “from” amount use the minimum effective price among available variants of a published listing. Individual variant details retain visible prices and availability labels; products without an available price sort last. See the API’s [catalog rules](../../LeafLaunch-API/docs/UBIQUITOUS_BUSINESS_LOGIC.md#shared-product-versus-local-listing) for promotion, missing-price, and tie-breaking semantics.
+
+The storefront composition in [DESIGN.md](../DESIGN.md) uses shared Rune-backed commerce surfaces and focused feature views. Horizontal category/subcategory pill rails retain the same server query behavior; parent changes clear the child and transition its rail with blur replacement and value-scoped bouncy motion. Every new surface consumes the active environment style, so store-defined colors, fonts, and radii continue to control its appearance without a second theme system.
+
+Product cards resolve their first active supported image through the existing public media URL endpoint. Shop and Favorites each own a cancellable image task with at most four signer requests in flight, separate from the content-loading HUD. Results and loading state are guarded by request identity and cancellation. Product details retain the complete ordered gallery with stable selected-media identity, paging, thumbnails, and explicit failed-media placeholders. Favorites refresh their cover URLs with successful catalog refreshes. Product discounts require a higher base price than the current price; savings on a card identify the applicable variant.
 
 ## Persistence and theme
 

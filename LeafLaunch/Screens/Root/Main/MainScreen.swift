@@ -88,7 +88,7 @@ struct MainScreen: GPView {
     private func statusBox<Content: View>(title: LocalizedStringKey,
                                           @ViewBuilder content: () -> Content) -> some View {
 
-        GroupBox {
+        CommerceSurface {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
@@ -108,6 +108,6 @@ struct MainScreen: GPView {
 #Preview {
 
     MainScreen(viewModel: mockResolve(MainViewModel.self))
-        .withMockServices()
+        .withMockPreviews()
 
 }

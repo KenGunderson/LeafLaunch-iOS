@@ -29,7 +29,7 @@ struct StoreDetailsScreen: GPView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(self.style.background(.primary))
-        .tint(.init(.foreground(.primary)))
+        .tint(self.style.palette(.link))
         .environment(self.viewModel.tabBarNavigationService)
         .onFirstAppear { [weak viewModel] in viewModel?.handleFirstAppear() }
 
@@ -103,6 +103,6 @@ struct StoreDetailsScreen: GPView {
         viewModel: mockResolve(StoreDetailsViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

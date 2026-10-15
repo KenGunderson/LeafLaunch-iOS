@@ -3,6 +3,7 @@ import SwiftUI
 struct StoreShopScreen: GPView {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject private var viewModel: StoreShopViewModel
@@ -16,7 +17,7 @@ struct StoreShopScreen: GPView {
     var body: some View {
 
         AppHeaderScrollView(horizontalPadding: .medium) {
-            NavHeader(title: String(localized: "Shop"))
+            navHeader()
         } scrollViewContent: {
             content()
         }
@@ -32,58 +33,105 @@ struct StoreShopScreen: GPView {
 
     }
 
+    private func navHeader() -> some View {
+        NavHeader(title: String(localized: "Shop"), subtitle: String(localized: "Find your next favorite"))
+    }
+
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
-            headerControls()
-            categoryFilters()
+            searchField()
+
+            CatalogCategoryFilters(
+                categories: self.viewModel.categories,
+                selectedCategoryId: self.viewModel.selectedCategoryId,
+                selectedSubcategoryId: self.viewModel.selectedSubcategoryId,
+                onCategorySelected: { self.viewModel.selectCategory(id: $0) },
+                onSubcategorySelected: { self.viewModel.selectSubcategory(id: $0) }
+            )
+
             productFeed()
 
         }
-        .foregroundStyle(.text(.body))
+        .foregroundStyle(self.style.textColor(.body))
         .tabFlowContentSpacing()
 
     }
 
-    private func headerControls() -> some View {
+    private func searchField() -> some View {
 
-        GroupBox(String(localized: "Search and Sort")) {
+        HStack(spacing: self.style.spacing(.small2)) {
 
-            VStack(spacing: self.style.spacing(.small)) {
+            ImageSource.systemImage("magnifyingglass")
+                .view()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
+                .foregroundStyle(self.style.foreground(.secondary))
+                .accessibilityHidden(true)
 
-                TextField(String(localized: "Search products"), text: self.$viewModel.search)
-                    .textFieldStyle(.roundedBorder)
-                    .focused(self.$isSearchFocused)
-                    .submitLabel(.search)
-                    .onSubmit { self.viewModel.loadData(showHud: false) }
+            TextField(String(localized: "Search products"), text: self.$viewModel.search)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(self.style.textColor(.title))
+                .focused(self.$isSearchFocused)
+                .submitLabel(.search)
+                .autocorrectionDisabled()
+                .onSubmit { self.viewModel.loadData(showHud: false) }
+                .accessibilityLabel(String(localized: "Search products"))
 
-                if !self.viewModel.search.isEmpty {
+            if !self.viewModel.search.isEmpty {
 
-                    Button(String(localized: "Clear search")) {
+                ImageSource.systemImage("xmark.circle.fill")
+                    .view()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
+                    .foregroundStyle(self.style.textColor(.body))
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
+                    .asButton(scale: self.reduceMotion ? 1 : nil) {
 
                         self.viewModel.clearSearch()
                         self.isSearchFocused = true
 
                     }
+                    .accessibilityLabel(String(localized: "Clear search"))
 
-                }
+            }
 
-                LeafLaunchButton(
-                    title: String(localized: "Search"),
-                    icon: .systemImage("magnifyingglass")
-                ) {
-                    self.viewModel.loadData(showHud: false)
-                }
+        }
+        .padding(.leading, .medium)
+        .padding(.trailing, .small)
+        .padding(.vertical, .extraSmall)
+        .frame(minHeight: 52)
+        .background(self.style.background(.secondary))
+        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+        .overlay {
 
-                Picker(String(localized: "Sort"), selection: self.$viewModel.sort) {
+            RoundedRectangle(cornerRadius: self.style.radius(.medium2))
+                .strokeBorder(self.isSearchFocused ? self.style.foreground(.primary) : self.style.background(.border), lineWidth: 1)
+                .allowsHitTesting(false)
 
-                    ForEach(ProductSort.allCases) { sort in
-                        Text(sort.title).tag(sort)
-                    }
+        }
+        .animation(self.reduceMotion ? nil : .bouncy, value: self.isSearchFocused)
 
-                }
-                .pickerStyle(.menu)
+    }
+
+    private func feedHeader() -> some View {
+
+        ViewThatFits(in: .horizontal) {
+
+            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+
+                feedTitle()
+                Spacer(minLength: self.style.spacing(.small))
+                sortMenu()
+
+            }
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+                feedTitle()
+                sortMenu()
 
             }
 
@@ -91,103 +139,142 @@ struct StoreShopScreen: GPView {
 
     }
 
-    private func categoryFilters() -> some View {
+    private func feedTitle() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "All products"))
+            .appFont(with: .TITLE_6)
+            .foregroundStyle(self.style.textColor(.title))
+            .accessibilityAddTraits(.isHeader)
 
-            ScrollView(.horizontal) {
+    }
 
-                HStack(spacing: self.style.spacing(.small)) {
+    private func sortMenu() -> some View {
 
-                    Button(self.viewModel.selectedCategoryId == nil ? "✓ All" : "All") {
-                        self.viewModel.selectCategory(id: nil)
-                    }
+        Menu {
 
-                    ForEach(self.viewModel.categories, id: \.id) { category in
+            Picker(String(localized: "Sort products"), selection: self.$viewModel.sort) {
 
-                        Button(self.viewModel.selectedCategoryId == category.id ? "✓ \(category.name)" : category.name) {
-                            self.viewModel.selectCategory(id: category.id)
-                        }
-                        .accessibilityValue(self.viewModel.selectedCategoryId == category.id ? String(localized: "Selected") : "")
-
-                    }
-
+                ForEach(ProductSort.allCases) { sort in
+                    Text(sort.title).tag(sort)
                 }
-                .buttonStyle(.bordered)
 
             }
 
-            if self.viewModel.selectedCategoryId != nil {
+        } label: {
 
-                ScrollView(.horizontal) {
+            HStack(spacing: self.style.spacing(.small)) {
 
-                    HStack(spacing: self.style.spacing(.small)) {
+                ImageSource.systemImage("arrow.up.arrow.down")
+                    .view(shouldResize: false)
 
-                        Button(self.viewModel.selectedSubcategoryId == nil ? "✓ All subcategories" : "All subcategories") {
-                            self.viewModel.selectSubcategory(id: nil)
-                        }
+                Text(self.viewModel.sort.title)
 
-                        ForEach(self.viewModel.subcategories, id: \.id) { subcategory in
-
-                            Button(self.viewModel.selectedSubcategoryId == subcategory.id ? "✓ \(subcategory.name)" : subcategory.name) {
-                                self.viewModel.selectSubcategory(id: subcategory.id)
-                            }
-                            .accessibilityValue(self.viewModel.selectedSubcategoryId == subcategory.id ? String(localized: "Selected") : "")
-
-                        }
-
-                    }
-                    .buttonStyle(.bordered)
-
-                }
-                .id(self.viewModel.selectedCategoryId)
+                ImageSource.systemImage("chevron.down")
+                    .view(shouldResize: false)
 
             }
+            .appFont(with: .TITLE_1)
+            .foregroundStyle(self.style.textColor(.title))
+            .padding(.horizontal, .small2)
+            .frame(minHeight: 44)
+            .background(self.style.background(.secondary))
+            .clipShape(Capsule())
 
         }
+        .accessibilityLabel(String(localized: "Sort products"))
+        .accessibilityValue(self.viewModel.sort.title)
 
     }
 
     private func productFeed() -> some View {
 
-        LazyVStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            if self.viewModel.isLoading {
+            feedHeader()
+
+            if self.viewModel.isLoading && self.viewModel.products.isEmpty {
 
                 ProgressView(String(localized: "Loading products"))
                     .tint(self.style.accent)
+                    .appFont(with: .BODY_2)
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical, .large)
 
             }
 
-            if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
-                Text(String(localized: "No products match these filters."))
-            }
+            feedState()
 
-            ForEach(self.viewModel.products, id: \.id) { product in
-
-                ProductWireframeRow(
-                    product: product,
-                    isFavorite: self.viewModel.favoriteProductIds.contains(product.id),
-                    onOpen: { self.viewModel.openProduct(id: product.id) },
-                    onFavorite: { self.viewModel.toggleFavorite(id: product.id) }
-                )
-
-            }
+            ProductGridView(
+                products: self.viewModel.products,
+                imageURLs: self.viewModel.imageURLs,
+                loadingImageProductIds: self.viewModel.loadingImageProductIds,
+                favoriteProductIds: self.viewModel.favoriteProductIds,
+                onOpen: { self.viewModel.openProduct(id: $0) },
+                onFavorite: { self.viewModel.toggleFavorite(id: $0) }
+            )
 
             if self.viewModel.hasMoreProducts {
 
-                LeafLaunchButton(title: String(localized: "Load More Products")) {
+                LeafLaunchButton(title: self.viewModel.isLoading ? String(localized: "Loading products") : String(localized: "Load More Products")) {
                     self.viewModel.loadMore()
                 }
                 .disabled(self.viewModel.isLoading)
 
             }
 
-            if !self.viewModel.isLoading {
+            if !self.viewModel.products.isEmpty && !self.viewModel.isLoading {
 
                 Button(String(localized: "Refresh Products")) {
                     self.viewModel.loadData(showHud: false)
+                }
+                .appFont(with: .TITLE_2)
+                .tint(self.style.palette(.link))
+                .frame(maxWidth: .infinity, minHeight: 44)
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func feedState() -> some View {
+
+        if self.viewModel.hasLoadFailed && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(.small)) {
+
+                CommerceEmptyState(
+                    systemImage: "wifi.exclamationmark",
+                    title: String(localized: "Products couldn't load"),
+                    message: String(localized: "Check your connection and try again.")
+                )
+
+                LeafLaunchButton(title: String(localized: "Try again")) {
+                    self.viewModel.loadData(showHud: false)
+                }
+
+            }
+
+        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(.small)) {
+
+                CommerceEmptyState(
+                    systemImage: "magnifyingglass",
+                    title: String(localized: "No products found"),
+                    message: String(localized: "Try another search or category to see more products.")
+                )
+
+                if !self.viewModel.search.isEmpty || self.viewModel.selectedCategoryId != nil {
+
+                    Button(String(localized: "Clear filters")) {
+                        self.viewModel.clearFilters()
+                    }
+                    .appFont(with: .TITLE_2)
+                    .tint(self.style.palette(.link))
+                    .frame(maxWidth: .infinity, minHeight: 44)
+
                 }
 
             }
@@ -204,6 +291,6 @@ struct StoreShopScreen: GPView {
         viewModel: mockResolve(StoreShopViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

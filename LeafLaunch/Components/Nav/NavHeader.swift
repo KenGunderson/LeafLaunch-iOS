@@ -42,7 +42,7 @@ struct NavHeader: View {
 
     var body: some View {
 
-        HStack(spacing: self.style.spacing(.custom(10))) {
+        HStack(spacing: self.style.spacing(.small2)) {
 
             if !self.leadingNavButtons.isEmpty {
 
@@ -55,11 +55,12 @@ struct NavHeader: View {
 
             if self.showLogo {
 
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 24)
+                ImageSource.image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
+                    .view()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: self.style.spacing(.large2))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityLabel(self.title)
 
             } else {
 
@@ -79,33 +80,27 @@ struct NavHeader: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
+        .padding(.vertical, .small2)
         .background(self.backgroundStyle)
-        .background {
-
-            Rectangle()
-                .fill(self.backgroundStyle)
-                .blur(radius: 2)
-                .offset(y: 10)
-
-        }
 
     }
 
     @ViewBuilder
     private func titleSubtitleView() -> some View {
 
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             Text(self.title)
-                .appFont(with: .HEADER_2)
+                .appFont(with: .HEADER_3)
                 .foregroundStyle(.text(.title))
+                .accessibilityAddTraits(.isHeader)
 
             if let subtitle = self.subtitle {
 
                 Text(subtitle)
-                    .appFont(with: .BODY_2)
+                    .appFont(with: .BODY_1)
                     .foregroundStyle(.text(.body))
-                    .minimumScaleFactor(0.5)
+                    .fixedSize(horizontal: false, vertical: true)
 
             }
 

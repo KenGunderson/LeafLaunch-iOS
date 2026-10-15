@@ -293,6 +293,47 @@ enum MockCustomerModels {
         URL(string: "https://picsum.photos/seed/\(seed)/640/480")!
     }
 
+    static func previewImageURLs(for product: Product) -> [String: URL] {
+
+        Dictionary(uniqueKeysWithValues: product.activeImages.map { media in
+            (media.id, imageURL(seed: "\(product.storeProductId)-\(media.displayOrder)"))
+        })
+
+    }
+
+    static var previewCoverImageURLs: [String: URL] {
+
+        Dictionary(uniqueKeysWithValues: products.compactMap { product in
+
+            guard let media = product.activeImages.first else { return nil }
+            return (product.id, imageURL(seed: "\(product.storeProductId)-\(media.displayOrder)"))
+
+        })
+
+    }
+
+    // Preview-only attributes leave the customer demo catalog unchanged.
+    static var previewProductAttributes: [ProductAttribute] {
+
+        [
+            ProductAttribute(
+                id: "preview-packaging",
+                name: "Packaging",
+                valueType: .text,
+                value: .text("Resealable container"),
+                unit: nil
+            ),
+            ProductAttribute(
+                id: "preview-storage",
+                name: "Storage",
+                valueType: .text,
+                value: .text("Keep in a cool, dry place"),
+                unit: nil
+            )
+        ]
+
+    }
+
     private static let locationSeeds: [(id: String, name: String, street: String, city: String, region: String, postal: String, status: StoreLocation.Status)] = [
         ("98500000-0000-4000-8000-000000000001", "Pearl District Shop", "120 Cedar Avenue", "Portland", "OR", "97205", .active),
         ("98500000-0000-4000-8000-000000000002", "Capitol Hill Storefront", "845 Summit Way", "Seattle", "WA", "98102", .pendingArchive),

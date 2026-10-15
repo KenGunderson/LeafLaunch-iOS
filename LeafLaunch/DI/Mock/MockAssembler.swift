@@ -97,10 +97,6 @@ class MockAppAssembler {
             return self.container.settingsViewModel() as! T
         }
 
-        if type == ProfileViewModel.self {
-            return self.container.profileViewModel() as! T
-        }
-
         if type == LegalViewModel.self {
             return self.container.legalViewModel() as! T
         }
@@ -149,6 +145,15 @@ private struct PreviewWrapper<Content: View>: View {
 }
 
 extension View {
+
+    func withMockPreviews() -> some View {
+
+        AppBaseView {
+            self
+        }
+        .withMockServices()
+
+    }
 
     func withMockServices(withNaivgationService: Bool = true) -> some View {
 

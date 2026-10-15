@@ -24,7 +24,6 @@ struct ProductDetailsScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
-
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }
@@ -34,7 +33,7 @@ struct ProductDetailsScreen: GPView {
     private func navHeader() -> some View {
 
         NavHeader(
-            title: self.viewModel.product?.displayName ?? String(localized: "Product"),
+            title: String(localized: "Product"),
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
@@ -43,164 +42,81 @@ struct ProductDetailsScreen: GPView {
 
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             if let product = self.viewModel.product {
 
-                gallery(product: product)
+                ProductGalleryView(
+                    product: product,
+                    imageURLs: self.viewModel.imageURLs,
+                    unavailableImageIds: self.viewModel.unavailableImageIds
+                )
 
-                GroupBox(String(localized: "Description")) {
+                ProductDetailsSummaryView(
+                    product: product,
+                    isFavorite: self.viewModel.isFavorite,
+                    onFavorite: { self.viewModel.toggleFavorite() }
+                )
 
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+                ProductOptionsView(product: product)
+                description(product)
 
-                        Text(product.displayName).appFont(with: .TITLE_4)
-                        Text(product.description ?? String(localized: "No description available."))
-                        Text([product.category?.name, product.subcategory?.name].compactMap { $0 }.joined(separator: " / "))
-
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
+                if !product.attributes.isEmpty {
+                    ProductAttributesView(attributes: product.attributes)
                 }
 
-                attributes(product: product)
-                pricing(product: product)
+            } else if self.viewModel.isLoading {
 
-                LeafLaunchButton(title: self.viewModel.isFavorite ? String(localized: "Remove Favorite") : String(localized: "Favorite Product")) {
-                    self.viewModel.toggleFavorite()
-                }
+                ProgressView(String(localized: "Loading product…"))
+                    .appFont(with: .BODY_2)
+                    .tint(self.style.foreground(.primary).resolvedColor(style: self.style))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, .extraLarge)
+
+            } else if self.viewModel.hasLoadFailed {
+
+                CommerceEmptyState(
+                    systemImage: "cube.box",
+                    title: String(localized: "Product unavailable"),
+                    message: String(localized: "We couldn't load this product. Try again to see its latest details.")
+                )
 
             }
 
-            LeafLaunchButton(title: String(localized: "Reload Product")) {
-                self.viewModel.loadData(showHud: true)
+            if self.viewModel.product == nil && self.viewModel.hasLoadFailed {
+
+                LeafLaunchButton(
+                    title: String(localized: "Try again"),
+                    icon: .systemImage("arrow.clockwise")
+                ) {
+                    self.viewModel.loadData(showHud: true)
+                }
+                .disabled(self.viewModel.isLoading)
+
             }
-            .disabled(self.viewModel.isLoading)
 
         }
-        .appFont(with: .BODY_2)
-        .foregroundStyle(.text(.body))
+        .padding(.top, .small)
         .tabFlowContentSpacing()
 
     }
 
-    private func gallery(product: Product) -> some View {
+    private func description(_ product: Product) -> some View {
 
-        GroupBox(String(localized: "Image Gallery")) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            ScrollView(.horizontal) {
+            CommerceSectionHeader(title: String(localized: "About this product"))
 
-                HStack(spacing: self.style.spacing(.small)) {
+            let description = product.description?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
-                    let media = (product.media ?? []).filter { $0.status == .active }
-                        .sorted { $0.displayOrder < $1.displayOrder }
-
-                    if media.isEmpty {
-                        Text(String(localized: "No product images."))
-                    }
-
-                    ForEach(media, id: \.id) { image in
-
-                        VStack(spacing: self.style.spacing(.small)) {
-
-                            if let url = self.viewModel.imageURLs[image.id] {
-
-                                ImageSource.remote(url: url, contentMode: .fit)
-                                    .view()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .frame(width: 160)
-                                    .accessibilityLabel(image.altText ?? product.displayName)
-
-                            } else {
-
-                                Text(self.viewModel.unavailableImageIds.contains(image.id) ? String(localized: "Image unavailable") : String(localized: "Loading image…"))
-                                    .frame(width: 160, height: 160)
-                                    .background(.background(.quaternary))
-
-                            }
-
-                            Text(image.altText ?? product.displayName)
-
-                        }
-
-                    }
-
-                }
-
-            }
+            Text(description.isEmpty ? String(localized: "No description available.") : description)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(.text(.body))
+                .fixedSize(horizontal: false, vertical: true)
+                .textSelection(.enabled)
 
         }
-
-    }
-
-    private func attributes(product: Product) -> some View {
-
-        GroupBox(String(localized: "Attributes")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                if product.attributes.isEmpty {
-                    Text(String(localized: "No attributes provided."))
-                }
-
-                ForEach(product.attributes, id: \.id) { attribute in
-
-                    HStack(alignment: .top) {
-
-                        Text(attribute.name)
-                        Spacer()
-                        Text(attribute.displayValue)
-
-                    }
-
-                }
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        }
-
-    }
-
-    private func pricing(product: Product) -> some View {
-
-        GroupBox(String(localized: "Pricing")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                ForEach(product.variants, id: \.id) { variant in
-
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                        Text(variant.name).appFont(with: .TITLE_4)
-
-                        if let price = variant.displayPrice {
-                            Text(price.formatted(.currency(code: product.currencyCode)))
-                        } else {
-                            Text(String(localized: "Price unavailable"))
-                        }
-
-                        if let basePrice = variant.baseDisplayPrice, basePrice != variant.displayPrice {
-
-                            Text(basePrice.formatted(.currency(code: product.currencyCode)))
-                                .strikethrough()
-
-                        }
-
-                        if variant.promotionId != nil {
-                            Text(String(localized: "Promotion applied"))
-                        }
-
-                        Text(variant.availability == .available ? String(localized: "Available") : String(localized: "Currently unavailable"))
-                        Divider()
-
-                    }
-
-                }
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        }
+        .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
@@ -215,6 +131,6 @@ struct ProductDetailsScreen: GPView {
                 productId: MockCustomerModels.products(locationId: MockCustomerModels.primaryLocationId).first!.id
             )
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

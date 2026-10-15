@@ -23,6 +23,7 @@ final class ProductDetailsViewModel: ViewModel {
     @Published private(set) var unavailableImageIds: Set<String> = []
     @Published private(set) var isFavorite: Bool = false
     @Published private(set) var isLoading: Bool = false
+    @Published private(set) var hasLoadFailed: Bool = false
 
     init(apiService: APIServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
@@ -74,7 +75,7 @@ final class ProductDetailsViewModel: ViewModel {
         let apiService = self.apiService
         let alertService = self.alertService
         self.isLoading = true
-        self.unavailableImageIds = []
+        self.hasLoadFailed = false
 
         self.loadProductTask = Task { [weak self] in
 
@@ -99,8 +100,9 @@ final class ProductDetailsViewModel: ViewModel {
 
                 self?.product = product
                 self?.imageURLs = [:]
+                self?.unavailableImageIds = []
 
-                for media in product.media ?? [] where media.status == .active {
+                for media in product.activeImages {
 
                     do {
 
@@ -125,6 +127,7 @@ final class ProductDetailsViewModel: ViewModel {
             } catch {
 
                 guard !Task.isCancelled else { return }
+                self?.hasLoadFailed = true
                 self?.presentProductError(context: .get)
 
             }

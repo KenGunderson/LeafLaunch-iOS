@@ -101,15 +101,16 @@ struct SettingsScreen: GPView {
 
         let settings: [Route.SettingRoute] = Route.SettingRoute.allCases
         let groups = Dictionary(grouping: settings, by: { $0.category })
+        let categories = groups.keys.sorted()
         let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
 
         return StaggeredView(config: config) {
 
             if !self.viewModel.isLoading {
 
-                ForEach(groups.keys.sorted(), id: \.self) { category in
+                ForEach(categories, id: \.self) { category in
 
-                    let isFirst = (category == "Account")
+                    let isFirst = (category == categories.first)
                     let isLogout = (category == "Logout")
 
                     if !isLogout {

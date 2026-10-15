@@ -28,6 +28,7 @@ final class StoreAccountViewModel: ViewModel {
     @Published private(set) var isLoggingOut: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var hasMoreHistory: Bool = false
+    @Published private(set) var hasLoadFailed: Bool = false
 
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
@@ -205,6 +206,7 @@ final class StoreAccountViewModel: ViewModel {
         let requestId = UUID()
         self.requestId = requestId
         self.isLoading = true
+        self.hasLoadFailed = false
 
         self.loadAccountTask = Task { [weak self] in
 
@@ -266,6 +268,7 @@ final class StoreAccountViewModel: ViewModel {
             } catch {
 
                 guard !Task.isCancelled, self?.requestId == requestId else { return }
+                self?.hasLoadFailed = true
                 self?.presentAccountError(context: .get)
 
             }
@@ -286,6 +289,7 @@ final class StoreAccountViewModel: ViewModel {
         self.isLoading = false
         self.hasMoreHistory = false
         self.hasCompletedInitialLoad = false
+        self.hasLoadFailed = false
         self.nextHistoryOffset = nil
 
     }

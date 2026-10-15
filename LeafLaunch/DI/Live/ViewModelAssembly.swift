@@ -115,23 +115,6 @@ extension Container {
         }
     }
 
-    // Settings - PROFILE
-
-    @MainActor
-    var profileViewModel: Factory<ProfileViewModel> {
-        self { @MainActor in
-            ProfileViewModel(
-                apiService: self.apiService(),
-                analyticsService: self.analyticsService(),
-                authService: self.authService(),
-                alertService: self.alertService(),
-                userDefaultsService: self.userDefaultsService(),
-                viewLifecycleService: self.viewLifecycleService(),
-                environmentService: self.environmentService()
-            )
-        }
-    }
-
     // Settings - Legal
 
     @MainActor

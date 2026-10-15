@@ -42,148 +42,112 @@ struct StoreAccountScreen: GPView {
 
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             if self.viewModel.user == nil {
 
-                guestPrompt()
+                StoreAccountGuestView(
+                    createAccountAction: { [weak viewModel] in viewModel?.register() },
+                    signInAction: { [weak viewModel] in viewModel?.login() }
+                )
 
             } else {
 
-                profile()
-                loyalty()
-                pointsHistory()
+                if let user = self.viewModel.user {
 
-                Button(String(localized: "Sign Out")) {
-                    self.viewModel.logout()
+                    StoreAccountProfileView(user: user, account: self.viewModel.account)
+
                 }
-                .disabled(self.viewModel.isLoggingOut)
+
+                if self.viewModel.hasLoadFailed {
+                    loadFailure()
+                }
+
+                if self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
+                    loyalty()
+                }
+
+                if self.viewModel.hasCompletedInitialLoad || !self.viewModel.history.isEmpty || self.viewModel.isLoading {
+                    pointsHistory()
+                }
+
+                signOutButton()
 
             }
 
         }
         .appFont(with: .BODY_2)
-        .foregroundStyle(.text(.body))
+        .foregroundStyle(self.style.textColor(.body))
         .tabFlowContentSpacing()
-
-    }
-
-    private func guestPrompt() -> some View {
-
-        GroupBox(String(localized: "Explore as a Guest")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-                Text(String(localized: "Browse products and save favorites. Create an account to view your profile and loyalty points."))
-
-                LeafLaunchButton(title: String(localized: "Create Account")) {
-                    self.viewModel.register()
-                }
-
-                Button(String(localized: "Sign In")) {
-                    self.viewModel.login()
-                }
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        }
-
-    }
-
-    private func profile() -> some View {
-
-        GroupBox(String(localized: "Profile")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                Text(self.viewModel.account?.displayName ?? self.viewModel.user?.fullName ?? "")
-                    .appFont(with: .TITLE_4)
-
-                if let email = self.viewModel.user?.email, !email.isEmpty {
-                    Text(email)
-                }
-
-                if let joinedAt = self.viewModel.account?.createdAt {
-                    Text(String(localized: "Account created \(joinedAt.formatted(date: .abbreviated, time: .omitted))"))
-                }
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        }
 
     }
 
     private func loyalty() -> some View {
 
-        GroupBox(String(localized: "Loyalty Points")) {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                if let membership = self.viewModel.membership {
-
-                    Text(String(localized: "Balance: \(membership.cachedPointsBalance) points"))
-                    Text(String(localized: "Member since \(membership.joinedAt.formatted(date: .abbreviated, time: .omitted))"))
-
-                } else if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
-
-                    Text(String(localized: "Join this location's loyalty program to earn points."))
-
-                    LeafLaunchButton(title: String(localized: "Join Loyalty Program")) {
-                        self.viewModel.joinMembership()
-                    }
-
-                }
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-        }
+        StoreAccountMembershipView(
+            membership: self.viewModel.membership,
+            isLoading: self.viewModel.isLoading,
+            hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,
+            joinAction: { [weak viewModel] in viewModel?.joinMembership() }
+        )
 
     }
 
     private func pointsHistory() -> some View {
 
-        GroupBox(String(localized: "Points and Redemption History")) {
+        StoreAccountHistoryView(
+            history: self.viewModel.history,
+            isLoading: self.viewModel.isLoading,
+            hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,
+            hasMoreHistory: self.viewModel.hasMoreHistory,
+            loadMoreAction: { [weak viewModel] in viewModel?.loadMoreHistory() }
+        )
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+    }
 
-                if self.viewModel.hasCompletedInitialLoad && self.viewModel.history.isEmpty {
-                    Text(String(localized: "No points activity yet."))
+    private func loadFailure() -> some View {
+
+        CommerceSurface {
+
+            VStack(spacing: self.style.spacing(.medium)) {
+
+                CommerceEmptyState(
+                    systemImage: "arrow.clockwise",
+                    title: String(localized: "Unable to load account details"),
+                    message: String(localized: "Your latest membership and points activity couldn't be loaded.")
+                )
+
+                LeafLaunchButton(title: String(localized: "Try Again")) {
+                    self.viewModel.loadData(showHud: false)
                 }
-
-                ForEach(self.viewModel.history, id: \.id) { entry in
-
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                        Text(entry.customerReason).appFont(with: .TITLE_4)
-                        Text(String(localized: "\(entry.pointsDelta) points"))
-
-                        if let rewardTitle = entry.rewardTitleSnapshot {
-                            Text(rewardTitle)
-                        }
-
-                        Text(entry.createdAt.formatted(date: .abbreviated, time: .shortened))
-                        Divider()
-
-                    }
-
-                }
-
-                if self.viewModel.hasMoreHistory {
-
-                    LeafLaunchButton(title: String(localized: "Load More History")) {
-                        self.viewModel.loadMoreHistory()
-                    }
-                    .disabled(self.viewModel.isLoading)
-
-                }
+                .disabled(self.viewModel.isLoading)
 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
         }
+
+    }
+
+    private func signOutButton() -> some View {
+
+        Button(role: .destructive) {
+            self.viewModel.logout()
+        } label: {
+
+            HStack(spacing: self.style.spacing(.small)) {
+
+                ImageSource.systemImage("rectangle.portrait.and.arrow.right").view(shouldResize: false)
+                Text(String(localized: "Sign Out"))
+
+            }
+            .appFont(with: .TITLE_3)
+            .foregroundStyle(self.style.palette(.destructive))
+            .padding(.vertical, self.style.spacing(.medium))
+            .frame(maxWidth: .infinity)
+
+        }
+        .buttonStyle(.plain)
+        .disabled(self.viewModel.isLoggingOut)
 
     }
 
@@ -195,6 +159,6 @@ struct StoreAccountScreen: GPView {
         viewModel: mockResolve(StoreAccountViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }

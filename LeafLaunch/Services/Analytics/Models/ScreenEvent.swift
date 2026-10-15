@@ -89,7 +89,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
     enum Settings {
 
         case settings
-        case profile
         case businessSettings
         case legal(context: String)
 
@@ -99,7 +98,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
 
             switch self {
             case .settings: name = "settings"
-            case .profile: name = "profile"
             case .businessSettings: name = "business_settings"
             case .legal: name = "legal"
             }
@@ -113,7 +111,6 @@ indirect enum ScreenEvent: AnalyticsEvent {
             switch self {
             case .settings: return [:]
             case .businessSettings: return [:]
-            case .profile: return [:]
             case .legal(let context): return ["context": context]
             }
 

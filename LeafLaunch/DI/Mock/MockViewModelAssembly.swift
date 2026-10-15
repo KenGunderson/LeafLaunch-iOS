@@ -98,20 +98,6 @@ class MockViewModelAssembly {
             )
         }
 
-        // Settings - PROFILE
-
-        container.profileViewModel.register { @MainActor in
-            ProfileViewModel(
-                apiService: container.apiService(),
-                analyticsService: container.analyticsService(),
-                authService: container.authService(),
-                alertService: container.alertService(),
-                userDefaultsService: container.userDefaultsService(),
-                viewLifecycleService: container.viewLifecycleService(),
-                environmentService: container.environmentService()
-            )
-        }
-
         // Settings - Legal
 
         container.legalViewModel.register { @MainActor in

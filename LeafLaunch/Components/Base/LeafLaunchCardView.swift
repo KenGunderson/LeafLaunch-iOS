@@ -7,6 +7,8 @@ import SwiftUI
 
 struct LeafLaunchCardView<Content: View>: View {
 
+    @Environment(\.style) private var style
+
     private let title: String
     private let content: Content
 
@@ -22,14 +24,11 @@ struct LeafLaunchCardView<Content: View>: View {
 
     var body: some View {
 
-        AppCardView(
-            cornerRadius: .medium2,
-            shadow: .subtle
-        ) {
+        CommerceSurface {
 
             VStack(
                 alignment: .leading,
-                spacing: Style.shared.spacing(.small)
+                spacing: self.style.spacing(.small)
             ) {
 
                 Text(self.title)

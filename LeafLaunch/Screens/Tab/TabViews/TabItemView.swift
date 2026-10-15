@@ -10,6 +10,7 @@ import SwiftUI
 struct TabItemView: View {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @Binding var selectedTab: Tab
 
@@ -35,17 +36,17 @@ struct TabItemView: View {
         let icon = isSelectedTab ? self.tab.selectedIcon : self.tab.unselectedIcon
         let badgeText = self.badgeCount > 99 ? "99+" : "\(self.badgeCount)"
 
-        VStack(spacing: self.style.spacing(.custom(4))) {
+        VStack(spacing: self.style.spacing(.extraSmall)) {
 
             ImageSource
                 .systemImage(icon)
                 .view()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
-                .scaleEffect(isSelectedTab ? 1.10 : 1)
-                .foregroundStyle(foregroundColor.source())
+                .scaleEffect(isSelectedTab && !self.reduceMotion ? 1.10 : 1)
+                .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_4)
-                .contentTransition(.symbolEffect(.replace))
+                .contentTransition(self.reduceMotion ? .identity : .symbolEffect(.replace))
                 .commonBadge(
                     contentStyle: .text(Text(badgeText)),
                     placement: .init(
@@ -55,7 +56,7 @@ struct TabItemView: View {
                         circularOverlapOutset: 0
                     ),
                     appearance: .init(
-                        foregroundStyle: .color(.white),
+                        foregroundStyle: .text(.titleInverted),
                         backgroundStyle: .palette(.error),
                         borderStyle: .background(.primary),
                         borderLineWidth: 1
@@ -74,8 +75,8 @@ struct TabItemView: View {
                 )
 
             Text(self.tab.title)
-                .scaleEffect(isSelectedTab ? 1.10 : 1)
-                .foregroundStyle(foregroundColor.source())
+                .scaleEffect(isSelectedTab && !self.reduceMotion ? 1.10 : 1)
+                .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_1)
                 .fontWeight(isSelectedTab ? .semibold : .regular)
                 .transition(.opacity)
@@ -83,19 +84,18 @@ struct TabItemView: View {
 
         }
         .contentShape(.rect)
+        .frame(minHeight: 44)
         .accessibilityElement(children: .combine)
         .accessibilityValue(
             self.badgeCount > 0
                 ? "\(self.badgeCount) unread messages"
                 : ""
         )
-        .asButton {
-
-            withAnimation(.spring) {
-                self.selectedTab = self.tab
-            }
-
+        .asButton(scale: self.reduceMotion ? 1 : nil) {
+            self.selectedTab = self.tab
         }
+        .accessibilityAddTraits(isSelectedTab ? .isSelected : [])
+        .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedTab)
 
     }
 

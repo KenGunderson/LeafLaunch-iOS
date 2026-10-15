@@ -29,7 +29,6 @@ enum Route: Navigation, Hashable, Sendable {
 
     enum SettingRoute: String, CaseIterable {
 
-        case profile
         case contactSupport
         case rateApp
         case privacyPolicy
@@ -38,7 +37,6 @@ enum Route: Navigation, Hashable, Sendable {
 
         var displayName: String {
             switch self {
-            case .profile: return "Update Profile"
             case .contactSupport: return "Contact Support"
             case .rateApp: return "Rate Our App"
             case .privacyPolicy: return "Privacy Policy"
@@ -49,7 +47,6 @@ enum Route: Navigation, Hashable, Sendable {
 
         var icon: ImageSource {
             switch self {
-            case .profile: return .systemImage("person.fill")
             case .contactSupport: return .systemImage("envelope")
             case .rateApp: return .systemImage("star.fill")
             case .privacyPolicy: return .systemImage("lock.fill")
@@ -67,7 +64,6 @@ enum Route: Navigation, Hashable, Sendable {
 
         var category: String {
             switch self {
-            case .profile: return "Account"
             case .contactSupport, .rateApp: return "Help & Feedback"
             case .privacyPolicy, .termsOfService: return "Legal"
             case .logout: return "Logout"

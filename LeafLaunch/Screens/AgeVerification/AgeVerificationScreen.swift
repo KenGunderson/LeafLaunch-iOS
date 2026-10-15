@@ -13,31 +13,28 @@ struct AgeVerificationScreen: GPView {
     var body: some View {
 
         AppHeaderScrollView(horizontalPadding: .medium) {
-            NavHeader(title: String(localized: "Age Verification"))
+            navHeader()
         } scrollViewContent: {
-
-            GroupBox {
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-                    Text(String(localized: "You must be at least \(self.viewModel.minimumAge) years old to continue."))
-                        .appFont(with: .BODY_2)
-
-                    Text(self.viewModel.stateName).appFont(with: .BODY_2)
-
-                    LeafLaunchButton(title: String(localized: "I agree")) {
-                        self.viewModel.approve()
-                    }
-                    .disabled(self.viewModel.isApproving)
-
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-            }
-
+            content()
         }
         .interactiveDismissDisabled()
         .onFirstAppear { [weak viewModel] in viewModel?.handleFirstAppear() }
+
+    }
+
+    private func navHeader() -> some View {
+        NavHeader(title: String(localized: "Age Verification"))
+    }
+
+    private func content() -> some View {
+
+        AgeVerificationConsentView(
+            minimumAge: self.viewModel.minimumAge,
+            stateName: self.viewModel.stateName,
+            isApproving: self.viewModel.isApproving,
+            approveAction: { [weak viewModel] in viewModel?.approve() }
+        )
+        .padding(.vertical, self.style.spacing(.large))
 
     }
 
@@ -49,6 +46,6 @@ struct AgeVerificationScreen: GPView {
         viewModel: mockResolve(AgeVerificationViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
-    .withMockServices()
+    .withMockPreviews()
 
 }
