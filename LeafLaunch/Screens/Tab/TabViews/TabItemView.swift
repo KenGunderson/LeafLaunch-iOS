@@ -10,7 +10,6 @@ import SwiftUI
 struct TabItemView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @Binding var selectedTab: Tab
 
@@ -43,10 +42,9 @@ struct TabItemView: View {
                 .view()
                 .scaledToFit()
                 .frame(width: 24, height: 24)
-                .scaleEffect(isSelectedTab && !self.reduceMotion ? 1.10 : 1)
+                .scaleEffect(isSelectedTab ? 1.10 : 1)
                 .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_4)
-                .contentTransition(self.reduceMotion ? .identity : .symbolEffect(.replace))
                 .commonBadge(
                     contentStyle: .text(Text(badgeText)),
                     placement: .init(
@@ -75,7 +73,7 @@ struct TabItemView: View {
                 )
 
             Text(self.tab.title)
-                .scaleEffect(isSelectedTab && !self.reduceMotion ? 1.10 : 1)
+                .scaleEffect(isSelectedTab ? 1.10 : 1)
                 .foregroundStyle(foregroundColor)
                 .appFont(with: .BODY_1)
                 .fontWeight(isSelectedTab ? .semibold : .regular)
@@ -85,17 +83,10 @@ struct TabItemView: View {
         }
         .contentShape(.rect)
         .frame(minHeight: 44)
-        .accessibilityElement(children: .combine)
-        .accessibilityValue(
-            self.badgeCount > 0
-                ? "\(self.badgeCount) unread messages"
-                : ""
-        )
-        .asButton(scale: self.reduceMotion ? 1 : nil) {
+        .asButton {
             self.selectedTab = self.tab
         }
-        .accessibilityAddTraits(isSelectedTab ? .isSelected : [])
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedTab)
+        .animation(.bouncy, value: self.selectedTab)
 
     }
 

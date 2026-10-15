@@ -60,8 +60,6 @@ struct BubbleTabBarView: View {
 
 private struct TabSelectionAnimation: ViewModifier {
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
     let isSelected: Bool
 
     struct Values {
@@ -76,16 +74,16 @@ private struct TabSelectionAnimation: ViewModifier {
 
         content
             .opacity(self.isSelected ? 1 : 0.62)
-            .scaleEffect(self.reduceMotion || self.isSelected ? 1 : 0.97)
-            .animation(self.reduceMotion ? nil : .bouncy, value: self.isSelected)
+            .scaleEffect(self.isSelected ? 1 : 0.97)
+            .animation(.bouncy, value: self.isSelected)
             .keyframeAnimator(
                 initialValue: Values(),
                 trigger: self.isSelected
             ) { view, value in
                 view
-                    .scaleEffect(self.isSelected && !self.reduceMotion ? value.scale : 1)
-                    .opacity(self.isSelected && !self.reduceMotion ? value.opacity : 1)
-                    .offset(y: self.isSelected && !self.reduceMotion ? value.y : 0)
+                    .scaleEffect(self.isSelected ? value.scale : 1)
+                    .opacity(self.isSelected ? value.opacity : 1)
+                    .offset(y: self.isSelected ? value.y : 0)
             } keyframes: { _ in
                 KeyframeTrack(\.scale) {
                     CubicKeyframe(0.98, duration: 0.06)

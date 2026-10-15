@@ -3,7 +3,6 @@ import SwiftUI
 struct ProductGalleryView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var selectedImageId: String = ""
 
@@ -40,7 +39,7 @@ struct ProductGalleryView: View {
 
             if self.images.isEmpty {
 
-                ProductImageView(url: nil, accessibilityLabel: self.product.displayName)
+                ProductImageView(url: nil)
                     .aspectRatio(1, contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
 
@@ -92,7 +91,6 @@ struct ProductGalleryView: View {
 
                 ProductImageView(
                     url: self.imageURLs[image.id],
-                    accessibilityLabel: image.altText ?? self.product.displayName,
                     isLoading: self.imageURLs[image.id] == nil && !self.unavailableImageIds.contains(image.id),
                     isUnavailable: self.unavailableImageIds.contains(image.id)
                 )
@@ -104,7 +102,7 @@ struct ProductGalleryView: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .aspectRatio(1, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedImageId)
+        .animation(.bouncy, value: self.selectedImageId)
 
     }
 
@@ -117,40 +115,30 @@ struct ProductGalleryView: View {
                 ForEach(self.images) { image in
 
                     let index = self.images.firstIndex { $0.id == image.id } ?? 0
-                    let imageLabel = image.altText ?? self.product.displayName
 
-                    Button {
-                        self.selectedImageId = image.id
-                    } label: {
+                    ProductImageView(
+                        url: self.imageURLs[image.id],
+                        isLoading: self.imageURLs[image.id] == nil &&
+                            !self.unavailableImageIds.contains(image.id),
+                        isUnavailable: self.unavailableImageIds.contains(image.id),
+                        showsPlaceholderLabel: false
+                    )
+                    .frame(width: 64, height: 64)
+                    .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
+                    .overlay {
 
-                        ProductImageView(
-                            url: self.imageURLs[image.id],
-                            accessibilityLabel: imageLabel,
-                            isLoading: self.imageURLs[image.id] == nil &&
-                                !self.unavailableImageIds.contains(image.id),
-                            isUnavailable: self.unavailableImageIds.contains(image.id),
-                            showsPlaceholderLabel: false
-                        )
-                        .frame(width: 64, height: 64)
-                        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
-                        .overlay {
-
-                            RoundedRectangle(cornerRadius: self.style.radius(.medium))
-                                .strokeBorder(
-                                    self.selectedIndex == index
-                                        ? self.style.foreground(.primary)
-                                        : self.style.background(.border),
-                                    lineWidth: self.selectedIndex == index ? 2 : 1
-                                )
-
-                        }
+                        RoundedRectangle(cornerRadius: self.style.radius(.medium))
+                            .strokeBorder(
+                                self.selectedIndex == index
+                                    ? self.style.foreground(.primary)
+                                    : self.style.background(.border),
+                                lineWidth: self.selectedIndex == index ? 2 : 1
+                            )
 
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(
-                        String(localized: "Image \(index + 1) of \(self.images.count): \(imageLabel)")
-                    )
-                    .accessibilityAddTraits(self.selectedIndex == index ? [.isSelected] : [])
+                    .asButton {
+                        self.selectedImageId = image.id
+                    }
 
                 }
 

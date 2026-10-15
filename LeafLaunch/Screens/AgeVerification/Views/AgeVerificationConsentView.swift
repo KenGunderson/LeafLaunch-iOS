@@ -21,7 +21,6 @@ struct AgeVerificationConsentView: View {
                     .appFont(with: .HEADER_3)
                     .foregroundStyle(self.style.textColor(.title))
                     .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityAddTraits(.isHeader)
 
                 if !self.stateName.isEmpty {
                     stateLabel()
@@ -56,7 +55,6 @@ struct AgeVerificationConsentView: View {
                 .foregroundStyle(self.style.textColor(.title))
 
         }
-        .accessibilityHidden(true)
 
     }
 
@@ -66,7 +64,6 @@ struct AgeVerificationConsentView: View {
 
             ImageSource.systemImage("mappin.and.ellipse")
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
 
             Text(self.stateName)
                 .fixedSize(horizontal: false, vertical: true)

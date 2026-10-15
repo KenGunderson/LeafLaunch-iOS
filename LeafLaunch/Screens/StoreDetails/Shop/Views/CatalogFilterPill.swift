@@ -3,7 +3,6 @@ import SwiftUI
 struct CatalogFilterPill: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let title: String
     let isSelected: Bool
@@ -19,7 +18,6 @@ struct CatalogFilterPill: View {
                     .view()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: self.style.spacing(.small2), height: self.style.spacing(.small2))
-                    .accessibilityHidden(true)
                     .transition(.opacity)
 
             }
@@ -46,9 +44,8 @@ struct CatalogFilterPill: View {
 
         }
         .contentShape(Capsule())
-        .asButton(scale: self.reduceMotion ? 1 : nil, action: self.action)
-        .accessibilityAddTraits(self.isSelected ? .isSelected : [])
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.isSelected)
+        .asButton(action: self.action)
+        .animation(.bouncy, value: self.isSelected)
 
     }
 

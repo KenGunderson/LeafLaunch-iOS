@@ -15,17 +15,15 @@ struct CommerceEmptyState: View {
 
             ImageSource.systemImage(self.systemImage)
                 .view()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
                 .frame(width: self.style.spacing(.large2), height: self.style.spacing(.large2))
                 .foregroundStyle(self.style.foreground(.secondary))
                 .padding(.medium)
                 .background(self.style.background(.tertiary), in: Circle())
-                .accessibilityHidden(true)
 
             Text(self.title)
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.textColor(.title))
-                .accessibilityAddTraits(.isHeader)
 
             Text(self.message)
                 .appFont(with: .BODY_2)

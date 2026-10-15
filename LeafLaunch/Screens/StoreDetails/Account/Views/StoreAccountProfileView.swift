@@ -81,7 +81,6 @@ struct StoreAccountProfileView: View {
             backgroundColor: self.style.background(.tertiary)
         )
         .frame(width: self.style.spacing(.extraLarge2), height: self.style.spacing(.extraLarge2))
-        .accessibilityHidden(true)
 
     }
 
@@ -96,7 +95,6 @@ struct StoreAccountProfileView: View {
             Text(self.displayName)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(self.style.textColor(.title))
-                .accessibilityAddTraits(.isHeader)
 
             if !self.user.email.isEmpty {
 

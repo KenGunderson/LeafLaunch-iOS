@@ -26,11 +26,10 @@ struct StorePromotionCard: View {
 
     var body: some View {
 
-        AppCardView(
+        LLAppCardView(
             verticalPadding: .none,
             horizontalPadding: .none,
-            cornerRadius: .large,
-            shadow: .card
+            cornerRadius: .large
         ) {
 
             VStack(alignment: .leading, spacing: 0) {
@@ -45,7 +44,6 @@ struct StorePromotionCard: View {
                     .view()
                     .aspectRatio(1.6, contentMode: .fit)
                     .clipped()
-                    .accessibilityHidden(true)
 
                 }
 
@@ -65,7 +63,6 @@ struct StorePromotionCard: View {
                         .appFont(with: .HEADER_3)
                         .foregroundStyle(.text(.title))
                         .fixedSize(horizontal: false, vertical: true)
-                        .accessibilityAddTraits(.isHeader)
 
                     if let description = self.promotion.description, !description.isEmpty {
 
@@ -132,29 +129,24 @@ struct StorePromotionCard: View {
 
                 ForEach(self.linkedProducts) { product in
 
-                    Button {
-                        self.onSelectProduct(product)
-                    } label: {
+                    HStack(spacing: self.style.spacing(.small)) {
 
-                        HStack(spacing: self.style.spacing(.small)) {
+                        Text(product.displayName)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                            Text(product.displayName)
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-
-                            ImageSource.systemImage("arrow.up.right")
-                                .view(shouldResize: false)
-                                .accessibilityHidden(true)
-
-                        }
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(.foreground(.primary))
-                        .padding(.vertical, .small2)
-                        .frame(minHeight: 44)
-                        .contentShape(Rectangle())
+                        ImageSource.systemImage("arrow.up.right")
+                            .view(shouldResize: false)
 
                     }
-                    .buttonStyle(.plain)
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(.foreground(.primary))
+                    .padding(.vertical, .small2)
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
+                    .asButton {
+                        self.onSelectProduct(product)
+                    }
 
                 }
 

@@ -7,42 +7,35 @@ struct ProductImageView: View {
     @State private var failedImageURL: URL?
 
     let url: URL?
-    let accessibilityLabel: String
     var isLoading: Bool = false
     var isUnavailable: Bool = false
     var showsPlaceholderLabel: Bool = true
 
     var body: some View {
 
-        ZStack {
+        self.style.background(.quinary).view()
+            .overlay {
 
-            self.style.background(.quinary).view()
+                if let url = self.url {
 
-            if let url = self.url {
+                    ImageSource.remote(
+                        url: url,
+                        contentMode: .fill,
+                        placeholder: AnyView(placeholder(isLoading: self.failedImageURL != url)),
+                        onSuccess: { _ in self.failedImageURL = nil },
+                        onError: { _ in self.failedImageURL = url }
+                    )
+                    .view()
 
-                ImageSource.remote(
-                    url: url,
-                    contentMode: .fit,
-                    placeholder: AnyView(placeholder(isLoading: self.failedImageURL != url)),
-                    onSuccess: { _ in self.failedImageURL = nil },
-                    onError: { _ in self.failedImageURL = url }
-                )
-                .view()
-                .accessibilityLabel(
-                    self.failedImageURL == url
-                        ? String(localized: "Image unavailable for \(self.accessibilityLabel)")
-                        : self.accessibilityLabel
-                )
+                } else {
 
-            } else {
+                    placeholder(isLoading: self.isLoading)
 
-                placeholder(isLoading: self.isLoading)
+                }
 
             }
-
-        }
-        .clipped()
-        .onChange(of: self.url) { _, _ in self.failedImageURL = nil }
+            .clipped()
+            .onChange(of: self.url) { _, _ in self.failedImageURL = nil }
 
     }
 
@@ -81,7 +74,6 @@ struct ProductImageView: View {
         .foregroundStyle(.text(.body))
         .padding(.small)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .accessibilityElement(children: .combine)
 
     }
 
@@ -92,8 +84,7 @@ struct ProductImageView: View {
     if let product = MockCustomerModels.products.first {
 
         ProductImageView(
-            url: MockCustomerModels.previewCoverImageURLs[product.id],
-            accessibilityLabel: product.displayName
+            url: MockCustomerModels.previewCoverImageURLs[product.id]
         )
         .aspectRatio(1, contentMode: .fit)
         .padding(.medium)
@@ -105,7 +96,7 @@ struct ProductImageView: View {
 
 #Preview("Loading") {
 
-    ProductImageView(url: nil, accessibilityLabel: "Product", isLoading: true)
+    ProductImageView(url: nil, isLoading: true)
         .aspectRatio(1, contentMode: .fit)
         .padding(.medium)
         .withMockPreviews()
@@ -114,7 +105,7 @@ struct ProductImageView: View {
 
 #Preview("Unavailable") {
 
-    ProductImageView(url: nil, accessibilityLabel: "Product", isUnavailable: true)
+    ProductImageView(url: nil, isUnavailable: true)
         .aspectRatio(1, contentMode: .fit)
         .padding(.medium)
         .withMockPreviews()

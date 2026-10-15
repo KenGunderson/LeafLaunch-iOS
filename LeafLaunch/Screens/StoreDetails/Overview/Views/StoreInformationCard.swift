@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreInformationCard: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var showsContact = false
 
@@ -46,7 +45,7 @@ struct StoreInformationCard: View {
             }
 
         }
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.showsContact)
+        .animation(.bouncy, value: self.showsContact)
 
     }
 
@@ -121,7 +120,6 @@ struct StoreInformationCard: View {
             ImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
                 .foregroundStyle(.foreground(.primary))
-                .accessibilityHidden(true)
             Text(title)
                 .foregroundStyle(.text(.title))
 
@@ -138,7 +136,6 @@ struct StoreInformationCard: View {
 
             ImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
             Text(title)
                 .multilineTextAlignment(.leading)
                 .textSelection(.enabled)

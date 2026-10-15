@@ -78,12 +78,10 @@ struct LocationsScreen: GPView {
                 .foregroundStyle(self.style.foreground(.primary))
                 .padding(self.style.spacing(.medium))
                 .background(self.style.background(.tertiary), in: Circle())
-                .accessibilityHidden(true)
 
             Text(String(localized: "Find your local store."))
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(self.style.textColor(.title))
-                .accessibilityAddTraits(.isHeader)
 
             Text(String(localized: "Choose a location to explore its shop and latest updates."))
                 .appFont(with: .BODY_2)

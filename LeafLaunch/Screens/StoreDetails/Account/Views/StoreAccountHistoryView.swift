@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreAccountHistoryView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let history: [LoyaltyHistoryEntry]
     let isLoading: Bool
@@ -37,9 +36,6 @@ struct StoreAccountHistoryView: View {
                             isEnabled: !self.isLoading,
                             verticalPadding: .small2,
                             cornerRadius: .medium,
-                            buttonBounceStyle: self.reduceMotion
-                                ? .init(scale: 1, opacity: 1, brightness: 0)
-                                : self.style.buttonBounceStyle,
                             action: self.loadMoreAction
                         )
 

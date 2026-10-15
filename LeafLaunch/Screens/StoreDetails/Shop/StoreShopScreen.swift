@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreShopScreen: GPView {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject private var viewModel: StoreShopViewModel
@@ -68,7 +67,6 @@ struct StoreShopScreen: GPView {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
                 .foregroundStyle(self.style.foreground(.secondary))
-                .accessibilityHidden(true)
 
             TextField(String(localized: "Search products"), text: self.$viewModel.search)
                 .appFont(with: .BODY_2)
@@ -77,7 +75,6 @@ struct StoreShopScreen: GPView {
                 .submitLabel(.search)
                 .autocorrectionDisabled()
                 .onSubmit { self.viewModel.loadData(showHud: false) }
-                .accessibilityLabel(String(localized: "Search products"))
 
             if !self.viewModel.search.isEmpty {
 
@@ -88,13 +85,12 @@ struct StoreShopScreen: GPView {
                     .foregroundStyle(self.style.textColor(.body))
                     .frame(minWidth: 44, minHeight: 44)
                     .contentShape(Rectangle())
-                    .asButton(scale: self.reduceMotion ? 1 : nil) {
+                    .asButton {
 
                         self.viewModel.clearSearch()
                         self.isSearchFocused = true
 
                     }
-                    .accessibilityLabel(String(localized: "Clear search"))
 
             }
 
@@ -112,7 +108,7 @@ struct StoreShopScreen: GPView {
                 .allowsHitTesting(false)
 
         }
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.isSearchFocused)
+        .animation(.bouncy, value: self.isSearchFocused)
 
     }
 
@@ -144,7 +140,6 @@ struct StoreShopScreen: GPView {
         Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "All products"))
             .appFont(with: .TITLE_6)
             .foregroundStyle(self.style.textColor(.title))
-            .accessibilityAddTraits(.isHeader)
 
     }
 
@@ -181,8 +176,6 @@ struct StoreShopScreen: GPView {
             .clipShape(Capsule())
 
         }
-        .accessibilityLabel(String(localized: "Sort products"))
-        .accessibilityValue(self.viewModel.sort.title)
 
     }
 
@@ -224,12 +217,13 @@ struct StoreShopScreen: GPView {
 
             if !self.viewModel.products.isEmpty && !self.viewModel.isLoading {
 
-                Button(String(localized: "Refresh Products")) {
-                    self.viewModel.loadData(showHud: false)
-                }
-                .appFont(with: .TITLE_2)
-                .tint(self.style.palette(.link))
-                .frame(maxWidth: .infinity, minHeight: 44)
+                Text(String(localized: "Refresh Products"))
+                    .appFont(with: .TITLE_2)
+                    .foregroundStyle(self.style.palette(.link))
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .asButton {
+                        self.viewModel.loadData(showHud: false)
+                    }
 
             }
 
@@ -268,12 +262,13 @@ struct StoreShopScreen: GPView {
 
                 if !self.viewModel.search.isEmpty || self.viewModel.selectedCategoryId != nil {
 
-                    Button(String(localized: "Clear filters")) {
-                        self.viewModel.clearFilters()
-                    }
-                    .appFont(with: .TITLE_2)
-                    .tint(self.style.palette(.link))
-                    .frame(maxWidth: .infinity, minHeight: 44)
+                    Text(String(localized: "Clear filters"))
+                        .appFont(with: .TITLE_2)
+                        .foregroundStyle(self.style.palette(.link))
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .asButton {
+                            self.viewModel.clearFilters()
+                        }
 
                 }
 

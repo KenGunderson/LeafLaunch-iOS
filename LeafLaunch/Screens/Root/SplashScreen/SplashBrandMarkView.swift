@@ -32,7 +32,6 @@ struct SplashBrandMarkView: View {
 
             }
             .appShadow(.card)
-            .accessibilityHidden(true)
 
     }
 

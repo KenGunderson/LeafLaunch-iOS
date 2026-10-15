@@ -51,11 +51,10 @@ struct StoreEventCard: View {
 
     var body: some View {
 
-        AppCardView(
+        LLAppCardView(
             verticalPadding: .none,
             horizontalPadding: .none,
-            cornerRadius: .large,
-            shadow: .card
+            cornerRadius: .large
         ) {
 
             VStack(alignment: .leading, spacing: 0) {
@@ -70,7 +69,6 @@ struct StoreEventCard: View {
                     .view()
                     .aspectRatio(1.8, contentMode: .fit)
                     .clipped()
-                    .accessibilityHidden(true)
 
                 }
 
@@ -88,7 +86,6 @@ struct StoreEventCard: View {
                                 .appFont(with: .TITLE_5)
                                 .foregroundStyle(.text(.title))
                                 .fixedSize(horizontal: false, vertical: true)
-                                .accessibilityAddTraits(.isHeader)
 
                             if let location = self.location {
 
@@ -96,7 +93,6 @@ struct StoreEventCard: View {
 
                                     ImageSource.systemImage("mappin.and.ellipse")
                                         .view(shouldResize: false)
-                                        .accessibilityHidden(true)
                                     Text(location.name)
 
                                 }
@@ -133,7 +129,6 @@ struct StoreEventCard: View {
                                 Spacer(minLength: self.style.spacing(.small))
                                 ImageSource.systemImage("arrow.up.right")
                                     .view(shouldResize: false)
-                                    .accessibilityHidden(true)
 
                             }
                             .appFont(with: .TITLE_3)
@@ -170,7 +165,6 @@ struct StoreEventCard: View {
         .padding(.small2)
         .background(.background(.tertiary))
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
-        .accessibilityHidden(true)
 
     }
 

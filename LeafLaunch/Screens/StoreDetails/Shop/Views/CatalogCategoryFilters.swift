@@ -3,7 +3,6 @@ import SwiftUI
 struct CatalogCategoryFilters: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let categories: [ProductCategory]
     let selectedCategoryId: String?
@@ -25,13 +24,13 @@ struct CatalogCategoryFilters: View {
 
                 subcategoryRail(category: category)
                     .id(category.id)
-                    .transition(self.reduceMotion ? .opacity : AnyTransition(.blurReplace))
+                    .transition(AnyTransition(.blurReplace))
 
             }
 
         }
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedCategoryId)
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedSubcategoryId)
+        .animation(.bouncy, value: self.selectedCategoryId)
+        .animation(.bouncy, value: self.selectedSubcategoryId)
 
     }
 
@@ -58,7 +57,6 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
-        .accessibilityLabel(String(localized: "Categories"))
 
     }
 
@@ -91,7 +89,6 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
-        .accessibilityLabel(String(localized: "Subcategories for \(category.name)"))
 
     }
 

@@ -226,7 +226,7 @@ struct DevAnalyticsScreen: GPView {
 
     private func analyticsView(_ eventData: EventData) -> some View {
 
-        AppCardView {
+        LLAppCardView {
 
             VStack(alignment: .leading) {
 
@@ -253,7 +253,7 @@ struct DevAnalyticsScreen: GPView {
 
     private func apiView(_ apiLogResponse: APILogResponse) -> some View {
 
-        return AppCardView {
+        return LLAppCardView {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
@@ -365,7 +365,7 @@ struct DevAnalyticsScreen: GPView {
 
     private func logEventView(_ logEvent: LogEvent) -> some View {
 
-        AppCardView(
+        LLAppCardView(
             verticalPadding: .none,
             horizontalPadding: .none
         ) {

@@ -79,7 +79,6 @@ struct StoreAccountHistoryRow: View {
 
         }
         .padding(.vertical, self.style.spacing(.extraSmall))
-        .accessibilityElement(children: .combine)
 
     }
 
@@ -90,7 +89,6 @@ struct StoreAccountHistoryRow: View {
             ImageSource.systemImage(self.entryIcon).view(shouldResize: false)
                 .appFont(with: .TITLE_3)
                 .foregroundStyle(self.style.foreground(.primary))
-                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 

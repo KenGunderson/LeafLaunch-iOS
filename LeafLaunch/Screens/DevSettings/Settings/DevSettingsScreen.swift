@@ -104,7 +104,7 @@ struct DevSettingsScreen: GPView {
                 .appFont(with: .TITLE_4)
                 .foregroundStyle(.text(.title))
 
-            AppCardView {
+            LLAppCardView {
 
                 VStack(spacing: self.style.spacing(.small)) {
 
@@ -193,7 +193,7 @@ struct DevSettingsScreen: GPView {
                 .appFont(with: .TITLE_4)
                 .foregroundStyle(.text(.title))
 
-            AppCardView {
+            LLAppCardView {
 
                 VStack(spacing: self.style.spacing(.small)) {
 
@@ -324,7 +324,7 @@ struct DevSettingsScreen: GPView {
                              icon: String,
                              colorOverride: ColorSource = .foreground(.primary)) -> some View {
 
-        AppCardView {
+        LLAppCardView {
 
             HStack {
 

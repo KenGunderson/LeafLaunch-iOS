@@ -3,7 +3,6 @@ import SwiftUI
 struct LocationSelectionCard: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let location: BootstrapLocation
     let selectAction: () -> Void
@@ -52,8 +51,7 @@ struct LocationSelectionCard: View {
             .contentShape(Rectangle())
 
         }
-        .asButton(scale: self.reduceMotion ? 1 : nil, action: self.selectAction)
-        .accessibilityElement(children: .combine)
+        .asButton(action: self.selectAction)
 
     }
 
@@ -84,7 +82,6 @@ struct LocationSelectionCard: View {
 
             ImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
 
             Text(text)
                 .fixedSize(horizontal: false, vertical: true)
@@ -106,7 +103,6 @@ struct LocationSelectionCard: View {
 
             ImageSource.systemImage("arrow.up.right")
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
 
         }
         .appFont(with: .TITLE_3)

@@ -38,7 +38,6 @@ struct StoreLocationCard: View {
                         .appFont(with: .HEADER_4)
                         .foregroundStyle(.text(.title))
                         .fixedSize(horizontal: false, vertical: true)
-                        .accessibilityAddTraits(.isHeader)
 
                     if !self.details.mapsAddress.isEmpty {
 
@@ -54,25 +53,20 @@ struct StoreLocationCard: View {
 
                 Divider()
 
-                Button(action: self.onChangeLocation) {
+                HStack(spacing: self.style.spacing(.small)) {
 
-                    HStack(spacing: self.style.spacing(.small)) {
-
-                        Text(String(localized: "Change Location"))
-                        Spacer(minLength: self.style.spacing(.small))
-                        ImageSource.systemImage("arrow.left.arrow.right")
-                            .view(shouldResize: false)
-                            .accessibilityHidden(true)
-
-                    }
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(.foreground(.primary))
-                    .padding(.vertical, .small)
-                    .frame(minHeight: 44)
-                    .contentShape(Rectangle())
+                    Text(String(localized: "Change Location"))
+                    Spacer(minLength: self.style.spacing(.small))
+                    ImageSource.systemImage("arrow.left.arrow.right")
+                        .view(shouldResize: false)
 
                 }
-                .buttonStyle(.plain)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.foreground(.primary))
+                .padding(.vertical, .small)
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .asButton(action: self.onChangeLocation)
 
             }
 
@@ -86,7 +80,6 @@ struct StoreLocationCard: View {
 
             ImageSource.systemImage("mappin.and.ellipse")
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
             Text(String(localized: "Your location"))
 
         }
@@ -101,7 +94,6 @@ struct StoreLocationCard: View {
 
             ImageSource.systemImage(self.details.openNow ? "checkmark.circle.fill" : "clock")
                 .view(shouldResize: false)
-                .accessibilityHidden(true)
             Text(self.details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
 
         }

@@ -136,7 +136,7 @@ struct DevUserDefaultsScreen: GPView {
     private func sectionView(title: String,
                              contentView: some View) -> some View {
 
-        AppCardView {
+        LLAppCardView {
 
             VStack(alignment: .leading) {
 

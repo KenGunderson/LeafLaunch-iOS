@@ -3,7 +3,6 @@ import SwiftUI
 struct ProductCardView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let product: Product
     let imageURL: URL?
@@ -20,33 +19,30 @@ struct ProductCardView: View {
 
                 ProductImageView(
                     url: self.imageURL,
-                    accessibilityLabel: self.product.displayName,
                     isLoading: self.isImageLoading,
                     isUnavailable: !self.product.activeImages.isEmpty
                 )
-                .aspectRatio(contentMode: .fill)
-                .accessibilityHidden(true)
+                .frame(height: 180)
 
                 VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-                    if let category = self.product.category?.name {
-
-                        Text(category)
-                            .appFont(with: .NOTE_1)
-                            .foregroundStyle(.text(.body))
-
-                    }
+                    Text(self.product.category?.name ?? "")
+                        .appFont(with: .NOTE_1)
+                        .foregroundStyle(.text(.body))
+                        .lineLimit(1, reservesSpace: true)
 
                     Text(self.product.displayName)
                         .appFont(with: .TITLE_3)
                         .foregroundStyle(.text(.title))
-                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(1, reservesSpace: true)
 
                     ProductPriceView(product: self.product)
+                        .lineLimit(1)
 
                 }
                 .padding(.medium)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(height: 100, alignment: .bottomLeading)
 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,18 +56,16 @@ struct ProductCardView: View {
             }
 
         }
-        .asButton(scale: self.reduceMotion ? 1 : nil, action: self.onOpen)
-        .accessibilityHint(String(localized: "View product details"))
         .overlay(alignment: .topTrailing) {
 
             ProductFavoriteButton(
                 isFavorite: self.isFavorite,
-                productName: self.product.displayName,
                 action: self.onFavorite
             )
             .padding(.small)
 
         }
+        .asButton(action: self.onOpen)
 
     }
 
@@ -90,8 +84,7 @@ struct ProductCardView: View {
             onOpen: {},
             onFavorite: { isFavorite.toggle() }
         )
-        .containerRelativeFrame(.horizontal, count: 2, spacing: 0)
-        .padding(.medium)
+        .frame(width: 225)
         .withMockPreviews()
 
     }

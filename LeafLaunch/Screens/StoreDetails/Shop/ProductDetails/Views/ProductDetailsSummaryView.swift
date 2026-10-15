@@ -31,11 +31,9 @@ struct ProductDetailsSummaryView: View {
                     .foregroundStyle(.text(.title))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityAddTraits(.isHeader)
 
                 ProductFavoriteButton(
                     isFavorite: self.isFavorite,
-                    productName: self.product.displayName,
                     action: self.onFavorite
                 )
 

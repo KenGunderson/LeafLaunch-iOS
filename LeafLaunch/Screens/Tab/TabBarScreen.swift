@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TabBarScreen: View {
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
     @Binding var selectedTab: Tab
     @Binding var isTabBarVisible: Bool
 
@@ -29,7 +27,7 @@ struct TabBarScreen: View {
 
             BubbleTabBarView(selectedTab: self.$selectedTab)
                 .offset(y: self.isTabBarVisible ? 0 : 200)
-                .animation(self.reduceMotion ? nil : .bouncy, value: self.isTabBarVisible)
+                .animation(.bouncy, value: self.isTabBarVisible)
 
         }
         .ignoresSafeArea(.keyboard)

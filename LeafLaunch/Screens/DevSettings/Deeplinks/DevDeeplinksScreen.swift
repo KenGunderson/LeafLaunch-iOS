@@ -110,7 +110,7 @@ struct DevDeeplinksScreen: GPView {
     private func route(title: String,
                        deeplink: String) -> some View {
 
-        AppCardView {
+        LLAppCardView {
 
             VStack(alignment: .leading,
                    spacing: self.style.spacing(.small2)

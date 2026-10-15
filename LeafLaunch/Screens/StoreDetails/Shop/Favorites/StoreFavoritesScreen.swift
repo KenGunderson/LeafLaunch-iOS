@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreFavoritesScreen: GPView {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(NavigationService.self) private var navigationService
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
 
@@ -67,7 +66,7 @@ struct StoreFavoritesScreen: GPView {
                     onOpen: { self.viewModel.openProduct(id: $0) },
                     onFavorite: { self.viewModel.removeFavorite(id: $0) }
                 )
-                .animation(self.reduceMotion ? nil : .bouncy, value: self.viewModel.products.map(\.id))
+                .animation(.bouncy, value: self.viewModel.products.map(\.id))
 
             }
 

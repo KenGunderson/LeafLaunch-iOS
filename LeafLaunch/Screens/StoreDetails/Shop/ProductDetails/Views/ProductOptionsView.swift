@@ -77,9 +77,8 @@ struct ProductOptionsView: View {
 
                 ImageSource.systemImage(isAvailable ? "checkmark.circle" : "minus.circle")
                     .view(shouldResize: false)
-                    .accessibilityHidden(true)
 
-                Text(isAvailable ? String(localized: "Available") : String(localized: "Currently unavailable"))
+                Text(isAvailable ? String(localized: "Available") : String(localized: "Sold Out"))
 
             }
             .appFont(with: .NOTE_1)
@@ -94,7 +93,6 @@ struct ProductOptionsView: View {
             }
 
         }
-        .accessibilityElement(children: .combine)
 
     }
 
@@ -126,7 +124,6 @@ struct ProductOptionsView: View {
                     .appFont(with: .NOTE_1)
                     .foregroundStyle(.text(.body))
                     .strikethrough()
-                    .accessibilityLabel(String(localized: "Regular price \(formattedBasePrice)"))
 
             }
 

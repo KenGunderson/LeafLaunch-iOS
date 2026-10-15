@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreAccountGuestView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let createAccountAction: () -> Void
     let signInAction: () -> Void
@@ -47,12 +46,10 @@ struct StoreAccountGuestView: View {
                 backgroundColor: self.style.background(.tertiary)
             )
             .frame(width: self.style.spacing(.extraLarge2), height: self.style.spacing(.extraLarge2))
-            .accessibilityHidden(true)
 
             Text(String(localized: "Make yourself at home."))
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(self.style.textColor(.title))
-                .accessibilityAddTraits(.isHeader)
 
             Text(String(localized: "Your profile, membership, and points. All in one place."))
                 .appFont(with: .BODY_2)
@@ -71,7 +68,6 @@ struct StoreAccountGuestView: View {
             ImageSource.systemImage("sparkles").view(shouldResize: false)
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.foreground(.primary))
-                .accessibilityHidden(true)
 
             Text(String(localized: "A little more rewarding"))
                 .appFont(with: .TITLE_5)
@@ -103,9 +99,6 @@ struct StoreAccountGuestView: View {
                 backgroundStyle: self.style.background(.border),
                 verticalPadding: .small2,
                 cornerRadius: .medium,
-                buttonBounceStyle: self.reduceMotion
-                    ? .init(scale: 1, opacity: 1, brightness: 0)
-                    : self.style.buttonBounceStyle,
                 action: self.signInAction
             )
 

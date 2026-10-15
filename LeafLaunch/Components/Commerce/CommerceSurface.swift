@@ -2,8 +2,6 @@ import SwiftUI
 
 struct CommerceSurface<Content: View>: View {
 
-    @Environment(\.style) private var style
-
     private let content: Content
 
     init(@ViewBuilder content: () -> Content) {
@@ -12,15 +10,8 @@ struct CommerceSurface<Content: View>: View {
 
     var body: some View {
 
-        AppCardView(cornerRadius: .large, shadow: .card) {
+        LLAppCardView(cornerRadius: .large) {
             self.content
-        }
-        .overlay {
-
-            RoundedRectangle(cornerRadius: self.style.radius(.large))
-                .strokeBorder(self.style.background(.border), lineWidth: 1)
-                .allowsHitTesting(false)
-
         }
 
     }

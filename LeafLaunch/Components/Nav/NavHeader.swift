@@ -60,7 +60,6 @@ struct NavHeader: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(height: self.style.spacing(.large2))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .accessibilityLabel(self.title)
 
             } else {
 
@@ -93,7 +92,6 @@ struct NavHeader: View {
             Text(self.title)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(.text(.title))
-                .accessibilityAddTraits(.isHeader)
 
             if let subtitle = self.subtitle {
 

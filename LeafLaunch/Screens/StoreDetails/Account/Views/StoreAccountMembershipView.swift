@@ -73,7 +73,6 @@ struct StoreAccountMembershipView: View {
                     .foregroundStyle(self.style.textColor(.body))
 
             }
-            .accessibilityElement(children: .combine)
 
             Divider().overlay(self.style.background(.border))
 
@@ -90,7 +89,6 @@ struct StoreAccountMembershipView: View {
             ImageSource.systemImage("seal").view(shouldResize: false)
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.foreground(.primary))
-                .accessibilityHidden(true)
 
             Text(self.membershipStatus)
                 .appFont(with: .TITLE_3)
@@ -130,7 +128,6 @@ struct StoreAccountMembershipView: View {
             ImageSource.systemImage("seal").view(shouldResize: false)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(self.style.foreground(.primary))
-                .accessibilityHidden(true)
 
             Text(String(localized: "Good things come with membership."))
                 .appFont(with: .TITLE_5)

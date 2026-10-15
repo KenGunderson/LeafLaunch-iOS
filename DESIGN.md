@@ -37,13 +37,13 @@ Use background.primary for the canvas, secondary for content surfaces, tertiary/
 
 Use Rune `appFont(with:)` and the active store's font roles. Section titles use TITLE_6, screen headers use HEADER_3, product names use TITLE_3, and prices use TITLE_5. Supporting copy uses BODY_1/BODY_2 or NOTE_1. Do not set a new font family or fixed custom type scale in a feature.
 
-Let descriptive text wrap naturally. Avoid fixed text heights and shrinking essential labels. Product grids become one column at accessibility Dynamic Type sizes. Native controls, semantic accessibility labels, header traits, and meaningful selection state remain available throughout.
+Let descriptive text wrap naturally outside product cards. Product cards reserve one category line and two name lines, limit price/availability text to two lines, and use a fixed details area so their heights stay equal. Product grids retain two equal-width columns. Keep native control behavior; app-owned components, views, and screens do not add accessibility modifiers or read `accessibilityReduceMotion`.
 
 ## Layout
 
 Compose screens from short, named view builders and focused feature components. Keep models and ViewModels in their established feature ownership. Use environment spacing tokens: medium for content padding, small/small2 for related content, and large/large2 between sections.
 
-Shop and Favorites share a two-column, image-first product grid. Each card presents category, name, available minimum price, and a separate favorite action. Opening the card shows product details; the heart never opens the product. Do not add cart, checkout, stock claims, or fake discount information that the domain does not supply.
+Shop and Favorites share a two-column, image-first product grid. The grid owns cell widths without per-card container-relative calculations. Every card is 360 points tall: a 180-point image area and a 180-point details area including padding, aligned to the top. Loading, placeholder, unavailable, and loaded images render inside the image area without affecting layout. ProductImageView owns a background-sized, clipped overlay so remote images can use fill without expanding their layout bounds. Detail galleries reserve square pages and 64-point thumbnails independently. Each card presents category, name, available minimum price, and a separate favorite action. Opening the card shows product details; the heart never opens the product. Do not add cart, checkout, stock claims, or fake discount information that the domain does not supply.
 
 Product details give the gallery primary space, with paging and selectable thumbnails when multiple active images exist. Name, price, availability, variants, description, and attributes follow in small coherent sections. Only higher base prices represent a discount; identify a discounted variant when showing its savings.
 
@@ -53,7 +53,7 @@ Store Details retains JobLens iOS's `BubbleTabBarView` over the root `TabView`, 
 
 ## Elevation & Depth
 
-Use Rune `AppCardView` and existing theme shadow roles. `CommerceSurface` supplies the recurring padded surface, theme radius, and border. Image-led cards use unpadded `AppCardView` composition. Do not nest cards just to divide text; prefer spacing or a disclosure within the owning surface.
+Use `LLAppCardView` for app-owned card composition. It wraps Rune `AppCardView` with shadow disabled and applies Rune `.appBorder` with a 1.5-point line width and its default color. The wrapper owns these defaults; spacing, background, and corner radius remain configurable Rune roles. `CommerceSurface` supplies the recurring padded surface with theme large radius. Image-led promotion and event cards use unpadded `LLAppCardView` composition. Do not nest cards just to divide text; prefer spacing or a disclosure within the owning surface.
 
 ## Shapes
 
@@ -64,7 +64,8 @@ Surfaces and media use theme large radius, inputs use medium2, and primary actio
 | Responsibility | Owner |
 | --- | --- |
 | Primary actions | LeafLaunchButton using Rune CommonButton |
-| Padded commerce surfaces | CommerceSurface using Rune AppCardView |
+| Cards | LLAppCardView using Rune AppCardView and appBorder |
+| Padded commerce surfaces | CommerceSurface using LLAppCardView |
 | Section title and optional supporting text | CommerceSectionHeader using SectionView |
 | Contextual empty/error content | CommerceEmptyState; screen-wide overlays retain EmptyStateView |
 | Catalog category selection | CatalogCategoryFilters and CatalogFilterPill |
@@ -78,12 +79,12 @@ Surfaces and media use theme large radius, inputs use medium2, and primary actio
 
 Native SwiftUI owns scrolling, focus, menus, pickers, disclosures, and safe areas. Rune `ImageSource` owns media loading and caching; product URLs come from the existing public media endpoint, not raw object keys. Keep loading, unavailable-media, empty, and failure/retry states truthful. Signed thumbnail requests are cancellable and cannot publish into a superseded catalog.
 
-Apply `.animation(.bouncy, value:)` to meaningful selection, favorite feedback, disclosures, and splash entrance. Category changes replace the subcategory group with `.blurReplace`; changing the parent clears its selected child. Respect `accessibilityReduceMotion` by removing transforms and animated transitions. Do not add perpetual decorative animation or delays to the startup callback.
+Apply `.animation(.bouncy, value:)` to meaningful selection, favorite feedback, disclosures, and splash entrance. Category changes replace the subcategory group with `.blurReplace`; changing the parent clears its selected child. Use Rune `.asButton` for ordinary custom actions; retain native role-bearing buttons where the modifier cannot preserve that role. Keep LeafLaunchButton and Rune CommonButton for primary action styling. Do not add perpetual decorative animation or delays to the startup callback.
 
 ## Do's and Don'ts
 
 - Keep store branding and all visual tokens in Rune; improve hierarchy through construction.
 - Use actual model imagery, prices, schedules, availability, balances, and ledger strings.
-- Give icon actions accessible names and at least 44pt touch targets.
+- Keep icon actions at least 44pt touch targets.
 - Keep search, filtering, server sorting, pagination, local favorites, legal copy, and lifecycle ownership consistent with [UX-CONTRACT](UX-CONTRACT.md).
 - Check changed call sites and both app targets. Follow the repository's restriction on Xcode builds and tests.

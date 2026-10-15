@@ -18,15 +18,13 @@ struct CommerceSectionHeader: View {
 
                     ImageSource.systemImage(systemImage)
                         .view()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
                         .foregroundStyle(self.style.foreground(.secondary))
-                        .accessibilityHidden(true)
 
                 }
 
                 SectionView(leadingTitle: self.title)
-                    .accessibilityAddTraits(.isHeader)
 
             }
 

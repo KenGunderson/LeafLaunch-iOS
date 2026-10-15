@@ -3,7 +3,6 @@ import SwiftUI
 struct StoreHoursDisclosure: View {
 
     @Environment(\.style) private var style
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var isExpanded = false
 
@@ -121,7 +120,6 @@ struct StoreHoursDisclosure: View {
                 ImageSource.systemImage("clock")
                     .view(shouldResize: false)
                     .foregroundStyle(.foreground(.primary))
-                    .accessibilityHidden(true)
                 Text(String(localized: "Opening hours"))
                     .foregroundStyle(.text(.title))
 
@@ -132,7 +130,7 @@ struct StoreHoursDisclosure: View {
 
         }
         .tint(self.style.foreground(.primary).source(style: self.style))
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.isExpanded)
+        .animation(.bouncy, value: self.isExpanded)
 
     }
 
@@ -163,7 +161,6 @@ struct StoreHoursDisclosure: View {
 
         }
         .appFont(with: .BODY_1)
-        .accessibilityElement(children: .combine)
 
     }
 
@@ -200,7 +197,6 @@ struct StoreHoursDisclosure: View {
                     )
 
                 }
-                .accessibilityElement(children: .combine)
 
             }
 

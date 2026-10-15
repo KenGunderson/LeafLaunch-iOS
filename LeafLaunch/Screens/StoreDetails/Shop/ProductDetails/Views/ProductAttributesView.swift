@@ -34,7 +34,6 @@ struct ProductAttributesView: View {
                                 .textSelection(.enabled)
 
                         }
-                        .accessibilityElement(children: .combine)
 
                     }
 

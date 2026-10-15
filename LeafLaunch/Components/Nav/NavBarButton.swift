@@ -10,7 +10,6 @@ import SwiftUI
 struct NavBarButton: View {
 
     @Environment(\.style) private var environmentStyle
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     enum Style: Hashable {
 
@@ -47,23 +46,6 @@ struct NavBarButton: View {
             }
         }
 
-        var accessibilityTitle: String {
-
-            switch self {
-            case .back: return String(localized: "Back")
-            case .close: return String(localized: "Close")
-            case .settings: return String(localized: "Settings")
-            case .ellipsis: return String(localized: "More options")
-            case .plus: return String(localized: "Add")
-            case .bell(let count): return count > 0 ? String(localized: "Notifications, \(count) unread") : String(localized: "Notifications")
-            case .pencil: return String(localized: "Edit")
-            case .filter: return String(localized: "Filter")
-            case .trash: return String(localized: "Delete")
-            case .star(let isFilled): return isFilled ? String(localized: "Remove favorite") : String(localized: "Add favorite")
-            }
-
-        }
-
     }
 
     private let style: Style
@@ -92,10 +74,9 @@ struct NavBarButton: View {
             .frame(minWidth: 44, minHeight: 44)
             .background(self.environmentStyle.background(.secondary), in: Circle())
             .contentShape(Circle())
-            .asButton(scale: self.reduceMotion ? 1 : nil) {
+            .asButton {
                 action()
             }
-            .accessibilityLabel(self.style.accessibilityTitle)
             .overlay(alignment: .topTrailing) {
 
                 switch self.style {
@@ -126,7 +107,6 @@ struct NavBarButton: View {
             .clipShape(Capsule())
             .offset(x: 0, y: -3.5)
             .fixedSize(horizontal: true, vertical: false)
-            .accessibilityHidden(true)
 
     }
 

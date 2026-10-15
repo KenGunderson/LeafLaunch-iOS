@@ -3,7 +3,6 @@ import SwiftUI
 struct ProductGridView: View {
 
     @Environment(\.style) private var style
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let products: [Product]
     let imageURLs: [String: URL]
@@ -15,15 +14,17 @@ struct ProductGridView: View {
     private var columns: [GridItem] {
 
         Array(
-            repeating: GridItem(.flexible(), spacing: self.style.spacing(.small2), alignment: .top),
-            count: self.dynamicTypeSize.isAccessibilitySize ? 1 : 2
+            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small2), alignment: .top),
+            count: 2
         )
 
     }
 
     var body: some View {
 
-        LazyVGrid(columns: self.columns, alignment: .leading, spacing: self.style.spacing(.medium)) {
+        LazyVGrid(columns: self.columns,
+                  alignment: .leading,
+                  spacing: self.style.spacing(.medium)) {
 
             ForEach(self.products) { product in
 
@@ -59,13 +60,9 @@ struct ProductGridView: View {
             onFavorite: { productId in
 
                 if favoriteProductIds.contains(productId) {
-
                     favoriteProductIds.remove(productId)
-
                 } else {
-
                     favoriteProductIds.insert(productId)
-
                 }
 
             }

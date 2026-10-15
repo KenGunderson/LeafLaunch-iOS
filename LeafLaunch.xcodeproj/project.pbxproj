@@ -149,6 +149,7 @@
 		563F25D225EBC11F7179D274 /* StoreAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C750E44763B199BB6D5A2093 /* StoreAccountScreen.swift */; };
 		585157120A8A4EE2A4F0C504 /* AppNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515DB912ECBEB3E00921AE9 /* AppNumberFormatter.swift */; };
 		58EAB3D79E904882BD04CD46 /* LeafLaunchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3E52F90000100AAA001 /* LeafLaunchCardView.swift */; };
+		3977304981A34667A9B78102 /* LLAppCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740622304227462BB8D7BCFD /* LLAppCardView.swift */; };
 		595CCFA0104041109B24870E /* DevSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750DFBC12DC6CDC500A2AB74 /* DevSettingsViewModel.swift */; };
 		5992773CF71143548617A768 /* ProductQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A84C8AD443993766B67F5 /* ProductQuery.swift */; };
 		5BCCD65A09056896F34AC051 /* AgeVerificationApproval.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04E84F36318571EE6B771F2 /* AgeVerificationApproval.swift */; };
@@ -400,6 +401,7 @@
 		A0C97056C625493E9F024AC0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EC2082DB8CBBB00265B2A /* App.swift */; };
 		A1B2D3E62F90000100AAA001 /* LeafLaunchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3E42F90000100AAA001 /* LeafLaunchButton.swift */; };
 		A1B2D3E72F90000100AAA001 /* LeafLaunchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2D3E52F90000100AAA001 /* LeafLaunchCardView.swift */; };
+		595171CE7D82489A92A6D67E /* LLAppCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740622304227462BB8D7BCFD /* LLAppCardView.swift */; };
 		A1B73A5485924E84A7C7BF7B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F9E172E56116B00C72EA7 /* Section.swift */; };
 		A213D92E0497CCA3A1461826 /* CustomerLocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E65DB1E83DCC437AA502D5 /* CustomerLocationDetails.swift */; };
 		A227043E5F8142A7BEE03694 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = FAB93BDC3E314F259EAE3D64 /* StripeFinancialConnections */; };
@@ -764,6 +766,7 @@
 		9DC4EC187F3B49F889668BA2 /* StoreAppFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppFontFamily.swift; sourceTree = "<group>"; };
 		A1B2D3E42F90000100AAA001 /* LeafLaunchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafLaunchButton.swift; sourceTree = "<group>"; };
 		A1B2D3E52F90000100AAA001 /* LeafLaunchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafLaunchCardView.swift; sourceTree = "<group>"; };
+		740622304227462BB8D7BCFD /* LLAppCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLAppCardView.swift; sourceTree = "<group>"; };
 		A474BBBA6A574CE689E6036D /* StoreHoursDisclosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHoursDisclosure.swift; sourceTree = "<group>"; };
 		A4D7FF380767404BA08C8970 /* ProductImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageView.swift; sourceTree = "<group>"; };
 		AECF68CA257FD100F9A90EE3 /* BusinessConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessConfig.swift; sourceTree = "<group>"; };
@@ -1429,6 +1432,7 @@
 				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
 				A1B2D3E42F90000100AAA001 /* LeafLaunchButton.swift */,
 				A1B2D3E52F90000100AAA001 /* LeafLaunchCardView.swift */,
+				740622304227462BB8D7BCFD /* LLAppCardView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2177,6 +2181,7 @@
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				A1B2D3E62F90000100AAA001 /* LeafLaunchButton.swift in Sources */,
 				A1B2D3E72F90000100AAA001 /* LeafLaunchCardView.swift in Sources */,
+				595171CE7D82489A92A6D67E /* LLAppCardView.swift in Sources */,
 				7537F4852DF661EA0031D9CF /* API.swift in Sources */,
 				75B70AAF2F0C978D0054E8C7 /* TabBarNavigationService.swift in Sources */,
 				75AA755C2E529AC4002F1990 /* EmptyStateOverlayModifier.swift in Sources */,
@@ -2441,6 +2446,7 @@
 				5DC2DAE6C0A149BCA58224AE /* AppRootView.swift in Sources */,
 				872BD3EC4AB84A2D9E48F113 /* LeafLaunchButton.swift in Sources */,
 				58EAB3D79E904882BD04CD46 /* LeafLaunchCardView.swift in Sources */,
+				3977304981A34667A9B78102 /* LLAppCardView.swift in Sources */,
 				8EDE462155D041758C55062A /* API.swift in Sources */,
 				6BC56B0F439746779A37FD35 /* TabBarNavigationService.swift in Sources */,
 				CDA4185E21FA4F79A20A31EA /* EmptyStateOverlayModifier.swift in Sources */,

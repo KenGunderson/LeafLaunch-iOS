@@ -100,7 +100,7 @@ struct DevRoutesScreen: GPView {
     private func route(title: String,
                        fullScreenCover: FullScreenCover) -> some View {
 
-        AppCardView {
+        LLAppCardView {
 
             Text(title)
                 .appFont(with: .TITLE_5)

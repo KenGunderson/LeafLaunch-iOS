@@ -77,7 +77,9 @@ struct MainScreen: GPView {
 
                 Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
                 LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
-                Button("Choose another location") { self.viewModel.chooseAnotherLocation() }
+                Text("Choose another location")
+                    .foregroundStyle(.foreground(.primary))
+                    .asButton { self.viewModel.chooseAnotherLocation() }
 
             }
 
