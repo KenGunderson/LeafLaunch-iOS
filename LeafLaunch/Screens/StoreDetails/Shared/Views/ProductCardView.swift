@@ -60,6 +60,7 @@ struct ProductCardView: View {
 
             ProductFavoriteButton(
                 isFavorite: self.isFavorite,
+                productName: self.product.displayName,
                 action: self.onFavorite
             )
             .padding(.small)
