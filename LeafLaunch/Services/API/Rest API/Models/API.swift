@@ -80,7 +80,7 @@ internal enum AppRoute {
 
     var category: String {
         switch self {
-        case .health: return "health"
+        case .health: return "health/ready"
         case .search: return "search"
         case .customerPublic: return "public"
         case .customer: return "customer"
