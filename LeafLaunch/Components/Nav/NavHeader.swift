@@ -79,8 +79,16 @@ struct NavHeader: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        .padding(.vertical, .small2)
+        .padding(.top, .extraSmall)
         .background(self.backgroundStyle)
+        .background {
+
+            Rectangle()
+                .fill(self.backgroundStyle)
+                .blur(radius: 2)
+                .offset(y: 10)
+
+        }
 
     }
 

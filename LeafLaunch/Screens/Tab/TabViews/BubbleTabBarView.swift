@@ -52,7 +52,7 @@ struct BubbleTabBarView: View {
             .ignoresSafeArea(.container, edges: .bottom)
 
         }
-        .appShadow(.card)
+        .appShadow(.custom(color: .black.opacity(0.3), radius: 10, x: 0, y: 2))
 
     }
 

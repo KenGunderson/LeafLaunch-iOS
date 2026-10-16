@@ -154,6 +154,7 @@ struct SettingsScreen: GPView {
 
                 Text(item.displayName)
                     .appFont(with: .TITLE_4)
+                    .foregroundStyle(.text(.title))
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Image(systemName: "chevron.right")
@@ -161,7 +162,6 @@ struct SettingsScreen: GPView {
                     .opacity(0.5)
 
             }
-            .foregroundStyle(.text(.body))
 
         }
         .asButton {

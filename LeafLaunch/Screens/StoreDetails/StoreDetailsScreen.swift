@@ -50,6 +50,8 @@ struct StoreDetailsScreen: GPView {
                     AppRootView(navigationService: Bindable(tabBarNavigationService.tab1NavigationService)) {
                         StoreOverviewScreen(viewModel: self.viewModel.overviewViewModel)
                     }
+                    .toolbarVisibility(.hidden, for: .tabBar)
+                    .toolbarBackgroundVisibility(.hidden, for: .tabBar)
                     .tag(tab)
 
                 case .tab2:
@@ -57,6 +59,8 @@ struct StoreDetailsScreen: GPView {
                     AppRootView(navigationService: Bindable(tabBarNavigationService.tab2NavigationService)) {
                         StoreShopScreen(viewModel: self.viewModel.shopViewModel)
                     }
+                    .toolbarVisibility(.hidden, for: .tabBar)
+                    .toolbarBackgroundVisibility(.hidden, for: .tabBar)
                     .tag(tab)
 
                 case .tab3:
@@ -64,6 +68,8 @@ struct StoreDetailsScreen: GPView {
                     AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
                         StoreFavoritesScreen(viewModel: self.viewModel.favoritesViewModel)
                     }
+                    .toolbarVisibility(.hidden, for: .tabBar)
+                    .toolbarBackgroundVisibility(.hidden, for: .tabBar)
                     .tag(tab)
 
                 case .tab4:
@@ -83,6 +89,8 @@ struct StoreDetailsScreen: GPView {
                         }
 
                     }
+                    .toolbarVisibility(.hidden, for: .tabBar)
+                    .toolbarBackgroundVisibility(.hidden, for: .tabBar)
                     .tag(tab)
 
                 }
@@ -90,7 +98,7 @@ struct StoreDetailsScreen: GPView {
             }
 
         }
-        .toolbar(.hidden, for: .tabBar)
+        .scrollEdgeEffectHidden(true, for: .bottom)
         .ignoresSafeArea(.container, edges: .bottom)
 
     }

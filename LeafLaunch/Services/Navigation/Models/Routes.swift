@@ -47,7 +47,7 @@ enum Route: Navigation, Hashable, Sendable {
 
         var icon: ImageSource {
             switch self {
-            case .contactSupport: return .systemImage("envelope")
+            case .contactSupport: return .systemImage("envelope.fill")
             case .rateApp: return .systemImage("star.fill")
             case .privacyPolicy: return .systemImage("lock.fill")
             case .termsOfService: return .systemImage("clipboard.fill")

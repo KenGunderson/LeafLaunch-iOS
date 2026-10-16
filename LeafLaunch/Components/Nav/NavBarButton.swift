@@ -1,15 +1,13 @@
 //
 //  NavBarButton.swift
-//  LeafLaunch
+//  JobLens
 //
-//  Created by Sako Hovaguimian on 8/12/25.
+//  Created by Sako Hovaguimian on 7/30/26.
 //
 
 import SwiftUI
 
 struct NavBarButton: View {
-
-    @Environment(\.style) private var environmentStyle
 
     enum Style: Hashable {
 
@@ -25,7 +23,9 @@ struct NavBarButton: View {
         case star(isFilled: Bool = false)
 
         var icon: ImageSource {
+
             switch self {
+
             case .back: return .systemImage("arrow.left")
             case .close: return .systemImage("xmark")
             case .settings: return .systemImage("gear")
@@ -36,14 +36,57 @@ struct NavBarButton: View {
             case .filter(let isFilled): return .systemImage("line.3.horizontal.decrease.circle\(isFilled ? ".fill" : "")")
             case .trash: return .systemImage("trash")
             case .star(let isFilled): return .systemImage("star\(isFilled ? ".fill" : "")")
+
             }
+
         }
 
-        var smallerIcon: Bool {
+        var imageScale: CGFloat {
+
             switch self {
-            case .close, .pencil: return true
-            default: return false
+
+            case .close, .pencil: return 0.4
+            default: return 0.5
+
             }
+
+        }
+
+        var notificationCount: Int {
+
+            switch self {
+
+            case .bell(let notificationCount): return notificationCount
+            default: return 0
+
+            }
+
+        }
+
+        var accessibilityLabel: String {
+
+            switch self {
+
+            case .back: return "Back"
+            case .close: return "Close"
+            case .settings: return "Settings"
+            case .ellipsis: return "More options"
+            case .plus: return "Add"
+            case .bell: return "Notifications"
+            case .pencil: return "Edit"
+            case .filter: return "Filters"
+            case .trash: return "Delete"
+            case .star: return "Favorite"
+
+            }
+
+        }
+
+        var accessibilityValue: String {
+
+            guard case .bell(let count) = self else { return "" }
+            return count == 1 ? "1 pending invite" : "\(count) pending invites"
+
         }
 
     }
@@ -51,6 +94,8 @@ struct NavBarButton: View {
     private let style: Style
     private let foregroundColor: ColorSource
     private let action: () -> Void
+
+    private let frame: CGFloat = 32
 
     init(style: Style,
          foregroundColor: ColorSource = .text(.title),
@@ -64,60 +109,60 @@ struct NavBarButton: View {
 
     var body: some View {
 
-        let frame: CGFloat = self.style.smallerIcon ? 16 : 20
+        let notificationCount = self.style.notificationCount
+        let notificationText = notificationCount > 99 ? "99+" : "\(notificationCount)"
+
+        let imageFrame = self.frame * self.style.imageScale
 
         self.style.icon
             .view(renderingMode: .template)
             .scaledToFit()
-            .frame(width: frame, height: frame)
+            .frame(
+                width: imageFrame,
+                height: imageFrame
+            )
             .foregroundStyle(self.foregroundColor)
-            .frame(minWidth: 44, minHeight: 44)
-            .background(self.environmentStyle.background(.secondary), in: Circle())
-            .contentShape(Circle())
+            .frame(
+                width: self.frame,
+                height: self.frame
+            )
+            .background(.background(.secondary))
+            .clipShape(.circle)
+            .appBorder(cornerRadius: .extraLarge)
+            .compositingGroup()
+            .appShadow(.subtle)
             .asButton {
-                action()
+                self.action()
             }
-            .overlay(alignment: .topTrailing) {
-
-                switch self.style {
-                case .bell(let notificationCount):
-
-                    if notificationCount > 0 {
-                        badge(count: notificationCount)
-                    }
-
-                default: EmptyView()
-                }
-
-            }
-
-    }
-
-    private func badge(count: Int) -> some View {
-
-        let digitCount = max(1, String(count).count)
-
-        return Text("\(count)")
-            .appFont(with: .TITLE_1)
-            .padding(.horizontal, horizontalPadding(for: digitCount))
-            .padding(.vertical, 1.3)
-            .foregroundStyle(self.environmentStyle.textColor(.button))
-            .lineLimit(1)
-            .background(.foreground(.primary))
-            .clipShape(Capsule())
-            .offset(x: 0, y: -3.5)
-            .fixedSize(horizontal: true, vertical: false)
-
-    }
-
-    private func horizontalPadding(for digits: Int) -> CGFloat {
-
-        // 1 digit ≈ circle, extra digits add more width
-        switch digits {
-        case 1: return 4
-        case 2: return 4
-        default: return CGFloat(4 + (digits - 2) * 2)
-        }
+            .commonBadge(
+                contentStyle: .text(Text(notificationText)),
+                placement: .init(
+                    overlapStyle: .circular,
+                    offset: CGSize(width: -2, height: 2),
+                    anchorOutset: 4,
+                    circularOverlapOutset: 0
+                ),
+                appearance: .init(
+                    foregroundStyle: .text(.titleInverted),
+                    backgroundStyle: .palette(.error),
+                    borderStyle: .background(.primary),
+                    borderLineWidth: 1
+                ),
+                sizing: .init(
+                    textFont: .TITLE_2,
+                    minWidth: 16,
+                    minHeight: 16,
+                    horizontalPadding: .extraSmall,
+                    verticalPadding: .none
+                ),
+                behavior: .init(
+                    isVisible: notificationCount > 0,
+                    factorsIntoFrame: false
+                )
+            )
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(self.style.accessibilityLabel)
+            .accessibilityValue(self.style.accessibilityValue)
 
     }
 
@@ -125,16 +170,20 @@ struct NavBarButton: View {
 
 #Preview {
 
-    VStack {
+    AppBaseView {
 
-        NavBarButton(style: .back, action: {})
-        NavBarButton(style: .close, action: {})
-        NavBarButton(style: .settings, action: {})
-        NavBarButton(style: .plus, action: {})
-        NavBarButton(style: .filter(isFilled: true), action: {})
-        NavBarButton(style: .filter(isFilled: false), action: {})
-        NavBarButton(style: .bell(notificationCount: 6), action: {})
-        NavBarButton(style: .bell(notificationCount: 65), action: {})
+        VStack {
+
+            NavBarButton(style: .back, action: {})
+            NavBarButton(style: .close, action: {})
+            NavBarButton(style: .settings, action: {})
+            NavBarButton(style: .plus, action: {})
+            NavBarButton(style: .filter(isFilled: true), action: {})
+            NavBarButton(style: .filter(isFilled: false), action: {})
+            NavBarButton(style: .bell(notificationCount: 6), action: {})
+            NavBarButton(style: .bell(notificationCount: 65), action: {})
+
+        }
 
     }
 
