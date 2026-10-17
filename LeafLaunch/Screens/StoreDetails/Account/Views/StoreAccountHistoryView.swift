@@ -25,21 +25,7 @@ struct StoreAccountHistoryView: View {
 
                     historyContent()
 
-                    if self.hasMoreHistory {
-
-                        CommonButton(
-                            style: .outline(lineWidth: 1),
-                            title: String(localized: "Load More History"),
-                            titleColor: self.style.textColor(.title),
-                            titleFont: .TITLE_3,
-                            backgroundStyle: self.style.background(.border),
-                            isEnabled: !self.isLoading,
-                            verticalPadding: .small2,
-                            cornerRadius: .medium,
-                            action: self.loadMoreAction
-                        )
-
-                    }
+                    loadMoreButton()
 
                 }
 
@@ -52,7 +38,7 @@ struct StoreAccountHistoryView: View {
     @ViewBuilder
     private func historyContent() -> some View {
 
-        if self.hasCompletedInitialLoad && self.history.isEmpty {
+        if self.hasCompletedInitialLoad && self.history.isEmpty && !self.isLoading {
 
             CommerceEmptyState(
                 systemImage: "clock.arrow.circlepath",
@@ -69,14 +55,42 @@ struct StoreAccountHistoryView: View {
 
             ForEach(self.history, id: \.id) { entry in
 
-                StoreAccountHistoryRow(entry: entry)
-
-                if entry.id != self.history.last?.id {
-                    Divider().overlay(self.style.background(.border))
-                }
+                historyRow(entry)
 
             }
 
+        }
+
+    }
+
+    @ViewBuilder
+    private func loadMoreButton() -> some View {
+
+        if self.hasMoreHistory {
+
+            CommonButton(
+                style: .outline(lineWidth: 1),
+                title: String(localized: "Load More History"),
+                titleColor: self.style.textColor(.title),
+                titleFont: .TITLE_3,
+                backgroundStyle: self.style.background(.border),
+                isEnabled: !self.isLoading,
+                verticalPadding: .small2,
+                cornerRadius: .medium,
+                action: self.loadMoreAction
+            )
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func historyRow(_ entry: LoyaltyHistoryEntry) -> some View {
+
+        StoreAccountHistoryRow(entry: entry)
+
+        if entry.id != self.history.last?.id {
+            Divider().overlay(self.style.background(.border))
         }
 
     }

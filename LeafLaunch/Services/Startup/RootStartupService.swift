@@ -310,6 +310,8 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
 
             self.storeBootstrapTask = Task { @MainActor [weak self] in
 
+                guard !Task.isCancelled else { return }
+
                 await storeSessionService.bootstrap()
                 guard !Task.isCancelled else { return }
 
@@ -334,13 +336,16 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
     private func runHealthCheck(for environment: AppEnvironment,
                                 onHealthCheckResult: @escaping (_ requiresForceUpdate: Bool) -> Void) {
 
-        guard environment != .development else { return }
-
         self.healthCheckTask?.cancel()
+        self.healthCheckTask = nil
+
+        guard environment != .development else { return }
 
         let apiService = self.apiService
 
         self.healthCheckTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
 
             do {
                 try await apiService.getHealth()
@@ -377,6 +382,8 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
         let storeSessionService = self.storeSessionService
 
         self.foregroundUserRefreshTask = Task { [weak self] in
+
+            guard !Task.isCancelled else { return }
 
             do {
                 try await authService.fetchUserInfoWithToken()

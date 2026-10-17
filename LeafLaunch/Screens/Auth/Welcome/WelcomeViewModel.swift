@@ -20,7 +20,6 @@ final class WelcomeViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
 
     var isNotProduction: Bool {
         self.environmentService.environment != .production
@@ -53,7 +52,6 @@ final class WelcomeViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
 
     }
 
@@ -69,10 +67,6 @@ final class WelcomeViewModel: ViewModel {
         self.navigationService?
             .push(.auth(.signup))
 
-    }
-
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
     }
 
 }

@@ -22,13 +22,9 @@ final class SettingsViewModel: ViewModel {
     private let viewLifecycleService: ViewLifecycleServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
     private var logoutTask: Task<Void, Never>?
 
     @Published private(set) var shouldDismiss: Bool = false
-
-    @Published private(set)var isLoading: Bool = true
-    @Published private(set) var isFirstLoad: Bool = true
 
     @Published var shouldShowRateAppAlert: Bool = false
     @Published var shouldShowMailComposer: Bool = false
@@ -109,19 +105,7 @@ final class SettingsViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
 
-    }
-
-    func loadData(showHud: Bool = true) {
-
-        self.isLoading = false
-        self.isFirstLoad = false
-
-    }
-
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
     }
 
     private func reviewApp() {
@@ -133,34 +117,34 @@ final class SettingsViewModel: ViewModel {
 
     private func logout() {
 
-        self.logoutTask?.cancel()
+        guard self.logoutTask == nil else { return }
 
         let authService = self.authService
-        self.logoutTask = Task { [weak self] in
+        self.logoutTask = Task { @MainActor [weak self] in
 
-            do {
-                try await Task.sleep(for: .seconds(0.3))
-            }
-            catch {
-                return
-            }
             guard !Task.isCancelled else { return }
 
-            self?.shouldDismiss = true
+            defer {
+
+                if !Task.isCancelled { self?.logoutTask = nil }
+
+            }
 
             do {
+
                 try await Task.sleep(for: .seconds(0.3))
-            }
-            catch {
-                return
-            }
-            guard !Task.isCancelled else { return }
-
-            do {
-                try await authService.logout()
-            }
-            catch {
                 guard !Task.isCancelled else { return }
+
+                try await authService.logout()
+                guard !Task.isCancelled else { return }
+
+                self?.shouldDismiss = true
+
+            } catch {
+
+                guard !Task.isCancelled else { return }
+                self?.presentLogoutError()
+
             }
 
         }
@@ -184,6 +168,19 @@ final class SettingsViewModel: ViewModel {
                 secondaryButtonBackgroundColor: .background(.quaternary),
                 secondaryButtonTextColor: .text(.title)
             ))))
+
+    }
+
+    private func presentLogoutError() {
+
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: Constants.Message.logoutErrorMessage,
+                    action: {}
+                )
+            )
+        ))
 
     }
 

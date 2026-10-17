@@ -22,7 +22,7 @@ struct SettingsScreen: GPView {
 
         AppRootView(navigationService: self.$navigationService) {
 
-            AppHeaderScrollView(horizontalPadding: .medium) {
+            LLAppHeaderScrollView {
                 navBar()
             } scrollViewContent: {
 
@@ -40,19 +40,11 @@ struct SettingsScreen: GPView {
 
             .onFirstAppear { [weak viewModel] in
 
-                viewModel?
-                    .handleFirstAppear()
-
-                viewModel?
-                    .setup(navigationService: self.navigationService)
+                viewModel?.setup(navigationService: self.navigationService)
+                viewModel?.handleFirstAppear()
 
             }
-            .task { [weak viewModel] in
 
-                viewModel?
-                    .loadData(showHud: self.viewModel.isFirstLoad)
-
-            }
 
             // OnChange
 
@@ -81,6 +73,7 @@ struct SettingsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navBar() -> some View {
 
         let closeButton = NavBarButton(style: .close) {
@@ -89,7 +82,7 @@ struct SettingsScreen: GPView {
         .padding(.trailing, .small)
         .asAnyView()
 
-        return NavBarView(
+        NavBarView(
             title: "Settings",
             rightButtonView: closeButton
         )
@@ -97,6 +90,7 @@ struct SettingsScreen: GPView {
     }
 
 
+    @ViewBuilder
     private func content() -> some View {
 
         let settings: [Route.SettingRoute] = Route.SettingRoute.allCases
@@ -104,40 +98,49 @@ struct SettingsScreen: GPView {
         let categories = groups.keys.sorted()
         let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
 
-        return StaggeredView(config: config) {
+        StaggeredView(config: config) {
 
-            if !self.viewModel.isLoading {
+            ForEach(categories, id: \.self) { category in
 
-                ForEach(categories, id: \.self) { category in
-
-                    let isFirst = (category == categories.first)
-                    let isLogout = (category == "Logout")
-
-                    if !isLogout {
-
-                        SectionView(leadingTitle: category.capitalized)
-                            .padding(.bottom, .extraSmall)
-                            .padding(.top, isFirst ? .none : .small)
-
-                    }
-
-                    ForEach(groups[category] ?? [], id: \.self) { item in
-
-                        settingItem(item)
-                            .padding(.top, isLogout ? 24 : 0)
-
-                    }
-
-                }
-
-                versionItem()
+                settingsSection(
+                    category: category,
+                    settings: groups[category] ?? [],
+                    isFirst: category == categories.first
+                )
 
             }
+
+            versionItem()
 
         }
 
     }
 
+    @ViewBuilder
+    private func settingsSection(category: String,
+                                  settings: [Route.SettingRoute],
+                                  isFirst: Bool) -> some View {
+
+        let isLogout = category == "Logout"
+
+        if !isLogout {
+
+            SectionView(leadingTitle: category.capitalized)
+                .padding(.bottom, .extraSmall)
+                .padding(.top, isFirst ? .none : .small)
+
+        }
+
+        ForEach(settings, id: \.self) { setting in
+
+            settingItem(setting)
+                .padding(.top, isLogout ? 24 : 0)
+
+        }
+
+    }
+
+    @ViewBuilder
     private func settingItem(_ item: Route.SettingRoute) -> some View {
 
         LLAppCardView {
@@ -157,7 +160,8 @@ struct SettingsScreen: GPView {
                     .foregroundStyle(.text(.title))
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Image(systemName: "chevron.right")
+                ImageSource.systemImage("chevron.right")
+                    .view(shouldResize: false)
                     .foregroundStyle(.text(.title))
                     .opacity(0.5)
 
@@ -177,6 +181,7 @@ struct SettingsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func versionItem() -> some View {
 
         VStack(alignment: .leading) {
@@ -185,7 +190,8 @@ struct SettingsScreen: GPView {
 
                 HStack(spacing: self.style.spacing(.small)) {
 
-                    Image(systemName: "iphone")
+                    ImageSource.systemImage("iphone")
+                        .view(shouldResize: false)
                         .appFont(with: .TITLE_4)
                         .foregroundStyle(.foreground(.primary))
 

@@ -161,7 +161,7 @@ final class RootViewModel: ViewModel {
             onAuthError: { [weak self] error in
 
                 self?.logError(message: error.getMessageForError())
-                self?.showAuthError(error)
+                self?.showAuthError()
 
             },
             onNoNetwork: { [weak self] in
@@ -183,31 +183,56 @@ final class RootViewModel: ViewModel {
 
     }
 
-    private func showAuthError(_ error: Error) {
+    private func showAuthError() {
 
         self.alertService.showAlert(.init(
             .appAlert(
-                .error(message: error.getMessageForError(),
+                .error(message: Constants.Message.authenticationErrorMessage,
                        action: { [weak self] in
 
-                           guard let self else { return }
-
-                           self.logoutTask?.cancel()
+                           guard let self,
+                                 self.logoutTask == nil else { return }
 
                            let authService = self.authService
 
-                           self.logoutTask = Task {
+                           self.logoutTask = Task { @MainActor [weak self] in
+
+                               guard !Task.isCancelled else { return }
+
+                               defer {
+
+                                   if !Task.isCancelled { self?.logoutTask = nil }
+
+                               }
 
                                do {
+
                                    try await authService.logout()
-                               }
-                               catch {
                                    guard !Task.isCancelled else { return }
+
+                               } catch {
+
+                                   guard !Task.isCancelled else { return }
+                                   self?.presentLogoutError()
+
                                }
 
                            }
 
                        }))
+        ))
+
+    }
+
+    private func presentLogoutError() {
+
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: Constants.Message.logoutErrorMessage,
+                    action: {}
+                )
+            )
         ))
 
     }

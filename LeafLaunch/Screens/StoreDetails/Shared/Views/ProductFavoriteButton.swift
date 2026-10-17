@@ -9,8 +9,8 @@ struct ProductFavoriteButton: View {
 
     var body: some View {
 
-        Image(systemName: self.isFavorite ? "heart.fill" : "heart")
-            .resizable()
+        ImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart")
+            .view()
             .frame(width: 22, height: 22)
             .foregroundStyle(self.isFavorite ? self.style.foreground(.primary) : self.style.textColor(.title))
             .frame(width: 44, height: 44)

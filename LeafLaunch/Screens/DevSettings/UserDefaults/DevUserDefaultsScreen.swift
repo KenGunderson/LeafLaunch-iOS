@@ -12,12 +12,13 @@ struct DevUserDefaultsScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: DevUserDefaultsViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: DevUserDefaultsViewModel
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
 
             headerView()
 
@@ -31,11 +32,8 @@ struct DevUserDefaultsScreen: GPView {
 
         .onFirstAppear { [weak viewModel] in
 
-            viewModel?
-                .handleFirstAppear()
-
-            viewModel?
-                .setup(navigationService: self.navigationService)
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
 
         }
 
@@ -55,6 +53,7 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(spacing: self.style.spacing(.medium)) {
@@ -188,11 +187,12 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func themeChoicesView() -> some View {
 
         let selectedTheme = self.viewModel.theme
 
-        return VStack(alignment: .leading,
+        VStack(alignment: .leading,
                       spacing: self.style.spacing(.small)) {
 
             HStack(spacing: self.style.spacing(.none)) {
@@ -242,9 +242,10 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
+    @ViewBuilder
     func themeChoiceView(_ themeChoice: AvailableTheme) -> some View {
 
-        return VStack {
+        VStack {
 
             Text(themeChoice.displayName)
                 .appFont(with: .TITLE_5)

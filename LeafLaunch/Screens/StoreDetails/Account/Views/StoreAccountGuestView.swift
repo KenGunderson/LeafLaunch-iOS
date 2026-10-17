@@ -36,6 +36,7 @@ struct StoreAccountGuestView: View {
 
     }
 
+    @ViewBuilder
     private func welcome() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
@@ -61,6 +62,7 @@ struct StoreAccountGuestView: View {
 
     }
 
+    @ViewBuilder
     private func membershipPreview() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
@@ -85,6 +87,7 @@ struct StoreAccountGuestView: View {
 
     }
 
+    @ViewBuilder
     private func accountActions() -> some View {
 
         VStack(spacing: self.style.spacing(.small2)) {

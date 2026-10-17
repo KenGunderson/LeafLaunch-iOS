@@ -13,7 +13,7 @@ struct StoreOverviewScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -30,57 +30,79 @@ struct StoreOverviewScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
         NavHeader(title: self.viewModel.store?.name ?? String(localized: "Store"))
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large2)) {
 
-            if let details = self.viewModel.locationDetails {
-
-                StoreLocationCard(details: details) {
-                    self.viewModel.changeLocation()
-                }
-
-            } else {
-
-                LeafLaunchButton(
-                    title: String(localized: "Change Location"),
-                    icon: .systemImage("mappin.and.ellipse")
-                ) {
-                    self.viewModel.changeLocation()
-                }
-
-            }
+            location()
 
             promotions()
             events()
 
-            if self.viewModel.store != nil || self.viewModel.locationDetails != nil {
-
-                StoreInformationCard(
-                    store: self.viewModel.store,
-                    details: self.viewModel.locationDetails
-                )
-
-            }
-
-            if !self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
-
-                LeafLaunchButton(
-                    title: String(localized: "Reload Store"),
-                    icon: .systemImage("arrow.clockwise")
-                ) {
-                    self.viewModel.loadData(showHud: true)
-                }
-
-            }
+            information()
+            reloadAction()
 
         }
         .foregroundStyle(.text(.body))
         .tabFlowContentSpacing()
+
+    }
+
+    @ViewBuilder
+    private func location() -> some View {
+
+        if let details = self.viewModel.locationDetails {
+
+            StoreLocationCard(details: details) {
+                self.viewModel.changeLocation()
+            }
+
+        } else {
+
+            LeafLaunchButton(
+                title: String(localized: "Change Location"),
+                icon: .systemImage("mappin.and.ellipse")
+            ) {
+                self.viewModel.changeLocation()
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func information() -> some View {
+
+        if self.viewModel.store != nil || self.viewModel.locationDetails != nil {
+
+            StoreInformationCard(
+                store: self.viewModel.store,
+                details: self.viewModel.locationDetails
+            )
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func reloadAction() -> some View {
+
+        if !self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
+
+            LeafLaunchButton(
+                title: String(localized: "Reload Store"),
+                icon: .systemImage("arrow.clockwise")
+            ) {
+                self.viewModel.loadData(showHud: true)
+            }
+
+        }
 
     }
 
@@ -98,11 +120,7 @@ struct StoreOverviewScreen: GPView {
 
                 ForEach(self.viewModel.promotions) { promotion in
 
-                    StorePromotionCard(
-                        promotion: promotion,
-                        location: self.viewModel.locationDetails?.location,
-                        onSelectProduct: self.viewModel.openProduct
-                    )
+                    promotionRow(promotion)
 
                 }
 
@@ -120,6 +138,25 @@ struct StoreOverviewScreen: GPView {
 
     }
 
+    @ViewBuilder
+    private func promotionRow(_ promotion: Promotion) -> some View {
+
+        StorePromotionCard(
+            promotion: promotion,
+            location: self.viewModel.locationDetails?.location,
+            onSelectProduct: self.viewModel.openProduct
+        )
+
+    }
+
+    @ViewBuilder
+    private func eventRow(_ event: StoreEvent) -> some View {
+
+        StoreEventCard(event: event, location: self.viewModel.locationDetails?.location)
+
+    }
+
+    @ViewBuilder
     private func events() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
@@ -141,10 +178,7 @@ struct StoreOverviewScreen: GPView {
 
             ForEach(self.viewModel.events) { event in
 
-                StoreEventCard(
-                    event: event,
-                    location: self.viewModel.locationDetails?.location
-                )
+                eventRow(event)
 
             }
 

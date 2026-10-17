@@ -16,18 +16,18 @@ struct NavHeader: View {
     private let showLogo: Bool
     private let backgroundStyle: ColorSource
     private let leadingNavButtons: [NavBarButton.Style]
-    private let leadingNavButtonsAction: ((NavBarButton.Style) -> ())?
+    private let leadingNavButtonsAction: ((NavBarButton.Style) -> Void)?
     private let trailingNavButtons: [NavBarButton.Style]
-    private let trailingNavButtonsAction: ((NavBarButton.Style) -> ())?
+    private let trailingNavButtonsAction: ((NavBarButton.Style) -> Void)?
 
     init(title: String,
          subtitle: String? = nil,
          showLogo: Bool = false,
          backgroundStyle: ColorSource = .background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
-         leadingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil,
+         leadingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
-         trailingNavButtonsAction: ((NavBarButton.Style) -> ())? = nil) {
+         trailingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil) {
 
         self.title = title
         self.subtitle = subtitle
@@ -117,7 +117,7 @@ struct NavHeader: View {
 
     @ViewBuilder
     private func navButtons(_ buttons: [NavBarButton.Style],
-                            action: ((NavBarButton.Style) -> ())? = nil) -> some View {
+                            action: ((NavBarButton.Style) -> Void)? = nil) -> some View {
 
         HStack(spacing: self.style.spacing(.small)) {
 

@@ -12,12 +12,13 @@ struct DevAnalyticsScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: DevAnalyticsViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: DevAnalyticsViewModel
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
 
             headerView()
                 .padding(.bottom, .extraSmall)
@@ -32,11 +33,8 @@ struct DevAnalyticsScreen: GPView {
 
         .onFirstAppear { [weak viewModel] in
 
-            viewModel?
-                .handleFirstAppear()
-
-            viewModel?
-                .setup(navigationService: self.navigationService)
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
 
         }
 
@@ -70,11 +68,12 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func segmentedControl() -> some View {
 
         let allOptions = DevAnalyticsViewModel.DisplayType.allCases.map({ $0.rawValue.capitalized })
 
-        return CommonSegmentedControl(
+        CommonSegmentedControl(
             selectedOption: self.$viewModel.selectedDisplayTypeString,
             options: allOptions,
             selectedTextColor: .text(.titleInverted)
@@ -121,6 +120,7 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         LazyVStack(spacing: self.style.spacing(.medium)) {
@@ -159,6 +159,7 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func section(title: String) -> some View {
 
         Group {
@@ -178,11 +179,12 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func logEventsList() -> some View {
 
         let events = self.viewModel.logEvents.reversed()
 
-        return LazyVStack(spacing: self.style.spacing(.medium)) {
+        LazyVStack(spacing: self.style.spacing(.medium)) {
 
             section(title: "Log Events")
 
@@ -194,11 +196,12 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func analyticsList() -> some View {
 
         let events = self.viewModel.events.reversed()
 
-        return LazyVStack(spacing: self.style.spacing(.medium)) {
+        LazyVStack(spacing: self.style.spacing(.medium)) {
 
             section(title: "Analytic Events")
 
@@ -210,13 +213,14 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func apiList() -> some View {
 
-        return LazyVStack(spacing: self.style.spacing(.medium)) {
+        LazyVStack(spacing: self.style.spacing(.medium)) {
 
             section(title: "API Logs")
 
-            ForEach(viewModel.allAPILogResponses, id: \.date) { apiLogResponse in
+            ForEach(self.viewModel.allAPILogResponses, id: \.date) { apiLogResponse in
                 apiView(apiLogResponse)
             }
 
@@ -224,6 +228,7 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func analyticsView(_ eventData: EventData) -> some View {
 
         LLAppCardView {
@@ -251,83 +256,15 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func apiView(_ apiLogResponse: APILogResponse) -> some View {
 
-        return LLAppCardView {
+        LLAppCardView {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-                Group {
-
-                    VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-                        Text("Method: \(apiLogResponse.method)")
-                            .appFont(with: .TITLE_3)
-                            .foregroundStyle(.text(.title))
-
-                        Text("Status Code: \(apiLogResponse.statusCode)")
-                            .appFont(with: .TITLE_3)
-                            .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
-
-                        Text("Path: \(apiLogResponse.path)")
-                            .appFont(with: .BODY_1)
-                            .foregroundStyle(.text(.body))
-
-                    }
-
-                }
-
-                VStack(alignment: .leading) {
-
-                    let headerParameters = apiLogResponse.headers
-                    if !headerParameters.isEmpty {
-
-                        buildJSONPreviewView(
-                            title: "Header Parameters:",
-                            json: headerParameters
-                        )
-
-                    }
-
-                    let queryParameters = apiLogResponse.queryParameters
-                    if !queryParameters.isEmpty {
-
-                        buildJSONPreviewView(
-                            title: "Query Parameters:",
-                            json: queryParameters
-                        )
-
-                    }
-
-                    let bodyParameters = apiLogResponse.body
-                    if !bodyParameters.isEmpty {
-
-                        buildJSONPreviewView(
-                            title: "Body Parameters:",
-                            json: bodyParameters
-                        )
-
-                    }
-
-                    if let jsonResponse = apiLogResponse.responseJSON {
-
-                        buildJSONPreviewView(
-                            title: "Response:",
-                            json: jsonResponse
-                        )
-
-                    }
-
-                    if let error = apiLogResponse.error {
-
-                        buildJSONPreviewView(
-                            title: "Error:",
-                            json: ["message": error.getMessageForError()]
-                        )
-
-                    }
-
-                }
+                apiSummary(apiLogResponse)
+                apiPayloads(apiLogResponse)
 
                 Text(
                     apiLogResponse.date,
@@ -340,21 +277,82 @@ struct DevAnalyticsScreen: GPView {
 
         }
 
-        func buildJSONPreviewView(title: String,
-                                  json: [String: Any]) -> some View {
+    }
 
-            VStack(alignment: .leading) {
+    @ViewBuilder
+    private func apiSummary(_ apiLogResponse: APILogResponse) -> some View {
 
-                Text(title)
-                    .appFont(with: .TITLE_5)
+        Group {
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+                Text("Method: \(apiLogResponse.method)")
+                    .appFont(with: .TITLE_3)
                     .foregroundStyle(.text(.title))
 
-                JSONPreviewView(
-                    jsonData: json,
-                    titleFont: .TITLE_2,
-                    subtitleFont: .TITLE_2,
-                    bodyFont: .TITLE_2,
-                    maxHeight: 120
+                Text("Status Code: \(apiLogResponse.statusCode)")
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(apiLogResponse.statusCode < 400 ? .green : .red)
+
+                Text("Path: \(apiLogResponse.path)")
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(.text(.body))
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func apiPayloads(_ apiLogResponse: APILogResponse) -> some View {
+
+        VStack(alignment: .leading) {
+
+            let headerParameters = apiLogResponse.headers
+            if !headerParameters.isEmpty {
+
+                buildJSONPreviewView(
+                    title: "Header Parameters:",
+                    json: headerParameters
+                )
+
+            }
+
+            let queryParameters = apiLogResponse.queryParameters
+            if !queryParameters.isEmpty {
+
+                buildJSONPreviewView(
+                    title: "Query Parameters:",
+                    json: queryParameters
+                )
+
+            }
+
+            let bodyParameters = apiLogResponse.body
+            if !bodyParameters.isEmpty {
+
+                buildJSONPreviewView(
+                    title: "Body Parameters:",
+                    json: bodyParameters
+                )
+
+            }
+
+            if let jsonResponse = apiLogResponse.responseJSON {
+
+                buildJSONPreviewView(
+                    title: "Response:",
+                    json: jsonResponse
+                )
+
+            }
+
+            if let error = apiLogResponse.error {
+
+                buildJSONPreviewView(
+                    title: "Error:",
+                    json: ["message": error.getMessageForError()]
                 )
 
             }
@@ -363,6 +361,29 @@ struct DevAnalyticsScreen: GPView {
 
     }
 
+    @ViewBuilder
+    private func buildJSONPreviewView(title: String,
+                              json: [String: Any]) -> some View {
+
+        VStack(alignment: .leading) {
+
+            Text(title)
+                .appFont(with: .TITLE_5)
+                .foregroundStyle(.text(.title))
+
+            JSONPreviewView(
+                jsonData: json,
+                titleFont: .TITLE_2,
+                subtitleFont: .TITLE_2,
+                bodyFont: .TITLE_2,
+                maxHeight: 120
+            )
+
+        }
+
+    }
+
+    @ViewBuilder
     private func logEventView(_ logEvent: LogEvent) -> some View {
 
         LLAppCardView(
@@ -378,20 +399,7 @@ struct DevAnalyticsScreen: GPView {
 
                 VStack(alignment: .leading) {
 
-                    HStack {
-
-                        CircularIconView(
-                            foregroundColor: .color(logEvent.level.color()),
-                            backgroundColor: .color(logEvent.level.color().opacity(0.1)),
-                            imageSource: .systemImage(logEvent.level.systemImage()),
-                            size: 32
-                        )
-
-                        Text(logEvent.level.displayName())
-                            .appFont(with: .TITLE_3)
-                            .foregroundStyle(logEvent.level.color())
-
-                    }
+                    logLevel(logEvent)
 
                     Text(logEvent.title)
                         .appFont(with: .TITLE_3)
@@ -402,32 +410,7 @@ struct DevAnalyticsScreen: GPView {
                         .foregroundStyle(.text(.body))
                         .padding(.top, .custom(2))
 
-                    VStack(alignment: .leading) {
-
-                        HStack {
-
-                            if let emoji = logEvent.emoji {
-
-                                Text(emoji)
-                                    .appFont(with: .TITLE_3)
-                                    .foregroundStyle(.text(.title))
-
-                            }
-
-                            Text(logEvent.source)
-                                .appFont(with: .BODY_2)
-
-                        }
-
-                        Text(
-                            logEvent.createdAt,
-                            format: .dateTime.day().month().year().hour().minute().second()
-                        )
-                        .appFont(with: .BODY_1)
-
-                    }
-                    .padding(.top, .medium)
-                    .foregroundStyle(.text(.body))
+                    logMetadata(logEvent)
 
                 }
                 .padding(.leading, .small)
@@ -438,6 +421,58 @@ struct DevAnalyticsScreen: GPView {
             .clipShape(.rect)
 
         }
+
+    }
+
+    @ViewBuilder
+    private func logLevel(_ logEvent: LogEvent) -> some View {
+
+        HStack {
+
+            CircularIconView(
+                foregroundColor: .color(logEvent.level.color()),
+                backgroundColor: .color(logEvent.level.color().opacity(0.1)),
+                imageSource: .systemImage(logEvent.level.systemImage()),
+                size: 32
+            )
+
+            Text(logEvent.level.displayName())
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(logEvent.level.color())
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func logMetadata(_ logEvent: LogEvent) -> some View {
+
+        VStack(alignment: .leading) {
+
+            HStack {
+
+                if let emoji = logEvent.emoji {
+
+                    Text(emoji)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(.text(.title))
+
+                }
+
+                Text(logEvent.source)
+                    .appFont(with: .BODY_2)
+
+            }
+
+            Text(
+                logEvent.createdAt,
+                format: .dateTime.day().month().year().hour().minute().second()
+            )
+            .appFont(with: .BODY_1)
+
+        }
+        .padding(.top, .medium)
+        .foregroundStyle(.text(.body))
 
     }
 

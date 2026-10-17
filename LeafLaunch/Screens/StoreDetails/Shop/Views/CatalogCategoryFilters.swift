@@ -34,6 +34,7 @@ struct CatalogCategoryFilters: View {
 
     }
 
+    @ViewBuilder
     private func categoryRail() -> some View {
 
         ScrollView(.horizontal) {
@@ -60,6 +61,7 @@ struct CatalogCategoryFilters: View {
 
     }
 
+    @ViewBuilder
     private func subcategoryRail(category: ProductCategory) -> some View {
 
         ScrollView(.horizontal) {

@@ -7,14 +7,6 @@
 
 import Foundation
 
-enum RequestBody {
-
-    case none
-    case json([String: Any])
-    case multipart(boundary: String, data: Data)
-
-}
-
 protocol APIProtocol: AnyObject, Sendable, Loggable {
 
     var environment: AppEnvironment? { get }

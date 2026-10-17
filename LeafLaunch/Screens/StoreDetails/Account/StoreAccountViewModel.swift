@@ -91,7 +91,7 @@ final class StoreAccountViewModel: ViewModel {
         let alertService = self.alertService
         self.isLoggingOut = true
 
-        self.logoutTask = Task { [weak self] in
+        self.logoutTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 
@@ -155,7 +155,7 @@ final class StoreAccountViewModel: ViewModel {
         self.requestId = requestId
         self.isLoading = true
 
-        self.loadAccountTask = Task { [weak self] in
+        self.loadAccountTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 
@@ -208,7 +208,7 @@ final class StoreAccountViewModel: ViewModel {
         self.isLoading = true
         self.hasLoadFailed = false
 
-        self.loadAccountTask = Task { [weak self] in
+        self.loadAccountTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 

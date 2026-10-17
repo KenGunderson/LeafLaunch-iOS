@@ -22,7 +22,7 @@ final class DevSettingsViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var dismissAction: (() -> ())?
+    private var dismissAction: (() -> Void)?
     private var cancelBag: CancelBag!
     private var logoutTask: Task<Void, Never>?
 
@@ -47,6 +47,8 @@ final class DevSettingsViewModel: ViewModel {
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
 
+        logInit()
+
     }
 
     isolated deinit {
@@ -56,12 +58,8 @@ final class DevSettingsViewModel: ViewModel {
 
     }
 
-    func loadData() {
-
-    }
-
     func setup(navigationService: NavigationService,
-               dismissAction: @escaping (() -> ())) {
+               dismissAction: @escaping (() -> Void)) {
 
         self.navigationService = navigationService
         self.dismissAction = dismissAction
@@ -134,18 +132,32 @@ final class DevSettingsViewModel: ViewModel {
 
     func logout() {
 
-        self.logoutTask?.cancel()
-        self.dismiss()
+        guard self.logoutTask == nil else { return }
 
         let authService = self.authService
 
-        self.logoutTask = Task {
+        self.logoutTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            defer {
+
+                if !Task.isCancelled { self?.logoutTask = nil }
+
+            }
 
             do {
+
                 try await authService.logout()
-            }
-            catch {
                 guard !Task.isCancelled else { return }
+
+                self?.dismiss()
+
+            } catch {
+
+                guard !Task.isCancelled else { return }
+                self?.presentLogoutError()
+
             }
 
         }
@@ -182,6 +194,7 @@ final class DevSettingsViewModel: ViewModel {
 
     private func bindSubscribers() {
 
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
 
         self.environmentService
@@ -207,6 +220,19 @@ final class DevSettingsViewModel: ViewModel {
                 self?.user = user
             }
             .store(in: &self.cancelBag)
+
+    }
+
+    private func presentLogoutError() {
+
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .error(
+                    message: Constants.Message.logoutErrorMessage,
+                    action: {}
+                )
+            )
+        ))
 
     }
 

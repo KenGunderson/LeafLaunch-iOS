@@ -55,6 +55,7 @@ struct StoreAccountMembershipView: View {
 
     }
 
+    @ViewBuilder
     private func membershipContent(_ membership: CustomerLocationMembership) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
@@ -82,6 +83,7 @@ struct StoreAccountMembershipView: View {
 
     }
 
+    @ViewBuilder
     private func membershipHeader() -> some View {
 
         HStack(alignment: .top, spacing: self.style.spacing(.small)) {
@@ -100,6 +102,7 @@ struct StoreAccountMembershipView: View {
 
     }
 
+    @ViewBuilder
     private func membershipDetails(_ membership: CustomerLocationMembership) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
@@ -121,6 +124,7 @@ struct StoreAccountMembershipView: View {
 
     }
 
+    @ViewBuilder
     private func joinContent() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {

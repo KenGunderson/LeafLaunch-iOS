@@ -12,7 +12,7 @@ struct AgeVerificationScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -22,10 +22,12 @@ struct AgeVerificationScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
         NavHeader(title: String(localized: "Age Verification"))
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         AgeVerificationConsentView(

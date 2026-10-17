@@ -21,7 +21,6 @@ final class SignUpViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
     private var appleAuthorizationTask: Task<Void, Never>?
     private var signUpTask: Task<Void, Never>?
 
@@ -99,8 +98,13 @@ final class SignUpViewModel: ViewModel {
                 defer {
 
                     alertService.dismissAlert(loadingIndicator)
-                    self?.isLoading = false
-                    self?.appleAuthorizationTask = nil
+
+                    if !Task.isCancelled {
+
+                        self?.isLoading = false
+                        self?.appleAuthorizationTask = nil
+
+                    }
 
                 }
 
@@ -162,8 +166,13 @@ final class SignUpViewModel: ViewModel {
             defer {
 
                 alertService.dismissAlert(loadingIndicator)
-                self?.isLoading = false
-                self?.signUpTask = nil
+
+                if !Task.isCancelled {
+
+                    self?.isLoading = false
+                    self?.signUpTask = nil
+
+                }
 
             }
 
@@ -204,14 +213,6 @@ final class SignUpViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
-
-    }
-
-    private func bindSubscribers() {
-
-        guard self.cancelBag == nil else { return }
-        self.cancelBag = CancelBag()
 
     }
 
@@ -224,7 +225,7 @@ final class SignUpViewModel: ViewModel {
         self.alertService.showAlert(.init(
             .appAlert(
                 .error(
-                    message: error.getMessageForError(),
+                    message: Constants.Message.signupErrorMessage,
                     action: {}
                 )
             )

@@ -22,24 +22,31 @@ struct ProductAttributesView: View {
                             Divider()
                         }
 
-                        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-                            Text(attribute.name)
-                                .appFont(with: .NOTE_1)
-                                .foregroundStyle(.text(.body))
-
-                            Text(attribute.displayValue)
-                                .appFont(with: .BODY_2)
-                                .foregroundStyle(.text(.title))
-                                .textSelection(.enabled)
-
-                        }
+                        attributeRow(attribute)
 
                     }
 
                 }
 
             }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func attributeRow(_ attribute: ProductAttribute) -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(attribute.name)
+                .appFont(with: .NOTE_1)
+                .foregroundStyle(.text(.body))
+
+            Text(attribute.displayValue)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(.text(.title))
+                .textSelection(.enabled)
 
         }
 

@@ -107,8 +107,8 @@ struct SectionView<Trailing: View>: View {
                 Text(self.trailingTitle)
                     .appFont(with: .BODY_2)
 
-                Image(systemName: "arrow.right")
-                    .resizable()
+                ImageSource.systemImage("arrow.right")
+                    .view()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 12, height: 12)
 
@@ -182,8 +182,8 @@ extension SectionView where Trailing == EmptyView {
 
                 HStack(spacing: 2) {
 
-                    Image(systemName: "sparkles")
-                        .resizable()
+                    ImageSource.systemImage("sparkles")
+                        .view()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 16, height: 16)
 

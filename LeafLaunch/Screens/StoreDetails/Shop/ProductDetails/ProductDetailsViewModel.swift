@@ -75,7 +75,7 @@ final class ProductDetailsViewModel: ViewModel {
         self.isLoading = true
         self.hasLoadFailed = false
 
-        self.loadProductTask = Task { [weak self] in
+        self.loadProductTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 

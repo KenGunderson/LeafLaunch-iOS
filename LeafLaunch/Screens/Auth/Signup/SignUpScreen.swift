@@ -45,10 +45,10 @@ struct SignUpScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
-            headerView
+        LLAppHeaderScrollView {
+            headerView()
         } scrollViewContent: {
-            contentView
+            contentView()
         }
         .safeAreaInset(edge: .bottom) {
             bottomBar()
@@ -69,7 +69,8 @@ struct SignUpScreen: GPView {
 
     }
 
-    private var headerView: some View {
+    @ViewBuilder
+    private func headerView() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
@@ -95,7 +96,8 @@ struct SignUpScreen: GPView {
 
     }
 
-    private var contentView: some View {
+    @ViewBuilder
+    private func contentView() -> some View {
 
         VStack(spacing: self.style.spacing(.medium)) {
 
@@ -114,75 +116,90 @@ struct SignUpScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func bottomBar() -> some View {
 
         VStack(alignment: .leading) {
 
-            HStack(spacing: self.style.spacing(.none)) {
-
-                // Checkbox
-
-                Toggle(
-                    "",
-                    isOn: self.$viewModel.agreedToTerms
-                )
-                .toggleStyle(.checkmarkFilled(
-                    height: 30,
-                    unselectedColor: .background(.quaternary),
-                    horizontalSpacing: .small,
-                    cornerRadius: .extraSmall,
-                    animation: .bouncy(duration: 0.3, extraBounce: 0.2)
-                ))
-                .foregroundStyle(.text(.titleInverted))
-                .appFont(with: .TITLE_5)
-                .contentTransition(.symbolEffect(.replace))
-//                .animation(.bouncy(duration: 0.10), value: self.viewModel.agreedToTerms)
-
-                // Attributed Text
-
-                AttributedText {
-
-                    Text("By signing up, you agree to our ")
-                        .foregroundStyle(.text(.body))
-                        .font(self.style.font(.BODY_2))
-
-                    Text("[Terms Of Service](https://apple.com)")
-                        .font(self.style.font(.BODY_2))
-                        .foregroundStyle(.foreground(.primary))
-                        .underline()
-
-                }
-                .environment(\.openURL, .init(handler: { url in
-
-//                    self.navigationService
-//                        .push(.setting(.termsOfService))
-
-                    return .handled
-
-                }))
-                .tint(.init(.foreground(.primary)))
-
-            }
+            termsAgreement()
 
             // LoginButton
 
-            CommonButton(
-                title: "Create Account",
-                titleColor: .text(.button),
-                isEnabled: self.viewModel.isButtonEnabled,
-                disabledOpacity: 0.7
-            ) {
-
-                self.viewModel
-                    .handleSignUp()
-
-            }
-            .padding(.vertical, .small)
+            signUpAction()
 
         }
         .background(.background(.primary))
         .padding(.horizontal, .medium)
         .opacity(self.focusedField == nil ? 1 : 0)
+
+    }
+
+    @ViewBuilder
+    private func termsAgreement() -> some View {
+
+        HStack(spacing: self.style.spacing(.none)) {
+
+            // Checkbox
+
+            Toggle(
+                "",
+                isOn: self.$viewModel.agreedToTerms
+            )
+            .toggleStyle(.checkmarkFilled(
+                height: 30,
+                unselectedColor: .background(.quaternary),
+                horizontalSpacing: .small,
+                cornerRadius: .extraSmall,
+                animation: .bouncy(duration: 0.3, extraBounce: 0.2)
+            ))
+            .foregroundStyle(.text(.titleInverted))
+            .appFont(with: .TITLE_5)
+            .contentTransition(.symbolEffect(.replace))
+//                .animation(.bouncy(duration: 0.10), value: self.viewModel.agreedToTerms)
+
+            // Attributed Text
+
+            AttributedText {
+
+                Text("By signing up, you agree to our ")
+                    .foregroundStyle(.text(.body))
+                    .font(self.style.font(.BODY_2))
+
+                Text("[Terms Of Service](https://apple.com)")
+                    .font(self.style.font(.BODY_2))
+                    .foregroundStyle(.foreground(.primary))
+                    .underline()
+
+            }
+            .environment(\.openURL, .init(handler: { url in
+
+//                    self.navigationService
+//                        .push(.setting(.termsOfService))
+
+                return .handled
+
+            }))
+            .tint(.init(.foreground(.primary)))
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func signUpAction() -> some View {
+
+        CommonButton(
+            title: "Create Account",
+            titleColor: .text(.button),
+            isEnabled: self.viewModel.isButtonEnabled,
+            disabledOpacity: 0.7
+        ) {
+
+            self.viewModel
+                .handleSignUp()
+
+        }
+        .padding(.vertical, .small)
 
     }
 
@@ -258,13 +275,10 @@ struct SignUpScreen: GPView {
             }
 
         }
-        .titleUnderlineTextFieldStyle(
+        .llTextFieldStyle(
             text: text.wrappedValue,
             title: placeholder,
-            style: .border(cornerRadius: .custom(6)),
-            isFocused: isFocused,
-            textFieldFont: .BODY_3,
-            titleFont: .BODY_2
+            isFocused: isFocused
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(keyboardType)
@@ -286,8 +300,8 @@ struct SignUpScreen: GPView {
 
         if fieldToFocus == .password {
 
-            Image(systemName: self.showPassword ? "eye.slash" : "eye")
-                .resizable()
+            ImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
+                .view()
                 .scaledToFit()
                 .foregroundStyle(.text(.placeholder))
                 .frame(width: 24, height: 24)

@@ -61,6 +61,7 @@ struct RootScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func backgroundView() -> some View {
 
         self.style
@@ -70,6 +71,7 @@ struct RootScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func mainView() -> some View {
 
         GeometryReader { _ in
@@ -89,6 +91,7 @@ struct RootScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func splashScreenView() -> some View {
 
         SplashScreenView {

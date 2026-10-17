@@ -12,10 +12,8 @@ struct LeafLaunchCardView<Content: View>: View {
     private let title: String
     private let content: Content
 
-    init(
-        title: String,
-        @ViewBuilder content: () -> Content
-    ) {
+    init(title: String,
+         @ViewBuilder content: () -> Content) {
 
         self.title = title
         self.content = content()

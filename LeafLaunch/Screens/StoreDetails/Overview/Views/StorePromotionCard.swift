@@ -34,50 +34,9 @@ struct StorePromotionCard: View {
 
             VStack(alignment: .leading, spacing: 0) {
 
-                if let imageURL = self.promotion.image?.url {
+                promotionImage()
 
-                    ImageSource.remote(
-                        url: imageURL,
-                        contentMode: .fill,
-                        placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
-                    )
-                    .view()
-                    .aspectRatio(1.6, contentMode: .fit)
-                    .clipped()
-
-                }
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-                    HStack(spacing: self.style.spacing(.small)) {
-
-                        ImageSource.systemImage("tag")
-                            .view(shouldResize: false)
-                        Text(String(localized: "Promotion"))
-
-                    }
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(.foreground(.primary))
-
-                    Text(self.promotion.title)
-                        .appFont(with: .HEADER_3)
-                        .foregroundStyle(.text(.title))
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    if let description = self.promotion.description, !description.isEmpty {
-
-                        Text(description)
-                            .appFont(with: .BODY_2)
-                            .foregroundStyle(.text(.body))
-                            .fixedSize(horizontal: false, vertical: true)
-
-                    }
-
-                    scheduleView()
-                    linkedProductsView()
-
-                }
-                .padding(.medium)
+                promotionDetails()
 
             }
 
@@ -129,29 +88,91 @@ struct StorePromotionCard: View {
 
                 ForEach(self.linkedProducts) { product in
 
-                    HStack(spacing: self.style.spacing(.small)) {
-
-                        Text(product.displayName)
-                            .multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                        ImageSource.systemImage("arrow.up.right")
-                            .view(shouldResize: false)
-
-                    }
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(.foreground(.primary))
-                    .padding(.vertical, .small2)
-                    .frame(minHeight: 44)
-                    .contentShape(Rectangle())
-                    .asButton {
-                        self.onSelectProduct(product)
-                    }
+                    linkedProductRow(product)
 
                 }
 
             }
 
+        }
+
+    }
+
+    @ViewBuilder
+    private func promotionImage() -> some View {
+
+        if let imageURL = self.promotion.image?.url {
+
+            ImageSource.remote(
+                url: imageURL,
+                contentMode: .fill,
+                placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
+            )
+            .view()
+            .aspectRatio(1.6, contentMode: .fit)
+            .clipped()
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func promotionDetails() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+            HStack(spacing: self.style.spacing(.small)) {
+
+                ImageSource.systemImage("tag")
+                    .view(shouldResize: false)
+                Text(String(localized: "Promotion"))
+
+            }
+            .appFont(with: .TITLE_2)
+            .foregroundStyle(.foreground(.primary))
+
+            Text(self.promotion.title)
+                .appFont(with: .HEADER_3)
+                .foregroundStyle(.text(.title))
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let description = self.promotion.description, !description.isEmpty {
+
+                Text(description)
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(.text(.body))
+                    .fixedSize(horizontal: false, vertical: true)
+
+            }
+
+            scheduleView()
+            linkedProductsView()
+
+        }
+        .padding(.medium)
+
+    }
+
+    @ViewBuilder
+    private func linkedProductRow(_ product: PromotionLinkedProduct) -> some View {
+
+        HStack(spacing: self.style.spacing(.small)) {
+
+            Text(product.displayName)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            ImageSource.systemImage("arrow.up.right")
+                .view(shouldResize: false)
+
+        }
+        .appFont(with: .TITLE_3)
+        .foregroundStyle(.foreground(.primary))
+        .padding(.vertical, .small2)
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+        .asButton {
+            self.onSelectProduct(product)
         }
 
     }

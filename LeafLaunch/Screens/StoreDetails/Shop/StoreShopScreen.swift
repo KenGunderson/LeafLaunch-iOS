@@ -15,7 +15,7 @@ struct StoreShopScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -32,10 +32,12 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
         NavHeader(title: String(localized: "Shop"), subtitle: String(localized: "Find your next favorite"))
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
@@ -58,6 +60,7 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func searchField() -> some View {
 
         HStack(spacing: self.style.spacing(.small2)) {
@@ -112,6 +115,7 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func feedHeader() -> some View {
 
         ViewThatFits(in: .horizontal) {
@@ -135,6 +139,7 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func feedTitle() -> some View {
 
         Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "All products"))
@@ -143,6 +148,7 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func sortMenu() -> some View {
 
         Menu {
@@ -179,21 +185,14 @@ struct StoreShopScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func productFeed() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
             feedHeader()
 
-            if self.viewModel.isLoading && self.viewModel.products.isEmpty {
-
-                ProgressView(String(localized: "Loading products"))
-                    .tint(self.style.accent)
-                    .appFont(with: .BODY_2)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, .large)
-
-            }
+            loadingProducts()
 
             feedState()
 
@@ -204,26 +203,7 @@ struct StoreShopScreen: GPView {
                 onFavorite: { self.viewModel.toggleFavorite(id: $0) }
             )
 
-            if self.viewModel.hasMoreProducts {
-
-                LeafLaunchButton(title: self.viewModel.isLoading ? String(localized: "Loading products") : String(localized: "Load More Products")) {
-                    self.viewModel.loadMore()
-                }
-                .disabled(self.viewModel.isLoading)
-
-            }
-
-            if !self.viewModel.products.isEmpty && !self.viewModel.isLoading {
-
-                Text(String(localized: "Refresh Products"))
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(self.style.palette(.link))
-                    .frame(maxWidth: .infinity, minHeight: 44)
-                    .asButton {
-                        self.viewModel.loadData(showHud: false)
-                    }
-
-            }
+            feedActions()
 
         }
 
@@ -271,6 +251,47 @@ struct StoreShopScreen: GPView {
                 }
 
             }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func loadingProducts() -> some View {
+
+        if self.viewModel.isLoading && self.viewModel.products.isEmpty {
+
+            ProgressView(String(localized: "Loading products"))
+                .tint(self.style.accent)
+                .appFont(with: .BODY_2)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, .large)
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func feedActions() -> some View {
+
+        if self.viewModel.hasMoreProducts {
+
+            LeafLaunchButton(title: self.viewModel.isLoading ? String(localized: "Loading products") : String(localized: "Load More Products")) {
+                self.viewModel.loadMore()
+            }
+            .disabled(self.viewModel.isLoading)
+
+        }
+
+        if !self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+
+            Text(String(localized: "Refresh Products"))
+                .appFont(with: .TITLE_2)
+                .foregroundStyle(self.style.palette(.link))
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .asButton {
+                    self.viewModel.loadData(showHud: false)
+                }
 
         }
 

@@ -49,25 +49,7 @@ struct ProductGalleryView: View {
                     thumbnails()
                 }
 
-                HStack(alignment: .top, spacing: self.style.spacing(.small)) {
-
-                    if self.images.indices.contains(self.selectedIndex),
-                       let caption = self.images[self.selectedIndex].altText,
-                       !caption.isEmpty {
-
-                        Text(caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                    } else {
-                        Spacer(minLength: 0)
-                    }
-
-                    Text(String(localized: "Image \(self.selectedIndex + 1) of \(self.images.count)"))
-                        .fixedSize(horizontal: true, vertical: false)
-
-                }
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(.text(.body))
+                imageCaption()
 
             }
 
@@ -81,14 +63,14 @@ struct ProductGalleryView: View {
 
     }
 
+    @ViewBuilder
     private func pages() -> some View {
 
         TabView(selection: self.selection) {
 
             ForEach(self.images) { image in
 
-                ProductImageView(url: image.url)
-                .tag(image.id)
+                imagePage(image)
 
             }
 
@@ -100,6 +82,7 @@ struct ProductGalleryView: View {
 
     }
 
+    @ViewBuilder
     private func thumbnails() -> some View {
 
         ScrollView(.horizontal) {
@@ -108,28 +91,7 @@ struct ProductGalleryView: View {
 
                 ForEach(self.images) { image in
 
-                    let index = self.images.firstIndex { $0.id == image.id } ?? 0
-
-                    ProductImageView(
-                        url: image.url,
-                        showsPlaceholderLabel: false
-                    )
-                    .frame(width: 64, height: 64)
-                    .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
-                    .overlay {
-
-                        RoundedRectangle(cornerRadius: self.style.radius(.medium))
-                            .strokeBorder(
-                                self.selectedIndex == index
-                                    ? self.style.foreground(.primary)
-                                    : self.style.background(.border),
-                                lineWidth: self.selectedIndex == index ? 2 : 1
-                            )
-
-                    }
-                    .asButton {
-                        self.selectedImageId = image.id
-                    }
+                    thumbnail(image)
 
                 }
 
@@ -137,6 +99,67 @@ struct ProductGalleryView: View {
 
         }
         .scrollIndicators(.hidden)
+
+    }
+
+    @ViewBuilder
+    private func imageCaption() -> some View {
+
+        HStack(alignment: .top, spacing: self.style.spacing(.small)) {
+
+            if self.images.indices.contains(self.selectedIndex),
+               let caption = self.images[self.selectedIndex].altText,
+               !caption.isEmpty {
+
+                Text(caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+            } else {
+                Spacer(minLength: 0)
+            }
+
+            Text(String(localized: "Image \(self.selectedIndex + 1) of \(self.images.count)"))
+                .fixedSize(horizontal: true, vertical: false)
+
+        }
+        .appFont(with: .NOTE_1)
+        .foregroundStyle(.text(.body))
+
+    }
+
+    @ViewBuilder
+    private func thumbnail(_ image: ProductMedia) -> some View {
+
+        let index = self.images.firstIndex { $0.id == image.id } ?? 0
+
+        ProductImageView(
+            url: image.url,
+            showsPlaceholderLabel: false
+        )
+        .frame(width: 64, height: 64)
+        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
+        .overlay {
+
+            RoundedRectangle(cornerRadius: self.style.radius(.medium))
+                .strokeBorder(
+                    self.selectedIndex == index
+                        ? self.style.foreground(.primary)
+                        : self.style.background(.border),
+                    lineWidth: self.selectedIndex == index ? 2 : 1
+                )
+
+        }
+        .asButton {
+            self.selectedImageId = image.id
+        }
+
+    }
+
+    @ViewBuilder
+    private func imagePage(_ image: ProductMedia) -> some View {
+
+        ProductImageView(url: image.url)
+            .tag(image.id)
 
     }
 

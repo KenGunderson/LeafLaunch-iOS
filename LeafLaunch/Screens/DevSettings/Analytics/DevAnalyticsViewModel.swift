@@ -14,13 +14,6 @@ final class DevAnalyticsViewModel: ViewModel {
     internal let loggerName: String = "DEV"
     internal let loggerEmoji: String = "🔧"
 
-    enum DisplayType: String, CaseIterable {
-
-        case logs
-        case analytics
-        case api
-
-    }
 
     private(set) var analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
@@ -111,10 +104,6 @@ final class DevAnalyticsViewModel: ViewModel {
 
     }
 
-    func loadData() {
-
-    }
-
     func dismiss() {
 
         self.navigationService?
@@ -186,6 +175,7 @@ final class DevAnalyticsViewModel: ViewModel {
 
     private func bindSubscribers() {
 
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
 
         self.analyticsService
@@ -194,21 +184,21 @@ final class DevAnalyticsViewModel: ViewModel {
             .sink { [weak self] events in
                 self?.events = events
             }
-            .store(in: &cancelBag)
+            .store(in: &self.cancelBag)
 
         self.$selectedDisplayTypeString
             .receiveOnMain()
             .sink { [weak self] type in
                 self?.selectDisplayTypeFromString(type)
             }
-            .store(in: &cancelBag)
+            .store(in: &self.cancelBag)
 
         self.$selectedOSLogTypeString
             .receiveOnMain()
             .sink { [weak self] type in
                 self?.selectOSLogTypeFromString(type)
             }
-            .store(in: &cancelBag)
+            .store(in: &self.cancelBag)
 
     }
 

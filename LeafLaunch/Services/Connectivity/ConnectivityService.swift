@@ -23,10 +23,10 @@ final class ConnectivityService: ConnectivityServiceProtocol {
 
         self.networkMonitor.pathUpdateHandler = { [weak self] path in
 
-            guard let self = self else { return }
+            let hasNetworkConnection = path.status == .satisfied
 
-            Task { @MainActor in
-                self.setNetworkConnection(connection: path.status == .satisfied)
+            Task { @MainActor [weak self] in
+                self?.setNetworkConnection(connection: hasNetworkConnection)
             }
 
         }
@@ -38,16 +38,17 @@ final class ConnectivityService: ConnectivityServiceProtocol {
     deinit {
 
         self.networkMonitor.pathUpdateHandler = nil
+        self.networkMonitor.cancel()
         self.logDeinit()
 
     }
 
     func setNetworkConnection(connection: Bool) {
 
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
 
             withAnimation {
-                onHasNetworkConnection.send(connection)
+                self?.onHasNetworkConnection.send(connection)
             }
 
         }

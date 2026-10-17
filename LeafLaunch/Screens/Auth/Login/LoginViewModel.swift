@@ -21,7 +21,6 @@ final class LoginViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
     private var appleAuthorizationTask: Task<Void, Never>?
     private var forgotPasswordTask: Task<Void, Never>?
     private var loginTask: Task<Void, Never>?
@@ -91,7 +90,6 @@ final class LoginViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
 
     }
 
@@ -121,8 +119,13 @@ final class LoginViewModel: ViewModel {
                 defer {
 
                     alertService.dismissAlert(loadingIndicator)
-                    self?.isLoading = false
-                    self?.appleAuthorizationTask = nil
+
+                    if !Task.isCancelled {
+
+                        self?.isLoading = false
+                        self?.appleAuthorizationTask = nil
+
+                    }
 
                 }
 
@@ -180,8 +183,13 @@ final class LoginViewModel: ViewModel {
             defer {
 
                 alertService.dismissAlert(loadingIndicator)
-                self?.isLoading = false
-                self?.forgotPasswordTask = nil
+
+                if !Task.isCancelled {
+
+                    self?.isLoading = false
+                    self?.forgotPasswordTask = nil
+
+                }
 
             }
 
@@ -193,20 +201,13 @@ final class LoginViewModel: ViewModel {
                 analyticsService
                     .track(.auth(.forgotPassword(email: email)))
 
-                alertService.showAlert(.init(
-                    .appAlert(
-                        .success(
-                            message: "If an account exists for that email, password reset instructions are on the way.",
-                            action: {}
-                        )
-                    )
-                ))
+                self?.presentPasswordResetSuccess()
 
             }
             catch {
 
                 guard !Task.isCancelled else { return }
-                self?.presentAuthError(error)
+                self?.presentAuthError(error, message: Constants.Message.passwordResetErrorMessage)
 
             }
 
@@ -240,8 +241,13 @@ final class LoginViewModel: ViewModel {
             defer {
 
                 alertService.dismissAlert(loadingIndicator)
-                self?.isLoading = false
-                self?.loginTask = nil
+
+                if !Task.isCancelled {
+
+                    self?.isLoading = false
+                    self?.loginTask = nil
+
+                }
 
             }
 
@@ -267,14 +273,21 @@ final class LoginViewModel: ViewModel {
 
     }
 
-    private func bindSubscribers() {
+    private func presentPasswordResetSuccess() {
 
-        guard self.cancelBag == nil else { return }
-        self.cancelBag = CancelBag()
+        self.alertService.showAlert(.init(
+            .appAlert(
+                .success(
+                    message: Constants.Message.passwordResetSuccessMessage,
+                    action: {}
+                )
+            )
+        ))
 
     }
 
-    private func presentAuthError(_ error: Error) {
+    private func presentAuthError(_ error: Error,
+                                  message: String = Constants.Message.loginErrorMessage) {
 
         guard !(error is CancellationError) else { return }
         if let authorizationError = error as? ASAuthorizationError,
@@ -283,7 +296,7 @@ final class LoginViewModel: ViewModel {
         self.alertService.showAlert(.init(
             .appAlert(
                 .error(
-                    message: error.getMessageForError(),
+                    message: message,
                     action: {}
                 )
             )

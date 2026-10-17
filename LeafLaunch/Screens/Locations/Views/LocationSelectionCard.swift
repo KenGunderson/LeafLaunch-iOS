@@ -76,6 +76,7 @@ struct LocationSelectionCard: View {
 
     }
 
+    @ViewBuilder
     private func metadataLabel(_ text: String, systemImage: String) -> some View {
 
         HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
@@ -92,6 +93,7 @@ struct LocationSelectionCard: View {
 
     }
 
+    @ViewBuilder
     private func actionLabel() -> some View {
 
         HStack(spacing: self.style.spacing(.small)) {

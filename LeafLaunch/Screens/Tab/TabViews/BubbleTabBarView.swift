@@ -19,17 +19,7 @@ struct BubbleTabBarView: View {
 
             ForEach(Tab.allCases, id: \.self) { tab in
 
-                TabItemView(
-                    tab: tab,
-                    selectedTab: self.$selectedTab,
-                    badgeCount: 0
-                )
-                .frame(maxWidth: .infinity)
-                .modifier(
-                    TabSelectionAnimation(
-                        isSelected: self.selectedTab == tab
-                    )
-                )
+                tabItem(tab)
 
             }
 
@@ -53,6 +43,23 @@ struct BubbleTabBarView: View {
 
         }
         .appShadow(.custom(color: .black.opacity(0.3), radius: 10, x: 0, y: 2))
+
+    }
+
+    @ViewBuilder
+    private func tabItem(_ tab: Tab) -> some View {
+
+        TabItemView(
+            tab: tab,
+            selectedTab: self.$selectedTab,
+            badgeCount: 0
+        )
+        .frame(maxWidth: .infinity)
+        .modifier(
+            TabSelectionAnimation(
+                isSelected: self.selectedTab == tab
+            )
+        )
 
     }
 

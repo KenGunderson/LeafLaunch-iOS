@@ -13,7 +13,7 @@ struct LocationsScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -28,10 +28,12 @@ struct LocationsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
         NavHeader(title: self.viewModel.businessName, subtitle: String(localized: "Choose a location"))
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
@@ -48,17 +50,7 @@ struct LocationsScreen: GPView {
 
                 introduction()
 
-                LazyVStack(spacing: self.style.spacing(.medium)) {
-
-                    ForEach(self.viewModel.locations, id: \.id) { location in
-
-                        LocationSelectionCard(location: location) { [weak viewModel] in
-                            viewModel?.selectLocation(id: location.id)
-                        }
-
-                    }
-
-                }
+                locations()
 
             }
 
@@ -68,6 +60,29 @@ struct LocationsScreen: GPView {
 
     }
 
+    @ViewBuilder
+    private func locations() -> some View {
+
+        LazyVStack(spacing: self.style.spacing(.medium)) {
+
+            ForEach(self.viewModel.locations, id: \.id) { location in
+                locationRow(location)
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func locationRow(_ location: BootstrapLocation) -> some View {
+
+        LocationSelectionCard(location: location) { [weak viewModel] in
+            viewModel?.selectLocation(id: location.id)
+        }
+
+    }
+
+    @ViewBuilder
     private func introduction() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {

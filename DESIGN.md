@@ -64,6 +64,9 @@ Surfaces and media use theme large radius, inputs use medium2, and primary actio
 | Responsibility | Owner |
 | --- | --- |
 | Primary actions | LeafLaunchButton using Rune CommonButton |
+| Header and scroll composition | LLAppHeaderScrollView owns the shared medium content inset; Home retains its intentional large inset |
+| Titled authentication fields | llTextFieldStyle owns the Rune field treatment and medium2 input radius; callers own focus, secure entry, keyboard, and submission |
+| Modal alert content | AppCardConfig factories and BaseAppCardConfigView; InvitationAlertView reads the active style |
 | Cards | LLAppCardView using Rune AppCardView and appBorder |
 | Padded commerce surfaces | CommerceSurface using LLAppCardView |
 | Section title and optional supporting text | CommerceSectionHeader using SectionView |
@@ -78,6 +81,8 @@ Surfaces and media use theme large radius, inputs use medium2, and primary actio
 | Launch identity | SplashScreenView and SplashBrandMarkView |
 
 Native SwiftUI owns scrolling, focus, menus, pickers, disclosures, and safe areas. Rune `ImageSource` owns media loading and caching. Public product responses include each active image’s `url`; cards and galleries load those URLs directly. Categories provide `image_url`, bootstrap branding provides `logo_url`/`icon_url`/`splash_url`, and promotion/event images provide `url`. Customer models contain no storage keys or MIME metadata, and screens make no separate media URL requests. Keep loading, unavailable-media, empty, and failure/retry states truthful.
+
+Modal information uses its natural height when it fits and scrolls when needed, with the primary dismissal action outside the scrolling content. Use themed presentation spacing rather than a fixed gap that can consume the available height on short screens.
 
 Apply `.animation(.bouncy, value:)` to meaningful selection, favorite feedback, disclosures, and splash entrance. Category changes replace the subcategory group with `.blurReplace`; changing the parent clears its selected child. Use Rune `.asButton` for ordinary custom actions; retain native role-bearing buttons where the modifier cannot preserve that role. Keep LeafLaunchButton and Rune CommonButton for primary action styling. Do not add perpetual decorative animation or delays to the startup callback.
 

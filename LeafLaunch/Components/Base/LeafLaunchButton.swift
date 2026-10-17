@@ -11,11 +11,9 @@ struct LeafLaunchButton: View {
     private let icon: ImageSource?
     private let action: () -> Void
 
-    init(
-        title: String,
-        icon: ImageSource? = nil,
-        action: @escaping () -> Void
-    ) {
+    init(title: String,
+         icon: ImageSource? = nil,
+         action: @escaping () -> Void) {
 
         self.title = title
         self.icon = icon

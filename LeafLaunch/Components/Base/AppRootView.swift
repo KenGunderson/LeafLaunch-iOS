@@ -32,7 +32,7 @@ struct AppRootView<Content: View>: View {
 
         NavigationStack(path: self.$navigationService.routes) {
 
-            content
+            self.content
                 .withNavigationDestination()
                 .withFullScreenCover(self.$navigationService.fullScreenCover)
                 .withSheet(self.$navigationService.sheet)

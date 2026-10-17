@@ -21,7 +21,7 @@ struct BaseAppCardConfigView: View {
     init(image: ImageSource,
          title: String,
          attributedText: AttributedText,
-         tintColor: ColorSource = .color(GPColor.green),
+         tintColor: ColorSource = .palette(.success),
          actionTitle: String,
          action: @escaping () -> Void) {
 
@@ -38,14 +38,44 @@ struct BaseAppCardConfigView: View {
 
         VStack(spacing: self.style.spacing(.large)) {
 
-            icon()
-            titleMessage()
+            content()
             actionButton()
+
+        }
+        .accessibilityAddTraits(.isModal)
+
+    }
+
+    @ViewBuilder
+    private func content() -> some View {
+
+        ViewThatFits(in: .vertical) {
+
+            information()
+                .fixedSize(horizontal: false, vertical: true)
+
+            ScrollView {
+                information()
+            }
+            .scrollBounceBehavior(.basedOnSize)
 
         }
 
     }
 
+    @ViewBuilder
+    private func information() -> some View {
+
+        VStack(spacing: self.style.spacing(.large)) {
+
+            icon()
+            titleMessage()
+
+        }
+
+    }
+
+    @ViewBuilder
     private func icon() -> some View {
 
         self.image
@@ -53,9 +83,11 @@ struct BaseAppCardConfigView: View {
             .aspectRatio(contentMode: .fit)
             .frame(height: 80)
             .foregroundStyle(self.tintColor)
+            .accessibilityHidden(true)
 
     }
 
+    @ViewBuilder
     private func titleMessage() -> some View {
 
         Group {
@@ -63,9 +95,13 @@ struct BaseAppCardConfigView: View {
             Text(self.title)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(.text(.title))
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
 
             self.attributedText
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, -self.style.spacing(.small2))
                 .padding(.horizontal, .medium)
 
@@ -73,9 +109,10 @@ struct BaseAppCardConfigView: View {
 
     }
 
+    @ViewBuilder
     private func actionButton() -> some View {
 
-        CommonButton(title: self.actionTitle) {
+        LeafLaunchButton(title: self.actionTitle) {
             self.action()
         }
         .padding(.horizontal, .medium)
@@ -122,7 +159,7 @@ struct BaseAppCardConfigView: View {
 
                                 },
                                 cornerRadius: Style.shared.radius(.extraLarge),
-                                backgroundCardInset: .init(top: 0, left: 24, bottom: 250, right: 24),
+                                backgroundCardInset: .init(top: 0, left: 24, bottom: Style.shared.spacing(.large), right: 24),
                                 contentCardInset: .init(top: 40, left: 16, bottom: 40, right: 16),
                                 cardBackgroundColor: .background(.secondary),
                                 shouldDismissOnOutsideTouch: false,

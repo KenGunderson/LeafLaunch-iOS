@@ -73,6 +73,7 @@ struct StoreAccountProfileView: View {
 
     }
 
+    @ViewBuilder
     private func avatar() -> some View {
 
         AvatarView(
@@ -84,6 +85,7 @@ struct StoreAccountProfileView: View {
 
     }
 
+    @ViewBuilder
     private func identity() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {

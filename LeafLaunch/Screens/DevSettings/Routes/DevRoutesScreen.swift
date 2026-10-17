@@ -11,12 +11,13 @@ struct DevRoutesScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: DevRoutesViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: DevRoutesViewModel
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
 
             headerView()
 
@@ -30,11 +31,8 @@ struct DevRoutesScreen: GPView {
 
         .onFirstAppear { [weak viewModel] in
 
-            viewModel?
-                .handleFirstAppear()
-
-            viewModel?
-                .setup(navigationService: self.navigationService)
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
 
         }
 
@@ -55,6 +53,7 @@ struct DevRoutesScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(spacing: self.style.spacing(.medium)) {
@@ -77,6 +76,7 @@ struct DevRoutesScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func section(title: String) -> some View {
 
         Group {

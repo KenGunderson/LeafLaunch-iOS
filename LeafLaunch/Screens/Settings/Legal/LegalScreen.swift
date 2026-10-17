@@ -12,12 +12,13 @@ struct LegalScreen: View {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: LegalViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: LegalViewModel
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             headerView()
         } scrollViewContent: {
             content()
@@ -27,17 +28,8 @@ struct LegalScreen: View {
 
         .onFirstAppear { [weak viewModel] in
 
-            viewModel?
-                .handleFirstAppear()
-
-            viewModel?
-                .setup(navigationService: self.navigationService)
-
-        }
-        .task { [weak viewModel] in
-
-            viewModel?
-                .loadData()
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
 
         }
 
@@ -57,11 +49,12 @@ struct LegalScreen: View {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         let items = self.viewModel.legalItems
 
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
 
             let config = Constants.StaggerAnimation.config(interitemSpacing: 16)
 
@@ -69,17 +62,7 @@ struct LegalScreen: View {
 
                 if !items.isEmpty {
 
-                    VStack(alignment: .leading,
-                           spacing: self.style.spacing(.medium)) {
-
-                        ForEach(items, id: \.id) {
-
-                            self.section(legalItem: $0)
-
-                        }
-
-                    }
-                    .frame(maxWidth: .infinity)
+                    legalSections(items)
 
                 }
 
@@ -91,6 +74,30 @@ struct LegalScreen: View {
 
     }
 
+    @ViewBuilder
+    private func legalSections(_ items: [LegalItem]) -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+
+            ForEach(items, id: \.id) { item in
+                section(legalItem: item)
+            }
+
+        }
+        .frame(maxWidth: .infinity)
+
+    }
+
+    @ViewBuilder
+    private func messageRow(_ message: String) -> some View {
+
+        Text(message)
+            .appFont(with: .BODY_2)
+            .foregroundStyle(.text(.body))
+
+    }
+
+    @ViewBuilder
     private func section(legalItem: LegalItem) -> some View {
 
         VStack(alignment: .leading,
@@ -104,9 +111,7 @@ struct LegalScreen: View {
 
                 ForEach(legalItem.sections, id: \.self) { message in
 
-                    Text(message)
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(.text(.body))
+                    messageRow(message)
 
                 }
 

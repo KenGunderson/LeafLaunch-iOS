@@ -70,10 +70,6 @@ final class DevUserDefaultsViewModel: ViewModel {
 
     }
 
-    func loadData() {
-
-    }
-
     func set(theme: AvailableTheme) {
 
         self.theme = theme
@@ -92,6 +88,7 @@ final class DevUserDefaultsViewModel: ViewModel {
 
     private func bindSubscribers() {
 
+        guard self.cancelBag == nil else { return }
         self.cancelBag = CancelBag()
 
         self.$didRateMyAppAlertShow

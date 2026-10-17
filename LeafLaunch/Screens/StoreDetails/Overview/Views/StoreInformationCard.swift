@@ -49,6 +49,7 @@ struct StoreInformationCard: View {
 
     }
 
+    @ViewBuilder
     private func contactDisclosure(_ store: PublicStore) -> some View {
 
         DisclosureGroup(isExpanded: self.$showsContact) {
@@ -68,31 +69,11 @@ struct StoreInformationCard: View {
                 }
 
                 if let phone = store.supportPhone, !phone.isEmpty {
-
-                    if let url = contactURL(scheme: "tel", value: phone) {
-
-                        Link(destination: url) {
-                            contactLabel(phone, systemImage: "phone")
-                        }
-
-                    } else {
-                        contactLabel(phone, systemImage: "phone")
-                    }
-
+                    contactLink(phone, scheme: "tel", systemImage: "phone")
                 }
 
                 if let email = store.supportEmail, !email.isEmpty {
-
-                    if let url = contactURL(scheme: "mailto", value: email) {
-
-                        Link(destination: url) {
-                            contactLabel(email, systemImage: "envelope")
-                        }
-
-                    } else {
-                        contactLabel(email, systemImage: "envelope")
-                    }
-
+                    contactLink(email, scheme: "mailto", systemImage: "envelope")
                 }
 
                 if let websiteURL = store.websiteURL {
@@ -113,6 +94,7 @@ struct StoreInformationCard: View {
 
     }
 
+    @ViewBuilder
     private func disclosureLabel(_ title: String, systemImage: String) -> some View {
 
         HStack(spacing: self.style.spacing(.small2)) {
@@ -130,6 +112,7 @@ struct StoreInformationCard: View {
 
     }
 
+    @ViewBuilder
     private func contactLabel(_ title: String, systemImage: String) -> some View {
 
         HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small2)) {
@@ -145,6 +128,21 @@ struct StoreInformationCard: View {
         .foregroundStyle(.foreground(.primary))
         .padding(.vertical, .small)
         .frame(minHeight: 44)
+
+    }
+
+    @ViewBuilder
+    private func contactLink(_ value: String, scheme: String, systemImage: String) -> some View {
+
+        if let url = contactURL(scheme: scheme, value: value) {
+
+            Link(destination: url) {
+                contactLabel(value, systemImage: systemImage)
+            }
+
+        } else {
+            contactLabel(value, systemImage: systemImage)
+        }
 
     }
 

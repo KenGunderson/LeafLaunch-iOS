@@ -72,7 +72,7 @@ final class AgeVerificationViewModel: ViewModel {
         self.alertService.showAlert(.init(
             .appAlert(
                 .error(
-                    message: Constants.Message.errorMessage("age verification"),
+                    message: Constants.Message.ageVerificationErrorMessage,
                     action: {}
                 )
             )

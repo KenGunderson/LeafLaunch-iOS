@@ -14,7 +14,7 @@ struct StoreFavoritesScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -31,10 +31,12 @@ struct StoreFavoritesScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
         NavHeader(title: String(localized: "Favorites"), subtitle: String(localized: "Good finds, saved for later"))
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
@@ -51,26 +53,33 @@ struct StoreFavoritesScreen: GPView {
 
             emptyContent()
 
-            if !self.viewModel.products.isEmpty {
-
-                CommerceSectionHeader(
-                    title: String(localized: "Your collection"),
-                    subtitle: String(localized: "Available at this location")
-                )
-
-                ProductGridView(
-                    products: self.viewModel.products,
-                    favoriteProductIds: Set(self.viewModel.products.map(\.id)),
-                    onOpen: { self.viewModel.openProduct(id: $0) },
-                    onFavorite: { self.viewModel.removeFavorite(id: $0) }
-                )
-                .animation(.bouncy, value: self.viewModel.products.map(\.id))
-
-            }
+            collection()
 
         }
         .foregroundStyle(self.style.textColor(.body))
         .tabFlowContentSpacing()
+
+    }
+
+    @ViewBuilder
+    private func collection() -> some View {
+
+        if !self.viewModel.products.isEmpty {
+
+            CommerceSectionHeader(
+                title: String(localized: "Your collection"),
+                subtitle: String(localized: "Available at this location")
+            )
+
+            ProductGridView(
+                products: self.viewModel.products,
+                favoriteProductIds: Set(self.viewModel.products.map(\.id)),
+                onOpen: { self.viewModel.openProduct(id: $0) },
+                onFavorite: { self.viewModel.removeFavorite(id: $0) }
+            )
+            .animation(.bouncy, value: self.viewModel.products.map(\.id))
+
+        }
 
     }
 

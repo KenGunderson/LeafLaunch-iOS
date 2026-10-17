@@ -11,8 +11,9 @@ struct WelcomeScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: WelcomeViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: WelcomeViewModel
 
     @State private var footerSize: CGSize = .zero
     @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
@@ -21,15 +22,15 @@ struct WelcomeScreen: GPView {
 
         AppRootView(navigationService: Bindable(self.navigationService)) {
 
-            content
+            content()
                 .safeAreaInset(edge: .bottom) {
-                    footer
+                    footer()
                 }
 
                 .onFirstAppear { [weak viewModel] in
 
-                    viewModel?
-                        .handleFirstAppear()
+                    viewModel?.setup(navigationService: self.navigationService)
+                    viewModel?.handleFirstAppear()
 
                 }
 
@@ -38,47 +39,18 @@ struct WelcomeScreen: GPView {
         .detectRotation { orientation in
             self.orientation = orientation
         }
-        .task { [weak viewModel] in
 
-            viewModel?
-                .setup(navigationService: self.navigationService)
-
-        }
 
     }
 
-    var content: some View {
+    @ViewBuilder
+    private func content() -> some View {
 
         VStack(spacing: self.style.spacing(.none)) {
 
-            Image(systemName: "person.fill")
-                .resizable()
-                .if(self.orientation == .landscapeLeft || self.orientation == .landscapeRight) { view in
-                    view.scaledToFit().cornerRadius(.large)
-                }
-                .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
-                    view.frame(height: Constants.Runtime.deviceHeight / 1.95)
-                }
-                .ignoresSafeArea()
+            welcomeImage()
 
-            VStack(spacing: self.style.spacing(.large)) {
-
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-
-                Text("Capture photos, create before & afters, and showcase your results.")
-                    .appFont(with: .BODY_4)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.text(.body))
-                    .padding(.horizontal, .extraLarge)
-
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .background(.background(.primary))
-            .padding(.bottom, self.footerSize.height + self.style.spacing(.medium))
+            introduction()
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -87,12 +59,52 @@ struct WelcomeScreen: GPView {
 
     }
 
-    var footer: some View {
+    @ViewBuilder
+    private func welcomeImage() -> some View {
+
+        ImageSource.systemImage("person.fill")
+            .view()
+            .if(self.orientation == .landscapeLeft || self.orientation == .landscapeRight) { view in
+                view.scaledToFit().cornerRadius(.large)
+            }
+            .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
+                view.frame(height: Constants.Runtime.deviceHeight / 1.95)
+            }
+            .ignoresSafeArea()
+
+    }
+
+    @ViewBuilder
+    private func introduction() -> some View {
+
+        VStack(spacing: self.style.spacing(.large)) {
+
+            ImageSource.systemImage("person.fill")
+                .view()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+
+            Text("Capture photos, create before & afters, and showcase your results.")
+                .appFont(with: .BODY_4)
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.text(.body))
+                .padding(.horizontal, .extraLarge)
+
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .background(.background(.primary))
+        .padding(.bottom, self.footerSize.height + self.style.spacing(.medium))
+
+    }
+
+    @ViewBuilder
+    private func footer() -> some View {
 
         VStack(spacing: 16) {
 
-            signUpButton
-            loginButton
+            signUpButton()
+            loginButton()
 
         }
         .padding(.horizontal, 32)
@@ -105,7 +117,8 @@ struct WelcomeScreen: GPView {
 
     }
 
-    var signUpButton: some View {
+    @ViewBuilder
+    private func signUpButton() -> some View {
 
         CommonButton(
             title: "Sign Up",
@@ -116,7 +129,8 @@ struct WelcomeScreen: GPView {
 
     }
 
-    var loginButton: some View {
+    @ViewBuilder
+    private func loginButton() -> some View {
 
         CommonButton(
             style: .outline(lineWidth: 3),

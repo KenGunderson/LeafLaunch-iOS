@@ -79,54 +79,11 @@ struct StoreHoursDisclosure: View {
 
         DisclosureGroup(isExpanded: self.$isExpanded) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-                if let timezone = self.details.location.timezone, !timezone.isEmpty {
-
-                    Text(timezone)
-                        .appFont(with: .NOTE_1)
-                        .foregroundStyle(.text(.body))
-
-                }
-
-                if self.hours.isEmpty {
-
-                    Text(String(localized: "Contact the store for opening hours."))
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(.text(.body))
-
-                } else {
-
-                    ForEach(self.hours) { hours in
-
-                        hoursRow(
-                            title: weekday(hours.weekday),
-                            hours: hoursText(closed: hours.closed, opensAt: hours.opensAt, closesAt: hours.closesAt)
-                        )
-
-                    }
-
-                }
-
-                specialHours()
-
-            }
-            .padding(.top, .small2)
+            hoursContent()
 
         } label: {
 
-            HStack(spacing: self.style.spacing(.small2)) {
-
-                ImageSource.systemImage("clock")
-                    .view(shouldResize: false)
-                    .foregroundStyle(.foreground(.primary))
-                Text(String(localized: "Opening hours"))
-                    .foregroundStyle(.text(.title))
-
-            }
-            .appFont(with: .TITLE_3)
-            .padding(.vertical, .small)
-            .frame(minHeight: 44)
+            disclosureLabel()
 
         }
         .tint(self.style.foreground(.primary).source(style: self.style))
@@ -134,6 +91,7 @@ struct StoreHoursDisclosure: View {
 
     }
 
+    @ViewBuilder
     private func hoursRow(title: String, hours: String) -> some View {
 
         ViewThatFits(in: .horizontal) {
@@ -177,28 +135,92 @@ struct StoreHoursDisclosure: View {
 
             ForEach(self.exceptions) { exception in
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+                specialHoursRow(exception)
 
-                    if let label = exception.label, !label.isEmpty {
+            }
 
-                        Text(label)
-                            .appFont(with: .TITLE_2)
-                            .foregroundStyle(.text(.title))
+        }
 
-                    }
+    }
+
+    @ViewBuilder
+    private func hoursContent() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+            if let timezone = self.details.location.timezone, !timezone.isEmpty {
+
+                Text(timezone)
+                    .appFont(with: .NOTE_1)
+                    .foregroundStyle(.text(.body))
+
+            }
+
+            if self.hours.isEmpty {
+
+                Text(String(localized: "Contact the store for opening hours."))
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(.text(.body))
+
+            } else {
+
+                ForEach(self.hours) { hours in
 
                     hoursRow(
-                        title: formattedDate(exception.localDate),
-                        hours: hoursText(
-                            closed: exception.closed,
-                            opensAt: exception.opensAt,
-                            closesAt: exception.closesAt
-                        )
+                        title: weekday(hours.weekday),
+                        hours: hoursText(closed: hours.closed, opensAt: hours.opensAt, closesAt: hours.closesAt)
                     )
 
                 }
 
             }
+
+            specialHours()
+
+        }
+        .padding(.top, .small2)
+
+    }
+
+    @ViewBuilder
+    private func disclosureLabel() -> some View {
+
+        HStack(spacing: self.style.spacing(.small2)) {
+
+            ImageSource.systemImage("clock")
+                .view(shouldResize: false)
+                .foregroundStyle(.foreground(.primary))
+            Text(String(localized: "Opening hours"))
+                .foregroundStyle(.text(.title))
+
+        }
+        .appFont(with: .TITLE_3)
+        .padding(.vertical, .small)
+        .frame(minHeight: 44)
+
+    }
+
+    @ViewBuilder
+    private func specialHoursRow(_ exception: ScheduleException) -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            if let label = exception.label, !label.isEmpty {
+
+                Text(label)
+                    .appFont(with: .TITLE_2)
+                    .foregroundStyle(.text(.title))
+
+            }
+
+            hoursRow(
+                title: formattedDate(exception.localDate),
+                hours: hoursText(
+                    closed: exception.closed,
+                    opensAt: exception.opensAt,
+                    closesAt: exception.closesAt
+                )
+            )
 
         }
 

@@ -27,6 +27,7 @@ struct HomeScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
 
         NavHeader(

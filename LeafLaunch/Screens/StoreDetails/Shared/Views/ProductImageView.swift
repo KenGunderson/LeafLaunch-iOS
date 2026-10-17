@@ -39,6 +39,7 @@ struct ProductImageView: View {
 
     }
 
+    @ViewBuilder
     private func placeholder(isLoading: Bool) -> some View {
 
         VStack(spacing: self.style.spacing(.small)) {

@@ -145,19 +145,19 @@ final class MockAlertService: AlertServiceProtocol, ObservableObject, @unchecked
     }
 
     func dismissAlert(_ alert: RuneAlert) {
-        alerts.removeAll { alert.id == $0.id }
+        self.alerts.removeAll { alert.id == $0.id }
     }
 
     func dismiss(_ animated: Bool = true) {
-        alerts.removeLast()
+        _ = self.alerts.popLast()
     }
 
     func dismissAll() {
-        alerts.removeAll()
+        self.alerts.removeAll()
     }
 
     func dismissImmediately() {
-        alerts.removeLast()
+        _ = self.alerts.popLast()
     }
 
     func setRequestToDeleteAlert(_ shouldRequest: Bool) {
@@ -167,7 +167,7 @@ final class MockAlertService: AlertServiceProtocol, ObservableObject, @unchecked
     func dismissLoadingIndicator() {
 
         if let loadingAlert = self.alerts.first(where: { $0.alert == .simpleLoadingIndicator }) {
-            alerts.removeAll { loadingAlert.id == $0.id }
+            self.alerts.removeAll { loadingAlert.id == $0.id }
         }
 
     }

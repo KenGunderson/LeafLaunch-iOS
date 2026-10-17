@@ -42,10 +42,10 @@ struct LoginScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
-            headerView
+        LLAppHeaderScrollView {
+            headerView()
         } scrollViewContent: {
-            contentView
+            contentView()
         }
         .scrollBounceBehavior(.basedOnSize)
         .safeAreaInset(edge: .bottom) {
@@ -72,7 +72,8 @@ struct LoginScreen: GPView {
 
     }
 
-    private var headerView: some View {
+    @ViewBuilder
+    private func headerView() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
@@ -98,7 +99,8 @@ struct LoginScreen: GPView {
 
     }
 
-    private var contentView: some View {
+    @ViewBuilder
+    private func contentView() -> some View {
 
         VStack(alignment: .trailing, spacing: self.style.spacing(.small)) {
 
@@ -117,13 +119,14 @@ struct LoginScreen: GPView {
 
             // Forgot Password
 
-            forgotPassword
+            forgotPassword()
 
         }
 
     }
 
-    private var forgotPassword: some View {
+    @ViewBuilder
+    private func forgotPassword() -> some View {
 
         Text("Forgot Password?")
             .appFont(with: .TITLE_3)
@@ -134,6 +137,7 @@ struct LoginScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func bottomButton() -> some View {
 
         CommonButton(
@@ -181,13 +185,10 @@ struct LoginScreen: GPView {
             }
 
         }
-        .titleUnderlineTextFieldStyle(
+        .llTextFieldStyle(
             text: text.wrappedValue,
             title: placeholder,
-            style: .border(cornerRadius: .custom(6)),
-            isFocused: isFocused,
-            textFieldFont: .BODY_3,
-            titleFont: .BODY_2
+            isFocused: isFocused
         )
         .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(fieldToFocus == .email ? .emailAddress : .default)
@@ -209,7 +210,8 @@ struct LoginScreen: GPView {
 
         if isSecureEntry {
 
-            Image(systemName: self.showPassword ? "eye.slash" : "eye")
+            ImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
+                .view(shouldResize: false)
                 .scaledToFit()
                 .frame(maxWidth: 24, maxHeight: 24)
                 .asButton {

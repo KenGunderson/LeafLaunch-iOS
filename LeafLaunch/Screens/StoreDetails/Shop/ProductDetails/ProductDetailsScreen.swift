@@ -13,7 +13,7 @@ struct ProductDetailsScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -30,6 +30,7 @@ struct ProductDetailsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -40,26 +41,14 @@ struct ProductDetailsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             if let product = self.viewModel.product {
 
-                ProductGalleryView(product: product)
-
-                ProductDetailsSummaryView(
-                    product: product,
-                    isFavorite: self.viewModel.isFavorite,
-                    onFavorite: { self.viewModel.toggleFavorite() }
-                )
-
-                ProductOptionsView(product: product)
-                description(product)
-
-                if !product.attributes.isEmpty {
-                    ProductAttributesView(attributes: product.attributes)
-                }
+                productDetails(product)
 
             } else if self.viewModel.isLoading {
 
@@ -79,17 +68,7 @@ struct ProductDetailsScreen: GPView {
 
             }
 
-            if self.viewModel.product == nil && self.viewModel.hasLoadFailed {
-
-                LeafLaunchButton(
-                    title: String(localized: "Try again"),
-                    icon: .systemImage("arrow.clockwise")
-                ) {
-                    self.viewModel.loadData(showHud: true)
-                }
-                .disabled(self.viewModel.isLoading)
-
-            }
+            retryAction()
 
         }
         .padding(.top, .small)
@@ -97,6 +76,44 @@ struct ProductDetailsScreen: GPView {
 
     }
 
+    @ViewBuilder
+    private func productDetails(_ product: Product) -> some View {
+
+        ProductGalleryView(product: product)
+
+        ProductDetailsSummaryView(
+            product: product,
+            isFavorite: self.viewModel.isFavorite,
+            onFavorite: { self.viewModel.toggleFavorite() }
+        )
+
+        ProductOptionsView(product: product)
+        description(product)
+
+        if !product.attributes.isEmpty {
+            ProductAttributesView(attributes: product.attributes)
+        }
+
+    }
+
+    @ViewBuilder
+    private func retryAction() -> some View {
+
+        if self.viewModel.product == nil && self.viewModel.hasLoadFailed {
+
+            LeafLaunchButton(
+                title: String(localized: "Try again"),
+                icon: .systemImage("arrow.clockwise")
+            ) {
+                self.viewModel.loadData(showHud: true)
+            }
+            .disabled(self.viewModel.isLoading)
+
+        }
+
+    }
+
+    @ViewBuilder
     private func description(_ product: Product) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {

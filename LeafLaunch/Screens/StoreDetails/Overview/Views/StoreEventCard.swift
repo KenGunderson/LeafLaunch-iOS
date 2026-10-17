@@ -59,90 +59,9 @@ struct StoreEventCard: View {
 
             VStack(alignment: .leading, spacing: 0) {
 
-                if let imageURL = self.event.image?.url {
+                eventImage()
 
-                    ImageSource.remote(
-                        url: imageURL,
-                        contentMode: .fill,
-                        placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
-                    )
-                    .view()
-                    .aspectRatio(1.8, contentMode: .fit)
-                    .clipped()
-
-                }
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-                    HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
-
-                        if let startsAt = self.startsAt {
-                            dateTile(startsAt)
-                        }
-
-                        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                            Text(self.event.title)
-                                .appFont(with: .TITLE_5)
-                                .foregroundStyle(.text(.title))
-                                .fixedSize(horizontal: false, vertical: true)
-
-                            if let location = self.location {
-
-                                HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.extraSmall)) {
-
-                                    ImageSource.systemImage("mappin.and.ellipse")
-                                        .view(shouldResize: false)
-                                    Text(location.name)
-
-                                }
-                                .appFont(with: .NOTE_1)
-                                .foregroundStyle(.text(.body))
-
-                            }
-
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    }
-
-                    scheduleView()
-
-                    if let description = self.event.description, !description.isEmpty {
-
-                        Text(description)
-                            .appFont(with: .BODY_2)
-                            .foregroundStyle(.text(.body))
-                            .fixedSize(horizontal: false, vertical: true)
-
-                    }
-
-                    if let externalURL = self.event.externalURL {
-
-                        Divider()
-
-                        Link(destination: externalURL) {
-
-                            HStack(spacing: self.style.spacing(.small)) {
-
-                                Text(String(localized: "Event Details"))
-                                Spacer(minLength: self.style.spacing(.small))
-                                ImageSource.systemImage("arrow.up.right")
-                                    .view(shouldResize: false)
-
-                            }
-                            .appFont(with: .TITLE_3)
-                            .foregroundStyle(.foreground(.primary))
-                            .padding(.vertical, .small)
-                            .frame(minHeight: 44)
-                            .contentShape(Rectangle())
-
-                        }
-
-                    }
-
-                }
-                .padding(.medium)
+                eventDetails()
 
             }
 
@@ -150,6 +69,7 @@ struct StoreEventCard: View {
 
     }
 
+    @ViewBuilder
     private func dateTile(_ date: Date) -> some View {
 
         VStack(spacing: self.style.spacing(.extraSmall)) {
@@ -168,6 +88,7 @@ struct StoreEventCard: View {
 
     }
 
+    @ViewBuilder
     private func scheduleView() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
@@ -190,6 +111,115 @@ struct StoreEventCard: View {
         .appFont(with: .NOTE_1)
         .foregroundStyle(.text(.body))
         .fixedSize(horizontal: false, vertical: true)
+
+    }
+
+    @ViewBuilder
+    private func eventImage() -> some View {
+
+        if let imageURL = self.event.image?.url {
+
+            ImageSource.remote(
+                url: imageURL,
+                contentMode: .fill,
+                placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
+            )
+            .view()
+            .aspectRatio(1.8, contentMode: .fit)
+            .clipped()
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func eventDetails() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+
+            eventHeader()
+
+            scheduleView()
+
+            if let description = self.event.description, !description.isEmpty {
+
+                Text(description)
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(.text(.body))
+                    .fixedSize(horizontal: false, vertical: true)
+
+            }
+
+            eventAction()
+
+        }
+        .padding(.medium)
+
+    }
+
+    @ViewBuilder
+    private func eventHeader() -> some View {
+
+        HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
+
+            if let startsAt = self.startsAt {
+                dateTile(startsAt)
+            }
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+                Text(self.event.title)
+                    .appFont(with: .TITLE_5)
+                    .foregroundStyle(.text(.title))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if let location = self.location {
+
+                    HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.extraSmall)) {
+
+                        ImageSource.systemImage("mappin.and.ellipse")
+                            .view(shouldResize: false)
+                        Text(location.name)
+
+                    }
+                    .appFont(with: .NOTE_1)
+                    .foregroundStyle(.text(.body))
+
+                }
+
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func eventAction() -> some View {
+
+        if let externalURL = self.event.externalURL {
+
+            Divider()
+
+            Link(destination: externalURL) {
+
+                HStack(spacing: self.style.spacing(.small)) {
+
+                    Text(String(localized: "Event Details"))
+                    Spacer(minLength: self.style.spacing(.small))
+                    ImageSource.systemImage("arrow.up.right")
+                        .view(shouldResize: false)
+
+                }
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.foreground(.primary))
+                .padding(.vertical, .small)
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+
+            }
+
+        }
 
     }
 

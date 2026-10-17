@@ -77,7 +77,7 @@ final class StoreOverviewViewModel: ViewModel {
         let alertService = self.alertService
         self.isLoading = true
 
-        self.loadOverviewTask = Task { [weak self] in
+        self.loadOverviewTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 
@@ -128,7 +128,7 @@ final class StoreOverviewViewModel: ViewModel {
         let alertService = self.alertService
         self.isLoadingEvents = true
 
-        self.loadEventsTask = Task { [weak self] in
+        self.loadEventsTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 

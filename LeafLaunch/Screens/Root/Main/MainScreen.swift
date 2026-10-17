@@ -51,42 +51,20 @@ struct MainScreen: GPView {
 
         case .unavailable:
 
-            statusBox(title: "Store unavailable") {
-
-                Text("There are no stores available to browse right now.")
-                LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
-
-            }
+            unavailableStatus()
 
         case .updateRequired:
 
-            statusBox(title: "App update required") {
-
-                Text("Update this app to continue browsing.")
-
-                if let updateURL = self.viewModel.updateURL {
-                    Link("Update app", destination: updateURL)
-                }
-
-                LeafLaunchButton(title: "Check again") { self.viewModel.retryStoreLoading() }
-
-            }
+            updateRequiredStatus()
 
         case .failed:
-            statusBox(title: "Unable to load stores") {
-
-                Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
-                LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
-                Text("Choose another location")
-                    .foregroundStyle(.foreground(.primary))
-                    .asButton { self.viewModel.chooseAnotherLocation() }
-
-            }
+            failureStatus()
 
         }
 
     }
 
+    @ViewBuilder
     private func statusBox<Content: View>(title: LocalizedStringKey,
                                           @ViewBuilder content: () -> Content) -> some View {
 
@@ -102,6 +80,50 @@ struct MainScreen: GPView {
 
         }
         .padding(self.style.spacing(.medium))
+
+    }
+
+    @ViewBuilder
+    private func unavailableStatus() -> some View {
+
+        statusBox(title: "Store unavailable") {
+
+            Text("There are no stores available to browse right now.")
+            LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func updateRequiredStatus() -> some View {
+
+        statusBox(title: "App update required") {
+
+            Text("Update this app to continue browsing.")
+
+            if let updateURL = self.viewModel.updateURL {
+                Link("Update app", destination: updateURL)
+            }
+
+            LeafLaunchButton(title: "Check again") { self.viewModel.retryStoreLoading() }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func failureStatus() -> some View {
+
+        statusBox(title: "Unable to load stores") {
+
+            Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
+            LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
+            Text("Choose another location")
+                .foregroundStyle(.foreground(.primary))
+                .asButton { self.viewModel.chooseAnotherLocation() }
+
+        }
 
     }
 

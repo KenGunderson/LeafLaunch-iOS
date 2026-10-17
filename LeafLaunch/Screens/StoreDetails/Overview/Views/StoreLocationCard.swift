@@ -13,60 +13,10 @@ struct StoreLocationCard: View {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-                ViewThatFits(in: .horizontal) {
-
-                    HStack(spacing: self.style.spacing(.small)) {
-
-                        locationLabel()
-                        Spacer(minLength: self.style.spacing(.small))
-                        openStatus()
-
-                    }
-
-                    VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                        locationLabel()
-                        openStatus()
-
-                    }
-
-                }
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                    Text(self.details.location.name)
-                        .appFont(with: .HEADER_4)
-                        .foregroundStyle(.text(.title))
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    if !self.details.mapsAddress.isEmpty {
-
-                        Text(self.details.mapsAddress)
-                            .appFont(with: .BODY_2)
-                            .foregroundStyle(.text(.body))
-                            .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                    }
-
-                }
-
+                locationHeader()
+                address()
                 Divider()
-
-                HStack(spacing: self.style.spacing(.small)) {
-
-                    Text(String(localized: "Change Location"))
-                    Spacer(minLength: self.style.spacing(.small))
-                    ImageSource.systemImage("arrow.left.arrow.right")
-                        .view(shouldResize: false)
-
-                }
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.foreground(.primary))
-                .padding(.vertical, .small)
-                .frame(minHeight: 44)
-                .contentShape(Rectangle())
-                .asButton(action: self.onChangeLocation)
+                changeLocationAction()
 
             }
 
@@ -74,6 +24,7 @@ struct StoreLocationCard: View {
 
     }
 
+    @ViewBuilder
     private func locationLabel() -> some View {
 
         HStack(spacing: self.style.spacing(.small)) {
@@ -88,6 +39,7 @@ struct StoreLocationCard: View {
 
     }
 
+    @ViewBuilder
     private func openStatus() -> some View {
 
         HStack(spacing: self.style.spacing(.extraSmall)) {
@@ -100,6 +52,74 @@ struct StoreLocationCard: View {
         .appFont(with: .TITLE_2)
         .foregroundStyle(self.details.openNow ? .palette(.success) : .text(.body))
         .fixedSize(horizontal: false, vertical: true)
+
+    }
+
+    @ViewBuilder
+    private func locationHeader() -> some View {
+
+        ViewThatFits(in: .horizontal) {
+
+            HStack(spacing: self.style.spacing(.small)) {
+
+                locationLabel()
+                Spacer(minLength: self.style.spacing(.small))
+                openStatus()
+
+            }
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+                locationLabel()
+                openStatus()
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func address() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+            Text(self.details.location.name)
+                .appFont(with: .HEADER_4)
+                .foregroundStyle(.text(.title))
+                .fixedSize(horizontal: false, vertical: true)
+
+            if !self.details.mapsAddress.isEmpty {
+
+                Text(self.details.mapsAddress)
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(.text(.body))
+                    .textSelection(.enabled)
+                    .fixedSize(horizontal: false, vertical: true)
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func changeLocationAction() -> some View {
+
+        HStack(spacing: self.style.spacing(.small)) {
+
+            Text(String(localized: "Change Location"))
+            Spacer(minLength: self.style.spacing(.small))
+            ImageSource.systemImage("arrow.left.arrow.right")
+                .view(shouldResize: false)
+
+        }
+        .appFont(with: .TITLE_3)
+        .foregroundStyle(.foreground(.primary))
+        .padding(.vertical, .small)
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+        .asButton(action: self.onChangeLocation)
 
     }
 

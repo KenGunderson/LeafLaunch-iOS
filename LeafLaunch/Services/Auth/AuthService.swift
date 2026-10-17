@@ -472,12 +472,20 @@ final class AuthService: AuthServiceProtocol {
             defer {
 
                 if self?.initialUserLoadId == loadId {
-                    self?.onInitialLoadCompleted.send(true)
+
+                    self?.initialUserLoadTask = nil
+
+                    if !Task.isCancelled {
+                        self?.onInitialLoadCompleted.send(true)
+                    }
+
                 }
 
             }
 
             do {
+
+                try Task.checkCancellation()
 
                 try await firebaseService.getAccessTokenForCurrentUser()
                 try Task.checkCancellation()

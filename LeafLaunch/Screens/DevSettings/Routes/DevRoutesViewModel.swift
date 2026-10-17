@@ -19,7 +19,6 @@ final class DevRoutesViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
 
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
@@ -46,11 +45,6 @@ final class DevRoutesViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
-
-    }
-
-    func loadData() {
 
     }
 
@@ -66,10 +60,6 @@ final class DevRoutesViewModel: ViewModel {
         self.navigationService?
             .modal(fullScreenCover: modal)
 
-    }
-
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
     }
 
 }

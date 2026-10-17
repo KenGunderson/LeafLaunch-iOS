@@ -172,6 +172,16 @@ struct Constants {
 
     struct Message {
 
+        static let loginErrorMessage = "Something went wrong while signing you in. Please try again."
+        static let signupErrorMessage = "Something went wrong while creating your account. Please try again."
+        static let logoutErrorMessage = "Something went wrong while signing you out. Please try again."
+        static let authenticationErrorMessage = "We couldn't verify your account. Please sign in again."
+
+        static let passwordResetErrorMessage = "Something went wrong while requesting a password reset. Please try again."
+        static let passwordResetSuccessMessage = "If an account exists for that email, password reset instructions are on the way."
+
+        static let ageVerificationErrorMessage = "Something went wrong while verifying your age. Please try again."
+
         enum Context {
 
             case get

@@ -82,6 +82,7 @@ struct StoreAccountHistoryRow: View {
 
     }
 
+    @ViewBuilder
     private func transactionTitle() -> some View {
 
         HStack(alignment: .top, spacing: self.style.spacing(.small)) {
@@ -107,6 +108,7 @@ struct StoreAccountHistoryRow: View {
 
     }
 
+    @ViewBuilder
     private func points() -> some View {
 
         VStack(alignment: .trailing, spacing: self.style.spacing(.extraSmall)) {

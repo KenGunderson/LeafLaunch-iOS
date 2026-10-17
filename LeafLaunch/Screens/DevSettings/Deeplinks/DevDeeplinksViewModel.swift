@@ -19,7 +19,6 @@ final class DevDeeplinksViewModel: ViewModel {
     private let environmentService: EnvironmentServiceProtocol
 
     private weak var navigationService: NavigationService?
-    private var cancelBag: CancelBag!
 
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
@@ -46,11 +45,6 @@ final class DevDeeplinksViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
-        bindSubscribers()
-
-    }
-
-    func loadData() {
 
     }
 
@@ -69,10 +63,6 @@ final class DevDeeplinksViewModel: ViewModel {
 
         UIApplication.shared.open(url)
 
-    }
-
-    private func bindSubscribers() {
-        self.cancelBag = CancelBag()
     }
 
 }

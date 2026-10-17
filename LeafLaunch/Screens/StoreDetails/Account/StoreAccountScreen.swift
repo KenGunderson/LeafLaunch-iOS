@@ -13,7 +13,7 @@ struct StoreAccountScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -30,6 +30,7 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -40,6 +41,7 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
@@ -53,25 +55,7 @@ struct StoreAccountScreen: GPView {
 
             } else {
 
-                if let user = self.viewModel.user {
-
-                    StoreAccountProfileView(user: user, account: self.viewModel.account)
-
-                }
-
-                if self.viewModel.hasLoadFailed {
-                    loadFailure()
-                }
-
-                if self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
-                    loyalty()
-                }
-
-                if self.viewModel.hasCompletedInitialLoad || !self.viewModel.history.isEmpty || self.viewModel.isLoading {
-                    pointsHistory()
-                }
-
-                signOutButton()
+                account()
 
             }
 
@@ -82,6 +66,32 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
+    private func account() -> some View {
+
+        if let user = self.viewModel.user {
+
+            StoreAccountProfileView(user: user, account: self.viewModel.account)
+
+        }
+
+        if self.viewModel.hasLoadFailed {
+            loadFailure()
+        }
+
+        if self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
+            loyalty()
+        }
+
+        if self.viewModel.hasCompletedInitialLoad || !self.viewModel.history.isEmpty || self.viewModel.isLoading {
+            pointsHistory()
+        }
+
+        signOutButton()
+
+    }
+
+    @ViewBuilder
     private func loyalty() -> some View {
 
         StoreAccountMembershipView(
@@ -93,6 +103,7 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func pointsHistory() -> some View {
 
         StoreAccountHistoryView(
@@ -105,6 +116,7 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func loadFailure() -> some View {
 
         CommerceSurface {
@@ -128,6 +140,7 @@ struct StoreAccountScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func signOutButton() -> some View {
 
         Button(role: .destructive) {

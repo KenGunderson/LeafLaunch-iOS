@@ -26,16 +26,23 @@ struct ProductGridView: View {
 
             ForEach(self.products) { product in
 
-                ProductCardView(
-                    product: product,
-                    isFavorite: self.favoriteProductIds.contains(product.id),
-                    onOpen: { self.onOpen(product.id) },
-                    onFavorite: { self.onFavorite(product.id) }
-                )
+                productCard(product)
 
             }
 
         }
+
+    }
+
+    @ViewBuilder
+    private func productCard(_ product: Product) -> some View {
+
+        ProductCardView(
+            product: product,
+            isFavorite: self.favoriteProductIds.contains(product.id),
+            onOpen: { self.onOpen(product.id) },
+            onFavorite: { self.onFavorite(product.id) }
+        )
 
     }
 

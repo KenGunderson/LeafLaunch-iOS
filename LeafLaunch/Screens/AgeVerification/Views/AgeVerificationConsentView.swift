@@ -38,6 +38,7 @@ struct AgeVerificationConsentView: View {
 
     }
 
+    @ViewBuilder
     private func ageRequirement() -> some View {
 
         HStack(alignment: .center, spacing: self.style.spacing(.medium)) {
@@ -58,6 +59,7 @@ struct AgeVerificationConsentView: View {
 
     }
 
+    @ViewBuilder
     private func stateLabel() -> some View {
 
         HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {

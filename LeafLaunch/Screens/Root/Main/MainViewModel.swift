@@ -31,7 +31,8 @@ final class MainViewModel: ViewModel {
     private var retryTask: Task<Void, Never>?
 
     var storeErrorMessage: String? {
-        return self.storeSessionService.error?.getMessageForError()
+        guard self.storeSessionService.error != nil else { return nil }
+        return Constants.Message.errorMessage(context: .get, "store information")
     }
 
     var updateURL: URL? {
@@ -96,8 +97,18 @@ final class MainViewModel: ViewModel {
 
         let storeSessionService = self.storeSessionService
 
-        self.retryTask = Task {
+        self.retryTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            defer {
+
+                if !Task.isCancelled { self?.retryTask = nil }
+
+            }
+
             await storeSessionService.bootstrap()
+
         }
 
     }

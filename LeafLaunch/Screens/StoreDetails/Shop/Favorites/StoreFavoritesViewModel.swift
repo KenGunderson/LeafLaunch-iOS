@@ -72,7 +72,7 @@ final class StoreFavoritesViewModel: ViewModel {
         self.isLoading = true
         self.hasLoadFailed = false
 
-        self.loadFavoritesTask = Task { [weak self] in
+        self.loadFavoritesTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 

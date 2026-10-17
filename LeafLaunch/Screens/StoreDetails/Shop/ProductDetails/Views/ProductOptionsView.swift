@@ -42,6 +42,7 @@ struct ProductOptionsView: View {
 
     }
 
+    @ViewBuilder
     private func option(_ variant: ProductPricing) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
@@ -96,6 +97,7 @@ struct ProductOptionsView: View {
 
     }
 
+    @ViewBuilder
     private func price(_ variant: ProductPricing) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {

@@ -17,6 +17,7 @@ final class StoreShopViewModel: ViewModel {
     private var loadProductsTask: Task<Void, Never>?
     private var searchTask: Task<Void, Never>?
     private var loadId: UUID?
+    private var activeQuery: ProductQuery?
     private var favoritesSubscription: AnyCancellable?
     private var nextOffset: Int?
     private var hasLoadedCategories: Bool = false
@@ -191,7 +192,7 @@ final class StoreShopViewModel: ViewModel {
         self.isLoading = true
         self.hasLoadFailed = false
 
-        if reset {
+        if reset && self.activeQuery != query {
 
             self.products = []
             self.nextOffset = nil
@@ -200,7 +201,9 @@ final class StoreShopViewModel: ViewModel {
 
         }
 
-        self.loadProductsTask = Task { [weak self] in
+        if reset { self.activeQuery = query }
+
+        self.loadProductsTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 
@@ -270,6 +273,7 @@ final class StoreShopViewModel: ViewModel {
         self.loadProductsTask?.cancel()
         self.loadProductsTask = nil
         self.loadId = nil
+        self.activeQuery = nil
         self.products = []
         self.nextOffset = nil
         self.hasMoreProducts = false
@@ -277,7 +281,7 @@ final class StoreShopViewModel: ViewModel {
         self.hasLoadFailed = false
         self.isLoading = false
 
-        self.searchTask = Task { [weak self] in
+        self.searchTask = Task { @MainActor [weak self] in
 
             do {
 

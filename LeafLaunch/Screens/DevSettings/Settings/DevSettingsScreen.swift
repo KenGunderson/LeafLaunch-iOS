@@ -24,7 +24,7 @@ struct DevSettingsScreen: GPView {
 
         AppRootView(navigationService: self.$navigationService) {
 
-            AppHeaderScrollView(horizontalPadding: .medium) {
+            LLAppHeaderScrollView {
 
                 navBarView()
 
@@ -37,15 +37,13 @@ struct DevSettingsScreen: GPView {
 
             .onFirstAppear { [weak viewModel] in
 
-                viewModel?
-                    .handleFirstAppear()
-
                 viewModel?.setup(
                     navigationService: self.navigationService,
                     dismissAction: {
                         dismiss()
                     }
                 )
+                viewModel?.handleFirstAppear()
 
             }
 
@@ -108,35 +106,7 @@ struct DevSettingsScreen: GPView {
 
                 VStack(spacing: self.style.spacing(.small)) {
 
-                    CommonSegmentedControl(
-                        selectedOption: self.$viewModel.selectedEnviornment,
-                        options: self.viewModel.getAppEnviornments(),
-                        selectedTextColor: .text(.titleInverted)
-                    )
-                    .padding(.bottom, .small)
-
-                    if case .custom = self.viewModel.selectedEnviornment {
-
-                        TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
-                            .appFont(with: .TITLE_3)
-                            .foregroundStyle(.text(.title))
-                            .padding(8)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
-                            }
-                            .onSubmit { [weak viewModel] in
-
-                                let customEnv: AppEnvironment = .custom(address: viewModel?.customAPIEnviornmentPath ?? "")
-                                viewModel?.set(environment: customEnv)
-
-                            }
-                            .transition(
-                                .move(edge: .top).combined(with: .opacity)
-                            )
-                            .padding(.bottom, .small)
-
-                    }
+                    environmentControls()
 
                     lineItemView(
                         title: "Host",
@@ -154,26 +124,7 @@ struct DevSettingsScreen: GPView {
                         subtitle: self.viewModel.user?.id ?? ""
                     )
 
-                    Text("Copy Auth Token")
-                        .appFont(with: .TITLE_5)
-                        .foregroundStyle(.text(.title))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, self.style.spacing(.small))
-                        .padding(.vertical, self.style.spacing(.medium))
-                        .background(.backgroundTappable)
-                        .background {
-
-                            RoundedRectangle(cornerRadius: self.style.radius(.small))
-                                .stroke(
-                                    .background(.tertiary),
-                                    lineWidth: 2
-                                )
-
-                        }
-                        .asButton {
-                            self.viewModel.copyAuthTokenToNotepad()
-                        }
-                        .padding(.top, .small)
+                    copyAuthTokenAction()
 
                 }
 
@@ -262,16 +213,7 @@ struct DevSettingsScreen: GPView {
 
                 ForEach(Route.DevSettingRoute.allCases, id: \.rawValue) { route in
 
-                    listSectionItemView(
-                        title: route.displayName,
-                        icon: route.icon
-                    )
-                    .asButton {
-
-                        self.viewModel
-                            .navigate(to: route.routeForDevSetting)
-
-                    }
+                    routeRow(route)
 
                 }
 
@@ -335,10 +277,95 @@ struct DevSettingsScreen: GPView {
 
                 Spacer(minLength: 0)
 
-                Image(systemName: "chevron.right")
+                ImageSource.systemImage("chevron.right")
+                    .view(shouldResize: false)
 
             }
             .foregroundStyle(colorOverride)
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func environmentControls() -> some View {
+
+        CommonSegmentedControl(
+            selectedOption: self.$viewModel.selectedEnviornment,
+            options: self.viewModel.getAppEnviornments(),
+            selectedTextColor: .text(.titleInverted)
+        )
+        .padding(.bottom, .small)
+
+        customEnvironmentField()
+
+    }
+
+    @ViewBuilder
+    private func copyAuthTokenAction() -> some View {
+
+        Text("Copy Auth Token")
+            .appFont(with: .TITLE_5)
+            .foregroundStyle(.text(.title))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, self.style.spacing(.small))
+            .padding(.vertical, self.style.spacing(.medium))
+            .background(.backgroundTappable)
+            .background {
+
+                RoundedRectangle(cornerRadius: self.style.radius(.small))
+                    .stroke(
+                        .background(.tertiary),
+                        lineWidth: 2
+                    )
+
+            }
+            .asButton {
+                self.viewModel.copyAuthTokenToNotepad()
+            }
+            .padding(.top, .small)
+
+    }
+
+    @ViewBuilder
+    private func routeRow(_ route: Route.DevSettingRoute) -> some View {
+
+        listSectionItemView(
+            title: route.displayName,
+            icon: route.icon
+        )
+        .asButton {
+
+            self.viewModel
+                .navigate(to: route.routeForDevSetting)
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func customEnvironmentField() -> some View {
+
+        if case .custom = self.viewModel.selectedEnviornment {
+
+            TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.text(.title))
+                .padding(8)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
+                }
+                .onSubmit { [weak viewModel] in
+
+                    let customEnv: AppEnvironment = .custom(address: viewModel?.customAPIEnviornmentPath ?? "")
+                    viewModel?.set(environment: customEnv)
+
+                }
+                .transition(
+                    .move(edge: .top).combined(with: .opacity)
+                )
+                .padding(.bottom, .small)
 
         }
 

@@ -63,6 +63,7 @@ struct SplashScreenView: View {
 
     }
 
+    @ViewBuilder
     private func loadingStatus() -> some View {
 
         HStack(spacing: self.style.spacing(.small2)) {

@@ -10,7 +10,7 @@ If implemented, keep the files together under `LeafLaunch/Screens/UserDetails/`,
 
 ## ViewModel: UserDetailsViewModel.swift
 
-The route installs the current customer `userId` before the screen appears. The first-appearance entry point tracks the screen; a separate `.task` triggers `loadData(showHud: true)`. Repeated refresh taps cannot overlap requests, so the example needs neither request-generation identifiers nor replacement-task bookkeeping.
+The route installs the current customer `userId` before the screen appears. The first-appearance entry point tracks the screen; a separate `.task` triggers `loadData(showHud: true)`. Repeated refresh calls cancel the previous task before replacing it. Cancellation guards keep a superseded request from publishing values or clearing the new request’s loading state; the authenticated user ID remains an additional context guard.
 
 ```swift
 import SwiftUI
@@ -71,25 +71,31 @@ final class UserDetailsViewModel: ViewModel {
 
     func loadData(showHud: Bool) {
 
-        guard self.loadUserTask == nil,
-              let userId = self.userId else { return }
+        guard let userId = self.userId else { return }
+
+        self.loadUserTask?.cancel()
+        self.isLoading = true
 
         let authService = self.authService
         let alertService = self.alertService
 
-        self.isLoading = true
+        self.loadUserTask = Task { @MainActor [weak self] in
 
-        self.loadUserTask = Task { [weak self] in
+            guard !Task.isCancelled else { return }
 
             let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
 
-                self?.isLoading = false
-                self?.loadUserTask = nil
-
                 if showHud { alertService.dismissAlert(loadingIndicator) }
+
+                if !Task.isCancelled {
+
+                    self?.isLoading = false
+                    self?.loadUserTask = nil
+
+                }
 
             }
 
@@ -106,7 +112,8 @@ final class UserDetailsViewModel: ViewModel {
 
             } catch {
 
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled,
+                      authService.currentUser?.id == userId else { return }
                 self?.presentProfileError()
 
             }
@@ -124,7 +131,7 @@ final class UserDetailsViewModel: ViewModel {
         self.alertService.showAlert(.init(
             .appAlert(
                 .error(
-                    message: Constants.Message.errorMessage("profile"),
+                    message: Constants.Message.errorMessage(context: .get, "profile"),
                     action: {}
                 )
             )
@@ -146,7 +153,7 @@ extension UserDetailsViewModel {
 }
 ```
 
-There are no publisher subscriptions, so there is no `CancelBag` or empty `bindSubscribers()` method. The task captures dependencies and the user ID before suspension, holds the ViewModel weakly, and checks cancellation before publishing a result or presenting an error. Cleanup runs through `defer`, including when the ViewModel cancels the request during deinitialization. Existing content stays visible if a refresh fails.
+There are no publisher subscriptions, so there is no `CancelBag` or empty `bindSubscribers()` method. The task captures dependencies and the user ID before suspension, holds the ViewModel weakly, and checks cancellation before publishing a result or presenting an error. Cleanup dismisses the exact loader through `defer`, including deinitialization cancellation. Only the current uncancelled task clears its handle and loading state. The screen’s `.task` starts a separate ViewModel-owned task and does not automatically cancel that task on disappearance. A context reset or explicit lifecycle cancellation must reset its own state; see the [loading contract](VIEW_MODEL_LOADING_AND_ALERTS.md). Existing content stays visible if a refresh fails.
 
 ## Screen: UserDetailsScreen.swift
 
@@ -168,7 +175,7 @@ struct UserDetailsScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             content()
@@ -183,6 +190,7 @@ struct UserDetailsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -195,31 +203,48 @@ struct UserDetailsScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            if let user = self.viewModel.user {
-
-                UserDetailsCard(
-                    user: user,
-                    isRefreshing: self.viewModel.isLoading,
-                    onRefresh: {
-                        self.viewModel.loadData(showHud: true)
-                    }
-                )
-
-            } else if !self.viewModel.isLoading {
-
-                LeafLaunchButton(title: String(localized: "Load Profile")) {
-                    self.viewModel.loadData(showHud: true)
-                }
-
-            }
+            profile()
+            loadProfile()
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, .medium)
+
+    }
+
+    @ViewBuilder
+    private func profile() -> some View {
+
+        if let user = self.viewModel.user {
+
+            UserDetailsCard(
+                user: user,
+                isRefreshing: self.viewModel.isLoading,
+                onRefresh: { [weak viewModel] in
+                    viewModel?.loadData(showHud: true)
+                }
+            )
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func loadProfile() -> some View {
+
+        if self.viewModel.user == nil && !self.viewModel.isLoading {
+
+            LeafLaunchButton(title: String(localized: "Load Profile")) { [weak viewModel] in
+                viewModel?.loadData(showHud: true)
+            }
+
+        }
+
     }
 
 }
@@ -235,7 +260,7 @@ struct UserDetailsScreen: GPView {
 }
 ```
 
-`content()` returns one `VStack`, so it does not need `@ViewBuilder`; the stack's builder handles its conditional children. A failed initial request offers another load without pretending that a successful empty response occurred. This feature reloads one authenticated customer profile, so list-specific empty-state flags and overlays would add unnecessary state. The preview assumes the mock registrations shown below, and uses the existing fixture and environment wrapper.
+`content()` reads as `profile()` followed by `loadProfile()`. These small named `@ViewBuilder` methods are required even for a helper with one root container. Each helper owns its visible responsibility and state branch. A failed initial request offers another load without pretending that a successful empty response occurred. This feature reloads one authenticated customer profile, so list-specific empty-state flags and overlays would add unnecessary state. The preview assumes the mock registrations shown below, and uses the existing fixture and environment wrapper.
 
 ## View component: views/UserDetailsCard.swift
 
@@ -268,21 +293,34 @@ struct UserDetailsCard: View {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-                Text(self.user.email)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(.text(.body))
-                    .textSelection(.enabled)
-
-                LeafLaunchButton(
-                    title: String(localized: "Refresh"),
-                    icon: .systemImage("arrow.clockwise"),
-                    action: self.onRefresh
-                )
-                .disabled(self.isRefreshing)
+                profileDetails()
+                refreshButton()
 
             }
 
         }
+
+    }
+
+    @ViewBuilder
+    private func profileDetails() -> some View {
+
+        Text(self.user.email)
+            .appFont(with: .BODY_2)
+            .foregroundStyle(.text(.body))
+            .textSelection(.enabled)
+
+    }
+
+    @ViewBuilder
+    private func refreshButton() -> some View {
+
+        LeafLaunchButton(
+            title: String(localized: "Refresh"),
+            icon: .systemImage("arrow.clockwise"),
+            action: self.onRefresh
+        )
+        .disabled(self.isRefreshing)
 
     }
 

@@ -12,14 +12,15 @@ struct DevDeeplinksScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject var viewModel: DevDeeplinksViewModel
     @Environment(NavigationService.self) private var navigationService
+
+    @StateObject var viewModel: DevDeeplinksViewModel
 
     var basePath = "leaflaunch://host/"
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        LLAppHeaderScrollView {
 
             headerView()
 
@@ -33,11 +34,8 @@ struct DevDeeplinksScreen: GPView {
 
         .onFirstAppear { [weak viewModel] in
 
-            viewModel?
-                .handleFirstAppear()
-
-            viewModel?
-                .setup(navigationService: self.navigationService)
+            viewModel?.setup(navigationService: self.navigationService)
+            viewModel?.handleFirstAppear()
 
         }
 
@@ -57,6 +55,7 @@ struct DevDeeplinksScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func content() -> some View {
 
         VStack(spacing: self.style.spacing(.medium)) {
@@ -89,6 +88,7 @@ struct DevDeeplinksScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func section(title: String) -> some View {
 
         Group {
@@ -107,6 +107,7 @@ struct DevDeeplinksScreen: GPView {
 
     }
 
+    @ViewBuilder
     private func route(title: String,
                        deeplink: String) -> some View {
 
