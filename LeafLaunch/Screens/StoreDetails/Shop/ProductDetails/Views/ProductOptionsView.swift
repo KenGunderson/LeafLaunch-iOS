@@ -5,95 +5,108 @@ struct ProductOptionsView: View {
     @Environment(\.style) private var style
 
     let product: Product
+    var contentInset: CGFloat = 0
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        if self.product.variants.isEmpty {
 
-            CommerceSectionHeader(title: String(localized: "Options & pricing"))
+            Text(String(localized: "No Pricing Options Available"))
+                .appFont(with: .BODY_2)
+                .foregroundStyle(.text(.body))
+                .padding(.horizontal, self.contentInset)
 
-            CommerceSurface {
+        } else {
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-                    if self.product.variants.isEmpty {
-
-                        Text(String(localized: "No pricing options available."))
-                            .appFont(with: .BODY_2)
-                            .foregroundStyle(.text(.body))
-
-                    }
-
-                    ForEach(self.product.variants, id: \.id) { variant in
-
-                        if variant.id != self.product.variants.first?.id {
-                            Divider()
-                        }
-
-                        option(variant)
-
-                    }
-
-                }
-
-            }
+            pricingOptions()
 
         }
 
     }
 
     @ViewBuilder
-    private func option(_ variant: ProductPricing) -> some View {
+    private func pricingOptions() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        ScrollView(.horizontal, showsIndicators: false) {
 
-            ViewThatFits(in: .horizontal) {
+            HStack(alignment: .top, spacing: self.style.spacing(.small)) {
 
-                HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.medium)) {
-
-                    Text(variant.name)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(.text(.title))
-
-                    Spacer(minLength: 0)
-                    price(variant)
-
-                }
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                    Text(variant.name)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(.text(.title))
-
-                    price(variant)
-
+                ForEach(self.product.variants, id: \.id) { variant in
+                    option(variant)
                 }
 
             }
-
-            let isAvailable = self.product.status == .published && variant.availability == .available
-
-            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
-
-                ImageSource.systemImage(isAvailable ? "checkmark.circle" : "minus.circle")
-                    .view(shouldResize: false)
-
-                Text(isAvailable ? String(localized: "Available") : String(localized: "Sold Out"))
-
-            }
-            .appFont(with: .NOTE_1)
-            .foregroundStyle(isAvailable ? self.style.foreground(.primary) : self.style.textColor(.body))
-
-            if variant.promotionId != nil {
-
-                Text(String(localized: "Promotion applied"))
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(.text(.body))
-
-            }
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.vertical, .extraSmall)
 
         }
+        .safeAreaPadding(.horizontal, self.contentInset)
+
+    }
+
+    @ViewBuilder
+    private func option(_ variant: ProductPricing) -> some View {
+
+        AppOutlineCardView(
+            verticalPadding: .small2,
+            horizontalPadding: .small2,
+            backgroundStyle: .background(.secondary),
+            outlineColor: .background(.border),
+            outlineWidth: 1,
+            cornerRadius: .medium
+        ) {
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+                optionName(variant)
+                price(variant)
+                availability(variant)
+
+                if variant.promotionId != nil {
+
+                    Text(String(localized: "Promotion Applied"))
+                        .appFont(with: .NOTE_1)
+                        .foregroundStyle(.text(.body))
+                        .fixedSize(horizontal: false, vertical: true)
+
+                }
+
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+
+        }
+        .frame(width: 128)
+        .frame(maxHeight: .infinity, alignment: .top)
+
+    }
+
+    @ViewBuilder
+    private func optionName(_ variant: ProductPricing) -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(String(localized: "Size"))
+                .appFont(with: .NOTE_1)
+                .foregroundStyle(.text(.body))
+
+            Text(variant.name)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.text(.title))
+                .fixedSize(horizontal: false, vertical: true)
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func availability(_ variant: ProductPricing) -> some View {
+
+        let isAvailable = self.product.status == .published && variant.availability == .available
+
+        Text(isAvailable ? String(localized: "Available") : String(localized: "Sold Out"))
+            .appFont(with: .NOTE_1)
+            .foregroundStyle(isAvailable ? self.style.foreground(.primary) : self.style.textColor(.body))
+            .fixedSize(horizontal: false, vertical: true)
 
     }
 
@@ -105,14 +118,18 @@ struct ProductOptionsView: View {
             if let price = variant.displayPrice {
 
                 Text(price.formatted(.currency(code: self.product.currencyCode)))
-                    .appFont(with: .TITLE_3)
+                    .appFont(with: .TITLE_5)
                     .foregroundStyle(.text(.title))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .fixedSize(horizontal: false, vertical: true)
 
             } else {
 
-                Text(String(localized: "Price unavailable"))
+                Text(String(localized: "Price Unavailable"))
                     .appFont(with: .BODY_1)
                     .foregroundStyle(.text(.body))
+                    .fixedSize(horizontal: false, vertical: true)
 
             }
 
@@ -126,10 +143,14 @@ struct ProductOptionsView: View {
                     .appFont(with: .NOTE_1)
                     .foregroundStyle(.text(.body))
                     .strikethrough()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .fixedSize(horizontal: false, vertical: true)
 
             }
 
         }
+
     }
 
 }

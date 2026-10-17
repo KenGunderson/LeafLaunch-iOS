@@ -19,6 +19,7 @@ extension NavBarButton {
         case filter(isFilled: Bool = false)
         case trash
         case star(isFilled: Bool = false)
+        case heart(isFilled: Bool = false)
 
         var icon: ImageSource {
 
@@ -34,6 +35,7 @@ extension NavBarButton {
             case .filter(let isFilled): return .systemImage("line.3.horizontal.decrease.circle\(isFilled ? ".fill" : "")")
             case .trash: return .systemImage("trash")
             case .star(let isFilled): return .systemImage("star\(isFilled ? ".fill" : "")")
+            case .heart(let isFilled): return .systemImage("heart\(isFilled ? ".fill" : "")")
 
             }
 
@@ -75,6 +77,7 @@ extension NavBarButton {
             case .filter: return "Filters"
             case .trash: return "Delete"
             case .star: return "Favorite"
+            case .heart: return String(localized: "Favorite Products")
 
             }
 

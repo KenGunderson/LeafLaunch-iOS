@@ -76,12 +76,6 @@ struct StoreDetailsScreen: GPView {
         case .tab3:
 
             AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
-                StoreFavoritesScreen(viewModel: self.viewModel.favoritesViewModel)
-            }
-
-        case .tab4:
-
-            AppRootView(navigationService: Bindable(tabBarNavigationService.tab4NavigationService)) {
                 StoreAccountScreen(viewModel: self.viewModel.accountViewModel)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -97,7 +91,7 @@ struct StoreDetailsScreen: GPView {
     @ViewBuilder
     private func accountTabInset() -> some View {
 
-        if let route = self.viewModel.tabBarNavigationService.tab4NavigationService.routes.last,
+        if let route = self.viewModel.tabBarNavigationService.tab3NavigationService.routes.last,
            case .auth = route {
 
             Color.clear

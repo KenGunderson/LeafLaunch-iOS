@@ -5,7 +5,7 @@ struct AgeVerificationConsentView: View {
     @Environment(\.style) private var style
 
     let minimumAge: Int
-    let stateName: String
+    let locationDetails: CustomerLocationDetails?
     let isApproving: Bool
     let approveAction: () -> Void
 
@@ -17,19 +17,8 @@ struct AgeVerificationConsentView: View {
 
                 ageRequirement()
 
-                Text(String(localized: "You must be at least \(self.minimumAge) years old to continue."))
-                    .appFont(with: .HEADER_3)
-                    .foregroundStyle(self.style.textColor(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-
-                if !self.stateName.isEmpty {
-                    stateLabel()
-                }
-
-                Divider().overlay(self.style.background(.border))
-
-                LeafLaunchButton(title: String(localized: "I agree"), action: self.approveAction)
-                    .disabled(self.isApproving)
+                location()
+                approveActionView()
 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -41,38 +30,77 @@ struct AgeVerificationConsentView: View {
     @ViewBuilder
     private func ageRequirement() -> some View {
 
-        HStack(alignment: .center, spacing: self.style.spacing(.medium)) {
-
-            ImageSource.systemImage("person.crop.square")
-                .view(shouldResize: false)
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(self.style.foreground(.primary))
-                .padding(self.style.spacing(.medium))
-                .background(self.style.background(.tertiary), in: Circle())
+        HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
 
             Text("\(self.minimumAge)+")
-                .appFont(with: .BILLBOARD_2)
+                .appFont(with: .HEADER_2)
                 .monospacedDigit()
-                .foregroundStyle(self.style.textColor(.title))
+                .foregroundStyle(self.style.foreground(.primary))
+                .padding(.small2)
+                .background(self.style.background(.tertiary))
+                .cornerRadius(.medium2)
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+                Text(String(localized: "Confirm your age"))
+                    .appFont(with: .TITLE_5)
+                    .foregroundStyle(self.style.textColor(.title))
+
+                Text(String(localized: "You must be at least \(self.minimumAge) years old to continue."))
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(self.style.textColor(.body))
+
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
         }
 
     }
 
     @ViewBuilder
-    private func stateLabel() -> some View {
+    private func location() -> some View {
 
-        HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+        if let details = self.locationDetails {
 
-            ImageSource.systemImage("mappin.and.ellipse")
-                .view(shouldResize: false)
+            Divider().overlay(self.style.background(.border))
 
-            Text(self.stateName)
+            HStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+
+                ImageSource.systemImage("mappin.and.ellipse")
+                    .view(shouldResize: false)
+                    .appFont(with: .TITLE_3)
+                    .foregroundStyle(self.style.foreground(.primary))
+
+                VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+                    Text(details.location.name)
+                        .appFont(with: .TITLE_3)
+                        .foregroundStyle(self.style.textColor(.title))
+
+                    if !details.address.isEmpty {
+
+                        Text(details.address)
+                            .appFont(with: .BODY_2)
+                            .foregroundStyle(self.style.textColor(.body))
+                            .textSelection(.enabled)
+
+                    }
+
+                }
                 .fixedSize(horizontal: false, vertical: true)
 
+            }
+
         }
-        .appFont(with: .BODY_2)
-        .foregroundStyle(self.style.textColor(.body))
+
+    }
+
+    @ViewBuilder
+    private func approveActionView() -> some View {
+
+        LeafLaunchButton(title: String(localized: "I agree"), action: self.approveAction)
+            .disabled(self.isApproving)
 
     }
 
@@ -84,7 +112,7 @@ struct AgeVerificationConsentView: View {
 
     AgeVerificationConsentView(
         minimumAge: details.agePolicy.minimumAge,
-        stateName: details.location.region ?? "",
+        locationDetails: details,
         isApproving: false,
         approveAction: {}
     )

@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 @MainActor
@@ -8,21 +9,21 @@ final class StoreOverviewViewModel: ViewModel {
 
     private let apiService: APIServiceProtocol
     private let storeSessionService: StoreSessionServiceProtocol
+    private let userDefaultsService: UserDefaultsServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
     private var loadOverviewTask: Task<Void, Never>?
-    private var loadEventsTask: Task<Void, Never>?
-    private var nextEventsOffset: Int?
+    private var favoritesSubscription: AnyCancellable?
 
     @Published private(set) var promotions: [Promotion] = []
     @Published private(set) var events: [StoreEvent] = []
+    @Published private(set) var featuredProducts: [Product] = []
+    @Published private(set) var favoriteProductIds: Set<String> = []
     @Published private(set) var isLoading: Bool = false
-    @Published private(set) var isLoadingEvents: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
-    @Published private(set) var hasMoreEvents: Bool = false
 
     var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
     var store: PublicStore? { self.storeSessionService.store }
@@ -30,11 +31,13 @@ final class StoreOverviewViewModel: ViewModel {
 
     init(apiService: APIServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
 
         self.apiService = apiService
         self.storeSessionService = storeSessionService
+        self.userDefaultsService = userDefaultsService
         self.analyticsService = analyticsService
         self.alertService = alertService
 
@@ -45,7 +48,7 @@ final class StoreOverviewViewModel: ViewModel {
     isolated deinit {
 
         self.loadOverviewTask?.cancel()
-        self.loadEventsTask?.cancel()
+        self.favoritesSubscription?.cancel()
         logDeinit()
 
     }
@@ -65,16 +68,18 @@ final class StoreOverviewViewModel: ViewModel {
     func handleFirstAppear() {
 
         track()
+        bindSubscribers()
 
     }
 
     func loadData(showHud: Bool) {
 
-        guard self.loadOverviewTask == nil, self.loadEventsTask == nil,
+        guard self.loadOverviewTask == nil,
               let locationId = self.locationId else { return }
 
         let apiService = self.apiService
         let alertService = self.alertService
+        let featuredQuery = ProductQuery(sort: .featured, limit: 6)
         self.isLoading = true
 
         self.loadOverviewTask = Task { @MainActor [weak self] in
@@ -96,63 +101,15 @@ final class StoreOverviewViewModel: ViewModel {
             do {
 
                 async let promotions = apiService.getCustomerPromotions(locationId: locationId)
-                async let events = apiService.getCustomerEvents(locationId: locationId, offset: 0)
-                let (loadedPromotions, loadedEvents) = try await (promotions, events)
+                async let events = apiService.getCustomerEvents(locationId: locationId, offset: 0, limit: 10)
+                async let featuredProducts = apiService.getCustomerProducts(locationId: locationId, query: featuredQuery)
+                let (loadedPromotions, loadedEvents, loadedFeaturedProducts) = try await (promotions, events, featuredProducts)
                 guard !Task.isCancelled else { return }
 
                 self?.promotions = loadedPromotions
-                self?.events = loadedEvents.data
-                self?.nextEventsOffset = loadedEvents.page.nextOffset
-                self?.hasMoreEvents = loadedEvents.page.hasMore && loadedEvents.page.nextOffset != nil
+                self?.events = Array(loadedEvents.data.prefix(10))
+                self?.featuredProducts = loadedFeaturedProducts.data
                 self?.hasCompletedInitialLoad = true
-
-            } catch {
-
-                guard !Task.isCancelled else { return }
-                self?.presentOverviewError(context: .get)
-
-            }
-
-        }
-
-    }
-
-    func loadMoreEvents(showHud: Bool = true) {
-
-        guard self.loadOverviewTask == nil, self.loadEventsTask == nil,
-              let locationId = self.locationId,
-              let offset = self.nextEventsOffset,
-              self.hasMoreEvents else { return }
-
-        let apiService = self.apiService
-        let alertService = self.alertService
-        self.isLoadingEvents = true
-
-        self.loadEventsTask = Task { @MainActor [weak self] in
-
-            guard !Task.isCancelled else { return }
-
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
-            if showHud { alertService.showAlert(loadingIndicator) }
-
-            defer {
-
-                if showHud { alertService.dismissAlert(loadingIndicator) }
-
-                self?.isLoadingEvents = false
-                self?.loadEventsTask = nil
-
-            }
-
-            do {
-
-                let events = try await apiService.getCustomerEvents(locationId: locationId, offset: offset)
-                guard !Task.isCancelled else { return }
-
-                let existingIds = Set(self?.events.map(\.id) ?? [])
-                self?.events.append(contentsOf: events.data.filter { !existingIds.contains($0.id) })
-                self?.nextEventsOffset = events.page.nextOffset
-                self?.hasMoreEvents = events.page.hasMore && (events.page.nextOffset ?? offset) > offset
 
             } catch {
 
@@ -169,12 +126,49 @@ final class StoreOverviewViewModel: ViewModel {
         self.storeSessionService.showLocations()
     }
 
-    func openProduct(_ product: PromotionLinkedProduct) {
+    func openEvents() {
+
+        guard let locationId = self.locationId else { return }
+        self.navigationService?.push(.customer(.events(locationId: locationId)))
+
+    }
+
+    func openEvent(_ event: StoreEvent) {
 
         guard let locationId = self.locationId,
-              product.storeLocationId == locationId else { return }
+              self.events.contains(where: { $0.id == event.id }) else { return }
 
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: product.id)))
+        self.navigationService?.push(.customer(.event(locationId: locationId, event: event)))
+
+    }
+
+    func openFeaturedProduct(id: String) {
+
+        guard let locationId = self.locationId,
+              self.featuredProducts.contains(where: { $0.id == id }) else { return }
+        self.navigationService?.push(.customer(.product(locationId: locationId, productId: id)))
+
+    }
+
+    func toggleFavorite(id: String) {
+
+        guard let product = self.featuredProducts.first(where: { $0.id == id }) else { return }
+
+        let isFavorite = !self.favoriteProductIds.contains(id)
+        self.userDefaultsService.setFavorite(
+            productId: id,
+            isFavorite: isFavorite
+        )
+        presentFavoriteToast(title: product.displayName, isFavorite: isFavorite)
+
+    }
+
+    private func bindSubscribers() {
+
+        guard self.favoritesSubscription == nil else { return }
+
+        self.favoritesSubscription = self.userDefaultsService.favoriteProductIdsPublisher
+            .sink { [weak self] in self?.favoriteProductIds = $0 }
 
     }
 
@@ -188,7 +182,25 @@ final class StoreOverviewViewModel: ViewModel {
                 )
             )
         ))
-
+        
+    }
+    
+    private func presentFavoriteToast(title: String, isFavorite: Bool) {
+        
+        ToastManager.shared.present(toastItem: .init(
+            timing: .medium,
+            direction: .top,
+            content: {
+                
+                ProductFavoriteToastView(
+                    productTitle: title,
+                    isFavorite: isFavorite
+                )
+                
+            }
+            
+        ))
+        
     }
 
 }

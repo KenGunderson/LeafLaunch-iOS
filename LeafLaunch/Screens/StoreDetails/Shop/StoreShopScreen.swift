@@ -5,6 +5,8 @@ struct StoreShopScreen: GPView {
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
+    @State private var isRefreshing: Bool = false
+    @State private var didRefreshProducts: Bool?
     @StateObject private var viewModel: StoreShopViewModel
 
     @FocusState private var isSearchFocused: Bool
@@ -15,7 +17,30 @@ struct StoreShopScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        AppHeaderScrollView(
+            horizontalPadding: .medium,
+            refreshConfiguration: .init(
+                isRefreshing: self.$isRefreshing,
+                indicatorPlacement: .sticky,
+                contentLayout: .pushesContent,
+                dismissalDelay: 0.7,
+                onRefresh: { [weak viewModel] in
+
+                    self.didRefreshProducts = nil
+                    self.didRefreshProducts = await viewModel?.refresh()
+
+                },
+                indicator: { context in
+
+                    CatalogRefreshIndicator(
+                        context: context,
+                        hasFailed: self.didRefreshProducts == false,
+                        didRefresh: self.didRefreshProducts == true
+                    )
+
+                }
+            )
+        ) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -34,13 +59,35 @@ struct StoreShopScreen: GPView {
 
     @ViewBuilder
     private func navHeader() -> some View {
-        NavHeader(title: String(localized: "Shop"), subtitle: String(localized: "Find your next favorite"))
+
+        NavHeader(
+            title: String(localized: "Menu"),
+            subtitle: String(localized: "Find your next favorite"),
+            trailingNavButtons: [.heart(isFilled: true)],
+            trailingNavButtonsForegroundColor: self.style.accent,
+            trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.openFavorites() }
+        )
+
     }
 
     @ViewBuilder
     private func content() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+
+            catalogControls()
+            productFeed()
+
+        }
+        .foregroundStyle(self.style.textColor(.body))
+        .tabFlowContentSpacing()
+
+    }
+
+    @ViewBuilder
+    private func catalogControls() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
             searchField()
 
@@ -51,12 +98,9 @@ struct StoreShopScreen: GPView {
                 onCategorySelected: { self.viewModel.selectCategory(id: $0) },
                 onSubcategorySelected: { self.viewModel.selectSubcategory(id: $0) }
             )
-
-            productFeed()
+            .padding(.horizontal, -self.style.spacing(.medium))
 
         }
-        .foregroundStyle(self.style.textColor(.body))
-        .tabFlowContentSpacing()
 
     }
 
@@ -69,7 +113,7 @@ struct StoreShopScreen: GPView {
                 .view()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
-                .foregroundStyle(self.style.foreground(.secondary))
+                .foregroundStyle(self.isSearchFocused ? self.style.foreground(.primary) : self.style.textColor(.body))
 
             TextField(String(localized: "Search products"), text: self.$viewModel.search)
                 .appFont(with: .BODY_2)
@@ -77,7 +121,7 @@ struct StoreShopScreen: GPView {
                 .focused(self.$isSearchFocused)
                 .submitLabel(.search)
                 .autocorrectionDisabled()
-                .onSubmit { self.viewModel.loadData(showHud: false) }
+                .onSubmit { self.viewModel.submitSearch() }
 
             if !self.viewModel.search.isEmpty {
 
@@ -142,9 +186,11 @@ struct StoreShopScreen: GPView {
     @ViewBuilder
     private func feedTitle() -> some View {
 
-        Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "All products"))
+        Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "Menu"))
             .appFont(with: .TITLE_6)
             .foregroundStyle(self.style.textColor(.title))
+            .contentTransition(.numericText())
+            .animation(.bouncy, value: self.viewModel.selectedCategoryId)
 
     }
 
@@ -169,6 +215,7 @@ struct StoreShopScreen: GPView {
                     .view(shouldResize: false)
 
                 Text(self.viewModel.sort.title)
+                    .contentTransition(.numericText())
 
                 ImageSource.systemImage("chevron.down")
                     .view(shouldResize: false)
@@ -180,6 +227,14 @@ struct StoreShopScreen: GPView {
             .frame(minHeight: 44)
             .background(self.style.background(.secondary))
             .clipShape(Capsule())
+            .overlay {
+
+                Capsule()
+                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                    .allowsHitTesting(false)
+
+            }
+            .animation(.bouncy, value: self.viewModel.sort)
 
         }
 
@@ -238,7 +293,9 @@ struct StoreShopScreen: GPView {
                     message: String(localized: "Try another search or category to see more products.")
                 )
 
-                if !self.viewModel.search.isEmpty || self.viewModel.selectedCategoryId != nil {
+                if !self.viewModel.search.isEmpty ||
+                    self.viewModel.selectedCategoryId != self.viewModel.categories.first?.id ||
+                    self.viewModel.selectedSubcategoryId != self.viewModel.subcategories.first?.id {
 
                     Text(String(localized: "Clear filters"))
                         .appFont(with: .TITLE_2)
@@ -280,18 +337,6 @@ struct StoreShopScreen: GPView {
                 self.viewModel.loadMore()
             }
             .disabled(self.viewModel.isLoading)
-
-        }
-
-        if !self.viewModel.products.isEmpty && !self.viewModel.isLoading {
-
-            Text(String(localized: "Refresh Products"))
-                .appFont(with: .TITLE_2)
-                .foregroundStyle(self.style.palette(.link))
-                .frame(maxWidth: .infinity, minHeight: 44)
-                .asButton {
-                    self.viewModel.loadData(showHud: false)
-                }
 
         }
 

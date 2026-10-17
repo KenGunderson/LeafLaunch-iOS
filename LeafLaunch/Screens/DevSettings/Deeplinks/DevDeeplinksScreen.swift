@@ -79,11 +79,6 @@ struct DevDeeplinksScreen: GPView {
                 deeplink: "tab?tab=tab3"
             )
 
-            route(
-                title: "Tab 4",
-                deeplink: "tab?tab=tab4"
-            )
-
         }
 
     }

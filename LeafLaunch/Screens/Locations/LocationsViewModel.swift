@@ -8,6 +8,7 @@ final class LocationsViewModel: ViewModel {
     let loggerEmoji: String = "📍"
 
     private let storeSessionService: StoreSessionServiceProtocol
+    private let apiService: APIServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
 
@@ -15,18 +16,22 @@ final class LocationsViewModel: ViewModel {
     private var sessionSubscription: AnyCancellable?
     private var loadingIndicator: RuneAlert?
     private var lastPresentedErrorMessage: String?
+    private var loadLocationsTask: Task<Void, Never>?
 
     @Published private(set) var locations: [BootstrapLocation] = []
+    @Published private(set) var locationDetails: [String: CustomerLocationDetails] = [:]
+    @Published private(set) var failedLocationIds: Set<String> = []
+    @Published private(set) var isLoading: Bool = false
 
-    var businessName: String {
-        return self.storeSessionService.configuration?.publicName ?? String(localized: "Locations")
-    }
+    var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
 
     init(storeSessionService: StoreSessionServiceProtocol,
+         apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
 
         self.storeSessionService = storeSessionService
+        self.apiService = apiService
         self.analyticsService = analyticsService
         self.alertService = alertService
 
@@ -37,6 +42,7 @@ final class LocationsViewModel: ViewModel {
     isolated deinit {
 
         self.sessionSubscription?.cancel()
+        self.loadLocationsTask?.cancel()
 
         if let loadingIndicator = self.loadingIndicator {
             self.alertService.dismissAlert(loadingIndicator)
@@ -59,6 +65,97 @@ final class LocationsViewModel: ViewModel {
 
     func selectLocation(id: String) {
         self.storeSessionService.selectLocation(id: id)
+    }
+
+    func loadData(showHud: Bool) {
+
+        self.loadLocationsTask?.cancel()
+
+        let locationIds = self.storeSessionService.locations.map(\.id)
+        guard !locationIds.isEmpty else {
+
+            self.isLoading = false
+            self.loadLocationsTask = nil
+            return
+
+        }
+
+        let apiService = self.apiService
+        let alertService = self.alertService
+        let businessId = BusinessConfig.businessId
+        self.isLoading = true
+        self.failedLocationIds = []
+
+        self.loadLocationsTask = Task { @MainActor [weak self] in
+
+            guard !Task.isCancelled else { return }
+
+            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            if showHud { alertService.showAlert(loadingIndicator) }
+
+            defer {
+
+                if showHud { alertService.dismissAlert(loadingIndicator) }
+
+                if !Task.isCancelled {
+
+                    self?.isLoading = false
+                    self?.loadLocationsTask = nil
+
+                }
+
+            }
+
+            await withTaskGroup(of: (String, CustomerLocationDetails?).self) { group in
+
+                for locationId in locationIds {
+
+                    group.addTask {
+
+                        do {
+
+                            let details = try await apiService.getCustomerLocation(
+                                businessId: businessId,
+                                locationId: locationId
+                            )
+                            try Task.checkCancellation()
+                            return (locationId, details)
+
+                        } catch {
+                            return (locationId, nil)
+                        }
+
+                    }
+
+                }
+
+                for await (locationId, details) in group {
+
+                    guard !Task.isCancelled else {
+
+                        group.cancelAll()
+                        return
+
+                    }
+
+                    if let details {
+                        self?.locationDetails[locationId] = details
+                    } else {
+                        self?.failedLocationIds.insert(locationId)
+                    }
+
+                }
+
+            }
+
+            guard !Task.isCancelled else { return }
+
+            if self?.failedLocationIds.isEmpty == false {
+                self?.presentLocationError(context: .get)
+            }
+
+        }
+
     }
 
     private func bindSubscribers() {

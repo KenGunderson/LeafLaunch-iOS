@@ -1,0 +1,11 @@
+Generated with the built-in ImageGen tool on October 17, 2026.
+Asset: LeafLaunch/Resources/Assets.xcassets/StorePromotionFallback.imageset/StorePromotionFallback.jpg
+Purpose: a distinct daylight promotion cover for absent, loading, or failed promotion images.
+
+Use case: ads-marketing
+Asset type: a wide default promotion photograph for a botanical retail store's mobile app, distinct from its warm interior event photograph.
+Primary request: premium editorial macro product photography of beautifully detailed botanical flower buds and small frosted leaves on a pale warm stone surface, inspired by a refined dispensary campaign.
+Composition/framing: horizontal landscape, 2:1 banner composition, tight macro crop with dense green botanical flower clusters across the central and upper area, softly blurred background. The bottom quarter will receive a translucent black caption in the app, so keep that area visually quiet. Photograph only, no UI.
+Style/medium: highly realistic premium retail campaign photography, tactile fine plant details, shallow depth of field, soft natural daylight.
+Color palette: sage, forest green, subtle warm cream and muted natural stone; distinctly daylight rather than an evening interior.
+Constraints: no people, no text, no logos, no watermark, no packaging, no smoking or consumption.

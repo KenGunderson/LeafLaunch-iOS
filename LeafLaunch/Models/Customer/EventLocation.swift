@@ -1,6 +1,6 @@
 import Foundation
 
-nonisolated struct EventLocation: Codable, Identifiable, Sendable {
+nonisolated struct EventLocation: Codable, Hashable, Identifiable, Sendable {
 
     let id: String
     let eventId: String

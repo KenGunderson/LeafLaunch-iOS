@@ -5,21 +5,16 @@ struct CatalogFilterPill: View {
     @Environment(\.style) private var style
 
     let title: String
+    var imageURL: URL? = nil
     let isSelected: Bool
     let action: () -> Void
 
     var body: some View {
 
-        HStack(spacing: self.style.spacing(.extraSmall)) {
+        HStack(spacing: self.style.spacing(.small)) {
 
-            if self.isSelected {
-
-                ImageSource.systemImage("checkmark")
-                    .view()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: self.style.spacing(.small2), height: self.style.spacing(.small2))
-                    .transition(.opacity)
-
+            if let imageURL = self.imageURL {
+                categoryImage(url: imageURL)
             }
 
             Text(self.title)
@@ -49,13 +44,21 @@ struct CatalogFilterPill: View {
 
     }
 
+    @ViewBuilder
+    private func categoryImage(url: URL) -> some View {
+
+        ProductCategoryImageView(url: url)
+            .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
+
+    }
+
 }
 
 #Preview {
 
     @Previewable @State var isSelected = true
 
-    CatalogFilterPill(title: "All products", isSelected: isSelected) {
+    CatalogFilterPill(title: "Flower", imageURL: MockCustomerModels.categories.first?.imageURL, isSelected: isSelected) {
         isSelected.toggle()
     }
     .padding(.medium)

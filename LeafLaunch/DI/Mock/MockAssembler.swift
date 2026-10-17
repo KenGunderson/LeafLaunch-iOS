@@ -48,12 +48,20 @@ class MockAppAssembler {
             return self.container.storeOverviewViewModel() as! T
         }
 
+        if type == StoreEventsViewModel.self {
+            return self.container.storeEventsViewModel() as! T
+        }
+
+        if type == EventDetailsViewModel.self {
+            return self.container.eventDetailsViewModel() as! T
+        }
+
         if type == StoreShopViewModel.self {
             return self.container.storeShopViewModel() as! T
         }
 
-        if type == StoreFavoritesViewModel.self {
-            return self.container.storeFavoritesViewModel() as! T
+        if type == FavoriteProductsViewModel.self {
+            return self.container.favoriteProductsViewModel() as! T
         }
 
         if type == ProductDetailsViewModel.self {

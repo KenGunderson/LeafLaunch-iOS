@@ -18,7 +18,6 @@ public final class TabBarNavigationService: Sendable {
     let tab1NavigationService = NavigationService()
     let tab2NavigationService = NavigationService()
     let tab3NavigationService = NavigationService()
-    let tab4NavigationService = NavigationService()
 
     func initializeStoreExperience(locationId: String) {
 
@@ -41,8 +40,7 @@ public final class TabBarNavigationService: Sendable {
         for navigationService in [
             self.tab1NavigationService,
             self.tab2NavigationService,
-            self.tab3NavigationService,
-            self.tab4NavigationService
+            self.tab3NavigationService
         ] {
 
             navigationService.popToRoot()
@@ -63,7 +61,6 @@ public final class TabBarNavigationService: Sendable {
         case .tab1: return self.tab1NavigationService
         case .tab2: return self.tab2NavigationService
         case .tab3: return self.tab3NavigationService
-        case .tab4: return self.tab4NavigationService
         }
 
     }

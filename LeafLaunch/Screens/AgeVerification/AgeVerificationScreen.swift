@@ -24,7 +24,13 @@ struct AgeVerificationScreen: GPView {
 
     @ViewBuilder
     private func navHeader() -> some View {
-        NavHeader(title: String(localized: "Age Verification"))
+
+        StoreNavHeader(
+            configuration: self.viewModel.configuration,
+            subtitle: String(localized: "Age verification")
+        )
+        .safeAreaPadding(.top, self.style.spacing(.medium))
+
     }
 
     @ViewBuilder
@@ -32,11 +38,12 @@ struct AgeVerificationScreen: GPView {
 
         AgeVerificationConsentView(
             minimumAge: self.viewModel.minimumAge,
-            stateName: self.viewModel.stateName,
+            locationDetails: self.viewModel.locationDetails,
             isApproving: self.viewModel.isApproving,
             approveAction: { [weak viewModel] in viewModel?.approve() }
         )
-        .padding(.vertical, self.style.spacing(.large))
+        .padding(.top, .small)
+        .padding(.bottom, .large)
 
     }
 

@@ -25,18 +25,27 @@ struct LocationsScreen: GPView {
             viewModel?.handleFirstAppear()
 
         }
+        .task { [weak viewModel] in
+            viewModel?.loadData(showHud: true)
+        }
 
     }
 
     @ViewBuilder
     private func navHeader() -> some View {
-        NavHeader(title: self.viewModel.businessName, subtitle: String(localized: "Choose a location"))
+
+        StoreNavHeader(
+            configuration: self.viewModel.configuration,
+            subtitle: String(localized: "Choose a location")
+        )
+        .safeAreaPadding(.top, self.style.spacing(.medium))
+
     }
 
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
             if self.viewModel.locations.isEmpty {
 
@@ -51,6 +60,7 @@ struct LocationsScreen: GPView {
                 introduction()
 
                 locations()
+                retryAction()
 
             }
 
@@ -76,7 +86,11 @@ struct LocationsScreen: GPView {
     @ViewBuilder
     private func locationRow(_ location: BootstrapLocation) -> some View {
 
-        LocationSelectionCard(location: location) { [weak viewModel] in
+        LocationSelectionCard(
+            location: location,
+            details: self.viewModel.locationDetails[location.id],
+            isLoading: self.viewModel.isLoading
+        ) { [weak viewModel] in
             viewModel?.selectLocation(id: location.id)
         }
 
@@ -85,14 +99,7 @@ struct LocationsScreen: GPView {
     @ViewBuilder
     private func introduction() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-            ImageSource.systemImage("storefront")
-                .view(shouldResize: false)
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(self.style.foreground(.primary))
-                .padding(self.style.spacing(.medium))
-                .background(self.style.background(.tertiary), in: Circle())
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             Text(String(localized: "Find your local store."))
                 .appFont(with: .HEADER_3)
@@ -104,7 +111,23 @@ struct LocationsScreen: GPView {
                 .fixedSize(horizontal: false, vertical: true)
 
         }
-        .padding(.vertical, self.style.spacing(.small))
+
+    }
+
+    @ViewBuilder
+    private func retryAction() -> some View {
+
+        if !self.viewModel.failedLocationIds.isEmpty {
+
+            LeafLaunchButton(
+                title: String(localized: "Retry location details"),
+                icon: .systemImage("arrow.clockwise")
+            ) { [weak viewModel] in
+                viewModel?.loadData(showHud: true)
+            }
+            .disabled(self.viewModel.isLoading)
+
+        }
 
     }
 

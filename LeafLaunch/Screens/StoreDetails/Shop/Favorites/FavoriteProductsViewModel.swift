@@ -2,9 +2,9 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class StoreFavoritesViewModel: ViewModel {
+final class FavoriteProductsViewModel: ViewModel {
 
-    let loggerName: String = "STORE_FAVORITES_VIEW_MODEL"
+    let loggerName: String = "FAVORITE_PRODUCTS_VIEW_MODEL"
     let loggerEmoji: String = "❤️"
 
     private let apiService: APIServiceProtocol
@@ -27,6 +27,7 @@ final class StoreFavoritesViewModel: ViewModel {
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
+
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
         self.analyticsService = analyticsService
@@ -133,7 +134,17 @@ final class StoreFavoritesViewModel: ViewModel {
     }
 
     func removeFavorite(id: String) {
+
+        guard let product = self.products.first(where: { $0.id == id }),
+              self.userDefaultsService.favoriteProductIds.contains(id) else { return }
+
         self.userDefaultsService.setFavorite(productId: id, isFavorite: false)
+        presentFavoriteRemovedToast(productTitle: product.displayName)
+
+    }
+
+    func dismiss() {
+        self.navigationService?.pop()
     }
 
     private func updateFavorites() {
@@ -165,9 +176,19 @@ final class StoreFavoritesViewModel: ViewModel {
 
     }
 
+    private func presentFavoriteRemovedToast(productTitle: String) {
+
+        ToastManager.shared.present(toastItem: .init(
+            timing: .medium,
+            direction: .top,
+            content: { ProductFavoriteToastView(productTitle: productTitle, isFavorite: false) }
+        ))
+
+    }
+
 }
 
-extension StoreFavoritesViewModel {
+extension FavoriteProductsViewModel {
 
     func track() {
 

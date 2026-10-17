@@ -15,15 +15,13 @@ enum Tab: String, CaseIterable, Selectable {
     case tab1
     case tab2
     case tab3
-    case tab4
 
     var title: String {
 
         switch self {
         case .tab1: return String(localized: "Store")
-        case .tab2: return String(localized: "Shop")
-        case .tab3: return String(localized: "Favorites")
-        case .tab4: return String(localized: "Account")
+        case .tab2: return String(localized: "Menu")
+        case .tab3: return String(localized: "Account")
         }
 
     }
@@ -32,8 +30,7 @@ enum Tab: String, CaseIterable, Selectable {
         switch self {
         case .tab1: return "house"
         case .tab2: return "list.bullet.clipboard"
-        case .tab3: return "heart"
-        case .tab4: return "person.circle"
+        case .tab3: return "person.circle"
         }
     }
 
@@ -41,8 +38,7 @@ enum Tab: String, CaseIterable, Selectable {
         switch self {
         case .tab1: return "house.fill"
         case .tab2: return "list.clipboard.fill"
-        case .tab3: return "heart.fill"
-        case .tab4: return "person.circle.fill"
+        case .tab3: return "person.circle.fill"
         }
     }
 

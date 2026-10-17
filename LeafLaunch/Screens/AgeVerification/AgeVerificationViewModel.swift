@@ -14,8 +14,16 @@ final class AgeVerificationViewModel: ViewModel {
 
     @Published private(set) var isApproving: Bool = false
 
+    var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
     var minimumAge: Int { self.storeSessionService.minimumAge }
-    var stateName: String { self.storeSessionService.ageVerificationState }
+
+    var locationDetails: CustomerLocationDetails? {
+
+        guard let details = self.storeSessionService.ageVerificationDetails,
+              details.location.id == self.locationId else { return nil }
+        return details
+
+    }
 
     init(storeSessionService: StoreSessionServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,

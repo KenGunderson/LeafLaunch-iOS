@@ -5,6 +5,8 @@ struct LocationSelectionCard: View {
     @Environment(\.style) private var style
 
     let location: BootstrapLocation
+    let details: CustomerLocationDetails?
+    let isLoading: Bool
     let selectAction: () -> Void
 
     private var regionDescription: String {
@@ -13,13 +15,6 @@ struct LocationSelectionCard: View {
             .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
-
-    }
-
-    private var timezoneDescription: String? {
-
-        guard let timezone = self.location.timezone, !timezone.isEmpty else { return nil }
-        return TimeZone(identifier: timezone)?.localizedName(for: .generic, locale: .current) ?? timezone
 
     }
 
@@ -34,13 +29,9 @@ struct LocationSelectionCard: View {
 
         CommerceSurface {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-                Text(self.location.name)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(self.style.textColor(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-
+                locationHeader()
                 metadata()
 
                 Divider().overlay(self.style.background(.border))
@@ -56,19 +47,61 @@ struct LocationSelectionCard: View {
     }
 
     @ViewBuilder
+    private func locationHeader() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.location.name)
+                .appFont(with: .TITLE_5)
+                .foregroundStyle(self.style.textColor(.title))
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let details = self.details {
+
+                HStack(spacing: self.style.spacing(.extraSmall)) {
+
+                    ImageSource.systemImage(details.openNow ? "checkmark.circle.fill" : "clock")
+                        .view(shouldResize: false)
+                    Text(details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
+
+                }
+                .appFont(with: .NOTE_1)
+                .foregroundStyle(details.openNow ? self.style.palette(.success) : self.style.textColor(.body))
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
     private func metadata() -> some View {
 
-        if !self.regionDescription.isEmpty || self.timezoneDescription != nil {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            if let details = self.details {
+
+                if !details.address.isEmpty {
+                    metadataLabel(details.address, systemImage: "mappin.and.ellipse")
+                }
+
+                metadataLabel(
+                    String(localized: "Today: \(details.todayHoursDescription)"),
+                    systemImage: "clock"
+                )
+
+            } else {
 
                 if !self.regionDescription.isEmpty {
                     metadataLabel(self.regionDescription, systemImage: "mappin.and.ellipse")
                 }
 
-                if let timezoneDescription {
-                    metadataLabel(timezoneDescription, systemImage: "clock")
-                }
+                metadataLabel(
+                    self.isLoading
+                        ? String(localized: "Loading address and hours…")
+                        : String(localized: "Address and hours unavailable"),
+                    systemImage: "clock"
+                )
 
             }
 
@@ -88,7 +121,7 @@ struct LocationSelectionCard: View {
                 .fixedSize(horizontal: false, vertical: true)
 
         }
-        .appFont(with: .BODY_1)
+        .appFont(with: .BODY_2)
         .foregroundStyle(self.style.textColor(.body))
 
     }
@@ -103,14 +136,12 @@ struct LocationSelectionCard: View {
 
             Spacer(minLength: 0)
 
-            ImageSource.systemImage("arrow.up.right")
+            ImageSource.systemImage("chevron.right")
                 .view(shouldResize: false)
 
         }
         .appFont(with: .TITLE_3)
         .foregroundStyle(self.style.foreground(.primary))
-        .padding(.vertical, self.style.spacing(.small))
-        .frame(minHeight: 44)
 
     }
 
@@ -120,9 +151,14 @@ struct LocationSelectionCard: View {
 
     if let location = MockCustomerModels.bootstrap.locations.first {
 
-        LocationSelectionCard(location: location, selectAction: {})
-            .padding(.medium)
-            .withMockPreviews()
+        LocationSelectionCard(
+            location: location,
+            details: MockCustomerModels.locationDetails,
+            isLoading: false,
+            selectAction: {}
+        )
+        .padding(.medium)
+        .withMockPreviews()
 
     }
 

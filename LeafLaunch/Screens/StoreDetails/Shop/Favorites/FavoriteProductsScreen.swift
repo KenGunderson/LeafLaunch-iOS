@@ -1,14 +1,13 @@
 import SwiftUI
 
-struct StoreFavoritesScreen: GPView {
+struct FavoriteProductsScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
-    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
 
-    @StateObject private var viewModel: StoreFavoritesViewModel
+    @StateObject private var viewModel: FavoriteProductsViewModel
 
-    init(viewModel: StoreFavoritesViewModel) {
+    init(viewModel: FavoriteProductsViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -33,7 +32,13 @@ struct StoreFavoritesScreen: GPView {
 
     @ViewBuilder
     private func navHeader() -> some View {
-        NavHeader(title: String(localized: "Favorites"), subtitle: String(localized: "Good finds, saved for later"))
+
+        NavHeader(
+            title: String(localized: "Favorite Products"),
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
+        )
+
     }
 
     @ViewBuilder
@@ -41,23 +46,28 @@ struct StoreFavoritesScreen: GPView {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
-            if self.viewModel.isLoading && self.viewModel.products.isEmpty {
-
-                ProgressView(String(localized: "Loading favorites"))
-                    .tint(self.style.accent)
-                    .appFont(with: .BODY_2)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, .large)
-
-            }
-
+            loadingContent()
             emptyContent()
-
             collection()
 
         }
         .foregroundStyle(self.style.textColor(.body))
         .tabFlowContentSpacing()
+
+    }
+
+    @ViewBuilder
+    private func loadingContent() -> some View {
+
+        if self.viewModel.isLoading && self.viewModel.products.isEmpty {
+
+            ProgressView(String(localized: "Loading favorites"))
+                .tint(self.style.accent)
+                .appFont(with: .BODY_2)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, .large)
+
+        }
 
     }
 
@@ -113,7 +123,7 @@ struct StoreFavoritesScreen: GPView {
                 )
 
                 LeafLaunchButton(title: String(localized: "Browse products"), icon: .systemImage("arrow.right")) {
-                    self.tabBarNavigationService.select(.tab2)
+                    self.viewModel.dismiss()
                 }
 
             }
@@ -126,8 +136,8 @@ struct StoreFavoritesScreen: GPView {
 
 #Preview {
 
-    StoreFavoritesScreen(
-        viewModel: mockResolve(StoreFavoritesViewModel.self)
+    FavoriteProductsScreen(
+        viewModel: mockResolve(FavoriteProductsViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

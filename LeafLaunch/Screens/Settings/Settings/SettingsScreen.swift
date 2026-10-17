@@ -143,7 +143,7 @@ struct SettingsScreen: GPView {
     @ViewBuilder
     private func settingItem(_ item: Route.SettingRoute) -> some View {
 
-        LLAppCardView {
+        LLAppCardView(cornerRadius: .large) {
 
             HStack(spacing: self.style.spacing(.small)) {
 
@@ -186,7 +186,7 @@ struct SettingsScreen: GPView {
 
         VStack(alignment: .leading) {
 
-            LLAppCardView {
+            LLAppCardView(cornerRadius: .large) {
 
                 HStack(spacing: self.style.spacing(.small)) {
 

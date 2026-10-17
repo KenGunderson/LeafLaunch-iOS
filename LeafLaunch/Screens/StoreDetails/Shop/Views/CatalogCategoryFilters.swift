@@ -16,7 +16,7 @@ struct CatalogCategoryFilters: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             categoryRail()
 
@@ -41,16 +41,8 @@ struct CatalogCategoryFilters: View {
 
             HStack(spacing: self.style.spacing(.small)) {
 
-                CatalogFilterPill(title: String(localized: "All"), isSelected: self.selectedCategoryId == nil) {
-                    self.onCategorySelected(nil)
-                }
-
                 ForEach(self.categories) { category in
-
-                    CatalogFilterPill(title: category.name, isSelected: self.selectedCategoryId == category.id) {
-                        self.onCategorySelected(category.id)
-                    }
-
+                    categoryPill(category)
                 }
 
             }
@@ -58,6 +50,7 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
+        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
 
     }
 
@@ -68,22 +61,8 @@ struct CatalogCategoryFilters: View {
 
             HStack(spacing: self.style.spacing(.small)) {
 
-                CatalogFilterPill(
-                    title: String(localized: "All \(category.name)"),
-                    isSelected: self.selectedSubcategoryId == nil
-                ) {
-                    self.onSubcategorySelected(nil)
-                }
-
                 ForEach(category.subcategories) { subcategory in
-
-                    CatalogFilterPill(
-                        title: subcategory.name,
-                        isSelected: self.selectedSubcategoryId == subcategory.id
-                    ) {
-                        self.onSubcategorySelected(subcategory.id)
-                    }
-
+                    subcategoryPill(subcategory)
                 }
 
             }
@@ -91,6 +70,32 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
+        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+
+    }
+
+    @ViewBuilder
+    private func categoryPill(_ category: ProductCategory) -> some View {
+
+        CatalogFilterPill(
+            title: category.name,
+            imageURL: category.imageURL,
+            isSelected: self.selectedCategoryId == category.id
+        ) {
+            self.onCategorySelected(category.id)
+        }
+
+    }
+
+    @ViewBuilder
+    private func subcategoryPill(_ subcategory: ProductSubcategory) -> some View {
+
+        CatalogFilterPill(
+            title: subcategory.name,
+            isSelected: self.selectedSubcategoryId == subcategory.id
+        ) {
+            self.onSubcategorySelected(subcategory.id)
+        }
 
     }
 
@@ -99,7 +104,7 @@ struct CatalogCategoryFilters: View {
 #Preview {
 
     @Previewable @State var selectedCategoryId = MockCustomerModels.categories.first?.id
-    @Previewable @State var selectedSubcategoryId: String?
+    @Previewable @State var selectedSubcategoryId = MockCustomerModels.categories.first?.subcategories.first?.id
 
     CatalogCategoryFilters(
         categories: MockCustomerModels.categories,
@@ -108,12 +113,11 @@ struct CatalogCategoryFilters: View {
         onCategorySelected: { categoryId in
 
             selectedCategoryId = categoryId
-            selectedSubcategoryId = nil
+            selectedSubcategoryId = MockCustomerModels.categories.first { $0.id == categoryId }?.subcategories.first?.id
 
         },
         onSubcategorySelected: { selectedSubcategoryId = $0 }
     )
-    .padding(.medium)
     .withMockPreviews()
 
 }

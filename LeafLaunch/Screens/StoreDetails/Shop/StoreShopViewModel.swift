@@ -102,21 +102,21 @@ final class StoreShopViewModel: ViewModel {
 
     func selectCategory(id: String?) {
 
-        guard self.selectedCategoryId != id else { return }
-        guard id == nil || self.categories.contains(where: { $0.id == id }) else { return }
+        guard let category = self.categories.first(where: { $0.id == id }),
+              self.selectedCategoryId != category.id else { return }
 
-        self.selectedCategoryId = id
-        self.selectedSubcategoryId = nil
+        self.selectedCategoryId = category.id
+        self.selectedSubcategoryId = category.subcategories.first?.id
         loadData(showHud: false)
 
     }
 
     func selectSubcategory(id: String?) {
 
-        guard self.selectedSubcategoryId != id else { return }
-        guard id == nil || self.subcategories.contains(where: { $0.id == id }) else { return }
+        guard let subcategory = self.subcategories.first(where: { $0.id == id }),
+              self.selectedSubcategoryId != subcategory.id else { return }
 
-        self.selectedSubcategoryId = id
+        self.selectedSubcategoryId = subcategory.id
         loadData(showHud: false)
 
     }
@@ -126,6 +126,38 @@ final class StoreShopViewModel: ViewModel {
         self.searchTask?.cancel()
         self.searchTask = nil
         loadProducts(reset: true, showHud: showHud)
+
+    }
+
+    @discardableResult
+    func refresh() async -> Bool? {
+
+        guard !Task.isCancelled else { return nil }
+
+        self.searchTask?.cancel()
+        self.searchTask = nil
+
+        guard let loadTask = loadProducts(reset: true, showHud: false, reloadCategories: true) else { return nil }
+        let loadId = self.loadId
+
+        await withTaskCancellationHandler {
+            await loadTask.value
+        } onCancel: {
+            loadTask.cancel()
+        }
+
+        guard !Task.isCancelled,
+              !loadTask.isCancelled,
+              self.loadId == loadId else { return nil }
+
+        return !self.hasLoadFailed
+
+    }
+
+    func submitSearch() {
+
+        guard self.searchTask != nil || self.hasLoadFailed else { return }
+        loadData(showHud: false)
 
     }
 
@@ -139,8 +171,8 @@ final class StoreShopViewModel: ViewModel {
     func clearFilters() {
 
         self.search = ""
-        self.selectedCategoryId = nil
-        self.selectedSubcategoryId = nil
+        self.selectedCategoryId = self.categories.first?.id
+        self.selectedSubcategoryId = self.categories.first?.subcategories.first?.id
         loadData(showHud: false)
 
     }
@@ -159,27 +191,39 @@ final class StoreShopViewModel: ViewModel {
 
     }
 
-    func toggleFavorite(id: String) {
+    func openFavorites() {
 
-        self.userDefaultsService.setFavorite(
-            productId: id,
-            isFavorite: !self.favoriteProductIds.contains(id)
-        )
+        guard let locationId = self.locationId else { return }
+        self.navigationService?.push(.customer(.favoriteProducts(locationId: locationId)))
 
     }
 
-    private func loadProducts(reset: Bool, showHud: Bool) {
+    func toggleFavorite(id: String) {
 
-        guard let locationId = self.locationId else { return }
-        guard reset || self.loadProductsTask == nil else { return }
+        guard let product = self.products.first(where: { $0.id == id }) else { return }
+
+        let isFavorite = !self.favoriteProductIds.contains(id)
+        self.userDefaultsService.setFavorite(
+            productId: id,
+            isFavorite: isFavorite
+        )
+        presentFavoriteToast(title: product.displayName, isFavorite: isFavorite)
+
+    }
+
+    @discardableResult
+    private func loadProducts(reset: Bool, showHud: Bool, reloadCategories: Bool = false) -> Task<Void, Never>? {
+
+        guard let locationId = self.locationId else { return nil }
+        guard reset || self.loadProductsTask == nil else { return nil }
 
         self.loadProductsTask?.cancel()
 
         let apiService = self.apiService
         let alertService = self.alertService
         let loadId = UUID()
-        let needsCategories = !self.hasLoadedCategories
-        let query = ProductQuery(
+        let needsCategories = reloadCategories || !self.hasLoadedCategories
+        let querySnapshot = ProductQuery(
             search: self.search,
             categoryId: self.selectedCategoryId,
             subcategoryId: self.selectedSubcategoryId,
@@ -192,23 +236,9 @@ final class StoreShopViewModel: ViewModel {
         self.isLoading = true
         self.hasLoadFailed = false
 
-        if reset && self.activeQuery != query {
-
-            self.products = []
-            self.nextOffset = nil
-            self.hasMoreProducts = false
-            self.hasCompletedInitialLoad = false
-
-        }
-
-        if reset { self.activeQuery = query }
-
-        self.loadProductsTask = Task { @MainActor [weak self] in
-
-            guard !Task.isCancelled else { return }
+        let loadTask = Task { @MainActor [weak self] in
 
             let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
-            if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
 
@@ -223,24 +253,72 @@ final class StoreShopViewModel: ViewModel {
 
             }
 
+            guard !Task.isCancelled else { return }
+            if showHud { alertService.showAlert(loadingIndicator) }
+
             do {
+
+                var query = querySnapshot
+                var refreshedCategories: [ProductCategory]?
 
                 if needsCategories {
 
                     let categories = try await apiService.getCustomerCategories(locationId: locationId)
                     guard !Task.isCancelled, self?.loadId == loadId else { return }
 
-                    self?.categories = categories.sorted { $0.displayOrder < $1.displayOrder }
-                    self?.hasLoadedCategories = true
+                    let sortedCategories = categories.sorted { $0.displayOrder < $1.displayOrder }
+                    let category = sortedCategories.first(where: { $0.id == query.categoryId }) ?? sortedCategories.first
+                    let subcategory = category?.subcategories.first(where: { $0.id == query.subcategoryId }) ?? category?.subcategories.first
+
+                    query.categoryId = category?.id
+                    query.subcategoryId = subcategory?.id
+
+                    if reloadCategories {
+
+                        refreshedCategories = sortedCategories
+
+                    } else {
+
+                        self?.categories = sortedCategories
+                        self?.selectedCategoryId = query.categoryId
+                        self?.selectedSubcategoryId = query.subcategoryId
+                        self?.hasLoadedCategories = true
+
+                    }
+
+                }
+
+                if reset && !reloadCategories {
+
+                    if self?.activeQuery != query {
+
+                        self?.products = []
+                        self?.nextOffset = nil
+                        self?.hasMoreProducts = false
+                        self?.hasCompletedInitialLoad = false
+
+                    }
+
+                    self?.activeQuery = query
 
                 }
 
                 let page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
                 guard !Task.isCancelled, self?.loadId == loadId else { return }
 
+                if let refreshedCategories {
+
+                    self?.categories = refreshedCategories
+                    self?.selectedCategoryId = query.categoryId
+                    self?.selectedSubcategoryId = query.subcategoryId
+                    self?.hasLoadedCategories = true
+
+                }
+
                 if reset {
 
                     var seenIds: Set<String> = []
+                    self?.activeQuery = query
                     self?.products = page.data.filter { seenIds.insert($0.id).inserted }
 
                 } else {
@@ -264,6 +342,9 @@ final class StoreShopViewModel: ViewModel {
             }
 
         }
+
+        self.loadProductsTask = loadTask
+        return loadTask
 
     }
 
@@ -317,6 +398,16 @@ final class StoreShopViewModel: ViewModel {
                     action: {}
                 )
             )
+        ))
+
+    }
+
+    private func presentFavoriteToast(title: String, isFavorite: Bool) {
+
+        ToastManager.shared.present(toastItem: .init(
+            timing: .medium,
+            direction: .top,
+            content: { ProductFavoriteToastView(productTitle: title, isFavorite: isFavorite) }
         ))
 
     }

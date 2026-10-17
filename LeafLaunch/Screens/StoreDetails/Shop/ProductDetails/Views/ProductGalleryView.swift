@@ -40,6 +40,7 @@ struct ProductGalleryView: View {
                 ProductImageView(url: nil)
                     .aspectRatio(1, contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
+                    .appBorder(cornerRadius: .large, lineWidth: 1.5, outerBorder: false)
 
             } else {
 
@@ -48,8 +49,6 @@ struct ProductGalleryView: View {
                 if self.images.count > 1 {
                     thumbnails()
                 }
-
-                imageCaption()
 
             }
 
@@ -78,6 +77,7 @@ struct ProductGalleryView: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .aspectRatio(1, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
+        .appBorder(cornerRadius: .large, lineWidth: 1.5, outerBorder: false)
         .animation(.bouncy, value: self.selectedImageId)
 
     }
@@ -99,31 +99,6 @@ struct ProductGalleryView: View {
 
         }
         .scrollIndicators(.hidden)
-
-    }
-
-    @ViewBuilder
-    private func imageCaption() -> some View {
-
-        HStack(alignment: .top, spacing: self.style.spacing(.small)) {
-
-            if self.images.indices.contains(self.selectedIndex),
-               let caption = self.images[self.selectedIndex].altText,
-               !caption.isEmpty {
-
-                Text(caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-            } else {
-                Spacer(minLength: 0)
-            }
-
-            Text(String(localized: "Image \(self.selectedIndex + 1) of \(self.images.count)"))
-                .fixedSize(horizontal: true, vertical: false)
-
-        }
-        .appFont(with: .NOTE_1)
-        .foregroundStyle(.text(.body))
 
     }
 

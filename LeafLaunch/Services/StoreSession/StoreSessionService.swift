@@ -42,7 +42,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         return self.ageVerificationDetails?.location.id
     }
 
-    private var ageVerificationDetails: CustomerLocationDetails? {
+    var ageVerificationDetails: CustomerLocationDetails? {
         return self.pendingLocationDetails ?? self.locationDetails
     }
 

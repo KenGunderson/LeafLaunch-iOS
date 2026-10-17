@@ -182,6 +182,9 @@ struct Constants {
 
         static let ageVerificationErrorMessage = "Something went wrong while verifying your age. Please try again."
 
+        static let storeDirectionsErrorMessage = "Unable to open Maps. Please try again."
+        static let storePhoneErrorMessage = "Unable to call the store. Please try again."
+
         enum Context {
 
             case get
@@ -202,6 +205,14 @@ struct Constants {
 
         static func errorMessage(context: Context = .get, _ topic: String) -> String {
             return "Something went wrong while \(context.verbDescription) your \(topic). Please try again later."
+        }
+
+        static func favoriteProductAdded(_ title: String) -> String {
+            return "\(title) added to favorites"
+        }
+
+        static func favoriteProductRemoved(_ title: String) -> String {
+            return "\(title) removed from favorites"
         }
 
         static func deleteConfirmationTitle(_ topic: String) -> String {

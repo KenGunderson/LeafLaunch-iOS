@@ -16,6 +16,9 @@ enum Route: Navigation, Hashable, Sendable {
     enum CustomerRoute: Hashable, Sendable {
 
         case product(locationId: String, productId: String)
+        case favoriteProducts(locationId: String)
+        case events(locationId: String)
+        case event(locationId: String, event: StoreEvent)
 
     }
 

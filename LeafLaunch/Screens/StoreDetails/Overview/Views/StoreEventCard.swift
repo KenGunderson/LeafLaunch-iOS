@@ -6,47 +6,10 @@ struct StoreEventCard: View {
 
     let event: StoreEvent
     let location: StoreLocation?
+    let onSelect: () -> Void
 
-    private var schedule: EventLocation? {
-        self.event.locations?.first { $0.storeLocationId == self.location?.id }
-    }
-
-    private var startsAt: Date? {
-        self.schedule?.startsAt ?? self.event.startsAt
-    }
-
-    private var endsAt: Date? {
-
-        if let schedule = self.schedule {
-            return schedule.endsAt
-        }
-
-        return self.event.endsAt
-
-    }
-
-    private var timeZone: TimeZone {
-        (self.schedule?.timezone ?? self.location?.timezone).flatMap(TimeZone.init(identifier:)) ?? .autoupdatingCurrent
-    }
-
-    private func formattedDate(_ date: Date) -> String {
-        date.formatted(Date.FormatStyle(date: .abbreviated, time: .shortened, timeZone: self.timeZone))
-    }
-
-    private func formattedMonth(_ date: Date) -> String {
-
-        var format = Date.FormatStyle().month(.abbreviated)
-        format.timeZone = self.timeZone
-        return date.formatted(format)
-
-    }
-
-    private func formattedDay(_ date: Date) -> String {
-
-        var format = Date.FormatStyle().day()
-        format.timeZone = self.timeZone
-        return date.formatted(format)
-
+    private var schedule: StoreEventSchedule {
+        StoreEventSchedule(event: self.event, location: self.location)
     }
 
     var body: some View {
@@ -60,166 +23,69 @@ struct StoreEventCard: View {
             VStack(alignment: .leading, spacing: 0) {
 
                 eventImage()
-
                 eventDetails()
 
             }
 
         }
-
-    }
-
-    @ViewBuilder
-    private func dateTile(_ date: Date) -> some View {
-
-        VStack(spacing: self.style.spacing(.extraSmall)) {
-
-            Text(formattedMonth(date))
-                .appFont(with: .TITLE_2)
-            Text(formattedDay(date))
-                .appFont(with: .HEADER_3)
-                .monospacedDigit()
-
-        }
-        .foregroundStyle(.foreground(.primary))
-        .padding(.small2)
-        .background(.background(.tertiary))
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
-
-    }
-
-    @ViewBuilder
-    private func scheduleView() -> some View {
-
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-            if let startsAt = self.startsAt {
-                Text(String(localized: "Starts \(formattedDate(startsAt))"))
-            } else {
-                Text(String(localized: "Date to be announced"))
-            }
-
-            if let endsAt = self.endsAt {
-                Text(String(localized: "Ends \(formattedDate(endsAt))"))
-            }
-
-            if self.startsAt != nil {
-                Text(self.timeZone.identifier)
-            }
-
-        }
-        .appFont(with: .NOTE_1)
-        .foregroundStyle(.text(.body))
-        .fixedSize(horizontal: false, vertical: true)
+        .contentShape(Rectangle())
+        .asButton(action: self.onSelect)
 
     }
 
     @ViewBuilder
     private func eventImage() -> some View {
 
-        if let imageURL = self.event.image?.url {
-
-            ImageSource.remote(
-                url: imageURL,
-                contentMode: .fill,
-                placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
-            )
-            .view()
-            .aspectRatio(1.8, contentMode: .fit)
-            .clipped()
-
-        }
+        StoreMarketingImage(
+            url: self.event.image?.url,
+            placeholder: ImageResource(name: "StoreEventFallback", bundle: .main)
+        )
+        .frame(maxWidth: .infinity)
+        .frame(height: 160)
+        .clipped()
 
     }
 
     @ViewBuilder
     private func eventDetails() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-            eventHeader()
-
+            eventTitle()
             scheduleView()
 
-            if let description = self.event.description, !description.isEmpty {
-
-                Text(description)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(.text(.body))
-                    .fixedSize(horizontal: false, vertical: true)
-
-            }
-
-            eventAction()
-
         }
-        .padding(.medium)
+        .padding(.small)
 
     }
 
     @ViewBuilder
-    private func eventHeader() -> some View {
+    private func eventTitle() -> some View {
 
-        HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
-
-            if let startsAt = self.startsAt {
-                dateTile(startsAt)
-            }
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                Text(self.event.title)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(.text(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-
-                if let location = self.location {
-
-                    HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.extraSmall)) {
-
-                        ImageSource.systemImage("mappin.and.ellipse")
-                            .view(shouldResize: false)
-                        Text(location.name)
-
-                    }
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(.text(.body))
-
-                }
-
-            }
+        Text(self.event.title)
+            .appFont(with: .TITLE_3)
+            .foregroundStyle(.text(.title))
+            .lineLimit(2)
             .frame(maxWidth: .infinity, alignment: .leading)
 
-        }
-
     }
 
     @ViewBuilder
-    private func eventAction() -> some View {
+    private func scheduleView() -> some View {
 
-        if let externalURL = self.event.externalURL {
+        Group {
 
-            Divider()
-
-            Link(destination: externalURL) {
-
-                HStack(spacing: self.style.spacing(.small)) {
-
-                    Text(String(localized: "Event Details"))
-                    Spacer(minLength: self.style.spacing(.small))
-                    ImageSource.systemImage("arrow.up.right")
-                        .view(shouldResize: false)
-
-                }
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.foreground(.primary))
-                .padding(.vertical, .small)
-                .frame(minHeight: 44)
-                .contentShape(Rectangle())
-
+            if let startsAt = self.schedule.startsAt {
+                Text(self.schedule.formattedDate(startsAt))
+            } else {
+                Text(String(localized: "Date To Be Announced"))
             }
 
         }
+        .appFont(with: .NOTE_1)
+        .foregroundStyle(.text(.body))
+        .lineLimit(2)
+        .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
@@ -229,13 +95,10 @@ struct StoreEventCard: View {
 
     if let event = MockCustomerModels.events.first {
 
-        ScrollView {
-
-            StoreEventCard(event: event, location: MockCustomerModels.locationDetails.location)
-                .padding(.medium)
-
-        }
-        .withMockPreviews()
+        StoreEventCard(event: event, location: MockCustomerModels.locationDetails.location, onSelect: {})
+            .frame(width: 240)
+            .padding(.medium)
+            .withMockPreviews()
 
     }
 

@@ -72,10 +72,10 @@ extension MockAPIService {
 
     }
 
-    func getCustomerEvents(locationId: String, offset: Int) async throws -> CustomerPage<StoreEvent> {
+    func getCustomerEvents(locationId: String, offset: Int, limit: Int) async throws -> CustomerPage<StoreEvent> {
 
         try validateCustomerLocation(locationId)
-        return customerPage(MockCustomerModels.events(locationId: locationId), offset: offset)
+        return customerPage(MockCustomerModels.events(locationId: locationId), offset: offset, limit: limit)
 
     }
 

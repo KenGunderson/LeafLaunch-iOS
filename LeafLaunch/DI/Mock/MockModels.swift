@@ -93,8 +93,8 @@ enum MockCustomerModels {
             id: businessId,
             name: "High Standards",
             legalName: "High Standards Retail LLC",
-            supportEmail: nil,
-            supportPhone: nil,
+            supportEmail: "hello@highstandards.example",
+            supportPhone: "+1 (949) 555-0100",
             websiteURL: nil
         )
 
@@ -155,6 +155,9 @@ enum MockCustomerModels {
         return names.enumerated().map { index, name in
 
             let categoryId = fixtureId("92000000", index + 1)
+            let attributeIds = catalog
+                .filter { $0.categoryIndex == index }
+                .flatMap { productAttributes(for: $0.name).map(\.id) }
 
             return ProductCategory(
                 id: categoryId,
@@ -174,9 +177,12 @@ enum MockCustomerModels {
                         quantity: index == 0 ? nil : (index == 1 ? 1 : 5)
                     )
                 ],
-                attributeIds: index < 2 ? ["a9300000-0000-4000-8000-000000000001"] : [],
+                attributeIds: Array(Set(attributeIds)).sorted(),
                 name: name,
-                imageURL: nil,
+                imageURL: Bundle.main.url(
+                    forResource: "mock-category-\(name.lowercased())",
+                    withExtension: "png"
+                ),
                 status: .active,
                 displayOrder: index,
                 createdAt: Date(timeIntervalSince1970: 1_791_115_200),
@@ -187,8 +193,9 @@ enum MockCustomerModels {
 
     }
 
-    // Keep the web catalog's ordering, classification, descriptions, and prices.
+    // Keep the web catalog's ordering, classification, descriptions, and starting prices.
     // In particular, preserve its intentional cross-category fixture examples.
+    // Additional options and attributes below showcase the native product details UI.
     private static let catalog: [(name: String, categoryIndex: Int, hasSubcategory: Bool, description: String?)] = [
         ("Amber Glass Storage Jar", 1, false, "Reusable glassware and storage accessories with care instructions included."),
         ("Blood Orange Gummies", 0, true, "Individually portioned sweets with ingredient and serving information on each package."),
@@ -269,18 +276,109 @@ enum MockCustomerModels {
                 currencyCode: "USD",
                 category: category,
                 subcategory: item.hasSubcategory ? category.subcategories.first : nil,
-                attributes: [],
-                variants: [
-                    ProductPricing(
-                        id: fixtureId("ad450000", listingNumber),
-                        productVariantId: fixtureId("ad200000", index + 1),
-                        displayPrice: basePrice,
+                attributes: productAttributes(for: item.name),
+                variants: pricingOptions(for: item.name).enumerated().map { optionIndex, option in
+
+                    let price = basePrice.map { $0 * option.multiplier }
+
+                    return ProductPricing(
+                        id: optionIndex == 0
+                            ? fixtureId("ad450000", listingNumber)
+                            : fixtureId("ad480000", listingNumber * 10 + optionIndex),
+                        productVariantId: optionIndex == 0
+                            ? fixtureId("ad200000", index + 1)
+                            : fixtureId("ad210000", (index + 1) * 10 + optionIndex),
+                        displayPrice: price,
                         availability: status == .temporarilyUnavailable ? .temporarilyUnavailable : .available,
-                        name: "Default",
-                        baseDisplayPrice: basePrice,
+                        name: option.name,
+                        baseDisplayPrice: price,
                         promotionId: nil
                     )
-                ]
+
+                }
+            )
+
+        }
+
+    }
+
+    private static func pricingOptions(for name: String) -> [(name: String, multiplier: Decimal)] {
+
+        switch name {
+        case "Harbor House Blend", "Cedar Reserve":
+            return [("3.5 g", 1), ("7 g", 2), ("14 g", 4)]
+
+        case "Blood Orange Gummies":
+            return [("5 Pieces", 1), ("10 Pieces", 2), ("20 Pieces", 4)]
+
+        case "Amber Glass Storage Jar":
+            return [("120 ml", 1), ("240 ml", 2), ("480 ml", 4)]
+
+        default:
+            return [("Default", 1)]
+        }
+
+    }
+
+    private static func productAttributes(for name: String) -> [ProductAttribute] {
+
+        let details: [(id: Int, name: String, type: ProductAttribute.ValueType, value: ProductAttributeValue)]
+
+        switch name {
+        case "Harbor House Blend", "Cedar Reserve":
+            details = [
+                (2, "Cultivation", .text, .text("Indoor")),
+                (3, "Aroma", .multiSelect, .selection(["Citrus", "Pine"])),
+                (4, "Hand Trimmed", .boolean, .boolean(true))
+            ]
+
+        case "Blood Orange Gummies":
+            details = [
+                (5, "Flavor", .text, .text("Blood Orange")),
+                (6, "Vegan", .boolean, .boolean(true)),
+                (7, "Piece Weight", .measurement, .measurement(.init(amount: 4, unit: "g")))
+            ]
+
+        case "Amber Glass Storage Jar":
+            details = [
+                (8, "Material", .text, .text("Amber Glass")),
+                (9, "Closure", .text, .text("Airtight Screw Lid")),
+                (10, "Reusable", .boolean, .boolean(true))
+            ]
+
+        case "Cooling Mint Lotion":
+            details = [
+                (11, "Scent", .text, .text("Cooling Mint")),
+                (12, "Volume", .measurement, .measurement(.init(amount: 100, unit: "ml"))),
+                (13, "Packaging", .text, .text("Recyclable Pump Bottle"))
+            ]
+
+        case "Sea Salt Caramels", "Dark Chocolate Bites":
+            details = [
+                (14, "Allergens", .multiSelect, .selection(["Milk", "Soy"])),
+                (15, "Storage", .text, .text("Keep in a cool, dry place"))
+            ]
+
+        default:
+            return []
+        }
+
+        let brand = ProductAttribute(
+            id: fixtureId("a9300000", 1),
+            name: "Brand",
+            valueType: .text,
+            value: .text("High Standards"),
+            unit: nil
+        )
+
+        return [brand] + details.map { detail in
+
+            ProductAttribute(
+                id: fixtureId("a9300000", detail.id),
+                name: detail.name,
+                valueType: detail.type,
+                value: detail.value,
+                unit: nil
             )
 
         }
@@ -291,26 +389,8 @@ enum MockCustomerModels {
         URL(string: "https://picsum.photos/seed/\(seed)/640/480")!
     }
 
-    // Preview-only attributes leave the customer demo catalog unchanged.
     static var previewProductAttributes: [ProductAttribute] {
-
-        [
-            ProductAttribute(
-                id: "preview-packaging",
-                name: "Packaging",
-                valueType: .text,
-                value: .text("Resealable container"),
-                unit: nil
-            ),
-            ProductAttribute(
-                id: "preview-storage",
-                name: "Storage",
-                valueType: .text,
-                value: .text("Keep in a cool, dry place"),
-                unit: nil
-            )
-        ]
-
+        productAttributes(for: "Harbor House Blend")
     }
 
     private static let locationSeeds: [(id: String, name: String, street: String, city: String, region: String, postal: String, status: StoreLocation.Status)] = [

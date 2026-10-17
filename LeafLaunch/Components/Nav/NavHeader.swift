@@ -13,29 +13,38 @@ struct NavHeader: View {
 
     private let title: String
     private let subtitle: String?
+    private let subtitleAction: (() -> Void)?
+    private let leadingImage: ImageSource?
     private let showLogo: Bool
     private let backgroundStyle: ColorSource
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> Void)?
     private let trailingNavButtons: [NavBarButton.Style]
+    private let trailingNavButtonsForegroundColor: ColorSource
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> Void)?
 
     init(title: String,
          subtitle: String? = nil,
+         subtitleAction: (() -> Void)? = nil,
+         leadingImage: ImageSource? = nil,
          showLogo: Bool = false,
          backgroundStyle: ColorSource = .background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
+         trailingNavButtonsForegroundColor: ColorSource = .text(.title),
          trailingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil) {
 
         self.title = title
         self.subtitle = subtitle
+        self.subtitleAction = subtitleAction
+        self.leadingImage = leadingImage
         self.showLogo = showLogo
         self.backgroundStyle = backgroundStyle
         self.leadingNavButtons = leadingNavButtons
         self.leadingNavButtonsAction = leadingNavButtonsAction
         self.trailingNavButtons = trailingNavButtons
+        self.trailingNavButtonsForegroundColor = trailingNavButtonsForegroundColor
         self.trailingNavButtonsAction = trailingNavButtonsAction
 
     }
@@ -63,6 +72,10 @@ struct NavHeader: View {
 
             } else {
 
+                if let leadingImage = self.leadingImage {
+                    brandImage(leadingImage)
+                }
+
                 titleSubtitleView()
 
             }
@@ -71,6 +84,7 @@ struct NavHeader: View {
 
                 navButtons(
                     self.trailingNavButtons,
+                    foregroundColor: self.trailingNavButtonsForegroundColor,
                     action: self.trailingNavButtonsAction
                 )
 
@@ -79,7 +93,6 @@ struct NavHeader: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        .padding(.top, .extraSmall)
         .background(self.backgroundStyle)
         .background {
 
@@ -89,6 +102,22 @@ struct NavHeader: View {
                 .offset(y: 10)
 
         }
+
+    }
+
+    @ViewBuilder
+    private func brandImage(_ image: ImageSource) -> some View {
+
+        self.style.background(.tertiary).view()
+            .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
+            .overlay {
+
+                image.view()
+                    .aspectRatio(contentMode: .fill)
+
+            }
+            .clipped()
+            .cornerRadius(.medium2)
 
     }
 
@@ -103,10 +132,7 @@ struct NavHeader: View {
 
             if let subtitle = self.subtitle {
 
-                Text(subtitle)
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(.text(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                subtitleView(subtitle)
 
             }
 
@@ -116,14 +142,44 @@ struct NavHeader: View {
     }
 
     @ViewBuilder
+    private func subtitleView(_ subtitle: String) -> some View {
+
+        if let subtitleAction = self.subtitleAction {
+
+            HStack(alignment: .center, spacing: self.style.spacing(.extraSmall)) {
+
+                Text(subtitle)
+                    .fixedSize(horizontal: false, vertical: true)
+                ImageSource.systemImage("chevron.down")
+                    .view(shouldResize: false)
+
+            }
+            .appFont(with: .BODY_1)
+            .foregroundStyle(.text(.body))
+            .contentShape(Rectangle())
+            .asButton(action: subtitleAction)
+
+        } else {
+
+            Text(subtitle)
+                .appFont(with: .BODY_1)
+                .foregroundStyle(.text(.body))
+                .fixedSize(horizontal: false, vertical: true)
+
+        }
+
+    }
+
+    @ViewBuilder
     private func navButtons(_ buttons: [NavBarButton.Style],
+                            foregroundColor: ColorSource = .text(.title),
                             action: ((NavBarButton.Style) -> Void)? = nil) -> some View {
 
         HStack(spacing: self.style.spacing(.small)) {
 
             ForEach(buttons, id: \.self) { navStyle in
 
-                NavBarButton(style: navStyle) {
+                NavBarButton(style: navStyle, foregroundColor: foregroundColor) {
                     action?(navStyle)
                 }
 

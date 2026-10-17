@@ -1,0 +1,13 @@
+Generated with the built-in ImageGen tool on October 17, 2026.
+Asset: LeafLaunch/Resources/Assets.xcassets/StoreEventFallback.imageset/StoreEventFallback.jpg
+Purpose: fallback for absent, loading, or failed event media in the carousel and event details.
+
+Use case: ads-marketing
+Asset type: a landscape fallback cover photograph for event cards in a native botanical retail store app.
+Primary request: create tasteful, marketable editorial event artwork that feels welcoming and refined without depicting any specific real event.
+Scene/backdrop: an intimate contemporary botanical shop gathering space at dusk, deep forest green walls, warm amber pools of light, sculptural translucent glass and subtle leafy shadows, soft out-of-focus string lights in the distance.
+Subject: a beautifully art-directed still life of fresh botanical foliage beside a smoked glass vase and a small brushed brass lamp on a natural stone counter.
+Style/medium: premium lifestyle campaign photography, realistic materials, gentle film grain, shallow depth of field.
+Composition/framing: horizontal 3:2, strong readable shapes at small mobile-card size, balanced central focal point, safe to crop to 16:9.
+Lighting/mood: warm, atmospheric, inviting evening light; emerald, olive, and honey tones.
+Constraints: no people, no text, no logos, no dates, no product packaging, no watermark, no smoking or consumption.

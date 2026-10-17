@@ -12,7 +12,6 @@ final class StoreDetailsViewModel: ViewModel {
     let tabBarNavigationService: TabBarNavigationService
     let overviewViewModel: StoreOverviewViewModel
     let shopViewModel: StoreShopViewModel
-    let favoritesViewModel: StoreFavoritesViewModel
     let accountViewModel: StoreAccountViewModel
 
     private(set) var locationId: String?
@@ -22,7 +21,6 @@ final class StoreDetailsViewModel: ViewModel {
          analyticsService: AnalyticsServiceProtocol,
          overviewViewModel: StoreOverviewViewModel,
          shopViewModel: StoreShopViewModel,
-         favoritesViewModel: StoreFavoritesViewModel,
          accountViewModel: StoreAccountViewModel) {
 
         self.storeSessionService = storeSessionService
@@ -30,7 +28,6 @@ final class StoreDetailsViewModel: ViewModel {
         self.analyticsService = analyticsService
         self.overviewViewModel = overviewViewModel
         self.shopViewModel = shopViewModel
-        self.favoritesViewModel = favoritesViewModel
         self.accountViewModel = accountViewModel
 
         logInit()
@@ -47,7 +44,6 @@ final class StoreDetailsViewModel: ViewModel {
         self.locationId = locationId
         self.overviewViewModel.setup(locationId: locationId)
         self.shopViewModel.setup(locationId: locationId)
-        self.favoritesViewModel.setup(locationId: locationId)
         self.accountViewModel.setup(locationId: locationId)
         return self
 

@@ -13,7 +13,7 @@ struct StoreOverviewScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        AppHeaderScrollView(horizontalPadding: .none) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -32,56 +32,58 @@ struct StoreOverviewScreen: GPView {
 
     @ViewBuilder
     private func navHeader() -> some View {
-        NavHeader(title: self.viewModel.store?.name ?? String(localized: "Store"))
+
+        StoreNavHeader(
+            configuration: self.viewModel.configuration,
+            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose a Location"),
+            onSelectLocation: { [weak viewModel] in viewModel?.changeLocation() }
+        )
+
     }
 
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large2)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-            location()
-
-            promotions()
-            events()
-
-            information()
-            reloadAction()
+            storefrontSections()
+            storeInfo()
 
         }
         .foregroundStyle(.text(.body))
-        .tabFlowContentSpacing()
 
     }
 
     @ViewBuilder
-    private func location() -> some View {
+    private func storefrontSections() -> some View {
 
-        if let details = self.viewModel.locationDetails {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            StoreLocationCard(details: details) {
-                self.viewModel.changeLocation()
-            }
-
-        } else {
-
-            LeafLaunchButton(
-                title: String(localized: "Change Location"),
-                icon: .systemImage("mappin.and.ellipse")
-            ) {
-                self.viewModel.changeLocation()
-            }
+            promotions()
+            events()
+            featuredProducts()
+            reloadAction()
 
         }
+        .animation(.bouncy, value: self.viewModel.promotions.isEmpty)
+        .animation(.bouncy, value: self.viewModel.events.isEmpty)
 
     }
 
     @ViewBuilder
-    private func information() -> some View {
+    private func sectionHeader(_ title: String) -> some View {
+
+        CommerceSectionHeader(title: title)
+            .padding(.horizontal, .medium)
+
+    }
+
+    @ViewBuilder
+    private func storeInfo() -> some View {
 
         if self.viewModel.store != nil || self.viewModel.locationDetails != nil {
 
-            StoreInformationCard(
+            StoreInfoView(
                 store: self.viewModel.store,
                 details: self.viewModel.locationDetails
             )
@@ -101,6 +103,7 @@ struct StoreOverviewScreen: GPView {
             ) {
                 self.viewModel.loadData(showHud: true)
             }
+            .padding(.horizontal, .medium)
 
         }
 
@@ -111,90 +114,162 @@ struct StoreOverviewScreen: GPView {
 
         if !self.viewModel.promotions.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-                CommerceSectionHeader(
-                    title: String(localized: "In the spotlight"),
-                    subtitle: String(localized: "Promotions from your store.")
-                )
-
-                ForEach(self.viewModel.promotions) { promotion in
-
-                    promotionRow(promotion)
-
-                }
+                sectionHeader(String(localized: "Promotions"))
+                StorePromotionsCarousel(promotions: self.viewModel.promotions)
 
             }
-
-        } else if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
-
-            CommerceEmptyState(
-                systemImage: "tag",
-                title: String(localized: "No current promotions"),
-                message: String(localized: "Check back for the latest from your store.")
-            )
+            .transition(AnyTransition(.blurReplace))
 
         }
 
     }
 
     @ViewBuilder
-    private func promotionRow(_ promotion: Promotion) -> some View {
+    private func featuredProducts() -> some View {
 
-        StorePromotionCard(
-            promotion: promotion,
-            location: self.viewModel.locationDetails?.location,
-            onSelectProduct: self.viewModel.openProduct
-        )
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+            sectionHeader(String(localized: "Featured Products"))
+
+            if !self.viewModel.featuredProducts.isEmpty {
+
+                featuredCarousel()
+
+            } else if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
+
+                CommerceEmptyState(
+                    systemImage: "bag",
+                    title: String(localized: "No Featured Products"),
+                    message: String(localized: "Products will appear here when available at this location.")
+                )
+                .padding(.horizontal, .medium)
+
+            }
+
+        }
 
     }
 
     @ViewBuilder
-    private func eventRow(_ event: StoreEvent) -> some View {
+    private func featuredCarousel() -> some View {
 
-        StoreEventCard(event: event, location: self.viewModel.locationDetails?.location)
+        ScrollView(.horizontal) {
+
+            LazyHStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+
+                ForEach(self.viewModel.featuredProducts) { product in
+                    featuredProductCard(product)
+                }
+
+            }
+            .scrollTargetLayout()
+
+        }
+        .scrollTargetBehavior(.viewAligned)
+        .scrollIndicators(.hidden)
+        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+
+    }
+
+    @ViewBuilder
+    private func featuredProductCard(_ product: Product) -> some View {
+
+        ProductCardView(
+            product: product,
+            isFavorite: self.viewModel.favoriteProductIds.contains(product.id),
+            onOpen: { self.viewModel.openFeaturedProduct(id: product.id) },
+            onFavorite: { self.viewModel.toggleFavorite(id: product.id) }
+        )
+        .containerRelativeFrame(
+            .horizontal,
+            count: 5,
+            span: 3,
+            spacing: self.style.spacing(.small2)
+        )
 
     }
 
     @ViewBuilder
     private func events() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        if !self.viewModel.events.isEmpty {
 
-            CommerceSectionHeader(
-                title: String(localized: "At your store"),
-                subtitle: String(localized: "Upcoming events and local happenings.")
-            )
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading && self.viewModel.events.isEmpty {
-
-                CommerceEmptyState(
-                    systemImage: "calendar",
-                    title: String(localized: "No upcoming events"),
-                    message: String(localized: "New events will appear here when announced.")
-                )
+                eventsHeader()
+                eventCarousel()
 
             }
+            .transition(AnyTransition(.blurReplace))
 
-            ForEach(self.viewModel.events) { event in
+        }
 
-                eventRow(event)
+    }
 
-            }
+    @ViewBuilder
+    private func eventsHeader() -> some View {
 
-            if self.viewModel.hasMoreEvents {
+        HStack(spacing: self.style.spacing(.small)) {
 
-                LeafLaunchButton(
-                    title: String(localized: "Load More Events"),
-                    icon: .systemImage("arrow.down")
-                ) {
-                    self.viewModel.loadMoreEvents()
-                }
-                .disabled(self.viewModel.isLoadingEvents || self.viewModel.isLoading)
+            CommerceSectionHeader(title: String(localized: "Events"))
+
+            if !self.viewModel.events.isEmpty {
+
+                Text(String(localized: "View More"))
+                    .appFont(with: .TITLE_2)
+                    .foregroundStyle(self.style.accent)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .asButton { [weak viewModel] in viewModel?.openEvents() }
 
             }
 
         }
+        .padding(.horizontal, .medium)
+
+    }
+
+    @ViewBuilder
+    private func eventCarousel() -> some View {
+
+        if !self.viewModel.events.isEmpty {
+
+            ScrollView(.horizontal) {
+
+                LazyHStack(alignment: .top, spacing: self.style.spacing(.small)) {
+
+                    ForEach(self.viewModel.events) { event in
+                        eventCard(event)
+                    }
+
+                }
+                .scrollTargetLayout()
+
+            }
+            .scrollTargetBehavior(.viewAligned)
+            .scrollIndicators(.hidden)
+            .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func eventCard(_ event: StoreEvent) -> some View {
+
+        StoreEventCard(
+            event: event,
+            location: self.viewModel.locationDetails?.location
+        ) { [weak viewModel] in
+            viewModel?.openEvent(event)
+        }
+        .containerRelativeFrame(
+            .horizontal,
+            count: 5,
+            span: 3,
+            spacing: self.style.spacing(.small)
+        )
 
     }
 

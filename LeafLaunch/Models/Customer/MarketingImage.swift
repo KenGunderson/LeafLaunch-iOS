@@ -1,6 +1,6 @@
 import Foundation
 
-nonisolated struct MarketingImage: Codable, Sendable {
+nonisolated struct MarketingImage: Codable, Hashable, Sendable {
 
     let url: URL
 

@@ -2,26 +2,14 @@ import SwiftUI
 
 struct StorePromotionCard: View {
 
-    @Environment(\.style) private var style
-
     let promotion: Promotion
-    let location: StoreLocation?
-    let onSelectProduct: (PromotionLinkedProduct) -> Void
 
-    private var schedule: PromotionLocation? {
-        self.promotion.locations?.first { $0.storeLocationId == self.location?.id }
-    }
+    private var subtitle: String? {
 
-    private var timeZone: TimeZone {
-        (self.schedule?.timezone ?? self.location?.timezone).flatMap(TimeZone.init(identifier:)) ?? .autoupdatingCurrent
-    }
+        guard let description = self.promotion.description?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !description.isEmpty else { return nil }
+        return description
 
-    private var linkedProducts: [PromotionLinkedProduct] {
-        (self.promotion.linkedProducts ?? []).filter { $0.storeLocationId == self.location?.id }
-    }
-
-    private func formattedDate(_ date: Date) -> String {
-        date.formatted(Date.FormatStyle(date: .abbreviated, time: .shortened, timeZone: self.timeZone))
     }
 
     var body: some View {
@@ -29,150 +17,59 @@ struct StorePromotionCard: View {
         LLAppCardView(
             verticalPadding: .none,
             horizontalPadding: .none,
+            backgroundStyle: .color(.clear),
             cornerRadius: .large
         ) {
 
-            VStack(alignment: .leading, spacing: 0) {
-
-                promotionImage()
-
-                promotionDetails()
-
-            }
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func scheduleView() -> some View {
-
-        let startsAt = self.schedule?.startsAt ?? self.promotion.startsAt
-        let endsAt = self.schedule?.endsAt ?? self.promotion.endsAt
-
-        if startsAt != nil || endsAt != nil {
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-                if let startsAt {
-                    Text(String(localized: "Starts \(formattedDate(startsAt))"))
-                }
-
-                if let endsAt {
-                    Text(String(localized: "Ends \(formattedDate(endsAt))"))
-                }
-
-                Text(self.timeZone.identifier)
-
-            }
-            .appFont(with: .NOTE_1)
-            .foregroundStyle(.text(.body))
-            .fixedSize(horizontal: false, vertical: true)
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func linkedProductsView() -> some View {
-
-        if !self.linkedProducts.isEmpty {
-
-            Divider()
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                Text(String(localized: "Featured products"))
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(.text(.title))
-
-                ForEach(self.linkedProducts) { product in
-
-                    linkedProductRow(product)
-
-                }
-
-            }
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func promotionImage() -> some View {
-
-        if let imageURL = self.promotion.image?.url {
-
-            ImageSource.remote(
-                url: imageURL,
-                contentMode: .fill,
-                placeholder: AnyView(Rectangle().fill(.background(.tertiary)))
+            StoreMarketingImage(
+                url: self.promotion.image?.url,
+                placeholder: ImageResource(name: "StorePromotionFallback", bundle: .main)
             )
-            .view()
-            .aspectRatio(1.6, contentMode: .fit)
-            .clipped()
+            .aspectRatio(1.9, contentMode: .fit)
+            .overlay(alignment: .bottom) {
+                caption()
+            }
 
         }
 
     }
 
     @ViewBuilder
-    private func promotionDetails() -> some View {
+    private func caption() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-            HStack(spacing: self.style.spacing(.small)) {
-
-                ImageSource.systemImage("tag")
-                    .view(shouldResize: false)
-                Text(String(localized: "Promotion"))
-
-            }
-            .appFont(with: .TITLE_2)
-            .foregroundStyle(.foreground(.primary))
+        VStack(alignment: .leading, spacing: 2) {
 
             Text(self.promotion.title)
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(.text(.title))
-                .fixedSize(horizontal: false, vertical: true)
+                .appFont(with: .TITLE_3)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
 
-            if let description = self.promotion.description, !description.isEmpty {
+            if let subtitle = self.subtitle {
 
-                Text(description)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(.text(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                Text(subtitle)
+                    .appFont(with: .BODY_1)
+                    .lineLimit(2)
 
             }
 
-            scheduleView()
-            linkedProductsView()
-
         }
-        .padding(.medium)
+        .foregroundStyle(Color.white)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, .small)
+        .padding(.bottom, .small)
+        .padding(.top, .large)
+        .background {
 
-    }
+            LinearGradient(
+                stops: [
+                    .init(color: .black.opacity(0), location: 0),
+                    .init(color: .black.opacity(0.55), location: 0.35),
+                    .init(color: .black.opacity(0.85), location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
 
-    @ViewBuilder
-    private func linkedProductRow(_ product: PromotionLinkedProduct) -> some View {
-
-        HStack(spacing: self.style.spacing(.small)) {
-
-            Text(product.displayName)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-            ImageSource.systemImage("arrow.up.right")
-                .view(shouldResize: false)
-
-        }
-        .appFont(with: .TITLE_3)
-        .foregroundStyle(.foreground(.primary))
-        .padding(.vertical, .small2)
-        .frame(minHeight: 44)
-        .contentShape(Rectangle())
-        .asButton {
-            self.onSelectProduct(product)
         }
 
     }
@@ -183,17 +80,9 @@ struct StorePromotionCard: View {
 
     if let promotion = MockCustomerModels.promotions.first {
 
-        ScrollView {
-
-            StorePromotionCard(
-                promotion: promotion,
-                location: MockCustomerModels.locationDetails.location,
-                onSelectProduct: { _ in }
-            )
+        StorePromotionCard(promotion: promotion)
             .padding(.medium)
-
-        }
-        .withMockPreviews()
+            .withMockPreviews()
 
     }
 

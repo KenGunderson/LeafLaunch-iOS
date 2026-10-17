@@ -8,6 +8,7 @@ extension Container {
         self { @MainActor in
             LocationsViewModel(
                 storeSessionService: self.storeSessionService(),
+                apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
@@ -38,7 +39,6 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 overviewViewModel: self.storeOverviewViewModel(),
                 shopViewModel: self.storeShopViewModel(),
-                favoritesViewModel: self.storeFavoritesViewModel(),
                 accountViewModel: self.storeAccountViewModel()
             )
         }
@@ -52,8 +52,35 @@ extension Container {
             StoreOverviewViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
+                userDefaultsService: self.userDefaultsService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
+            )
+        }
+
+    }
+
+    @MainActor
+    var storeEventsViewModel: Factory<StoreEventsViewModel> {
+
+        self { @MainActor in
+            StoreEventsViewModel(
+                apiService: self.apiService(),
+                storeSessionService: self.storeSessionService(),
+                analyticsService: self.analyticsService(),
+                alertService: self.alertService()
+            )
+        }
+
+    }
+
+    @MainActor
+    var eventDetailsViewModel: Factory<EventDetailsViewModel> {
+
+        self { @MainActor in
+            EventDetailsViewModel(
+                storeSessionService: self.storeSessionService(),
+                analyticsService: self.analyticsService()
             )
         }
 
@@ -74,10 +101,10 @@ extension Container {
     }
 
     @MainActor
-    var storeFavoritesViewModel: Factory<StoreFavoritesViewModel> {
+    var favoriteProductsViewModel: Factory<FavoriteProductsViewModel> {
 
         self { @MainActor in
-            StoreFavoritesViewModel(
+            FavoriteProductsViewModel(
                 apiService: self.apiService(),
                 userDefaultsService: self.userDefaultsService(),
                 analyticsService: self.analyticsService(),
@@ -93,6 +120,7 @@ extension Container {
         self { @MainActor in
             ProductDetailsViewModel(
                 apiService: self.apiService(),
+                storeSessionService: self.storeSessionService(),
                 userDefaultsService: self.userDefaultsService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()

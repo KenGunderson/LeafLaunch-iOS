@@ -137,6 +137,30 @@ extension View {
                 ProductDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
+            case .favoriteProducts(let locationId):
+
+                let viewModel = Container.shared.favoriteProductsViewModel()
+                    .setup(locationId: locationId)
+
+                FavoriteProductsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
+            case .events(let locationId):
+
+                let viewModel = Container.shared.storeEventsViewModel()
+                    .setup(locationId: locationId)
+
+                StoreEventsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
+            case .event(let locationId, let event):
+
+                let viewModel = Container.shared.eventDetailsViewModel()
+                    .setup(locationId: locationId, event: event)
+
+                EventDetailsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
             }
 
         }

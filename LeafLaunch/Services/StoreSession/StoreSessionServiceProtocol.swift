@@ -12,6 +12,7 @@ protocol StoreSessionServiceProtocol: AnyObject, Sendable {
     var locations: [BootstrapLocation] { get }
     var error: Error? { get }
     var ageVerificationLocationId: String? { get }
+    var ageVerificationDetails: CustomerLocationDetails? { get }
     var minimumAge: Int { get }
     var ageVerificationState: String { get }
 

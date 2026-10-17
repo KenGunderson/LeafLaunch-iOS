@@ -10,23 +10,28 @@ struct ProductAttributesView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            CommerceSectionHeader(title: String(localized: "Product details"))
+            CommerceSectionHeader(title: String(localized: "Product Details"))
 
             CommerceSurface {
+                attributeRows()
+            }
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        }
 
-                    ForEach(self.attributes, id: \.id) { attribute in
+    }
 
-                        if attribute.id != self.attributes.first?.id {
-                            Divider()
-                        }
+    @ViewBuilder
+    private func attributeRows() -> some View {
 
-                        attributeRow(attribute)
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-                    }
+            ForEach(self.attributes, id: \.id) { attribute in
 
+                if attribute.id != self.attributes.first?.id {
+                    Divider().overlay(self.style.background(.border))
                 }
+
+                attributeRow(attribute)
 
             }
 
@@ -37,16 +42,21 @@ struct ProductAttributesView: View {
     @ViewBuilder
     private func attributeRow(_ attribute: ProductAttribute) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-            Text(attribute.name)
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(.text(.body))
+        LabeledContent {
 
             Text(attribute.displayValue)
                 .appFont(with: .BODY_2)
                 .foregroundStyle(.text(.title))
+                .multilineTextAlignment(.trailing)
+                .fixedSize(horizontal: false, vertical: true)
                 .textSelection(.enabled)
+
+        } label: {
+
+            Text(attribute.name)
+                .appFont(with: .NOTE_1)
+                .foregroundStyle(.text(.body))
+                .fixedSize(horizontal: false, vertical: true)
 
         }
 
