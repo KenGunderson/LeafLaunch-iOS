@@ -199,8 +199,6 @@ struct StoreShopScreen: GPView {
 
             ProductGridView(
                 products: self.viewModel.products,
-                imageURLs: self.viewModel.imageURLs,
-                loadingImageProductIds: self.viewModel.loadingImageProductIds,
                 favoriteProductIds: self.viewModel.favoriteProductIds,
                 onOpen: { self.viewModel.openProduct(id: $0) },
                 onFavorite: { self.viewModel.toggleFavorite(id: $0) }

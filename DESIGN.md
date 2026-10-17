@@ -77,7 +77,7 @@ Surfaces and media use theme large radius, inputs use medium2, and primary actio
 | Location selection and age consent | LocationSelectionCard and AgeVerificationConsentView |
 | Launch identity | SplashScreenView and SplashBrandMarkView |
 
-Native SwiftUI owns scrolling, focus, menus, pickers, disclosures, and safe areas. Rune `ImageSource` owns media loading and caching; product URLs come from the existing public media endpoint, not raw object keys. Keep loading, unavailable-media, empty, and failure/retry states truthful. Signed thumbnail requests are cancellable and cannot publish into a superseded catalog.
+Native SwiftUI owns scrolling, focus, menus, pickers, disclosures, and safe areas. Rune `ImageSource` owns media loading and caching. Public product responses include each active image’s `url`; cards and galleries load those URLs directly. Categories provide `image_url`, bootstrap branding provides `logo_url`/`icon_url`/`splash_url`, and promotion/event images provide `url`. Customer models contain no storage keys or MIME metadata, and screens make no separate media URL requests. Keep loading, unavailable-media, empty, and failure/retry states truthful.
 
 Apply `.animation(.bouncy, value:)` to meaningful selection, favorite feedback, disclosures, and splash entrance. Category changes replace the subcategory group with `.blurReplace`; changing the parent clears its selected child. Use Rune `.asButton` for ordinary custom actions; retain native role-bearing buttons where the modifier cannot preserve that role. Keep LeafLaunchButton and Rune CommonButton for primary action styling. Do not add perpetual decorative animation or delays to the startup callback.
 

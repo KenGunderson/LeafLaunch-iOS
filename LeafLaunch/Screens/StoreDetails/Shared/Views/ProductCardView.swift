@@ -5,8 +5,6 @@ struct ProductCardView: View {
     @Environment(\.style) private var style
 
     let product: Product
-    let imageURL: URL?
-    var isImageLoading: Bool = false
     let isFavorite: Bool
     let onOpen: () -> Void
     let onFavorite: () -> Void
@@ -18,8 +16,7 @@ struct ProductCardView: View {
             VStack(alignment: .leading, spacing: 0) {
 
                 ProductImageView(
-                    url: self.imageURL,
-                    isLoading: self.isImageLoading,
+                    url: self.product.activeImages.first?.url,
                     isUnavailable: !self.product.activeImages.isEmpty
                 )
                 .frame(height: 180)
@@ -79,7 +76,6 @@ struct ProductCardView: View {
 
         ProductCardView(
             product: product,
-            imageURL: MockCustomerModels.previewCoverImageURLs[product.id],
             isFavorite: isFavorite,
             onOpen: {},
             onFavorite: { isFavorite.toggle() }

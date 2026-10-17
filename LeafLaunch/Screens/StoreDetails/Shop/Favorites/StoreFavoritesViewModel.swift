@@ -15,14 +15,10 @@ final class StoreFavoritesViewModel: ViewModel {
     private weak var navigationService: NavigationService?
     private var locationId: String?
     private var loadFavoritesTask: Task<Void, Never>?
-    private var loadProductImagesTask: Task<Void, Never>?
-    private var imageLoadId: UUID?
     private var favoritesSubscription: AnyCancellable?
     private var availableProducts: [Product] = []
 
     @Published private(set) var products: [Product] = []
-    @Published private(set) var imageURLs: [String: URL] = [:]
-    @Published private(set) var loadingImageProductIds: Set<String> = []
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
@@ -43,7 +39,6 @@ final class StoreFavoritesViewModel: ViewModel {
     isolated deinit {
 
         self.loadFavoritesTask?.cancel()
-        self.loadProductImagesTask?.cancel()
         self.favoritesSubscription?.cancel()
         logDeinit()
 
@@ -115,7 +110,6 @@ final class StoreFavoritesViewModel: ViewModel {
 
                 var seenIds: Set<String> = []
                 self?.availableProducts = products.filter { seenIds.insert($0.id).inserted }
-                self?.imageURLs = [:]
                 self?.updateFavorites()
                 self?.hasCompletedInitialLoad = true
 
@@ -146,111 +140,6 @@ final class StoreFavoritesViewModel: ViewModel {
 
         let favoriteIds = self.userDefaultsService.favoriteProductIds
         self.products = self.availableProducts.filter { favoriteIds.contains($0.id) }
-        loadProductImages()
-
-    }
-
-    private func loadProductImages() {
-
-        self.loadProductImagesTask?.cancel()
-        self.loadProductImagesTask = nil
-
-        let loadId = UUID()
-        let products = self.products.filter { self.imageURLs[$0.id] == nil && !$0.activeImages.isEmpty }
-        let apiService = self.apiService
-
-        self.imageLoadId = loadId
-
-        guard let locationId = self.locationId else {
-
-            self.loadingImageProductIds = []
-            return
-
-        }
-
-        self.loadingImageProductIds = Set(products.map(\.id))
-        guard !products.isEmpty else { return }
-
-        self.loadProductImagesTask = Task { [weak self] in
-
-            defer {
-
-                if !Task.isCancelled, self?.imageLoadId == loadId {
-
-                    self?.loadingImageProductIds = []
-                    self?.loadProductImagesTask = nil
-
-                }
-
-            }
-
-            guard !Task.isCancelled, self?.imageLoadId == loadId else { return }
-
-            let loadImage: @Sendable (Product) async -> (productId: String, url: URL?) = { product in
-
-                guard !Task.isCancelled, let media = product.activeImages.first else {
-                    return (product.id, nil)
-                }
-
-                do {
-
-                    let url = try await apiService.getCustomerProductImageURL(
-                        locationId: locationId,
-                        productId: product.id,
-                        mediaId: media.id
-                    )
-                    guard !Task.isCancelled else { return (product.id, nil) }
-
-                    return (product.id, url)
-
-                } catch {
-                    return (product.id, nil)
-                }
-
-            }
-
-            await withTaskGroup(of: (productId: String, url: URL?).self) { group in
-
-                var remainingProducts = products.makeIterator()
-
-                for _ in 0..<min(4, products.count) {
-
-                    guard !Task.isCancelled, self?.imageLoadId == loadId else {
-
-                        group.cancelAll()
-                        return
-
-                    }
-                    guard let product = remainingProducts.next() else { break }
-
-                    group.addTask { await loadImage(product) }
-
-                }
-
-                while let result = await group.next() {
-
-                    guard !Task.isCancelled, self?.imageLoadId == loadId else {
-
-                        group.cancelAll()
-                        return
-
-                    }
-
-                    if let url = result.url {
-                        self?.imageURLs[result.productId] = url
-                    }
-
-                    self?.loadingImageProductIds.remove(result.productId)
-
-                    if let product = remainingProducts.next() {
-                        group.addTask { await loadImage(product) }
-                    }
-
-                }
-
-            }
-
-        }
 
     }
 

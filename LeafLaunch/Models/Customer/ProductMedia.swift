@@ -11,8 +11,7 @@ nonisolated struct ProductMedia: Codable, Equatable, Hashable, Identifiable, Sen
 
     let id: String
     let storeProductId: String
-    let objectKey: String
-    let mimeType: String
+    let url: URL
     let width: Int?
     let height: Int?
     let altText: String?
@@ -25,8 +24,7 @@ nonisolated struct ProductMedia: Codable, Equatable, Hashable, Identifiable, Sen
 
         case id
         case storeProductId = "store_product_id"
-        case objectKey = "object_key"
-        case mimeType = "mime_type"
+        case url
         case width
         case height
         case altText = "alt_text"

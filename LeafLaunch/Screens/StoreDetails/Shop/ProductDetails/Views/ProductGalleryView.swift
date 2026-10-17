@@ -7,8 +7,6 @@ struct ProductGalleryView: View {
     @State private var selectedImageId: String = ""
 
     let product: Product
-    let imageURLs: [String: URL]
-    let unavailableImageIds: Set<String>
 
     private var images: [ProductMedia] { self.product.activeImages }
 
@@ -89,11 +87,7 @@ struct ProductGalleryView: View {
 
             ForEach(self.images) { image in
 
-                ProductImageView(
-                    url: self.imageURLs[image.id],
-                    isLoading: self.imageURLs[image.id] == nil && !self.unavailableImageIds.contains(image.id),
-                    isUnavailable: self.unavailableImageIds.contains(image.id)
-                )
+                ProductImageView(url: image.url)
                 .tag(image.id)
 
             }
@@ -117,10 +111,7 @@ struct ProductGalleryView: View {
                     let index = self.images.firstIndex { $0.id == image.id } ?? 0
 
                     ProductImageView(
-                        url: self.imageURLs[image.id],
-                        isLoading: self.imageURLs[image.id] == nil &&
-                            !self.unavailableImageIds.contains(image.id),
-                        isUnavailable: self.unavailableImageIds.contains(image.id),
+                        url: image.url,
                         showsPlaceholderLabel: false
                     )
                     .frame(width: 64, height: 64)
@@ -157,11 +148,7 @@ struct ProductGalleryView: View {
 
         ScrollView {
 
-            ProductGalleryView(
-                product: product,
-                imageURLs: MockCustomerModels.previewImageURLs(for: product),
-                unavailableImageIds: []
-            )
+            ProductGalleryView(product: product)
             .padding(.medium)
 
         }

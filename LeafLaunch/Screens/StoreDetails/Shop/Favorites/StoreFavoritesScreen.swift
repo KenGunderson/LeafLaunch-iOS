@@ -60,8 +60,6 @@ struct StoreFavoritesScreen: GPView {
 
                 ProductGridView(
                     products: self.viewModel.products,
-                    imageURLs: self.viewModel.imageURLs,
-                    loadingImageProductIds: self.viewModel.loadingImageProductIds,
                     favoriteProductIds: Set(self.viewModel.products.map(\.id)),
                     onOpen: { self.viewModel.openProduct(id: $0) },
                     onFavorite: { self.viewModel.removeFavorite(id: $0) }

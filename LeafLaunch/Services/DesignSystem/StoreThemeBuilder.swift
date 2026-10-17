@@ -95,11 +95,10 @@ enum StoreThemeBuilder {
     static func validatedDefinition(branding: StoreAppBranding) -> StoreAppBranding? {
 
         let colorValues = [branding.contentBackgroundColor, branding.titleColor, branding.bodyColor, branding.iconColor, branding.accentColor, branding.buttonColor, branding.buttonTitleColor, branding.backgroundColor]
-        let mediaKeys = [branding.logoObjectKey, branding.iconObjectKey, branding.splashObjectKey]
-        let mediaPrefix = "stores/\(BusinessConfig.businessId)/app/"
-        let hasValidMedia = mediaKeys.compactMap { $0 }.allSatisfy {
+        let mediaURLs = [branding.logoURL, branding.iconURL, branding.splashURL]
+        let hasValidMedia = mediaURLs.compactMap { $0 }.allSatisfy {
 
-            $0.hasPrefix(mediaPrefix) && !$0.contains("..") && $0.count <= 500
+            ["http", "https"].contains($0.scheme?.lowercased() ?? "") && $0.host != nil
 
         }
         guard colorValues.compactMap({ $0 }).allSatisfy(isValidHexColor),
@@ -118,9 +117,9 @@ enum StoreThemeBuilder {
             buttonColor: branding.buttonColor,
             buttonTitleColor: branding.buttonTitleColor,
             backgroundColor: branding.backgroundColor,
-            logoObjectKey: branding.logoObjectKey,
-            iconObjectKey: branding.iconObjectKey,
-            splashObjectKey: branding.splashObjectKey,
+            logoURL: branding.logoURL,
+            iconURL: branding.iconURL,
+            splashURL: branding.splashURL,
             fontFamily: branding.fontFamily,
             radius: StoreAppRadius(
                 extraSmall: radius?.extraSmall ?? Double(fallback.extraSmall),

@@ -176,8 +176,7 @@ enum MockCustomerModels {
                 ],
                 attributeIds: index < 2 ? ["a9300000-0000-4000-8000-000000000001"] : [],
                 name: name,
-                imageObjectKey: nil,
-                imageMimeType: nil,
+                imageURL: nil,
                 status: .active,
                 displayOrder: index,
                 createdAt: Date(timeIntervalSince1970: 1_791_115_200),
@@ -256,8 +255,7 @@ enum MockCustomerModels {
                     ProductMedia(
                         id: fixtureId("ad400000", (index + 1) * 10 + mediaIndex),
                         storeProductId: productId,
-                        objectKey: "stores/\(businessId)/products/\(productId)/\(mediaIndex)",
-                        mimeType: "image/jpeg",
+                        url: imageURL(seed: "\(productId)-\(mediaIndex)"),
                         width: 640,
                         height: 480,
                         altText: mediaIndex == 0 ? "Botanical product packaging on a studio background" : nil,
@@ -291,25 +289,6 @@ enum MockCustomerModels {
 
     static func imageURL(seed: String) -> URL {
         URL(string: "https://picsum.photos/seed/\(seed)/640/480")!
-    }
-
-    static func previewImageURLs(for product: Product) -> [String: URL] {
-
-        Dictionary(uniqueKeysWithValues: product.activeImages.map { media in
-            (media.id, imageURL(seed: "\(product.storeProductId)-\(media.displayOrder)"))
-        })
-
-    }
-
-    static var previewCoverImageURLs: [String: URL] {
-
-        Dictionary(uniqueKeysWithValues: products.compactMap { product in
-
-            guard let media = product.activeImages.first else { return nil }
-            return (product.id, imageURL(seed: "\(product.storeProductId)-\(media.displayOrder)"))
-
-        })
-
     }
 
     // Preview-only attributes leave the customer demo catalog unchanged.

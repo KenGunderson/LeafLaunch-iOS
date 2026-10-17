@@ -10,9 +10,9 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
     let buttonColor: String?
     let buttonTitleColor: String?
     let backgroundColor: String?
-    let logoObjectKey: String?
-    let iconObjectKey: String?
-    let splashObjectKey: String?
+    let logoURL: URL?
+    let iconURL: URL?
+    let splashURL: URL?
     let fontFamily: StoreAppFontFamily?
     let radius: StoreAppRadius?
 
@@ -24,9 +24,9 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
          buttonColor: String? = nil,
          buttonTitleColor: String? = nil,
          backgroundColor: String? = nil,
-         logoObjectKey: String? = nil,
-         iconObjectKey: String? = nil,
-         splashObjectKey: String? = nil,
+         logoURL: URL? = nil,
+         iconURL: URL? = nil,
+         splashURL: URL? = nil,
          fontFamily: StoreAppFontFamily? = nil,
          radius: StoreAppRadius? = nil) {
 
@@ -38,9 +38,9 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
         self.buttonColor = buttonColor
         self.buttonTitleColor = buttonTitleColor
         self.backgroundColor = backgroundColor
-        self.logoObjectKey = logoObjectKey
-        self.iconObjectKey = iconObjectKey
-        self.splashObjectKey = splashObjectKey
+        self.logoURL = logoURL
+        self.iconURL = iconURL
+        self.splashURL = splashURL
         self.fontFamily = fontFamily
         self.radius = radius
 
@@ -56,9 +56,9 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
         case buttonColor = "button_color"
         case buttonTitleColor = "button_title_color"
         case backgroundColor = "background_color"
-        case logoObjectKey = "logo_object_key"
-        case iconObjectKey = "icon_object_key"
-        case splashObjectKey = "splash_object_key"
+        case logoURL = "logo_url"
+        case iconURL = "icon_url"
+        case splashURL = "splash_url"
         case fontFamily = "font_family"
         case radius
 

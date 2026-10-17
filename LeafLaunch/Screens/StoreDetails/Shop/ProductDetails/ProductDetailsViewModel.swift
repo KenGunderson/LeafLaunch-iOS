@@ -19,8 +19,6 @@ final class ProductDetailsViewModel: ViewModel {
     private var favoritesSubscription: AnyCancellable?
 
     @Published private(set) var product: Product?
-    @Published private(set) var imageURLs: [String: URL] = [:]
-    @Published private(set) var unavailableImageIds: Set<String> = []
     @Published private(set) var isFavorite: Bool = false
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
@@ -99,30 +97,6 @@ final class ProductDetailsViewModel: ViewModel {
                 guard !Task.isCancelled else { return }
 
                 self?.product = product
-                self?.imageURLs = [:]
-                self?.unavailableImageIds = []
-
-                for media in product.activeImages {
-
-                    do {
-
-                        let url = try await apiService.getCustomerProductImageURL(
-                            locationId: locationId,
-                            productId: productId,
-                            mediaId: media.id
-                        )
-                        guard !Task.isCancelled else { return }
-
-                        self?.imageURLs[media.id] = url
-
-                    } catch {
-
-                        guard !Task.isCancelled else { return }
-                        self?.unavailableImageIds.insert(media.id)
-
-                    }
-
-                }
 
             } catch {
 

@@ -60,7 +60,6 @@ protocol APIServiceProtocol: APIProtocol {
     @concurrent func getCustomerCategories(locationId: String) async throws -> [ProductCategory]
     @concurrent func getCustomerProducts(locationId: String, query: ProductQuery) async throws -> CustomerPage<Product>
     @concurrent func getCustomerProduct(locationId: String, productId: String) async throws -> Product
-    @concurrent func getCustomerProductImageURL(locationId: String, productId: String, mediaId: String) async throws -> URL
     @concurrent func getCustomerPromotions(locationId: String) async throws -> [Promotion]
     @concurrent func getCustomerEvents(locationId: String, offset: Int) async throws -> CustomerPage<StoreEvent>
 

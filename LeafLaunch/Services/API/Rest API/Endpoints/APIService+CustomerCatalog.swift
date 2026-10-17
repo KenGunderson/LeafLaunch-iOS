@@ -74,19 +74,4 @@ extension APIService {
 
     }
 
-    @concurrent
-    func getCustomerProductImageURL(locationId: String, productId: String, mediaId: String) async throws -> URL {
-
-        let data = try await buildRequest(
-            method: .get,
-            apiPath: .init(path: .customerPublic("locations/\(locationId)/products/\(productId)/media/\(mediaId)/url")),
-            requiresAuthentication: false
-        )
-        let response: CustomerMediaURL = try await parseData(data: data)
-        try Task.checkCancellation()
-
-        return response.url
-
-    }
-
 }

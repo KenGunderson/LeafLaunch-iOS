@@ -46,11 +46,7 @@ struct ProductDetailsScreen: GPView {
 
             if let product = self.viewModel.product {
 
-                ProductGalleryView(
-                    product: product,
-                    imageURLs: self.viewModel.imageURLs,
-                    unavailableImageIds: self.viewModel.unavailableImageIds
-                )
+                ProductGalleryView(product: product)
 
                 ProductDetailsSummaryView(
                     product: product,

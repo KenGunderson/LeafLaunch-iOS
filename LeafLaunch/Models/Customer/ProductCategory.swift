@@ -15,8 +15,7 @@ nonisolated struct ProductCategory: Codable, Equatable, Hashable, Identifiable, 
     let pricingPresets: [CategoryPricingPreset]
     let attributeIds: [String]
     let name: String
-    let imageObjectKey: String?
-    let imageMimeType: String?
+    let imageURL: URL?
     let status: Status
     let displayOrder: Int
     let createdAt: Date?
@@ -30,8 +29,7 @@ nonisolated struct ProductCategory: Codable, Equatable, Hashable, Identifiable, 
         case pricingPresets = "pricing_presets"
         case attributeIds = "attribute_ids"
         case name
-        case imageObjectKey = "image_object_key"
-        case imageMimeType = "image_mime_type"
+        case imageURL = "image_url"
         case status
         case displayOrder = "display_order"
         case createdAt = "created_at"

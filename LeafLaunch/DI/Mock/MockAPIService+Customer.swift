@@ -65,17 +65,6 @@ extension MockAPIService {
 
     }
 
-    func getCustomerProductImageURL(locationId: String, productId: String, mediaId: String) async throws -> URL {
-
-        let product = try await getCustomerProduct(locationId: locationId, productId: productId)
-        guard let media = product.media?.first(where: { $0.id == mediaId }) else {
-            throw customerNotFound()
-        }
-
-        return MockCustomerModels.imageURL(seed: "\(product.storeProductId)-\(media.displayOrder)")
-
-    }
-
     func getCustomerPromotions(locationId: String) async throws -> [Promotion] {
 
         try validateCustomerLocation(locationId)

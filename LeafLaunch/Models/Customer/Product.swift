@@ -28,13 +28,8 @@ nonisolated struct Product: Codable, Equatable, Hashable, Identifiable, Sendable
 
     var activeImages: [ProductMedia] {
 
-        let supportedTypes: Set<String> = [
-            "image/jpeg", "image/png", "image/webp", "image/gif",
-            "image/heic", "image/heif", "image/tiff", "image/bmp"
-        ]
-
         return (self.media ?? [])
-            .filter { $0.status == .active && supportedTypes.contains($0.mimeType.lowercased()) }
+            .filter { $0.status == .active }
             .sorted {
 
                 if $0.displayOrder == $1.displayOrder { return $0.id < $1.id }

@@ -84,7 +84,7 @@ struct ProductImageView: View {
     if let product = MockCustomerModels.products.first {
 
         ProductImageView(
-            url: MockCustomerModels.previewCoverImageURLs[product.id]
+            url: product.activeImages.first?.url
         )
         .aspectRatio(1, contentMode: .fit)
         .padding(.medium)

@@ -5,8 +5,6 @@ struct ProductGridView: View {
     @Environment(\.style) private var style
 
     let products: [Product]
-    let imageURLs: [String: URL]
-    let loadingImageProductIds: Set<String>
     let favoriteProductIds: Set<String>
     let onOpen: (String) -> Void
     let onFavorite: (String) -> Void
@@ -30,8 +28,6 @@ struct ProductGridView: View {
 
                 ProductCardView(
                     product: product,
-                    imageURL: self.imageURLs[product.id],
-                    isImageLoading: self.loadingImageProductIds.contains(product.id),
                     isFavorite: self.favoriteProductIds.contains(product.id),
                     onOpen: { self.onOpen(product.id) },
                     onFavorite: { self.onFavorite(product.id) }
@@ -53,8 +49,6 @@ struct ProductGridView: View {
 
         ProductGridView(
             products: Array(MockCustomerModels.products.prefix(4)),
-            imageURLs: MockCustomerModels.previewCoverImageURLs,
-            loadingImageProductIds: [],
             favoriteProductIds: favoriteProductIds,
             onOpen: { _ in },
             onFavorite: { productId in
