@@ -11,6 +11,7 @@ enum CustomerScreenEvent {
     case product(locationId: String, productId: String)
     case events(locationId: String)
     case event(locationId: String, eventId: String)
+    case promotionProducts(locationId: String, promotionId: String)
     case account(locationId: String)
 
     var screenName: String {
@@ -25,6 +26,7 @@ enum CustomerScreenEvent {
         case .product: return "customer_product"
         case .events: return "customer_events"
         case .event: return "customer_event"
+        case .promotionProducts: return "customer_promotion_products"
         case .account: return "customer_account"
         }
 
@@ -62,6 +64,14 @@ enum CustomerScreenEvent {
                 "business_id": BusinessConfig.businessId,
                 "location_id": locationId,
                 "event_id": eventId
+            ]
+
+        case .promotionProducts(let locationId, let promotionId):
+
+            return [
+                "business_id": BusinessConfig.businessId,
+                "location_id": locationId,
+                "promotion_id": promotionId
             ]
 
         }

@@ -4,6 +4,7 @@ struct StoreAccountMembershipView: View {
 
     @Environment(\.style) private var style
 
+    let account: CustomerAccount?
     let membership: CustomerLocationMembership?
     let isLoading: Bool
     let hasCompletedInitialLoad: Bool
@@ -11,9 +12,10 @@ struct StoreAccountMembershipView: View {
 
     private var membershipStatus: String {
 
-        switch self.membership?.status {
+        switch self.account?.status {
         case .active: return String(localized: "Active member")
-        case .left: return String(localized: "Membership ended")
+        case .suspended: return String(localized: "Membership suspended")
+        case .banned: return String(localized: "Membership unavailable")
         case .anonymized: return String(localized: "Membership anonymized")
         case nil: return String(localized: "Membership")
         }
@@ -28,13 +30,15 @@ struct StoreAccountMembershipView: View {
 
             CommerceSurface {
 
-                if let membership {
+                if let account {
 
-                    membershipContent(membership)
+                    membershipContent(account)
 
-                } else if self.hasCompletedInitialLoad && !self.isLoading {
+                    if self.membership == nil && self.hasCompletedInitialLoad && !self.isLoading {
 
-                    joinContent()
+                        LeafLaunchButton(title: String(localized: "Enable Location Activity"), action: self.joinAction)
+
+                    }
 
                 } else if self.isLoading {
 
@@ -56,7 +60,7 @@ struct StoreAccountMembershipView: View {
     }
 
     @ViewBuilder
-    private func membershipContent(_ membership: CustomerLocationMembership) -> some View {
+    private func membershipContent(_ account: CustomerAccount) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
@@ -64,7 +68,7 @@ struct StoreAccountMembershipView: View {
 
             VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-                Text(membership.cachedPointsBalance)
+                Text(account.cachedPointsBalance)
                     .appFont(with: .BILLBOARD_2)
                     .monospacedDigit()
                     .foregroundStyle(self.style.textColor(.title))
@@ -77,7 +81,7 @@ struct StoreAccountMembershipView: View {
 
             Divider().overlay(self.style.background(.border))
 
-            membershipDetails(membership)
+            membershipDetails(account)
 
         }
 
@@ -103,20 +107,20 @@ struct StoreAccountMembershipView: View {
     }
 
     @ViewBuilder
-    private func membershipDetails(_ membership: CustomerLocationMembership) -> some View {
+    private func membershipDetails(_ account: CustomerAccount) -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-            if !membership.membershipCode.isEmpty {
+            if !account.membershipCode.isEmpty {
 
-                Text(String(localized: "Member ID · \(membership.membershipCode)"))
+                Text(String(localized: "Member ID · \(account.membershipCode)"))
                     .appFont(with: .TITLE_1)
                     .foregroundStyle(self.style.textColor(.title))
                     .textSelection(.enabled)
 
             }
 
-            Text(String(localized: "Member since \(membership.joinedAt.formatted(date: .abbreviated, time: .omitted))"))
+            Text(String(localized: "Member since \(account.createdAt.formatted(date: .abbreviated, time: .omitted))"))
                 .appFont(with: .BODY_1)
                 .foregroundStyle(self.style.textColor(.body))
 
@@ -124,35 +128,13 @@ struct StoreAccountMembershipView: View {
 
     }
 
-    @ViewBuilder
-    private func joinContent() -> some View {
-
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-            ImageSource.systemImage("seal").view(shouldResize: false)
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(self.style.foreground(.primary))
-
-            Text(String(localized: "Good things come with membership."))
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(self.style.textColor(.title))
-
-            Text(String(localized: "Join this location's loyalty program to earn points and see your activity here."))
-                .appFont(with: .BODY_2)
-                .foregroundStyle(self.style.textColor(.body))
-                .fixedSize(horizontal: false, vertical: true)
-
-            LeafLaunchButton(title: String(localized: "Join Loyalty Program"), action: self.joinAction)
-
-        }
-
-    }
 
 }
 
 #Preview("Member") {
 
     StoreAccountMembershipView(
+        account: MockCustomerModels.account,
         membership: MockCustomerModels.membership,
         isLoading: false,
         hasCompletedInitialLoad: true,
@@ -163,9 +145,10 @@ struct StoreAccountMembershipView: View {
 
 }
 
-#Preview("Join membership") {
+#Preview("Business membership without location") {
 
     StoreAccountMembershipView(
+        account: MockCustomerModels.account,
         membership: nil,
         isLoading: false,
         hasCompletedInitialLoad: true,

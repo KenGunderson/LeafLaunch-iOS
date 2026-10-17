@@ -87,6 +87,18 @@ extension Container {
     }
 
     @MainActor
+    var promotionProductsViewModel: Factory<PromotionProductsViewModel> {
+
+        self { @MainActor in
+            PromotionProductsViewModel(
+                analyticsService: self.analyticsService(),
+                alertService: self.alertService()
+            )
+        }
+
+    }
+
+    @MainActor
     var storeShopViewModel: Factory<StoreShopViewModel> {
 
         self { @MainActor in

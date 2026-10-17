@@ -59,6 +59,13 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
+        container.promotionProductsViewModel.register { @MainActor in
+            PromotionProductsViewModel(
+                analyticsService: container.analyticsService(),
+                alertService: container.alertService()
+            )
+        }
+
         container.storeShopViewModel.register { @MainActor in
             StoreShopViewModel(
                 apiService: container.apiService(),

@@ -65,10 +65,6 @@ final class AuthService: AuthServiceProtocol {
             self.firebaseService.clearAuthContext()
         }
 
-        guard let locationId = self.userDefaultsService.lastSelectedLocationId else {
-            throw APIError.serverError(statusCode: 400, errorMessage: "Choose a store before creating an account.")
-        }
-
         do {
 
             try await self.firebaseService.signup(
@@ -76,15 +72,9 @@ final class AuthService: AuthServiceProtocol {
                 password: password
             )
 
-            self.apiService.accessToken = self.firebaseService.currentAccessToken
-
-            _ = try await self.apiService.registerCustomerAccount(
-                locationId: locationId,
+            try await fetchUserInfoWithToken(
                 displayName: "\(firstName.trimmed()) \(lastName.trimmed())".trimmed()
             )
-            try Task.checkCancellation()
-
-            try await fetchUserInfoWithToken()
 
         }
         catch {
@@ -162,6 +152,11 @@ final class AuthService: AuthServiceProtocol {
 
     @MainActor
     func fetchUserInfoWithToken() async throws {
+        try await fetchUserInfoWithToken(displayName: nil)
+    }
+
+    @MainActor
+    private func fetchUserInfoWithToken(displayName: String?) async throws {
 
         guard let firebaseUser = self.firebaseService.user else { return }
         let externalId = firebaseUser.uid
@@ -175,7 +170,14 @@ final class AuthService: AuthServiceProtocol {
             self.apiService
                 .accessToken = self.firebaseService.currentAccessToken
 
-            let account = try await self.apiService.getCustomerAccount()
+            try Task.checkCancellation()
+            guard self.firebaseService.user?.uid == externalId else { throw CancellationError() }
+
+            let profileName = (displayName ?? firebaseUser.displayName ?? "").trimmed()
+            let account = try await self.apiService.registerCustomerAccount(
+                storeId: BusinessConfig.businessId,
+                displayName: profileName.isEmpty ? Constants.Message.customerDisplayName : String(profileName.prefix(120))
+            )
             try Task.checkCancellation()
 
             guard self.firebaseService.user?.uid == externalId else { return }
@@ -366,25 +368,7 @@ final class AuthService: AuthServiceProtocol {
                 nonce: authResult.nonce
             )
 
-            self.apiService.accessToken = self.firebaseService.currentAccessToken
-
-            if !isLogin {
-
-                guard let locationId = self.userDefaultsService.lastSelectedLocationId else {
-                    throw APIError.serverError(statusCode: 400, errorMessage: "Choose a store before creating an account.")
-                }
-
-                let displayName = authResult.name ?? self.firebaseService.user?.displayName ?? "Customer"
-
-                _ = try await self.apiService.registerCustomerAccount(
-                    locationId: locationId,
-                    displayName: displayName
-                )
-                try Task.checkCancellation()
-
-            }
-
-            try await fetchUserInfoWithToken()
+            try await fetchUserInfoWithToken(displayName: authResult.name)
 
         }
         catch {
@@ -492,7 +476,13 @@ final class AuthService: AuthServiceProtocol {
 
                 apiService.accessToken = firebaseService.currentAccessToken
 
-                let account = try await apiService.getCustomerAccount()
+                guard firebaseService.user?.uid == externalId else { throw CancellationError() }
+
+                let profileName = (user.displayName ?? "").trimmed()
+                let account = try await apiService.registerCustomerAccount(
+                    storeId: BusinessConfig.businessId,
+                    displayName: profileName.isEmpty ? Constants.Message.customerDisplayName : String(profileName.prefix(120))
+                )
                 try Task.checkCancellation()
 
                 guard self?.initialUserLoadId == loadId,

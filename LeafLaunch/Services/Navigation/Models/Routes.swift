@@ -19,6 +19,7 @@ enum Route: Navigation, Hashable, Sendable {
         case favoriteProducts(locationId: String)
         case events(locationId: String)
         case event(locationId: String, event: StoreEvent)
+        case promotionProducts(locationId: String, promotionId: String, title: String, products: [PromotionLinkedProduct])
 
     }
 

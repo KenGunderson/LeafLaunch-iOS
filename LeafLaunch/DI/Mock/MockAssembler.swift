@@ -56,6 +56,10 @@ class MockAppAssembler {
             return self.container.eventDetailsViewModel() as! T
         }
 
+        if type == PromotionProductsViewModel.self {
+            return self.container.promotionProductsViewModel() as! T
+        }
+
         if type == StoreShopViewModel.self {
             return self.container.storeShopViewModel() as! T
         }

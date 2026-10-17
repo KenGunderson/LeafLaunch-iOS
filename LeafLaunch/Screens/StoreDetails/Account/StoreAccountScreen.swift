@@ -79,7 +79,7 @@ struct StoreAccountScreen: GPView {
             loadFailure()
         }
 
-        if self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
+        if self.viewModel.account != nil || self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
             loyalty()
         }
 
@@ -95,6 +95,7 @@ struct StoreAccountScreen: GPView {
     private func loyalty() -> some View {
 
         StoreAccountMembershipView(
+            account: self.viewModel.account,
             membership: self.viewModel.membership,
             isLoading: self.viewModel.isLoading,
             hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,

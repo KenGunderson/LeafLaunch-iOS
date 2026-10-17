@@ -222,6 +222,21 @@ final class SignUpViewModel: ViewModel {
         if let authorizationError = error as? ASAuthorizationError,
            authorizationError.code == .canceled { return }
 
+        if let firebaseError = error as? FirebaseService.FirebaseError,
+           case .emailAlreadyInUse = firebaseError {
+
+            self.alertService.showAlert(.init(
+                .appAlert(
+                    .error(
+                        message: Constants.Message.existingLeafLaunchAccountMessage,
+                        action: { [weak self] in self?.navigationService?.replaceStack(.auth(.login)) }
+                    )
+                )
+            ))
+            return
+
+        }
+
         self.alertService.showAlert(.init(
             .appAlert(
                 .error(

@@ -142,6 +142,53 @@ final class StoreOverviewViewModel: ViewModel {
 
     }
 
+    func openPromotion(_ promotion: Promotion) {
+
+        guard let locationId = self.locationId,
+              self.promotions.contains(where: { $0.id == promotion.id }) else { return }
+
+        switch promotion.kind {
+        case .general:
+            return
+
+        case .sale, .newProduct:
+
+            guard !promotion.linkedProducts.isEmpty else {
+
+                presentPromotionError(message: Constants.Message.promotionProductsErrorMessage)
+                return
+
+            }
+
+            if promotion.linkedProducts.count == 1, let product = promotion.linkedProducts.first {
+
+                guard let listingId = product.locationProductListingId else {
+
+                    presentPromotionError(message: Constants.Message.promotionProductUnavailableMessage)
+                    return
+
+                }
+
+                self.navigationService?.push(.customer(.product(locationId: locationId, productId: listingId)))
+
+            } else {
+
+                self.navigationService?.push(.customer(.promotionProducts(
+                    locationId: locationId,
+                    promotionId: promotion.id,
+                    title: promotion.title,
+                    products: promotion.linkedProducts
+                )))
+
+            }
+
+        case .link:
+            openPromotionLink(promotion.url)
+
+        }
+
+    }
+
     func openFeaturedProduct(id: String) {
 
         guard let locationId = self.locationId,
@@ -183,6 +230,37 @@ final class StoreOverviewViewModel: ViewModel {
             )
         ))
         
+    }
+
+    private func openPromotionLink(_ value: String?) {
+
+        guard let value,
+              let components = URLComponents(string: value),
+              components.scheme?.lowercased() == "https",
+              let host = components.host,
+              !host.isEmpty,
+              let url = components.url else {
+
+            presentPromotionError(message: Constants.Message.promotionLinkErrorMessage)
+            return
+
+        }
+
+        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+
+            guard !didOpen else { return }
+            self?.presentPromotionError(message: Constants.Message.promotionLinkErrorMessage)
+
+        }
+
+    }
+
+    private func presentPromotionError(message: String) {
+
+        self.alertService.showAlert(.init(
+            .appAlert(.error(message: message, action: {}))
+        ))
+
     }
     
     private func presentFavoriteToast(title: String, isFavorite: Bool) {

@@ -24,30 +24,9 @@ struct ProductPriceView: View {
                 
                 let formattedPrice = price.formatted(.currency(code: self.product.currencyCode))
                 
-                VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-                    
-                    Text(self.hasPriceRange ? String(localized: "From \(formattedPrice)") : formattedPrice)
-                        .foregroundStyle(self.style.textColor(.title))
-                    
-                    if let variant = self.product.variants.first(where: {
-                        
-                        $0.availability == .available &&
-                        $0.displayPrice == price &&
-                        ($0.baseDisplayPrice ?? price) > price
-                        
-                    }), let basePrice = variant.baseDisplayPrice {
-                        
-                        let savings = (basePrice - price).formatted(.currency(code: self.product.currencyCode))
-                        
-                        Text(String(localized: "Save \(savings) on \(variant.name)"))
-                            .appFont(with: .NOTE_1)
-                            .foregroundStyle(self.style.foreground(.primary))
-                            .fixedSize(horizontal: false, vertical: true)
-                        
-                    }
-                    
-                }
-                
+                Text(self.hasPriceRange ? String(localized: "From \(formattedPrice)") : formattedPrice)
+                    .foregroundStyle(self.style.textColor(.title))
+
             } else {
                 
                 let hasAvailableVariant = self.product.variants.contains { $0.availability == .available }

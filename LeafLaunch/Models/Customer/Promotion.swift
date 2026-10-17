@@ -4,16 +4,19 @@ nonisolated struct Promotion: Codable, Identifiable, Sendable {
 
     enum Kind: String, Codable, Sendable {
 
-        case informational = "INFORMATIONAL"
-        case priceOverride = "PRICE_OVERRIDE"
+        case general = "GENERAL"
+        case sale = "SALE"
+        case newProduct = "NEW_PRODUCT"
+        case link = "LINK"
 
     }
 
     let id: String
     let storeId: String
     let image: MarketingImage?
-    let linkedProducts: [PromotionLinkedProduct]?
-    let linkedProductListingIds: [String]?
+    let url: String?
+    let linkedProducts: [PromotionLinkedProduct]
+    let linkedProductIds: [String]
     let title: String
     let description: String?
     let kind: Kind
@@ -25,15 +28,15 @@ nonisolated struct Promotion: Codable, Identifiable, Sendable {
     let createdAt: Date
     let updatedAt: Date
     let locations: [PromotionLocation]?
-    let variantTargets: [PromotionVariantTarget]?
 
     private enum CodingKeys: String, CodingKey {
 
         case id
         case storeId = "store_id"
         case image
+        case url
         case linkedProducts = "linked_products"
-        case linkedProductListingIds = "linked_product_listing_ids"
+        case linkedProductIds = "linked_product_ids"
         case title
         case description
         case kind
@@ -45,7 +48,6 @@ nonisolated struct Promotion: Codable, Identifiable, Sendable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case locations
-        case variantTargets = "variant_targets"
 
     }
 

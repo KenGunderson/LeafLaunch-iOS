@@ -119,6 +119,10 @@ enum MockCustomerModels {
         CustomerAccount(
             id: "98300000-0000-4000-8000-000000000001",
             accountId: "98400000-0000-4000-8000-000000000001",
+            storeId: businessId,
+            storeName: store.name,
+            membershipCode: "LEAF2345",
+            cachedPointsBalance: "1235",
             displayName: "Alexis Mensah",
             status: .active,
             anonymizedAt: nil,
@@ -137,6 +141,10 @@ enum MockCustomerModels {
         CustomerAccount(
             id: UUID().uuidString,
             accountId: UUID().uuidString,
+            storeId: businessId,
+            storeName: store.name,
+            membershipCode: "NEWC2345",
+            cachedPointsBalance: "0",
             displayName: displayName,
             status: .active,
             anonymizedAt: nil,
@@ -290,9 +298,7 @@ enum MockCustomerModels {
                             : fixtureId("ad210000", (index + 1) * 10 + optionIndex),
                         displayPrice: price,
                         availability: status == .temporarilyUnavailable ? .temporarilyUnavailable : .available,
-                        name: option.name,
-                        baseDisplayPrice: price,
-                        promotionId: nil
+                        name: option.name
                     )
 
                 }
@@ -540,49 +546,55 @@ enum MockCustomerModels {
         guard locationId == primaryLocationId || locationId == tertiaryLocationId else { return [] }
         let titles = ["Weekend Welcome", "Morning Specials", "Member Appreciation", "Seasonal Savings", "Neighborhood Spotlight", "New Arrivals", "Community Week", "Early Bird Offer"]
         let locationNumber = locationId == primaryLocationId ? 1 : 5
-        let linkedProduct = products(locationId: locationId).first { $0.status == .published }
+        let locationProducts = products(locationId: locationId)
+        let businessProducts = catalog.enumerated().map { index, item in
 
-        return (0..<32).filter { $0 % 6 == 2 }.map { index in
+            let id = fixtureId("ad100000", index + 1)
+
+            return PromotionLinkedProduct(
+                id: id,
+                displayName: item.name,
+                locationProductListingId: locationProducts.first { $0.storeProductId == id }?.id
+            )
+
+        }
+        let kinds: [Promotion.Kind] = [.general, .sale, .newProduct, .link, .sale]
+
+        return (0..<32).filter { $0 % 6 == 2 }.enumerated().map { promotionIndex, index in
 
             let id = fixtureId("ad500000", locationNumber * 100 + index + 1)
-            let priceChanging = index % 4 == 2 && linkedProduct != nil
+            let kind = kinds[promotionIndex]
             let startsAt = sessionDate.addingTimeInterval(-24 * 3_600)
             let endsAt = sessionDate.addingTimeInterval(24 * 3_600)
-            let targets: [PromotionVariantTarget]
+            let linkedProducts: [PromotionLinkedProduct]
 
-            if priceChanging, let product = linkedProduct, let variant = product.variants.first {
+            switch kind {
+            case .general, .link:
+                linkedProducts = []
 
-                targets = [
-                    PromotionVariantTarget(
-                        id: fixtureId("ad510000", locationNumber * 100 + index + 1),
-                        promotionId: id,
-                        locationVariantListingId: variant.id,
-                        discountType: .override,
-                        discountValue: nil,
-                        overridePrice: index == 2 ? 0 : 5,
-                        basePriceSnapshot: variant.baseDisplayPrice,
-                        displayNameSnapshot: product.displayName,
-                        effectiveStartsAt: startsAt,
-                        effectiveEndsAt: endsAt,
-                        effective: false,
-                        createdAt: sessionDate.addingTimeInterval(-96 * 3_600),
-                        updatedAt: sessionDate.addingTimeInterval(-96 * 3_600)
-                    )
-                ]
+            case .newProduct:
+                linkedProducts = Array(businessProducts.prefix(3))
 
-            } else {
-                targets = []
+            case .sale:
+
+                if let product = businessProducts.first(where: { ($0.locationProductListingId != nil) == (promotionIndex == 1) }) {
+                    linkedProducts = [product]
+                } else {
+                    linkedProducts = []
+                }
+
             }
 
             return Promotion(
                 id: id,
                 storeId: businessId,
                 image: nil,
-                linkedProducts: nil,
-                linkedProductListingIds: priceChanging ? linkedProduct.map { [$0.id] } : [],
+                url: kind == .link ? "https://example.com/high-standards" : nil,
+                linkedProducts: linkedProducts,
+                linkedProductIds: linkedProducts.map(\.id),
                 title: "\(titles[index % titles.count]) \(index + 1)",
                 description: index % 7 == 0 ? nil : "Visit this Location during the saved schedule. Review the recorded details before publication.",
-                kind: priceChanging ? .priceOverride : .informational,
+                kind: kind,
                 status: .active,
                 startsAt: startsAt,
                 endsAt: endsAt,
@@ -601,8 +613,7 @@ enum MockCustomerModels {
                         createdAt: createdAt,
                         updatedAt: createdAt
                     )
-                ],
-                variantTargets: targets
+                ]
             )
 
         }
@@ -680,9 +691,9 @@ enum MockCustomerModels {
                 ?? (isSeededCustomer ? "98650000-0000-4000-8000-000000000001" : customerAccount.accountId),
             customerAccountId: customerAccount.id,
             storeLocationId: locationId,
-            membershipCode: isSeededCustomer ? "LEAF2345" : "NEWC2345",
+            membershipCode: customerAccount.membershipCode,
             status: .active,
-            cachedPointsBalance: isSeededCustomer ? "1235" : "0",
+            cachedPointsBalance: customerAccount.cachedPointsBalance,
             joinedAt: joinedAt,
             leftAt: nil,
             createdAt: existingMembership?.createdAt ?? joinedAt,

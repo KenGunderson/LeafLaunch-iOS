@@ -58,7 +58,7 @@ protocol APIServiceProtocol: APIProtocol {
     // Customer account and loyalty
 
     @concurrent func getCustomerAccount() async throws -> CustomerAccount
-    @concurrent func registerCustomerAccount(locationId: String, displayName: String) async throws -> CustomerAccount
+    @concurrent func registerCustomerAccount(storeId: String, displayName: String) async throws -> CustomerAccount
     @concurrent func updateCustomerAccount(displayName: String) async throws -> CustomerAccount
     @concurrent func deleteCustomerAccount() async throws
     @concurrent func getCustomerMembership(locationId: String) async throws -> CustomerLocationMembership

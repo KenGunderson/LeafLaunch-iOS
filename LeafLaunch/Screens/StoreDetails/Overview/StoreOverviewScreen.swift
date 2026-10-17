@@ -117,7 +117,9 @@ struct StoreOverviewScreen: GPView {
             VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
                 sectionHeader(String(localized: "Promotions"))
-                StorePromotionsCarousel(promotions: self.viewModel.promotions)
+                StorePromotionsCarousel(promotions: self.viewModel.promotions) { [weak viewModel] promotion in
+                    viewModel?.openPromotion(promotion)
+                }
 
             }
             .transition(AnyTransition(.blurReplace))

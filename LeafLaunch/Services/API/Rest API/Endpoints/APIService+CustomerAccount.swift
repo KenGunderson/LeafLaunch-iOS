@@ -13,22 +13,24 @@ extension APIService {
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
+        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }
 
     @concurrent
-    func registerCustomerAccount(locationId: String, displayName: String) async throws -> CustomerAccount {
+    func registerCustomerAccount(storeId: String, displayName: String) async throws -> CustomerAccount {
 
         let data = try await buildRequest(
             method: .post,
-            apiPath: .init(path: .customer("locations/\(locationId)/account")),
-            parameters: ["display_name": displayName],
-            headers: await customerHeaders(locationId: locationId)
+            apiPath: .init(path: .customer("account")),
+            parameters: ["store_id": storeId, "display_name": displayName],
+            headers: await customerHeaders()
         )
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
+        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }
@@ -45,6 +47,7 @@ extension APIService {
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
+        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }

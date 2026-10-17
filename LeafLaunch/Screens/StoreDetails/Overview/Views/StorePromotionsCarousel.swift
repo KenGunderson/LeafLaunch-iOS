@@ -9,6 +9,7 @@ struct StorePromotionsCarousel: View {
     @State private var isScrolling = false
 
     let promotions: [Promotion]
+    let onOpen: (Promotion) -> Void
 
     private var currentPromotionId: String? {
 
@@ -124,6 +125,9 @@ struct StorePromotionsCarousel: View {
     private func promotionCard(_ promotion: Promotion) -> some View {
 
         StorePromotionCard(promotion: promotion)
+            .if(promotion.kind != .general) { view in
+                view.asButton { self.onOpen(promotion) }
+            }
             .containerRelativeFrame(.horizontal)
             .id(promotion.id)
 
@@ -163,7 +167,7 @@ struct StorePromotionsCarousel: View {
 
     ScrollView {
 
-        StorePromotionsCarousel(promotions: MockCustomerModels.promotions)
+        StorePromotionsCarousel(promotions: MockCustomerModels.promotions) { _ in }
 
     }
     .withMockPreviews()

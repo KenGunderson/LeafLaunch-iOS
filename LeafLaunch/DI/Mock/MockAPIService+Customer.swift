@@ -86,17 +86,13 @@ extension MockAPIService {
 
     }
 
-    func registerCustomerAccount(locationId: String, displayName: String) async throws -> CustomerAccount {
+    func registerCustomerAccount(storeId: String, displayName: String) async throws -> CustomerAccount {
 
-        try validateCustomerLocation(locationId)
-        let displayName = try validatedDisplayName(displayName)
+        guard storeId == MockCustomerModels.businessId else { throw customerNotFound() }
+        _ = try validatedDisplayName(displayName)
         try Task.checkCancellation()
 
-        self.customerAccount = MockCustomerModels.newAccount(displayName: displayName)
-        self.customerMemberships = [
-            locationId: MockCustomerModels.membership(locationId: locationId, customerAccount: self.customerAccount)
-        ]
-
+        guard self.customerAccount.status == .active else { throw customerNotFound() }
         return self.customerAccount
 
     }
@@ -111,6 +107,10 @@ extension MockAPIService {
         self.customerAccount = CustomerAccount(
             id: account.id,
             accountId: account.accountId,
+            storeId: account.storeId,
+            storeName: account.storeName,
+            membershipCode: account.membershipCode,
+            cachedPointsBalance: account.cachedPointsBalance,
             displayName: displayName,
             status: .active,
             anonymizedAt: nil,
@@ -129,6 +129,10 @@ extension MockAPIService {
         self.customerAccount = CustomerAccount(
             id: account.id,
             accountId: account.accountId,
+            storeId: account.storeId,
+            storeName: account.storeName,
+            membershipCode: account.membershipCode,
+            cachedPointsBalance: account.cachedPointsBalance,
             displayName: "Deleted customer",
             status: .anonymized,
             anonymizedAt: Date(),

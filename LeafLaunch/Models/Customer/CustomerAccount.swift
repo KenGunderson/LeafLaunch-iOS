@@ -13,6 +13,10 @@ nonisolated struct CustomerAccount: Codable, Equatable, Identifiable, Sendable {
 
     let id: String
     let accountId: String
+    let storeId: String
+    let storeName: String
+    let membershipCode: String
+    let cachedPointsBalance: String
     let displayName: String
     let status: Status
     let anonymizedAt: Date?
@@ -23,6 +27,10 @@ nonisolated struct CustomerAccount: Codable, Equatable, Identifiable, Sendable {
 
         case id
         case accountId = "account_id"
+        case storeId = "store_id"
+        case storeName = "store_name"
+        case membershipCode = "membership_code"
+        case cachedPointsBalance = "cached_points_balance"
         case displayName = "display_name"
         case status
         case anonymizedAt = "anonymized_at"

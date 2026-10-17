@@ -198,8 +198,9 @@ final class StoreAccountViewModel: ViewModel {
 
     private func loadAccount(shouldJoin: Bool, showHud: Bool) {
 
-        guard self.loadAccountTask == nil, self.user != nil,
-              let locationId = self.locationId else { return }
+        guard self.loadAccountTask == nil, self.user != nil else { return }
+
+        let locationId = self.locationId
 
         let apiService = self.apiService
         let alertService = self.alertService
@@ -234,6 +235,16 @@ final class StoreAccountViewModel: ViewModel {
                 guard !Task.isCancelled, self?.requestId == requestId else { return }
 
                 self?.account = account
+
+                guard let locationId else {
+
+                    self?.membership = nil
+                    self?.history = []
+                    self?.hasMoreHistory = false
+                    self?.hasCompletedInitialLoad = true
+                    return
+
+                }
 
                 let membership: CustomerLocationMembership
 

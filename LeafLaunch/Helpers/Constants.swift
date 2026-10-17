@@ -173,6 +173,8 @@ struct Constants {
     struct Message {
 
         static let loginErrorMessage = "Something went wrong while signing you in. Please try again."
+        static let existingLeafLaunchAccountMessage = "You already have an account with LeafLaunch. Please sign in to use it with this business."
+        static let customerDisplayName = "Customer"
         static let signupErrorMessage = "Something went wrong while creating your account. Please try again."
         static let logoutErrorMessage = "Something went wrong while signing you out. Please try again."
         static let authenticationErrorMessage = "We couldn't verify your account. Please sign in again."
@@ -184,6 +186,9 @@ struct Constants {
 
         static let storeDirectionsErrorMessage = "Unable to open Maps. Please try again."
         static let storePhoneErrorMessage = "Unable to call the store. Please try again."
+        static let promotionLinkErrorMessage = "Unable to open this promotion's link. Please try again later."
+        static let promotionProductsErrorMessage = "This promotion's products are unavailable. Please try again later."
+        static let promotionProductUnavailableMessage = "This product is unavailable at your current location. Choose another location to check its availability."
 
         enum Context {
 

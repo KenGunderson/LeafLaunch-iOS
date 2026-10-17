@@ -62,15 +62,6 @@ struct ProductOptionsView: View {
                 price(variant)
                 availability(variant)
 
-                if variant.promotionId != nil {
-
-                    Text(String(localized: "Promotion Applied"))
-                        .appFont(with: .NOTE_1)
-                        .foregroundStyle(.text(.body))
-                        .fixedSize(horizontal: false, vertical: true)
-
-                }
-
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
@@ -129,22 +120,6 @@ struct ProductOptionsView: View {
                 Text(String(localized: "Price Unavailable"))
                     .appFont(with: .BODY_1)
                     .foregroundStyle(.text(.body))
-                    .fixedSize(horizontal: false, vertical: true)
-
-            }
-
-            if let basePrice = variant.baseDisplayPrice,
-               let displayPrice = variant.displayPrice,
-               basePrice > displayPrice {
-
-                let formattedBasePrice = basePrice.formatted(.currency(code: self.product.currencyCode))
-
-                Text(formattedBasePrice)
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(.text(.body))
-                    .strikethrough()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
                     .fixedSize(horizontal: false, vertical: true)
 
             }

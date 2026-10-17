@@ -286,9 +286,8 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
 
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
 
-        let locationId = self.userDefaultsService.lastSelectedLocationId ?? MockCustomerModels.locationDetails.location.id
         let account = try await self.apiService.registerCustomerAccount(
-            locationId: locationId,
+            storeId: MockCustomerModels.businessId,
             displayName: "\(firstName) \(lastName)".trimmed()
         )
         try Task.checkCancellation()
@@ -299,7 +298,10 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
 
     func login(email: String, password: String) async throws {
 
-        let account = try await self.apiService.getCustomerAccount()
+        let account = try await self.apiService.registerCustomerAccount(
+            storeId: MockCustomerModels.businessId,
+            displayName: Constants.Message.customerDisplayName
+        )
         try Task.checkCancellation()
 
         self.currentUser = LLUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)

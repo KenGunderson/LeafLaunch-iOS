@@ -161,6 +161,14 @@ extension View {
                 EventDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
+            case .promotionProducts(let locationId, let promotionId, let title, let products):
+
+                let viewModel = Container.shared.promotionProductsViewModel()
+                    .setup(locationId: locationId, promotionId: promotionId, title: title, products: products)
+
+                PromotionProductsScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
             }
 
         }
