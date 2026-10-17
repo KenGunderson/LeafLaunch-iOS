@@ -6,6 +6,7 @@ struct StoreAccountMembershipView: View {
 
     let account: CustomerAccount?
     let membership: CustomerLocationMembership?
+    let hasSelectedLocation: Bool
     let isLoading: Bool
     let hasCompletedInitialLoad: Bool
     let joinAction: () -> Void
@@ -34,7 +35,7 @@ struct StoreAccountMembershipView: View {
 
                     membershipContent(account)
 
-                    if self.membership == nil && self.hasCompletedInitialLoad && !self.isLoading {
+                    if self.hasSelectedLocation && self.membership == nil && self.hasCompletedInitialLoad && !self.isLoading {
 
                         LeafLaunchButton(title: String(localized: "Enable Location Activity"), action: self.joinAction)
 
@@ -128,7 +129,6 @@ struct StoreAccountMembershipView: View {
 
     }
 
-
 }
 
 #Preview("Member") {
@@ -136,6 +136,7 @@ struct StoreAccountMembershipView: View {
     StoreAccountMembershipView(
         account: MockCustomerModels.account,
         membership: MockCustomerModels.membership,
+        hasSelectedLocation: true,
         isLoading: false,
         hasCompletedInitialLoad: true,
         joinAction: {}
@@ -150,6 +151,7 @@ struct StoreAccountMembershipView: View {
     StoreAccountMembershipView(
         account: MockCustomerModels.account,
         membership: nil,
+        hasSelectedLocation: false,
         isLoading: false,
         hasCompletedInitialLoad: true,
         joinAction: {}

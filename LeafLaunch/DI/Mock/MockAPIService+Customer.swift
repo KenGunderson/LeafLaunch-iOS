@@ -89,8 +89,16 @@ extension MockAPIService {
     func registerCustomerAccount(storeId: String, displayName: String) async throws -> CustomerAccount {
 
         guard storeId == MockCustomerModels.businessId else { throw customerNotFound() }
-        _ = try validatedDisplayName(displayName)
+        let displayName = try validatedDisplayName(displayName)
         try Task.checkCancellation()
+
+        if self.customerAccountAccessToken != self.accessToken {
+
+            self.customerAccount = MockCustomerModels.newAccount(displayName: displayName)
+            self.customerAccountAccessToken = self.accessToken
+            self.customerMemberships = [:]
+
+        }
 
         guard self.customerAccount.status == .active else { throw customerNotFound() }
         return self.customerAccount

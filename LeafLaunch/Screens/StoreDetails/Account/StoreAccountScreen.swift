@@ -97,6 +97,7 @@ struct StoreAccountScreen: GPView {
         StoreAccountMembershipView(
             account: self.viewModel.account,
             membership: self.viewModel.membership,
+            hasSelectedLocation: self.viewModel.hasSelectedLocation,
             isLoading: self.viewModel.isLoading,
             hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,
             joinAction: { [weak viewModel] in viewModel?.joinMembership() }

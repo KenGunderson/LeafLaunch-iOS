@@ -542,10 +542,8 @@ enum MockCustomerModels {
 
     static func promotions(locationId: String) -> [Promotion] {
 
-        // The web seeds marketing content only for these ACTIVE locations.
-        guard locationId == primaryLocationId || locationId == tertiaryLocationId else { return [] }
-        let titles = ["Weekend Welcome", "Morning Specials", "Member Appreciation", "Seasonal Savings", "Neighborhood Spotlight", "New Arrivals", "Community Week", "Early Bird Offer"]
-        let locationNumber = locationId == primaryLocationId ? 1 : 5
+        guard locations.contains(where: { $0.id == locationId && $0.isAvailable }) else { return [] }
+        let locationNumber = locationId == primaryLocationId ? 1 : (locationId == secondaryLocationId ? 2 : 5)
         let locationProducts = products(locationId: locationId)
         let businessProducts = catalog.enumerated().map { index, item in
 
@@ -558,43 +556,77 @@ enum MockCustomerModels {
             )
 
         }
-        let kinds: [Promotion.Kind] = [.general, .sale, .newProduct, .link, .sale]
+        let otherLocationProductIds = Set(locations
+            .filter { $0.id != locationId && $0.isAvailable }
+            .flatMap { products(locationId: $0.id) }
+            .filter { $0.status == .published }
+            .map(\.storeProductId))
 
-        return (0..<32).filter { $0 % 6 == 2 }.enumerated().map { promotionIndex, index in
+        guard let availableProduct = businessProducts.first(where: { product in
 
+            locationProducts.contains { $0.storeProductId == product.id && $0.status == .published }
+
+        }), let unavailableProduct = businessProducts.first(where: {
+
+            $0.locationProductListingId == nil && otherLocationProductIds.contains($0.id)
+
+        }) else { return [] }
+
+        let examples: [(title: String, description: String, kind: Promotion.Kind, products: [PromotionLinkedProduct], url: String?)] = [
+            (
+                "General Announcement",
+                "A friendly update from your local store.",
+                .general,
+                [],
+                nil
+            ),
+            (
+                "Sale: Featured Product",
+                "Explore a featured product available at this Location.",
+                .sale,
+                [availableProduct],
+                nil
+            ),
+            (
+                "New Products: Explore The Collection",
+                "Discover the collection, including a product offered at another Location.",
+                .newProduct,
+                [availableProduct, unavailableProduct],
+                nil
+            ),
+            (
+                "Visit Our Website",
+                "Visit our website for the latest news and updates.",
+                .link,
+                [],
+                "https://example.com"
+            ),
+            (
+                "Available At Another Location",
+                "This featured product is offered at another Location.",
+                .sale,
+                [unavailableProduct],
+                nil
+            )
+        ]
+
+        return examples.enumerated().map { promotionIndex, example in
+
+            let index = promotionIndex * 6 + 2
             let id = fixtureId("ad500000", locationNumber * 100 + index + 1)
-            let kind = kinds[promotionIndex]
             let startsAt = sessionDate.addingTimeInterval(-24 * 3_600)
             let endsAt = sessionDate.addingTimeInterval(24 * 3_600)
-            let linkedProducts: [PromotionLinkedProduct]
-
-            switch kind {
-            case .general, .link:
-                linkedProducts = []
-
-            case .newProduct:
-                linkedProducts = Array(businessProducts.prefix(3))
-
-            case .sale:
-
-                if let product = businessProducts.first(where: { ($0.locationProductListingId != nil) == (promotionIndex == 1) }) {
-                    linkedProducts = [product]
-                } else {
-                    linkedProducts = []
-                }
-
-            }
 
             return Promotion(
                 id: id,
                 storeId: businessId,
                 image: nil,
-                url: kind == .link ? "https://example.com/high-standards" : nil,
-                linkedProducts: linkedProducts,
-                linkedProductIds: linkedProducts.map(\.id),
-                title: "\(titles[index % titles.count]) \(index + 1)",
-                description: index % 7 == 0 ? nil : "Visit this Location during the saved schedule. Review the recorded details before publication.",
-                kind: kind,
+                url: example.url,
+                linkedProducts: example.products,
+                linkedProductIds: example.products.map(\.id),
+                title: example.title,
+                description: example.description,
+                kind: example.kind,
                 status: .active,
                 startsAt: startsAt,
                 endsAt: endsAt,

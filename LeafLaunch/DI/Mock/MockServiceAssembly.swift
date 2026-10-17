@@ -199,6 +199,7 @@ final class MockAPIService: APIServiceProtocol, @unchecked Sendable {
 
     private var currentUser: LLUser
 
+    var customerAccountAccessToken: String?
     var customerAccount: CustomerAccount = MockCustomerModels.account
     var customerMemberships: [String: CustomerLocationMembership] = MockCustomerModels.memberships
     var customerAgeAcceptances: [String: [String: AgeGateAcceptance]] = [:]
@@ -286,6 +287,7 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
 
     func signup(firstName: String, lastName: String, email: String, password: String) async throws {
 
+        self.apiService.accessToken = UUID().uuidString
         let account = try await self.apiService.registerCustomerAccount(
             storeId: MockCustomerModels.businessId,
             displayName: "\(firstName) \(lastName)".trimmed()

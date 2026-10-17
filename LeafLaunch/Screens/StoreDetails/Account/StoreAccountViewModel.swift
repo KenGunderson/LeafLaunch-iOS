@@ -30,6 +30,8 @@ final class StoreAccountViewModel: ViewModel {
     @Published private(set) var hasMoreHistory: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
 
+    var hasSelectedLocation: Bool { self.locationId != nil }
+
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
