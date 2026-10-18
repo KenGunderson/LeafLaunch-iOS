@@ -21,6 +21,26 @@ struct CatalogCategoryFilters: View {
 
         VStack(spacing: 0) {
 
+            if !self.categories.isEmpty {
+
+                categoryContent()
+                    .transition(AnyTransition(.blurReplace))
+
+            }
+
+        }
+        .animation(.bouncy, value: self.categories.isEmpty)
+        .animation(.bouncy, value: self.selectedCategory?.subcategories.isEmpty ?? true)
+        .animation(.bouncy, value: self.selectedCategoryId)
+        .animation(.bouncy, value: self.selectedSubcategoryId)
+
+    }
+
+    @ViewBuilder
+    private func categoryContent() -> some View {
+
+        VStack(spacing: 0) {
+
             categoryRail()
 
             if let category = self.selectedCategory, !category.subcategories.isEmpty {
@@ -34,8 +54,6 @@ struct CatalogCategoryFilters: View {
             LLDivider()
 
         }
-        .animation(.bouncy, value: self.selectedCategoryId)
-        .animation(.bouncy, value: self.selectedSubcategoryId)
 
     }
 
