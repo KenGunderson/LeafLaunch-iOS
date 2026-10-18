@@ -53,7 +53,7 @@ struct PointsActivityScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             loadingContent()
             loadFailure()

@@ -75,6 +75,16 @@ final class AgeVerificationViewModel: ViewModel {
 
     }
 
+    func changeLocation() {
+
+        guard !self.isApproving,
+              self.storeSessionService.state == .ageVerification,
+              self.storeSessionService.ageVerificationLocationId == self.locationId else { return }
+
+        self.storeSessionService.showLocations()
+
+    }
+
     private func presentApprovalError() {
 
         self.alertService.showAlert(.init(

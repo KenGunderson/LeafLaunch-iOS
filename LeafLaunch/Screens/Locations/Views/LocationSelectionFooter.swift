@@ -25,6 +25,7 @@ struct LocationSelectionFooter: View {
                 title: String(localized: "Continue"),
                 icon: .systemImage("chevron.right"),
                 iconAlignment: .trailing,
+                size: .prominent,
                 isEnabled: self.isEnabled,
                 action: self.continueAction
             )

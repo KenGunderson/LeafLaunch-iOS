@@ -7,6 +7,8 @@ struct CommerceSectionHeader: View {
     let title: String
     var subtitle: String?
     var systemImage: String?
+    var actionTitle: String?
+    var action: (() -> Void)?
 
     var body: some View {
 
@@ -24,7 +26,9 @@ struct CommerceSectionHeader: View {
 
                 }
 
-                SectionView(leadingTitle: self.title)
+                SectionView(leadingTitle: self.title) {
+                    sectionAction()
+                }
 
             }
 
@@ -39,6 +43,23 @@ struct CommerceSectionHeader: View {
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+
+    }
+
+    @ViewBuilder
+    private func sectionAction() -> some View {
+
+        if let actionTitle = self.actionTitle, let action = self.action {
+
+            Text(actionTitle)
+                .appFont(with: .TITLE_2)
+                .foregroundStyle(self.style.palette(.link))
+                .fixedSize(horizontal: true, vertical: true)
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .asButton(action: action)
+
+        }
 
     }
 

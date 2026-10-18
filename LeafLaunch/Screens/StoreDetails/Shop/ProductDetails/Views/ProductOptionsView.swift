@@ -9,16 +9,25 @@ struct ProductOptionsView: View {
 
     var body: some View {
 
-        if self.product.variants.isEmpty {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            Text(String(localized: "No Pricing Options Available"))
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.body))
+            Text(String(localized: "Size & pricing"))
+                .appFont(with: .HEADER_2)
+                .foregroundStyle(.text(.title))
                 .padding(.horizontal, self.contentInset)
 
-        } else {
+            if self.product.variants.isEmpty {
 
-            pricingOptions()
+                Text(String(localized: "No Pricing Options Available"))
+                    .appFont(with: .BODY_2)
+                    .foregroundStyle(.text(.body))
+                    .padding(.horizontal, self.contentInset)
+
+            } else {
+
+                pricingOptions()
+
+            }
 
         }
 
@@ -27,12 +36,42 @@ struct ProductOptionsView: View {
     @ViewBuilder
     private func pricingOptions() -> some View {
 
-        ScrollView(.horizontal, showsIndicators: false) {
+        if self.product.variants.count <= 3 {
 
             HStack(alignment: .top, spacing: self.style.spacing(.small)) {
 
                 ForEach(self.product.variants, id: \.id) { variant in
                     option(variant)
+                }
+
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, self.contentInset)
+
+        } else {
+
+            pricingRail()
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func pricingRail() -> some View {
+
+        ScrollView(.horizontal, showsIndicators: false) {
+
+            HStack(alignment: .top, spacing: self.style.spacing(.small)) {
+
+                ForEach(self.product.variants, id: \.id) { variant in
+
+                    option(variant)
+                        .containerRelativeFrame(
+                            .horizontal,
+                            count: 3,
+                            spacing: self.style.spacing(.small)
+                        )
+
                 }
 
             }
@@ -66,7 +105,7 @@ struct ProductOptionsView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
         }
-        .frame(width: 128)
+        .frame(maxWidth: .infinity)
         .frame(maxHeight: .infinity, alignment: .top)
 
     }
@@ -74,18 +113,10 @@ struct ProductOptionsView: View {
     @ViewBuilder
     private func optionName(_ variant: ProductPricing) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-            Text(String(localized: "Size"))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(.text(.body))
-
-            Text(variant.name)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.text(.title))
-                .fixedSize(horizontal: false, vertical: true)
-
-        }
+        Text(variant.name)
+            .appFont(with: .BODY_2)
+            .foregroundStyle(.text(.title))
+            .fixedSize(horizontal: false, vertical: true)
 
     }
 
@@ -94,8 +125,8 @@ struct ProductOptionsView: View {
 
         let isAvailable = self.product.status == .published && variant.availability == .available
 
-        Text(isAvailable ? String(localized: "Available") : String(localized: "Sold Out"))
-            .appFont(with: .NOTE_1)
+        Text(isAvailable ? String(localized: "Available") : String(localized: "Sold out"))
+            .appFont(with: .BODY_2)
             .foregroundStyle(isAvailable ? self.style.foreground(.primary) : self.style.textColor(.body))
             .fixedSize(horizontal: false, vertical: true)
 
@@ -109,7 +140,7 @@ struct ProductOptionsView: View {
             if let price = variant.displayPrice {
 
                 Text(price.formatted(.currency(code: self.product.currencyCode)))
-                    .appFont(with: .TITLE_5)
+                    .appFont(with: .TITLE_6)
                     .foregroundStyle(.text(.title))
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)

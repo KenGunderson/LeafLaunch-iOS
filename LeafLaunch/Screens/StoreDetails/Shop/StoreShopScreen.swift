@@ -60,12 +60,11 @@ struct StoreShopScreen: GPView {
     @ViewBuilder
     private func navHeader() -> some View {
 
-        NavHeader(
-            title: String(localized: "Menu"),
-            subtitle: String(localized: "Find your next favorite"),
-            trailingNavButtons: [.heart(isFilled: true)],
-            trailingNavButtonsForegroundColor: self.style.accent,
-            trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.openFavorites() }
+        StoreNavHeader(
+            configuration: self.viewModel.configuration,
+            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose a Location"),
+            onSelectLocation: { [weak viewModel] in viewModel?.changeLocation() },
+            onFavorites: { [weak viewModel] in viewModel?.openFavorites() }
         )
 
     }
@@ -87,9 +86,10 @@ struct StoreShopScreen: GPView {
     @ViewBuilder
     private func catalogControls() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            searchField()
+            menuTitle()
+            searchAndFilters()
 
             CatalogCategoryFilters(
                 categories: self.viewModel.categories,
@@ -99,6 +99,28 @@ struct StoreShopScreen: GPView {
                 onSubcategorySelected: { self.viewModel.selectSubcategory(id: $0) }
             )
             .padding(.horizontal, -self.style.spacing(.medium))
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func menuTitle() -> some View {
+
+        Text(String(localized: "Menu"))
+            .appFont(with: .BILLBOARD_2)
+            .foregroundStyle(self.style.textColor(.title))
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+    }
+
+    @ViewBuilder
+    private func searchAndFilters() -> some View {
+
+        HStack(spacing: self.style.spacing(.small)) {
+
+            searchField()
+            filtersMenu()
 
         }
 
@@ -144,8 +166,7 @@ struct StoreShopScreen: GPView {
         }
         .padding(.leading, .medium)
         .padding(.trailing, .small)
-        .padding(.vertical, .extraSmall)
-        .frame(minHeight: 52)
+        .frame(minHeight: 48)
         .background(self.style.background(.secondary))
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
         .overlay {
@@ -160,11 +181,102 @@ struct StoreShopScreen: GPView {
     }
 
     @ViewBuilder
+    private func filtersMenu() -> some View {
+
+        Menu {
+
+            categoryPicker()
+            subcategoryPicker()
+
+            if self.viewModel.hasActiveFilters {
+
+                Button(String(localized: "Clear filters")) {
+                    withAnimation(.bouncy) { self.viewModel.clearFilters() }
+                }
+
+            }
+
+        } label: {
+
+            HStack(spacing: self.style.spacing(.small)) {
+
+                ImageSource.systemImage("slider.horizontal.3")
+                    .view(shouldResize: false)
+
+                Text(String(localized: "Filters"))
+
+            }
+            .appFont(with: .BODY_2)
+            .foregroundStyle(self.viewModel.hasActiveFilters ? self.style.palette(.link) : self.style.textColor(.title))
+            .padding(.horizontal, .small2)
+            .frame(minHeight: 48)
+            .background(self.style.background(.secondary))
+            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+            .overlay {
+
+                RoundedRectangle(cornerRadius: self.style.radius(.medium2))
+                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                    .allowsHitTesting(false)
+
+            }
+
+        }
+        .fixedSize(horizontal: true, vertical: false)
+
+    }
+
+    @ViewBuilder
+    private func categoryPicker() -> some View {
+
+        Picker(
+            String(localized: "Category"),
+            selection: Binding(
+                get: { self.viewModel.selectedCategoryId },
+                set: { id in
+                    withAnimation(.bouncy) { self.viewModel.selectCategory(id: id) }
+                }
+            )
+        ) {
+
+            ForEach(self.viewModel.categories) { category in
+                Text(category.name).tag(Optional(category.id))
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func subcategoryPicker() -> some View {
+
+        if !self.viewModel.subcategories.isEmpty {
+
+            Picker(
+                String(localized: "Subcategory"),
+                selection: Binding(
+                    get: { self.viewModel.selectedSubcategoryId },
+                    set: { id in
+                        withAnimation(.bouncy) { self.viewModel.selectSubcategory(id: id) }
+                    }
+                )
+            ) {
+
+                ForEach(self.viewModel.subcategories) { subcategory in
+                    Text(subcategory.name).tag(Optional(subcategory.id))
+                }
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
     private func feedHeader() -> some View {
 
         ViewThatFits(in: .horizontal) {
 
-            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+            HStack(alignment: .center, spacing: self.style.spacing(.small)) {
 
                 feedTitle()
                 Spacer(minLength: self.style.spacing(.small))
@@ -243,7 +355,7 @@ struct StoreShopScreen: GPView {
     @ViewBuilder
     private func productFeed() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             feedHeader()
 
@@ -293,9 +405,7 @@ struct StoreShopScreen: GPView {
                     message: String(localized: "Try another search or category to see more products.")
                 )
 
-                if !self.viewModel.search.isEmpty ||
-                    self.viewModel.selectedCategoryId != self.viewModel.categories.first?.id ||
-                    self.viewModel.selectedSubcategoryId != self.viewModel.subcategories.first?.id {
+                if self.viewModel.hasActiveFilters {
 
                     Text(String(localized: "Clear filters"))
                         .appFont(with: .TITLE_2)

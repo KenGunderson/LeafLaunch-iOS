@@ -8,6 +8,7 @@ final class StoreShopViewModel: ViewModel {
     let loggerEmoji: String = "🛍️"
 
     private let apiService: APIServiceProtocol
+    private let storeSessionService: StoreSessionServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
@@ -57,12 +58,23 @@ final class StoreShopViewModel: ViewModel {
         return self.categories.first(where: { $0.id == self.selectedCategoryId })?.subcategories ?? []
     }
 
+    var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
+    var locationDetails: CustomerLocationDetails? { self.storeSessionService.locationDetails }
+
+    var hasActiveFilters: Bool {
+        !self.search.isEmpty ||
+            self.selectedCategoryId != self.categories.first?.id ||
+            self.selectedSubcategoryId != self.subcategories.first?.id
+    }
+
     init(apiService: APIServiceProtocol,
+         storeSessionService: StoreSessionServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
 
         self.apiService = apiService
+        self.storeSessionService = storeSessionService
         self.userDefaultsService = userDefaultsService
         self.analyticsService = analyticsService
         self.alertService = alertService
@@ -196,6 +208,10 @@ final class StoreShopViewModel: ViewModel {
         guard let locationId = self.locationId else { return }
         self.navigationService?.push(.customer(.favoriteProducts(locationId: locationId)))
 
+    }
+
+    func changeLocation() {
+        self.storeSessionService.showLocations()
     }
 
     func toggleFavorite(id: String) {

@@ -29,20 +29,20 @@ struct ProductPriceView: View {
 
             } else {
                 
-                let hasAvailableVariant = self.product.variants.contains { $0.availability == .available }
-                
                 Text(
-                    self.product.status == .published && hasAvailableVariant
+                    self.product.isAvailable
                     ? String(localized: "Price Unavailable")
-                    : String(localized: "Sold Out")
+                    : String(localized: "Sold out")
                 )
-                .appFont(with: .TITLE_2)
+                .appFont(with: .BODY_3)
                 .foregroundStyle(self.style.textColor(.body))
                 
             }
             
         }
         .appFont(with: .TITLE_5)
+        .lineLimit(1)
+        .minimumScaleFactor(0.75)
         
     }
     

@@ -11,16 +11,21 @@ struct NavBarButton: View {
 
     private let style: Style
     private let foregroundColor: ColorSource
+    private let size: CGFloat?
     private let action: () -> Void
 
-    private let frame: CGFloat = 32
+    private var frame: CGFloat {
+        self.size ?? (self.style == .storeFavorites ? 40 : 32)
+    }
 
     init(style: Style,
          foregroundColor: ColorSource = .text(.title),
+         size: CGFloat? = nil,
          action: @escaping () -> Void) {
 
         self.style = style
         self.foregroundColor = foregroundColor
+        self.size = size
         self.action = action
 
     }
@@ -44,11 +49,19 @@ struct NavBarButton: View {
                 width: self.frame,
                 height: self.frame
             )
-            .background(.background(.secondary))
+            .background(self.style == .plainBack ? .color(.clear) : .background(.secondary))
             .clipShape(.circle)
-            .appBorder(cornerRadius: .extraLarge)
-            .compositingGroup()
-            .appShadow(.subtle)
+            .if(self.style != .plainBack) { view in
+
+                view
+                    .appBorder(cornerRadius: .extraLarge)
+                    .compositingGroup()
+                    .appShadow(.subtle)
+
+            }
+            .if(self.style == .plainBack || self.style == .storeFavorites || self.size != nil) { view in
+                view.contentShape(Rectangle().inset(by: -max(0, (44 - self.frame) / 2)))
+            }
             .asButton {
                 self.action()
             }

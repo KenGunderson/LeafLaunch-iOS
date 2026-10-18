@@ -39,6 +39,10 @@ nonisolated struct Product: Codable, Equatable, Hashable, Identifiable, Sendable
 
     }
 
+    var isAvailable: Bool {
+        self.status == .published && self.variants.contains { $0.availability == .available }
+    }
+
     var minimumPrice: Decimal? {
 
         guard self.status == .published else { return nil }

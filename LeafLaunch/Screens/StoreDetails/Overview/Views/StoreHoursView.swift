@@ -14,6 +14,16 @@ struct StoreHoursView: View {
 
     }
 
+    private var today: Int? {
+
+        guard let date = localDate(self.details.localDate) else { return nil }
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = .gmt
+        return calendar.component(.weekday, from: date) - 1
+
+    }
+
     private var exceptions: [ScheduleException] {
 
         (self.details.location.scheduleExceptions ?? [])
@@ -24,6 +34,21 @@ struct StoreHoursView: View {
 
     private var exceptionDates: [String] {
         Array(Set(self.exceptions.map(\.localDate))).sorted()
+    }
+
+    private var exceptionSummary: String {
+
+        self.exceptionDates.prefix(2).map { date in
+
+            let intervals = self.exceptions.filter { $0.localDate == date }
+            let status = intervals.allSatisfy(\.closed)
+                ? String(localized: "Closed")
+                : String(localized: "Special hours")
+            return "\(formattedDate(date, isCompact: true)) · \(status)"
+
+        }
+        .joined(separator: "\n")
+
     }
 
     private func weekday(_ value: Int) -> String {
@@ -79,28 +104,61 @@ struct StoreHoursView: View {
 
     }
 
-    private func formattedDate(_ value: String) -> String {
+    private func localDate(_ value: String) -> Date? {
 
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .gregorian)
         formatter.timeZone = .gmt
         formatter.dateFormat = "yyyy-MM-dd"
-        guard let date = formatter.date(from: value) else { return value }
+        return formatter.date(from: value)
 
+    }
+
+    private func formattedDate(_ value: String, isCompact: Bool = false) -> String {
+
+        guard let date = localDate(value) else { return value }
+
+        let formatter = DateFormatter()
         formatter.locale = .autoupdatingCurrent
-        formatter.dateStyle = .medium
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = .gmt
+
+        if isCompact {
+            formatter.setLocalizedDateFormatFromTemplate("MMM d")
+        } else {
+            formatter.dateStyle = .medium
+        }
+
         return formatter.string(from: date)
 
     }
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(alignment: .leading, spacing: 0) {
+
+            weeklyHoursSection()
+            specialHours()
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func weeklyHoursSection() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+            Text(String(localized: "Store hours"))
+                .appFont(with: .TITLE_6)
+                .foregroundStyle(self.style.textColor(.title))
 
             if self.hours.isEmpty {
 
                 Text(String(localized: "Opening Hours Unavailable"))
                     .appFont(with: .BODY_2)
+                    .foregroundStyle(self.style.textColor(.body))
 
             } else {
 
@@ -108,10 +166,7 @@ struct StoreHoursView: View {
 
             }
 
-            specialHours()
-
         }
-        .foregroundStyle(Color.black)
 
     }
 
@@ -122,10 +177,14 @@ struct StoreHoursView: View {
 
             ForEach(1...7, id: \.self) { day in
 
-                hoursRow(
-                    title: weekday(day % 7),
-                    hours: hoursText(for: day % 7)
-                )
+                weeklyHoursRow(day % 7)
+
+                if day < 7, self.today != day % 7, self.today != (day + 1) % 7 {
+
+                    Divider()
+                        .overlay(self.style.background(.border))
+
+                }
 
             }
 
@@ -134,25 +193,48 @@ struct StoreHoursView: View {
     }
 
     @ViewBuilder
-    private func hoursRow(title: String, subtitle: String? = nil, hours: String) -> some View {
+    private func weeklyHoursRow(_ day: Int) -> some View {
+
+        hoursRow(
+            title: weekday(day),
+            hours: hoursText(for: day),
+            isToday: self.today == day
+        )
+        .padding(.vertical, .extraSmall)
+        .background {
+
+            if self.today == day {
+
+                RoundedRectangle(cornerRadius: self.style.radius(.medium))
+                    .fill(self.style.palette(.link).opacity(0.08))
+                    .padding(.horizontal, -self.style.spacing(.small))
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func hoursRow(title: String,
+                          subtitle: String? = nil,
+                          hours: String,
+                          isToday: Bool = false) -> some View {
 
         ViewThatFits(in: .horizontal) {
 
             HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
 
-                hoursLabel(title, subtitle: subtitle)
+                hoursLabel(title, subtitle: subtitle, isToday: isToday)
                 Spacer(minLength: self.style.spacing(.small))
-                Text(hours)
-                    .monospacedDigit()
-                    .multilineTextAlignment(.trailing)
+                hoursValue(hours, isTrailing: true)
 
             }
 
             VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-                hoursLabel(title, subtitle: subtitle)
-                Text(hours)
-                    .monospacedDigit()
+                hoursLabel(title, subtitle: subtitle, isToday: isToday)
+                hoursValue(hours, isTrailing: false)
 
             }
 
@@ -162,16 +244,31 @@ struct StoreHoursView: View {
     }
 
     @ViewBuilder
-    private func hoursLabel(_ title: String, subtitle: String?) -> some View {
+    private func hoursLabel(_ title: String, subtitle: String?, isToday: Bool) -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-            Text(title)
+            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+
+                Text(title)
+                    .appFont(with: isToday ? .TITLE_3 : .BODY_2)
+                    .foregroundStyle(self.style.textColor(.title))
+
+                if isToday {
+
+                    Text(String(localized: "Today"))
+                        .appFont(with: .TITLE_2)
+                        .foregroundStyle(self.style.palette(.link))
+
+                }
+
+            }
 
             if let subtitle {
 
                 Text(subtitle)
                     .appFont(with: .NOTE_1)
+                    .foregroundStyle(self.style.textColor(.body))
                     .fixedSize(horizontal: false, vertical: true)
 
             }
@@ -181,20 +278,40 @@ struct StoreHoursView: View {
     }
 
     @ViewBuilder
+    private func hoursValue(_ hours: String, isTrailing: Bool) -> some View {
+
+        Text(hours)
+            .foregroundStyle(self.style.textColor(.body))
+            .monospacedDigit()
+            .multilineTextAlignment(isTrailing ? .trailing : .leading)
+
+    }
+
+    @ViewBuilder
     private func specialHours() -> some View {
 
         if !self.exceptions.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            Divider()
+                .overlay(self.style.background(.border))
+                .padding(.vertical, .small2)
 
-                Divider()
-
-                Text(String(localized: "Special Hours"))
-                    .appFont(with: .TITLE_2)
+            DisclosureGroup {
 
                 exceptionRows()
+                    .padding(.top, .small2)
+
+            } label: {
+
+                StoreInfoActionRow(
+                    title: String(localized: "Holiday hours"),
+                    value: self.exceptionSummary,
+                    systemImage: "calendar",
+                    showsChevron: false
+                )
 
             }
+            .tint(self.style.textColor(.body).resolvedColor(style: self.style))
 
         }
 
@@ -203,7 +320,7 @@ struct StoreHoursView: View {
     @ViewBuilder
     private func exceptionRows() -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             ForEach(self.exceptionDates, id: \.self) { date in
 
@@ -216,6 +333,8 @@ struct StoreHoursView: View {
             }
 
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .multilineTextAlignment(.leading)
 
     }
 
@@ -227,7 +346,6 @@ struct StoreHoursView: View {
 
         StoreHoursView(details: MockCustomerModels.locationDetails)
             .padding(.medium)
-            .background(Color.white)
 
     }
     .withMockPreviews()

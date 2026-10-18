@@ -4,6 +4,9 @@ struct CatalogCategoryFilters: View {
 
     @Environment(\.style) private var style
 
+    @Namespace private var categoryUnderlineNamespace
+    @Namespace private var subcategoryUnderlineNamespace
+
     let categories: [ProductCategory]
     let selectedCategoryId: String?
     let selectedSubcategoryId: String?
@@ -16,17 +19,21 @@ struct CatalogCategoryFilters: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(spacing: 0) {
 
             categoryRail()
 
             if let category = self.selectedCategory, !category.subcategories.isEmpty {
 
                 subcategoryRail(category: category)
-                    .id(category.id)
+                    .padding(.top, .extraSmall)
                     .transition(AnyTransition(.blurReplace))
 
             }
+
+            Rectangle()
+                .fill(self.style.background(.border))
+                .frame(height: 1)
 
         }
         .animation(.bouncy, value: self.selectedCategoryId)
@@ -39,14 +46,21 @@ struct CatalogCategoryFilters: View {
 
         ScrollView(.horizontal) {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(.medium)) {
 
                 ForEach(self.categories) { category in
-                    categoryPill(category)
+                    categoryTab(category)
                 }
 
             }
-            .padding(.vertical, .extraSmall)
+            .overlay(alignment: .bottomLeading) {
+
+                selectionUnderline(
+                    selectedId: self.selectedCategoryId,
+                    namespace: self.categoryUnderlineNamespace
+                )
+
+            }
 
         }
         .scrollIndicators(.hidden)
@@ -59,14 +73,21 @@ struct CatalogCategoryFilters: View {
 
         ScrollView(.horizontal) {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(.medium)) {
 
                 ForEach(category.subcategories) { subcategory in
-                    subcategoryPill(subcategory)
+                    subcategoryTab(subcategory)
                 }
 
             }
-            .padding(.vertical, .extraSmall)
+            .overlay(alignment: .bottomLeading) {
+
+                selectionUnderline(
+                    selectedId: self.selectedSubcategoryId,
+                    namespace: self.subcategoryUnderlineNamespace
+                )
+
+            }
 
         }
         .scrollIndicators(.hidden)
@@ -75,26 +96,52 @@ struct CatalogCategoryFilters: View {
     }
 
     @ViewBuilder
-    private func categoryPill(_ category: ProductCategory) -> some View {
+    private func categoryTab(_ category: ProductCategory) -> some View {
 
-        CatalogFilterPill(
+        CatalogCategoryTab(
             title: category.name,
-            imageURL: category.imageURL,
-            isSelected: self.selectedCategoryId == category.id
+            isSelected: self.selectedCategoryId == category.id,
+            underlineId: category.id,
+            underlineNamespace: self.categoryUnderlineNamespace
         ) {
-            self.onCategorySelected(category.id)
+
+            withAnimation(.bouncy) {
+                self.onCategorySelected(category.id)
+            }
+
         }
 
     }
 
     @ViewBuilder
-    private func subcategoryPill(_ subcategory: ProductSubcategory) -> some View {
+    private func subcategoryTab(_ subcategory: ProductSubcategory) -> some View {
 
-        CatalogFilterPill(
+        CatalogCategoryTab(
             title: subcategory.name,
-            isSelected: self.selectedSubcategoryId == subcategory.id
+            isSelected: self.selectedSubcategoryId == subcategory.id,
+            underlineId: subcategory.id,
+            underlineNamespace: self.subcategoryUnderlineNamespace
         ) {
-            self.onSubcategorySelected(subcategory.id)
+
+            withAnimation(.bouncy) {
+                self.onSubcategorySelected(subcategory.id)
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func selectionUnderline(selectedId: String?, namespace: Namespace.ID) -> some View {
+
+        if let selectedId {
+
+            Capsule()
+                .fill(self.style.palette(.link))
+                .frame(height: 3)
+                .matchedGeometryEffect(id: selectedId, in: namespace, properties: .frame, isSource: false)
+                .allowsHitTesting(false)
+
         }
 
     }
@@ -110,10 +157,10 @@ struct CatalogCategoryFilters: View {
         categories: MockCustomerModels.categories,
         selectedCategoryId: selectedCategoryId,
         selectedSubcategoryId: selectedSubcategoryId,
-        onCategorySelected: { categoryId in
+        onCategorySelected: {
 
-            selectedCategoryId = categoryId
-            selectedSubcategoryId = MockCustomerModels.categories.first { $0.id == categoryId }?.subcategories.first?.id
+            selectedCategoryId = $0
+            selectedSubcategoryId = MockCustomerModels.categories.first { $0.id == selectedCategoryId }?.subcategories.first?.id
 
         },
         onSubcategorySelected: { selectedSubcategoryId = $0 }

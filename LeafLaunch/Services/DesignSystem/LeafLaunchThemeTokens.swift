@@ -7,6 +7,8 @@ import SwiftUI
 
 // Web rem values resolve at 16px. The shared spacing scale keeps the 16pt field gap
 // and 24pt panel padding documented in LeafLaunch-Web/DESIGN.md.
+// Native screens use large between sections, small2 from headings to content
+// and between cards, small between related items, and extraSmall between labels.
 enum LeafLaunchThemeTokens {
 
     static let spacing = Theme.Spacing(

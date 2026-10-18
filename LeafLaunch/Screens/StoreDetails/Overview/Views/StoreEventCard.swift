@@ -12,6 +12,23 @@ struct StoreEventCard: View {
         StoreEventSchedule(event: self.event, location: self.location)
     }
 
+    private var scheduleDescription: String {
+
+        guard let startsAt = self.schedule.startsAt else {
+            return String(localized: "Date To Be Announced")
+        }
+
+        let time = startsAt.formatted(
+            Date.FormatStyle(date: .omitted, time: .shortened, timeZone: self.schedule.timeZone)
+        )
+
+        return [time, self.location?.name]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: " · ")
+
+    }
+
     var body: some View {
 
         LLAppCardView(
@@ -41,7 +58,7 @@ struct StoreEventCard: View {
             placeholder: ImageResource(name: "StoreEventFallback", bundle: .main)
         )
         .frame(maxWidth: .infinity)
-        .frame(height: 160)
+        .frame(height: 104)
         .clipped()
 
     }
@@ -49,10 +66,12 @@ struct StoreEventCard: View {
     @ViewBuilder
     private func eventDetails() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        HStack(spacing: self.style.spacing(.small2)) {
 
-            eventTitle()
-            scheduleView()
+            dateBadge()
+            dateDivider()
+            eventCaption()
+            disclosureIndicator()
 
         }
         .padding(.small)
@@ -60,32 +79,81 @@ struct StoreEventCard: View {
     }
 
     @ViewBuilder
-    private func eventTitle() -> some View {
+    private func dateBadge() -> some View {
 
-        Text(self.event.title)
-            .appFont(with: .TITLE_3)
-            .foregroundStyle(.text(.title))
-            .lineLimit(2)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing: 0) {
+
+            if let startsAt = self.schedule.startsAt {
+
+                Text(startsAt.formatted(
+                    Date.FormatStyle(date: .omitted, time: .omitted, timeZone: self.schedule.timeZone)
+                        .month(.abbreviated)
+                ))
+                .appFont(with: .NOTE_2)
+                .textCase(.uppercase)
+                .foregroundStyle(.text(.body))
+
+                Text(startsAt.formatted(
+                    Date.FormatStyle(date: .omitted, time: .omitted, timeZone: self.schedule.timeZone)
+                        .day()
+                ))
+                .appFont(with: .HEADER_3)
+                .foregroundStyle(.text(.title))
+
+            } else {
+
+                ImageSource.systemImage("calendar")
+                    .view(shouldResize: false)
+                    .foregroundStyle(.text(.body))
+
+                Text(String(localized: "TBA"))
+                    .appFont(with: .TITLE_2)
+                    .foregroundStyle(.text(.title))
+
+            }
+
+        }
+        .frame(width: self.style.spacing(.large2))
+        .fixedSize(horizontal: false, vertical: true)
 
     }
 
     @ViewBuilder
-    private func scheduleView() -> some View {
+    private func dateDivider() -> some View {
 
-        Group {
+        Rectangle()
+            .fill(self.style.background(.border))
+            .frame(width: 1, height: self.style.spacing(.large2))
 
-            if let startsAt = self.schedule.startsAt {
-                Text(self.schedule.formattedDate(startsAt))
-            } else {
-                Text(String(localized: "Date To Be Announced"))
-            }
+    }
+
+    @ViewBuilder
+    private func eventCaption() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.event.title)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.text(.title))
+                .lineLimit(2)
+
+            Text(self.scheduleDescription)
+                .appFont(with: .NOTE_2)
+                .foregroundStyle(.text(.body))
+                .lineLimit(1)
 
         }
-        .appFont(with: .NOTE_1)
-        .foregroundStyle(.text(.body))
-        .lineLimit(2)
         .frame(maxWidth: .infinity, alignment: .leading)
+
+    }
+
+    @ViewBuilder
+    private func disclosureIndicator() -> some View {
+
+        ImageSource.systemImage("chevron.right")
+            .view(shouldResize: false)
+            .appFont(with: .TITLE_2)
+            .foregroundStyle(self.style.foreground(.tertiary))
 
     }
 

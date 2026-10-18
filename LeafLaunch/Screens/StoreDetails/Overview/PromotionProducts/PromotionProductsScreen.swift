@@ -41,7 +41,7 @@ struct PromotionProductsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             CommerceSectionHeader(title: self.viewModel.title)
             products()

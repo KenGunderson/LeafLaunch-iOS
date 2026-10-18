@@ -104,6 +104,7 @@ extension Container {
         self { @MainActor in
             StoreShopViewModel(
                 apiService: self.apiService(),
+                storeSessionService: self.storeSessionService(),
                 userDefaultsService: self.userDefaultsService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()

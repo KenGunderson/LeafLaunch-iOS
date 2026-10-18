@@ -10,6 +10,7 @@ extension NavBarButton {
     enum Style: Hashable {
 
         case back
+        case plainBack
         case close
         case settings
         case ellipsis
@@ -20,12 +21,14 @@ extension NavBarButton {
         case trash
         case star(isFilled: Bool = false)
         case heart(isFilled: Bool = false)
+        case storeFavorites
 
         var icon: ImageSource {
 
             switch self {
 
             case .back: return .systemImage("arrow.left")
+            case .plainBack: return .systemImage("chevron.left")
             case .close: return .systemImage("xmark")
             case .settings: return .systemImage("gear")
             case .ellipsis: return .systemImage("ellipsis")
@@ -36,6 +39,7 @@ extension NavBarButton {
             case .trash: return .systemImage("trash")
             case .star(let isFilled): return .systemImage("star\(isFilled ? ".fill" : "")")
             case .heart(let isFilled): return .systemImage("heart\(isFilled ? ".fill" : "")")
+            case .storeFavorites: return .systemImage("heart")
 
             }
 
@@ -67,7 +71,7 @@ extension NavBarButton {
 
             switch self {
 
-            case .back: return "Back"
+            case .back, .plainBack: return "Back"
             case .close: return "Close"
             case .settings: return "Settings"
             case .ellipsis: return "More options"
@@ -77,7 +81,7 @@ extension NavBarButton {
             case .filter: return "Filters"
             case .trash: return "Delete"
             case .star: return "Favorite"
-            case .heart: return String(localized: "Favorite Products")
+            case .heart, .storeFavorites: return String(localized: "Favorite Products")
 
             }
 

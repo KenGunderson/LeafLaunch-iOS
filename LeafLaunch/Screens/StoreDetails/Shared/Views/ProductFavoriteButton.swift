@@ -11,17 +11,19 @@ struct ProductFavoriteButton: View {
 
         ImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart")
             .view()
-            .frame(width: 22, height: 22)
-            .foregroundStyle(self.isFavorite ? self.style.foreground(.primary) : self.style.textColor(.title))
-            .frame(width: 44, height: 44)
+            .frame(width: 18, height: 18)
+            .foregroundStyle(self.isFavorite ? self.style.palette(.link) : self.style.textColor(.title))
+            .frame(width: 32, height: 32)
             .background(.background(.secondary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.extraLarge)))
+            .clipShape(Circle())
             .overlay {
 
-                RoundedRectangle(cornerRadius: self.style.radius(.extraLarge))
+                Circle()
                     .strokeBorder(self.style.background(.border), lineWidth: 1)
 
             }
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
             .asButton {
                 self.action()
             }

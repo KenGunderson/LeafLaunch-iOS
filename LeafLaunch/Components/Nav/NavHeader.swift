@@ -15,9 +15,12 @@ struct NavHeader: View {
     private let titleFont: Theme.FontKey
     private let subtitle: String?
     private let subtitleAction: (() -> Void)?
+    private let status: String?
+    private let statusColor: ColorSource
     private let leadingImage: ImageSource?
     private let showLogo: Bool
     private let backgroundStyle: ColorSource
+    private let navButtonSize: CGFloat?
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> Void)?
     private let trailingNavButtons: [NavBarButton.Style]
@@ -28,9 +31,12 @@ struct NavHeader: View {
          titleFont: Theme.FontKey = .HEADER_3,
          subtitle: String? = nil,
          subtitleAction: (() -> Void)? = nil,
+         status: String? = nil,
+         statusColor: ColorSource = .palette(.link),
          leadingImage: ImageSource? = nil,
          showLogo: Bool = false,
          backgroundStyle: ColorSource = .background(.primary),
+         navButtonSize: CGFloat? = nil,
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
@@ -41,9 +47,12 @@ struct NavHeader: View {
         self.titleFont = titleFont
         self.subtitle = subtitle
         self.subtitleAction = subtitleAction
+        self.status = status
+        self.statusColor = statusColor
         self.leadingImage = leadingImage
         self.showLogo = showLogo
         self.backgroundStyle = backgroundStyle
+        self.navButtonSize = navButtonSize
         self.leadingNavButtons = leadingNavButtons
         self.leadingNavButtonsAction = leadingNavButtonsAction
         self.trailingNavButtons = trailingNavButtons
@@ -112,7 +121,7 @@ struct NavHeader: View {
     private func brandImage(_ image: ImageSource) -> some View {
 
         self.style.background(.tertiary).view()
-            .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
+            .frame(width: self.style.spacing(.medium2) * 2, height: self.style.spacing(.medium2) * 2)
             .overlay {
 
                 image.view()
@@ -139,8 +148,30 @@ struct NavHeader: View {
 
             }
 
+            if let status = self.status {
+                statusView(status)
+            }
+
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+
+    }
+
+    @ViewBuilder
+    private func statusView(_ status: String) -> some View {
+
+        HStack(spacing: self.style.spacing(.extraSmall)) {
+
+            Circle()
+                .fill(self.statusColor)
+                .frame(width: self.style.spacing(.small), height: self.style.spacing(.small))
+
+            Text(status)
+                .appFont(with: .BODY_1)
+                .foregroundStyle(.text(.body))
+                .fixedSize(horizontal: false, vertical: true)
+
+        }
 
     }
 
@@ -182,7 +213,11 @@ struct NavHeader: View {
 
             ForEach(buttons, id: \.self) { navStyle in
 
-                NavBarButton(style: navStyle, foregroundColor: foregroundColor) {
+                NavBarButton(
+                    style: navStyle,
+                    foregroundColor: foregroundColor,
+                    size: self.navButtonSize
+                ) {
                     action?(navStyle)
                 }
 

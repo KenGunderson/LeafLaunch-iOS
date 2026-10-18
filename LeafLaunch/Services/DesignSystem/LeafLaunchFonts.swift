@@ -6,7 +6,8 @@
 import SwiftUI
 
 // Native system sans substitutes for the web's IBM Plex Sans without bundling fonts.
-// Sizes follow theme.css (14, 16, 18, 20, 24, 28, 32, 40, 52, 64, 80).
+// Sizes follow theme.css (14, 16, 18, 20, 24, 28, 32, 40, 52, 64, 80),
+// with NOTE_2 at 12pt for compact event captions.
 // Rune's font contract does not carry CSS line height or letter spacing.
 extension Theme.Fonts {
 
@@ -46,7 +47,7 @@ extension Theme.Fonts {
             BODY_5: .systemFont(ofSize: 24, weight: .regular),
 
             NOTE_1: .systemFont(ofSize: 14, weight: .regular),
-            NOTE_2: .systemFont(ofSize: 14, weight: .regular),
+            NOTE_2: .systemFont(ofSize: 12, weight: .regular),
             NOTE_3: .systemFont(ofSize: 14, weight: .regular),
             NOTE_4: .systemFont(ofSize: 16, weight: .regular),
             NOTE_5: .systemFont(ofSize: 18, weight: .regular)

@@ -11,58 +11,76 @@ struct ProductCardView: View {
 
     var body: some View {
 
-        Group {
-
-            VStack(alignment: .leading, spacing: 0) {
-
-                ProductImageView(
-                    url: self.product.activeImages.first?.url,
-                    isUnavailable: !self.product.activeImages.isEmpty
-                )
-                .frame(height: 180)
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-                    Text(self.product.category?.name ?? "")
-                        .appFont(with: .NOTE_1)
-                        .foregroundStyle(.text(.body))
-                        .lineLimit(1, reservesSpace: true)
-
-                    Text(self.product.displayName)
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(.text(.title))
-                        .lineLimit(1, reservesSpace: true)
-
-                    ProductPriceView(product: self.product)
-                        .lineLimit(1)
-
-                }
-                .padding(.medium)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 100, alignment: .bottomLeading)
-
-            }
+        content()
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.background(.secondary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
+            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
             .overlay {
 
-                RoundedRectangle(cornerRadius: self.style.radius(.large))
+                RoundedRectangle(cornerRadius: self.style.radius(.medium2))
                     .strokeBorder(self.style.background(.border), lineWidth: 1)
 
             }
+            .asButton(action: self.onOpen)
+            .overlay(alignment: .topTrailing) {
+                favoriteAction()
+            }
 
-        }
-        .overlay(alignment: .topTrailing) {
+    }
 
-            ProductFavoriteButton(
-                isFavorite: self.isFavorite,
-                action: self.onFavorite
+    @ViewBuilder
+    private func content() -> some View {
+
+        VStack(alignment: .leading, spacing: 0) {
+
+            ProductImageView(
+                url: self.product.activeImages.first?.url,
+                isUnavailable: !self.product.activeImages.isEmpty
             )
-            .padding(.small)
+            .frame(height: 192)
+
+            productDetails()
 
         }
-        .asButton(action: self.onOpen)
+
+    }
+
+    @ViewBuilder
+    private func productDetails() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.product.category?.name ?? "")
+                .appFont(with: .NOTE_1)
+                .foregroundStyle(.text(.body))
+                .lineLimit(1, reservesSpace: true)
+
+            Text(self.product.displayName)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(.text(.title))
+                .lineLimit(2, reservesSpace: true)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+
+            ProductPriceView(product: self.product)
+                .frame(height: self.style.spacing(.large), alignment: .bottomLeading)
+
+        }
+        .padding(.horizontal, .small2)
+        .padding(.vertical, .small)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(height: 108, alignment: .topLeading)
+
+    }
+
+    @ViewBuilder
+    private func favoriteAction() -> some View {
+
+        ProductFavoriteButton(
+            isFavorite: self.isFavorite,
+            action: self.onFavorite
+        )
 
     }
 

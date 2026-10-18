@@ -96,7 +96,7 @@ struct SettingsScreen: GPView {
         let settings: [Route.SettingRoute] = Route.SettingRoute.allCases
         let groups = Dictionary(grouping: settings, by: { $0.category })
         let categories = groups.keys.sorted()
-        let config = Constants.StaggerAnimation.config(interitemSpacing: 8)
+        let config = Constants.StaggerAnimation.config(interitemSpacing: self.style.spacing(.small))
 
         StaggeredView(config: config) {
 
@@ -127,14 +127,14 @@ struct SettingsScreen: GPView {
 
             SectionView(leadingTitle: category.capitalized)
                 .padding(.bottom, .extraSmall)
-                .padding(.top, isFirst ? .none : .small)
+                .padding(.top, isFirst ? .none : .medium)
 
         }
 
         ForEach(settings, id: \.self) { setting in
 
             settingItem(setting)
-                .padding(.top, isLogout ? 24 : 0)
+                .padding(.top, isLogout ? .medium : .none)
 
         }
 
@@ -209,7 +209,7 @@ struct SettingsScreen: GPView {
             }
 
         }
-        .padding(.top, .large)
+        .padding(.top, .medium)
 
     }
 

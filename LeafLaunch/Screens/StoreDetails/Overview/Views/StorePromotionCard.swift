@@ -2,7 +2,21 @@ import SwiftUI
 
 struct StorePromotionCard: View {
 
+    @Environment(\.style) private var style
+
     let promotion: Promotion
+    let onOpen: () -> Void
+
+    private var categoryTitle: String {
+
+        switch self.promotion.kind {
+        case .general: return String(localized: "Store Update")
+        case .sale: return String(localized: "Special Offer")
+        case .newProduct: return String(localized: "New Arrival")
+        case .link: return String(localized: "Discover More")
+        }
+
+    }
 
     private var subtitle: String? {
 
@@ -21,13 +35,25 @@ struct StorePromotionCard: View {
             cornerRadius: .large
         ) {
 
-            StoreMarketingImage(
-                url: self.promotion.image?.url,
-                placeholder: ImageResource(name: "StorePromotionFallback", bundle: .main)
-            )
-            .aspectRatio(1.9, contentMode: .fit)
-            .overlay(alignment: .bottom) {
-                caption()
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+                promotionCopy()
+                
+                Spacer()
+                
+                offerAction()
+
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.medium)
+            .background {
+
+                self.style.palette(.link).view()
+                    .overlay(Color.black.opacity(0.78))
+
+            }
+            .asButton {
+                self.onOpen()
             }
 
         }
@@ -35,40 +61,53 @@ struct StorePromotionCard: View {
     }
 
     @ViewBuilder
-    private func caption() -> some View {
+    private func promotionCopy() -> some View {
 
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.categoryTitle)
+                .appFont(with: .TITLE_1)
+                .textCase(.uppercase)
+                .foregroundStyle(Color.white.opacity(0.76))
 
             Text(self.promotion.title)
-                .appFont(with: .TITLE_3)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
+                .appFont(with: .HEADER_4)
+                .lineLimit(2)
+                .minimumScaleFactor(0.8)
+                .foregroundStyle(Color.white)
 
             if let subtitle = self.subtitle {
 
                 Text(subtitle)
                     .appFont(with: .BODY_1)
                     .lineLimit(2)
+                    .foregroundStyle(Color.white.opacity(0.76))
 
             }
 
         }
-        .foregroundStyle(Color.white)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .small)
-        .padding(.bottom, .small)
-        .padding(.top, .large)
-        .background {
 
-            LinearGradient(
-                stops: [
-                    .init(color: .black.opacity(0), location: 0),
-                    .init(color: .black.opacity(0.55), location: 0.35),
-                    .init(color: .black.opacity(0.85), location: 1)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
+    }
+
+    @ViewBuilder
+    private func offerAction() -> some View {
+
+        if self.promotion.kind != .general {
+
+            CommonButton(
+                title: String(localized: "View offer"),
+                titleColor: .text(.titleInverted),
+                titleFont: .TITLE_3,
+                icon: .systemImage("chevron.right"),
+                iconAlignment: .trailing,
+                backgroundStyle: .palette(.link),
+                verticalPadding: .small2,
+                horizontalPadding: .medium,
+                cornerRadius: .medium2,
+                action: self.onOpen
             )
+            .fixedSize(horizontal: true, vertical: false)
 
         }
 
@@ -80,7 +119,7 @@ struct StorePromotionCard: View {
 
     if let promotion = MockCustomerModels.promotions.first {
 
-        StorePromotionCard(promotion: promotion)
+        StorePromotionCard(promotion: promotion, onOpen: {})
             .padding(.medium)
             .withMockPreviews()
 

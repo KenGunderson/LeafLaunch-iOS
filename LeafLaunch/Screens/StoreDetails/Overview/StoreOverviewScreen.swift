@@ -4,8 +4,18 @@ struct StoreOverviewScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
+    @Environment(TabBarNavigationService.self) private var tabBarNavigationService
 
     @StateObject private var viewModel: StoreOverviewViewModel
+
+    private var locationStatus: String? {
+
+        guard let details = self.viewModel.locationDetails else { return nil }
+        return details.openNow
+            ? String(localized: "Open · \(details.todayHoursDescription)")
+            : String(localized: "Closed")
+
+    }
 
     init(viewModel: StoreOverviewViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -36,6 +46,8 @@ struct StoreOverviewScreen: GPView {
         StoreNavHeader(
             configuration: self.viewModel.configuration,
             subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose a Location"),
+            status: self.locationStatus,
+            isOpen: self.viewModel.locationDetails?.openNow,
             onSelectLocation: { [weak viewModel] in viewModel?.changeLocation() }
         )
 
@@ -57,7 +69,7 @@ struct StoreOverviewScreen: GPView {
     @ViewBuilder
     private func storefrontSections() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             promotions()
             events()
@@ -123,6 +135,8 @@ struct StoreOverviewScreen: GPView {
 
             }
             .transition(AnyTransition(.blurReplace))
+            .compositingGroup()
+            .geometryGroup()
 
         }
 
@@ -133,7 +147,7 @@ struct StoreOverviewScreen: GPView {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            sectionHeader(String(localized: "Featured Products"))
+            featuredProductsHeader()
 
             if !self.viewModel.featuredProducts.isEmpty {
 
@@ -151,6 +165,22 @@ struct StoreOverviewScreen: GPView {
             }
 
         }
+        .compositingGroup()
+        .geometryGroup()
+
+    }
+
+    @ViewBuilder
+    private func featuredProductsHeader() -> some View {
+
+        CommerceSectionHeader(
+            title: String(localized: "Featured products"),
+            actionTitle: String(localized: "View menu"),
+            action: { self.tabBarNavigationService.select(.tab2) }
+        )
+        .padding(.horizontal, .medium)
+        .compositingGroup()
+        .geometryGroup()
 
     }
 
@@ -159,7 +189,7 @@ struct StoreOverviewScreen: GPView {
 
         ScrollView(.horizontal) {
 
-            LazyHStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+            LazyHStack(alignment: .top, spacing: self.style.spacing(.small)) {
 
                 ForEach(self.viewModel.featuredProducts) { product in
                     featuredProductCard(product)
@@ -172,6 +202,8 @@ struct StoreOverviewScreen: GPView {
         .scrollTargetBehavior(.viewAligned)
         .scrollIndicators(.hidden)
         .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .compositingGroup()
+        .geometryGroup()
 
     }
 
@@ -186,9 +218,8 @@ struct StoreOverviewScreen: GPView {
         )
         .containerRelativeFrame(
             .horizontal,
-            count: 5,
-            span: 3,
-            spacing: self.style.spacing(.small2)
+            count: 2,
+            spacing: self.style.spacing(.small)
         )
 
     }
@@ -205,6 +236,8 @@ struct StoreOverviewScreen: GPView {
 
             }
             .transition(AnyTransition(.blurReplace))
+            .compositingGroup()
+            .geometryGroup()
 
         }
 
@@ -213,22 +246,14 @@ struct StoreOverviewScreen: GPView {
     @ViewBuilder
     private func eventsHeader() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
-
-            CommerceSectionHeader(title: String(localized: "Events"))
-
-            if !self.viewModel.events.isEmpty {
-
-                Text(String(localized: "View More"))
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(self.style.accent)
-                    .fixedSize(horizontal: true, vertical: false)
-                    .asButton { [weak viewModel] in viewModel?.openEvents() }
-
-            }
-
-        }
+        CommerceSectionHeader(
+            title: String(localized: "Events"),
+            actionTitle: String(localized: "See all"),
+            action: { [weak viewModel] in viewModel?.openEvents() }
+        )
         .padding(.horizontal, .medium)
+        .compositingGroup()
+        .geometryGroup()
 
     }
 
@@ -252,6 +277,8 @@ struct StoreOverviewScreen: GPView {
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+            .compositingGroup()
+            .geometryGroup()
 
         }
 
@@ -268,8 +295,8 @@ struct StoreOverviewScreen: GPView {
         }
         .containerRelativeFrame(
             .horizontal,
-            count: 5,
-            span: 3,
+            count: 3,
+            span: 2,
             spacing: self.style.spacing(.small)
         )
 

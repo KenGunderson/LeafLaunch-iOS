@@ -76,18 +76,22 @@ struct FavoriteProductsScreen: GPView {
 
         if !self.viewModel.products.isEmpty {
 
-            CommerceSectionHeader(
-                title: String(localized: "Your collection"),
-                subtitle: String(localized: "Available at this location")
-            )
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            ProductGridView(
-                products: self.viewModel.products,
-                favoriteProductIds: Set(self.viewModel.products.map(\.id)),
-                onOpen: { self.viewModel.openProduct(id: $0) },
-                onFavorite: { self.viewModel.removeFavorite(id: $0) }
-            )
-            .animation(.bouncy, value: self.viewModel.products.map(\.id))
+                CommerceSectionHeader(
+                    title: String(localized: "Your collection"),
+                    subtitle: String(localized: "Available at this location")
+                )
+
+                ProductGridView(
+                    products: self.viewModel.products,
+                    favoriteProductIds: Set(self.viewModel.products.map(\.id)),
+                    onOpen: { self.viewModel.openProduct(id: $0) },
+                    onFavorite: { self.viewModel.removeFavorite(id: $0) }
+                )
+                .animation(.bouncy, value: self.viewModel.products.map(\.id))
+
+            }
 
         }
 

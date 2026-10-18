@@ -10,10 +10,6 @@ struct ProductGalleryView: View {
 
     private var images: [ProductMedia] { self.product.activeImages }
 
-    private var selectedIndex: Int {
-        self.images.firstIndex { $0.id == self.selectedImageId } ?? 0
-    }
-
     private var selection: Binding<String> {
 
         Binding(
@@ -39,8 +35,8 @@ struct ProductGalleryView: View {
 
                 ProductImageView(url: nil)
                     .aspectRatio(1, contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
-                    .appBorder(cornerRadius: .large, lineWidth: 1.5, outerBorder: false)
+                    .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+                    .appBorder(cornerRadius: .medium2, lineWidth: 1, outerBorder: false)
 
             } else {
 
@@ -76,8 +72,8 @@ struct ProductGalleryView: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .aspectRatio(1, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
-        .appBorder(cornerRadius: .large, lineWidth: 1.5, outerBorder: false)
+        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+        .appBorder(cornerRadius: .medium2, lineWidth: 1, outerBorder: false)
         .animation(.bouncy, value: self.selectedImageId)
 
     }
@@ -105,22 +101,22 @@ struct ProductGalleryView: View {
     @ViewBuilder
     private func thumbnail(_ image: ProductMedia) -> some View {
 
-        let index = self.images.firstIndex { $0.id == image.id } ?? 0
+        let isSelected = self.selection.wrappedValue == image.id
 
         ProductImageView(
             url: image.url,
             showsPlaceholderLabel: false
         )
-        .frame(width: 64, height: 64)
+        .frame(width: 72, height: 72)
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
         .overlay {
 
             RoundedRectangle(cornerRadius: self.style.radius(.medium))
                 .strokeBorder(
-                    self.selectedIndex == index
-                        ? self.style.foreground(.primary)
+                    isSelected
+                        ? self.style.palette(.link)
                         : self.style.background(.border),
-                    lineWidth: self.selectedIndex == index ? 2 : 1
+                    lineWidth: isSelected ? 2 : 1
                 )
 
         }

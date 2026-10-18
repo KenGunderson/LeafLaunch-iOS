@@ -77,7 +77,7 @@ struct LegalScreen: View {
     @ViewBuilder
     private func legalSections(_ items: [LegalItem]) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             ForEach(items, id: \.id) { item in
                 section(legalItem: item)
@@ -101,13 +101,13 @@ struct LegalScreen: View {
     private func section(legalItem: LegalItem) -> some View {
 
         VStack(alignment: .leading,
-               spacing: self.style.spacing(.small)) {
+               spacing: self.style.spacing(.small2)) {
 
             Text(legalItem.title)
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(.text(.title))
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.custom(6))) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
                 ForEach(legalItem.sections, id: \.self) { message in
 

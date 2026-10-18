@@ -118,7 +118,13 @@ final class MainViewModel: ViewModel {
     }
 
     func handleSheetDismissal() {
+
+        // Replacing the age sheet also dismisses its outgoing presentation.
+        guard let navigationService = self.navigationService,
+              navigationService.sheet == nil else { return }
+
         self.storeSessionService.cancelLocationSelection()
+
     }
 
     private func handleStoreNavigation(_ state: StoreSessionState) {

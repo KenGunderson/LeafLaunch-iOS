@@ -8,36 +8,18 @@ struct ProductDetailsSummaryView: View {
 
     var body: some View {
 
-        HStack(alignment: .top, spacing: self.style.spacing(.small)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-            categoryImage()
+            Text(self.product.displayName)
+                .appFont(with: .TITLE_7)
+                .foregroundStyle(.text(.title))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-                Text(self.product.displayName)
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(.text(.title))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                categoryNames()
-
-            }
+            categoryNames()
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-
-    }
-
-    @ViewBuilder
-    private func categoryImage() -> some View {
-
-        if let imageURL = self.product.category?.imageURL {
-
-            ProductCategoryImageView(url: imageURL)
-                .frame(width: self.style.spacing(.large), height: self.style.spacing(.large))
-
-        }
 
     }
 
@@ -52,7 +34,7 @@ struct ProductDetailsSummaryView: View {
         if !categories.isEmpty {
 
             Text(categories)
-                .appFont(with: .NOTE_1)
+                .appFont(with: .BODY_3)
                 .foregroundStyle(.text(.body))
                 .fixedSize(horizontal: false, vertical: true)
 

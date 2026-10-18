@@ -124,12 +124,11 @@ struct StorePromotionsCarousel: View {
     @ViewBuilder
     private func promotionCard(_ promotion: Promotion) -> some View {
 
-        StorePromotionCard(promotion: promotion)
-            .if(promotion.kind != .general) { view in
-                view.asButton { self.onOpen(promotion) }
-            }
-            .containerRelativeFrame(.horizontal)
-            .id(promotion.id)
+        StorePromotionCard(promotion: promotion) {
+            self.onOpen(promotion)
+        }
+        .containerRelativeFrame(.horizontal)
+        .id(promotion.id)
 
     }
 
@@ -143,8 +142,8 @@ struct StorePromotionsCarousel: View {
                 ForEach(self.promotions) { promotion in
 
                     Circle()
-                        .fill(promotion.id == self.currentPromotionId ? self.style.foreground(.primary) : self.style.background(.border))
-                        .frame(width: 6, height: 6)
+                        .fill(promotion.id == self.currentPromotionId ? self.style.palette(.link) : self.style.background(.border))
+                        .frame(width: self.style.spacing(.small), height: self.style.spacing(.small))
 
                 }
 

@@ -28,6 +28,17 @@ final class ProductDetailsViewModel: ViewModel {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
 
+    var storeName: String {
+
+        if let details = self.storeSessionService.locationDetails,
+           details.location.id == self.locationId {
+            return details.location.name
+        }
+
+        return self.storeSessionService.store?.name ?? String(localized: "Store")
+
+    }
+
     var canOpenMaps: Bool {
         self.directionsURL != nil
     }

@@ -69,6 +69,7 @@ final class MockCustomerViewModelAssembly {
         container.storeShopViewModel.register { @MainActor in
             StoreShopViewModel(
                 apiService: container.apiService(),
+                storeSessionService: container.storeSessionService(),
                 userDefaultsService: container.userDefaultsService(),
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService()

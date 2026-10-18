@@ -35,6 +35,7 @@ struct ProductDetailsScreen: GPView {
 
         NavHeader(
             title: String(localized: "Product"),
+            navButtonSize: self.style.spacing(.medium2) * 2,
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() },
             trailingNavButtons: self.viewModel.product == nil ? [] : [.heart(isFilled: self.viewModel.isFavorite)],
@@ -47,7 +48,7 @@ struct ProductDetailsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
             if let product = self.viewModel.product {
 
@@ -87,7 +88,6 @@ struct ProductDetailsScreen: GPView {
             .padding(.horizontal, .medium)
 
         productInformation(product)
-            .padding(.horizontal, .medium)
 
         if !product.attributes.isEmpty {
 
@@ -106,18 +106,14 @@ struct ProductDetailsScreen: GPView {
     @ViewBuilder
     private func productInformation(_ product: Product) -> some View {
 
-        CommerceSurface {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+            ProductDetailsSummaryView(product: product)
+                .padding(.horizontal, .medium)
 
-                ProductDetailsSummaryView(product: product)
+            ProductOptionsView(product: product, contentInset: self.style.spacing(.medium))
 
-                ProductOptionsView(product: product, contentInset: self.style.spacing(.medium))
-                    .padding(.horizontal, -self.style.spacing(.medium))
-
-                description(product)
-
-            }
+            description(product)
 
         }
 
@@ -126,59 +122,13 @@ struct ProductDetailsScreen: GPView {
     @ViewBuilder
     private func contactActions() -> some View {
 
-        CommerceSurface {
-
-            HStack(spacing: self.style.spacing(.extraSmall)) {
-
-                Text(String(localized: "Interested? Hit Us Up!"))
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(.text(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                contactAction(
-                    title: String(localized: "Get Directions"),
-                    systemImage: "map.fill",
-                    isEnabled: self.viewModel.canOpenMaps,
-                    action: { self.viewModel.openMaps() }
-                )
-
-                contactAction(
-                    title: String(localized: "Call Store"),
-                    systemImage: "phone.fill",
-                    isEnabled: self.viewModel.canCallStore,
-                    action: { self.viewModel.callStore() }
-                )
-
-            }
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func contactAction(title: String,
-                               systemImage: String,
-                               isEnabled: Bool,
-                               action: @escaping () -> Void) -> some View {
-
-        Label {
-            Text(title)
-        } icon: {
-
-            CircularIconView(
-                foregroundColor: .text(.button),
-                backgroundColor: .foreground(.primary),
-                imageSource: .systemImage(systemImage),
-                size: self.style.spacing(.large2)
-            )
-
-        }
-        .labelStyle(.iconOnly)
-        .contentShape(Rectangle())
-        .asButton(action: action)
-        .disabled(!isEnabled)
-        .opacity(isEnabled ? 1 : 0.4)
+        ProductContactView(
+            storeName: self.viewModel.storeName,
+            canOpenMaps: self.viewModel.canOpenMaps,
+            canCallStore: self.viewModel.canCallStore,
+            onDirections: { self.viewModel.openMaps() },
+            onCall: { self.viewModel.callStore() }
+        )
 
     }
 
@@ -205,7 +155,7 @@ struct ProductDetailsScreen: GPView {
 
         ScrollView(.horizontal) {
 
-            LazyHStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+            LazyHStack(alignment: .top, spacing: self.style.spacing(.small)) {
 
                 ForEach(self.viewModel.recommendedProducts) { product in
                     recommendedProductCard(product)
@@ -234,7 +184,7 @@ struct ProductDetailsScreen: GPView {
             .horizontal,
             count: 2,
             span: 1,
-            spacing: self.style.spacing(.small2)
+            spacing: self.style.spacing(.small)
         )
 
     }
@@ -260,14 +210,18 @@ struct ProductDetailsScreen: GPView {
     @ViewBuilder
     private func description(_ product: Product) -> some View {
 
-        let description = product.description?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if let description = product.description?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !description.isEmpty {
 
-        Text(description.isEmpty ? String(localized: "No description available.") : description)
-            .appFont(with: .BODY_2)
-            .foregroundStyle(.text(.body))
-            .fixedSize(horizontal: false, vertical: true)
-            .textSelection(.enabled)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            Text(description)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(.text(.body))
+                .fixedSize(horizontal: false, vertical: true)
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, .medium)
+
+        }
 
     }
 

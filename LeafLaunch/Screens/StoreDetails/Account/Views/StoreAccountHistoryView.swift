@@ -24,28 +24,11 @@ struct StoreAccountHistoryView: View {
     @ViewBuilder
     private func sectionHeader() -> some View {
 
-        HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
-
-            Text(String(localized: "Points Activity"))
-                .appFont(with: .TITLE_6)
-                .foregroundStyle(self.style.textColor(.title))
-                .fixedSize(horizontal: false, vertical: true)
-
-            Spacer(minLength: 0)
-
-            if self.canViewAllHistory {
-
-                Text(String(localized: "View All"))
-                    .appFont(with: .TITLE_1)
-                    .foregroundStyle(self.style.palette(.link))
-                    .fixedSize(horizontal: true, vertical: true)
-                    .frame(minHeight: 44)
-                    .contentShape(Rectangle())
-                    .asButton(action: self.viewAllAction)
-
-            }
-
-        }
+        CommerceSectionHeader(
+            title: String(localized: "Points Activity"),
+            actionTitle: self.canViewAllHistory ? String(localized: "View All") : nil,
+            action: self.canViewAllHistory ? self.viewAllAction : nil
+        )
 
     }
 

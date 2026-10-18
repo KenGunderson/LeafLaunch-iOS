@@ -8,13 +8,14 @@ struct ProductAttributesView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            CommerceSectionHeader(title: String(localized: "Product Details"))
+            CommerceSectionHeader(title: String(localized: "Product details"))
 
-            CommerceSurface {
+            LLAppCardView(cornerRadius: .medium2) {
                 attributeRows()
             }
+            .frame(maxWidth: .infinity)
 
         }
 
@@ -23,7 +24,7 @@ struct ProductAttributesView: View {
     @ViewBuilder
     private func attributeRows() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
             ForEach(self.attributes, id: \.id) { attribute in
 
@@ -54,7 +55,7 @@ struct ProductAttributesView: View {
         } label: {
 
             Text(attribute.name)
-                .appFont(with: .NOTE_1)
+                .appFont(with: .BODY_2)
                 .foregroundStyle(.text(.body))
                 .fixedSize(horizontal: false, vertical: true)
 

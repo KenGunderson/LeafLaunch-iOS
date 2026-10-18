@@ -12,7 +12,7 @@ struct ProductGridView: View {
     private var columns: [GridItem] {
 
         Array(
-            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small2), alignment: .top),
+            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small), alignment: .top),
             count: 2
         )
 
@@ -22,7 +22,7 @@ struct ProductGridView: View {
 
         LazyVGrid(columns: self.columns,
                   alignment: .leading,
-                  spacing: self.style.spacing(.medium)) {
+                  spacing: self.style.spacing(.small)) {
 
             ForEach(self.products) { product in
 
