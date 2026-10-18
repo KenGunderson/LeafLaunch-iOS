@@ -51,14 +51,6 @@ struct StoreAccountProfileView: View {
 
             }
 
-            if let createdAt = self.account?.createdAt {
-
-                Text(String(localized: "Account created \(createdAt.formatted(date: .abbreviated, time: .omitted))"))
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(self.style.textColor(.body))
-
-            }
-
             if let accountStatus {
 
                 Text(accountStatus)
@@ -78,8 +70,8 @@ struct StoreAccountProfileView: View {
 
         AvatarView(
             style: .initials(name: self.displayName),
-            foregroundColor: self.style.foreground(.primary),
-            backgroundColor: self.style.background(.tertiary)
+            foregroundColor: self.style.palette(.link),
+            backgroundColor: .color(self.style.palette(.link).resolvedColor(style: self.style)?.opacity(0.08) ?? .clear)
         )
         .frame(width: self.style.spacing(.extraLarge2), height: self.style.spacing(.extraLarge2))
 
@@ -91,11 +83,12 @@ struct StoreAccountProfileView: View {
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             Text(String(localized: "Good to see you"))
-                .appFont(with: .BODY_2)
+                .appFont(with: .BODY_1)
                 .foregroundStyle(self.style.textColor(.body))
 
             Text(self.displayName)
-                .appFont(with: .HEADER_3)
+                .appFont(with: .TITLE_6)
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundStyle(self.style.textColor(.title))
 
             if !self.user.email.isEmpty {

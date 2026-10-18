@@ -119,6 +119,7 @@ extension Container {
             FavoriteProductsViewModel(
                 apiService: self.apiService(),
                 userDefaultsService: self.userDefaultsService(),
+                tabBarNavigationService: self.tabBarNavigationService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
@@ -146,6 +147,21 @@ extension Container {
 
         self { @MainActor in
             StoreAccountViewModel(
+                apiService: self.apiService(),
+                authService: self.authService(),
+                storeSessionService: self.storeSessionService(),
+                analyticsService: self.analyticsService(),
+                alertService: self.alertService()
+            )
+        }
+
+    }
+
+    @MainActor
+    var pointsActivityViewModel: Factory<PointsActivityViewModel> {
+
+        self { @MainActor in
+            PointsActivityViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 analyticsService: self.analyticsService(),

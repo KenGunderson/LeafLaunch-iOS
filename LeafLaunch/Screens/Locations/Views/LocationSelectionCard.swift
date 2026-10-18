@@ -7,141 +7,150 @@ struct LocationSelectionCard: View {
     let location: BootstrapLocation
     let details: CustomerLocationDetails?
     let isLoading: Bool
+    let isSelected: Bool
     let selectAction: () -> Void
 
     private var regionDescription: String {
 
-        [self.location.region, countryName()]
+        let country = self.location.countryCode.flatMap { Locale.current.localizedString(forRegionCode: $0) }
+        return [self.details?.location.city, self.details?.location.region ?? self.location.region, self.details == nil ? country : nil]
             .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
 
     }
 
-    private func countryName() -> String? {
+    private var streetAddress: String {
 
-        guard let countryCode = self.location.countryCode, !countryCode.isEmpty else { return nil }
-        return Locale.current.localizedString(forRegionCode: countryCode) ?? countryCode
+        guard let details = self.details else { return "" }
+
+        let street = [details.location.addressLine1, details.location.addressLine2, details.location.postalCode]
+            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
+
+        return street.isEmpty ? details.address : street
 
     }
 
     var body: some View {
 
-        CommerceSurface {
+        HStack(alignment: .top, spacing: self.style.spacing(.small2)) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-                locationHeader()
-                metadata()
-
-                Divider().overlay(self.style.background(.border))
-                actionLabel()
-
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .contentShape(Rectangle())
+            storeIcon()
+            locationInformation()
+            selectionIndicator()
 
         }
+        .padding(.horizontal, .medium)
+        .padding(.vertical, .medium)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+
+            if self.isSelected {
+
+                self.style.palette(.link).view()
+                    .opacity(0.08)
+
+            }
+
+        }
+        .contentShape(Rectangle())
         .asButton(action: self.selectAction)
+        .animation(.bouncy, value: self.isSelected)
 
     }
 
     @ViewBuilder
-    private func locationHeader() -> some View {
+    private func storeIcon() -> some View {
+
+        ImageSource.systemImage("storefront")
+            .view(shouldResize: false)
+            .appFont(with: .TITLE_5)
+            .foregroundStyle(self.isSelected ? self.style.palette(.link) : self.style.textColor(.title))
+            .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
+            .background(self.isSelected ? self.style.background(.secondary) : self.style.background(.tertiary), in: Circle())
+
+    }
+
+    @ViewBuilder
+    private func locationInformation() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             Text(self.location.name)
-                .appFont(with: .TITLE_5)
+                .appFont(with: .TITLE_3)
                 .foregroundStyle(self.style.textColor(.title))
-                .fixedSize(horizontal: false, vertical: true)
 
-            if let details = self.details {
+            address()
+            openStatus()
 
-                HStack(spacing: self.style.spacing(.extraSmall)) {
+        }
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: .infinity, alignment: .leading)
 
-                    ImageSource.systemImage(details.openNow ? "checkmark.circle.fill" : "clock")
-                        .view(shouldResize: false)
-                    Text(details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
+    }
 
-                }
+    @ViewBuilder
+    private func address() -> some View {
+
+        if !self.regionDescription.isEmpty {
+
+            Text(self.regionDescription)
+                .appFont(with: .BODY_1)
+                .foregroundStyle(self.style.textColor(.body))
+
+        }
+
+        if !self.streetAddress.isEmpty {
+
+            Text(self.streetAddress)
+                .appFont(with: .BODY_1)
+                .foregroundStyle(self.style.textColor(.body))
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func openStatus() -> some View {
+
+        if let details = self.details {
+
+            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+
+                ImageSource.systemImage("circle.fill")
+                    .view(shouldResize: false)
+                    .imageScale(.small)
+
+                Text(details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
+
+            }
+            .appFont(with: .NOTE_1)
+            .foregroundStyle(details.openNow ? self.style.palette(.success) : self.style.textColor(.body))
+            .padding(.top, .extraSmall)
+
+        } else {
+
+            Text(self.isLoading
+                 ? String(localized: "Loading store details…")
+                 : String(localized: "Store details unavailable"))
                 .appFont(with: .NOTE_1)
-                .foregroundStyle(details.openNow ? self.style.palette(.success) : self.style.textColor(.body))
-
-            }
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func metadata() -> some View {
-
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-            if let details = self.details {
-
-                if !details.address.isEmpty {
-                    metadataLabel(details.address, systemImage: "mappin.and.ellipse")
-                }
-
-                metadataLabel(
-                    String(localized: "Today: \(details.todayHoursDescription)"),
-                    systemImage: "clock"
-                )
-
-            } else {
-
-                if !self.regionDescription.isEmpty {
-                    metadataLabel(self.regionDescription, systemImage: "mappin.and.ellipse")
-                }
-
-                metadataLabel(
-                    self.isLoading
-                        ? String(localized: "Loading address and hours…")
-                        : String(localized: "Address and hours unavailable"),
-                    systemImage: "clock"
-                )
-
-            }
+                .foregroundStyle(self.style.textColor(.body))
+                .padding(.top, .extraSmall)
 
         }
 
     }
 
     @ViewBuilder
-    private func metadataLabel(_ text: String, systemImage: String) -> some View {
+    private func selectionIndicator() -> some View {
 
-        HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
-
-            ImageSource.systemImage(systemImage)
-                .view(shouldResize: false)
-
-            Text(text)
-                .fixedSize(horizontal: false, vertical: true)
-
-        }
-        .appFont(with: .BODY_2)
-        .foregroundStyle(self.style.textColor(.body))
-
-    }
-
-    @ViewBuilder
-    private func actionLabel() -> some View {
-
-        HStack(spacing: self.style.spacing(.small)) {
-
-            Text(String(localized: "Open Location"))
-                .fixedSize(horizontal: false, vertical: true)
-
-            Spacer(minLength: 0)
-
-            ImageSource.systemImage("chevron.right")
-                .view(shouldResize: false)
-
-        }
-        .appFont(with: .TITLE_3)
-        .foregroundStyle(self.style.foreground(.primary))
+        ImageSource.systemImage(self.isSelected ? "checkmark.circle.fill" : "circle")
+            .view(shouldResize: false)
+            .appFont(with: .TITLE_5)
+            .foregroundStyle(self.isSelected ? self.style.palette(.link) : self.style.textColor(.placeholder))
+            .padding(.top, .extraSmall)
 
     }
 
@@ -155,6 +164,7 @@ struct LocationSelectionCard: View {
             location: location,
             details: MockCustomerModels.locationDetails,
             isLoading: false,
+            isSelected: true,
             selectAction: {}
         )
         .padding(.medium)

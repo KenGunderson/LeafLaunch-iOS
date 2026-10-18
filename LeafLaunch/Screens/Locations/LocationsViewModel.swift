@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import SwiftUI
 
 @MainActor
@@ -17,13 +18,45 @@ final class LocationsViewModel: ViewModel {
     private var loadingIndicator: RuneAlert?
     private var lastPresentedErrorMessage: String?
     private var loadLocationsTask: Task<Void, Never>?
+    private var locationSearchLocator: LocationSearchLocator?
 
     @Published private(set) var locations: [BootstrapLocation] = []
     @Published private(set) var locationDetails: [String: CustomerLocationDetails] = [:]
     @Published private(set) var failedLocationIds: Set<String> = []
     @Published private(set) var isLoading: Bool = false
+    @Published private(set) var selectedLocationId: String?
+    @Published private(set) var isContinuing: Bool = false
+    @Published private(set) var isLocating: Bool = false
+    @Published private(set) var canDismiss: Bool = false
+    @Published var search: String = "" {
+        didSet { cancelLocationSearch() }
+    }
 
     var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
+
+    var selectedLocation: BootstrapLocation? {
+        return self.locations.first { $0.id == self.selectedLocationId }
+    }
+
+    var canContinue: Bool { self.selectedLocation != nil && !self.isContinuing }
+
+    var filteredLocations: [BootstrapLocation] {
+
+        let terms = self.search.split(whereSeparator: { $0.isWhitespace }).map(String.init)
+        guard !terms.isEmpty else { return self.locations }
+
+        return self.locations.filter { location in
+
+            let details = self.locationDetails[location.id]
+            let searchableText = [location.name, location.region, details?.address, details?.location.city, details?.location.postalCode]
+                .compactMap { $0 }
+                .joined(separator: " ")
+
+            return terms.allSatisfy { searchableText.localizedStandardContains($0) }
+
+        }
+
+    }
 
     init(storeSessionService: StoreSessionServiceProtocol,
          apiService: APIServiceProtocol,
@@ -43,6 +76,7 @@ final class LocationsViewModel: ViewModel {
 
         self.sessionSubscription?.cancel()
         self.loadLocationsTask?.cancel()
+        self.locationSearchLocator?.cancel()
 
         if let loadingIndicator = self.loadingIndicator {
             self.alertService.dismissAlert(loadingIndicator)
@@ -64,7 +98,68 @@ final class LocationsViewModel: ViewModel {
     }
 
     func selectLocation(id: String) {
-        self.storeSessionService.selectLocation(id: id)
+
+        guard !self.isContinuing, self.locations.contains(where: { $0.id == id }) else { return }
+        self.selectedLocationId = id
+
+    }
+
+    func continueToLocation() {
+
+        guard self.canContinue, let selectedLocationId = self.selectedLocationId else { return }
+
+        cancelLocationSearch()
+        self.isContinuing = true
+        self.storeSessionService.selectLocation(id: selectedLocationId)
+
+    }
+
+    func dismiss() {
+
+        guard self.canDismiss else { return }
+        cancelLocationSearch()
+        self.storeSessionService.cancelLocationSelection()
+
+    }
+
+    func clearSearch() {
+
+        cancelLocationSearch()
+        self.search = ""
+
+    }
+
+    func useCurrentLocation() {
+
+        guard !self.isLocating, !self.isContinuing else { return }
+
+        let locator = LocationSearchLocator()
+        self.locationSearchLocator = locator
+        self.isLocating = true
+
+        locator.findCity { [weak self] result in
+
+            guard let self else { return }
+            self.isLocating = false
+            self.locationSearchLocator = nil
+
+            switch result {
+            case .success(let city):
+                self.search = city
+            case .failure(let error):
+                self.presentLocationSearchError(error)
+            }
+
+        }
+
+    }
+
+    func cancelLocationSearch() {
+
+        self.locationSearchLocator?.cancel()
+        self.locationSearchLocator = nil
+        self.isLocating = false
+
     }
 
     func loadData(showHud: Bool) {
@@ -166,6 +261,8 @@ final class LocationsViewModel: ViewModel {
             .sink { [weak self] state in
 
                 self?.locations = self?.storeSessionService.locations ?? []
+                self?.canDismiss = state == .locations && self?.storeSessionService.canDismissLocationSelection == true
+                self?.restoreSelectionIfNeeded()
                 self?.handleSessionState(state)
 
             }
@@ -173,6 +270,8 @@ final class LocationsViewModel: ViewModel {
     }
 
     private func handleSessionState(_ state: StoreSessionState) {
+
+        self.isContinuing = state == .loading
 
         if state == .loading {
 
@@ -213,6 +312,33 @@ final class LocationsViewModel: ViewModel {
                     action: {}
                 )
             )
+        ))
+
+    }
+
+    private func restoreSelectionIfNeeded() {
+
+        if let selectedLocationId = self.selectedLocationId,
+           self.locations.contains(where: { $0.id == selectedLocationId }) { return }
+
+        let currentLocationId = self.storeSessionService.locationDetails?.location.id
+        self.selectedLocationId = self.locations.first { $0.id == currentLocationId }?.id
+
+        if self.selectedLocationId == nil, self.locations.count == 1 {
+            self.selectedLocationId = self.locations.first?.id
+        }
+
+    }
+
+    private func presentLocationSearchError(_ error: Error) {
+
+        let isDenied = (error as? CLError)?.code == .denied
+        let message = isDenied
+            ? Constants.Message.locationSearchDeniedMessage
+            : Constants.Message.locationSearchErrorMessage
+
+        self.alertService.showAlert(.init(
+            .appAlert(.error(message: message, action: {}))
         ))
 
     }

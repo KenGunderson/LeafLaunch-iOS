@@ -9,6 +9,7 @@ final class StoreAccountViewModel: ViewModel {
 
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
+    private let storeSessionService: StoreSessionServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
 
@@ -18,7 +19,6 @@ final class StoreAccountViewModel: ViewModel {
     private var loadAccountTask: Task<Void, Never>?
     private var logoutTask: Task<Void, Never>?
     private var requestId: UUID?
-    private var nextHistoryOffset: Int?
 
     @Published private(set) var user: LLUser?
     @Published private(set) var account: CustomerAccount?
@@ -27,17 +27,22 @@ final class StoreAccountViewModel: ViewModel {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var isLoggingOut: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
-    @Published private(set) var hasMoreHistory: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
 
     var hasSelectedLocation: Bool { self.locationId != nil }
 
+    var locationName: String? {
+        return self.storeSessionService.locations.first { $0.id == self.locationId }?.name
+    }
+
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
+         storeSessionService: StoreSessionServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
         self.apiService = apiService
         self.authService = authService
+        self.storeSessionService = storeSessionService
         self.analyticsService = analyticsService
         self.alertService = alertService
 
@@ -75,6 +80,24 @@ final class StoreAccountViewModel: ViewModel {
 
     func presentSettings() {
         self.navigationService?.modal(fullScreenCover: .settings)
+    }
+
+    func openFavorites() {
+
+        guard let locationId = self.locationId else { return }
+        self.navigationService?.push(.customer(.favoriteProducts(locationId: locationId)))
+
+    }
+
+    func changeLocation() {
+        self.storeSessionService.showLocations()
+    }
+
+    func openPointsActivity() {
+
+        guard let locationId = self.locationId, self.membership != nil, self.user != nil else { return }
+        self.navigationService?.push(.customer(.pointsActivity(locationId: locationId)))
+
     }
 
     func register() {
@@ -144,60 +167,6 @@ final class StoreAccountViewModel: ViewModel {
 
     }
 
-    func loadMoreHistory(showHud: Bool = true) {
-
-        guard self.loadAccountTask == nil,
-              let locationId = self.locationId,
-              let offset = self.nextHistoryOffset,
-              self.hasMoreHistory else { return }
-
-        let apiService = self.apiService
-        let alertService = self.alertService
-        let requestId = UUID()
-        self.requestId = requestId
-        self.isLoading = true
-
-        self.loadAccountTask = Task { @MainActor [weak self] in
-
-            guard !Task.isCancelled else { return }
-
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
-            if showHud { alertService.showAlert(loadingIndicator) }
-
-            defer {
-
-                if showHud { alertService.dismissAlert(loadingIndicator) }
-
-                if self?.requestId == requestId {
-
-                    self?.isLoading = false
-                    self?.loadAccountTask = nil
-
-                }
-
-            }
-
-            do {
-
-                let history = try await apiService.getCustomerLoyaltyHistory(locationId: locationId, offset: offset)
-                guard !Task.isCancelled, self?.requestId == requestId else { return }
-
-                let existingIds = Set(self?.history.map(\.id) ?? [])
-                self?.history.append(contentsOf: history.data.filter { !existingIds.contains($0.id) })
-                self?.nextHistoryOffset = history.page.nextOffset
-                self?.hasMoreHistory = history.page.hasMore && (history.page.nextOffset ?? offset) > offset
-
-            } catch {
-
-                guard !Task.isCancelled, self?.requestId == requestId else { return }
-                self?.presentAccountError(context: .get)
-
-            }
-
-        }
-
-    }
-
     private func loadAccount(shouldJoin: Bool, showHud: Bool) {
 
         guard self.loadAccountTask == nil, self.user != nil else { return }
@@ -242,7 +211,6 @@ final class StoreAccountViewModel: ViewModel {
 
                     self?.membership = nil
                     self?.history = []
-                    self?.hasMoreHistory = false
                     self?.hasCompletedInitialLoad = true
                     return
 
@@ -262,7 +230,6 @@ final class StoreAccountViewModel: ViewModel {
                     guard !Task.isCancelled, self?.requestId == requestId else { return }
                     self?.membership = nil
                     self?.history = []
-                    self?.hasMoreHistory = false
                     self?.hasCompletedInitialLoad = true
                     return
 
@@ -273,9 +240,7 @@ final class StoreAccountViewModel: ViewModel {
                 let history = try await apiService.getCustomerLoyaltyHistory(locationId: locationId, offset: 0)
                 guard !Task.isCancelled, self?.requestId == requestId else { return }
 
-                self?.history = history.data
-                self?.nextHistoryOffset = history.page.nextOffset
-                self?.hasMoreHistory = history.page.hasMore && history.page.nextOffset != nil
+                self?.history = Array(history.data.prefix(1))
                 self?.hasCompletedInitialLoad = true
 
             } catch {
@@ -300,10 +265,8 @@ final class StoreAccountViewModel: ViewModel {
         self.membership = nil
         self.history = []
         self.isLoading = false
-        self.hasMoreHistory = false
         self.hasCompletedInitialLoad = false
         self.hasLoadFailed = false
-        self.nextHistoryOffset = nil
 
     }
 

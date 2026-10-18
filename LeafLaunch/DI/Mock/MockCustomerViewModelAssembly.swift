@@ -79,6 +79,7 @@ final class MockCustomerViewModelAssembly {
             FavoriteProductsViewModel(
                 apiService: container.apiService(),
                 userDefaultsService: container.userDefaultsService(),
+                tabBarNavigationService: container.tabBarNavigationService(),
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService()
             )
@@ -96,6 +97,16 @@ final class MockCustomerViewModelAssembly {
 
         container.storeAccountViewModel.register { @MainActor in
             StoreAccountViewModel(
+                apiService: container.apiService(),
+                authService: container.authService(),
+                storeSessionService: container.storeSessionService(),
+                analyticsService: container.analyticsService(),
+                alertService: container.alertService()
+            )
+        }
+
+        container.pointsActivityViewModel.register { @MainActor in
+            PointsActivityViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
                 analyticsService: container.analyticsService(),

@@ -123,7 +123,7 @@ struct FavoriteProductsScreen: GPView {
                 )
 
                 LeafLaunchButton(title: String(localized: "Browse products"), icon: .systemImage("arrow.right")) {
-                    self.viewModel.dismiss()
+                    self.viewModel.browseProducts()
                 }
 
             }

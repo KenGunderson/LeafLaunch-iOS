@@ -185,6 +185,8 @@ struct Constants {
         static let ageVerificationErrorMessage = "Something went wrong while verifying your age. Please try again."
 
         static let storeDirectionsErrorMessage = "Unable to open Maps. Please try again."
+        static let locationSearchDeniedMessage = String(localized: "Location access is unavailable. Search by city or ZIP code, or allow location access in Settings.")
+        static let locationSearchErrorMessage = String(localized: "We couldn't find your city. Search by city or ZIP code, or try using your location again.")
         static let storePhoneErrorMessage = "Unable to call the store. Please try again."
         static let promotionLinkErrorMessage = "Unable to open this promotion's link. Please try again later."
         static let promotionProductsErrorMessage = "This promotion's products are unavailable. Please try again later."

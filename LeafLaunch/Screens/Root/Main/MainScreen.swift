@@ -21,7 +21,9 @@ struct MainScreen: GPView {
             .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
             .withWindowDynamicIslandService()
             .withFullScreenCover(Bindable(self.navigationService).fullScreenCover)
-            .withSheet(Bindable(self.navigationService).sheet)
+            .withSheet(Bindable(self.navigationService).sheet) { [weak viewModel] in
+                viewModel?.handleSheetDismissal()
+            }
             .withDevSettingsOverlay(isEnabled: self.viewModel.isDevSettingsEnabled) {
                 self.navigationService.modal(fullScreenCover: .devSettings)
             }

@@ -76,6 +76,10 @@ class MockAppAssembler {
             return self.container.storeAccountViewModel() as! T
         }
 
+        if type == PointsActivityViewModel.self {
+            return self.container.pointsActivityViewModel() as! T
+        }
+
         if type == AlertServiceProtocol.self {
             return self.container.alertService() as! T
         }

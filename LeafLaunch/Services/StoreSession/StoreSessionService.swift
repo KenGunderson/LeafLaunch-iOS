@@ -21,6 +21,8 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     private var isBootstrapping: Bool = false
     private var bootstrapId: UUID?
     private var pendingLocationDetails: CustomerLocationDetails?
+    private var activeStoreIdentity: String?
+    private var locationSelectionReturnIdentity: String?
 
     private(set) var configuration: CustomerBootstrap?
     private(set) var locationDetails: CustomerLocationDetails?
@@ -37,6 +39,15 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     }
 
     var store: PublicStore? { self.configuration?.store }
+
+    var canDismissLocationSelection: Bool {
+
+        guard self.locationDetails != nil,
+              let returnIdentity = self.locationSelectionReturnIdentity,
+              returnIdentity == self.activeStoreIdentity else { return false }
+        return returnIdentity == (self.authService.currentUser?.id ?? self.userDefaultsService.guestIdentityId)
+
+    }
 
     var ageVerificationLocationId: String? {
         return self.ageVerificationDetails?.location.id
@@ -81,6 +92,8 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     func bootstrap() async {
 
         guard !self.isBootstrapping else { return }
+        self.locationSelectionReturnIdentity = nil
+
         guard BusinessConfig.isConfigured else {
 
             self.state = .configurationRequired
@@ -253,6 +266,33 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
     }
 
     func showLocations() {
+
+        let allowsDismissal = (self.state == .store && self.locationDetails != nil) || self.canDismissLocationSelection
+        showLocations(allowsDismissal: allowsDismissal)
+
+    }
+
+    func cancelLocationSelection() {
+
+        guard self.state == .locations, self.canDismissLocationSelection else { return }
+
+        self.bootstrapId = nil
+        self.selectLocationTask?.cancel()
+        cancelAgeEvaluation()
+        self.selectLocationTask = nil
+        self.selectionId = nil
+        self.pendingLocationDetails = nil
+        self.error = nil
+        self.locationSelectionReturnIdentity = nil
+        self.state = .store
+
+    }
+
+    private func showLocations(allowsDismissal: Bool) {
+
+        self.locationSelectionReturnIdentity = allowsDismissal
+            ? (self.authService.currentUser?.id ?? self.userDefaultsService.guestIdentityId)
+            : nil
 
         self.bootstrapId = nil
 
@@ -431,7 +471,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         if allowsPresentation {
             self.state = .ageVerification
         } else {
-            showLocations()
+            showLocations(allowsDismissal: false)
         }
 
     }
@@ -442,7 +482,9 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
               details.location.id == locationId else { return }
 
         self.locationDetails = details
+        self.activeStoreIdentity = self.authService.currentUser?.id ?? self.userDefaultsService.guestIdentityId
         self.pendingLocationDetails = nil
+        self.locationSelectionReturnIdentity = nil
         self.userDefaultsService.set(lastSelectedLocationId: locationId)
         self.error = nil
         self.tabBarNavigationService.initializeStoreExperience(locationId: locationId)
@@ -470,9 +512,22 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
 
-                guard let self,
-                      !self.isBootstrapping,
-                      self.state == .store || self.state == .ageVerification || self.state == .loading,
+                guard let self, !self.isBootstrapping else { return }
+
+                if self.state == .locations {
+
+                    if self.locationSelectionReturnIdentity != nil && !self.canDismissLocationSelection {
+
+                        self.locationSelectionReturnIdentity = nil
+                        self.state = .locations
+
+                    }
+
+                    return
+
+                }
+
+                guard self.state == .store || self.state == .ageVerification || self.state == .loading,
                       self.selectLocationTask == nil || self.pendingLocationDetails != nil else { return }
                 self.evaluateAgeVerification()
 

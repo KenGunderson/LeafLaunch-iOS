@@ -10,12 +10,13 @@ struct StoreAccountHistoryRow: View {
     private var signedPoints: String {
 
         let points = self.entry.pointsDelta.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !points.isEmpty, !points.hasPrefix("+"), !points.hasPrefix("-"), !points.hasPrefix("−") else {
-            return points
-        }
-
+        guard !points.isEmpty, !points.hasPrefix("+"), !points.hasPrefix("-"), !points.hasPrefix("−") else { return points }
         return "+\(points)"
 
+    }
+
+    private var isDeduction: Bool {
+        return self.signedPoints.hasPrefix("-") || self.signedPoints.hasPrefix("−")
     }
 
     private var entryTitle: String {
@@ -42,34 +43,59 @@ struct StoreAccountHistoryRow: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        HStack(alignment: .center, spacing: self.style.spacing(.small2)) {
+
+            transactionIcon()
 
             if self.dynamicTypeSize.isAccessibilitySize {
 
                 VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-                    transactionTitle()
+                    transactionDetails()
                     points()
 
                 }
 
             } else {
 
-                HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
-
-                    transactionTitle()
-                    Spacer(minLength: 0)
-                    points()
-
-                }
+                transactionDetails()
+                Spacer(minLength: 0)
+                points()
 
             }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func transactionIcon() -> some View {
+
+        ImageSource.systemImage(self.entryIcon)
+            .view(shouldResize: false)
+            .appFont(with: .TITLE_6)
+            .foregroundStyle(self.style.palette(.link))
+            .frame(width: 44, height: 44)
+            .background {
+                Circle().fill(self.style.palette(.link)).opacity(0.08)
+            }
+
+    }
+
+    @ViewBuilder
+    private func transactionDetails() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.entry.customerReason.isEmpty ? self.entryTitle : self.entry.customerReason)
+                .appFont(with: .TITLE_3)
+                .foregroundStyle(self.style.textColor(.title))
 
             if let rewardTitle = self.entry.rewardTitleSnapshot, !rewardTitle.isEmpty {
 
                 Text(rewardTitle)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.title))
+                    .appFont(with: .BODY_1)
+                    .foregroundStyle(self.style.textColor(.body))
 
             }
 
@@ -78,33 +104,7 @@ struct StoreAccountHistoryRow: View {
                 .foregroundStyle(self.style.textColor(.body))
 
         }
-        .padding(.vertical, self.style.spacing(.extraSmall))
-
-    }
-
-    @ViewBuilder
-    private func transactionTitle() -> some View {
-
-        HStack(alignment: .top, spacing: self.style.spacing(.small)) {
-
-            ImageSource.systemImage(self.entryIcon).view(shouldResize: false)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(self.style.foreground(.primary))
-
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-                Text(self.entry.customerReason.isEmpty ? self.entryTitle : self.entry.customerReason)
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(self.style.textColor(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-
-                Text(self.entryTitle)
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(self.style.textColor(.body))
-
-            }
-
-        }
+        .fixedSize(horizontal: false, vertical: true)
 
     }
 
@@ -116,7 +116,7 @@ struct StoreAccountHistoryRow: View {
             Text(self.signedPoints)
                 .appFont(with: .TITLE_4)
                 .monospacedDigit()
-                .foregroundStyle(self.style.textColor(.title))
+                .foregroundStyle(self.isDeduction ? self.style.palette(.destructive) : self.style.palette(.link))
 
             Text(String(localized: "points"))
                 .appFont(with: .NOTE_1)

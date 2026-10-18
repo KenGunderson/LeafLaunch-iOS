@@ -9,6 +9,7 @@ protocol StoreSessionServiceProtocol: AnyObject, Sendable {
     var configuration: CustomerBootstrap? { get }
     var store: PublicStore? { get }
     var locationDetails: CustomerLocationDetails? { get }
+    var canDismissLocationSelection: Bool { get }
     var locations: [BootstrapLocation] { get }
     var error: Error? { get }
     var ageVerificationLocationId: String? { get }
@@ -19,6 +20,7 @@ protocol StoreSessionServiceProtocol: AnyObject, Sendable {
     func bootstrap() async
     func selectLocation(id: String)
     func showLocations()
+    func cancelLocationSelection()
     func approveAgeVerification() throws
 
 }

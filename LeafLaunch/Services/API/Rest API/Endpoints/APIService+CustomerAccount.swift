@@ -13,7 +13,7 @@ extension APIService {
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
-        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
+        guard await account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }
@@ -30,7 +30,7 @@ extension APIService {
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
-        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
+        guard await account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }
@@ -47,7 +47,7 @@ extension APIService {
         let account: CustomerAccount = try await parseData(data: data)
         try Task.checkCancellation()
 
-        guard account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
+        guard await account.storeId == BusinessConfig.businessId else { throw APIError.decodingError }
         return account
 
     }

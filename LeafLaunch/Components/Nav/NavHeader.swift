@@ -12,6 +12,7 @@ struct NavHeader: View {
     @Environment(\.style) private var style
 
     private let title: String
+    private let titleFont: Theme.FontKey
     private let subtitle: String?
     private let subtitleAction: (() -> Void)?
     private let leadingImage: ImageSource?
@@ -24,6 +25,7 @@ struct NavHeader: View {
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> Void)?
 
     init(title: String,
+         titleFont: Theme.FontKey = .HEADER_3,
          subtitle: String? = nil,
          subtitleAction: (() -> Void)? = nil,
          leadingImage: ImageSource? = nil,
@@ -36,6 +38,7 @@ struct NavHeader: View {
          trailingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil) {
 
         self.title = title
+        self.titleFont = titleFont
         self.subtitle = subtitle
         self.subtitleAction = subtitleAction
         self.leadingImage = leadingImage
@@ -127,7 +130,7 @@ struct NavHeader: View {
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
             Text(self.title)
-                .appFont(with: .HEADER_3)
+                .appFont(with: self.titleFont)
                 .foregroundStyle(.text(.title))
 
             if let subtitle = self.subtitle {

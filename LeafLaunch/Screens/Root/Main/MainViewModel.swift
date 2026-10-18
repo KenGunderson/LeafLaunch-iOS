@@ -117,6 +117,10 @@ final class MainViewModel: ViewModel {
         self.storeSessionService.showLocations()
     }
 
+    func handleSheetDismissal() {
+        self.storeSessionService.cancelLocationSelection()
+    }
+
     private func handleStoreNavigation(_ state: StoreSessionState) {
 
         guard let navigationService = self.navigationService else { return }

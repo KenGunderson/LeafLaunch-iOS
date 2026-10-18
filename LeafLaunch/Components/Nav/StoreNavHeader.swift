@@ -7,6 +7,7 @@ struct StoreNavHeader: View {
     let configuration: CustomerBootstrap?
     let subtitle: String
     var onSelectLocation: (() -> Void)? = nil
+    var onDismiss: (() -> Void)? = nil
 
     private var fallbackLogo: ImageSource {
         .image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
@@ -32,7 +33,9 @@ struct StoreNavHeader: View {
             title: self.configuration?.publicName ?? String(localized: "Store"),
             subtitle: self.subtitle,
             subtitleAction: self.onSelectLocation,
-            leadingImage: self.logo
+            leadingImage: self.logo,
+            trailingNavButtons: self.onDismiss == nil ? [] : [.close],
+            trailingNavButtonsAction: { _ in self.onDismiss?() }
         )
 
     }

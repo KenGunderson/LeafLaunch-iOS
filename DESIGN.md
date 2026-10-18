@@ -23,7 +23,7 @@ The skin is a construction system, not a fixed brand. Each store owns its appear
 
 ## Colors
 
-Rune is the only runtime styling authority. Production views read `@Environment(\.style)`; semantic Rune color sources and modifiers resolve that same environment. Outside the explicit promotion-caption and Store Info treatments below, do not introduce feature palettes, literal colors, gradients, `Style.shared` reads, or a second theme engine. Pass the environment style explicitly when an API such as `source(style:)` or `resolvedColor(style:)` requires color resolution.
+Rune is the only runtime styling authority. Production views read `@Environment(\.style)`; semantic Rune color sources and modifiers resolve that same environment. Outside the explicit promotion-caption, membership-card, and Store Info treatments below, do not introduce feature palettes, literal colors, gradients, `Style.shared` reads, or a second theme engine. Pass the environment style explicitly when an API such as `source(style:)` or `resolvedColor(style:)` requires color resolution.
 
 The mapping remains:
 
@@ -37,7 +37,7 @@ Use background.primary for the canvas, secondary for content surfaces, tertiary/
 
 ## Typography
 
-Use Rune `appFont(with:)` and the active store's font roles. Section titles use TITLE_6, screen headers use HEADER_3, product names use TITLE_3, and prices use TITLE_5. Supporting copy uses BODY_1/BODY_2 or NOTE_1. Do not set a new font family or fixed custom type scale in a feature.
+Use Rune `appFont(with:)` and the active store's font roles. Section titles use TITLE_6, screen headers use HEADER_3 (Account and Points Activity use HEADER_5 to match the approved account reference), product names use TITLE_3, and prices use TITLE_5. Supporting copy uses BODY_1/BODY_2 or NOTE_1. Do not set a new font family or fixed custom type scale in a feature.
 
 App-owned titles, section names, and important callouts use Title Case. Preserve the supplied spelling and casing of store and product names.
 
@@ -59,7 +59,9 @@ GENERAL promotion banners remain plain display content. SALE, NEW_PRODUCT, and L
 
 Store Info follows the reference as a flat, full-width white module with sixteen-point top padding, a Store Info heading, and pale gray icons beside Address, Store Hours, Phone Number, and Email. Row titles and content share a consistent leading column. Hours remain expanded Monday through Sunday with times in a trailing column, retaining split intervals without a next-day annotation. Special Hours uses the same tight rows, groups intervals by date, and places any reason beneath the date as a compact note. Contact values come from the public store projection; there is no contact disclosure or full-menu action. The white surface includes the custom tab-bar content clearance. Event cards in both the overview and Events screen push native details with their full description, location address, directions, and optional website.
 
-Account separates profile, membership balance, and activity. Location selection and age consent share a leading store-logo header with safe-area top padding. Location cards show full addresses, today's hours, and open/closed status; keep their action rows compact. Age consent uses a compact age badge and the selected location's full address while retaining its existing approval behavior.
+Account follows the approved membership reference: a larger Account heading with the existing settings action, compact initials/profile row, prominent business membership pass, Member Since beneath it, one recent points transaction with View All, and a divided Saved Products / Your Store group. The pass uses the business accent through Rune palette.link, darkened by a 78-percent black overlay, with white copy and restrained diagonal accent/white planes; this treatment stays local to StoreAccountMembershipCard and remains dark in both themes. Its badge uses Rune titleInverted for contrast on the accent. The business name, account status, grouped points balance, member code, and join date come from CustomerAccount. BILLBOARD_3 gives the balance emphasis without changing the global font scale. View Membership opens read-only account/location details in a native sheet. Activity rows pair a circular accent-tinted transaction icon with the actual reason, optional reward, date/time, and signed points; debits use the destructive role. View All pushes the dedicated Points Activity screen on the Account navigation stack. That screen uses the same larger header, accent transaction icons, rounded history rows, and explicit paged Load More action; Back restores Account. Account itself keeps a single-entry preview. Keep guest registration, location enrollment, retry, and sign-out controls available.
+
+Location selection retains the leading store-logo header with safe-area top padding, city/ZIP search beside Use My Location, and a single outlined group of divided store rows. Rows pair a circular storefront icon with the store name, city/region, street/postal address, and server open/closed status without opening-hour ranges. Store names use TITLE_3; address, search, and selection-summary copy use BODY_1 for breathing room. The selected row uses the business accent (branding.accentColor through Rune palette.link) at eight-percent opacity over the group surface, with an accent storefront icon and filled checkmark, and no selected-row outline. A bottom safe-area footer names the pending selection and offers Continue with a trailing chevron; tapping a row only changes that pending choice. Search controls stack when space is limited. Reopening the picker from an active store adds the standard Close action to the branded header and permits native swipe dismissal, both retaining the committed location. First selection stays mandatory. Age consent shares the leading store-logo header with safe-area top padding and retains its compact age badge, selected location's full address, and existing approval behavior.
 
 Store Details retains JobLens iOS's `BubbleTabBarView` over the root `TabView`, with one navigation stack per tab, the system bar hidden, 42pt top corners, and its existing keyboard-independent overlay. `tabFlowContentSpacing()` keeps content above that bar. Keep the three Store, Menu, and Account navigation tabs. A filled heart in Menu pushes Favorite Products on the Menu navigation stack.
 
@@ -75,9 +77,9 @@ Surfaces, Settings cards, and media use theme large radius, inputs use medium2, 
 
 | Responsibility | Owner |
 | --- | --- |
-| Primary actions | LeafLaunchButton using Rune CommonButton |
+| Primary actions | LeafLaunchButton using Rune CommonButton; enabled state and leading/trailing icon alignment remain owned by this wrapper |
 | Header and scroll composition | LLAppHeaderScrollView owns the shared medium content inset; Home retains its intentional large inset; Store Overview and Product Details use the Rune host without a page-wide inset and apply horizontal safe-area padding to their carousels; Menu uses Rune AppHeaderScrollView with the same medium inset and its custom refresh configuration |
-| Branded store headers | StoreNavHeader uses NavHeader with the store icon/logo and a target-logo fallback; its optional location action adds a chevron beside the subtitle; the image fills its clipped square using aspect fill, with no inner padding |
+| Branded store headers | StoreNavHeader uses NavHeader with the store icon/logo and a target-logo fallback; its optional location action adds a chevron beside the subtitle and its optional dismissal action adds the standard Close control; the image fills its clipped square using aspect fill, with no inner padding |
 | Titled authentication fields | llTextFieldStyle owns the Rune field treatment and medium2 input radius; callers own focus, secure entry, keyboard, and submission |
 | Modal alert content | AppCardConfig factories and BaseAppCardConfigView; InvitationAlertView reads the active style |
 | Cards | LLAppCardView using Rune AppCardView and appBorder |
@@ -91,8 +93,8 @@ Surfaces, Settings cards, and media use theme large radius, inputs use medium2, 
 | Price, media, and saved state | ProductPriceView, ProductImageView, and ProductFavoriteButton |
 | Product gallery and details | ProductGalleryView, ProductDetailsSummaryView, ProductOptionsView, and ProductAttributesView |
 | Promotions, events, and Store Info | StorePromotionsCarousel owns timed promotion paging; PromotionProductsScreen and PromotionProductsViewModel own the linked-product list; StoreMarketingImage loads distinct promotion/event fallbacks; StoreEventsScreen and StoreEventsViewModel own the paginated events list; StoreInfoView owns the white information module and StoreHoursView renders expanded hours |
-| Profile, membership, and activity | Focused views under StoreDetails/Account/Views |
-| Location selection and age consent | LocationSelectionCard and AgeVerificationConsentView |
+| Profile, membership, and activity | StoreAccountProfileView, StoreAccountMembershipView, StoreAccountMembershipCard, StoreAccountMembershipDetailsView, StoreAccountHistoryView, StoreAccountHistoryRow, and StoreAccountLinksView under StoreDetails/Account/Views |
+| Location selection and age consent | LocationSelectionCard, LocationSearchControls, and LocationSelectionFooter compose the store picker; AgeVerificationConsentView owns age consent |
 | Launch identity | SplashScreenView and SplashBrandMarkView |
 
 Native SwiftUI owns scrolling, focus, menus, pickers, disclosures, and safe areas. Rune `ImageSource` owns media loading and caching. Public product responses include each active image’s `url`; cards and galleries load those URLs directly. Categories provide `image_url`, bootstrap branding provides `logo_url`/`icon_url`/`splash_url`, and promotion/event images provide `url`. Customer models contain no storage keys or MIME metadata, and screens make no separate media URL requests. Keep loading, unavailable-media, empty, and failure/retry states truthful.

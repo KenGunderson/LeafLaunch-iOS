@@ -7,27 +7,41 @@ struct StoreAccountHistoryView: View {
     let history: [LoyaltyHistoryEntry]
     let isLoading: Bool
     let hasCompletedInitialLoad: Bool
-    let hasMoreHistory: Bool
-    let loadMoreAction: () -> Void
+    let canViewAllHistory: Bool
+    let viewAllAction: () -> Void
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            CommerceSectionHeader(
-                title: String(localized: "Points activity"),
-                subtitle: String(localized: "Your points and redemption history")
-            )
+            sectionHeader()
+            historyContent()
 
-            CommerceSurface {
+        }
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+    }
 
-                    historyContent()
+    @ViewBuilder
+    private func sectionHeader() -> some View {
 
-                    loadMoreButton()
+        HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
 
-                }
+            Text(String(localized: "Points Activity"))
+                .appFont(with: .TITLE_6)
+                .foregroundStyle(self.style.textColor(.title))
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+
+            if self.canViewAllHistory {
+
+                Text(String(localized: "View All"))
+                    .appFont(with: .TITLE_1)
+                    .foregroundStyle(self.style.palette(.link))
+                    .fixedSize(horizontal: true, vertical: true)
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
+                    .asButton(action: self.viewAllAction)
 
             }
 
@@ -40,45 +54,28 @@ struct StoreAccountHistoryView: View {
 
         if self.hasCompletedInitialLoad && self.history.isEmpty && !self.isLoading {
 
-            CommerceEmptyState(
-                systemImage: "clock.arrow.circlepath",
-                title: String(localized: "No points activity yet"),
-                message: String(localized: "No points activity yet. Your points and redemptions will appear here.")
-            )
+            CommerceSurface {
 
-        } else if self.history.isEmpty && self.isLoading {
-
-            ProgressView(String(localized: "Loading points activity"))
-                .tint(self.style.foreground(.primary).source(style: self.style))
-
-        } else {
-
-            ForEach(self.history, id: \.id) { entry in
-
-                historyRow(entry)
+                CommerceEmptyState(
+                    systemImage: "clock.arrow.circlepath",
+                    title: String(localized: "No Points Activity Yet"),
+                    message: String(localized: "Your points and redemptions will appear here.")
+                )
 
             }
 
-        }
+        } else if self.history.isEmpty && self.isLoading {
 
-    }
+            CommerceSurface {
 
-    @ViewBuilder
-    private func loadMoreButton() -> some View {
+                ProgressView(String(localized: "Loading points activity"))
+                    .tint(self.style.palette(.link))
 
-        if self.hasMoreHistory {
+            }
 
-            CommonButton(
-                style: .outline(lineWidth: 1),
-                title: String(localized: "Load More History"),
-                titleColor: self.style.textColor(.title),
-                titleFont: .TITLE_3,
-                backgroundStyle: self.style.background(.border),
-                isEnabled: !self.isLoading,
-                verticalPadding: .small2,
-                cornerRadius: .medium,
-                action: self.loadMoreAction
-            )
+        } else if let entry = self.history.first {
+
+            historyRow(entry)
 
         }
 
@@ -87,10 +84,8 @@ struct StoreAccountHistoryView: View {
     @ViewBuilder
     private func historyRow(_ entry: LoyaltyHistoryEntry) -> some View {
 
-        StoreAccountHistoryRow(entry: entry)
-
-        if entry.id != self.history.last?.id {
-            Divider().overlay(self.style.background(.border))
+        CommerceSurface {
+            StoreAccountHistoryRow(entry: entry)
         }
 
     }
@@ -105,8 +100,8 @@ struct StoreAccountHistoryView: View {
             history: Array(MockCustomerModels.loyaltyHistory.prefix(5)),
             isLoading: false,
             hasCompletedInitialLoad: true,
-            hasMoreHistory: true,
-            loadMoreAction: {}
+            canViewAllHistory: true,
+            viewAllAction: {}
         )
         .padding(.medium)
 

@@ -145,6 +145,14 @@ extension View {
                 FavoriteProductsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
+            case .pointsActivity(let locationId):
+
+                let viewModel = Container.shared.pointsActivityViewModel()
+                    .setup(locationId: locationId)
+
+                PointsActivityScreen(viewModel: viewModel)
+                    .navigationBarBackButtonHidden()
+
             case .events(let locationId):
 
                 let viewModel = Container.shared.storeEventsViewModel()
@@ -286,9 +294,10 @@ extension View {
 
     }
 
-    func withSheet(_ navigationSheet: Binding<NavigationSheet?>) -> some View {
+    func withSheet(_ navigationSheet: Binding<NavigationSheet?>,
+                   onDismiss: (() -> Void)? = nil) -> some View {
 
-        sheet(item: navigationSheet) { sheet in
+        sheet(item: navigationSheet, onDismiss: onDismiss) { sheet in
 
             switch sheet {
             case .locations:
@@ -296,7 +305,6 @@ extension View {
                 let viewModel = Container.shared.locationsViewModel()
 
                 LocationsScreen(viewModel: viewModel)
-                    .interactiveDismissDisabled()
 
             case .ageVerification(let locationId):
 

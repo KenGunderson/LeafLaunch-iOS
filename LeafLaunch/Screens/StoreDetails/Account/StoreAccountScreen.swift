@@ -35,6 +35,7 @@ struct StoreAccountScreen: GPView {
 
         NavHeader(
             title: String(localized: "Account"),
+            titleFont: .HEADER_5,
             trailingNavButtons: [.settings],
             trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.presentSettings() }
         )
@@ -87,6 +88,7 @@ struct StoreAccountScreen: GPView {
             pointsHistory()
         }
 
+        accountLinks()
         signOutButton()
 
     }
@@ -97,6 +99,7 @@ struct StoreAccountScreen: GPView {
         StoreAccountMembershipView(
             account: self.viewModel.account,
             membership: self.viewModel.membership,
+            locationName: self.viewModel.locationName,
             hasSelectedLocation: self.viewModel.hasSelectedLocation,
             isLoading: self.viewModel.isLoading,
             hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,
@@ -112,8 +115,20 @@ struct StoreAccountScreen: GPView {
             history: self.viewModel.history,
             isLoading: self.viewModel.isLoading,
             hasCompletedInitialLoad: self.viewModel.hasCompletedInitialLoad,
-            hasMoreHistory: self.viewModel.hasMoreHistory,
-            loadMoreAction: { [weak viewModel] in viewModel?.loadMoreHistory() }
+            canViewAllHistory: self.viewModel.membership != nil,
+            viewAllAction: { [weak viewModel] in viewModel?.openPointsActivity() }
+        )
+
+    }
+
+    @ViewBuilder
+    private func accountLinks() -> some View {
+
+        StoreAccountLinksView(
+            locationName: self.viewModel.locationName,
+            hasSelectedLocation: self.viewModel.hasSelectedLocation,
+            favoritesAction: { [weak viewModel] in viewModel?.openFavorites() },
+            locationAction: { [weak viewModel] in viewModel?.changeLocation() }
         )
 
     }

@@ -9,6 +9,7 @@ final class FavoriteProductsViewModel: ViewModel {
 
     private let apiService: APIServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
+    private let tabBarNavigationService: TabBarNavigationService
     private let analyticsService: AnalyticsServiceProtocol
     private let alertService: AlertServiceProtocol
 
@@ -25,11 +26,13 @@ final class FavoriteProductsViewModel: ViewModel {
 
     init(apiService: APIServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
+         tabBarNavigationService: TabBarNavigationService,
          analyticsService: AnalyticsServiceProtocol,
          alertService: AlertServiceProtocol) {
 
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
+        self.tabBarNavigationService = tabBarNavigationService
         self.analyticsService = analyticsService
         self.alertService = alertService
 
@@ -145,6 +148,14 @@ final class FavoriteProductsViewModel: ViewModel {
 
     func dismiss() {
         self.navigationService?.pop()
+    }
+
+    func browseProducts() {
+
+        self.navigationService?.pop()
+        self.tabBarNavigationService.tab2NavigationService.popToRoot()
+        self.tabBarNavigationService.select(.tab2)
+
     }
 
     private func updateFavorites() {

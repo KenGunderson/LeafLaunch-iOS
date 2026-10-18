@@ -18,7 +18,11 @@ struct LocationsScreen: GPView {
         } scrollViewContent: {
             content()
         }
-        .interactiveDismissDisabled()
+        .scrollDismissesKeyboard(.interactively)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            selectionFooter()
+        }
+        .interactiveDismissDisabled(!self.viewModel.canDismiss)
         .onFirstAppear { [weak viewModel] in
 
             viewModel?.setup(navigationService: self.navigationService)
@@ -28,6 +32,7 @@ struct LocationsScreen: GPView {
         .task { [weak viewModel] in
             viewModel?.loadData(showHud: true)
         }
+        .onDisappear { [weak viewModel] in viewModel?.cancelLocationSearch() }
 
     }
 
@@ -36,7 +41,8 @@ struct LocationsScreen: GPView {
 
         StoreNavHeader(
             configuration: self.viewModel.configuration,
-            subtitle: String(localized: "Choose a location")
+            subtitle: String(localized: "Choose a location"),
+            onDismiss: self.viewModel.canDismiss ? { [weak viewModel] in viewModel?.dismiss() } : nil
         )
         .safeAreaPadding(.top, self.style.spacing(.medium))
 
@@ -45,38 +51,73 @@ struct LocationsScreen: GPView {
     @ViewBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
 
-            if self.viewModel.locations.isEmpty {
+            LocationSearchControls(viewModel: self.viewModel)
+            locationResults()
+            retryAction()
+
+        }
+        .padding(.bottom, .large)
+
+    }
+
+    @ViewBuilder
+    private func locationResults() -> some View {
+
+        if self.viewModel.locations.isEmpty {
+
+            CommerceEmptyState(
+                systemImage: "mappin.and.ellipse",
+                title: String(localized: "No Locations Available"),
+                message: String(localized: "There are no available locations.")
+            )
+
+        } else if self.viewModel.filteredLocations.isEmpty {
+
+            VStack(spacing: self.style.spacing(.small)) {
 
                 CommerceEmptyState(
-                    systemImage: "mappin.and.ellipse",
-                    title: String(localized: "No locations available"),
-                    message: String(localized: "There are no available locations.")
+                    systemImage: "magnifyingglass",
+                    title: String(localized: "No Stores Found"),
+                    message: String(localized: "Try another city, ZIP code or store name.")
                 )
 
-            } else {
-
-                introduction()
-
-                locations()
-                retryAction()
+                LeafLaunchButton(title: String(localized: "Clear Search")) { [weak viewModel] in
+                    viewModel?.clearSearch()
+                }
 
             }
 
+        } else {
+            locations()
         }
-        .foregroundStyle(self.style.textColor(.body))
-        .padding(.bottom, self.style.spacing(.large))
 
     }
 
     @ViewBuilder
     private func locations() -> some View {
 
-        LazyVStack(spacing: self.style.spacing(.medium)) {
+        let locations = self.viewModel.filteredLocations
 
-            ForEach(self.viewModel.locations, id: \.id) { location in
-                locationRow(location)
+        LLAppCardView(verticalPadding: .none, horizontalPadding: .none, cornerRadius: .large) {
+
+            LazyVStack(spacing: 0) {
+
+                ForEach(locations, id: \.id) { location in
+
+                    locationRow(location)
+
+                    if location.id != locations.last?.id {
+
+                        Divider()
+                            .overlay(self.style.background(.border))
+                            .padding(.horizontal, .small2)
+
+                    }
+
+                }
+
             }
 
         }
@@ -89,27 +130,23 @@ struct LocationsScreen: GPView {
         LocationSelectionCard(
             location: location,
             details: self.viewModel.locationDetails[location.id],
-            isLoading: self.viewModel.isLoading
+            isLoading: self.viewModel.isLoading,
+            isSelected: self.viewModel.selectedLocationId == location.id
         ) { [weak viewModel] in
             viewModel?.selectLocation(id: location.id)
         }
+        .disabled(self.viewModel.isContinuing)
 
     }
 
     @ViewBuilder
-    private func introduction() -> some View {
+    private func selectionFooter() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-            Text(String(localized: "Find your local store."))
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(self.style.textColor(.title))
-
-            Text(String(localized: "Choose a location to explore its shop and latest updates."))
-                .appFont(with: .BODY_2)
-                .foregroundStyle(self.style.textColor(.body))
-                .fixedSize(horizontal: false, vertical: true)
-
+        LocationSelectionFooter(
+            selectedLocationName: self.viewModel.selectedLocation?.name,
+            isEnabled: self.viewModel.canContinue
+        ) { [weak viewModel] in
+            viewModel?.continueToLocation()
         }
 
     }
@@ -120,12 +157,12 @@ struct LocationsScreen: GPView {
         if !self.viewModel.failedLocationIds.isEmpty {
 
             LeafLaunchButton(
-                title: String(localized: "Retry location details"),
+                title: String(localized: "Retry Location Details"),
                 icon: .systemImage("arrow.clockwise")
             ) { [weak viewModel] in
                 viewModel?.loadData(showHud: true)
             }
-            .disabled(self.viewModel.isLoading)
+            .disabled(self.viewModel.isLoading || self.viewModel.isContinuing)
 
         }
 
