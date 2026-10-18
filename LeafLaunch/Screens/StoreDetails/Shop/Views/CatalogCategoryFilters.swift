@@ -31,9 +31,7 @@ struct CatalogCategoryFilters: View {
 
             }
 
-            Rectangle()
-                .fill(self.style.background(.border))
-                .frame(height: 1)
+            LLDivider()
 
         }
         .animation(.bouncy, value: self.selectedCategoryId)

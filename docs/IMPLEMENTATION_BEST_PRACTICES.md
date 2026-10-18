@@ -54,6 +54,7 @@ The worked example is the spacing reference for initializers, nested SwiftUI gro
 ### Naming and file ownership
 
 - Use canonical LeafLaunch domain language and nearby model names. Avoid vague abbreviations, generic `data`/`item` names where the domain is known, and type names that obscure lifecycle or ownership.
+- Name screens that list a specific kind of data with a singular domain name followed by `ListScreen` and `ListViewModel`, such as `ProductListScreen` and `LocationListViewModel`. Keep meaningful scope qualifiers for filtered lists, such as `FavoriteProductListScreen`. Name screens driven by a single domain item with `DetailsScreen` and `DetailsViewModel`. A navigation or tab container uses a container name rather than taking the details name from its content.
 - Split independent models and independently owned top-level types into focused Swift files whenever possible. Keep feature/service-specific models near their owner; put shared domain models in the established [Models](../LeafLaunch/Models/) area. Do not extract a private implementation detail into a new abstraction merely to create another file.
 - Keep screens, their ViewModels, and feature-only views together under [Screens](../LeafLaunch/Screens/). Put genuinely reusable UI in [Components](../LeafLaunch/Components/).
 - When renaming a primary type, synchronize its filename, file header, references, and explicit Xcode project membership. Use `// MARK: -` only when it improves navigation.
@@ -89,7 +90,7 @@ LLAppHeaderScrollView {
 - Standard screen ViewModels are `final class` types conforming to [ViewModel](../LeafLaunch/Models/System/ViewModel.swift) or an existing specialized project ViewModel protocol. Preserve the project's actor-isolation contract; UI mutation belongs on `@MainActor`.
 - Treat `loggerName`, `loggerEmoji`, `logInit()`, and `logDeinit()` as one lifecycle contract. Pair initialization logging with deinitialization logging and owned-task cleanup.
 - Hold screen-injected navigation services weakly. Do not make navigation state a second ownership root.
-- For route-created screens, install every required route/context value with `@discardableResult func setup(...) -> Self` before the screen can track, appear, or load. Follow the existing [LegalViewModel](../LeafLaunch/Screens/Settings/Legal/LegalViewModel.swift) route-setup pattern; this does not require unrelated navigation-only setup methods to become chainable.
+- For route-created screens, install every required route/context value with `@discardableResult func setup(...) -> Self` before the screen can track, appear, or load. Follow the existing [LegalDetailsViewModel](../LeafLaunch/Screens/Settings/Legal/LegalDetailsViewModel.swift) route-setup pattern; this does not require unrelated navigation-only setup methods to become chainable.
 - Let the screen own its injected ViewModel with `@StateObject`; when providing an explicit initializer, initialize `_viewModel = StateObject(wrappedValue: viewModel)`. Child views and extracted forms use `@ObservedObject` to observe the same instance. Do not create a second owner or resolve a replacement during view construction.
 - Never bind screen publishers in `init`. Temporary navigation-destination construction must not create live subscriptions. Repeated binding must be idempotent: guard existing bindings or intentionally replace the `CancelBag` before rebinding.
 
@@ -113,6 +114,7 @@ LLAppHeaderScrollView {
 - Preserve stable `ForEach` identity. Use `\.self` only when the values remain stable and unique for the collection's lifetime.
 - Respect accessibility, Dynamic Type, localization, and reduced-motion behavior in touched UI.
 - Do not manufacture layout with fixed minimum-height spacers such as `.frame(maxWidth: .infinity, minHeight: 360)`. Use the scroll container, safe area, and content to determine available space.
+- Use `.frame(maxWidth: .infinity, alignment:)` or `.frame(maxHeight: .infinity, alignment:)` on the content that owns the available space instead of `Spacer()`. Preserve intentional minimum gaps through stack spacing or semantic padding.
 - For activity timelines, calculate whether a trailing connector is visible in the parent sequence and pass that value into the card. The last item must not draw a connector below itself; the card should not infer its position from global state.
 
 ## Async tasks, loading, and cancellation
@@ -151,9 +153,10 @@ LLAppHeaderScrollView {
 The current app-owned treatments are:
 
 - [LLAppCardView](../LeafLaunch/Components/Base/LLAppCardView.swift) owns the shared Rune card defaults; [CommerceSurface](../LeafLaunch/Components/Commerce/CommerceSurface.swift) applies the storefront's `.large` radius, and [LeafLaunchCardView](../LeafLaunch/Components/Base/LeafLaunchCardView.swift) adds a title. Reuse the appropriate level instead of recreating its treatment in screens.
+- [LLDivider](../LeafLaunch/Components/Base/LLDivider.swift) owns horizontal separators with the active style's `background(.quaternary)` and a 1.25-point height. Use it instead of SwiftUI `Divider()` or repeated horizontal separator rectangles. `LLAppCardView` owns the shared 0.8-point Rune card border.
 - [LLAppHeaderScrollView](../LeafLaunch/Components/Base/LLAppHeaderScrollView.swift) owns Rune header/content composition with `.medium` horizontal content padding. Navigation content retains its own layout. A screen with intentional different padding, such as Home's default `.large`, may keep the Rune primitive.
 - [llTextFieldStyle](../LeafLaunch/ViewModifiers/LLTextFieldViewModifier.swift) owns the shared titled, bordered Rune field treatment and semantic `.medium2` input radius. Callers retain focus bindings, keyboard/content types, secure entry, validation, and submission behavior.
-- [tabFlowContentSpacing](../LeafLaunch/ViewModifiers/TabFlowContentSpacingModifier.swift) adds 120 points **inside the tab screen's scrolling content** so final actions clear the custom tab bar. Do not apply it to the header or outer scrolling container. Preserve the account authentication-route safe-area inset in [StoreDetailsScreen](../LeafLaunch/Screens/StoreDetails/StoreDetailsScreen.swift): pushed auth screens do not own that tab-root content inset.
+- [tabFlowContentSpacing](../LeafLaunch/ViewModifiers/TabFlowContentSpacingModifier.swift) adds 120 points **inside the tab screen's scrolling content** so final actions clear the custom tab bar. Do not apply it to the header or outer scrolling container. Preserve the account authentication-route safe-area inset in [StoreContainerScreen](../LeafLaunch/Screens/StoreDetails/StoreContainerScreen.swift): pushed auth screens do not own that tab-root content inset.
 
 ### Empty states at the screen root
 
@@ -181,7 +184,7 @@ Keep `content()` focused on the populated screen tree. If the empty state alread
 
 ### Tabs, themes, and presentations
 
-- Preserve [StoreDetailsScreen](../LeafLaunch/Screens/StoreDetails/StoreDetailsScreen.swift) as owner of the three customer tabs (Store, Menu, Account) and their independent navigation roots. Its custom bar hides the native tab bar and native tab-bar background. Keep per-tab context, selection, route stacks, and keyboard behavior intact; do not replace the customer experience with upstream showcase tabs.
+- Preserve [StoreContainerScreen](../LeafLaunch/Screens/StoreDetails/StoreContainerScreen.swift) as owner of the three customer tabs (Store, Menu, Account) and their independent navigation roots. Its custom bar hides the native tab bar and native tab-bar background. Keep per-tab context, selection, route stacks, and keyboard behavior intact; do not replace the customer experience with upstream showcase tabs.
 - Use [NavBarButton](../LeafLaunch/Components/Nav/NavBarButton.swift), [NavHeader](../LeafLaunch/Components/Nav/NavHeader.swift), and [TabItemView](../LeafLaunch/Screens/Tab/TabViews/TabItemView.swift) for shared navigation treatments. Keep the independently maintained `NavBarButton.Style` model in its own file. Use `ImageSource` and Rune `commonBadge` where appropriate; positive badges cap visible text at `99+` and do not affect layout. Preserve accessible action names and selection semantics.
 - Let long content grow through actual rows, stable identity, and the existing vertical scroll owner. Use lazy stacks where appropriate. Manual scrolling checks should reach a final row/action; do not fake overflow with spacer heights or introduce nested vertical scrolling without a concrete presentation need.
 - Select appearance through [AvailableTheme](../LeafLaunch/Services/DesignSystem/ThemeRegistry.swift) and the existing `UserDefaultsServiceProtocol.set(theme:)`. Keep live/mock behavior, theme publishers, mock previews, and the active Rune style consistent. Preserve the synchronous target-scoped store-theme cache and runtime branding rules in the [customer contract](CUSTOMER_ARCHITECTURE.md#persistence-and-theme).

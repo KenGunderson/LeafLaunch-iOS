@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct StoreEventsScreen: GPView {
+struct EventListScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject private var viewModel: StoreEventsViewModel
+    @StateObject private var viewModel: EventListViewModel
 
-    init(viewModel: StoreEventsViewModel) {
+    init(viewModel: EventListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -130,8 +130,8 @@ struct StoreEventsScreen: GPView {
 
 #Preview {
 
-    StoreEventsScreen(
-        viewModel: mockResolve(StoreEventsViewModel.self)
+    EventListScreen(
+        viewModel: mockResolve(EventListViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

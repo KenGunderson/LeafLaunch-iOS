@@ -6,18 +6,21 @@ struct LLAppCardView<Content: View>: View {
     private let horizontalPadding: Theme.SpacingKey
     private let backgroundStyle: ColorSource
     private let cornerRadius: Theme.RadiusKey
+    private let borderColor: ColorSource?
     private let content: Content
 
     init(verticalPadding: Theme.SpacingKey = .medium,
          horizontalPadding: Theme.SpacingKey = .medium,
          backgroundStyle: ColorSource = .background(.secondary),
          cornerRadius: Theme.RadiusKey = .small2,
+         borderColor: ColorSource? = nil,
          @ViewBuilder content: () -> Content) {
 
         self.verticalPadding = verticalPadding
         self.horizontalPadding = horizontalPadding
         self.backgroundStyle = backgroundStyle
         self.cornerRadius = cornerRadius
+        self.borderColor = borderColor
         self.content = content()
 
     }
@@ -33,7 +36,11 @@ struct LLAppCardView<Content: View>: View {
         ) {
             self.content
         }
-        .appBorder(cornerRadius: self.cornerRadius, lineWidth: 1.5)
+        .appBorder(
+            cornerRadius: self.cornerRadius,
+            color: self.borderColor ?? .background(.border),
+            lineWidth: 0.8
+        )
 
     }
 

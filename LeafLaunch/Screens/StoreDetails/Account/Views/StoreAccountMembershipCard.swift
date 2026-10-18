@@ -69,7 +69,7 @@ struct StoreAccountMembershipCard: View {
             HStack(spacing: self.style.spacing(.medium)) {
 
                 businessIdentity()
-                Spacer(minLength: 0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 membershipStatus()
 
             }
@@ -155,7 +155,7 @@ struct StoreAccountMembershipCard: View {
                 HStack(spacing: self.style.spacing(.medium)) {
 
                     memberCode()
-                    Spacer(minLength: self.style.spacing(.small))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     detailsButton()
 
                 }
@@ -215,6 +215,8 @@ struct StoreAccountMembershipCard: View {
     @ViewBuilder
     private func cardBackground() -> some View {
 
+        // The base keeps 22% of the active accent; the accent plane raises that
+        // to 40.72%, and the lower plane adds 4% white over either accent tone.
         self.style.palette(.link).view()
             .overlay(Color.black.opacity(0.78))
             .overlay {

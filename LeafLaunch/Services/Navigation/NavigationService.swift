@@ -139,26 +139,26 @@ extension View {
 
             case .favoriteProducts(let locationId):
 
-                let viewModel = Container.shared.favoriteProductsViewModel()
+                let viewModel = Container.shared.favoriteProductListViewModel()
                     .setup(locationId: locationId)
 
-                FavoriteProductsScreen(viewModel: viewModel)
+                FavoriteProductListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .pointsActivity(let locationId):
 
-                let viewModel = Container.shared.pointsActivityViewModel()
+                let viewModel = Container.shared.loyaltyHistoryListViewModel()
                     .setup(locationId: locationId)
 
-                PointsActivityScreen(viewModel: viewModel)
+                LoyaltyHistoryListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .events(let locationId):
 
-                let viewModel = Container.shared.storeEventsViewModel()
+                let viewModel = Container.shared.eventListViewModel()
                     .setup(locationId: locationId)
 
-                StoreEventsScreen(viewModel: viewModel)
+                EventListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .event(let locationId, let event):
@@ -171,10 +171,10 @@ extension View {
 
             case .promotionProducts(let locationId, let promotionId, let title, let products):
 
-                let viewModel = Container.shared.promotionProductsViewModel()
+                let viewModel = Container.shared.promotionProductListViewModel()
                     .setup(locationId: locationId, promotionId: promotionId, title: title, products: products)
 
-                PromotionProductsScreen(viewModel: viewModel)
+                PromotionProductListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             }
@@ -217,18 +217,18 @@ extension View {
             case .rateApp: EmptyView()
             case .privacyPolicy:
 
-                let viewModel = Container.shared.legalViewModel()
+                let viewModel = Container.shared.legalDetailsViewModel()
                     .setup(context: .privacyPolicy)
 
-                LegalScreen(viewModel: viewModel)
+                LegalDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .termsOfService:
 
-                let viewModel = Container.shared.legalViewModel()
+                let viewModel = Container.shared.legalDetailsViewModel()
                     .setup(context: .termsAndConditions)
 
-                LegalScreen(viewModel: viewModel)
+                LegalDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .logout: EmptyView()
@@ -249,23 +249,23 @@ extension View {
 
             case .routes:
 
-                let viewModel = Container.shared.devRoutesViewModel()
+                let viewModel = Container.shared.devRouteListViewModel()
 
-                DevRoutesScreen(viewModel: viewModel)
+                DevRouteListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .deeplinks:
 
-                let viewModel = Container.shared.devDeeplinksViewModel()
+                let viewModel = Container.shared.devDeeplinkListViewModel()
 
-                DevDeeplinksScreen(viewModel: viewModel)
+                DevDeeplinkListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             case .analytics:
 
-                let viewModel = Container.shared.devAnalyticsViewModel()
+                let viewModel = Container.shared.devAnalyticsListViewModel()
 
-                DevAnalyticsScreen(viewModel: viewModel)
+                DevAnalyticsListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
 
             }
@@ -302,17 +302,9 @@ extension View {
             switch sheet {
             case .locations:
 
-                let viewModel = Container.shared.locationsViewModel()
+                let viewModel = Container.shared.locationListViewModel()
 
-                LocationsScreen(viewModel: viewModel)
-
-            case .ageVerification(let locationId):
-
-                let viewModel = Container.shared.ageVerificationViewModel()
-                    .setup(locationId: locationId)
-
-                AgeVerificationScreen(viewModel: viewModel)
-                    .interactiveDismissDisabled()
+                LocationListScreen(viewModel: viewModel)
 
             }
 

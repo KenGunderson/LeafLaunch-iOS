@@ -5,8 +5,8 @@ final class MockCustomerViewModelAssembly {
     @MainActor
     func assemble(container: Container) {
 
-        container.locationsViewModel.register { @MainActor in
-            LocationsViewModel(
+        container.locationListViewModel.register { @MainActor in
+            LocationListViewModel(
                 storeSessionService: container.storeSessionService(),
                 apiService: container.apiService(),
                 analyticsService: container.analyticsService(),
@@ -14,27 +14,19 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.ageVerificationViewModel.register { @MainActor in
-            AgeVerificationViewModel(
+        container.storeContainerViewModel.register { @MainActor in
+            StoreContainerViewModel(
                 storeSessionService: container.storeSessionService(),
+                tabBarNavigationService: container.tabBarNavigationService(),
                 analyticsService: container.analyticsService(),
-                alertService: container.alertService()
+                detailsViewModel: container.storeDetailsViewModel(),
+                productListViewModel: container.productListViewModel(),
+                accountDetailsViewModel: container.accountDetailsViewModel()
             )
         }
 
         container.storeDetailsViewModel.register { @MainActor in
             StoreDetailsViewModel(
-                storeSessionService: container.storeSessionService(),
-                tabBarNavigationService: container.tabBarNavigationService(),
-                analyticsService: container.analyticsService(),
-                overviewViewModel: container.storeOverviewViewModel(),
-                shopViewModel: container.storeShopViewModel(),
-                accountViewModel: container.storeAccountViewModel()
-            )
-        }
-
-        container.storeOverviewViewModel.register { @MainActor in
-            StoreOverviewViewModel(
                 apiService: container.apiService(),
                 storeSessionService: container.storeSessionService(),
                 userDefaultsService: container.userDefaultsService(),
@@ -43,8 +35,8 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.storeEventsViewModel.register { @MainActor in
-            StoreEventsViewModel(
+        container.eventListViewModel.register { @MainActor in
+            EventListViewModel(
                 apiService: container.apiService(),
                 storeSessionService: container.storeSessionService(),
                 analyticsService: container.analyticsService(),
@@ -59,15 +51,15 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.promotionProductsViewModel.register { @MainActor in
-            PromotionProductsViewModel(
+        container.promotionProductListViewModel.register { @MainActor in
+            PromotionProductListViewModel(
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService()
             )
         }
 
-        container.storeShopViewModel.register { @MainActor in
-            StoreShopViewModel(
+        container.productListViewModel.register { @MainActor in
+            ProductListViewModel(
                 apiService: container.apiService(),
                 storeSessionService: container.storeSessionService(),
                 userDefaultsService: container.userDefaultsService(),
@@ -76,8 +68,8 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.favoriteProductsViewModel.register { @MainActor in
-            FavoriteProductsViewModel(
+        container.favoriteProductListViewModel.register { @MainActor in
+            FavoriteProductListViewModel(
                 apiService: container.apiService(),
                 userDefaultsService: container.userDefaultsService(),
                 tabBarNavigationService: container.tabBarNavigationService(),
@@ -96,8 +88,8 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.storeAccountViewModel.register { @MainActor in
-            StoreAccountViewModel(
+        container.accountDetailsViewModel.register { @MainActor in
+            AccountDetailsViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
                 storeSessionService: container.storeSessionService(),
@@ -106,8 +98,8 @@ final class MockCustomerViewModelAssembly {
             )
         }
 
-        container.pointsActivityViewModel.register { @MainActor in
-            PointsActivityViewModel(
+        container.loyaltyHistoryListViewModel.register { @MainActor in
+            LoyaltyHistoryListViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
                 analyticsService: container.analyticsService(),

@@ -181,8 +181,7 @@ struct StoreHoursView: View {
 
                 if day < 7, self.today != day % 7, self.today != (day + 1) % 7 {
 
-                    Divider()
-                        .overlay(self.style.background(.border))
+                    LLDivider()
 
                 }
 
@@ -226,7 +225,7 @@ struct StoreHoursView: View {
             HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
 
                 hoursLabel(title, subtitle: subtitle, isToday: isToday)
-                Spacer(minLength: self.style.spacing(.small))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 hoursValue(hours, isTrailing: true)
 
             }
@@ -292,8 +291,7 @@ struct StoreHoursView: View {
 
         if !self.exceptions.isEmpty {
 
-            Divider()
-                .overlay(self.style.background(.border))
+            LLDivider()
                 .padding(.vertical, .small2)
 
             DisclosureGroup {

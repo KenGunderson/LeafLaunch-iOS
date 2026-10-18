@@ -92,7 +92,7 @@ struct EventDetailsScreen: GPView {
 
                 if let details = self.viewModel.locationDetails {
 
-                    Divider().overlay(self.style.background(.border))
+                    LLDivider()
                     location(details)
 
                 }
@@ -243,7 +243,8 @@ struct EventDetailsScreen: GPView {
 
             Text(title)
                 .fixedSize(horizontal: false, vertical: true)
-            Spacer(minLength: self.style.spacing(.small))
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             ImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
 

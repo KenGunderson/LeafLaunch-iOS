@@ -37,7 +37,7 @@ struct ProductCardView: View {
                 url: self.product.activeImages.first?.url,
                 isUnavailable: !self.product.activeImages.isEmpty
             )
-            .frame(height: 192)
+            .aspectRatio(0.95, contentMode: .fit)
 
             productDetails()
 
@@ -61,10 +61,9 @@ struct ProductCardView: View {
                 .lineLimit(2, reservesSpace: true)
                 .fixedSize(horizontal: false, vertical: true)
 
-            Spacer(minLength: 0)
-
             ProductPriceView(product: self.product)
                 .frame(height: self.style.spacing(.large), alignment: .bottomLeading)
+                .frame(maxHeight: .infinity, alignment: .bottomLeading)
 
         }
         .padding(.horizontal, .small2)

@@ -29,7 +29,7 @@ struct ProductAttributesView: View {
             ForEach(self.attributes, id: \.id) { attribute in
 
                 if attribute.id != self.attributes.first?.id {
-                    Divider().overlay(self.style.background(.border))
+                    LLDivider()
                 }
 
                 attributeRow(attribute)

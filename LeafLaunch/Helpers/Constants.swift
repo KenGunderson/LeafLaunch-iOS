@@ -186,8 +186,9 @@ struct Constants {
 
         static let storeDirectionsErrorMessage = "Unable to open Maps. Please try again."
         static let locationSearchDeniedMessage = String(localized: "Location access is unavailable. Search by city or ZIP code, or allow location access in Settings.")
-        static let locationSearchErrorMessage = String(localized: "We couldn't find your city. Search by city or ZIP code, or try using your location again.")
+        static let locationSearchErrorMessage = String(localized: "We couldn't find nearby stores. Search by city or store name, or try your ZIP code or location again.")
         static let storePhoneErrorMessage = "Unable to call the store. Please try again."
+        static let storeEmailErrorMessage = "Unable to email the store. Please try again."
         static let promotionLinkErrorMessage = "Unable to open this promotion's link. Please try again later."
         static let promotionProductsErrorMessage = "This promotion's products are unavailable. Please try again later."
         static let promotionProductUnavailableMessage = "This product is unavailable at your current location. Choose another location to check its availability."

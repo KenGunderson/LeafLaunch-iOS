@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct StoreOverviewScreen: GPView {
+struct StoreDetailsScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
     @Environment(TabBarNavigationService.self) private var tabBarNavigationService
 
-    @StateObject private var viewModel: StoreOverviewViewModel
+    @StateObject private var viewModel: StoreDetailsViewModel
 
     private var locationStatus: String? {
 
@@ -17,7 +17,7 @@ struct StoreOverviewScreen: GPView {
 
     }
 
-    init(viewModel: StoreOverviewViewModel) {
+    init(viewModel: StoreDetailsViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -306,8 +306,8 @@ struct StoreOverviewScreen: GPView {
 
 #Preview {
 
-    StoreOverviewScreen(
-        viewModel: mockResolve(StoreOverviewViewModel.self)
+    StoreDetailsScreen(
+        viewModel: mockResolve(StoreDetailsViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

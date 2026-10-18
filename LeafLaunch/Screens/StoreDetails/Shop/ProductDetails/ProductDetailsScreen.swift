@@ -126,8 +126,10 @@ struct ProductDetailsScreen: GPView {
             storeName: self.viewModel.storeName,
             canOpenMaps: self.viewModel.canOpenMaps,
             canCallStore: self.viewModel.canCallStore,
+            canEmailStore: self.viewModel.canEmailStore,
             onDirections: { self.viewModel.openMaps() },
-            onCall: { self.viewModel.callStore() }
+            onCall: { self.viewModel.callStore() },
+            onEmail: { self.viewModel.emailStore() }
         )
 
     }

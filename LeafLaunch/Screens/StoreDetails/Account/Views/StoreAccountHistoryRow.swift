@@ -59,7 +59,7 @@ struct StoreAccountHistoryRow: View {
             } else {
 
                 transactionDetails()
-                Spacer(minLength: 0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 points()
 
             }

@@ -3,6 +3,7 @@ import SwiftUI
 struct StoreAccountProfileView: View {
 
     @Environment(\.style) private var style
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let user: LLUser
     let account: CustomerAccount?
@@ -31,25 +32,14 @@ struct StoreAccountProfileView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            ViewThatFits(in: .horizontal) {
+            Text(String(localized: "Good to see you"))
+                .appFont(with: .TITLE_5)
+                .foregroundStyle(self.style.textColor(.title))
+                .fixedSize(horizontal: false, vertical: true)
 
-                HStack(alignment: .center, spacing: self.style.spacing(.medium)) {
-
-                    avatar()
-                    identity()
-
-                }
-
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
-
-                    avatar()
-                    identity()
-
-                }
-
-            }
+            profileIdentity()
 
             if let accountStatus {
 
@@ -66,14 +56,39 @@ struct StoreAccountProfileView: View {
     }
 
     @ViewBuilder
+    private func profileIdentity() -> some View {
+
+        if self.dynamicTypeSize.isAccessibilitySize {
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+                avatar()
+                identity()
+
+            }
+
+        } else {
+
+            HStack(alignment: .center, spacing: self.style.spacing(.small2)) {
+
+                avatar()
+                identity()
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
     private func avatar() -> some View {
 
         AvatarView(
             style: .initials(name: self.displayName),
             foregroundColor: self.style.palette(.link),
-            backgroundColor: .color(self.style.palette(.link).resolvedColor(style: self.style)?.opacity(0.08) ?? .clear)
+            backgroundColor: .sourceWithOpacity(self.style.palette(.link), opacity: 0.08, style: self.style)
         )
-        .frame(width: self.style.spacing(.extraLarge2), height: self.style.spacing(.extraLarge2))
+        .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
 
     }
 
@@ -81,10 +96,6 @@ struct StoreAccountProfileView: View {
     private func identity() -> some View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
-            Text(String(localized: "Good to see you"))
-                .appFont(with: .BODY_1)
-                .foregroundStyle(self.style.textColor(.body))
 
             Text(self.displayName)
                 .appFont(with: .TITLE_6)
@@ -102,6 +113,7 @@ struct StoreAccountProfileView: View {
             }
 
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 

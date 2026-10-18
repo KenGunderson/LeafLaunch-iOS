@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct StoreDetailsScreen: GPView {
+struct StoreContainerScreen: GPView {
 
     @Environment(\.style) private var style
 
-    @StateObject private var viewModel: StoreDetailsViewModel
+    @StateObject private var viewModel: StoreContainerViewModel
 
-    init(viewModel: StoreDetailsViewModel) {
+    init(viewModel: StoreContainerViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -64,19 +64,19 @@ struct StoreDetailsScreen: GPView {
         case .tab1:
 
             AppRootView(navigationService: Bindable(tabBarNavigationService.tab1NavigationService)) {
-                StoreOverviewScreen(viewModel: self.viewModel.overviewViewModel)
+                StoreDetailsScreen(viewModel: self.viewModel.detailsViewModel)
             }
 
         case .tab2:
 
             AppRootView(navigationService: Bindable(tabBarNavigationService.tab2NavigationService)) {
-                StoreShopScreen(viewModel: self.viewModel.shopViewModel)
+                ProductListScreen(viewModel: self.viewModel.productListViewModel)
             }
 
         case .tab3:
 
             AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
-                StoreAccountScreen(viewModel: self.viewModel.accountViewModel)
+                AccountDetailsScreen(viewModel: self.viewModel.accountDetailsViewModel)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
 
@@ -106,8 +106,8 @@ struct StoreDetailsScreen: GPView {
 
 #Preview {
 
-    StoreDetailsScreen(
-        viewModel: mockResolve(StoreDetailsViewModel.self)
+    StoreContainerScreen(
+        viewModel: mockResolve(StoreContainerViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

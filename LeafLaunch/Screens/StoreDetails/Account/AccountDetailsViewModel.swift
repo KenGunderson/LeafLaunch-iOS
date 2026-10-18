@@ -2,9 +2,9 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class StoreAccountViewModel: ViewModel {
+final class AccountDetailsViewModel: ViewModel {
 
-    let loggerName: String = "STORE_ACCOUNT_VIEW_MODEL"
+    let loggerName: String = "ACCOUNT_DETAILS_VIEW_MODEL"
     let loggerEmoji: String = "👤"
 
     private let apiService: APIServiceProtocol
@@ -326,7 +326,7 @@ final class StoreAccountViewModel: ViewModel {
 
 }
 
-extension StoreAccountViewModel {
+extension AccountDetailsViewModel {
 
     func track() {
 

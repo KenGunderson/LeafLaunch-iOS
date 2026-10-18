@@ -1,5 +1,5 @@
 //
-//  DevRoutesViewModel.swift
+//  DevDeeplinkListViewModel.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 7/16/24.
@@ -8,9 +8,9 @@
 import SwiftUI
 import Combine
 
-final class DevRoutesViewModel: ViewModel {
+final class DevDeeplinkListViewModel: ViewModel {
 
-    internal let loggerName: String = "DEV"
+    internal let loggerName: String = "DEV_DEEPLINK_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "🔧"
 
     private let analyticsService: AnalyticsServiceProtocol
@@ -55,19 +55,22 @@ final class DevRoutesViewModel: ViewModel {
 
     }
 
-    func present(modal: FullScreenCover) {
+    @MainActor
+    func handleDeeplink(url: URL) {
 
-        self.navigationService?
-            .modal(fullScreenCover: modal)
+        globalNavigationService?
+            .dismissFullScreenCover()
+
+        UIApplication.shared.open(url)
 
     }
 
 }
 
-extension DevRoutesViewModel {
+extension DevDeeplinkListViewModel {
 
     func track() {
-        self.analyticsService.track(screen: .devSettings(.routes))
+        self.analyticsService.track(screen: .devSettings(.deeplinks))
     }
 
 }

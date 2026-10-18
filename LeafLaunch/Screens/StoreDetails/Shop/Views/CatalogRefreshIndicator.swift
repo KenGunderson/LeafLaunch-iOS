@@ -15,14 +15,14 @@ struct CatalogRefreshIndicator: View {
     private var statusColor: ColorSource {
 
         guard self.context.isFinishing else {
-            return .foreground(.primary)
+            return .palette(.link)
         }
 
         if self.hasFailed {
             return .palette(.error)
         }
 
-        return self.didRefresh ? .palette(.success) : .foreground(.primary)
+        return self.didRefresh ? .palette(.success) : .palette(.link)
 
     }
 
@@ -34,11 +34,11 @@ struct CatalogRefreshIndicator: View {
                 return "exclamationmark"
             }
 
-            return self.didRefresh ? "checkmark" : "leaf.fill"
+            return self.didRefresh ? "checkmark" : "arrow.clockwise"
 
         }
 
-        return self.context.isRefreshing ? "leaf.fill" : "arrow.down"
+        return "arrow.down"
 
     }
 
@@ -46,45 +46,23 @@ struct CatalogRefreshIndicator: View {
 
         switch self.context.phase {
         case .idle, .pulling:
-            return String(localized: "Pull To Refresh")
+            return String(localized: "Pull to refresh")
 
         case .armed:
-            return String(localized: "Release To Refresh")
+            return String(localized: "Release to refresh")
 
         case .refreshing:
-            return String(localized: "Refreshing Menu")
+            return String(localized: "Refreshing products…")
 
         case .finishing:
 
             if self.hasFailed {
-                return String(localized: "Couldn't Refresh")
+                return String(localized: "Couldn't refresh")
             }
 
             return self.didRefresh
-                ? String(localized: "Menu Updated")
+                ? String(localized: "Products updated")
                 : String(localized: "Menu")
-        }
-
-    }
-
-    private var message: String {
-
-        switch self.context.phase {
-        case .idle, .pulling, .armed:
-            return String(localized: "Get the latest products")
-
-        case .refreshing:
-            return String(localized: "Checking the latest products…")
-
-        case .finishing:
-
-            if self.hasFailed {
-                return String(localized: "Pull again to retry")
-            }
-
-            return self.didRefresh
-                ? String(localized: "You're up to date")
-                : String(localized: "Ready to browse")
         }
 
     }
@@ -94,12 +72,16 @@ struct CatalogRefreshIndicator: View {
         HStack(spacing: self.style.spacing(.small2)) {
 
             progressIndicator()
-            statusCopy()
+            Text(self.title)
+                .appFont(with: .TITLE_1)
+                .foregroundStyle(.text(.body))
+                .contentTransition(.opacity)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
         }
-        .centerHorizontally()
         .padding(.horizontal, .medium)
         .padding(.vertical, .medium)
+        .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
         .animation(.spring(response: 0.32, dampingFraction: 0.8), value: self.context.isArmed)
         .animation(.smooth(duration: 0.24), value: self.context.isRefreshing)
         .animation(.smooth(duration: 0.24), value: self.context.isFinishing)
@@ -116,8 +98,7 @@ struct CatalogRefreshIndicator: View {
                 AppLoadingView(style: .circleRunner(
                     color: self.statusColor,
                     trimSubtractionScale: 0.72,
-                    size: self.style.spacing(.large2),
-                    speed: 0.24
+                    size: self.style.spacing(.large)
                 ))
                 .transition(.opacity)
 
@@ -131,41 +112,21 @@ struct CatalogRefreshIndicator: View {
                 )
                 .transition(.opacity)
 
-            }
+                ImageSource.systemImage(self.symbolName)
+                    .view(shouldResize: false)
+                    .appFont(with: .TITLE_1)
+                    .foregroundStyle(self.statusColor)
+                    .rotationEffect(.degrees(self.context.isArmed ? 180 : 0))
+                    .contentTransition(.symbolEffect(.replace))
 
-            ImageSource.systemImage(self.symbolName)
-                .view(shouldResize: false)
-                .appFont(with: .TITLE_1)
-                .foregroundStyle(self.statusColor)
-                .rotationEffect(.degrees(self.context.isArmed ? 180 : 0))
-                .contentTransition(.symbolEffect(.replace))
+            }
 
         }
         .frame(
-            width: self.style.spacing(.large2),
-            height: self.style.spacing(.large2)
+            width: self.style.spacing(.large),
+            height: self.style.spacing(.large)
         )
         .scaleEffect(self.context.isArmed ? 1.08 : 0.9 + (self.progress * 0.1))
-
-    }
-
-    @ViewBuilder
-    private func statusCopy() -> some View {
-
-        VStack(spacing: self.style.spacing(.extraSmall)) {
-
-            Text(self.title)
-                .appFont(with: .TITLE_1)
-                .foregroundStyle(.text(.title))
-
-            Text(self.message)
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(.text(.body))
-
-        }
-        .multilineTextAlignment(.center)
-        .contentTransition(.opacity)
-        .fixedSize(horizontal: false, vertical: true)
 
     }
 

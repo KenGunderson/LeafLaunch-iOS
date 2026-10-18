@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct PromotionProductsScreen: GPView {
+struct PromotionProductListScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject private var viewModel: PromotionProductsViewModel
+    @StateObject private var viewModel: PromotionProductListViewModel
 
-    init(viewModel: PromotionProductsViewModel) {
+    init(viewModel: PromotionProductListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -84,7 +84,7 @@ struct PromotionProductsScreen: GPView {
             HStack(spacing: self.style.spacing(.small2)) {
 
                 productLabel(product)
-                Spacer(minLength: 0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 ImageSource.systemImage(product.locationProductListingId == nil ? "info.circle" : "chevron.right")
                     .view(shouldResize: false)
@@ -128,8 +128,8 @@ struct PromotionProductsScreen: GPView {
 
     if let promotion = MockCustomerModels.promotions.first(where: { $0.linkedProducts.count > 1 }) {
 
-        PromotionProductsScreen(
-            viewModel: mockResolve(PromotionProductsViewModel.self)
+        PromotionProductListScreen(
+            viewModel: mockResolve(PromotionProductListViewModel.self)
                 .setup(
                     locationId: MockCustomerModels.primaryLocationId,
                     promotionId: promotion.id,

@@ -1,34 +1,34 @@
 import SwiftUI
 
 @MainActor
-final class StoreDetailsViewModel: ViewModel {
+final class StoreContainerViewModel: ViewModel {
 
-    let loggerName: String = "STORE_DETAILS_VIEW_MODEL"
+    let loggerName: String = "STORE_CONTAINER_VIEW_MODEL"
     let loggerEmoji: String = "🏪"
 
     private let storeSessionService: StoreSessionServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
 
     let tabBarNavigationService: TabBarNavigationService
-    let overviewViewModel: StoreOverviewViewModel
-    let shopViewModel: StoreShopViewModel
-    let accountViewModel: StoreAccountViewModel
+    let detailsViewModel: StoreDetailsViewModel
+    let productListViewModel: ProductListViewModel
+    let accountDetailsViewModel: AccountDetailsViewModel
 
     private(set) var locationId: String?
 
     init(storeSessionService: StoreSessionServiceProtocol,
          tabBarNavigationService: TabBarNavigationService,
          analyticsService: AnalyticsServiceProtocol,
-         overviewViewModel: StoreOverviewViewModel,
-         shopViewModel: StoreShopViewModel,
-         accountViewModel: StoreAccountViewModel) {
+         detailsViewModel: StoreDetailsViewModel,
+         productListViewModel: ProductListViewModel,
+         accountDetailsViewModel: AccountDetailsViewModel) {
 
         self.storeSessionService = storeSessionService
         self.tabBarNavigationService = tabBarNavigationService
         self.analyticsService = analyticsService
-        self.overviewViewModel = overviewViewModel
-        self.shopViewModel = shopViewModel
-        self.accountViewModel = accountViewModel
+        self.detailsViewModel = detailsViewModel
+        self.productListViewModel = productListViewModel
+        self.accountDetailsViewModel = accountDetailsViewModel
 
         logInit()
 
@@ -42,9 +42,9 @@ final class StoreDetailsViewModel: ViewModel {
     func setup(locationId: String) -> Self {
 
         self.locationId = locationId
-        self.overviewViewModel.setup(locationId: locationId)
-        self.shopViewModel.setup(locationId: locationId)
-        self.accountViewModel.setup(locationId: locationId)
+        self.detailsViewModel.setup(locationId: locationId)
+        self.productListViewModel.setup(locationId: locationId)
+        self.accountDetailsViewModel.setup(locationId: locationId)
         return self
 
     }
@@ -61,7 +61,7 @@ final class StoreDetailsViewModel: ViewModel {
 
 }
 
-extension StoreDetailsViewModel {
+extension StoreContainerViewModel {
 
     func track() {
 

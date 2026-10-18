@@ -2,9 +2,9 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class FavoriteProductsViewModel: ViewModel {
+final class FavoriteProductListViewModel: ViewModel {
 
-    let loggerName: String = "FAVORITE_PRODUCTS_VIEW_MODEL"
+    let loggerName: String = "FAVORITE_PRODUCT_LIST_VIEW_MODEL"
     let loggerEmoji: String = "❤️"
 
     private let apiService: APIServiceProtocol
@@ -199,7 +199,7 @@ final class FavoriteProductsViewModel: ViewModel {
 
 }
 
-extension FavoriteProductsViewModel {
+extension FavoriteProductListViewModel {
 
     func track() {
 

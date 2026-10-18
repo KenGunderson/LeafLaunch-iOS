@@ -47,6 +47,10 @@ final class ProductDetailsViewModel: ViewModel {
         self.phoneURL != nil
     }
 
+    var canEmailStore: Bool {
+        self.emailURL != nil
+    }
+
     private var directionsURL: URL? {
 
         guard let details = self.storeSessionService.locationDetails,
@@ -69,6 +73,18 @@ final class ProductDetailsViewModel: ViewModel {
         var components = URLComponents()
         components.scheme = "tel"
         components.path = phone
+        return components.url
+
+    }
+
+    private var emailURL: URL? {
+
+        guard let email = self.storeSessionService.store?.supportEmail?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !email.isEmpty else { return nil }
+
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = email
         return components.url
 
     }
@@ -228,6 +244,19 @@ final class ProductDetailsViewModel: ViewModel {
 
             guard !didOpen else { return }
             self?.presentContactError(message: Constants.Message.storePhoneErrorMessage)
+
+        }
+
+    }
+
+    func emailStore() {
+
+        guard let url = self.emailURL else { return }
+
+        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+
+            guard !didOpen else { return }
+            self?.presentContactError(message: Constants.Message.storeEmailErrorMessage)
 
         }
 

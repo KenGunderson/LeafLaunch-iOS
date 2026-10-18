@@ -1,9 +1,9 @@
 import SwiftUI
 
 @MainActor
-final class PromotionProductsViewModel: ViewModel {
+final class PromotionProductListViewModel: ViewModel {
 
-    let loggerName: String = "PROMOTION_PRODUCTS_VIEW_MODEL"
+    let loggerName: String = "PROMOTION_PRODUCT_LIST_VIEW_MODEL"
     let loggerEmoji: String = "🏷️"
 
     private let analyticsService: AnalyticsServiceProtocol
@@ -82,7 +82,7 @@ final class PromotionProductsViewModel: ViewModel {
 
 }
 
-extension PromotionProductsViewModel {
+extension PromotionProductListViewModel {
 
     func track() {
 

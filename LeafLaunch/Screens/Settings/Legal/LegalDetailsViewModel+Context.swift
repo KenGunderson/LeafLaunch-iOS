@@ -1,6 +1,6 @@
 import Foundation
 
-extension LegalViewModel {
+extension LegalDetailsViewModel {
 
     enum Context {
 

@@ -1,6 +1,6 @@
 import Foundation
 
-extension DevAnalyticsViewModel {
+extension DevAnalyticsListViewModel {
 
     enum DisplayType: String, CaseIterable {
 

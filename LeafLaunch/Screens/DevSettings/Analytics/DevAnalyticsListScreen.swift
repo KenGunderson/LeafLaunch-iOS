@@ -1,5 +1,5 @@
 //
-//  DevAnalyticsScreen.swift
+//  DevAnalyticsListScreen.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 10/19/24.
@@ -8,13 +8,13 @@
 import SwiftUI
 import Charts
 
-struct DevAnalyticsScreen: GPView {
+struct DevAnalyticsListScreen: GPView {
 
     @Environment(\.style) private var style
 
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject var viewModel: DevAnalyticsViewModel
+    @StateObject var viewModel: DevAnalyticsListViewModel
 
     var body: some View {
 
@@ -71,7 +71,7 @@ struct DevAnalyticsScreen: GPView {
     @ViewBuilder
     private func segmentedControl() -> some View {
 
-        let allOptions = DevAnalyticsViewModel.DisplayType.allCases.map({ $0.rawValue.capitalized })
+        let allOptions = DevAnalyticsListViewModel.DisplayType.allCases.map({ $0.rawValue.capitalized })
 
         CommonSegmentedControl(
             selectedOption: self.$viewModel.selectedDisplayTypeString,
@@ -112,9 +112,8 @@ struct DevAnalyticsScreen: GPView {
                 self.viewModel.clearSelectedData()
             }
 
-            Spacer(minLength: 0)
-
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
         .padding(.bottom, .small)
 
@@ -170,8 +169,7 @@ struct DevAnalyticsScreen: GPView {
                     .appFont(with: .HEADER_4)
                     .foregroundStyle(.text(.title))
 
-                Divider()
-                    .background(.text(.body))
+                LLDivider()
 
             }
 
@@ -480,8 +478,8 @@ struct DevAnalyticsScreen: GPView {
 
 #Preview {
 
-    DevAnalyticsScreen(
-        viewModel: mockResolve(DevAnalyticsViewModel.self)
+    DevAnalyticsListScreen(
+        viewModel: mockResolve(DevAnalyticsListViewModel.self)
     )
     .withMockServices()
 

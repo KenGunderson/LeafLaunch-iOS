@@ -35,24 +35,33 @@ struct LocationSelectionCard: View {
 
     var body: some View {
 
-        HStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+        LLAppCardView(
+            verticalPadding: .none,
+            horizontalPadding: .none,
+            cornerRadius: .large,
+            borderColor: self.isSelected ? self.style.palette(.link) : nil
+        ) {
 
-            storeIcon()
-            locationInformation()
-            selectionIndicator()
+            HStack(alignment: .top, spacing: self.style.spacing(.small2)) {
 
-        }
-        .padding(.horizontal, .medium)
-        .padding(.vertical, .medium)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-
-            if self.isSelected {
-
-                self.style.palette(.link).view()
-                    .opacity(0.08)
+                storeIcon()
+                locationInformation()
+                selectionIndicator()
 
             }
+            .padding(.medium)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+
+                if self.isSelected {
+
+                    self.style.palette(.link).view()
+                        .opacity(0.08)
+
+                }
+
+            }
+            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
 
         }
         .contentShape(Rectangle())
@@ -67,9 +76,9 @@ struct LocationSelectionCard: View {
         ImageSource.systemImage("storefront")
             .view(shouldResize: false)
             .appFont(with: .TITLE_5)
-            .foregroundStyle(self.isSelected ? self.style.palette(.link) : self.style.textColor(.title))
+            .foregroundStyle(self.isSelected ? ColorSource.color(.white) : self.style.textColor(.title))
             .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
-            .background(self.isSelected ? self.style.background(.secondary) : self.style.background(.tertiary), in: Circle())
+            .background(self.isSelected ? self.style.palette(.link) : self.style.background(.tertiary), in: Circle())
 
     }
 

@@ -100,9 +100,8 @@ struct DevUserDefaultsScreen: GPView {
                     self.viewModel.resetDevFlags()
                 }
 
-                Spacer(minLength: 0)
-
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
         }
 
@@ -170,9 +169,8 @@ struct DevUserDefaultsScreen: GPView {
                     contentView
 
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, .medium)
-
-                Spacer(minLength: 0)
 
             }
 

@@ -1,5 +1,5 @@
 //
-//  PointsActivityViewModel.swift
+//  LoyaltyHistoryListViewModel.swift
 //  LeafLaunch
 //
 //  Created by KC Gunderson on 10/17/26.
@@ -9,9 +9,9 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class PointsActivityViewModel: ViewModel {
+final class LoyaltyHistoryListViewModel: ViewModel {
 
-    let loggerName: String = "POINTS_ACTIVITY_VIEW_MODEL"
+    let loggerName: String = "LOYALTY_HISTORY_LIST_VIEW_MODEL"
     let loggerEmoji: String = "✨"
 
     private let apiService: APIServiceProtocol
@@ -231,7 +231,7 @@ final class PointsActivityViewModel: ViewModel {
 
 }
 
-extension PointsActivityViewModel {
+extension LoyaltyHistoryListViewModel {
 
     func track() {
 

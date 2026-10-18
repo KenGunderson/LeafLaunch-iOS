@@ -32,52 +32,48 @@ class MockAppAssembler {
 
     func resolve<T>(_ type: T.Type) -> T {
 
-        if type == LocationsViewModel.self {
-            return self.container.locationsViewModel() as! T
+        if type == LocationListViewModel.self {
+            return self.container.locationListViewModel() as! T
         }
 
-        if type == AgeVerificationViewModel.self {
-            return self.container.ageVerificationViewModel() as! T
+        if type == StoreContainerViewModel.self {
+            return self.container.storeContainerViewModel() as! T
         }
 
         if type == StoreDetailsViewModel.self {
             return self.container.storeDetailsViewModel() as! T
         }
 
-        if type == StoreOverviewViewModel.self {
-            return self.container.storeOverviewViewModel() as! T
-        }
-
-        if type == StoreEventsViewModel.self {
-            return self.container.storeEventsViewModel() as! T
+        if type == EventListViewModel.self {
+            return self.container.eventListViewModel() as! T
         }
 
         if type == EventDetailsViewModel.self {
             return self.container.eventDetailsViewModel() as! T
         }
 
-        if type == PromotionProductsViewModel.self {
-            return self.container.promotionProductsViewModel() as! T
+        if type == PromotionProductListViewModel.self {
+            return self.container.promotionProductListViewModel() as! T
         }
 
-        if type == StoreShopViewModel.self {
-            return self.container.storeShopViewModel() as! T
+        if type == ProductListViewModel.self {
+            return self.container.productListViewModel() as! T
         }
 
-        if type == FavoriteProductsViewModel.self {
-            return self.container.favoriteProductsViewModel() as! T
+        if type == FavoriteProductListViewModel.self {
+            return self.container.favoriteProductListViewModel() as! T
         }
 
         if type == ProductDetailsViewModel.self {
             return self.container.productDetailsViewModel() as! T
         }
 
-        if type == StoreAccountViewModel.self {
-            return self.container.storeAccountViewModel() as! T
+        if type == AccountDetailsViewModel.self {
+            return self.container.accountDetailsViewModel() as! T
         }
 
-        if type == PointsActivityViewModel.self {
-            return self.container.pointsActivityViewModel() as! T
+        if type == LoyaltyHistoryListViewModel.self {
+            return self.container.loyaltyHistoryListViewModel() as! T
         }
 
         if type == AlertServiceProtocol.self {
@@ -113,28 +109,28 @@ class MockAppAssembler {
             return self.container.settingsViewModel() as! T
         }
 
-        if type == LegalViewModel.self {
-            return self.container.legalViewModel() as! T
+        if type == LegalDetailsViewModel.self {
+            return self.container.legalDetailsViewModel() as! T
         }
 
         if type == DevSettingsViewModel.self {
             return self.container.devSettingsViewModel() as! T
         }
 
-        if type == DevRoutesViewModel.self {
-            return self.container.devRoutesViewModel() as! T
+        if type == DevRouteListViewModel.self {
+            return self.container.devRouteListViewModel() as! T
         }
 
-        if type == DevDeeplinksViewModel.self {
-            return self.container.devDeeplinksViewModel() as! T
+        if type == DevDeeplinkListViewModel.self {
+            return self.container.devDeeplinkListViewModel() as! T
         }
 
         if type == DevUserDefaultsViewModel.self {
             return self.container.devUserDefaultsViewModel() as! T
         }
 
-        if type == DevAnalyticsViewModel.self {
-            return self.container.devAnalyticsViewModel() as! T
+        if type == DevAnalyticsListViewModel.self {
+            return self.container.devAnalyticsListViewModel() as! T
         }
 
         fatalError("No mock Factory registration for \(type)")

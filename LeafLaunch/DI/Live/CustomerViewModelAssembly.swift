@@ -3,10 +3,10 @@ import FactoryKit
 extension Container {
 
     @MainActor
-    var locationsViewModel: Factory<LocationsViewModel> {
+    var locationListViewModel: Factory<LocationListViewModel> {
 
         self { @MainActor in
-            LocationsViewModel(
+            LocationListViewModel(
                 storeSessionService: self.storeSessionService(),
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
@@ -17,13 +17,16 @@ extension Container {
     }
 
     @MainActor
-    var ageVerificationViewModel: Factory<AgeVerificationViewModel> {
+    var storeContainerViewModel: Factory<StoreContainerViewModel> {
 
         self { @MainActor in
-            AgeVerificationViewModel(
+            StoreContainerViewModel(
                 storeSessionService: self.storeSessionService(),
+                tabBarNavigationService: self.tabBarNavigationService(),
                 analyticsService: self.analyticsService(),
-                alertService: self.alertService()
+                detailsViewModel: self.storeDetailsViewModel(),
+                productListViewModel: self.productListViewModel(),
+                accountDetailsViewModel: self.accountDetailsViewModel()
             )
         }
 
@@ -34,22 +37,6 @@ extension Container {
 
         self { @MainActor in
             StoreDetailsViewModel(
-                storeSessionService: self.storeSessionService(),
-                tabBarNavigationService: self.tabBarNavigationService(),
-                analyticsService: self.analyticsService(),
-                overviewViewModel: self.storeOverviewViewModel(),
-                shopViewModel: self.storeShopViewModel(),
-                accountViewModel: self.storeAccountViewModel()
-            )
-        }
-
-    }
-
-    @MainActor
-    var storeOverviewViewModel: Factory<StoreOverviewViewModel> {
-
-        self { @MainActor in
-            StoreOverviewViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
                 userDefaultsService: self.userDefaultsService(),
@@ -61,10 +48,10 @@ extension Container {
     }
 
     @MainActor
-    var storeEventsViewModel: Factory<StoreEventsViewModel> {
+    var eventListViewModel: Factory<EventListViewModel> {
 
         self { @MainActor in
-            StoreEventsViewModel(
+            EventListViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
                 analyticsService: self.analyticsService(),
@@ -87,10 +74,10 @@ extension Container {
     }
 
     @MainActor
-    var promotionProductsViewModel: Factory<PromotionProductsViewModel> {
+    var promotionProductListViewModel: Factory<PromotionProductListViewModel> {
 
         self { @MainActor in
-            PromotionProductsViewModel(
+            PromotionProductListViewModel(
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
@@ -99,10 +86,10 @@ extension Container {
     }
 
     @MainActor
-    var storeShopViewModel: Factory<StoreShopViewModel> {
+    var productListViewModel: Factory<ProductListViewModel> {
 
         self { @MainActor in
-            StoreShopViewModel(
+            ProductListViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
                 userDefaultsService: self.userDefaultsService(),
@@ -114,10 +101,10 @@ extension Container {
     }
 
     @MainActor
-    var favoriteProductsViewModel: Factory<FavoriteProductsViewModel> {
+    var favoriteProductListViewModel: Factory<FavoriteProductListViewModel> {
 
         self { @MainActor in
-            FavoriteProductsViewModel(
+            FavoriteProductListViewModel(
                 apiService: self.apiService(),
                 userDefaultsService: self.userDefaultsService(),
                 tabBarNavigationService: self.tabBarNavigationService(),
@@ -144,10 +131,10 @@ extension Container {
     }
 
     @MainActor
-    var storeAccountViewModel: Factory<StoreAccountViewModel> {
+    var accountDetailsViewModel: Factory<AccountDetailsViewModel> {
 
         self { @MainActor in
-            StoreAccountViewModel(
+            AccountDetailsViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 storeSessionService: self.storeSessionService(),
@@ -159,10 +146,10 @@ extension Container {
     }
 
     @MainActor
-    var pointsActivityViewModel: Factory<PointsActivityViewModel> {
+    var loyaltyHistoryListViewModel: Factory<LoyaltyHistoryListViewModel> {
 
         self { @MainActor in
-            PointsActivityViewModel(
+            LoyaltyHistoryListViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 analyticsService: self.analyticsService(),

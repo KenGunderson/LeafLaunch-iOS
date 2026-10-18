@@ -7,8 +7,10 @@ struct ProductContactView: View {
     let storeName: String
     let canOpenMaps: Bool
     let canCallStore: Bool
+    let canEmailStore: Bool
     let onDirections: () -> Void
     let onCall: () -> Void
+    let onEmail: () -> Void
 
     var body: some View {
 
@@ -52,28 +54,37 @@ struct ProductContactView: View {
     @ViewBuilder
     private func contactActions() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(.extraSmall)) {
 
             LeafLaunchButton(
-                title: String(localized: "Directions"),
+                title: String(localized: "Map"),
+                titleFont: .TITLE_3,
                 icon: .systemImage("map.fill"),
                 isEnabled: self.canOpenMaps,
                 action: self.onDirections
             )
+            .frame(maxWidth: .infinity)
 
-            CommonButton(
-                style: .outline(lineWidth: 1),
-                title: String(localized: "Call store"),
-                titleColor: self.style.foreground(.primary),
+            LeafLaunchButton(
+                title: String(localized: "Call"),
+                titleFont: .TITLE_3,
                 icon: .systemImage("phone.fill"),
-                backgroundStyle: self.style.foreground(.primary),
                 isEnabled: self.canCallStore,
-                verticalPadding: .small2,
-                cornerRadius: .medium,
                 action: self.onCall
             )
+            .frame(maxWidth: .infinity)
+
+            LeafLaunchButton(
+                title: String(localized: "Email"),
+                titleFont: .TITLE_3,
+                icon: .systemImage("envelope.fill"),
+                isEnabled: self.canEmailStore,
+                action: self.onEmail
+            )
+            .frame(maxWidth: .infinity)
 
         }
+        .appFont(with: .TITLE_3)
 
     }
 
@@ -85,8 +96,10 @@ struct ProductContactView: View {
         storeName: MockCustomerModels.locationDetails.location.name,
         canOpenMaps: true,
         canCallStore: true,
+        canEmailStore: true,
         onDirections: {},
-        onCall: {}
+        onCall: {},
+        onEmail: {}
     )
     .padding(.medium)
     .withMockPreviews()

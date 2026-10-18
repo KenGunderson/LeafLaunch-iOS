@@ -38,7 +38,7 @@ class MockViewModelAssembly {
                 environmentService: container.environmentService(),
                 storeSessionService: container.storeSessionService(),
                 tabBarNavigationService: container.tabBarNavigationService(),
-                makeStoreDetailsViewModel: { container.storeDetailsViewModel() }
+                makeStoreContainerViewModel: { container.storeContainerViewModel() }
             )
         }
 
@@ -100,8 +100,8 @@ class MockViewModelAssembly {
 
         // Settings - Legal
 
-        container.legalViewModel.register { @MainActor in
-            LegalViewModel(
+        container.legalDetailsViewModel.register { @MainActor in
+            LegalDetailsViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
                 analyticsService: container.analyticsService(),
@@ -127,8 +127,8 @@ class MockViewModelAssembly {
 
         // DevSettings - Routes
 
-        container.devRoutesViewModel.register { @MainActor in
-            DevRoutesViewModel(
+        container.devRouteListViewModel.register { @MainActor in
+            DevRouteListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
@@ -138,8 +138,8 @@ class MockViewModelAssembly {
 
         // DevSettings - Deeplinks
 
-        container.devDeeplinksViewModel.register { @MainActor in
-            DevDeeplinksViewModel(
+        container.devDeeplinkListViewModel.register { @MainActor in
+            DevDeeplinkListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
@@ -162,8 +162,8 @@ class MockViewModelAssembly {
 
         // DevSettings - Analytics
 
-        container.devAnalyticsViewModel.register { @MainActor in
-            DevAnalyticsViewModel(
+        container.devAnalyticsListViewModel.register { @MainActor in
+            DevAnalyticsListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),

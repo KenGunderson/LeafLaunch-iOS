@@ -42,8 +42,8 @@ struct MainScreen: GPView {
         switch self.viewModel.storeState {
         case .loading, .locations, .ageVerification, .store:
 
-            StoreDetailsScreen(viewModel: self.viewModel.storeDetailsViewModel)
-                .id(self.viewModel.storeDetailsViewModel.locationId)
+            StoreContainerScreen(viewModel: self.viewModel.storeContainerViewModel)
+                .id(self.viewModel.storeContainerViewModel.locationId)
 
         case .configurationRequired:
 

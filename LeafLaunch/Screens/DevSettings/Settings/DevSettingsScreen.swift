@@ -249,8 +249,6 @@ struct DevSettingsScreen: GPView {
             Text(title + ": ")
                 .appFont(with: .TITLE_3)
 
-            Spacer(minLength: 0)
-
             Text(subtitle)
                 .appFont(with: .BODY_2)
                 .multilineTextAlignment(.trailing)
@@ -274,8 +272,7 @@ struct DevSettingsScreen: GPView {
                     title,
                     systemImage: icon
                 )
-
-                Spacer(minLength: 0)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
                 ImageSource.systemImage("chevron.right")
                     .view(shouldResize: false)

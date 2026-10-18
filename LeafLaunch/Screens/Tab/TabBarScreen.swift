@@ -21,16 +21,11 @@ struct TabBarScreen: View {
 
     var body: some View {
 
-        VStack {
-
-            Spacer()
-
-            BubbleTabBarView(selectedTab: self.$selectedTab)
-                .offset(y: self.isTabBarVisible ? 0 : 200)
-                .animation(.bouncy, value: self.isTabBarVisible)
-
-        }
-        .ignoresSafeArea(.keyboard)
+        BubbleTabBarView(selectedTab: self.$selectedTab)
+            .offset(y: self.isTabBarVisible ? 0 : 200)
+            .animation(.bouncy, value: self.isTabBarVisible)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .ignoresSafeArea(.keyboard)
 
     }
 

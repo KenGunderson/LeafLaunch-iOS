@@ -41,7 +41,7 @@ extension Container {
                 environmentService: self.environmentService(),
                 storeSessionService: self.storeSessionService(),
                 tabBarNavigationService: self.tabBarNavigationService(),
-                makeStoreDetailsViewModel: { self.storeDetailsViewModel() }
+                makeStoreContainerViewModel: { self.storeContainerViewModel() }
             )
         }
     }
@@ -118,9 +118,9 @@ extension Container {
     // Settings - Legal
 
     @MainActor
-    var legalViewModel: Factory<LegalViewModel> {
+    var legalDetailsViewModel: Factory<LegalDetailsViewModel> {
         self { @MainActor in
-            LegalViewModel(
+            LegalDetailsViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 analyticsService: self.analyticsService(),
@@ -151,9 +151,9 @@ extension Container {
     // DevSettings - Routes
 
     @MainActor
-    var devRoutesViewModel: Factory<DevRoutesViewModel> {
+    var devRouteListViewModel: Factory<DevRouteListViewModel> {
         self { @MainActor in
-            DevRoutesViewModel(
+            DevRouteListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
@@ -165,9 +165,9 @@ extension Container {
     // DevSettings - Deeplinks
 
     @MainActor
-    var devDeeplinksViewModel: Factory<DevDeeplinksViewModel> {
+    var devDeeplinkListViewModel: Factory<DevDeeplinkListViewModel> {
         self { @MainActor in
-            DevDeeplinksViewModel(
+            DevDeeplinkListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
@@ -195,9 +195,9 @@ extension Container {
     // DevSettings - Analytics
 
     @MainActor
-    var devAnalyticsViewModel: Factory<DevAnalyticsViewModel> {
+    var devAnalyticsListViewModel: Factory<DevAnalyticsListViewModel> {
         self { @MainActor in
-            DevAnalyticsViewModel(
+            DevAnalyticsListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),

@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct StoreShopScreen: GPView {
+struct ProductListScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
     @State private var isRefreshing: Bool = false
     @State private var didRefreshProducts: Bool?
-    @StateObject private var viewModel: StoreShopViewModel
+    @StateObject private var viewModel: ProductListViewModel
 
     @FocusState private var isSearchFocused: Bool
 
-    init(viewModel: StoreShopViewModel) {
+    init(viewModel: ProductListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -21,13 +21,17 @@ struct StoreShopScreen: GPView {
             horizontalPadding: .medium,
             refreshConfiguration: .init(
                 isRefreshing: self.$isRefreshing,
+                threshold: 80,
                 indicatorPlacement: .sticky,
                 contentLayout: .pushesContent,
-                dismissalDelay: 0.7,
+                dismissalDelay: 0.45,
                 onRefresh: { [weak viewModel] in
 
                     self.didRefreshProducts = nil
-                    self.didRefreshProducts = await viewModel?.refresh()
+                    let didRefresh = await viewModel?.refresh()
+                    guard !Task.isCancelled else { return }
+
+                    self.didRefreshProducts = didRefresh
 
                 },
                 indicator: { context in
@@ -279,7 +283,7 @@ struct StoreShopScreen: GPView {
             HStack(alignment: .center, spacing: self.style.spacing(.small)) {
 
                 feedTitle()
-                Spacer(minLength: self.style.spacing(.small))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 sortMenu()
 
             }
@@ -456,8 +460,8 @@ struct StoreShopScreen: GPView {
 
 #Preview {
 
-    StoreShopScreen(
-        viewModel: mockResolve(StoreShopViewModel.self)
+    ProductListScreen(
+        viewModel: mockResolve(ProductListViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

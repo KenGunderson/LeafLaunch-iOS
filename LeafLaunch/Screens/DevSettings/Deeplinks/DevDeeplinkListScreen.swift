@@ -1,5 +1,5 @@
 //
-//  DevSettingsDeeplinkView.swift
+//  DevDeeplinkListScreen.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 4/25/24.
@@ -8,13 +8,13 @@
 import SwiftUI
 import Charts
 
-struct DevDeeplinksScreen: GPView {
+struct DevDeeplinkListScreen: GPView {
 
     @Environment(\.style) private var style
 
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject var viewModel: DevDeeplinksViewModel
+    @StateObject var viewModel: DevDeeplinkListViewModel
 
     var basePath = "leaflaunch://host/"
 
@@ -93,7 +93,7 @@ struct DevDeeplinksScreen: GPView {
                 Text(title)
                     .appFont(with: .HEADER_4)
 
-                Divider()
+                LLDivider()
 
             }
 
@@ -137,8 +137,8 @@ struct DevDeeplinksScreen: GPView {
 
 #Preview {
 
-    DevDeeplinksScreen(
-        viewModel: mockResolve(DevDeeplinksViewModel.self)
+    DevDeeplinkListScreen(
+        viewModel: mockResolve(DevDeeplinkListViewModel.self)
     )
     .withMockServices()
 

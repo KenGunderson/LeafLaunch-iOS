@@ -1,5 +1,5 @@
 //
-//  DevRoutesScreen.swift
+//  DevRouteListScreen.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 4/25/24.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DevRoutesScreen: GPView {
+struct DevRouteListScreen: GPView {
 
     @Environment(\.style) private var style
 
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject var viewModel: DevRoutesViewModel
+    @StateObject var viewModel: DevRouteListViewModel
 
     var body: some View {
 
@@ -87,8 +87,7 @@ struct DevRoutesScreen: GPView {
                     .appFont(with: .HEADER_4)
                     .foregroundStyle(.text(.title))
 
-                Divider()
-                    .background(.background(.quaternary))
+                LLDivider()
 
             }
 
@@ -120,8 +119,8 @@ struct DevRoutesScreen: GPView {
 
 #Preview {
 
-    DevRoutesScreen(
-        viewModel: mockResolve(DevRoutesViewModel.self)
+    DevRouteListScreen(
+        viewModel: mockResolve(DevRouteListViewModel.self)
     )
     .withMockServices()
 

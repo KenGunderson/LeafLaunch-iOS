@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct StoreAccountScreen: GPView {
+struct AccountDetailsScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject private var viewModel: StoreAccountViewModel
+    @StateObject private var viewModel: AccountDetailsViewModel
 
-    init(viewModel: StoreAccountViewModel) {
+    init(viewModel: AccountDetailsViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -185,8 +185,8 @@ struct StoreAccountScreen: GPView {
 
 #Preview {
 
-    StoreAccountScreen(
-        viewModel: mockResolve(StoreAccountViewModel.self)
+    AccountDetailsScreen(
+        viewModel: mockResolve(AccountDetailsViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

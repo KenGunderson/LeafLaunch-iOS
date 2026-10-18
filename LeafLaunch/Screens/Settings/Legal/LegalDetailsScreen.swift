@@ -1,5 +1,5 @@
 //
-//  LegalScreen.swift
+//  LegalDetailsScreen.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 1/23/25.
@@ -8,13 +8,13 @@
 import SwiftUI
 import Charts
 
-struct LegalScreen: View {
+struct LegalDetailsScreen: View {
 
     @Environment(\.style) private var style
 
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject var viewModel: LegalViewModel
+    @StateObject var viewModel: LegalDetailsViewModel
 
     var body: some View {
 
@@ -127,10 +127,10 @@ struct LegalScreen: View {
 
 #Preview {
 
-    let viewModel = mockResolve(LegalViewModel.self)
+    let viewModel = mockResolve(LegalDetailsViewModel.self)
         .setup(context: .termsAndConditions)
 
-    return LegalScreen(
+    return LegalDetailsScreen(
         viewModel: viewModel
     )
     .withMockServices()

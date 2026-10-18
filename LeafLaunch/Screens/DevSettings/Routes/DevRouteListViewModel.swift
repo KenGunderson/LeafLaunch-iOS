@@ -1,60 +1,41 @@
 //
-//  LegalViewModel.swift
+//  DevRouteListViewModel.swift
 //  LeafLaunch
 //
-//  Created by Sako Hovaguimian on 1/23/25.
+//  Created by Sako Hovaguimian on 7/16/24.
 //
 
 import SwiftUI
 import Combine
 
-final class LegalViewModel: ViewModel {
+final class DevRouteListViewModel: ViewModel {
 
-    internal let loggerName: String = "LEGAL_VIEW_MODEL"
-    internal let loggerEmoji: String = "⚙️"
+    internal let loggerName: String = "DEV_ROUTE_LIST_VIEW_MODEL"
+    internal let loggerEmoji: String = "🔧"
 
-
-    private let apiService: APIServiceProtocol
-    private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
 
-    private(set) var context: Context!
     private weak var navigationService: NavigationService?
 
-
-    @Published private(set) var legalItems: [LegalItem] = []
-
-    init(apiService: APIServiceProtocol,
+    init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
-         analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
 
-        self.apiService = apiService
         self.analyticsService = analyticsService
-        self.alertService = alertService
         self.authService = authService
         self.viewLifecycleService = viewLifecycleService
         self.environmentService = environmentService
 
-        logInit()
+        self.logInit()
 
     }
 
     deinit {
-        logDeinit()
-    }
-
-    @discardableResult
-    func setup(context: Context) -> Self {
-
-        self.context = context
-        return self
-
+        self.logDeinit()
     }
 
     func setup(navigationService: NavigationService) {
@@ -74,12 +55,19 @@ final class LegalViewModel: ViewModel {
 
     }
 
+    func present(modal: FullScreenCover) {
+
+        self.navigationService?
+            .modal(fullScreenCover: modal)
+
+    }
+
 }
 
-extension LegalViewModel {
+extension DevRouteListViewModel {
 
     func track() {
-        self.analyticsService.track(screen: .settings(.legal(context: self.context.dataName)))
+        self.analyticsService.track(screen: .devSettings(.routes))
     }
 
 }

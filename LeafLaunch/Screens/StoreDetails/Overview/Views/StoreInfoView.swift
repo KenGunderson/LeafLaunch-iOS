@@ -25,7 +25,8 @@ struct StoreInfoView: View {
 
     private var directionsURL: URL? {
 
-        guard let address = self.details?.address, !address.isEmpty else { return nil }
+        guard let address = self.details?.address.trimmingCharacters(in: .whitespacesAndNewlines),
+              !address.isEmpty else { return nil }
 
         var components = URLComponents(string: "https://maps.apple.com/")
         components?.queryItems = [URLQueryItem(name: "q", value: address)]
@@ -87,15 +88,14 @@ struct StoreInfoView: View {
     @ViewBuilder
     private func contactActions() -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(.extraSmall)) {
 
             if let directionsURL = self.directionsURL {
 
                 contactAction(
-                    title: String(localized: "Directions"),
-                    systemImage: "location.fill",
-                    url: directionsURL,
-                    isPrimary: true
+                    title: String(localized: "Map"),
+                    systemImage: "map.fill",
+                    url: directionsURL
                 )
 
             }
@@ -106,8 +106,18 @@ struct StoreInfoView: View {
                 contactAction(
                     title: String(localized: "Call"),
                     systemImage: "phone.fill",
-                    url: url,
-                    isPrimary: false
+                    url: url
+                )
+
+            }
+
+            if let email = self.email,
+               let url = contactURL(scheme: "mailto", value: email) {
+
+                contactAction(
+                    title: String(localized: "Email"),
+                    systemImage: "envelope.fill",
+                    url: url
                 )
 
             }
@@ -119,8 +129,7 @@ struct StoreInfoView: View {
     @ViewBuilder
     private func contactAction(title: String,
                                systemImage: String,
-                               url: URL,
-                               isPrimary: Bool) -> some View {
+                               url: URL) -> some View {
 
         Link(destination: url) {
 
@@ -133,12 +142,13 @@ struct StoreInfoView: View {
 
             }
             .appFont(with: .TITLE_3)
-            .foregroundStyle(isPrimary ? self.style.textColor(.button) : self.style.foreground(.primary))
+            .foregroundStyle(self.style.textColor(.button))
+            .frame(maxWidth: .infinity)
 
         }
         .buttonStyle(.commonButtonStyle(
-            style: isPrimary ? .fill : .outline(lineWidth: 1),
-            background: isPrimary ? .foreground(.primary) : .background(.border),
+            style: .fill,
+            background: .foreground(.primary),
             cornerRadius: .medium,
             verticalPadding: .small2,
             horizontalPadding: .small
@@ -222,8 +232,7 @@ struct StoreInfoView: View {
     @ViewBuilder
     private func sectionDivider() -> some View {
 
-        Divider()
-            .overlay(self.style.background(.border))
+        LLDivider()
             .padding(.vertical, .small2)
 
     }

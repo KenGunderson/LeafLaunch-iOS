@@ -1,9 +1,9 @@
 import SwiftUI
 
 @MainActor
-final class StoreEventsViewModel: ViewModel {
+final class EventListViewModel: ViewModel {
 
-    let loggerName: String = "STORE_EVENTS_VIEW_MODEL"
+    let loggerName: String = "EVENT_LIST_VIEW_MODEL"
     let loggerEmoji: String = "📅"
 
     private let apiService: APIServiceProtocol
@@ -182,7 +182,7 @@ final class StoreEventsViewModel: ViewModel {
 
 }
 
-extension StoreEventsViewModel {
+extension EventListViewModel {
 
     func track() {
 

@@ -10,6 +10,7 @@ struct LeafLaunchButton: View {
     @Environment(\.style) private var style
 
     private let title: String
+    private let titleFont: Theme.FontKey
     private let icon: ImageSource?
     private let iconAlignment: HorizontalAlignment
     private let size: LeafLaunchButtonSize
@@ -17,6 +18,7 @@ struct LeafLaunchButton: View {
     private let action: () -> Void
 
     init(title: String,
+         titleFont: Theme.FontKey = .TITLE_4,
          icon: ImageSource? = nil,
          iconAlignment: HorizontalAlignment = .leading,
          size: LeafLaunchButtonSize = .standard,
@@ -24,6 +26,7 @@ struct LeafLaunchButton: View {
          action: @escaping () -> Void) {
 
         self.title = title
+        self.titleFont = titleFont
         self.icon = icon
         self.iconAlignment = iconAlignment
         self.size = size
@@ -42,6 +45,7 @@ struct LeafLaunchButton: View {
 
             CommonButton(
                 title: self.title,
+                titleFont: self.titleFont,
                 icon: self.icon,
                 iconAlignment: self.iconAlignment,
                 isEnabled: self.isEnabled,
@@ -85,7 +89,7 @@ struct LeafLaunchButton: View {
                 }
 
             }
-            .appFont(with: .TITLE_4)
+            .appFont(with: self.titleFont)
             .foregroundStyle(.text(.button))
 
         }

@@ -11,7 +11,7 @@ struct LocationSearchControls: View {
 
     @Environment(\.style) private var style
 
-    @ObservedObject var viewModel: LocationsViewModel
+    @ObservedObject var viewModel: LocationListViewModel
 
     @FocusState private var isSearchFocused: Bool
 
@@ -54,7 +54,19 @@ struct LocationSearchControls: View {
                 .focused(self.$isSearchFocused)
                 .submitLabel(.search)
                 .autocorrectionDisabled()
-                .onSubmit { self.isSearchFocused = false }
+                .onSubmit {
+
+                    self.isSearchFocused = false
+                    self.viewModel.submitSearch()
+
+                }
+
+            if self.viewModel.isSearchingNearby {
+
+                ProgressView()
+                    .tint(self.style.palette(.link))
+
+            }
 
             if !self.viewModel.search.isEmpty {
 

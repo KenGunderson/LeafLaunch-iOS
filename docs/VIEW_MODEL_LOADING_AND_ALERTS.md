@@ -1,6 +1,6 @@
 # ViewModel Loading and Alerts
 
-Use this contract with the [implementation guide](IMPLEMENTATION_BEST_PRACTICES.md#async-tasks-loading-and-cancellation) and [SwiftUI feature example](SWIFTUI_FEATURE_EXAMPLE.md). It adapts Grimoire's final loading pattern to LeafLaunch's actual customer/session contracts. The feature example is illustrative Swift, not a compiled implementation. Existing implementations include [StoreOverviewViewModel](../LeafLaunch/Screens/StoreDetails/Overview/StoreOverviewViewModel.swift) for parallel required requests and pagination, and [StoreAccountViewModel](../LeafLaunch/Screens/StoreDetails/Account/StoreAccountViewModel.swift) for authenticated-user/request ownership.
+Use this contract with the [implementation guide](IMPLEMENTATION_BEST_PRACTICES.md#async-tasks-loading-and-cancellation) and [SwiftUI feature example](SWIFTUI_FEATURE_EXAMPLE.md). It adapts Grimoire's final loading pattern to LeafLaunch's actual customer/session contracts. The feature example is illustrative Swift, not a compiled implementation. Existing implementations include [StoreDetailsViewModel](../LeafLaunch/Screens/StoreDetails/Overview/StoreDetailsViewModel.swift) for parallel required requests and pagination, and [AccountDetailsViewModel](../LeafLaunch/Screens/StoreDetails/Account/AccountDetailsViewModel.swift) for authenticated-user/request ownership.
 
 ## Standard replacement flow
 

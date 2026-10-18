@@ -21,13 +21,13 @@ final class MainViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
 
     let tabBarNavigationService: TabBarNavigationService
-    private let makeStoreDetailsViewModel: @MainActor () -> StoreDetailsViewModel
+    private let makeStoreContainerViewModel: @MainActor () -> StoreContainerViewModel
 
     private(set) weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
 
     @Published private(set) var storeState: StoreSessionState = .loading
-    @Published private(set) var storeDetailsViewModel: StoreDetailsViewModel
+    @Published private(set) var storeContainerViewModel: StoreContainerViewModel
     private var retryTask: Task<Void, Never>?
 
     var storeErrorMessage: String? {
@@ -54,7 +54,7 @@ final class MainViewModel: ViewModel {
          environmentService: EnvironmentServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          tabBarNavigationService: TabBarNavigationService,
-         makeStoreDetailsViewModel: @escaping @MainActor () -> StoreDetailsViewModel) {
+         makeStoreContainerViewModel: @escaping @MainActor () -> StoreContainerViewModel) {
 
         self.alertService = alertService
         self.appDelegateService = appDelegateService
@@ -63,8 +63,8 @@ final class MainViewModel: ViewModel {
         self.environmentService = environmentService
         self.storeSessionService = storeSessionService
         self.tabBarNavigationService = tabBarNavigationService
-        self.makeStoreDetailsViewModel = makeStoreDetailsViewModel
-        self.storeDetailsViewModel = makeStoreDetailsViewModel()
+        self.makeStoreContainerViewModel = makeStoreContainerViewModel
+        self.storeContainerViewModel = makeStoreContainerViewModel()
 
         logInit()
 
@@ -119,7 +119,6 @@ final class MainViewModel: ViewModel {
 
     func handleSheetDismissal() {
 
-        // Replacing the age sheet also dismisses its outgoing presentation.
         guard let navigationService = self.navigationService,
               navigationService.sheet == nil else { return }
 
@@ -132,21 +131,19 @@ final class MainViewModel: ViewModel {
         guard let navigationService = self.navigationService else { return }
 
         switch state {
-        case .locations:
-            navigationService.modal(sheet: .locations)
+        case .locations, .ageVerification:
 
-        case .ageVerification:
-
-            guard let locationId = self.storeSessionService.ageVerificationLocationId else { return }
-            navigationService.modal(sheet: .ageVerification(locationId: locationId))
+            if navigationService.sheet != .locations {
+                navigationService.modal(sheet: .locations)
+            }
 
         case .store:
 
             guard let locationId = self.storeSessionService.locationDetails?.location.id else { return }
 
-            if self.storeDetailsViewModel.locationId != locationId {
+            if self.storeContainerViewModel.locationId != locationId {
 
-                self.storeDetailsViewModel = self.makeStoreDetailsViewModel()
+                self.storeContainerViewModel = self.makeStoreContainerViewModel()
                     .setup(locationId: locationId)
 
             }

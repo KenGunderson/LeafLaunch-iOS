@@ -1,5 +1,5 @@
 //
-//  PointsActivityScreen.swift
+//  LoyaltyHistoryListScreen.swift
 //  LeafLaunch
 //
 //  Created by KC Gunderson on 10/17/26.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct PointsActivityScreen: GPView {
+struct LoyaltyHistoryListScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject private var viewModel: PointsActivityViewModel
+    @StateObject private var viewModel: LoyaltyHistoryListViewModel
 
-    init(viewModel: PointsActivityViewModel) {
+    init(viewModel: LoyaltyHistoryListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -195,8 +195,8 @@ struct PointsActivityScreen: GPView {
 
 #Preview {
 
-    PointsActivityScreen(
-        viewModel: mockResolve(PointsActivityViewModel.self)
+    LoyaltyHistoryListScreen(
+        viewModel: mockResolve(LoyaltyHistoryListViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

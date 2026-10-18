@@ -29,7 +29,7 @@ struct StoreAccountLinksView: View {
                 )
                 .disabled(!self.hasSelectedLocation)
 
-                Divider().overlay(self.style.background(.border))
+                LLDivider()
 
                 accountLink(
                     title: String(localized: "Your Store"),
@@ -74,8 +74,7 @@ struct StoreAccountLinksView: View {
 
             }
             .fixedSize(horizontal: false, vertical: true)
-
-            Spacer(minLength: 0)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             ImageSource.systemImage("chevron.right")
                 .view(shouldResize: false)

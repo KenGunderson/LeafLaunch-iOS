@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct FavoriteProductsScreen: GPView {
+struct FavoriteProductListScreen: GPView {
 
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
-    @StateObject private var viewModel: FavoriteProductsViewModel
+    @StateObject private var viewModel: FavoriteProductListViewModel
 
-    init(viewModel: FavoriteProductsViewModel) {
+    init(viewModel: FavoriteProductListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -140,8 +140,8 @@ struct FavoriteProductsScreen: GPView {
 
 #Preview {
 
-    FavoriteProductsScreen(
-        viewModel: mockResolve(FavoriteProductsViewModel.self)
+    FavoriteProductListScreen(
+        viewModel: mockResolve(FavoriteProductListViewModel.self)
             .setup(locationId: MockCustomerModels.primaryLocationId)
     )
     .withMockPreviews()

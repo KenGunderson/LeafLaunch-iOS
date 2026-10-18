@@ -16,8 +16,6 @@ struct StoreInfoActionRow: View {
             icon()
             label()
 
-            Spacer(minLength: 0)
-
             if self.showsChevron {
 
                 ImageSource.systemImage("chevron.right")

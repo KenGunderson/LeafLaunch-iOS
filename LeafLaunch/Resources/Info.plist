@@ -38,6 +38,6 @@
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is used to find your city and search for stores when you tap Use My Location.</string>
+	<string>Your location is used to fill your ZIP code and sort nearby stores by distance.</string>
 </dict>
 </plist>

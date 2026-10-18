@@ -38,9 +38,8 @@ struct StorePromotionCard: View {
             VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
                 promotionCopy()
-                
-                Spacer()
-                
+                    .frame(maxHeight: .infinity, alignment: .topLeading)
+
                 offerAction()
 
             }

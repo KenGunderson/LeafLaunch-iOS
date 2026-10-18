@@ -1,5 +1,5 @@
 //
-//  DevAnalyticsViewModel.swift
+//  DevAnalyticsListViewModel.swift
 //  LeafLaunch
 //
 //  Created by Sako Hovaguimian on 10/19/24.
@@ -9,9 +9,9 @@ import OSLog
 import SwiftUI
 import Combine
 
-final class DevAnalyticsViewModel: ViewModel {
+final class DevAnalyticsListViewModel: ViewModel {
 
-    internal let loggerName: String = "DEV"
+    internal let loggerName: String = "DEV_ANALYTICS_LIST_VIEW_MODEL"
     internal let loggerEmoji: String = "🔧"
 
 
@@ -204,7 +204,7 @@ final class DevAnalyticsViewModel: ViewModel {
 
 }
 
-extension DevAnalyticsViewModel {
+extension DevAnalyticsListViewModel {
 
     func track() {
         self.analyticsService.track(screen: .devSettings(.analytics))
