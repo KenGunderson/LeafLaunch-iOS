@@ -70,7 +70,7 @@ struct AgeVerificationConsentView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            Text(String(localized: "AGE CONFIRMATION"))
+            Text(String(localized: "Age Confirmation"))
                 .appFont(with: .TITLE_2)
                 .foregroundStyle(self.style.textColor(.body))
 
@@ -87,7 +87,7 @@ struct AgeVerificationConsentView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-            Text(String(localized: "Adults only."))
+            Text(String(localized: "Adults Only."))
                 .appFont(with: .BILLBOARD_2)
                 .foregroundStyle(self.style.textColor(.title))
 

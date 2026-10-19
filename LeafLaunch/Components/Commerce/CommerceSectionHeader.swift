@@ -68,7 +68,7 @@ struct CommerceSectionHeader: View {
 #Preview {
 
     CommerceSectionHeader(
-        title: "Your collection",
+        title: "Your Collection",
         subtitle: "Available at this location",
         systemImage: "heart"
     )

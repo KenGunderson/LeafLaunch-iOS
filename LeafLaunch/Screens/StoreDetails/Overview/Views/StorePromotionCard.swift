@@ -95,7 +95,7 @@ struct StorePromotionCard: View {
         if self.promotion.kind != .general {
 
             CommonButton(
-                title: String(localized: "View offer"),
+                title: String(localized: "View Offer"),
                 titleColor: .text(.titleInverted),
                 titleFont: .TITLE_3,
                 icon: .systemImage("chevron.right"),

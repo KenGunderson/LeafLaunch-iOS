@@ -163,7 +163,7 @@ extension SectionView where Trailing == EmptyView {
             SectionView(
                 leadingTitle: "Section 2",
                 showDivider: true,
-                trailingTitle: "Show me more",
+                trailingTitle: "Show Me More",
                 trailingAction: {}
             )
 

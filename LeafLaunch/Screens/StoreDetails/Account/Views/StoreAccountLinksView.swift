@@ -33,7 +33,7 @@ struct StoreAccountLinksView: View {
 
                 accountLink(
                     title: String(localized: "Your Store"),
-                    subtitle: self.locationName ?? String(localized: "Choose a location"),
+                    subtitle: self.locationName ?? String(localized: "Choose A Location"),
                     systemImage: "mappin.and.ellipse",
                     action: self.locationAction
                 )

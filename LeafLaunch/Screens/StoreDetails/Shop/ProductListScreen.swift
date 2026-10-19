@@ -66,7 +66,7 @@ struct ProductListScreen: GPView {
 
         StoreNavHeader(
             configuration: self.viewModel.configuration,
-            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose a Location"),
+            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose A Location"),
             onSelectLocation: { [weak viewModel] in viewModel?.changeLocation() },
             onFavorites: { [weak viewModel] in viewModel?.openFavorites() }
         )
@@ -141,7 +141,7 @@ struct ProductListScreen: GPView {
                 .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
                 .foregroundStyle(self.isSearchFocused ? self.style.foreground(.primary) : self.style.textColor(.body))
 
-            TextField(String(localized: "Search products"), text: self.$viewModel.search)
+            TextField(String(localized: "Search Products"), text: self.$viewModel.search)
                 .appFont(with: .BODY_2)
                 .foregroundStyle(self.style.textColor(.title))
                 .focused(self.$isSearchFocused)
@@ -194,7 +194,7 @@ struct ProductListScreen: GPView {
 
             if self.viewModel.hasActiveFilters {
 
-                Button(String(localized: "Clear filters")) {
+                Button(String(localized: "Clear Filters")) {
                     withAnimation(.bouncy) { self.viewModel.clearFilters() }
                 }
 
@@ -315,7 +315,7 @@ struct ProductListScreen: GPView {
 
         Menu {
 
-            Picker(String(localized: "Sort products"), selection: self.$viewModel.sort) {
+            Picker(String(localized: "Sort Products"), selection: self.$viewModel.sort) {
 
                 ForEach(ProductSort.allCases) { sort in
                     Text(sort.title).tag(sort)
@@ -389,11 +389,11 @@ struct ProductListScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "wifi.exclamationmark",
-                    title: String(localized: "Products couldn't load"),
+                    title: String(localized: "Products Couldn't Load"),
                     message: String(localized: "Check your connection and try again.")
                 )
 
-                LeafLaunchButton(title: String(localized: "Try again")) {
+                LeafLaunchButton(title: String(localized: "Try Again")) {
                     self.viewModel.loadData(showHud: false)
                 }
 
@@ -405,13 +405,13 @@ struct ProductListScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "magnifyingglass",
-                    title: String(localized: "No products found"),
+                    title: String(localized: "No Products Found"),
                     message: String(localized: "Try another search or category to see more products.")
                 )
 
                 if self.viewModel.hasActiveFilters {
 
-                    Text(String(localized: "Clear filters"))
+                    Text(String(localized: "Clear Filters"))
                         .appFont(with: .TITLE_2)
                         .foregroundStyle(self.style.palette(.link))
                         .frame(maxWidth: .infinity, minHeight: 44)
@@ -432,7 +432,7 @@ struct ProductListScreen: GPView {
 
         if self.viewModel.isLoading && self.viewModel.products.isEmpty {
 
-            ProgressView(String(localized: "Loading products"))
+            ProgressView(String(localized: "Loading Products"))
                 .tint(self.style.accent)
                 .appFont(with: .BODY_2)
                 .frame(maxWidth: .infinity)
@@ -447,7 +447,7 @@ struct ProductListScreen: GPView {
 
         if self.viewModel.hasMoreProducts {
 
-            LeafLaunchButton(title: self.viewModel.isLoading ? String(localized: "Loading products") : String(localized: "Load More Products")) {
+            LeafLaunchButton(title: self.viewModel.isLoading ? String(localized: "Loading Products") : String(localized: "Load More Products")) {
                 self.viewModel.loadMore()
             }
             .disabled(self.viewModel.isLoading)

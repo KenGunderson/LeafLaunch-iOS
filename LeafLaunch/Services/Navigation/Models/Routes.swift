@@ -45,7 +45,7 @@ enum Route: Navigation, Hashable, Sendable {
             case .contactSupport: return "Contact Support"
             case .rateApp: return "Rate Our App"
             case .privacyPolicy: return "Privacy Policy"
-            case .termsOfService: return "Terms of Service"
+            case .termsOfService: return "Terms Of Service"
             case .logout: return "Logout"
             }
         }

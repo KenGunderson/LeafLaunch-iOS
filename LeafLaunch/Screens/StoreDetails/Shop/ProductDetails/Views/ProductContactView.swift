@@ -33,7 +33,7 @@ struct ProductContactView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-            Text(String(localized: "Questions about this product?"))
+            Text(String(localized: "Questions About This Product?"))
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.textColor(.title))
                 .fixedSize(horizontal: false, vertical: true)

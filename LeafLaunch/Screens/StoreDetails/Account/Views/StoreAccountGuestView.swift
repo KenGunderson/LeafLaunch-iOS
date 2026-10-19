@@ -48,7 +48,7 @@ struct StoreAccountGuestView: View {
             )
             .frame(width: self.style.spacing(.extraLarge2), height: self.style.spacing(.extraLarge2))
 
-            Text(String(localized: "Make yourself at home."))
+            Text(String(localized: "Make Yourself At Home."))
                 .appFont(with: .HEADER_3)
                 .foregroundStyle(self.style.textColor(.title))
 
@@ -71,7 +71,7 @@ struct StoreAccountGuestView: View {
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.foreground(.primary))
 
-            Text(String(localized: "A little more rewarding"))
+            Text(String(localized: "A Little More Rewarding"))
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.textColor(.title))
 

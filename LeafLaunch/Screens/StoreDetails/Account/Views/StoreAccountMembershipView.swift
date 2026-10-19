@@ -24,7 +24,7 @@ struct StoreAccountMembershipView: View {
                     self.isPresentingDetails = true
                 }
 
-                Text(String(localized: "Member since \(account.createdAt.formatted(date: .abbreviated, time: .omitted))"))
+                Text(String(localized: "Member Since \(account.createdAt.formatted(date: .abbreviated, time: .omitted))"))
                     .appFont(with: .BODY_1)
                     .foregroundStyle(self.style.textColor(.body))
                     .fixedSize(horizontal: false, vertical: true)

@@ -79,7 +79,7 @@ struct FavoriteProductListScreen: GPView {
             VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
                 CommerceSectionHeader(
-                    title: String(localized: "Your collection"),
+                    title: String(localized: "Your Collection"),
                     subtitle: String(localized: "Available at this location")
                 )
 
@@ -106,11 +106,11 @@ struct FavoriteProductListScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "wifi.exclamationmark",
-                    title: String(localized: "Favorites couldn't load"),
+                    title: String(localized: "Favorites Couldn't Load"),
                     message: String(localized: "Check your connection and try again.")
                 )
 
-                LeafLaunchButton(title: String(localized: "Try again")) {
+                LeafLaunchButton(title: String(localized: "Try Again")) {
                     self.viewModel.loadData(showHud: false)
                 }
 
@@ -122,11 +122,11 @@ struct FavoriteProductListScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "heart",
-                    title: String(localized: "Make room for favorites"),
+                    title: String(localized: "Make Room For Favorites"),
                     message: String(localized: "Tap the heart on a product to save it here. Saved products appear when available at this location.")
                 )
 
-                LeafLaunchButton(title: String(localized: "Browse products"), icon: .systemImage("arrow.right")) {
+                LeafLaunchButton(title: String(localized: "Browse Products"), icon: .systemImage("arrow.right")) {
                     self.viewModel.browseProducts()
                 }
 

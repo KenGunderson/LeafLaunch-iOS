@@ -46,22 +46,22 @@ struct CatalogRefreshIndicator: View {
 
         switch self.context.phase {
         case .idle, .pulling:
-            return String(localized: "Pull to refresh")
+            return String(localized: "Pull To Refresh")
 
         case .armed:
-            return String(localized: "Release to refresh")
+            return String(localized: "Release To Refresh")
 
         case .refreshing:
-            return String(localized: "Refreshing products…")
+            return String(localized: "Refreshing Products…")
 
         case .finishing:
 
             if self.hasFailed {
-                return String(localized: "Couldn't refresh")
+                return String(localized: "Couldn't Refresh")
             }
 
             return self.didRefresh
-                ? String(localized: "Products updated")
+                ? String(localized: "Products Updated")
                 : String(localized: "Menu")
         }
 

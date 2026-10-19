@@ -71,7 +71,7 @@ struct StoreNavHeader: View {
 
     StoreNavHeader(
         configuration: MockCustomerModels.bootstrap,
-        subtitle: String(localized: "Choose a location")
+        subtitle: String(localized: "Choose A Location")
     )
     .withMockPreviews()
 

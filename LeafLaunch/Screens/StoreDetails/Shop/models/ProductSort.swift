@@ -14,8 +14,8 @@ nonisolated enum ProductSort: String, Codable, CaseIterable, Equatable, Identifi
         switch self {
         case .featured: return String(localized: "Featured")
         case .name: return String(localized: "Name")
-        case .priceAscending: return String(localized: "Price: Low to High")
-        case .priceDescending: return String(localized: "Price: High to Low")
+        case .priceAscending: return String(localized: "Price: Low To High")
+        case .priceDescending: return String(localized: "Price: High To Low")
         }
 
     }

@@ -47,7 +47,7 @@ struct MainScreen: GPView {
 
         case .configurationRequired:
 
-            statusBox(title: "Store configuration required") {
+            statusBox(title: "Store Configuration Required") {
                 Text("This app is waiting for its store configuration.")
             }
 
@@ -88,10 +88,10 @@ struct MainScreen: GPView {
     @ViewBuilder
     private func unavailableStatus() -> some View {
 
-        statusBox(title: "Store unavailable") {
+        statusBox(title: "Store Unavailable") {
 
             Text("There are no stores available to browse right now.")
-            LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
+            LeafLaunchButton(title: "Try Again") { self.viewModel.retryStoreLoading() }
 
         }
 
@@ -100,15 +100,15 @@ struct MainScreen: GPView {
     @ViewBuilder
     private func updateRequiredStatus() -> some View {
 
-        statusBox(title: "App update required") {
+        statusBox(title: "App Update Required") {
 
             Text("Update this app to continue browsing.")
 
             if let updateURL = self.viewModel.updateURL {
-                Link("Update app", destination: updateURL)
+                Link("Update App", destination: updateURL)
             }
 
-            LeafLaunchButton(title: "Check again") { self.viewModel.retryStoreLoading() }
+            LeafLaunchButton(title: "Check Again") { self.viewModel.retryStoreLoading() }
 
         }
 
@@ -117,11 +117,11 @@ struct MainScreen: GPView {
     @ViewBuilder
     private func failureStatus() -> some View {
 
-        statusBox(title: "Unable to load stores") {
+        statusBox(title: "Unable To Load Stores") {
 
             Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
-            LeafLaunchButton(title: "Try again") { self.viewModel.retryStoreLoading() }
-            Text("Choose another location")
+            LeafLaunchButton(title: "Try Again") { self.viewModel.retryStoreLoading() }
+            Text("Choose Another Location")
                 .foregroundStyle(.foreground(.primary))
                 .asButton { self.viewModel.chooseAnotherLocation() }
 

@@ -48,7 +48,7 @@ struct LocationSearchControls: View {
                 .view(shouldResize: false)
                 .foregroundStyle(self.style.textColor(.placeholder))
 
-            TextField(String(localized: "City or ZIP code"), text: self.$viewModel.search)
+            TextField(String(localized: "City Or ZIP Code"), text: self.$viewModel.search)
                 .appFont(with: .BODY_1)
                 .foregroundStyle(self.style.textColor(.title))
                 .focused(self.$isSearchFocused)

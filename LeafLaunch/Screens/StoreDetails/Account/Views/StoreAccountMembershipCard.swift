@@ -133,7 +133,7 @@ struct StoreAccountMembershipCard: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
 
-            Text(self.account.status == .active ? String(localized: "Points available") : String(localized: "Points balance"))
+            Text(self.account.status == .active ? String(localized: "Points Available") : String(localized: "Points Balance"))
                 .appFont(with: .BODY_2)
 
         }

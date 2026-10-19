@@ -34,7 +34,7 @@ struct StoreAccountProfileView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            Text(String(localized: "Good to see you"))
+            Text(String(localized: "Good To See You"))
                 .appFont(with: .TITLE_5)
                 .foregroundStyle(self.style.textColor(.title))
                 .fixedSize(horizontal: false, vertical: true)

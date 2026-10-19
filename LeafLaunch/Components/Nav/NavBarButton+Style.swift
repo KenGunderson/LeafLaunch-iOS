@@ -74,7 +74,7 @@ extension NavBarButton {
             case .back, .plainBack: return "Back"
             case .close: return "Close"
             case .settings: return "Settings"
-            case .ellipsis: return "More options"
+            case .ellipsis: return "More Options"
             case .plus: return "Add"
             case .bell: return "Notifications"
             case .pencil: return "Edit"

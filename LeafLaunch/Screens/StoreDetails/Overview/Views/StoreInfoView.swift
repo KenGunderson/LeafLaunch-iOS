@@ -175,7 +175,7 @@ struct StoreInfoView: View {
 
             sectionDivider()
             contactRow(
-                title: String(localized: "Email the store"),
+                title: String(localized: "Email The Store"),
                 value: email,
                 scheme: "mailto",
                 systemImage: "envelope"
@@ -187,7 +187,7 @@ struct StoreInfoView: View {
 
             sectionDivider()
             contactRow(
-                title: String(localized: "Phone number"),
+                title: String(localized: "Phone Number"),
                 value: phone,
                 scheme: "tel",
                 systemImage: "phone.fill"

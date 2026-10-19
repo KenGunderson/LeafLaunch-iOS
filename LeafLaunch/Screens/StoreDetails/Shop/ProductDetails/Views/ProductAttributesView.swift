@@ -10,7 +10,7 @@ struct ProductAttributesView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            CommerceSectionHeader(title: String(localized: "Product details"))
+            CommerceSectionHeader(title: String(localized: "Product Details"))
 
             LLAppCardView(cornerRadius: .medium2) {
                 attributeRows()

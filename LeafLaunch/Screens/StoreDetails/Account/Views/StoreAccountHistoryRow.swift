@@ -22,10 +22,10 @@ struct StoreAccountHistoryRow: View {
     private var entryTitle: String {
 
         switch self.entry.entryType {
-        case .award: return String(localized: "Points earned")
+        case .award: return String(localized: "Points Earned")
         case .redemption: return String(localized: "Redemption")
-        case .correction: return String(localized: "Points adjustment")
-        case .reversal: return String(localized: "Points reversal")
+        case .correction: return String(localized: "Points Adjustment")
+        case .reversal: return String(localized: "Points Reversal")
         }
 
     }

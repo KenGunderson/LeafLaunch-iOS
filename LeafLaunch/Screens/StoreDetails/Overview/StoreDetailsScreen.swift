@@ -45,7 +45,7 @@ struct StoreDetailsScreen: GPView {
 
         StoreNavHeader(
             configuration: self.viewModel.configuration,
-            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose a Location"),
+            subtitle: self.viewModel.locationDetails?.location.name ?? String(localized: "Choose A Location"),
             status: self.locationStatus,
             isOpen: self.viewModel.locationDetails?.openNow,
             onSelectLocation: { [weak viewModel] in viewModel?.changeLocation() }
@@ -174,8 +174,8 @@ struct StoreDetailsScreen: GPView {
     private func featuredProductsHeader() -> some View {
 
         CommerceSectionHeader(
-            title: String(localized: "Featured products"),
-            actionTitle: String(localized: "View menu"),
+            title: String(localized: "Featured Products"),
+            actionTitle: String(localized: "View Menu"),
             action: { self.tabBarNavigationService.select(.tab2) }
         )
         .padding(.horizontal, .medium)
@@ -248,7 +248,7 @@ struct StoreDetailsScreen: GPView {
 
         CommerceSectionHeader(
             title: String(localized: "Events"),
-            actionTitle: String(localized: "See all"),
+            actionTitle: String(localized: "See All"),
             action: { [weak viewModel] in viewModel?.openEvents() }
         )
         .padding(.horizontal, .medium)

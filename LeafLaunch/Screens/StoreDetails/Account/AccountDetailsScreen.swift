@@ -142,7 +142,7 @@ struct AccountDetailsScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "arrow.clockwise",
-                    title: String(localized: "Unable to load account details"),
+                    title: String(localized: "Unable To Load Account Details"),
                     message: String(localized: "Your latest membership and points activity couldn't be loaded.")
                 )
 

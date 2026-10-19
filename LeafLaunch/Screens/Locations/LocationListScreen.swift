@@ -45,7 +45,7 @@ struct LocationListScreen: GPView {
 
             StoreNavHeader(
                 configuration: self.viewModel.configuration,
-                subtitle: String(localized: "Choose a location"),
+                subtitle: String(localized: "Choose A Location"),
                 onDismiss: self.viewModel.canDismiss ? { [weak viewModel] in viewModel?.dismiss() } : nil
             )
             .transition(.blurReplace)
@@ -215,7 +215,7 @@ struct LocationListScreen: GPView {
         VStack(spacing: self.style.spacing(.small2)) {
 
             LeafLaunchButton(
-                title: String(localized: "I'm \(self.viewModel.minimumAge) or older"),
+                title: String(localized: "I'm \(self.viewModel.minimumAge) Or Older"),
                 icon: .systemImage("chevron.right"),
                 iconAlignment: .trailing,
                 size: .prominent,

@@ -11,7 +11,7 @@ extension LegalDetailsViewModel {
         var displayName: String {
 
             switch self {
-            case .termsAndConditions: return "Terms and Conditions"
+            case .termsAndConditions: return "Terms And Conditions"
             case .privacyPolicy: return "Privacy Policy"
             case .subscriptionTerms: return "Subscription Terms"
             }

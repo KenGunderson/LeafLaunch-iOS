@@ -44,7 +44,7 @@ struct CommerceEmptyState: View {
 
     CommerceEmptyState(
         systemImage: "heart",
-        title: "No favorites yet",
+        title: "No Favorites Yet",
         message: "Save a product to find it here later."
     )
     .withMockPreviews()

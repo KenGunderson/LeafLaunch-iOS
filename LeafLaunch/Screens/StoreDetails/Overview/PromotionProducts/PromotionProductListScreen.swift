@@ -111,7 +111,7 @@ struct PromotionProductListScreen: GPView {
 
             if product.locationProductListingId == nil {
 
-                Text(String(localized: "Unavailable at This Location"))
+                Text(String(localized: "Unavailable At This Location"))
                     .appFont(with: .BODY_2)
                     .foregroundStyle(.text(.body))
                     .fixedSize(horizontal: false, vertical: true)

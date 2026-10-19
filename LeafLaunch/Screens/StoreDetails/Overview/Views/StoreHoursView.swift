@@ -150,7 +150,7 @@ struct StoreHoursView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
-            Text(String(localized: "Store hours"))
+            Text(String(localized: "Store Hours"))
                 .appFont(with: .TITLE_6)
                 .foregroundStyle(self.style.textColor(.title))
 
@@ -302,7 +302,7 @@ struct StoreHoursView: View {
             } label: {
 
                 StoreInfoActionRow(
-                    title: String(localized: "Holiday hours"),
+                    title: String(localized: "Holiday Hours"),
                     value: self.exceptionSummary,
                     systemImage: "calendar",
                     showsChevron: false

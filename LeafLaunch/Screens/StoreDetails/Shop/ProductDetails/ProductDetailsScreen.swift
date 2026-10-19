@@ -67,7 +67,7 @@ struct ProductDetailsScreen: GPView {
 
                 CommerceEmptyState(
                     systemImage: "cube.box",
-                    title: String(localized: "Product unavailable"),
+                    title: String(localized: "Product Unavailable"),
                     message: String(localized: "We couldn't load this product. Try again to see its latest details.")
                 )
                 .padding(.horizontal, .medium)
@@ -197,7 +197,7 @@ struct ProductDetailsScreen: GPView {
         if self.viewModel.product == nil && self.viewModel.hasLoadFailed {
 
             LeafLaunchButton(
-                title: String(localized: "Try again"),
+                title: String(localized: "Try Again"),
                 icon: .systemImage("arrow.clockwise")
             ) {
                 self.viewModel.loadData(showHud: true)
