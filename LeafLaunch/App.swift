@@ -32,7 +32,7 @@ struct LeafLaunchApp: App {
         WindowGroup {
 
             RootScreen(viewModel: self.rootViewModel)
-                .onAppear { [weak rootViewModel] in
+                .onAppear { [weak rootViewModel = self.rootViewModel] in
 
                     rootViewModel?
                         .setup(appDelegate: self.appDelegate)
