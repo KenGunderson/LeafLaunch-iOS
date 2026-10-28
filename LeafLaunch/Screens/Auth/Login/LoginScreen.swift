@@ -48,9 +48,6 @@ struct LoginScreen: GPView {
             contentView()
         }
         .scrollBounceBehavior(.basedOnSize)
-        .safeAreaInset(edge: .bottom) {
-            bottomButton()
-        }
         .onSubmit {
             handleOnSubmit()
         }
@@ -104,22 +101,26 @@ struct LoginScreen: GPView {
 
         VStack(alignment: .trailing, spacing: self.style.spacing(.small)) {
 
-            // Textfields
-
-            VStack(spacing: self.style.spacing(.medium)) {
-
-                textField(fieldToFocus: .email)
-
-                textField(
-                    fieldToFocus: .password,
-                    isSecureEntry: true
-                )
-
-            }
-
-            // Forgot Password
-
+            fields()
             forgotPassword()
+            loginAction()
+
+        }
+        .padding(.bottom, .medium)
+
+    }
+
+    @ViewBuilder
+    private func fields() -> some View {
+
+        VStack(spacing: self.style.spacing(.medium)) {
+
+            textField(fieldToFocus: .email)
+
+            textField(
+                fieldToFocus: .password,
+                isSecureEntry: true
+            )
 
         }
 
@@ -138,7 +139,7 @@ struct LoginScreen: GPView {
     }
 
     @ViewBuilder
-    private func bottomButton() -> some View {
+    private func loginAction() -> some View {
 
         CommonButton(
             title: "Login",
@@ -149,7 +150,6 @@ struct LoginScreen: GPView {
             self.viewModel.handleLogin()
         }
         .padding(.vertical, .small)
-        .padding(.horizontal, .medium)
 
     }
 

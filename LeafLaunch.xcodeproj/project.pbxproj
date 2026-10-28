@@ -2888,6 +2888,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LeafLaunch/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "LeafLaunch Mock";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is used to fill your ZIP code and sort nearby stores by distance.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -3498,6 +3499,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LeafLaunch/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "LeafLaunch Mock";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is used to fill your ZIP code and sort nearby stores by distance.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -3539,6 +3541,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LeafLaunch/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "LeafLaunch Mock";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is used to fill your ZIP code and sort nearby stores by distance.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -3580,6 +3583,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LeafLaunch/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "LeafLaunch Mock";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is used to fill your ZIP code and sort nearby stores by distance.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

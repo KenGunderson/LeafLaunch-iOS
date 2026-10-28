@@ -17,27 +17,25 @@
 	</array>
 	<key>Environment</key>
 	<string>$(APP_ENVIRONMENT)</string>
-	<key>LeafLaunchBusinessId</key>
-	<string>$(LEAFLAUNCH_BUSINESS_ID)</string>
-	<key>LeafLaunchAppKey</key>
-	<string>$(LEAFLAUNCH_APP_KEY)</string>
-	<key>LeafLaunchLogoAssetName</key>
-	<string>$(LEAFLAUNCH_LOGO_ASSET_NAME)</string>
-	<key>LeafLaunchDevelopmentAPIURL</key>
-	<string>$(LEAFLAUNCH_DEVELOPMENT_API_URL)</string>
-	<key>LeafLaunchProductionAPIURL</key>
-	<string>$(LEAFLAUNCH_PRODUCTION_API_URL)</string>
-	<key>LeafLaunchBundleIdentifier</key>
-	<string>$(LEAFLAUNCH_BUNDLE_IDENTIFIER)</string>
 	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
 	<false/>
 	<key>FirebaseAutomaticScreenReportingEnabled</key>
 	<false/>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
+	<key>LeafLaunchAppKey</key>
+	<string>$(LEAFLAUNCH_APP_KEY)</string>
+	<key>LeafLaunchBundleIdentifier</key>
+	<string>$(LEAFLAUNCH_BUNDLE_IDENTIFIER)</string>
+	<key>LeafLaunchBusinessId</key>
+	<string>$(LEAFLAUNCH_BUSINESS_ID)</string>
+	<key>LeafLaunchDevelopmentAPIURL</key>
+	<string>$(LEAFLAUNCH_DEVELOPMENT_API_URL)</string>
+	<key>LeafLaunchLogoAssetName</key>
+	<string>$(LEAFLAUNCH_LOGO_ASSET_NAME)</string>
+	<key>LeafLaunchProductionAPIURL</key>
+	<string>$(LEAFLAUNCH_PRODUCTION_API_URL)</string>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is used to fill your ZIP code and sort nearby stores by distance.</string>
 </dict>
 </plist>

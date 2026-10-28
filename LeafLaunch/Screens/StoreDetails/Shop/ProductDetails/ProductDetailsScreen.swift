@@ -111,9 +111,9 @@ struct ProductDetailsScreen: GPView {
             ProductDetailsSummaryView(product: product)
                 .padding(.horizontal, .medium)
 
-            ProductOptionsView(product: product, contentInset: self.style.spacing(.medium))
-
             description(product)
+
+            ProductOptionsView(product: product, contentInset: self.style.spacing(.medium))
 
         }
 

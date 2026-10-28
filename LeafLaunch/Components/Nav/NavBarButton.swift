@@ -15,7 +15,7 @@ struct NavBarButton: View {
     private let action: () -> Void
 
     private var frame: CGFloat {
-        self.size ?? (self.style == .storeFavorites ? 40 : 32)
+        self.size ?? (self.style == .plainBack ? 32 : 40)
     }
 
     init(style: Style,
@@ -59,9 +59,7 @@ struct NavBarButton: View {
                     .appShadow(.subtle)
 
             }
-            .if(self.style == .plainBack || self.style == .storeFavorites || self.size != nil) { view in
-                view.contentShape(Rectangle().inset(by: -max(0, (44 - self.frame) / 2)))
-            }
+            .contentShape(Rectangle().inset(by: -max(0, (44 - self.frame) / 2)))
             .asButton {
                 self.action()
             }

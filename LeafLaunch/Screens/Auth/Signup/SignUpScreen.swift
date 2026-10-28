@@ -50,9 +50,6 @@ struct SignUpScreen: GPView {
         } scrollViewContent: {
             contentView()
         }
-        .safeAreaInset(edge: .bottom) {
-            bottomBar()
-        }
         .scrollBounceBehavior(.basedOnSize)
         // Tap
 
@@ -101,36 +98,26 @@ struct SignUpScreen: GPView {
 
         VStack(spacing: self.style.spacing(.medium)) {
 
-            // TextFields
-
-            VStack(spacing: self.style.spacing(.medium)) {
-
-                textField(fieldToFocus: .firstName)
-                textField(fieldToFocus: .lastName)
-                textField(fieldToFocus: .email)
-                textField(fieldToFocus: .password)
-
-            }
+            fields()
+            termsAgreement()
+            signUpAction()
 
         }
+        .padding(.bottom, .medium)
 
     }
 
     @ViewBuilder
-    private func bottomBar() -> some View {
+    private func fields() -> some View {
 
-        VStack(alignment: .leading) {
+        VStack(spacing: self.style.spacing(.medium)) {
 
-            termsAgreement()
-
-            // LoginButton
-
-            signUpAction()
+            textField(fieldToFocus: .firstName)
+            textField(fieldToFocus: .lastName)
+            textField(fieldToFocus: .email)
+            textField(fieldToFocus: .password)
 
         }
-        .background(.background(.primary))
-        .padding(.horizontal, .medium)
-        .opacity(self.focusedField == nil ? 1 : 0)
 
     }
 
