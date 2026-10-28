@@ -12,7 +12,7 @@ struct ProductOptionsView: View {
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             Text(String(localized: "Size & Pricing"))
-                .appFont(with: .HEADER_2)
+                .appFont(with: .TITLE_6)
                 .foregroundStyle(.text(.title))
                 .padding(.horizontal, self.contentInset)
 

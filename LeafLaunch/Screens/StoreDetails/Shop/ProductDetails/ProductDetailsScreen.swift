@@ -106,14 +106,18 @@ struct ProductDetailsScreen: GPView {
     @ViewBuilder
     private func productInformation(_ product: Product) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
             ProductDetailsSummaryView(product: product)
                 .padding(.horizontal, .medium)
 
             description(product)
 
-            ProductOptionsView(product: product, contentInset: self.style.spacing(.medium))
+            ProductOptionsView(
+                product: product,
+                contentInset: self.style.spacing(.medium)
+            )
+            .padding(.top, .small)
 
         }
 
