@@ -29,27 +29,10 @@ struct CatalogCategoryFilters: View {
             if !self.categories.isEmpty {
 
                 categoryContent()
-                    .transition(AnyTransition(.blurReplace))
 
             }
 
         }
-        .animation(
-            self.selectionAnimation,
-            value: self.categories.isEmpty
-        )
-        .animation(
-            self.selectionAnimation,
-            value: self.selectedCategory?.subcategories.isEmpty ?? true
-        )
-        .animation(
-            self.selectionAnimation,
-            value: self.selectedCategoryId
-        )
-        .animation(
-            self.selectionAnimation,
-            value: self.selectedSubcategoryId
-        )
 
     }
 
@@ -60,7 +43,7 @@ struct CatalogCategoryFilters: View {
 
             categoryRail()
 
-            if let category = self.selectedCategory, !category.subcategories.isEmpty {
+            if let category = self.selectedCategory, category.subcategories.count > 1 {
 
                 subcategoryRail(category: category)
                     .id(category.id)
@@ -70,6 +53,18 @@ struct CatalogCategoryFilters: View {
             }
 
         }
+        .animation(
+            self.selectionAnimation,
+            value: (self.selectedCategory?.subcategories.count ?? 0) > 1
+        )
+        .animation(
+            self.selectionAnimation,
+            value: self.selectedCategoryId
+        )
+        .animation(
+            self.selectionAnimation,
+            value: self.selectedSubcategoryId
+        )
 
     }
 

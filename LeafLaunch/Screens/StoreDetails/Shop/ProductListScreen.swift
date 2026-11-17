@@ -308,7 +308,7 @@ struct ProductListScreen: GPView {
     @ContentBuilder
     private func subcategoryPicker() -> some View {
 
-        if !self.viewModel.subcategories.isEmpty {
+        if self.viewModel.subcategories.count > 1 {
 
             Picker(
                 String(localized: "Subcategory"),
@@ -469,11 +469,6 @@ struct ProductListScreen: GPView {
             activeFilters()
 
             productResults()
-                .llBlurReplace(
-                    value: self.resultTransitionId,
-                    transition: AnyTransition(.blurReplace).combined(with: .scale(scale: 0.75)),
-                    animation: self.reduceMotion ? nil : .bouncy
-                )
 
         }
 
@@ -496,6 +491,11 @@ struct ProductListScreen: GPView {
                 favoriteProductIds: self.viewModel.favoriteProductIds,
                 onOpen: { self.viewModel.openProduct(id: $0) },
                 onFavorite: { self.viewModel.toggleFavorite(id: $0) }
+            )
+            .llBlurReplace(
+                value: self.resultTransitionId,
+                transition: AnyTransition(.blurReplace).combined(with: .scale(scale: 0.75)),
+                animation: self.reduceMotion ? nil : .bouncy
             )
 
             feedActions()
