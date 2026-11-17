@@ -30,7 +30,7 @@ struct LeafLaunchCardView<Content: View>: View {
             ) {
 
                 Text(self.title)
-                    .appFont(with: .TITLE_4)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
                     .foregroundStyle(.text(.title))
 
                 self.content

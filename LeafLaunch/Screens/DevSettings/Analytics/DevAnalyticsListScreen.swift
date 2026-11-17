@@ -45,13 +45,10 @@ struct DevAnalyticsListScreen: GPView {
 
         VStack {
 
-            NavBarView(
+            NavHeader(
                 title: "Analytics",
-                leftButtonView: (
-                    NavBarButton(style: .back) {
-                        self.viewModel.dismiss()
-                    }
-                ).asAnyView()
+                leadingNavButtons: [.back],
+                leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
             )
 
             segmentedControl()
@@ -166,7 +163,7 @@ struct DevAnalyticsListScreen: GPView {
             LazyVStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
                 Text(title)
-                    .appFont(with: .HEADER_4)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
                     .foregroundStyle(.text(.title))
 
                 LLDivider()

@@ -12,7 +12,6 @@ struct NavHeader: View {
     @Environment(\.style) private var style
 
     private let title: String
-    private let titleFont: Theme.FontKey
     private let subtitle: String?
     private let subtitleAction: (() -> Void)?
     private let status: String?
@@ -20,7 +19,6 @@ struct NavHeader: View {
     private let leadingImage: ImageSource?
     private let showLogo: Bool
     private let backgroundStyle: ColorSource
-    private let navButtonSize: CGFloat?
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> Void)?
     private let trailingNavButtons: [NavBarButton.Style]
@@ -28,7 +26,6 @@ struct NavHeader: View {
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> Void)?
 
     init(title: String,
-         titleFont: Theme.FontKey = .HEADER_3,
          subtitle: String? = nil,
          subtitleAction: (() -> Void)? = nil,
          status: String? = nil,
@@ -36,7 +33,6 @@ struct NavHeader: View {
          leadingImage: ImageSource? = nil,
          showLogo: Bool = false,
          backgroundStyle: ColorSource = .background(.primary),
-         navButtonSize: CGFloat? = nil,
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
@@ -44,7 +40,6 @@ struct NavHeader: View {
          trailingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil) {
 
         self.title = title
-        self.titleFont = titleFont
         self.subtitle = subtitle
         self.subtitleAction = subtitleAction
         self.status = status
@@ -52,7 +47,6 @@ struct NavHeader: View {
         self.leadingImage = leadingImage
         self.showLogo = showLogo
         self.backgroundStyle = backgroundStyle
-        self.navButtonSize = navButtonSize
         self.leadingNavButtons = leadingNavButtons
         self.leadingNavButtonsAction = leadingNavButtonsAction
         self.trailingNavButtons = trailingNavButtons
@@ -136,10 +130,10 @@ struct NavHeader: View {
     @ViewBuilder
     private func titleSubtitleView() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(alignment: .leading, spacing: 0) {
 
             Text(self.title)
-                .appFont(with: self.titleFont)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
 
             if let subtitle = self.subtitle {
@@ -215,8 +209,7 @@ struct NavHeader: View {
 
                 NavBarButton(
                     style: navStyle,
-                    foregroundColor: foregroundColor,
-                    size: self.navButtonSize
+                    foregroundColor: foregroundColor
                 ) {
                     action?(navStyle)
                 }

@@ -12,7 +12,7 @@ struct ProductOptionsView: View {
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             Text(String(localized: "Size & Pricing"))
-                .appFont(with: .TITLE_6)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
                 .padding(.horizontal, self.contentInset)
 
@@ -125,7 +125,7 @@ struct ProductOptionsView: View {
 
         let isAvailable = self.product.status == .published && variant.availability == .available
 
-        Text(isAvailable ? String(localized: "Available") : String(localized: "Sold out"))
+        Text(isAvailable ? String(localized: "Available") : String(localized: "Sold Out"))
             .appFont(with: .BODY_2)
             .foregroundStyle(isAvailable ? self.style.foreground(.primary) : self.style.textColor(.body))
             .fixedSize(horizontal: false, vertical: true)

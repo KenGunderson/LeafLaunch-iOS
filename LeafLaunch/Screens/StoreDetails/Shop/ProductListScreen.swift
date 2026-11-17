@@ -3,6 +3,7 @@ import SwiftUI
 struct ProductListScreen: GPView {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(NavigationService.self) private var navigationService
 
     @State private var isRefreshing: Bool = false
@@ -10,6 +11,29 @@ struct ProductListScreen: GPView {
     @StateObject private var viewModel: ProductListViewModel
 
     @FocusState private var isSearchFocused: Bool
+
+    private var isLoadingProducts: Bool {
+        self.viewModel.isLoading && self.viewModel.products.isEmpty
+    }
+
+    private var selectedSectionTitle: String {
+
+        self.viewModel.subcategories.first { $0.id == self.viewModel.selectedSubcategoryId }?.name
+            ?? self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name
+            ?? String(localized: "Products")
+
+    }
+
+    private var resultTransitionId: [String] {
+
+        [
+            self.viewModel.selectedCategoryId ?? "",
+            self.viewModel.selectedSubcategoryId ?? "",
+            self.viewModel.sort.id,
+            self.isLoadingProducts ? "loading" : "content"
+        ]
+
+    }
 
     init(viewModel: ProductListViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -112,7 +136,7 @@ struct ProductListScreen: GPView {
     private func menuTitle() -> some View {
 
         Text(String(localized: "Menu"))
-            .appFont(with: .BILLBOARD_2)
+            .appFont(with: LeafLaunchThemeTokens.headingFont)
             .foregroundStyle(self.style.textColor(.title))
             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -141,7 +165,7 @@ struct ProductListScreen: GPView {
                 .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
                 .foregroundStyle(self.isSearchFocused ? self.style.foreground(.primary) : self.style.textColor(.body))
 
-            TextField(String(localized: "Search Products"), text: self.$viewModel.search)
+            TextField(String(localized: "Search The Menu"), text: self.$viewModel.search)
                 .appFont(with: .BODY_2)
                 .foregroundStyle(self.style.textColor(.title))
                 .focused(self.$isSearchFocused)
@@ -195,7 +219,7 @@ struct ProductListScreen: GPView {
             if self.viewModel.hasActiveFilters {
 
                 Button(String(localized: "Clear Filters")) {
-                    withAnimation(.bouncy) { self.viewModel.clearFilters() }
+                    withAnimation(self.reduceMotion ? nil : .bouncy) { self.viewModel.clearFilters() }
                 }
 
             }
@@ -237,7 +261,7 @@ struct ProductListScreen: GPView {
             selection: Binding(
                 get: { self.viewModel.selectedCategoryId },
                 set: { id in
-                    withAnimation(.bouncy) { self.viewModel.selectCategory(id: id) }
+                    withAnimation(self.reduceMotion ? nil : .bouncy) { self.viewModel.selectCategory(id: id) }
                 }
             )
         ) {
@@ -260,7 +284,7 @@ struct ProductListScreen: GPView {
                 selection: Binding(
                     get: { self.viewModel.selectedSubcategoryId },
                     set: { id in
-                        withAnimation(.bouncy) { self.viewModel.selectSubcategory(id: id) }
+                        withAnimation(self.reduceMotion ? nil : .bouncy) { self.viewModel.selectSubcategory(id: id) }
                     }
                 )
             ) {
@@ -285,6 +309,7 @@ struct ProductListScreen: GPView {
                 feedTitle()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 sortMenu()
+                    .layoutPriority(1)
 
             }
 
@@ -302,11 +327,26 @@ struct ProductListScreen: GPView {
     @ViewBuilder
     private func feedTitle() -> some View {
 
-        Text(self.viewModel.categories.first { $0.id == self.viewModel.selectedCategoryId }?.name ?? String(localized: "Menu"))
-            .appFont(with: .TITLE_6)
-            .foregroundStyle(self.style.textColor(.title))
-            .contentTransition(.numericText())
-            .animation(.bouncy, value: self.viewModel.selectedCategoryId)
+        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+
+            Text(self.selectedSectionTitle)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
+                .foregroundStyle(self.style.textColor(.title))
+                .contentTransition(.opacity)
+                .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedSectionTitle)
+
+            if !self.viewModel.products.isEmpty {
+
+                Text(self.viewModel.hasMoreProducts
+                     ? String(localized: "\(self.viewModel.products.count)+ Products")
+                     : String(localized: "\(self.viewModel.products.count) Products"))
+                    .appFont(with: .NOTE_2)
+                    .foregroundStyle(self.style.textColor(.body))
+                    .monospacedDigit()
+
+            }
+
+        }
 
     }
 
@@ -315,7 +355,15 @@ struct ProductListScreen: GPView {
 
         Menu {
 
-            Picker(String(localized: "Sort Products"), selection: self.$viewModel.sort) {
+            Picker(
+                String(localized: "Sort Products"),
+                selection: Binding(
+                    get: { self.viewModel.sort },
+                    set: { sort in
+                        withAnimation(self.reduceMotion ? nil : .bouncy) { self.viewModel.sort = sort }
+                    }
+                )
+            ) {
 
                 ForEach(ProductSort.allCases) { sort in
                     Text(sort.title).tag(sort)
@@ -327,11 +375,9 @@ struct ProductListScreen: GPView {
 
             HStack(spacing: self.style.spacing(.small)) {
 
-                ImageSource.systemImage("arrow.up.arrow.down")
-                    .view(shouldResize: false)
-
-                Text(self.viewModel.sort.title)
-                    .contentTransition(.numericText())
+                Text(self.viewModel.sort.compactTitle)
+                    .contentTransition(.opacity)
+                    .accessibilityLabel(self.viewModel.sort.title)
 
                 ImageSource.systemImage("chevron.down")
                     .view(shouldResize: false)
@@ -350,9 +396,10 @@ struct ProductListScreen: GPView {
                     .allowsHitTesting(false)
 
             }
-            .animation(.bouncy, value: self.viewModel.sort)
+            .animation(self.reduceMotion ? nil : .bouncy, value: self.viewModel.sort)
 
         }
+        .fixedSize(horizontal: true, vertical: false)
 
     }
 
@@ -362,6 +409,21 @@ struct ProductListScreen: GPView {
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             feedHeader()
+            activeFilters()
+
+            productResults()
+                .id(self.resultTransitionId)
+                .transition(AnyTransition(.blurReplace))
+
+        }
+        .animation(self.reduceMotion ? nil : .bouncy, value: self.resultTransitionId)
+
+    }
+
+    @ViewBuilder
+    private func productResults() -> some View {
+
+        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             loadingProducts()
 
@@ -375,6 +437,30 @@ struct ProductListScreen: GPView {
             )
 
             feedActions()
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func activeFilters() -> some View {
+
+        if self.viewModel.hasActiveFilters {
+
+            HStack(spacing: self.style.spacing(.small)) {
+
+                Text(String(localized: "Filtered Results"))
+                    .appFont(with: .NOTE_1)
+                    .foregroundStyle(self.style.textColor(.body))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                Text(String(localized: "Reset"))
+                    .appFont(with: .TITLE_2)
+                    .foregroundStyle(self.style.palette(.link))
+                    .frame(minWidth: 44, minHeight: 44)
+                    .asButton { self.viewModel.clearFilters() }
+
+            }
 
         }
 
@@ -430,7 +516,7 @@ struct ProductListScreen: GPView {
     @ViewBuilder
     private func loadingProducts() -> some View {
 
-        if self.viewModel.isLoading && self.viewModel.products.isEmpty {
+        if self.isLoadingProducts {
 
             ProgressView(String(localized: "Loading Products"))
                 .tint(self.style.accent)

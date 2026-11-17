@@ -72,27 +72,12 @@ struct LoginScreen: GPView {
     @ViewBuilder
     private func headerView() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-            NavBarButton(style: .back) {
-                self.navigationService.pop()
-            }
-
-            VStack(alignment: .leading, spacing: 0) {
-
-                Text("Welcome Back")
-                    .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                    .foregroundStyle(.text(.title))
-
-                Text("Sign in to your LeafLaunch account to continue capturing beautiful results")
-                    .appFont(with: .BODY_3)
-                    .foregroundStyle(.text(.body))
-
-            }
-
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .medium)
+        NavHeader(
+            title: String(localized: "Welcome Back"),
+            subtitle: String(localized: "Sign in to your LeafLaunch account to continue capturing beautiful results"),
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { _ in self.navigationService.pop() }
+        )
 
     }
 

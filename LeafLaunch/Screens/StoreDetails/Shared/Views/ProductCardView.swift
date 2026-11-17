@@ -11,20 +11,18 @@ struct ProductCardView: View {
 
     var body: some View {
 
-        content()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.background(.secondary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-            .overlay {
-
-                RoundedRectangle(cornerRadius: self.style.radius(.medium2))
-                    .strokeBorder(self.style.background(.border), lineWidth: 1)
-
-            }
-            .asButton(action: self.onOpen)
-            .overlay(alignment: .topTrailing) {
-                favoriteAction()
-            }
+        LLAppCardView(
+            verticalPadding: .none,
+            horizontalPadding: .none,
+            cornerRadius: .medium2
+        ) {
+            content()
+        }
+        .asButton(action: self.onOpen)
+        .overlay(alignment: .topTrailing) {
+            favoriteAction()
+                .padding(.extraSmall)
+        }
 
     }
 
@@ -37,7 +35,8 @@ struct ProductCardView: View {
                 url: self.product.activeImages.first?.url,
                 isUnavailable: !self.product.activeImages.isEmpty
             )
-            .aspectRatio(0.95, contentMode: .fit)
+            .aspectRatio(1.15, contentMode: .fit)
+            .opacity(self.product.isAvailable ? 1 : 0.65)
 
             productDetails()
 
@@ -50,8 +49,8 @@ struct ProductCardView: View {
 
         VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
-            Text(self.product.category?.name ?? "")
-                .appFont(with: .NOTE_1)
+            Text(self.product.subcategory?.name ?? self.product.category?.name ?? "")
+                .appFont(with: .NOTE_2)
                 .foregroundStyle(.text(.body))
                 .lineLimit(1, reservesSpace: true)
 
@@ -61,15 +60,13 @@ struct ProductCardView: View {
                 .lineLimit(2, reservesSpace: true)
                 .fixedSize(horizontal: false, vertical: true)
 
-            ProductPriceView(product: self.product)
-                .frame(height: self.style.spacing(.large), alignment: .bottomLeading)
-                .frame(maxHeight: .infinity, alignment: .bottomLeading)
+            ProductPriceView(product: self.product, font: .TITLE_4)
+                .padding(.top, .small)
 
         }
         .padding(.horizontal, .small2)
-        .padding(.vertical, .small)
+        .padding(.vertical, .small2)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 108, alignment: .topLeading)
 
     }
 

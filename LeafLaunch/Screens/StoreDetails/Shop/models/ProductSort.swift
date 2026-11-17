@@ -9,6 +9,17 @@ nonisolated enum ProductSort: String, Codable, CaseIterable, Equatable, Identifi
 
     var id: String { self.rawValue }
 
+    var compactTitle: String {
+
+        switch self {
+        case .featured: return String(localized: "Featured")
+        case .name: return String(localized: "Name")
+        case .priceAscending: return String(localized: "$ Low To High")
+        case .priceDescending: return String(localized: "$ High To Low")
+        }
+
+    }
+
     var title: String {
 
         switch self {

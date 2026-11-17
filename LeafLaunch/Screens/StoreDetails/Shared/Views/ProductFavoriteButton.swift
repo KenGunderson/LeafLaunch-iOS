@@ -19,7 +19,8 @@ struct ProductFavoriteButton: View {
             .overlay {
 
                 Circle()
-                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                    .strokeBorder(self.style.background(.border), lineWidth: 0.8)
+                    .allowsHitTesting(false)
 
             }
             .frame(width: 44, height: 44)
@@ -27,6 +28,7 @@ struct ProductFavoriteButton: View {
             .asButton {
                 self.action()
             }
+            .accessibilityLabel(self.isFavorite ? String(localized: "Remove From Saved Products") : String(localized: "Save Product"))
             .symbolEffect(.bounce, value: self.isFavorite)
             .animation(.bouncy, value: self.isFavorite)
 

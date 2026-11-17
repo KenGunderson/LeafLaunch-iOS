@@ -3,6 +3,7 @@ import SwiftUI
 struct CatalogCategoryFilters: View {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @Namespace private var categoryUnderlineNamespace
     @Namespace private var subcategoryUnderlineNamespace
@@ -17,6 +18,10 @@ struct CatalogCategoryFilters: View {
         self.categories.first { $0.id == self.selectedCategoryId }
     }
 
+    private var selectionAnimation: Animation? {
+        self.reduceMotion ? nil : .bouncy
+    }
+
     var body: some View {
 
         VStack(spacing: 0) {
@@ -29,10 +34,10 @@ struct CatalogCategoryFilters: View {
             }
 
         }
-        .animation(.bouncy, value: self.categories.isEmpty)
-        .animation(.bouncy, value: self.selectedCategory?.subcategories.isEmpty ?? true)
-        .animation(.bouncy, value: self.selectedCategoryId)
-        .animation(.bouncy, value: self.selectedSubcategoryId)
+        .animation(self.selectionAnimation, value: self.categories.isEmpty)
+        .animation(self.selectionAnimation, value: self.selectedCategory?.subcategories.isEmpty ?? true)
+        .animation(self.selectionAnimation, value: self.selectedCategoryId)
+        .animation(self.selectionAnimation, value: self.selectedSubcategoryId)
 
     }
 
@@ -46,6 +51,7 @@ struct CatalogCategoryFilters: View {
             if let category = self.selectedCategory, !category.subcategories.isEmpty {
 
                 subcategoryRail(category: category)
+                    .id(category.id)
                     .padding(.top, .extraSmall)
                     .transition(AnyTransition(.blurReplace))
 
@@ -121,7 +127,7 @@ struct CatalogCategoryFilters: View {
             underlineNamespace: self.categoryUnderlineNamespace
         ) {
 
-            withAnimation(.bouncy) {
+            withAnimation(self.selectionAnimation) {
                 self.onCategorySelected(category.id)
             }
 
@@ -139,7 +145,7 @@ struct CatalogCategoryFilters: View {
             underlineNamespace: self.subcategoryUnderlineNamespace
         ) {
 
-            withAnimation(.bouncy) {
+            withAnimation(self.selectionAnimation) {
                 self.onSubcategorySelected(subcategory.id)
             }
 

@@ -44,13 +44,10 @@ struct DevDeeplinkListScreen: GPView {
     @ViewBuilder
     private func headerView() -> some View {
 
-        NavBarView(
+        NavHeader(
             title: "Deeplink",
-            leftButtonView: (
-                NavBarButton(style: .back) {
-                    self.viewModel.dismiss()
-                }
-            ).asAnyView()
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
 
     }
@@ -91,7 +88,7 @@ struct DevDeeplinkListScreen: GPView {
             VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
                 Text(title)
-                    .appFont(with: .HEADER_4)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
 
                 LLDivider()
 

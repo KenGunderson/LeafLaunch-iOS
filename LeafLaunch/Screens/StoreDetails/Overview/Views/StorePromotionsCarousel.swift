@@ -58,19 +58,7 @@ struct StorePromotionsCarousel: View {
         guard !Task.isCancelled else { return }
         let index = (self.currentIndex + 1) % self.promotions.count
 
-        if index == 0 {
-
-            var transaction = Transaction(animation: nil)
-            transaction.disablesAnimations = true
-            withTransaction(transaction) {
-                self.selectedPromotionId = self.promotions[index].id
-            }
-
-        } else {
-
-            self.selectedPromotionId = self.promotions[index].id
-
-        }
+        self.selectedPromotionId = self.promotions[index].id
 
     }
 
@@ -99,7 +87,7 @@ struct StorePromotionsCarousel: View {
 
         ScrollView(.horizontal) {
 
-            HStack(alignment: .top, spacing: self.style.spacing(.medium)) {
+            HStack(alignment: .top, spacing: self.style.spacing(.small)) {
 
                 ForEach(self.promotions) { promotion in
                     promotionCard(promotion)
@@ -110,10 +98,10 @@ struct StorePromotionsCarousel: View {
             .scrollTargetLayout()
 
         }
-        .scrollTargetBehavior(.viewAligned)
+        .scrollTargetBehavior(.viewAligned(anchor: .center))
         .scrollPosition(id: self.selection, anchor: .center)
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .safeAreaPadding(.horizontal, self.style.spacing(self.promotions.count > 1 ? .large2 : .medium))
         .onScrollPhaseChange { _, phase in
             self.isScrolling = phase != .idle
         }

@@ -5,7 +5,7 @@ struct SplashBrandMarkView: View {
     @Environment(\.style) private var style
 
     private var logoSize: CGFloat {
-        self.style.spacing(.extraLarge2)
+        self.style.spacing(.extraLarge2) * 2
     }
 
     var body: some View {
@@ -14,24 +14,16 @@ struct SplashBrandMarkView: View {
             .view()
             .aspectRatio(contentMode: .fit)
             .frame(width: self.logoSize, height: self.logoSize)
-            .padding(self.style.spacing(.large))
-            .background(self.style.background(.secondary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.extraLarge)))
+            .background(self.style.background(.tertiary))
+            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.extraLarge), style: .continuous))
             .overlay {
 
-                RoundedRectangle(cornerRadius: self.style.radius(.extraLarge))
-                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                RoundedRectangle(cornerRadius: self.style.radius(.extraLarge), style: .continuous)
+                    .strokeBorder(self.style.background(.border).opacity(0.5), lineWidth: 1)
 
             }
-            .background {
-
-                RoundedRectangle(cornerRadius: self.style.radius(.extraLarge))
-                    .fill(self.style.background(.tertiary))
-                    .rotationEffect(.degrees(-8))
-                    .padding(-self.style.spacing(.small))
-
-            }
-            .appShadow(.card)
+            .appShadow(.offset)
+            .accessibilityHidden(true)
 
     }
 

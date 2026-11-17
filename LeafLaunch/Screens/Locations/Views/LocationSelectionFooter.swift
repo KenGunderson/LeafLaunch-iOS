@@ -9,8 +9,6 @@ import SwiftUI
 
 struct LocationSelectionFooter: View {
 
-    @Environment(\.style) private var style
-
     let isEnabled: Bool
     let continueAction: () -> Void
 
@@ -24,12 +22,7 @@ struct LocationSelectionFooter: View {
             isEnabled: self.isEnabled,
             action: self.continueAction
         )
-        .padding(.medium)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(self.style.background(.secondary))
-        .overlay(alignment: .top) {
-            LLDivider()
-        }
 
     }
 

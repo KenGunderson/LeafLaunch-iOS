@@ -104,7 +104,7 @@ final class DevSettingsViewModel: ViewModel {
         ToastManager.shared.present(toastItem: .init(
             title: "Auth Token Copied",
             titleColor: .text(.title),
-            message: "Your auth token is now saved on your clipboard",
+            message: "Your Auth Token Is Now Saved On Your Clipboard",
             messageColor: .text(.title),
             image: .systemImage("lock.fill"),
             tint: .foreground(.primary),

@@ -35,7 +35,6 @@ struct AccountDetailsScreen: GPView {
 
         NavHeader(
             title: String(localized: "Account"),
-            titleFont: .HEADER_5,
             trailingNavButtons: [.settings],
             trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.presentSettings() }
         )
@@ -89,7 +88,6 @@ struct AccountDetailsScreen: GPView {
         }
 
         accountLinks()
-        signOutButton()
 
     }
 
@@ -154,30 +152,6 @@ struct AccountDetailsScreen: GPView {
             }
 
         }
-
-    }
-
-    @ViewBuilder
-    private func signOutButton() -> some View {
-
-        Button(role: .destructive) {
-            self.viewModel.logout()
-        } label: {
-
-            HStack(spacing: self.style.spacing(.small)) {
-
-                ImageSource.systemImage("rectangle.portrait.and.arrow.right").view(shouldResize: false)
-                Text(String(localized: "Sign Out"))
-
-            }
-            .appFont(with: .TITLE_3)
-            .foregroundStyle(self.style.palette(.destructive))
-            .padding(.vertical, self.style.spacing(.medium))
-            .frame(maxWidth: .infinity)
-
-        }
-        .buttonStyle(.plain)
-        .disabled(self.viewModel.isLoggingOut)
 
     }
 

@@ -7,10 +7,20 @@ struct StoreInfoView: View {
     let store: PublicStore?
     let details: CustomerLocationDetails?
 
+    private var address: String? {
+
+        guard let address = self.details?.address.trimmingCharacters(in: .whitespacesAndNewlines),
+              !address.isEmpty else { return nil }
+
+        return address
+
+    }
+
     private var phone: String? {
 
         guard let phone = self.store?.supportPhone?.trimmingCharacters(in: .whitespacesAndNewlines),
               !phone.isEmpty else { return nil }
+
         return phone
 
     }
@@ -19,14 +29,14 @@ struct StoreInfoView: View {
 
         guard let email = self.store?.supportEmail?.trimmingCharacters(in: .whitespacesAndNewlines),
               !email.isEmpty else { return nil }
+
         return email
 
     }
 
     private var directionsURL: URL? {
 
-        guard let address = self.details?.address.trimmingCharacters(in: .whitespacesAndNewlines),
-              !address.isEmpty else { return nil }
+        guard let address = self.address else { return nil }
 
         var components = URLComponents(string: "https://maps.apple.com/")
         components?.queryItems = [URLQueryItem(name: "q", value: address)]
@@ -45,114 +55,16 @@ struct StoreInfoView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
 
-            Text(String(localized: "Store Info"))
-                .appFont(with: .TITLE_6)
-                .foregroundStyle(self.style.textColor(.title))
-                .padding(.bottom, .small2)
-
-            location()
             openingHours()
             contactDetails()
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, .medium)
-        .padding(.vertical, .medium)
+        .padding(.top, .large)
         .tabFlowContentSpacing()
-
-    }
-
-    @ViewBuilder
-    private func location() -> some View {
-
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-            if let address = self.details?.address, !address.isEmpty {
-
-                Text(address)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.title))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .textSelection(.enabled)
-
-            }
-
-            contactActions()
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func contactActions() -> some View {
-
-        HStack(spacing: self.style.spacing(.extraSmall)) {
-
-            if let directionsURL = self.directionsURL {
-
-                contactAction(
-                    title: String(localized: "Map"),
-                    systemImage: "map.fill",
-                    url: directionsURL
-                )
-
-            }
-
-            if let phone = self.phone,
-               let url = contactURL(scheme: "tel", value: phone) {
-
-                contactAction(
-                    title: String(localized: "Call"),
-                    systemImage: "phone.fill",
-                    url: url
-                )
-
-            }
-
-            if let email = self.email,
-               let url = contactURL(scheme: "mailto", value: email) {
-
-                contactAction(
-                    title: String(localized: "Email"),
-                    systemImage: "envelope.fill",
-                    url: url
-                )
-
-            }
-
-        }
-
-    }
-
-    @ViewBuilder
-    private func contactAction(title: String,
-                               systemImage: String,
-                               url: URL) -> some View {
-
-        Link(destination: url) {
-
-            HStack(spacing: self.style.spacing(.small)) {
-
-                ImageSource.systemImage(systemImage)
-                    .view(shouldResize: false)
-
-                Text(title)
-
-            }
-            .appFont(with: .TITLE_3)
-            .foregroundStyle(self.style.textColor(.button))
-            .frame(maxWidth: .infinity)
-
-        }
-        .buttonStyle(.commonButtonStyle(
-            style: .fill,
-            background: .foreground(.primary),
-            cornerRadius: .medium,
-            verticalPadding: .small2,
-            horizontalPadding: .small
-        ))
 
     }
 
@@ -161,8 +73,9 @@ struct StoreInfoView: View {
 
         if let details = self.details {
 
-            sectionDivider()
-            StoreHoursView(details: details)
+            CommerceSurface {
+                StoreHoursView(details: details)
+            }
 
         }
 
@@ -171,26 +84,66 @@ struct StoreInfoView: View {
     @ViewBuilder
     private func contactDetails() -> some View {
 
-        if let email = self.email {
+        if self.address != nil || self.phone != nil || self.email != nil {
 
-            sectionDivider()
+            CommerceSurface {
+
+                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+                    Text(String(localized: "Get In Touch"))
+                        .appFont(with: LeafLaunchThemeTokens.headingFont)
+                        .foregroundStyle(self.style.textColor(.title))
+
+                    contactRows()
+
+                }
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func contactRows() -> some View {
+
+        if let address = self.address {
+
             contactRow(
-                title: String(localized: "Email The Store"),
-                value: email,
-                scheme: "mailto",
-                systemImage: "envelope"
+                title: String(localized: "Find Us"),
+                value: address,
+                url: self.directionsURL,
+                systemImage: "mappin.and.ellipse"
             )
+
+            if self.phone != nil || self.email != nil {
+                LLDivider()
+            }
 
         }
 
         if let phone = self.phone {
 
-            sectionDivider()
             contactRow(
-                title: String(localized: "Phone Number"),
+                title: String(localized: "Call The Store"),
                 value: phone,
-                scheme: "tel",
-                systemImage: "phone.fill"
+                url: contactURL(scheme: "tel", value: phone),
+                systemImage: "phone"
+            )
+
+            if self.email != nil {
+                LLDivider()
+            }
+
+        }
+
+        if let email = self.email {
+
+            contactRow(
+                title: String(localized: "Email The Store"),
+                value: email,
+                url: contactURL(scheme: "mailto", value: email),
+                systemImage: "envelope"
             )
 
         }
@@ -200,10 +153,10 @@ struct StoreInfoView: View {
     @ViewBuilder
     private func contactRow(title: String,
                             value: String,
-                            scheme: String,
+                            url: URL?,
                             systemImage: String) -> some View {
 
-        if let url = contactURL(scheme: scheme, value: value) {
+        if let url {
 
             Link(destination: url) {
 
@@ -226,14 +179,6 @@ struct StoreInfoView: View {
             )
 
         }
-
-    }
-
-    @ViewBuilder
-    private func sectionDivider() -> some View {
-
-        LLDivider()
-            .padding(.vertical, .small2)
 
     }
 

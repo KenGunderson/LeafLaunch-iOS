@@ -28,10 +28,10 @@ struct StoreAccountMembershipCard: View {
     private var statusDescription: String {
 
         switch self.account.status {
-        case .active: return String(localized: "Active member")
-        case .suspended: return String(localized: "Membership suspended")
-        case .banned: return String(localized: "Membership unavailable")
-        case .anonymized: return String(localized: "Membership anonymized")
+        case .active: return String(localized: "Active Member")
+        case .suspended: return String(localized: "Membership Suspended")
+        case .banned: return String(localized: "Membership Unavailable")
+        case .anonymized: return String(localized: "Membership Anonymized")
         }
 
     }

@@ -72,7 +72,7 @@ struct StoreAccountMembershipView: View {
 
             if self.isLoading {
 
-                ProgressView(String(localized: "Loading membership"))
+                ProgressView(String(localized: "Loading Membership"))
                     .tint(self.style.palette(.link))
 
             } else {

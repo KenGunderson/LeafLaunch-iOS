@@ -65,15 +65,10 @@ struct DevSettingsScreen: GPView {
     @ViewBuilder
     private func navBarView() -> some View {
 
-        let closeButton = NavBarButton(style: .close) {
-            self.viewModel.dismiss()
-        }
-        .padding(.trailing, .small)
-        .asAnyView()
-
-        NavBarView(
+        NavHeader(
             title: "Dev Settings",
-            rightButtonView: closeButton
+            trailingNavButtons: [.close],
+            trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
 
     }
@@ -99,7 +94,7 @@ struct DevSettingsScreen: GPView {
         VStack(alignment: .leading) {
 
             Text("Information")
-                .appFont(with: .TITLE_4)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
 
             LLAppCardView {
@@ -141,7 +136,7 @@ struct DevSettingsScreen: GPView {
         VStack(alignment: .leading) {
 
             Text("Diagnostics")
-                .appFont(with: .TITLE_4)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
 
             LLAppCardView {
@@ -198,7 +193,7 @@ struct DevSettingsScreen: GPView {
         VStack(alignment: .leading) {
 
             Text("Sections")
-                .appFont(with: .TITLE_4)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
 
             VStack {

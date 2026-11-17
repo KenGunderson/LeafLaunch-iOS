@@ -35,7 +35,6 @@ struct ProductDetailsScreen: GPView {
 
         NavHeader(
             title: String(localized: "Product"),
-            navButtonSize: self.style.spacing(.medium2) * 2,
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() },
             trailingNavButtons: self.viewModel.product == nil ? [] : [.heart(isFilled: self.viewModel.isFavorite)],
@@ -56,7 +55,7 @@ struct ProductDetailsScreen: GPView {
 
             } else if self.viewModel.isLoading {
 
-                ProgressView(String(localized: "Loading product…"))
+                ProgressView(String(localized: "Loading Product…"))
                     .appFont(with: .BODY_2)
                     .tint(self.style.foreground(.primary).resolvedColor(style: self.style))
                     .frame(maxWidth: .infinity)

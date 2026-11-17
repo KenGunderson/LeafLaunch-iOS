@@ -216,11 +216,11 @@ struct Constants {
         }
 
         static func favoriteProductAdded(_ title: String) -> String {
-            return "\(title) added to favorites"
+            return "\(title) Added To Favorites"
         }
 
         static func favoriteProductRemoved(_ title: String) -> String {
-            return "\(title) removed from favorites"
+            return "\(title) Removed From Favorites"
         }
 
         static func deleteConfirmationTitle(_ topic: String) -> String {

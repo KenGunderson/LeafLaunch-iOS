@@ -12,7 +12,6 @@ struct SectionView<Trailing: View>: View {
     @Environment(\.style) private var style
 
     let leadingTitle: String
-    let leadingTitleFont: Theme.FontKey
     let leadingForegroundColor: ColorSource
     let showDivider: Bool
     let dividerLineWidth: CGFloat
@@ -21,7 +20,6 @@ struct SectionView<Trailing: View>: View {
     let trailingView: Trailing?
 
     init(leadingTitle: String,
-         leadingTitleFont: Theme.FontKey = .TITLE_6,
          leadingForegroundColor: ColorSource = .text(.title),
          showDivider: Bool = false,
          dividerLineWidth: CGFloat = 1.5,
@@ -30,7 +28,6 @@ struct SectionView<Trailing: View>: View {
          @ViewBuilder trailingView: () -> Trailing) {
 
         self.leadingTitle = leadingTitle
-        self.leadingTitleFont = leadingTitleFont
         self.leadingForegroundColor = leadingForegroundColor
         self.showDivider = showDivider
         self.dividerLineWidth = dividerLineWidth
@@ -41,7 +38,6 @@ struct SectionView<Trailing: View>: View {
     }
 
     private init(leadingTitle: String,
-                 leadingTitleFont: Theme.FontKey,
                  leadingForegroundColor: ColorSource,
                  showDivider: Bool,
                  dividerLineWidth: CGFloat,
@@ -50,7 +46,6 @@ struct SectionView<Trailing: View>: View {
                  trailingView: Trailing?) {
 
         self.leadingTitle = leadingTitle
-        self.leadingTitleFont = leadingTitleFont
         self.leadingForegroundColor = leadingForegroundColor
         self.showDivider = showDivider
         self.dividerLineWidth = dividerLineWidth
@@ -70,7 +65,7 @@ struct SectionView<Trailing: View>: View {
             HStack {
 
                 Text(self.leadingTitle)
-                    .appFont(with: self.leadingTitleFont)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
                     .foregroundStyle(self.leadingForegroundColor)
                     .frame(
                         maxWidth: .infinity,
@@ -127,7 +122,6 @@ struct SectionView<Trailing: View>: View {
 extension SectionView where Trailing == EmptyView {
 
     init(leadingTitle: String,
-         leadingTitleFont: Theme.FontKey = .TITLE_6,
          leadingForegroundColor: ColorSource = .text(.title),
          showDivider: Bool = false,
          dividerLineWidth: CGFloat = 1.5,
@@ -136,7 +130,6 @@ extension SectionView where Trailing == EmptyView {
 
         self.init(
             leadingTitle: leadingTitle,
-            leadingTitleFont: leadingTitleFont,
             leadingForegroundColor: leadingForegroundColor,
             showDivider: showDivider,
             dividerLineWidth: dividerLineWidth,
@@ -175,7 +168,6 @@ extension SectionView where Trailing == EmptyView {
 
             SectionView(
                 leadingTitle: "Section 4",
-                leadingTitleFont: .HEADER_4,
                 showDivider: true,
                 dividerLineWidth: 6
             ) {

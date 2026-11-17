@@ -42,8 +42,7 @@ struct LoyaltyHistoryListScreen: GPView {
 
         NavHeader(
             title: String(localized: "Points Activity"),
-            titleFont: .HEADER_5,
-            subtitle: String(localized: "Your points and redemption history"),
+            subtitle: String(localized: "Your Points And Redemption History"),
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
@@ -95,7 +94,7 @@ struct LoyaltyHistoryListScreen: GPView {
 
             CommerceSurface {
 
-                ProgressView(String(localized: "Loading points activity"))
+                ProgressView(String(localized: "Loading Points Activity"))
                     .appFont(with: .BODY_1)
                     .tint(self.style.palette(.link))
                     .frame(maxWidth: .infinity)

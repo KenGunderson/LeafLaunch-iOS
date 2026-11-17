@@ -11,6 +11,8 @@ import SwiftUI
 // and between cards, small between related items, and extraSmall between labels.
 enum LeafLaunchThemeTokens {
 
+    static let headingFont: Theme.FontKey = .HEADER_3
+
     static let spacing = Theme.Spacing(
         extraSmall: 4,
         small: 8,

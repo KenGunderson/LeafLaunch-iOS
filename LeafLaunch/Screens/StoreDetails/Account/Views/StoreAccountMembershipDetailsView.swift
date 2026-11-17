@@ -20,9 +20,9 @@ struct StoreAccountMembershipDetailsView: View {
 
         switch self.membership?.status {
         case .active: return String(localized: "Enabled")
-        case .left: return String(localized: "Left location")
+        case .left: return String(localized: "Left Location")
         case .anonymized: return String(localized: "Anonymized")
-        case nil: return String(localized: "Not enabled")
+        case nil: return String(localized: "Not Enabled")
         }
 
     }

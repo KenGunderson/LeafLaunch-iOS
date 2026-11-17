@@ -42,13 +42,10 @@ struct DevUserDefaultsScreen: GPView {
     @ViewBuilder
     private func headerView() -> some View {
 
-        NavBarView(
+        NavHeader(
             title: "User Defaults",
-            leftButtonView: (
-                NavBarButton(style: .back) {
-                    self.viewModel.dismiss()
-                }
-            ).asAnyView()
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
 
     }
@@ -139,8 +136,7 @@ struct DevUserDefaultsScreen: GPView {
             VStack(alignment: .leading) {
 
                 Text(title)
-                    .appFont(with: .TITLE_5)
-                    .fontWeight(.heavy)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
 
                 contentView
 
@@ -162,8 +158,7 @@ struct DevUserDefaultsScreen: GPView {
                 VStack(alignment: .leading) {
 
                     Text(title)
-                        .appFont(with: .TITLE_5)
-                        .fontWeight(.heavy)
+                        .appFont(with: LeafLaunchThemeTokens.headingFont)
                         .padding(.horizontal, self.style.spacing(.medium))
 
                     contentView

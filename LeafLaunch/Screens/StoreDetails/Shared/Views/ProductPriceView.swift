@@ -5,6 +5,7 @@ struct ProductPriceView: View {
     @Environment(\.style) private var style
     
     let product: Product
+    var font: Theme.FontKey = .TITLE_5
     
     private var hasPriceRange: Bool {
         
@@ -32,15 +33,14 @@ struct ProductPriceView: View {
                 Text(
                     self.product.isAvailable
                     ? String(localized: "Price Unavailable")
-                    : String(localized: "Sold out")
+                    : String(localized: "Sold Out")
                 )
-                .appFont(with: .BODY_3)
                 .foregroundStyle(self.style.textColor(.body))
                 
             }
             
         }
-        .appFont(with: .TITLE_5)
+        .appFont(with: self.font)
         .lineLimit(1)
         .minimumScaleFactor(0.75)
         

@@ -74,7 +74,8 @@ struct StoreEventCard: View {
             disclosureIndicator()
 
         }
-        .padding(.small)
+        .padding(.horizontal, .small2)
+        .padding(.vertical, .small)
 
     }
 
@@ -113,8 +114,7 @@ struct StoreEventCard: View {
             }
 
         }
-        .frame(width: self.style.spacing(.large2))
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(horizontal: true, vertical: true)
 
     }
 

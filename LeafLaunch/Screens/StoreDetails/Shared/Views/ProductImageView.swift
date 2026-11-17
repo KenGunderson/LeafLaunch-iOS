@@ -61,10 +61,10 @@ struct ProductImageView: View {
 
                 Text(
                     isLoading
-                        ? String(localized: "Loading image…")
+                        ? String(localized: "Loading Image…")
                         : self.isUnavailable || self.failedImageURL != nil
-                            ? String(localized: "Image unavailable")
-                            : String(localized: "No product image")
+                            ? String(localized: "Image Unavailable")
+                            : String(localized: "No Product Image")
                 )
                     .appFont(with: .NOTE_1)
                     .multilineTextAlignment(.center)

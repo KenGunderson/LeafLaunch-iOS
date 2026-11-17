@@ -69,27 +69,12 @@ struct SignUpScreen: GPView {
     @ViewBuilder
     private func headerView() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
-
-            NavBarButton(style: .back) {
-                self.navigationService.pop()
-            }
-
-            VStack(alignment: .leading, spacing: 0) {
-
-                Text("Join LeafLaunch")
-                    .appFont(with: .custom(.rounded(size: 32, weight: .bold)))
-                    .foregroundStyle(.text(.title))
-
-                Text("Enter your details below to create an account.")
-                    .appFont(with: .BODY_3)
-                    .foregroundStyle(.text(.body))
-
-            }
-
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .medium)
+        NavHeader(
+            title: String(localized: "Join LeafLaunch"),
+            subtitle: String(localized: "Enter your details below to create an account."),
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { _ in self.navigationService.pop() }
+        )
 
     }
 

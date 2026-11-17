@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A7C68227E9A4FDF8597E160 /* StoreVisitSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */; };
+		46F98ED67E174173B3141B45 /* StoreVisitSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */; };
 		00C0AB53DE3C479B9C31D0D0 /* StoreEventSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6149E280EC4E4993CB8FE6 /* StoreEventSchedule.swift */; };
 		00E46F999E3A499CBDBA1C4A /* ContentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E20EE612D34BCA30DB00B0 /* ContentStatus.swift */; };
 		00F8A7B3B4BA43799992DBB2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537F3D42DF661EA0031D9CF /* APIError.swift */; };
@@ -627,6 +629,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVisitSummaryView.swift; sourceTree = "<group>"; };
 		00F0D62011804248DBDD568F /* CachedStoreTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedStoreTheme.swift; sourceTree = "<group>"; };
 		019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorSchemeModifier.swift; sourceTree = "<group>"; };
 		02637941664E4B74AA5779FC /* InvitationAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAlertView.swift; sourceTree = "<group>"; };
@@ -1989,6 +1992,7 @@
 				A474BBBA6A574CE689E6036D /* StoreHoursView.swift */,
 				E5C1AE7DAB7A4428A107AFA2 /* StoreEventCard.swift */,
 				C32BA0D0C477455998ED0FCA /* StoreInfoView.swift */,
+				A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */,
 				C8A4824F35964634B8DC8D1C /* StoreInfoActionRow.swift */,
 				5D0CE412DD364A6CA6F2414D /* StoreMarketingImage.swift */,
 				DF5F7DD598B041DDB995D2ED /* StorePromotionsCarousel.swift */,
@@ -2314,6 +2318,7 @@
 				F07EB9DF0A33451AAAB050C4 /* StoreHoursView.swift in Sources */,
 				37F8EEC6E1B14C06A8EC396B /* StoreEventCard.swift in Sources */,
 				89659F19F7424372983C6430 /* StoreInfoView.swift in Sources */,
+				7A7C68227E9A4FDF8597E160 /* StoreVisitSummaryView.swift in Sources */,
 				24EEEE5FFCA84E13AA7FE544 /* StoreInfoActionRow.swift in Sources */,
 				42576D9A66D9499BAF0F0179 /* StoreMarketingImage.swift in Sources */,
 				EF7550D97A5A43C5B6355545 /* StorePromotionsCarousel.swift in Sources */,
@@ -2614,6 +2619,7 @@
 				281367D5A3684B009F75DC1A /* StoreHoursView.swift in Sources */,
 				F0D2D9061A054DA4B48D0B0E /* StoreEventCard.swift in Sources */,
 				6BC842AC39924140838A8184 /* StoreInfoView.swift in Sources */,
+				46F98ED67E174173B3141B45 /* StoreVisitSummaryView.swift in Sources */,
 				6E2DE3F9B56643A18D78B4D8 /* StoreInfoActionRow.swift in Sources */,
 				A67FBFD8C9F141489E075BE1 /* StoreMarketingImage.swift in Sources */,
 				1212A9C2339A4CA885D6E22F /* StorePromotionsCarousel.swift in Sources */,

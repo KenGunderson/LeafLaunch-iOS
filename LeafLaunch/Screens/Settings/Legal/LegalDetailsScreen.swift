@@ -38,13 +38,10 @@ struct LegalDetailsScreen: View {
     @ViewBuilder
     private func headerView() -> some View {
 
-        NavBarView(
+        NavHeader(
             title: self.viewModel.context.displayName,
-            leftButtonView: (
-                NavBarButton(style: .back) {
-                    self.viewModel.dismiss()
-                }
-            ).asAnyView()
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
 
     }
@@ -104,7 +101,7 @@ struct LegalDetailsScreen: View {
                spacing: self.style.spacing(.small2)) {
 
             Text(legalItem.title)
-                .appFont(with: .HEADER_3)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(.text(.title))
 
             VStack(alignment: .leading, spacing: self.style.spacing(.small)) {

@@ -8,12 +8,12 @@ nonisolated enum StoreHoursFormatter {
                       includesNextDay: Bool = true) -> String {
 
         guard !closed else { return String(localized: "Closed") }
-        guard let opensAt, let closesAt else { return String(localized: "Hours unavailable") }
+        guard let opensAt, let closesAt else { return String(localized: "Hours Unavailable") }
 
         let interval = "\(formattedTime(opensAt)) – \(formattedTime(closesAt))"
 
         if includesNextDay, closesAt <= opensAt {
-            return String(localized: "\(interval) (next day)")
+            return String(localized: "\(interval) (Next Day)")
         }
 
         return interval

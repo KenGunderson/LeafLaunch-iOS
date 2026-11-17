@@ -3,6 +3,7 @@ import SwiftUI
 struct ProductGridView: View {
 
     @Environment(\.style) private var style
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let products: [Product]
     let favoriteProductIds: Set<String>
@@ -12,8 +13,8 @@ struct ProductGridView: View {
     private var columns: [GridItem] {
 
         Array(
-            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small), alignment: .top),
-            count: 2
+            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small2), alignment: .top),
+            count: self.dynamicTypeSize.isAccessibilitySize ? 1 : 2
         )
 
     }
@@ -22,7 +23,7 @@ struct ProductGridView: View {
 
         LazyVGrid(columns: self.columns,
                   alignment: .leading,
-                  spacing: self.style.spacing(.small)) {
+                  spacing: self.style.spacing(.medium)) {
 
             ForEach(self.products) { product in
 

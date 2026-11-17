@@ -43,7 +43,7 @@ struct StoreHoursView: View {
             let intervals = self.exceptions.filter { $0.localDate == date }
             let status = intervals.allSatisfy(\.closed)
                 ? String(localized: "Closed")
-                : String(localized: "Special hours")
+                : String(localized: "Special Hours")
             return "\(formattedDate(date, isCompact: true)) · \(status)"
 
         }
@@ -69,7 +69,7 @@ struct StoreHoursView: View {
                 closed: $0.closed,
                 opensAt: $0.opensAt,
                 closesAt: $0.closesAt,
-                includesNextDay: false
+                includesNextDay: true
             )
 
         }
@@ -85,7 +85,7 @@ struct StoreHoursView: View {
                 closed: $0.closed,
                 opensAt: $0.opensAt,
                 closesAt: $0.closesAt,
-                includesNextDay: false
+                includesNextDay: true
             )
 
         }
@@ -99,6 +99,7 @@ struct StoreHoursView: View {
             .filter { $0.localDate == date }
             .compactMap { $0.label?.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
+
         let label = Set(labels).sorted().joined(separator: " · ")
         return label.isEmpty ? nil : label
 
@@ -111,6 +112,7 @@ struct StoreHoursView: View {
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.timeZone = .gmt
         formatter.dateFormat = "yyyy-MM-dd"
+
         return formatter.date(from: value)
 
     }
@@ -148,10 +150,10 @@ struct StoreHoursView: View {
     @ViewBuilder
     private func weeklyHoursSection() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
-            Text(String(localized: "Store Hours"))
-                .appFont(with: .TITLE_6)
+            Text(String(localized: "Opening Hours"))
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(self.style.textColor(.title))
 
             if self.hours.isEmpty {
@@ -181,7 +183,7 @@ struct StoreHoursView: View {
 
                 if day < 7, self.today != day % 7, self.today != (day + 1) % 7 {
 
-                    LLDivider()
+                    LLDivider().opacity(0.4)
 
                 }
 
@@ -199,12 +201,12 @@ struct StoreHoursView: View {
             hours: hoursText(for: day),
             isToday: self.today == day
         )
-        .padding(.vertical, .extraSmall)
+        .padding(.vertical, .small)
         .background {
 
             if self.today == day {
 
-                RoundedRectangle(cornerRadius: self.style.radius(.medium))
+                RoundedRectangle(cornerRadius: self.style.radius(.small))
                     .fill(self.style.palette(.link).opacity(0.08))
                     .padding(.horizontal, -self.style.spacing(.small))
 
@@ -238,7 +240,7 @@ struct StoreHoursView: View {
             }
 
         }
-        .appFont(with: .BODY_2)
+        .appFont(with: .BODY_1)
 
     }
 
@@ -250,13 +252,13 @@ struct StoreHoursView: View {
             HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
 
                 Text(title)
-                    .appFont(with: isToday ? .TITLE_3 : .BODY_2)
+                    .appFont(with: isToday ? .TITLE_2 : .BODY_1)
                     .foregroundStyle(self.style.textColor(.title))
 
                 if isToday {
 
                     Text(String(localized: "Today"))
-                        .appFont(with: .TITLE_2)
+                        .appFont(with: .NOTE_2)
                         .foregroundStyle(self.style.palette(.link))
 
                 }
@@ -266,7 +268,7 @@ struct StoreHoursView: View {
             if let subtitle {
 
                 Text(subtitle)
-                    .appFont(with: .NOTE_1)
+                    .appFont(with: .NOTE_2)
                     .foregroundStyle(self.style.textColor(.body))
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -291,25 +293,29 @@ struct StoreHoursView: View {
 
         if !self.exceptions.isEmpty {
 
-            LLDivider()
-                .padding(.vertical, .small2)
+            Group {
 
-            DisclosureGroup {
+                LLDivider()
+                    .padding(.vertical, .small2)
 
-                exceptionRows()
-                    .padding(.top, .small2)
+                DisclosureGroup {
 
-            } label: {
+                    exceptionRows()
 
-                StoreInfoActionRow(
-                    title: String(localized: "Holiday Hours"),
-                    value: self.exceptionSummary,
-                    systemImage: "calendar",
-                    showsChevron: false
-                )
+                } label: {
+
+                    StoreInfoActionRow(
+                        title: String(localized: "Holiday Hours"),
+                        value: self.exceptionSummary,
+                        systemImage: "calendar",
+                        showsChevron: false
+                    )
+
+                }
+                .disclosureGroupStyle(HolidayHoursDisclosureStyle())
 
             }
-            .tint(self.style.textColor(.body).resolvedColor(style: self.style))
+            .transition(.blurReplace)
 
         }
 
@@ -333,6 +339,60 @@ struct StoreHoursView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .multilineTextAlignment(.leading)
+
+    }
+
+    private struct HolidayHoursDisclosureStyle: DisclosureGroupStyle {
+
+        @Environment(\.style) private var style
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+        @ViewBuilder
+        func makeBody(configuration: Configuration) -> some View {
+
+            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+
+                header(configuration)
+
+                if configuration.isExpanded {
+
+                    configuration.content
+                        .transition(.blurReplace)
+
+                }
+
+            }
+
+        }
+
+        @ViewBuilder
+        private func header(_ configuration: Configuration) -> some View {
+
+            Button {
+
+                withAnimation(self.reduceMotion ? nil : .bouncy) {
+                    configuration.isExpanded.toggle()
+                }
+
+            } label: {
+
+                HStack(spacing: self.style.spacing(.small)) {
+
+                    configuration.label
+
+                    ImageSource.systemImage("chevron.down")
+                        .view(shouldResize: false)
+                        .appFont(with: .TITLE_2)
+                        .foregroundStyle(self.style.textColor(.body))
+                        .rotationEffect(.degrees(configuration.isExpanded ? 180 : 0))
+
+                }
+
+            }
+            .buttonStyle(.plain)
+            .accessibilityValue(configuration.isExpanded ? String(localized: "Expanded") : String(localized: "Collapsed"))
+
+        }
 
     }
 

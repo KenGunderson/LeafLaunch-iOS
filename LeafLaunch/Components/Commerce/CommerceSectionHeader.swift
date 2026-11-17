@@ -55,8 +55,7 @@ struct CommerceSectionHeader: View {
                 .appFont(with: .TITLE_2)
                 .foregroundStyle(self.style.palette(.link))
                 .fixedSize(horizontal: true, vertical: true)
-                .frame(minHeight: 44)
-                .contentShape(Rectangle())
+                .contentShape(Rectangle().inset(by: -self.style.spacing(.small2)))
                 .asButton(action: action)
 
         }
@@ -69,7 +68,7 @@ struct CommerceSectionHeader: View {
 
     CommerceSectionHeader(
         title: "Your Collection",
-        subtitle: "Available at this location",
+        subtitle: "Available At This Location",
         systemImage: "heart"
     )
     .padding(.medium)

@@ -132,7 +132,7 @@ struct LocationSelectionCard: View {
                     .view(shouldResize: false)
                     .imageScale(.small)
 
-                Text(details.openNow ? String(localized: "Open now") : String(localized: "Closed now"))
+                Text(details.openNow ? String(localized: "Open Now") : String(localized: "Closed Now"))
 
             }
             .appFont(with: .NOTE_1)
@@ -142,8 +142,8 @@ struct LocationSelectionCard: View {
         } else {
 
             Text(self.isLoading
-                 ? String(localized: "Loading store details…")
-                 : String(localized: "Store details unavailable"))
+                 ? String(localized: "Loading Store Details…")
+                 : String(localized: "Store Details Unavailable"))
                 .appFont(with: .NOTE_1)
                 .foregroundStyle(self.style.textColor(.body))
                 .padding(.top, .extraSmall)

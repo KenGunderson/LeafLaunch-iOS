@@ -61,7 +61,7 @@ struct FavoriteProductListScreen: GPView {
 
         if self.viewModel.isLoading && self.viewModel.products.isEmpty {
 
-            ProgressView(String(localized: "Loading favorites"))
+            ProgressView(String(localized: "Loading Favorites"))
                 .tint(self.style.accent)
                 .appFont(with: .BODY_2)
                 .frame(maxWidth: .infinity)
@@ -80,7 +80,7 @@ struct FavoriteProductListScreen: GPView {
 
                 CommerceSectionHeader(
                     title: String(localized: "Your Collection"),
-                    subtitle: String(localized: "Available at this location")
+                    subtitle: String(localized: "Available At This Location")
                 )
 
                 ProductGridView(

@@ -22,9 +22,9 @@ struct StoreAccountProfileView: View {
 
         switch self.account?.status {
         case .active: return nil
-        case .suspended: return String(localized: "Account suspended")
-        case .banned: return String(localized: "Account restricted")
-        case .anonymized: return String(localized: "Account anonymized")
+        case .suspended: return String(localized: "Account Suspended")
+        case .banned: return String(localized: "Account Restricted")
+        case .anonymized: return String(localized: "Account Anonymized")
         case nil: return nil
         }
 
@@ -35,7 +35,7 @@ struct StoreAccountProfileView: View {
         VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
 
             Text(String(localized: "Good To See You"))
-                .appFont(with: .TITLE_5)
+                .appFont(with: LeafLaunchThemeTokens.headingFont)
                 .foregroundStyle(self.style.textColor(.title))
                 .fixedSize(horizontal: false, vertical: true)
 
@@ -60,7 +60,7 @@ struct StoreAccountProfileView: View {
 
         if self.dynamicTypeSize.isAccessibilitySize {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
                 avatar()
                 identity()
@@ -69,7 +69,7 @@ struct StoreAccountProfileView: View {
 
         } else {
 
-            HStack(alignment: .center, spacing: self.style.spacing(.small2)) {
+            HStack(alignment: .center, spacing: self.style.spacing(.small)) {
 
                 avatar()
                 identity()
@@ -95,7 +95,7 @@ struct StoreAccountProfileView: View {
     @ViewBuilder
     private func identity() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(alignment: .leading, spacing: 0) {
 
             Text(self.displayName)
                 .appFont(with: .TITLE_6)

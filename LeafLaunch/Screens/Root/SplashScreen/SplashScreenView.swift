@@ -3,6 +3,7 @@ import SwiftUI
 struct SplashScreenView: View {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var hasAppeared: Bool = false
     @State private var didNotifyCompletion: Bool = false
@@ -22,42 +23,89 @@ struct SplashScreenView: View {
 
     var body: some View {
 
-        VStack(spacing: self.style.spacing(.extraLarge)) {
+        brandIdentity()
+            .padding(.horizontal, .large)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                background()
+            }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
 
-            VStack(spacing: self.style.spacing(.large)) {
+                loadingStatus()
+                    .padding(.vertical, .large)
 
-                SplashBrandMarkView()
-                    .scaleEffect(self.hasAppeared ? 1 : 0.9)
-                    .offset(y: self.hasAppeared ? 0 : self.style.spacing(.small))
+            }
+            .animation(self.reduceMotion ? nil : .easeOut(duration: 0.7), value: self.hasAppeared)
+            .onFirstAppear {
 
-                if let appName, !appName.isEmpty {
+                self.hasAppeared = true
 
-                    Text(appName)
-                        .appFont(with: .HEADER_3)
-                        .foregroundStyle(self.style.textColor(.title))
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                }
+                guard !self.didNotifyCompletion else { return }
+                self.didNotifyCompletion = true
+                self.didFinishAction()
 
             }
 
-            loadingStatus()
+    }
+
+    @ViewBuilder
+    private func background() -> some View {
+
+        self.style.background(.primary).view()
+            .overlay {
+
+                RadialGradient(
+                    colors: [
+                        (self.style.palette(.link).resolvedColor()?.opacity(0.08) ?? .red),
+                        (ColorSource.color(.clear).resolvedColor() ?? .red)
+                    ],
+                    center: .center,
+                    startRadius: 0,
+                    endRadius: self.style.spacing(.extraLarge2) * 4
+                )
+
+            }
+            .ignoresSafeArea()
+
+    }
+
+    @ViewBuilder
+    private func brandIdentity() -> some View {
+
+        VStack(spacing: self.style.spacing(.large2)) {
+
+            SplashBrandMarkView()
+                .scaleEffect(self.hasAppeared || self.reduceMotion ? 1 : 0.96)
+
+            welcomeCopy()
 
         }
-        .padding(.horizontal, self.style.spacing(.large))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background {
-            self.style.background(.primary).view().ignoresSafeArea()
-        }
-        .animation(.bouncy(duration: 0.6, extraBounce: 0.08), value: self.hasAppeared)
-        .onFirstAppear {
+        .opacity(self.hasAppeared || self.reduceMotion ? 1 : 0)
+        .offset(y: self.hasAppeared || self.reduceMotion ? 0 : self.style.spacing(.small))
 
-            self.hasAppeared = true
+    }
 
-            guard !self.didNotifyCompletion else { return }
-            self.didNotifyCompletion = true
-            self.didFinishAction()
+    @ViewBuilder
+    private func welcomeCopy() -> some View {
+
+        if let appName, !appName.isEmpty {
+
+            VStack(spacing: self.style.spacing(.small)) {
+
+                Text(String(localized: "Welcome To"))
+                    .appFont(with: .TITLE_1)
+                    .textCase(.uppercase)
+                    .tracking(2)
+                    .foregroundStyle(self.style.textColor(.body))
+
+                Text(appName)
+                    .appFont(with: .HEADER_5)
+                    .tracking(-0.5)
+                    .foregroundStyle(self.style.textColor(.title))
+
+            }
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
 
         }
 
@@ -66,13 +114,14 @@ struct SplashScreenView: View {
     @ViewBuilder
     private func loadingStatus() -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(.small)) {
 
             ProgressView()
-                .tint(self.style.foreground(.primary).source(style: self.style))
+                .controlSize(.small)
+                .tint(self.style.palette(.link).resolvedColor(style: self.style))
 
-            Text(String(localized: "Loading your store"))
-                .appFont(with: .BODY_2)
+            Text(String(localized: "Loading Your Store"))
+                .appFont(with: .NOTE_1)
                 .foregroundStyle(self.style.textColor(.body))
 
         }

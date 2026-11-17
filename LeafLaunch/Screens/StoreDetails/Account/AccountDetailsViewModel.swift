@@ -17,7 +17,6 @@ final class AccountDetailsViewModel: ViewModel {
     private var locationId: String?
     private var userSubscription: AnyCancellable?
     private var loadAccountTask: Task<Void, Never>?
-    private var logoutTask: Task<Void, Never>?
     private var requestId: UUID?
 
     @Published private(set) var user: LLUser?
@@ -25,7 +24,6 @@ final class AccountDetailsViewModel: ViewModel {
     @Published private(set) var membership: CustomerLocationMembership?
     @Published private(set) var history: [LoyaltyHistoryEntry] = []
     @Published private(set) var isLoading: Bool = false
-    @Published private(set) var isLoggingOut: Bool = false
     @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
 
@@ -53,7 +51,6 @@ final class AccountDetailsViewModel: ViewModel {
     isolated deinit {
 
         self.loadAccountTask?.cancel()
-        self.logoutTask?.cancel()
         self.userSubscription?.cancel()
         logDeinit()
 
@@ -106,46 +103,6 @@ final class AccountDetailsViewModel: ViewModel {
 
     func login() {
         self.navigationService?.push(.auth(.login))
-    }
-
-    func logout() {
-
-        guard self.logoutTask == nil else { return }
-
-        let authService = self.authService
-        let alertService = self.alertService
-        self.isLoggingOut = true
-
-        self.logoutTask = Task { @MainActor [weak self] in
-
-            guard !Task.isCancelled else { return }
-
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
-            alertService.showAlert(loadingIndicator)
-
-            defer {
-
-                alertService.dismissAlert(loadingIndicator)
-
-                self?.isLoggingOut = false
-                self?.logoutTask = nil
-
-            }
-
-            do {
-
-                try await authService.logout()
-                guard !Task.isCancelled else { return }
-
-            } catch {
-
-                guard !Task.isCancelled else { return }
-                self?.presentSignOutError()
-
-            }
-
-        }
-
     }
 
     func loadData(showHud: Bool) {
@@ -304,19 +261,6 @@ final class AccountDetailsViewModel: ViewModel {
             .appAlert(
                 .error(
                     message: Constants.Message.errorMessage(context: context, "account details"),
-                    action: {}
-                )
-            )
-        ))
-
-    }
-
-    private func presentSignOutError() {
-
-        self.alertService.showAlert(.init(
-            .appAlert(
-                .error(
-                    message: String(localized: "Unable to sign out. Please try again."),
                     action: {}
                 )
             )

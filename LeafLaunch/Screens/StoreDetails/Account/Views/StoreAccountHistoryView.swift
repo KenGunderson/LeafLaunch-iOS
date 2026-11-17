@@ -51,7 +51,7 @@ struct StoreAccountHistoryView: View {
 
             CommerceSurface {
 
-                ProgressView(String(localized: "Loading points activity"))
+                ProgressView(String(localized: "Loading Points Activity"))
                     .tint(self.style.palette(.link))
 
             }

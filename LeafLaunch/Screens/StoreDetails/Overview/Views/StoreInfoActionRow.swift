@@ -11,7 +11,7 @@ struct StoreInfoActionRow: View {
 
     var body: some View {
 
-        HStack(spacing: self.style.spacing(.medium)) {
+        HStack(spacing: self.style.spacing(.small2)) {
 
             icon()
             label()
@@ -20,7 +20,7 @@ struct StoreInfoActionRow: View {
 
                 ImageSource.systemImage("chevron.right")
                     .view(shouldResize: false)
-                    .appFont(with: .TITLE_3)
+                    .appFont(with: .NOTE_2)
                     .foregroundStyle(self.style.textColor(.body))
 
             }
@@ -36,21 +36,22 @@ struct StoreInfoActionRow: View {
 
         ImageSource.systemImage(self.systemImage)
             .view(shouldResize: false)
-            .appFont(with: .TITLE_5)
+            .appFont(with: .TITLE_4)
             .foregroundStyle(self.style.palette(.link))
-            .frame(width: self.style.spacing(.medium2) * 2, height: self.style.spacing(.medium2) * 2)
+            .frame(width: 36, height: 36)
             .background(self.style.palette(.link).resolvedColor(style: self.style).opacity(0.08))
             .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
+            .appBorder(cornerRadius: .medium, color: self.style.palette(.link), lineWidth: 0.8)
 
     }
 
     @ViewBuilder
     private func label() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(alignment: .leading, spacing: self.style.spacing(.none)) {
 
             Text(self.title)
-                .appFont(with: .TITLE_3)
+                .appFont(with: .TITLE_2)
                 .foregroundStyle(self.style.textColor(.title))
 
             Text(self.value)

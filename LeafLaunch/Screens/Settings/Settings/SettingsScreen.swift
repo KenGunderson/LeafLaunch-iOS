@@ -76,19 +76,13 @@ struct SettingsScreen: GPView {
     @ViewBuilder
     private func navBar() -> some View {
 
-        let closeButton = NavBarButton(style: .close) {
-            dismiss()
-        }
-        .padding(.trailing, .small)
-        .asAnyView()
-
-        NavBarView(
-            title: "Settings",
-            rightButtonView: closeButton
+        NavHeader(
+            title: String(localized: "Settings"),
+            trailingNavButtons: [.close],
+            trailingNavButtonsAction: { _ in self.dismiss() }
         )
 
     }
-
 
     @ViewBuilder
     private func content() -> some View {
@@ -143,7 +137,7 @@ struct SettingsScreen: GPView {
     @ViewBuilder
     private func settingItem(_ item: Route.SettingRoute) -> some View {
 
-        LLAppCardView(cornerRadius: .large) {
+        LLAppCardView(cornerRadius: .medium) {
 
             HStack(spacing: self.style.spacing(.small)) {
 
@@ -184,32 +178,13 @@ struct SettingsScreen: GPView {
     @ViewBuilder
     private func versionItem() -> some View {
 
-        VStack(alignment: .leading) {
-
-            LLAppCardView(cornerRadius: .large) {
-
-                HStack(spacing: self.style.spacing(.small)) {
-
-                    ImageSource.systemImage("iphone")
-                        .view(shouldResize: false)
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(.foreground(.primary))
-
-                    Text("App Version")
-                        .appFont(with: .TITLE_4)
-                        .foregroundStyle(.text(.body))
-
-                    Text(self.viewModel.appVersion)
-                        .appFont(with: .HEADER_1)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundStyle(.text(.title))
-
-                }
-
-            }
-
-        }
-        .padding(.top, .medium)
+        Text(String(localized: "App Version \(self.viewModel.appVersion)"))
+            .appFont(with: .NOTE_2)
+            .foregroundStyle(.text(.body))
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .padding(.top, .extraSmall)
+            .padding(.bottom, .large)
 
     }
 

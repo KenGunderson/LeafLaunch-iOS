@@ -192,7 +192,7 @@ struct EventDetailsScreen: GPView {
             Text(title)
 
         }
-        .appFont(with: .TITLE_2)
+        .appFont(with: LeafLaunchThemeTokens.headingFont)
         .foregroundStyle(self.style.textColor(.body))
 
     }
@@ -203,7 +203,7 @@ struct EventDetailsScreen: GPView {
         if let description = event.description?.trimmingCharacters(in: .whitespacesAndNewlines),
            !description.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
 
                 CommerceSectionHeader(title: String(localized: "About This Event"))
 

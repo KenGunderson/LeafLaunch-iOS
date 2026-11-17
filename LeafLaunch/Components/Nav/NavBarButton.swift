@@ -11,21 +11,15 @@ struct NavBarButton: View {
 
     private let style: Style
     private let foregroundColor: ColorSource
-    private let size: CGFloat?
+    private let size: CGFloat = 34
     private let action: () -> Void
-
-    private var frame: CGFloat {
-        self.size ?? (self.style == .plainBack ? 32 : 40)
-    }
 
     init(style: Style,
          foregroundColor: ColorSource = .text(.title),
-         size: CGFloat? = nil,
          action: @escaping () -> Void) {
 
         self.style = style
         self.foregroundColor = foregroundColor
-        self.size = size
         self.action = action
 
     }
@@ -35,7 +29,7 @@ struct NavBarButton: View {
         let notificationCount = self.style.notificationCount
         let notificationText = notificationCount > 99 ? "99+" : "\(notificationCount)"
 
-        let imageFrame = self.frame * self.style.imageScale
+        let imageFrame = self.size * self.style.imageScale
 
         self.style.icon
             .view(renderingMode: .template)
@@ -46,20 +40,21 @@ struct NavBarButton: View {
             )
             .foregroundStyle(self.foregroundColor)
             .frame(
-                width: self.frame,
-                height: self.frame
+                width: self.size,
+                height: self.size
             )
-            .background(self.style == .plainBack ? .color(.clear) : .background(.secondary))
+            .background(.background(.secondary))
             .clipShape(.circle)
-            .if(self.style != .plainBack) { view in
+            .overlay {
 
-                view
-                    .appBorder(cornerRadius: .extraLarge)
-                    .compositingGroup()
-                    .appShadow(.subtle)
+                Circle()
+                    .strokeBorder(.background(.border), lineWidth: 0.8)
+                    .allowsHitTesting(false)
 
             }
-            .contentShape(Rectangle().inset(by: -max(0, (44 - self.frame) / 2)))
+            .compositingGroup()
+            .appShadow(.subtle)
+            .contentShape(Rectangle().inset(by: -(44 - self.size) / 2))
             .asButton {
                 self.action()
             }

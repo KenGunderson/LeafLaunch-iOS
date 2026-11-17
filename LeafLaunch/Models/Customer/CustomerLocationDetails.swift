@@ -36,7 +36,7 @@ nonisolated struct CustomerLocationDetails: Codable, Sendable {
         formatter.timeZone = .gmt
         formatter.dateFormat = "yyyy-MM-dd"
         guard let date = formatter.date(from: self.localDate) else {
-            return String(localized: "Hours unavailable")
+            return String(localized: "Hours Unavailable")
         }
 
         var calendar = Calendar(identifier: .gregorian)
@@ -46,7 +46,7 @@ nonisolated struct CustomerLocationDetails: Codable, Sendable {
             .filter { $0.weekday == weekday }
             .sorted { ($0.sequence, $0.id) < ($1.sequence, $1.id) }
 
-        guard !hours.isEmpty else { return String(localized: "Hours unavailable") }
+        guard !hours.isEmpty else { return String(localized: "Hours Unavailable") }
 
         return hours.map {
             StoreHoursFormatter.hours(closed: $0.closed, opensAt: $0.opensAt, closesAt: $0.closesAt)

@@ -67,24 +67,56 @@ struct CatalogRefreshIndicator: View {
 
     }
 
+    private var statusTitles: [String] {
+
+        [
+            String(localized: "Pull To Refresh"),
+            String(localized: "Release To Refresh"),
+            String(localized: "Refreshing Products…"),
+            String(localized: "Couldn't Refresh"),
+            String(localized: "Products Updated"),
+            String(localized: "Menu")
+        ]
+
+    }
+
     var body: some View {
 
         HStack(spacing: self.style.spacing(.small2)) {
 
             progressIndicator()
-            Text(self.title)
-                .appFont(with: .TITLE_1)
-                .foregroundStyle(.text(.body))
-                .contentTransition(.opacity)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            statusLabel()
 
         }
         .padding(.horizontal, .medium)
         .padding(.vertical, .medium)
-        .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: 64, alignment: .center)
         .animation(.spring(response: 0.32, dampingFraction: 0.8), value: self.context.isArmed)
         .animation(.smooth(duration: 0.24), value: self.context.isRefreshing)
         .animation(.smooth(duration: 0.24), value: self.context.isFinishing)
+
+    }
+
+    @ViewBuilder
+    private func statusLabel() -> some View {
+
+        ZStack(alignment: .leading) {
+
+            ForEach(self.statusTitles.indices, id: \.self) { index in
+
+                Text(self.statusTitles[index])
+                    .hidden()
+                    .accessibilityHidden(true)
+
+            }
+
+            Text(self.title)
+                .contentTransition(.opacity)
+
+        }
+        .appFont(with: .TITLE_1)
+        .foregroundStyle(.text(.body))
+        .fixedSize(horizontal: false, vertical: true)
 
     }
 

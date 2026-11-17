@@ -55,8 +55,7 @@ struct LocationListScreen: GPView {
 
             StoreNavHeader(
                 configuration: self.viewModel.configuration,
-                subtitle: nil,
-                onBack: { [weak viewModel] in viewModel?.changeLocation() }
+                subtitle: nil
             )
             .safeAreaPadding(.top, self.style.spacing(.medium))
             .transition(.blurReplace)
@@ -194,6 +193,14 @@ struct LocationListScreen: GPView {
             }
 
         }
+        .padding(.horizontal, .medium)
+        .padding(.top, .small)
+        .background(self.style.background(.secondary))
+        .overlay(alignment: .top) {
+            LLDivider()
+        }
+        .geometryGroup()
+        .compositingGroup()
         .transition(.blurReplace)
 
     }
@@ -212,7 +219,7 @@ struct LocationListScreen: GPView {
     @ViewBuilder
     private func approvalActions() -> some View {
 
-        VStack(spacing: self.style.spacing(.small2)) {
+        VStack(spacing: self.style.spacing(.extraSmall)) {
 
             LeafLaunchButton(
                 title: String(localized: "I'm \(self.viewModel.minimumAge) Or Older"),
@@ -227,10 +234,6 @@ struct LocationListScreen: GPView {
             exitAction()
 
         }
-        .padding(.horizontal, .medium)
-        .padding(.top, .small)
-        .padding(.bottom, .small)
-        .background(self.style.background(.primary))
 
     }
 

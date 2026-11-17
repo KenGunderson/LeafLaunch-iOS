@@ -41,14 +41,11 @@ struct DevRouteListScreen: GPView {
     @ViewBuilder
     private func headerView() -> some View {
 
-        NavBarView(
+        NavHeader(
             title: "Routes",
             subtitle: "Warp To Anywhere In The App!",
-            leftButtonView: (
-                NavBarButton(style: .back) {
-                    self.viewModel.dismiss()
-                }
-            ).asAnyView()
+            leadingNavButtons: [.back],
+            leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() }
         )
 
     }
@@ -84,7 +81,7 @@ struct DevRouteListScreen: GPView {
             VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
 
                 Text(title)
-                    .appFont(with: .HEADER_4)
+                    .appFont(with: LeafLaunchThemeTokens.headingFont)
                     .foregroundStyle(.text(.title))
 
                 LLDivider()
