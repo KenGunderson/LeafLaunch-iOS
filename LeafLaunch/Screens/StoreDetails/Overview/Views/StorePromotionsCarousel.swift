@@ -63,7 +63,7 @@ struct StorePromotionsCarousel: View {
 
         guard self.promotions.indices.contains(index) else { return }
 
-        withAnimation(animated ? .easeInOut(duration: 0.65) : nil) {
+        withAnimation(animated ? .bouncy(duration: 0.65) : nil) {
             self.selectedPromotionId = self.promotions[index].id
         }
 
