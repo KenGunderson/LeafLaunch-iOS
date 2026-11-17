@@ -111,7 +111,7 @@ struct CatalogRefreshIndicator: View {
             }
 
             Text(self.title)
-                .contentTransition(.opacity)
+                .contentTransition(.numericText())
 
         }
         .appFont(with: .TITLE_1)

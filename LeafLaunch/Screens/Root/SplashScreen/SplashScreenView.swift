@@ -35,14 +35,22 @@ struct SplashScreenView: View {
                     .padding(.vertical, .large)
 
             }
-            .animation(self.reduceMotion ? nil : .easeOut(duration: 0.7), value: self.hasAppeared)
             .onFirstAppear {
 
-                self.hasAppeared = true
+                withAnimation(
+                    self.reduceMotion ? nil : .easeOut(duration: 0.7),
+                    completionCriteria: .removed
+                ) {
 
-                guard !self.didNotifyCompletion else { return }
-                self.didNotifyCompletion = true
-                self.didFinishAction()
+                    self.hasAppeared = true
+
+                } completion: {
+
+                    guard !self.didNotifyCompletion else { return }
+                    self.didNotifyCompletion = true
+                    self.didFinishAction()
+
+                }
 
             }
 

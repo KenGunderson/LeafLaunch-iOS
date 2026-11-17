@@ -7,21 +7,27 @@ import SwiftUI
 
 private struct LLTextFieldViewModifier: ViewModifier {
 
-    let text: String
+    @Environment(\.style) private var style
+
     let title: String
+    let icon: ImageSource
     let isFocused: Bool
 
     func body(content: Content) -> some View {
 
-        content
-            .titleUnderlineTextFieldStyle(
-                text: self.text,
-                title: self.title,
-                style: .border(cornerRadius: .medium2),
-                isFocused: self.isFocused,
-                textFieldFont: .BODY_3,
-                titleFont: .BODY_2
-            )
+        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+
+            Text(self.title)
+                .appFont(with: .BODY_2)
+                .foregroundStyle(.text(.title))
+
+            content
+                .textFieldStyle(LLCommonTextFieldStyle(
+                    icon: self.icon,
+                    isFocused: self.isFocused
+                ))
+
+        }
 
     }
 
@@ -29,13 +35,13 @@ private struct LLTextFieldViewModifier: ViewModifier {
 
 extension View {
 
-    func llTextFieldStyle(text: String,
-                          title: String,
+    func llTextFieldStyle(title: String,
+                          icon: ImageSource,
                           isFocused: Bool) -> some View {
 
         modifier(LLTextFieldViewModifier(
-            text: text,
             title: title,
+            icon: icon,
             isFocused: isFocused
         ))
 

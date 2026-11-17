@@ -120,9 +120,9 @@ struct WelcomeScreen: GPView {
     @ViewBuilder
     private func signUpButton() -> some View {
 
-        CommonButton(
+        LeafLaunchButton(
             title: "Sign Up",
-            titleColor: .text(.button),
+            cornerRadius: .medium2,
             action: {
                 self.viewModel.navigateToSignUp()
             })
@@ -135,7 +135,8 @@ struct WelcomeScreen: GPView {
         CommonButton(
             style: .outline(lineWidth: 3),
             title: "Login",
-            titleColor: .foreground(.primary),
+            titleColor: .accent,
+            cornerRadius: .medium2,
             action: {
                 self.viewModel.navigateToLogin()
             })

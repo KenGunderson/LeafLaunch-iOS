@@ -126,10 +126,10 @@ struct LoginScreen: GPView {
     @ViewBuilder
     private func loginAction() -> some View {
 
-        CommonButton(
+        LeafLaunchButton(
             title: "Login",
-            titleColor: .text(.button),
             isEnabled: self.viewModel.isButtonEnabled,
+            cornerRadius: .medium2,
             disabledOpacity: 0.75
         ) {
             self.viewModel.handleLogin()
@@ -143,7 +143,9 @@ struct LoginScreen: GPView {
                            isSecureEntry: Bool = false) -> some View {
 
         let text = fieldToFocus == .email ? self.$viewModel.email : self.$viewModel.password
-        let placeholder = fieldToFocus == .email ? "Email" : "Password"
+        let title = fieldToFocus == .email ? "Email" : "Password"
+        let placeholder = fieldToFocus == .email ? "jamie@example.com" : "e.g. CedarLeaf42!"
+        let icon: ImageSource = .systemImage(fieldToFocus == .email ? "envelope" : "lock")
         let isFocused = fieldToFocus == .email ? (self.focusedField == .email) : (self.focusedField == .password)
 
         Group {
@@ -153,7 +155,7 @@ struct LoginScreen: GPView {
             if isSecureEntry && hidePassword {
 
                 SecureField(
-                    placeholder,
+                    title,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
@@ -162,7 +164,7 @@ struct LoginScreen: GPView {
             } else {
 
                 TextField(
-                    placeholder,
+                    title,
                     text: text,
                     prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
                 )
@@ -170,12 +172,12 @@ struct LoginScreen: GPView {
             }
 
         }
+        .focused(self.$focusedField, equals: fieldToFocus)
         .llTextFieldStyle(
-            text: text.wrappedValue,
-            title: placeholder,
+            title: title,
+            icon: icon,
             isFocused: isFocused
         )
-        .focused(self.$focusedField, equals: fieldToFocus)
         .keyboardType(fieldToFocus == .email ? .emailAddress : .default)
         .textContentType(fieldToFocus == .email ? .emailAddress : .password)
         .submitLabel(fieldToFocus == .password ? .done : .next)
@@ -184,7 +186,7 @@ struct LoginScreen: GPView {
         .overlay(alignment: .bottomTrailing) {
             passwordEyeOverlay(isSecureEntry: isSecureEntry)
         }
-        .appOnTapGesture {
+        .appOnTapGesture(isSimultaneous: true) {
             self.focusedField = fieldToFocus
         }
 
@@ -206,9 +208,9 @@ struct LoginScreen: GPView {
                     }
 
                 }
-                .foregroundStyle(.text(.body))
+                .foregroundStyle(.text(.placeholder))
                 .padding(.trailing, .medium)
-                .padding(.bottom, .custom(10))
+                .padding(.bottom, .small2)
                 .contentTransition(.symbolEffect(.replace))
 
         }

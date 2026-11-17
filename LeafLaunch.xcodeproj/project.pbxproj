@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5214985F5D904AF5AE3C471E /* LLCommonTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EF23910BB94A158891A7EA /* LLCommonTextFieldStyle.swift */; };
+		78E3A67147854EE3ADA2B418 /* LLCommonTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EF23910BB94A158891A7EA /* LLCommonTextFieldStyle.swift */; };
 		7A7C68227E9A4FDF8597E160 /* StoreVisitSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */; };
 		46F98ED67E174173B3141B45 /* StoreVisitSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */; };
 		00C0AB53DE3C479B9C31D0D0 /* StoreEventSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6149E280EC4E4993CB8FE6 /* StoreEventSchedule.swift */; };
@@ -629,6 +631,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		78EF23910BB94A158891A7EA /* LLCommonTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLCommonTextFieldStyle.swift; sourceTree = "<group>"; };
 		A2F39207D52A4384B526B760 /* StoreVisitSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVisitSummaryView.swift; sourceTree = "<group>"; };
 		00F0D62011804248DBDD568F /* CachedStoreTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedStoreTheme.swift; sourceTree = "<group>"; };
 		019F5387027B7791AC870001 /* AppPrefersColorSchemeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefersColorSchemeModifier.swift; sourceTree = "<group>"; };
@@ -1569,6 +1572,7 @@
 			children = (
 				75038C7E2E074B9C00659A52 /* AppRootView.swift */,
 				A1B2D3E42F90000100AAA001 /* LeafLaunchButton.swift */,
+				78EF23910BB94A158891A7EA /* LLCommonTextFieldStyle.swift */,
 				7808B47840F843639C1C33B0 /* LeafLaunchButtonSize.swift */,
 				A1B2D3E52F90000100AAA001 /* LeafLaunchCardView.swift */,
 				740622304227462BB8D7BCFD /* LLAppCardView.swift */,
@@ -2416,6 +2420,7 @@
 				B36EBD720A9B4E4189382B12 /* NavigationSheet.swift in Sources */,
 				75038C802E074B9C00659A52 /* AppRootView.swift in Sources */,
 				A1B2D3E62F90000100AAA001 /* LeafLaunchButton.swift in Sources */,
+				5214985F5D904AF5AE3C471E /* LLCommonTextFieldStyle.swift in Sources */,
 				88974D6A0DC44B169878BB0E /* LeafLaunchButtonSize.swift in Sources */,
 				A1B2D3E72F90000100AAA001 /* LeafLaunchCardView.swift in Sources */,
 				595171CE7D82489A92A6D67E /* LLAppCardView.swift in Sources */,
@@ -2717,6 +2722,7 @@
 				B36EBD720A9B4E4189382B13 /* NavigationSheet.swift in Sources */,
 				5DC2DAE6C0A149BCA58224AE /* AppRootView.swift in Sources */,
 				872BD3EC4AB84A2D9E48F113 /* LeafLaunchButton.swift in Sources */,
+				78E3A67147854EE3ADA2B418 /* LLCommonTextFieldStyle.swift in Sources */,
 				90F92C49F98045F39CE3CF44 /* LeafLaunchButtonSize.swift in Sources */,
 				58EAB3D79E904882BD04CD46 /* LeafLaunchCardView.swift in Sources */,
 				3977304981A34667A9B78102 /* LLAppCardView.swift in Sources */,

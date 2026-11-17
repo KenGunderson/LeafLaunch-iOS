@@ -3,6 +3,7 @@ import SwiftUI
 struct LocationSelectionCard: View {
 
     @Environment(\.style) private var style
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let location: BootstrapLocation
     let details: CustomerLocationDetails?
@@ -93,6 +94,7 @@ struct LocationSelectionCard: View {
 
             address()
             openStatus()
+                .animation(self.reduceMotion ? nil : .bouncy, value: self.details?.openNow)
 
         }
         .fixedSize(horizontal: false, vertical: true)
@@ -138,6 +140,8 @@ struct LocationSelectionCard: View {
             .appFont(with: .NOTE_1)
             .foregroundStyle(details.openNow ? self.style.palette(.success) : self.style.textColor(.body))
             .padding(.top, .extraSmall)
+            .id(details.openNow)
+            .transition(.blurReplace)
 
         } else {
 
@@ -147,6 +151,7 @@ struct LocationSelectionCard: View {
                 .appFont(with: .NOTE_1)
                 .foregroundStyle(self.style.textColor(.body))
                 .padding(.top, .extraSmall)
+                .transition(.blurReplace)
 
         }
 

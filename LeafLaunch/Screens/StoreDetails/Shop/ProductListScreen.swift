@@ -323,27 +323,29 @@ struct ProductListScreen: GPView {
         }
 
     }
-
+    
     @ViewBuilder
     private func feedTitle() -> some View {
-
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
-
+        
+        VStack(alignment: .leading, spacing: self.style.spacing(.none)) {
+            
             Text(self.selectedSectionTitle)
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
+                .appFont(with: .HEADER_2)
                 .foregroundStyle(self.style.textColor(.title))
-                .contentTransition(.opacity)
+                .minimumScaleFactor(0.75)
+                .contentTransition(.numericText())
                 .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedSectionTitle)
-
+            
             if !self.viewModel.products.isEmpty {
-
+                
                 Text(self.viewModel.hasMoreProducts
                      ? String(localized: "\(self.viewModel.products.count)+ Products")
                      : String(localized: "\(self.viewModel.products.count) Products"))
-                    .appFont(with: .NOTE_2)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .monospacedDigit()
-
+                .monospacedDigit()
+                .appFont(with: .NOTE_2)
+                .foregroundStyle(self.style.textColor(.body))
+                .contentTransition(.numericText())
+                
             }
 
         }
@@ -376,7 +378,7 @@ struct ProductListScreen: GPView {
             HStack(spacing: self.style.spacing(.small)) {
 
                 Text(self.viewModel.sort.compactTitle)
-                    .contentTransition(.opacity)
+                    .contentTransition(.numericText())
                     .accessibilityLabel(self.viewModel.sort.title)
 
                 ImageSource.systemImage("chevron.down")
@@ -413,7 +415,7 @@ struct ProductListScreen: GPView {
 
             productResults()
                 .id(self.resultTransitionId)
-                .transition(AnyTransition(.blurReplace))
+                .transition(.blurReplace.combined(with: .scale(0.75)))
 
         }
         .animation(self.reduceMotion ? nil : .bouncy, value: self.resultTransitionId)

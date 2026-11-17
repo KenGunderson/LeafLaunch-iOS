@@ -15,6 +15,8 @@ struct LeafLaunchButton: View {
     private let iconAlignment: HorizontalAlignment
     private let size: LeafLaunchButtonSize
     private let isEnabled: Bool
+    private let cornerRadius: Theme.RadiusKey
+    private let disabledOpacity: Double
     private let action: () -> Void
 
     init(title: String,
@@ -23,6 +25,8 @@ struct LeafLaunchButton: View {
          iconAlignment: HorizontalAlignment = .leading,
          size: LeafLaunchButtonSize = .standard,
          isEnabled: Bool = true,
+         cornerRadius: Theme.RadiusKey? = nil,
+         disabledOpacity: Double = 0.8,
          action: @escaping () -> Void) {
 
         self.title = title
@@ -31,6 +35,8 @@ struct LeafLaunchButton: View {
         self.iconAlignment = iconAlignment
         self.size = size
         self.isEnabled = isEnabled
+        self.cornerRadius = cornerRadius ?? (size == .prominent ? .medium2 : .medium)
+        self.disabledOpacity = disabledOpacity
         self.action = action
 
     }
@@ -49,7 +55,8 @@ struct LeafLaunchButton: View {
                 icon: self.icon,
                 iconAlignment: self.iconAlignment,
                 isEnabled: self.isEnabled,
-                cornerRadius: .medium,
+                disabledOpacity: self.disabledOpacity,
+                cornerRadius: self.cornerRadius,
                 action: self.action
             )
 
@@ -95,13 +102,13 @@ struct LeafLaunchButton: View {
         }
         .buttonStyle(.commonButtonStyle(
             background: .foreground(.primary),
-            cornerRadius: .medium2,
+            cornerRadius: self.cornerRadius,
             isEnabled: self.isEnabled,
             verticalPadding: .small2,
             horizontalPadding: .large
         ))
         .disabled(!self.isEnabled)
-        .opacity(self.isEnabled ? 1 : 0.8)
+        .opacity(self.isEnabled ? 1 : self.disabledOpacity)
 
     }
 

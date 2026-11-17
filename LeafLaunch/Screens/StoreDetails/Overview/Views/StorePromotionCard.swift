@@ -51,10 +51,10 @@ struct StorePromotionCard: View {
                     .overlay(Color.black.opacity(0.78))
 
             }
-            .asButton {
-                self.onOpen()
-            }
 
+        }
+        .asButton {
+            self.onOpen()
         }
 
     }
