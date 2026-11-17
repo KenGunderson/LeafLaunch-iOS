@@ -34,11 +34,11 @@ struct LLCommonTextFieldStyle: TextFieldStyle {
         .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
         .appBorder(
             cornerRadius: .medium2,
-            color: .background(.border),
+            color: self.isFocused ? self.style.accent : self.style.background(.border),
             lineWidth: 0.8,
             outerBorder: false
         )
-        .tint(self.style.foreground(.primary))
+        .tint(self.style.accent)
 
     }
 
@@ -48,7 +48,7 @@ struct LLCommonTextFieldStyle: TextFieldStyle {
         self.icon.view()
             .aspectRatio(contentMode: .fit)
             .frame(width: 18, height: 18)
-            .foregroundStyle(self.isFocused ? self.style.foreground(.primary) : self.style.textColor(.placeholder))
+            .foregroundStyle(self.isFocused ? self.style.accent : self.style.textColor(.placeholder))
             .accessibilityHidden(true)
 
     }
