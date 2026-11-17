@@ -32,35 +32,44 @@ struct StoreAccountProfileView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             Text(String(localized: "Good To See You"))
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(self.style.textColor(.title))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
             profileIdentity()
 
             if let accountStatus {
 
                 Text(accountStatus)
-                    .appFont(with: .TITLE_1)
-                    .foregroundStyle(self.style.textColor(.title))
+                    .runeFont(with: .TITLE_1)
+                    .runeTextColor(.title)
 
             }
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, self.style.spacing(.small))
+        .runePadding(.vertical, LLSpacing.groupedContent)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func profileIdentity() -> some View {
 
         if self.dynamicTypeSize.isAccessibilitySize {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 avatar()
                 identity()
@@ -69,7 +78,10 @@ struct StoreAccountProfileView: View {
 
         } else {
 
-            HStack(alignment: .center, spacing: self.style.spacing(.small)) {
+            HStack(
+                alignment: .center,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 avatar()
                 identity()
@@ -80,35 +92,51 @@ struct StoreAccountProfileView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func avatar() -> some View {
 
-        AvatarView(
+        RNAvatarView(
             style: .initials(name: self.displayName),
-            foregroundColor: self.style.palette(.link),
-            backgroundColor: .sourceWithOpacity(self.style.palette(.link), opacity: 0.08, style: self.style)
+            foregroundColor: RNColorSource.palette(.link),
+            backgroundColor: .sourceWithOpacity(
+                RNColorSource.palette(.link),
+                opacity: 0.08,
+                style: self.style
+            )
         )
-        .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
+        .frame(
+            width: self.style.spacing(.extraLarge),
+            height: self.style.spacing(.extraLarge)
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func identity() -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.none)
+        ) {
 
             Text(self.displayName)
-                .appFont(with: .TITLE_6)
-                .fixedSize(horizontal: false, vertical: true)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_6)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
+                .runeTextColor(.title)
 
             if !self.user.email.isEmpty {
 
                 Text(self.user.email)
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .BODY_1)
+                    .runeTextColor(.body)
                     .textSelection(.enabled)
-                    .fixedSize(horizontal: false, vertical: true)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
             }
 
@@ -121,8 +149,11 @@ struct StoreAccountProfileView: View {
 
 #Preview {
 
-    StoreAccountProfileView(user: MockCustomerModels.user, account: MockCustomerModels.account)
-        .padding(.medium)
+    StoreAccountProfileView(
+        user: MockCustomerModels.user,
+        account: MockCustomerModels.account
+    )
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

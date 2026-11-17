@@ -97,36 +97,40 @@ internal enum AppRoute {
 
         switch self {
         case .customerPublic(let route),
-             .customer(let route):
+                .customer(let route):
 
-            return buildURL(category: category, route: route, version: .v1)
+            return buildURL(
+                category: category,
+                route: route,
+                version: .v1
+            )
 
         case .health,
-             .search:
+                .search:
 
             return category
 
         case .user(let route, let version),
-             .device(let route, let version),
-             .business(let route, let version),
-             .businessSetting(let route, let version),
-             .location(let route, let version),
-             .locationEmployee(let route, let version),
-             .employedLocation(let route, let version),
-             .employee(let route, let version),
-             .employeeInvite(let route, let version),
-             .client(let route, let version),
-             .media(let route, let version),
-             .mediaFavorite(let route, let version),
-             .mediaTags(let route, let version),
-             .mediaTagRelations(let route, let version),
-             .collage(let route, let version),
-             .notes(let route, let version),
-             .forms(let route, let version),
-             .activity(let route, let version),
-             .subscriptions(let route, let version),
-             .uploadMedia(let route, let version),
-             .system(let route, let version):
+                .device(let route, let version),
+                .business(let route, let version),
+                .businessSetting(let route, let version),
+                .location(let route, let version),
+                .locationEmployee(let route, let version),
+                .employedLocation(let route, let version),
+                .employee(let route, let version),
+                .employeeInvite(let route, let version),
+                .client(let route, let version),
+                .media(let route, let version),
+                .mediaFavorite(let route, let version),
+                .mediaTags(let route, let version),
+                .mediaTagRelations(let route, let version),
+                .collage(let route, let version),
+                .notes(let route, let version),
+                .forms(let route, let version),
+                .activity(let route, let version),
+                .subscriptions(let route, let version),
+                .uploadMedia(let route, let version),
+                .system(let route, let version):
 
             return buildURL(
                 category: category,

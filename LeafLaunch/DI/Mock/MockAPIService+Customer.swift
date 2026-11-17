@@ -38,19 +38,30 @@ extension MockAPIService {
         let products = MockCustomerModels.products(locationId: locationId).filter { product in
 
             let categoryMatches = query.categoryId == nil || product.category?.id == query.categoryId
-            let subcategoryMatches = query.categoryId == nil
-                || query.subcategoryId == nil
-                || product.subcategory?.id == query.subcategoryId
-            let searchMatches = search.isEmpty
-                || product.displayName.localizedCaseInsensitiveContains(search)
-                || product.description?.localizedCaseInsensitiveContains(search) == true
-                || product.attributes.contains { $0.value.displayValue.localizedCaseInsensitiveContains(search) }
+            let hasNoCategoryFilter = query.categoryId == nil || query.subcategoryId == nil
+            let subcategoryMatches = hasNoCategoryFilter || product.subcategory?.id == query.subcategoryId
+            var searchMatches: Bool {
 
-            return categoryMatches && subcategoryMatches && searchMatches
+                if search.isEmpty { return true }
+                if product.displayName.localizedCaseInsensitiveContains(search) { return true }
+                if product.description?.localizedCaseInsensitiveContains(search) == true { return true }
+                return product.attributes.contains { $0.value.displayValue.localizedCaseInsensitiveContains(search) }
+
+            }
+
+            let matchesCategoryFilters = categoryMatches && subcategoryMatches
+            return matchesCategoryFilters && searchMatches
 
         }
 
-        return customerPage(sortedCustomerProducts(products, sort: query.sort), offset: query.offset, limit: query.limit)
+        return customerPage(
+            sortedCustomerProducts(
+                products,
+                sort: query.sort
+            ),
+            offset: query.offset,
+            limit: query.limit
+        )
 
     }
 
@@ -72,10 +83,16 @@ extension MockAPIService {
 
     }
 
-    func getCustomerEvents(locationId: String, offset: Int, limit: Int) async throws -> CustomerPage<StoreEvent> {
+    func getCustomerEvents(locationId: String,
+                           offset: Int,
+                           limit: Int) async throws -> CustomerPage<StoreEvent> {
 
         try validateCustomerLocation(locationId)
-        return customerPage(MockCustomerModels.events(locationId: locationId), offset: offset, limit: limit)
+        return customerPage(
+            MockCustomerModels.events(locationId: locationId),
+            offset: offset,
+            limit: limit
+        )
 
     }
 
@@ -180,7 +197,10 @@ extension MockAPIService {
         }
 
         try Task.checkCancellation()
-        let membership = MockCustomerModels.membership(locationId: locationId, customerAccount: self.customerAccount)
+        let membership = MockCustomerModels.membership(
+            locationId: locationId,
+            customerAccount: self.customerAccount
+        )
         self.customerMemberships[locationId] = membership
         return membership
 
@@ -190,7 +210,10 @@ extension MockAPIService {
 
         _ = try await getCustomerMembership(locationId: locationId)
         let history = self.customerAccount.id == MockCustomerModels.account.id ? MockCustomerModels.loyaltyHistory : []
-        return customerPage(history, offset: offset)
+        return customerPage(
+            history,
+            offset: offset
+        )
 
     }
 
@@ -202,7 +225,13 @@ extension MockAPIService {
         guard details.agePolicy.required else { return nil }
 
         return self.customerAgeAcceptances[account.id]?.values.first {
-            $0.applies(to: details.agePolicy, businessId: MockCustomerModels.businessId, customerAccountId: account.id)
+
+            $0.applies(
+                to: details.agePolicy,
+                businessId: MockCustomerModels.businessId,
+                customerAccountId: account.id
+            )
+
         }
 
     }
@@ -217,7 +246,12 @@ extension MockAPIService {
         guard effectivePolicy.required,
               policy.minimumAge == effectivePolicy.minimumAge,
               policy.gateVersion == effectivePolicy.gateVersion else {
-            throw APIError.serverError(statusCode: 409, errorMessage: "The age policy changed. Refresh the store and confirm again.")
+
+            throw APIError.serverError(
+                statusCode: 409,
+                errorMessage: "The age policy changed. Refresh the store and confirm again."
+            )
+
         }
         try Task.checkCancellation()
 
@@ -253,8 +287,11 @@ extension MockAPIService {
                 case (nil, nil): break
                 case (nil, _): return false
                 case (_, nil): return true
+
                 case (let lhsPrice?, let rhsPrice?) where lhsPrice != rhsPrice:
+
                     return sort == .priceAscending ? lhsPrice < rhsPrice : lhsPrice > rhsPrice
+
                 default: break
                 }
 
@@ -277,14 +314,24 @@ extension MockAPIService {
     }
 
     private func customerNotFound() -> APIError {
-        .serverError(statusCode: 404, errorMessage: "The requested customer resource is unavailable.")
+
+        .serverError(
+            statusCode: 404,
+            errorMessage: "The requested customer resource is unavailable."
+        )
+
     }
 
     private func validatedDisplayName(_ displayName: String) throws -> String {
 
         let displayName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !displayName.isEmpty, displayName.count <= 120 else {
-            throw APIError.serverError(statusCode: 400, errorMessage: "Enter a display name with 1–120 characters.")
+
+            throw APIError.serverError(
+                statusCode: 400,
+                errorMessage: "Enter a display name with 1–120 characters."
+            )
+
         }
 
         return displayName
@@ -296,7 +343,8 @@ extension MockAPIService {
                                                          limit: Int = 20) -> CustomerPage<Value> {
 
         let offset = max(0, offset)
-        let limit = min(100, max(1, limit))
+        let minimumLimit = max(1, limit)
+        let limit = min(100, minimumLimit)
         let data = Array(values.dropFirst(offset).prefix(limit))
         let nextOffset = offset + data.count
         let hasMore = nextOffset < values.count

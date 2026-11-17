@@ -13,7 +13,7 @@ struct FavoriteProductListScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        LLAppHeaderScrollView(onRefresh: { [weak viewModel] in await viewModel?.refreshData() }) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -25,12 +25,12 @@ struct FavoriteProductListScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -41,42 +41,50 @@ struct FavoriteProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             loadingContent()
             emptyContent()
             collection()
 
         }
-        .foregroundStyle(self.style.textColor(.body))
+        .runeTextColor(.body)
         .tabFlowContentSpacing()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadingContent() -> some View {
 
-        if self.viewModel.isLoading && self.viewModel.products.isEmpty {
+        let hasUnresolvedProducts = self.viewModel.products.isEmpty && !self.viewModel.hasCompletedInitialLoad
+
+        if self.viewModel.isLoading && hasUnresolvedProducts {
 
             ProgressView(String(localized: "Loading Favorites"))
-                .tint(self.style.accent)
-                .appFont(with: .BODY_2)
+                .runeTint(.primary)
+                .runeFont(with: .BODY_2)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, .large)
+                .runePadding(.vertical, LLSpacing.content)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func collection() -> some View {
 
         if !self.viewModel.products.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.cardContent)
+            ) {
 
                 CommerceSectionHeader(
                     title: String(localized: "Your Collection"),
@@ -89,7 +97,10 @@ struct FavoriteProductListScreen: GPView {
                     onOpen: { self.viewModel.openProduct(id: $0) },
                     onFavorite: { self.viewModel.removeFavorite(id: $0) }
                 )
-                .animation(.bouncy, value: self.viewModel.products.map(\.id))
+                .animation(
+                    .bouncy,
+                    value: self.viewModel.products.map(\.id)
+                )
 
             }
 
@@ -97,12 +108,15 @@ struct FavoriteProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func emptyContent() -> some View {
 
-        if self.viewModel.hasLoadFailed && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+        let hasNoProducts = self.viewModel.products.isEmpty
+        let hasInitialFailure = self.viewModel.hasLoadFailed && !self.viewModel.hasCompletedInitialLoad
 
-            VStack(spacing: self.style.spacing(.small)) {
+        if hasInitialFailure && hasNoProducts && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 CommerceEmptyState(
                     systemImage: "wifi.exclamationmark",
@@ -116,9 +130,9 @@ struct FavoriteProductListScreen: GPView {
 
             }
 
-        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty {
 
-            VStack(spacing: self.style.spacing(.small)) {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 CommerceEmptyState(
                     systemImage: "heart",
@@ -126,7 +140,10 @@ struct FavoriteProductListScreen: GPView {
                     message: String(localized: "Tap the heart on a product to save it here. Saved products appear when available at this location.")
                 )
 
-                LeafLaunchButton(title: String(localized: "Browse Products"), icon: .systemImage("arrow.right")) {
+                LeafLaunchButton(
+                    title: String(localized: "Browse Products"),
+                    icon: .systemImage("arrow.right")
+                ) {
                     self.viewModel.browseProducts()
                 }
 

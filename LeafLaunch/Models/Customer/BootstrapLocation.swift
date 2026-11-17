@@ -2,14 +2,6 @@ import Foundation
 
 nonisolated struct BootstrapLocation: Codable, Equatable, Hashable, Identifiable, Sendable {
 
-    let id: String
-    let name: String
-    let timezone: String?
-    let currencyCode: String?
-    let countryCode: String?
-    let region: String?
-    let agePolicy: EffectiveAgePolicy
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -21,5 +13,13 @@ nonisolated struct BootstrapLocation: Codable, Equatable, Hashable, Identifiable
         case agePolicy = "age_policy"
 
     }
+
+    let id: String
+    let name: String
+    let timezone: String?
+    let currencyCode: String?
+    let countryCode: String?
+    let region: String?
+    let agePolicy: EffectiveAgePolicy
 
 }

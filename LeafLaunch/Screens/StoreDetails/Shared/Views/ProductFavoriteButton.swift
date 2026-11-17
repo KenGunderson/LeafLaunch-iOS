@@ -9,28 +9,46 @@ struct ProductFavoriteButton: View {
 
     var body: some View {
 
-        ImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart")
+        RNImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart")
             .view()
-            .frame(width: 18, height: 18)
-            .foregroundStyle(self.isFavorite ? self.style.palette(.link) : self.style.textColor(.title))
-            .frame(width: 32, height: 32)
-            .background(.background(.secondary))
+            .frame(
+                width: 18,
+                height: 18
+            )
+            .foregroundStyle(self.isFavorite ? RNColorSource.palette(.link) : RNColorSource.text(.title))
+            .frame(
+                width: 32,
+                height: 32
+            )
+            .runeBackground(.secondary)
             .clipShape(Circle())
             .overlay {
 
                 Circle()
-                    .strokeBorder(self.style.background(.border), lineWidth: 0.8)
+                    .strokeBorder(
+                        RNColorSource.background(.border),
+                        lineWidth: 0.8
+                    )
                     .allowsHitTesting(false)
 
             }
-            .frame(width: 44, height: 44)
+            .frame(
+                width: 44,
+                height: 44
+            )
             .contentShape(Rectangle())
-            .asButton {
+            .runeAsButton {
                 self.action()
             }
             .accessibilityLabel(self.isFavorite ? String(localized: "Remove From Saved Products") : String(localized: "Save Product"))
-            .symbolEffect(.bounce, value: self.isFavorite)
-            .animation(.bouncy, value: self.isFavorite)
+            .symbolEffect(
+                .bounce,
+                value: self.isFavorite
+            )
+            .animation(
+                .bouncy,
+                value: self.isFavorite
+            )
 
     }
 
@@ -44,7 +62,7 @@ struct ProductFavoriteButton: View {
         isFavorite: isFavorite,
         action: { isFavorite.toggle() }
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

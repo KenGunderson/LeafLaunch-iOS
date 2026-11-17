@@ -28,17 +28,17 @@ struct InvitationAlertView: View {
 
     }
 
-    private func message() -> AttributedText {
+    private func message() -> RNAttributedText {
 
-        AttributedText {
+        RNAttributedText {
 
             Text(self.name)
-                .foregroundStyle(.text(.title))
+                .runeTextColor(.title)
                 .font(self.style.font(.HEADER_1))
 
             Text(" has been invited to join \(self.businessName). They will receive an email with next steps.")
                 .font(self.style.font(.BODY_3))
-                .foregroundStyle(.text(.body))
+                .runeTextColor(.body)
 
         }
 
@@ -53,7 +53,7 @@ struct InvitationAlertView: View {
         businessName: MockCustomerModels.store.name,
         doneAction: {}
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

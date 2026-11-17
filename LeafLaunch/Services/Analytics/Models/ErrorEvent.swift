@@ -56,7 +56,6 @@ enum ErrorEvent: AnalyticsEvent {
 
             default: break
             }
-
         }
 
         // Error

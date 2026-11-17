@@ -10,9 +10,12 @@ struct ProductFavoriteToastView: View {
 
     var body: some View {
 
-        LLAppCardView(verticalPadding: .small2, cornerRadius: .large) {
+        LLAppCardView(
+            verticalPadding: .small2,
+            cornerRadius: .large
+        ) {
 
-            HStack(spacing: self.style.spacing(.small2)) {
+            HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
                 favoriteIcon()
                 message()
@@ -24,18 +27,21 @@ struct ProductFavoriteToastView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func favoriteIcon() -> some View {
 
-        ImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart.slash.fill")
+        RNImageSource.systemImage(self.isFavorite ? "heart.fill" : "heart.slash.fill")
             .view()
             .scaledToFit()
-            .frame(width: self.style.spacing(.large), height: self.style.spacing(.large))
-            .foregroundStyle(.foreground(.primary))
+            .frame(
+                width: self.style.spacing(.large),
+                height: self.style.spacing(.large)
+            )
+            .runeForeground(.primary)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func message() -> some View {
 
         Text(
@@ -43,9 +49,12 @@ struct ProductFavoriteToastView: View {
                 ? Constants.Message.favoriteProductAdded(self.productTitle)
                 : Constants.Message.favoriteProductRemoved(self.productTitle)
         )
-        .appFont(with: .TITLE_3)
-        .foregroundStyle(.text(.title))
-        .fixedSize(horizontal: false, vertical: true)
+        .runeFont(with: .TITLE_3)
+        .runeTextColor(.title)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
@@ -54,10 +63,16 @@ struct ProductFavoriteToastView: View {
 
 #Preview {
 
-    VStack(spacing: 24) {
+    VStack(spacing: RNStyle.shared.spacing(LLSpacing.content)) {
 
-        ProductFavoriteToastView(productTitle: "Cedar Reserve", isFavorite: true)
-        ProductFavoriteToastView(productTitle: "Cedar Reserve", isFavorite: false)
+        ProductFavoriteToastView(
+            productTitle: "Cedar Reserve",
+            isFavorite: true
+        )
+        ProductFavoriteToastView(
+            productTitle: "Cedar Reserve",
+            isFavorite: false
+        )
 
     }
     .withMockPreviews()

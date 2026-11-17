@@ -11,56 +11,65 @@ struct StoreVisitSummaryView: View {
 
         LLAppCardView(cornerRadius: .large) {
 
-            HStack(spacing: self.style.spacing(.medium)) {
+            HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                 visitDetails()
 
-                ImageSource.systemImage("chevron.down")
+                RNImageSource.systemImage("chevron.down")
                     .view(shouldResize: false)
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(self.style.palette(.link))
+                    .runeFont(with: .TITLE_4)
+                    .foregroundStyle(RNColorSource.palette(.link))
 
             }
 
         }
-        .asButton(action: self.onSelect)
+        .runeAsButton(action: self.onSelect)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func visitDetails() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             status()
 
             Text(String(localized: "Today: \(self.details.todayHoursDescription)"))
-                .appFont(with: .BODY_1)
-                .foregroundStyle(self.style.textColor(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
             Text(String(localized: "Hours & Directions"))
-                .appFont(with: .TITLE_2)
-                .foregroundStyle(self.style.palette(.link))
-                .padding(.top, .small)
+                .runeFont(with: .TITLE_2)
+                .foregroundStyle(RNColorSource.palette(.link))
+                .runePadding(.top, LLSpacing.groupedContent)
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func status() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             Circle()
-                .fill(self.details.openNow ? self.style.palette(.link) : self.style.textColor(.body))
-                .frame(width: 6, height: 6)
+                .runeFill(self.details.openNow ? RNColorSource.palette(.link) : RNColorSource.text(.body))
+                .frame(
+                    width: 6,
+                    height: 6
+                )
 
             Text(self.details.openNow ? String(localized: "Open Now") : String(localized: "Closed Now"))
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
 
         }
 
@@ -70,8 +79,11 @@ struct StoreVisitSummaryView: View {
 
 #Preview {
 
-    StoreVisitSummaryView(details: MockCustomerModels.locationDetails, onSelect: {})
-        .padding(.medium)
+    StoreVisitSummaryView(
+        details: MockCustomerModels.locationDetails,
+        onSelect: {}
+    )
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

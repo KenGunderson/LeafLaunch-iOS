@@ -18,24 +18,32 @@ struct ProductCardView: View {
         ) {
             content()
         }
-        .asButton(action: self.onOpen)
+        .runeAsButton(action: self.onOpen)
         .overlay(alignment: .topTrailing) {
+
             favoriteAction()
-                .padding(.extraSmall)
+                .runePadding(LLSpacing.metadata)
+
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.none)
+        ) {
 
             ProductImageView(
                 url: self.product.activeImages.first?.url,
                 isUnavailable: !self.product.activeImages.isEmpty
             )
-            .aspectRatio(1.15, contentMode: .fit)
+            .aspectRatio(
+                1.15,
+                contentMode: .fit
+            )
             .opacity(self.product.isAvailable ? 1 : 0.65)
 
             productDetails()
@@ -44,33 +52,48 @@ struct ProductCardView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productDetails() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.product.subcategory?.name ?? self.product.category?.name ?? "")
-                .appFont(with: .NOTE_2)
-                .foregroundStyle(.text(.body))
-                .lineLimit(1, reservesSpace: true)
+                .runeFont(with: .NOTE_2)
+                .runeTextColor(.body)
+                .lineLimit(
+                    1,
+                    reservesSpace: true
+                )
 
             Text(self.product.displayName)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.text(.title))
-                .lineLimit(2, reservesSpace: true)
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
+                .lineLimit(
+                    2,
+                    reservesSpace: true
+                )
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
-            ProductPriceView(product: self.product, font: .TITLE_4)
-                .padding(.top, .small)
+            ProductPriceView(
+                product: self.product,
+                font: .TITLE_4
+            )
+                .runePadding(.top, LLSpacing.groupedContent)
 
         }
-        .padding(.horizontal, .small2)
-        .padding(.vertical, .small2)
+        .runePadding(.horizontal, LLSpacing.cardContent)
+        .runePadding(.vertical, LLSpacing.cardContent)
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func favoriteAction() -> some View {
 
         ProductFavoriteButton(

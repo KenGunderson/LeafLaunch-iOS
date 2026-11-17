@@ -9,17 +9,6 @@ nonisolated struct ProductMedia: Codable, Equatable, Hashable, Identifiable, Sen
 
     }
 
-    let id: String
-    let storeProductId: String
-    let url: URL
-    let width: Int?
-    let height: Int?
-    let altText: String?
-    let displayOrder: Int
-    let status: Status
-    let createdAt: Date?
-    let updatedAt: Date?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -34,5 +23,16 @@ nonisolated struct ProductMedia: Codable, Equatable, Hashable, Identifiable, Sen
         case updatedAt = "updated_at"
 
     }
+
+    let id: String
+    let storeProductId: String
+    let url: URL
+    let width: Int?
+    let height: Int?
+    let altText: String?
+    let displayOrder: Int
+    let status: Status
+    let createdAt: Date?
+    let updatedAt: Date?
 
 }

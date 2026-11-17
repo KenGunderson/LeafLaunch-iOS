@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Tab: String, CaseIterable, Selectable {
+enum Tab: String, CaseIterable, RNSelectable {
 
     var id: String { self.rawValue }
     var description: String { self.title }

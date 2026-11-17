@@ -24,10 +24,8 @@ final class DevAnalyticsListViewModel: ViewModel {
     private var cancelBag: CancelBag!
 
     @Published var events: [EventData] = []
-
     @Published var selectedDisplayType: DisplayType = .logs
     @Published var selectedDisplayTypeString: String?
-
     @Published var selectedOSLogType: OSLogType?
     @Published var selectedOSLogTypeString: String?
 
@@ -85,7 +83,7 @@ final class DevAnalyticsListViewModel: ViewModel {
 
         self.logInit()
 
-        self.selectedDisplayTypeString = self.selectedDisplayType.rawValue.capitalized
+        self.selectedDisplayTypeString = self.selectedDisplayType.title
 
     }
 
@@ -129,6 +127,7 @@ final class DevAnalyticsListViewModel: ViewModel {
         guard let type else {
 
             self.selectedOSLogType = nil
+
             return
 
         }
@@ -160,13 +159,16 @@ final class DevAnalyticsListViewModel: ViewModel {
 
         switch self.selectedDisplayType {
         case .logs:
+
             LoggedEventsStore.shared.clear()
             self.objectWillChange.send()
 
         case .analytics:
+
             self.analyticsService.clearSessionEvents()
 
         case .api:
+
             APILogResponseStore.shared.clear()
             self.objectWillChange.send()
         }

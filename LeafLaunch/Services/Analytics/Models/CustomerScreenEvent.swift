@@ -37,16 +37,17 @@ enum CustomerScreenEvent {
     var properties: [String: Any] {
 
         switch self {
-        case .locations(let businessId): return ["business_id": businessId]
+        case .locations(let businessId):
+            return ["business_id": businessId]
 
         case .ageVerification(let locationId),
-             .store(let locationId),
-             .overview(let locationId),
-             .shop(let locationId),
-             .favorites(let locationId),
-             .events(let locationId),
-             .pointsActivity(let locationId),
-             .account(let locationId):
+                .store(let locationId),
+                .overview(let locationId),
+                .shop(let locationId),
+                .favorites(let locationId),
+                .events(let locationId),
+                .pointsActivity(let locationId),
+                .account(let locationId):
 
             return [
                 "business_id": BusinessConfig.businessId,
@@ -76,7 +77,6 @@ enum CustomerScreenEvent {
                 "location_id": locationId,
                 "promotion_id": promotionId
             ]
-
         }
 
     }

@@ -39,7 +39,11 @@ final class EnvironmentService: EnvironmentServiceProtocol {
         let fallbackEnvironment = Constants.Runtime.fallbackEnvironment
 
         if let data = try? Data(contentsOf: pListUrl),
-           let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) {
+           let plist = try? PropertyListSerialization.propertyList(
+               from: data,
+               options: [],
+               format: nil
+           ) {
 
             if let dict = plist as? [String: Any],
                let envString = dict["Environment"] as? String,

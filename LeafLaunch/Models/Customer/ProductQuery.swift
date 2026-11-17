@@ -11,10 +11,12 @@ nonisolated struct ProductQuery: Codable, Equatable, Sendable {
 
     var parameters: [String: String] {
 
+        let minimumLimit = max(1, self.limit)
+        let limit = min(100, minimumLimit)
         var parameters = [
             "sort": self.sort.rawValue,
             "offset": String(max(0, self.offset)),
-            "limit": String(min(100, max(1, self.limit)))
+            "limit": String(limit)
         ]
 
         let search = self.search.trimmingCharacters(in: .whitespacesAndNewlines)

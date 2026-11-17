@@ -37,13 +37,13 @@ struct StoreAccountMembershipDetailsView: View {
         .safeAreaInset(edge: .bottom) {
 
             LeafLaunchButton(title: String(localized: "Done")) { self.dismiss() }
-                .padding(.medium)
+                .runePadding(LLSpacing.pageInset)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -51,26 +51,50 @@ struct StoreAccountMembershipDetailsView: View {
             trailingNavButtons: [.close],
             trailingNavButtonsAction: { _ in self.dismiss() }
         )
-        .safeAreaPadding(.top, self.style.spacing(.medium))
+        .safeAreaPadding(
+            .top,
+            self.style.spacing(LLSpacing.listRow)
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             CommerceSurface {
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+                VStack(
+                    alignment: .leading,
+                    spacing: self.style.spacing(LLSpacing.listRow)
+                ) {
 
-                    detail(String(localized: "Business"), value: self.account.storeName)
-                    detail(String(localized: "Member Name"), value: self.account.displayName)
-                    detail(String(localized: "Member ID"), value: self.account.membershipCode)
-                    detail(String(localized: "Points Balance"), value: self.account.cachedPointsBalance)
+                    detail(
+                        String(localized: "Business"),
+                        value: self.account.storeName
+                    )
+                    detail(
+                        String(localized: "Member Name"),
+                        value: self.account.displayName
+                    )
+                    detail(
+                        String(localized: "Member ID"),
+                        value: self.account.membershipCode
+                    )
+                    detail(
+                        String(localized: "Points Balance"),
+                        value: self.account.cachedPointsBalance
+                    )
                     detail(
                         String(localized: "Member Since"),
-                        value: self.account.createdAt.formatted(date: .abbreviated, time: .omitted)
+                        value: self.account.createdAt.formatted(
+                            date: .abbreviated,
+                            time: .omitted
+                        )
                     )
 
                 }
@@ -81,10 +105,19 @@ struct StoreAccountMembershipDetailsView: View {
 
                 CommerceSurface {
 
-                    VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+                    VStack(
+                        alignment: .leading,
+                        spacing: self.style.spacing(LLSpacing.listRow)
+                    ) {
 
-                        detail(String(localized: "Your Store"), value: locationName)
-                        detail(String(localized: "Location Activity"), value: self.locationStatus)
+                        detail(
+                            String(localized: "Your Store"),
+                            value: locationName
+                        )
+                        detail(
+                            String(localized: "Location Activity"),
+                            value: self.locationStatus
+                        )
 
                     }
 
@@ -93,26 +126,32 @@ struct StoreAccountMembershipDetailsView: View {
             }
 
         }
-        .padding(.bottom, .large)
+        .runePadding(.bottom, LLSpacing.content)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func detail(_ title: String, value: String) -> some View {
 
         if !value.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.metadata)
+            ) {
 
                 Text(title)
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .NOTE_1)
+                    .runeTextColor(.body)
 
                 Text(value)
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(self.style.textColor(.title))
+                    .runeFont(with: .TITLE_3)
+                    .runeTextColor(.title)
                     .textSelection(.enabled)
-                    .fixedSize(horizontal: false, vertical: true)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
             }
 

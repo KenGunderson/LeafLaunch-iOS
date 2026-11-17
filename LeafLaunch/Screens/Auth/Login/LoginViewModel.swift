@@ -14,7 +14,7 @@ final class LoginViewModel: ViewModel {
     internal let loggerName: String = "LOGIN_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -27,9 +27,7 @@ final class LoginViewModel: ViewModel {
 
     @Published var email: String = ""
     @Published var password: String = ""
-
     @Published private(set) var currentNonce: String?
-
     @Published var shouldPresentForgotPassword = false
     @Published private(set) var isLoading: Bool = false
 
@@ -43,7 +41,7 @@ final class LoginViewModel: ViewModel {
 
     }
 
-    init(alertService: AlertServiceProtocol,
+    init(alertService: RNAlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
@@ -113,7 +111,7 @@ final class LoginViewModel: ViewModel {
 
                 guard !Task.isCancelled else { return }
 
-                let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+                let loadingIndicator = RNAlert(.simpleLoadingIndicator)
                 alertService.showAlert(loadingIndicator)
 
                 defer {
@@ -154,6 +152,7 @@ final class LoginViewModel: ViewModel {
             }
 
         case .failure(let error):
+
             presentAuthError(error)
         }
 
@@ -177,7 +176,7 @@ final class LoginViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             alertService.showAlert(loadingIndicator)
 
             defer {
@@ -207,7 +206,10 @@ final class LoginViewModel: ViewModel {
             catch {
 
                 guard !Task.isCancelled else { return }
-                self?.presentAuthError(error, message: Constants.Message.passwordResetErrorMessage)
+                self?.presentAuthError(
+                    error,
+                    message: Constants.Message.passwordResetErrorMessage
+                )
 
             }
 
@@ -235,7 +237,7 @@ final class LoginViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             alertService.showAlert(loadingIndicator)
 
             defer {
@@ -276,7 +278,7 @@ final class LoginViewModel: ViewModel {
     private func presentPasswordResetSuccess() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .success(
                     message: Constants.Message.passwordResetSuccessMessage,
                     action: {}
@@ -294,7 +296,7 @@ final class LoginViewModel: ViewModel {
            authorizationError.code == .canceled { return }
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
                     message: message,
                     action: {}

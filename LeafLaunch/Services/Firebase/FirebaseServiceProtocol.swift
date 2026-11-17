@@ -42,7 +42,7 @@ protocol FirebaseServiceProtocol: APIAuthTokenProviding, Sendable, Loggable {
 
     func handleAppleSignupOrLogin(currentNonce: String?,
                                   authorization: ASAuthorization,
-                                  completion: @escaping (String?, String?, String, String, Error?) -> ())
+                                  completion: @escaping (String?, String?, String, String, Error?) -> Void)
 
     func logout() throws
     func getAccessTokenForCurrentUser() async throws

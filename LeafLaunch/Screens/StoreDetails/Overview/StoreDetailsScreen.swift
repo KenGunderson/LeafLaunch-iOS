@@ -18,7 +18,10 @@ struct StoreDetailsScreen: GPView {
 
         ScrollViewReader { proxy in
 
-            AppHeaderScrollView(horizontalPadding: .none) {
+            LLAppHeaderScrollView(
+                horizontalPadding: .none,
+                onRefresh: { [weak viewModel = viewModel] in await viewModel?.refreshData() }
+            ) {
                 navHeader()
             } scrollViewContent: {
                 content(scrollProxy: proxy)
@@ -32,12 +35,12 @@ struct StoreDetailsScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         StoreNavHeader(
@@ -48,13 +51,16 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content(scrollProxy: ScrollViewProxy) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             visitSummary(scrollProxy: scrollProxy)
-                .padding(.bottom, .medium)
+                .runePadding(.bottom, LLSpacing.listRow)
 
             storefrontSections()
 
@@ -62,11 +68,11 @@ struct StoreDetailsScreen: GPView {
                 .id("store-info")
 
         }
-        .foregroundStyle(.text(.body))
+        .runeTextColor(.body)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func visitSummary(scrollProxy: ScrollViewProxy) -> some View {
 
         if let details = self.viewModel.locationDetails {
@@ -74,20 +80,28 @@ struct StoreDetailsScreen: GPView {
             StoreVisitSummaryView(details: details) {
 
                 withAnimation(self.reduceMotion ? nil : .easeInOut(duration: 0.3)) {
-                    scrollProxy.scrollTo("store-info", anchor: .top)
+
+                    scrollProxy.scrollTo(
+                        "store-info",
+                        anchor: .top
+                    )
+
                 }
 
             }
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func storefrontSections() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             promotions()
             featuredProducts()
@@ -95,20 +109,26 @@ struct StoreDetailsScreen: GPView {
             reloadAction()
 
         }
-        .animation(.bouncy, value: self.viewModel.promotions.isEmpty)
-        .animation(.bouncy, value: self.viewModel.events.isEmpty)
+        .animation(
+            .bouncy,
+            value: self.viewModel.promotions.isEmpty
+        )
+        .animation(
+            .bouncy,
+            value: self.viewModel.events.isEmpty
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func sectionHeader(_ title: String) -> some View {
 
         CommerceSectionHeader(title: title)
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func storeInfo() -> some View {
 
         if self.viewModel.store != nil || self.viewModel.locationDetails != nil {
@@ -122,7 +142,7 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func reloadAction() -> some View {
 
         if !self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
@@ -133,18 +153,21 @@ struct StoreDetailsScreen: GPView {
             ) {
                 self.viewModel.loadData(showHud: true)
             }
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func promotions() -> some View {
 
         if !self.viewModel.promotions.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 sectionHeader(String(localized: "Promotions"))
                 StorePromotionsCarousel(promotions: self.viewModel.promotions) { [weak viewModel] promotion in
@@ -160,10 +183,13 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func featuredProducts() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             featuredProductsHeader()
 
@@ -171,14 +197,14 @@ struct StoreDetailsScreen: GPView {
 
                 featuredCarousel()
 
-            } else if self.viewModel.hasCompletedInitialLoad && !self.viewModel.isLoading {
+            } else if self.viewModel.hasCompletedInitialLoad {
 
                 CommerceEmptyState(
                     systemImage: "bag",
                     title: String(localized: "No Featured Products"),
                     message: String(localized: "Products will appear here when available at this location.")
                 )
-                .padding(.horizontal, .medium)
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
             }
 
@@ -188,7 +214,7 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func featuredProductsHeader() -> some View {
 
         CommerceSectionHeader(
@@ -196,18 +222,21 @@ struct StoreDetailsScreen: GPView {
             actionTitle: String(localized: "Browse Menu"),
             action: { self.tabBarNavigationService.select(.tab2) }
         )
-        .padding(.horizontal, .medium)
+        .runePadding(.horizontal, LLSpacing.pageInset)
         .compositingGroup()
         .geometryGroup()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func featuredCarousel() -> some View {
 
         ScrollView(.horizontal) {
 
-            LazyHStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+            LazyHStack(
+                alignment: .top,
+                spacing: self.style.spacing(LLSpacing.cardContent)
+            ) {
 
                 ForEach(self.viewModel.featuredProducts) { product in
                     featuredProductCard(product)
@@ -219,13 +248,16 @@ struct StoreDetailsScreen: GPView {
         }
         .scrollTargetBehavior(.viewAligned)
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .safeAreaPadding(
+            .horizontal,
+            self.style.spacing(LLSpacing.listRow)
+        )
         .compositingGroup()
         .geometryGroup()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func featuredProductCard(_ product: Product) -> some View {
 
         ProductCardView(
@@ -237,17 +269,20 @@ struct StoreDetailsScreen: GPView {
         .containerRelativeFrame(
             .horizontal,
             count: self.dynamicTypeSize.isAccessibilitySize ? 1 : 2,
-            spacing: self.style.spacing(.small2)
+            spacing: self.style.spacing(LLSpacing.cardContent)
         )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func events() -> some View {
 
         if !self.viewModel.events.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 eventsHeader()
                 eventCarousel()
@@ -261,7 +296,7 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventsHeader() -> some View {
 
         CommerceSectionHeader(
@@ -269,20 +304,23 @@ struct StoreDetailsScreen: GPView {
             actionTitle: String(localized: "See All"),
             action: { [weak viewModel] in viewModel?.openEvents() }
         )
-        .padding(.horizontal, .medium)
+        .runePadding(.horizontal, LLSpacing.pageInset)
         .compositingGroup()
         .geometryGroup()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventCarousel() -> some View {
 
         if !self.viewModel.events.isEmpty {
 
             ScrollView(.horizontal) {
 
-                LazyHStack(alignment: .top, spacing: self.style.spacing(.small)) {
+                LazyHStack(
+                    alignment: .top,
+                    spacing: self.style.spacing(LLSpacing.groupedContent)
+                ) {
 
                     ForEach(self.viewModel.events) { event in
                         eventCard(event)
@@ -294,7 +332,10 @@ struct StoreDetailsScreen: GPView {
             }
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
-            .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+            .safeAreaPadding(
+                .horizontal,
+                self.style.spacing(LLSpacing.listRow)
+            )
             .compositingGroup()
             .geometryGroup()
 
@@ -302,7 +343,7 @@ struct StoreDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventCard(_ event: StoreEvent) -> some View {
 
         StoreEventCard(
@@ -315,7 +356,7 @@ struct StoreDetailsScreen: GPView {
             .horizontal,
             count: self.dynamicTypeSize.isAccessibilitySize ? 1 : 3,
             span: self.dynamicTypeSize.isAccessibilitySize ? 1 : 2,
-            spacing: self.style.spacing(.small)
+            spacing: self.style.spacing(LLSpacing.groupedContent)
         )
 
     }

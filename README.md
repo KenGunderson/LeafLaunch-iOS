@@ -4,6 +4,8 @@ LeafLaunch is a Swift 6 / SwiftUI customer app using FactoryKit and Rune. Each l
 
 ## Run configurations
 
+Use a toolchain supporting Swift 6.4 and iOS 26 or later for the pinned Rune package. See the [Rune migration contract](docs/setup/RUNE_MIGRATION.md).
+
 Open [LeafLaunch.xcodeproj](LeafLaunch.xcodeproj). The live target uses the existing `com.lltemplate` bundle and Firebase registration; the offline target uses `com.lltemplate.mock`.
 
 | Scheme | Run configuration | Backend |
@@ -15,7 +17,7 @@ Open [LeafLaunch.xcodeproj](LeafLaunch.xcodeproj). The live target uses the exis
 
 [LeafLaunch.xcconfig](Configurations/LeafLaunch.xcconfig) supplies Store identity, app key, bundle, and environment URLs through Info.plist. Development uses `http://localhost:3000/api`. Live Release builds use Production, which requires a confirmed HTTPS value for `LEAFLAUNCH_PRODUCTION_API_URL`; it is currently unset and cannot fall back to localhost.
 
-The mock scheme uses the High Standards customer fixtures, starts signed in as Alexis Mensah, and retains its existing 21+ gate. Sign out to browse as a guest. See the [mock target contract](docs/CUSTOMER_ARCHITECTURE.md#leaflaunch-mock-target) for fixture behavior and persistence.
+The mock scheme uses the High Standards customer fixtures, starts signed in as Alexis Mensah, and retains its existing 21+ gate. Sign out to browse as a guest. See the [mock target contract](docs/reference/CUSTOMER_ARCHITECTURE.md#leaflaunch-mock-target) for fixture behavior and persistence.
 
 ## Customer flow
 
@@ -29,9 +31,11 @@ Follow [AGENTS.md](AGENTS.md#verify-and-maintain): inspect changed contracts, ca
 
 ## Documentation
 
-- [Customer architecture](docs/CUSTOMER_ARCHITECTURE.md): targets, launch, endpoint mapping, persistence, and theme reconstruction.
+Start with the [documentation index](docs/README.md) for guides, examples, references, and setup instructions.
+
+- [Customer architecture](docs/reference/CUSTOMER_ARCHITECTURE.md): targets, launch, endpoint mapping, persistence, and theme reconstruction.
 - [Customer workflow](UX-CONTRACT.md): navigation, gating, async state, and recovery ownership.
 - [Design contract](DESIGN.md): structural wireframes, native controls, and Rune token ownership.
-- [Implementation best practices](docs/IMPLEMENTATION_BEST_PRACTICES.md): Swift conventions, lifecycle, tasks, errors, and integration parity.
-- [SwiftUI feature example](docs/SWIFTUI_FEATURE_EXAMPLE.md): worked formatting and feature-wiring reference.
-- [Rune component catalog](docs/UBIQUITOUS_COMPONENTS_GLOBAL.md): component discovery; verify signatures against the pinned package source.
+- [Implementation best practices](docs/guides/IMPLEMENTATION_BEST_PRACTICES.md): Swift conventions, lifecycle, tasks, errors, and integration parity.
+- [SwiftUI feature example](docs/examples/SWIFTUI_FEATURE_EXAMPLE.md): worked formatting and feature-wiring reference.
+- [Rune component catalog](docs/reference/UBIQUITOUS_COMPONENTS_GLOBAL.md): component discovery; verify signatures against the pinned package source.

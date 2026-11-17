@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppEnvironment: Selectable {
+enum AppEnvironment: RNSelectable {
 
     var id: String {
         return description

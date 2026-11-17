@@ -53,7 +53,9 @@ protocol APIServiceProtocol: APIProtocol {
     @concurrent func getCustomerProducts(locationId: String, query: ProductQuery) async throws -> CustomerPage<Product>
     @concurrent func getCustomerProduct(locationId: String, productId: String) async throws -> Product
     @concurrent func getCustomerPromotions(locationId: String) async throws -> [Promotion]
-    @concurrent func getCustomerEvents(locationId: String, offset: Int, limit: Int) async throws -> CustomerPage<StoreEvent>
+    @concurrent func getCustomerEvents(locationId: String,
+                                       offset: Int,
+                                       limit: Int) async throws -> CustomerPage<StoreEvent>
 
     // Customer account and loyalty
 
@@ -93,7 +95,7 @@ extension APIProtocol {
         }
 
         let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
-        guard !Task.isCancelled else { throw APIError.unknownError }
+        guard !Task.isCancelled else { throw APIError.cancelled }
 
         let request = try makeRequest(
             method: method,
@@ -111,6 +113,8 @@ extension APIProtocol {
             retryPolicy: retryPolicy ?? self.retryPolicy
         )
 
+        guard !Task.isCancelled else { throw APIError.cancelled }
+
         apiLogResponse = APILogResponse(
             method: method.rawValue,
             path: request.url?.absoluteString ?? "No URL Provided",
@@ -122,7 +126,10 @@ extension APIProtocol {
             attemptCount: attemptCount
         )
 
-        if let error = handleErrorResponse(data: data, response: response) {
+        if let error = handleErrorResponse(
+            data: data,
+            response: response
+        ) {
 
             apiLogResponse?.error = error
             throw error
@@ -151,13 +158,16 @@ extension APIProtocol {
         }
 
         let accessToken = try await accessTokenIfNeeded(requiresAuthentication: requiresAuthentication)
-        guard !Task.isCancelled else { throw APIError.unknownError }
+        guard !Task.isCancelled else { throw APIError.cancelled }
 
         let request = try makeRequest(
             method: method,
             apiPath: apiPath,
             queryParameters: [:],
-            body: .multipart(boundary: boundary, data: data),
+            body: .multipart(
+                boundary: boundary,
+                data: data
+            ),
             accessToken: accessToken
         )
 
@@ -167,6 +177,8 @@ extension APIProtocol {
             path: apiPath.path.buildURL,
             retryPolicy: retryPolicy ?? self.retryPolicy
         )
+
+        guard !Task.isCancelled else { throw APIError.cancelled }
 
         apiLogResponse = APILogResponse(
             method: method.rawValue,
@@ -179,7 +191,10 @@ extension APIProtocol {
             attemptCount: attemptCount
         )
 
-        if let error = handleErrorResponse(data: data, response: response) {
+        if let error = handleErrorResponse(
+            data: data,
+            response: response
+        ) {
 
             apiLogResponse?.error = error
             throw error
@@ -197,8 +212,9 @@ extension APIProtocol {
     private func accessTokenIfNeeded(requiresAuthentication: Bool) async throws(APIError) -> String? {
 
         guard requiresAuthentication else { return nil }
-        guard let accessToken = try await freshAccessToken(),
-              !accessToken.isEmpty else {
+        let accessToken = try await freshAccessToken()
+        guard !Task.isCancelled else { throw APIError.cancelled }
+        guard let accessToken, !accessToken.isEmpty else {
             throw .missingAccessToken
         }
 
@@ -220,11 +236,14 @@ extension APIProtocol {
 
         while attempt < retryPolicy.maxAttempts {
 
+            guard !Task.isCancelled else { throw APIError.cancelled }
             attempt += 1
 
             do {
 
                 let response = try await self.networkSession.data(for: request)
+                guard !Task.isCancelled else { throw APIError.cancelled }
+
                 latestResponse = response
 
                 if let httpResponse = response.1 as? HTTPURLResponse,
@@ -247,7 +266,10 @@ extension APIProtocol {
                         try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
                     }
                     catch {
+
+                        guard !Task.isCancelled else { throw APIError.cancelled }
                         throw self.mapToAPIError(error)
+
                     }
                     continue
 
@@ -258,6 +280,7 @@ extension APIProtocol {
             }
             catch {
 
+                guard !Task.isCancelled else { throw APIError.cancelled }
                 guard retryPolicy.shouldRetry(
                     error: error,
                     attempt: attempt,
@@ -293,7 +316,10 @@ extension APIProtocol {
                     try await Task.sleep(nanoseconds: retryPolicy.delayNanoseconds(for: attempt))
                 }
                 catch {
+
+                    guard !Task.isCancelled else { throw APIError.cancelled }
                     throw self.mapToAPIError(error)
+
                 }
 
             }
@@ -310,6 +336,8 @@ extension APIProtocol {
 
     @concurrent
     func parseData<T: Decodable>(data: Data) async throws(APIError) -> T {
+
+        guard !Task.isCancelled else { throw APIError.cancelled }
 
         do {
 
@@ -341,14 +369,19 @@ extension APIProtocol {
                 )
 
             }
-            return try responseDecoder.decode(T.self, from: data)
+            return try responseDecoder.decode(
+                T.self,
+                from: data
+            )
 
         } catch let error as DecodingError {
 
+            guard !Task.isCancelled else { throw APIError.cancelled }
             let detailedMessage: String
 
             switch error {
             case .keyNotFound(let key, let context):
+
                 detailedMessage = """
                 Decoding Error: Key Not Found
                 Missing key: \(key.stringValue)
@@ -357,6 +390,7 @@ extension APIProtocol {
                 """
 
             case .typeMismatch(let type, let context):
+
                 detailedMessage = """
                 Decoding Error: Type Mismatch
                 Mismatched type: \(type)
@@ -365,6 +399,7 @@ extension APIProtocol {
                 """
 
             case .valueNotFound(let value, let context):
+
                 detailedMessage = """
                 Decoding Error: Value Not Found
                 Missing value: \(value)
@@ -373,20 +408,24 @@ extension APIProtocol {
                 """
 
             case .dataCorrupted(let context):
+
                 detailedMessage = """
                 Decoding Error: Data Corrupted
                 Coding path: \(context.codingPath.map(\.stringValue).joined(separator: " -> "))
                 Debug description: \(context.debugDescription)
                 """
 
-            @unknown default:
-                detailedMessage = "Unknown decoding error occurred."
+            @unknown default: detailedMessage = "Unknown decoding error occurred."
             }
 
-            self.logError(title: detailedMessage, message: "Decoding Error")
+            self.logError(
+                title: detailedMessage,
+                message: "Decoding Error"
+            )
 
         } catch {
 
+            guard !Task.isCancelled else { throw APIError.cancelled }
             self.logError(
                 title: "Decoding Error",
                 message: "Unknown error: \(await error.getMessageForError())"
@@ -457,6 +496,7 @@ extension APIProtocol {
         let received = first["received"] as? String ?? "unknown"
 
         return "Field '\(path)': \(message) (expected \(expected), received \(received)) [\(code)]"
+
     }
 
     private func mapToAPIError(_ error: Error) -> APIError {
@@ -490,7 +530,12 @@ extension APIProtocol {
                      headers: [String: String] = [:]) throws(APIError) -> URLRequest {
 
         guard !self.hostURL.isEmpty else {
-            throw APIError.serverError(statusCode: 503, errorMessage: "The API URL is not configured for this app target.")
+
+            throw APIError.serverError(
+                statusCode: 503,
+                errorMessage: "The API URL is not configured for this app target."
+            )
+
         }
 
         guard let baseComponents = URLComponents(string: self.hostURL),
@@ -506,7 +551,16 @@ extension APIProtocol {
         }
 
         if !queryParameters.isEmpty {
-            urlComponents.queryItems = queryParameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+
+            urlComponents.queryItems = queryParameters.map {
+
+                URLQueryItem(
+                    name: $0.key,
+                    value: $0.value
+                )
+
+            }
+
         }
 
         guard let url = urlComponents.url else {
@@ -516,40 +570,62 @@ extension APIProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.timeoutInterval = self.requestTimeout
-        request.setValue(Self.appVersion, forHTTPHeaderField: "App-Version")
+        request.setValue(
+            Self.appVersion,
+            forHTTPHeaderField: "App-Version"
+        )
 
         for (name, value) in headers {
-            request.setValue(value, forHTTPHeaderField: name)
+
+            request.setValue(
+                value,
+                forHTTPHeaderField: name
+            )
+
         }
 
         if let accessToken,
            !accessToken.isEmpty {
-            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+            request.setValue(
+                "Bearer \(accessToken)",
+                forHTTPHeaderField: "Authorization"
+            )
+
         }
 
         switch body {
-        case .none:
-            break
+        case .none: break
 
         case .json(let parameters):
 
             if !parameters.isEmpty {
 
                 do {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+
+                    request.httpBody = try JSONSerialization.data(
+                        withJSONObject: parameters,
+                        options: []
+                    )
+
                 }
                 catch {
                     throw APIError.unknownError
                 }
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.setValue(
+                    "application/json",
+                    forHTTPHeaderField: "Content-Type"
+                )
 
             }
 
         case .multipart(let boundary, let data):
 
             request.httpBody = data
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
+            request.setValue(
+                "multipart/form-data; boundary=\(boundary)",
+                forHTTPHeaderField: "Content-Type"
+            )
         }
 
         log(message: buildRequestLog(

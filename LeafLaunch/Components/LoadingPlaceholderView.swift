@@ -14,10 +14,10 @@ struct LoadingPlaceholderView: View {
     var body: some View {
 
         RoundedRectangle(cornerRadius: self.style.radius(.small))
-            .fill(.background(.quaternary))
+            .runeFill(.background(.quaternary))
             .overlay {
 
-                AppLoadingView(style: .circleRunner(
+                RNLoadingView(style: .circleRunner(
                     color: .background(.primary),
                     size: 24
                 ))
@@ -30,7 +30,7 @@ struct LoadingPlaceholderView: View {
 
 #Preview {
 
-    AppBaseView {
+    RNBaseView {
 
         LoadingPlaceholderView()
             .frame(

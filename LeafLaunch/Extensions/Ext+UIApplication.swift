@@ -13,7 +13,9 @@ extension UIApplication {
 
         guard let window = self.firstKeyWindow,
               var topController = window.rootViewController else {
+
             return nil
+
         }
 
         while let presented = topController.presentedViewController {

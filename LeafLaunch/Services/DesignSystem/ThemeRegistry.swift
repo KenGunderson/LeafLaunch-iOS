@@ -37,7 +37,7 @@ enum AvailableTheme: String, CaseIterable, Sendable {
 
     }
 
-    init?(theme: any ThemeProtocol) {
+    init?(theme: any RNThemeProtocol) {
 
         guard let availableTheme = Self.allCases.first(where: { $0.theme().id == theme.id }) else {
             return nil
@@ -47,11 +47,11 @@ enum AvailableTheme: String, CaseIterable, Sendable {
 
     }
 
-    func theme() -> Theme {
+    func theme() -> RNTheme {
 
         switch self {
-        case .light: return Theme.leafLaunchLight
-        case .dark: return Theme.leafLaunchDark
+        case .light: return RNTheme.leafLaunchLight
+        case .dark: return RNTheme.leafLaunchDark
         }
 
     }

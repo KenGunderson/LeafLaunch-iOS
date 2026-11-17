@@ -18,17 +18,14 @@ public extension View {
 
                 if isEnabled {
 
-                    AlwaysOnTopWindowManager.shared.show(.custom("dev-settings")) {
+                    RNAlwaysOnTopWindowManager.shared.show(.custom("dev-settings")) {
 
-                        TokenView(
+                        RNTokenView(
                             text: "Dev Settings (Hold 2.5 Seconds)",
-                            backgroundStyle: .material(.ultraThinMaterial))
-                            .frame(
-                                maxWidth: .infinity,
-                                maxHeight: .infinity,
-                                alignment: .bottom
-                            )
-                            .padding(.bottom, 8)
+                            backgroundStyle: .material(.ultraThinMaterial)
+                        )
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                            .runePadding(.bottom, LLSpacing.groupedContent)
                             .ignoresSafeArea(edges: .bottom)
                             .simultaneousGesture(LongPressGesture(minimumDuration: 2.5).onEnded { _ in
 

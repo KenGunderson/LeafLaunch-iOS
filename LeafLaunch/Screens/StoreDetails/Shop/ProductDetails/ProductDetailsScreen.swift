@@ -13,7 +13,10 @@ struct ProductDetailsScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .none) {
+        LLAppHeaderScrollView(
+            horizontalPadding: .none,
+            onRefresh: { [weak viewModel] in await viewModel?.refreshData() }
+        ) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -25,12 +28,12 @@ struct ProductDetailsScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -38,16 +41,19 @@ struct ProductDetailsScreen: GPView {
             leadingNavButtons: [.back],
             leadingNavButtonsAction: { [weak viewModel] _ in viewModel?.dismiss() },
             trailingNavButtons: self.viewModel.product == nil ? [] : [.heart(isFilled: self.viewModel.isFavorite)],
-            trailingNavButtonsForegroundColor: self.viewModel.isFavorite ? self.style.accent : self.style.textColor(.title),
+            trailingNavButtonsForegroundColor: self.viewModel.isFavorite ? RNColorSource.foreground(.primary) : RNColorSource.text(.title),
             trailingNavButtonsAction: { [weak viewModel] _ in viewModel?.toggleFavorite() }
         )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             if let product = self.viewModel.product {
 
@@ -56,11 +62,11 @@ struct ProductDetailsScreen: GPView {
             } else if self.viewModel.isLoading {
 
                 ProgressView(String(localized: "Loading Product…"))
-                    .appFont(with: .BODY_2)
-                    .tint(self.style.foreground(.primary).resolvedColor(style: self.style))
+                    .runeFont(with: .BODY_2)
+                    .runeTint(.primary)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, .extraLarge)
-                    .padding(.horizontal, .medium)
+                    .runePadding(.vertical, .extraLarge)
+                    .runePadding(.horizontal, LLSpacing.pageInset)
 
             } else if self.viewModel.hasLoadFailed {
 
@@ -69,7 +75,7 @@ struct ProductDetailsScreen: GPView {
                     title: String(localized: "Product Unavailable"),
                     message: String(localized: "We couldn't load this product. Try again to see its latest details.")
                 )
-                .padding(.horizontal, .medium)
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
             }
 
@@ -80,49 +86,52 @@ struct ProductDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productDetails(_ product: Product) -> some View {
 
         ProductGalleryView(product: product)
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
         productInformation(product)
 
         if !product.attributes.isEmpty {
 
             ProductAttributesView(attributes: product.attributes)
-                .padding(.horizontal, .medium)
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
         }
 
         contactActions()
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
         recommendedProducts()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productInformation(_ product: Product) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             ProductDetailsSummaryView(product: product)
-                .padding(.horizontal, .medium)
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
             description(product)
 
             ProductOptionsView(
                 product: product,
-                contentInset: self.style.spacing(.medium)
+                contentInset: self.style.spacing(LLSpacing.listRow)
             )
-            .padding(.top, .small)
+            .runePadding(.top, LLSpacing.groupedContent)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contactActions() -> some View {
 
         ProductContactView(
@@ -137,15 +146,15 @@ struct ProductDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func recommendedProducts() -> some View {
 
         if !self.viewModel.recommendedProducts.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-                CommerceSectionHeader(title: String(localized: "Recommended"))
-                    .padding(.horizontal, .medium)
+            LLSection(
+                title: String(localized: "Recommended"),
+                headingHorizontalPadding: LLSpacing.pageInset
+            ) {
 
                 recommendedCarousel()
 
@@ -155,12 +164,15 @@ struct ProductDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func recommendedCarousel() -> some View {
 
         ScrollView(.horizontal) {
 
-            LazyHStack(alignment: .top, spacing: self.style.spacing(.small)) {
+            LazyHStack(
+                alignment: .top,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 ForEach(self.viewModel.recommendedProducts) { product in
                     recommendedProductCard(product)
@@ -172,11 +184,14 @@ struct ProductDetailsScreen: GPView {
         }
         .scrollTargetBehavior(.viewAligned)
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .safeAreaPadding(
+            .horizontal,
+            self.style.spacing(LLSpacing.listRow)
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func recommendedProductCard(_ product: Product) -> some View {
 
         ProductCardView(
@@ -189,12 +204,12 @@ struct ProductDetailsScreen: GPView {
             .horizontal,
             count: 2,
             span: 1,
-            spacing: self.style.spacing(.small)
+            spacing: self.style.spacing(LLSpacing.groupedContent)
         )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func retryAction() -> some View {
 
         if self.viewModel.product == nil && self.viewModel.hasLoadFailed {
@@ -206,25 +221,28 @@ struct ProductDetailsScreen: GPView {
                 self.viewModel.loadData(showHud: true)
             }
             .disabled(self.viewModel.isLoading)
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func description(_ product: Product) -> some View {
 
         if let description = product.description?.trimmingCharacters(in: .whitespacesAndNewlines),
            !description.isEmpty {
 
             Text(description)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, .medium)
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
         }
 

@@ -14,6 +14,7 @@ struct TabBarScreen: View {
 
     init(selectedTab: Binding<Tab>,
          isTabBarVisible: Binding<Bool>) {
+
         self._selectedTab = selectedTab
         self._isTabBarVisible = isTabBarVisible
 
@@ -23,7 +24,10 @@ struct TabBarScreen: View {
 
         BubbleTabBarView(selectedTab: self.$selectedTab)
             .offset(y: self.isTabBarVisible ? 0 : 200)
-            .animation(.bouncy, value: self.isTabBarVisible)
+            .animation(
+                .bouncy,
+                value: self.isTabBarVisible
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .ignoresSafeArea(.keyboard)
 

@@ -24,15 +24,18 @@ struct SplashScreenView: View {
     var body: some View {
 
         brandIdentity()
-            .padding(.horizontal, .large)
+            .runePadding(.horizontal, LLSpacing.content)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {
                 background()
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
+            .safeAreaInset(
+                edge: .bottom,
+                spacing: 0
+            ) {
 
                 loadingStatus()
-                    .padding(.vertical, .large)
+                    .runePadding(.vertical, LLSpacing.content)
 
             }
             .onFirstAppear {
@@ -56,16 +59,16 @@ struct SplashScreenView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func background() -> some View {
 
-        self.style.background(.primary).view()
+        RNColorSource.background(.primary).view()
             .overlay {
 
                 RadialGradient(
                     colors: [
-                        (self.style.palette(.link).resolvedColor()?.opacity(0.08) ?? .red),
-                        (ColorSource.color(.clear).resolvedColor() ?? .red)
+                        (RNColorSource.palette(.link).resolvedColor(style: self.style)?.opacity(0.08) ?? .red),
+                        Color.clear
                     ],
                     center: .center,
                     startRadius: 0,
@@ -77,10 +80,10 @@ struct SplashScreenView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func brandIdentity() -> some View {
 
-        VStack(spacing: self.style.spacing(.large2)) {
+        VStack(spacing: self.style.spacing(LLSpacing.hero)) {
 
             SplashBrandMarkView()
                 .scaleEffect(self.hasAppeared || self.reduceMotion ? 1 : 0.96)
@@ -89,48 +92,51 @@ struct SplashScreenView: View {
 
         }
         .opacity(self.hasAppeared || self.reduceMotion ? 1 : 0)
-        .offset(y: self.hasAppeared || self.reduceMotion ? 0 : self.style.spacing(.small))
+        .offset(y: self.hasAppeared || self.reduceMotion ? 0 : self.style.spacing(LLSpacing.groupedContent))
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func welcomeCopy() -> some View {
 
         if let appName, !appName.isEmpty {
 
-            VStack(spacing: self.style.spacing(.small)) {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Text(String(localized: "Welcome To"))
-                    .appFont(with: .TITLE_1)
+                    .runeFont(with: .TITLE_1)
                     .textCase(.uppercase)
                     .tracking(2)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeTextColor(.body)
 
                 Text(appName)
-                    .appFont(with: .HEADER_5)
+                    .runeFont(with: .HEADER_5)
                     .tracking(-0.5)
-                    .foregroundStyle(self.style.textColor(.title))
+                    .runeTextColor(.title)
 
             }
             .multilineTextAlignment(.center)
-            .fixedSize(horizontal: false, vertical: true)
+            .fixedSize(
+                horizontal: false,
+                vertical: true
+            )
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadingStatus() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             ProgressView()
                 .controlSize(.small)
-                .tint(self.style.palette(.link).resolvedColor(style: self.style))
+                .tint(RNColorSource.palette(.link))
 
             Text(String(localized: "Loading Your Store"))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .NOTE_1)
+                .runeTextColor(.body)
 
         }
 

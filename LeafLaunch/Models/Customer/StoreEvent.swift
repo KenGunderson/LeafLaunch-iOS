@@ -2,20 +2,6 @@ import Foundation
 
 nonisolated struct StoreEvent: Codable, Hashable, Identifiable, Sendable {
 
-    let id: String
-    let storeId: String
-    let image: MarketingImage?
-    let title: String
-    let description: String?
-    let status: ContentStatus
-    let startsAt: Date?
-    let endsAt: Date?
-    let publishedAt: Date?
-    let externalURL: URL?
-    let createdAt: Date
-    let updatedAt: Date
-    let locations: [EventLocation]?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -33,5 +19,19 @@ nonisolated struct StoreEvent: Codable, Hashable, Identifiable, Sendable {
         case locations
 
     }
+
+    let id: String
+    let storeId: String
+    let image: MarketingImage?
+    let title: String
+    let description: String?
+    let status: ContentStatus
+    let startsAt: Date?
+    let endsAt: Date?
+    let publishedAt: Date?
+    let externalURL: URL?
+    let createdAt: Date
+    let updatedAt: Date
+    let locations: [EventLocation]?
 
 }

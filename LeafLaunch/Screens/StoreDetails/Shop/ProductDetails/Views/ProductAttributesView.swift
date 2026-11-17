@@ -8,9 +8,7 @@ struct ProductAttributesView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-            CommerceSectionHeader(title: String(localized: "Product Details"))
+        LLSection(title: String(localized: "Product Details")) {
 
             LLAppCardView(cornerRadius: .medium2) {
                 attributeRows()
@@ -21,10 +19,13 @@ struct ProductAttributesView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func attributeRows() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             ForEach(self.attributes, id: \.id) { attribute in
 
@@ -40,24 +41,30 @@ struct ProductAttributesView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func attributeRow(_ attribute: ProductAttribute) -> some View {
 
         LabeledContent {
 
             Text(attribute.displayValue)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.title)
                 .multilineTextAlignment(.trailing)
-                .fixedSize(horizontal: false, vertical: true)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
                 .textSelection(.enabled)
 
         } label: {
 
             Text(attribute.name)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
         }
 
@@ -68,7 +75,7 @@ struct ProductAttributesView: View {
 #Preview {
 
     ProductAttributesView(attributes: MockCustomerModels.previewProductAttributes)
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

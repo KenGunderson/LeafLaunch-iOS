@@ -35,7 +35,10 @@ struct StorePromotionCard: View {
             cornerRadius: .large
         ) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.cardContent)
+            ) {
 
                 promotionCopy()
                     .frame(maxHeight: .infinity, alignment: .topLeading)
@@ -44,33 +47,36 @@ struct StorePromotionCard: View {
 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
             .background {
 
-                self.style.palette(.link).view()
+                RNColorSource.palette(.link).view()
                     .overlay(Color.black.opacity(0.78))
 
             }
 
         }
-        .asButton {
+        .runeAsButton {
             self.onOpen()
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func promotionCopy() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.categoryTitle)
-                .appFont(with: .TITLE_1)
+                .runeFont(with: .TITLE_1)
                 .textCase(.uppercase)
                 .foregroundStyle(Color.white.opacity(0.76))
 
             Text(self.promotion.title)
-                .appFont(with: .HEADER_4)
+                .runeFont(with: .HEADER_4)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
                 .foregroundStyle(Color.white)
@@ -78,7 +84,7 @@ struct StorePromotionCard: View {
             if let subtitle = self.subtitle {
 
                 Text(subtitle)
-                    .appFont(with: .BODY_1)
+                    .runeFont(with: .BODY_1)
                     .lineLimit(2)
                     .foregroundStyle(Color.white.opacity(0.76))
 
@@ -89,12 +95,12 @@ struct StorePromotionCard: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func offerAction() -> some View {
 
         if self.promotion.kind != .general {
 
-            CommonButton(
+            LeafLaunchButton(
                 title: String(localized: "View Offer"),
                 titleColor: .text(.titleInverted),
                 titleFont: .TITLE_3,
@@ -106,7 +112,10 @@ struct StorePromotionCard: View {
                 cornerRadius: .medium2,
                 action: self.onOpen
             )
-            .fixedSize(horizontal: true, vertical: false)
+            .fixedSize(
+                horizontal: true,
+                vertical: false
+            )
 
         }
 
@@ -118,8 +127,11 @@ struct StorePromotionCard: View {
 
     if let promotion = MockCustomerModels.promotions.first {
 
-        StorePromotionCard(promotion: promotion, onOpen: {})
-            .padding(.medium)
+        StorePromotionCard(
+            promotion: promotion,
+            onOpen: {}
+        )
+            .runePadding(LLSpacing.pageInset)
             .withMockPreviews()
 
     }

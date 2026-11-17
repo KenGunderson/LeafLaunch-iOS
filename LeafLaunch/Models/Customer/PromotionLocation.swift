@@ -2,15 +2,6 @@ import Foundation
 
 nonisolated struct PromotionLocation: Codable, Identifiable, Sendable {
 
-    let id: String
-    let promotionId: String
-    let storeLocationId: String
-    let timezone: String
-    let startsAt: Date
-    let endsAt: Date
-    let createdAt: Date
-    let updatedAt: Date
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -23,5 +14,14 @@ nonisolated struct PromotionLocation: Codable, Identifiable, Sendable {
         case updatedAt = "updated_at"
 
     }
+
+    let id: String
+    let promotionId: String
+    let storeLocationId: String
+    let timezone: String
+    let startsAt: Date
+    let endsAt: Date
+    let createdAt: Date
+    let updatedAt: Date
 
 }

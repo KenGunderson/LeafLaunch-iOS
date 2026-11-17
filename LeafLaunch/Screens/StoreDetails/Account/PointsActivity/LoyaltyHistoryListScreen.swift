@@ -20,7 +20,7 @@ struct LoyaltyHistoryListScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        LLAppHeaderScrollView(onRefresh: { [weak viewModel] in await viewModel?.refreshData() }) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -32,12 +32,12 @@ struct LoyaltyHistoryListScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -49,10 +49,13 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             loadingContent()
             loadFailure()
@@ -65,10 +68,10 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func activity() -> some View {
 
-        LazyVStack(spacing: self.style.spacing(.small2)) {
+        LazyVStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
             ForEach(self.viewModel.history, id: \.id) { entry in
                 activityRow(entry)
@@ -78,7 +81,7 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func activityRow(_ entry: LoyaltyHistoryEntry) -> some View {
 
         CommerceSurface {
@@ -87,7 +90,7 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadingContent() -> some View {
 
         if self.viewModel.isLoading && self.viewModel.history.isEmpty {
@@ -95,10 +98,10 @@ struct LoyaltyHistoryListScreen: GPView {
             CommerceSurface {
 
                 ProgressView(String(localized: "Loading Points Activity"))
-                    .appFont(with: .BODY_1)
-                    .tint(self.style.palette(.link))
+                    .runeFont(with: .BODY_1)
+                    .tint(RNColorSource.palette(.link))
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, .large)
+                    .runePadding(.vertical, LLSpacing.content)
 
             }
 
@@ -106,10 +109,10 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func emptyContent() -> some View {
 
-        if self.viewModel.hasCompletedInitialLoad && self.viewModel.history.isEmpty && !self.viewModel.isLoading && !self.viewModel.hasLoadFailed {
+        if self.viewModel.hasCompletedInitialLoad && self.viewModel.history.isEmpty {
 
             CommerceSurface {
 
@@ -125,23 +128,29 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadFailure() -> some View {
 
         if self.viewModel.hasLoadFailed {
 
             CommerceSurface {
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+                VStack(
+                    alignment: .leading,
+                    spacing: self.style.spacing(LLSpacing.cardContent)
+                ) {
 
                     Text(String(localized: "Points Activity Couldn't Load"))
-                        .appFont(with: .TITLE_3)
-                        .foregroundStyle(self.style.textColor(.title))
+                        .runeFont(with: .TITLE_3)
+                        .runeTextColor(.title)
 
                     Text(String(localized: "Check your connection and try again. Any loaded activity is still available below."))
-                        .appFont(with: .BODY_1)
-                        .foregroundStyle(self.style.textColor(.body))
-                        .fixedSize(horizontal: false, vertical: true)
+                        .runeFont(with: .BODY_1)
+                        .runeTextColor(.body)
+                        .fixedSize(
+                            horizontal: false,
+                            vertical: true
+                        )
 
                     LeafLaunchButton(title: String(localized: "Try Again")) { [weak viewModel] in
                         viewModel?.retry()
@@ -156,17 +165,17 @@ struct LoyaltyHistoryListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadMoreAction() -> some View {
 
         if self.viewModel.hasMoreHistory && !self.viewModel.hasLoadFailed {
 
-            CommonButton(
+            LeafLaunchButton(
                 style: .outline(lineWidth: 1),
                 title: String(localized: "Load More History"),
-                titleColor: self.style.textColor(.title),
+                titleColor: RNColorSource.text(.title),
                 titleFont: .TITLE_3,
-                backgroundStyle: self.style.background(.border),
+                backgroundStyle: RNColorSource.background(.border),
                 isEnabled: !self.viewModel.isLoading,
                 verticalPadding: .small2,
                 cornerRadius: .medium
@@ -178,8 +187,8 @@ struct LoyaltyHistoryListScreen: GPView {
                 if self.viewModel.isLoading {
 
                     ProgressView()
-                        .tint(self.style.palette(.link))
-                        .padding(.trailing, .medium)
+                        .tint(RNColorSource.palette(.link))
+                        .runePadding(.trailing, LLSpacing.pageInset)
                         .allowsHitTesting(false)
 
                 }

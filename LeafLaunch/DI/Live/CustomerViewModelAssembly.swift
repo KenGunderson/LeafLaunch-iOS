@@ -6,12 +6,14 @@ extension Container {
     var locationListViewModel: Factory<LocationListViewModel> {
 
         self { @MainActor in
+
             LocationListViewModel(
                 storeSessionService: self.storeSessionService(),
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -20,6 +22,7 @@ extension Container {
     var storeContainerViewModel: Factory<StoreContainerViewModel> {
 
         self { @MainActor in
+
             StoreContainerViewModel(
                 storeSessionService: self.storeSessionService(),
                 tabBarNavigationService: self.tabBarNavigationService(),
@@ -28,6 +31,7 @@ extension Container {
                 productListViewModel: self.productListViewModel(),
                 accountDetailsViewModel: self.accountDetailsViewModel()
             )
+
         }
 
     }
@@ -36,6 +40,7 @@ extension Container {
     var storeDetailsViewModel: Factory<StoreDetailsViewModel> {
 
         self { @MainActor in
+
             StoreDetailsViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
@@ -43,6 +48,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -51,12 +57,14 @@ extension Container {
     var eventListViewModel: Factory<EventListViewModel> {
 
         self { @MainActor in
+
             EventListViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -65,10 +73,12 @@ extension Container {
     var eventDetailsViewModel: Factory<EventDetailsViewModel> {
 
         self { @MainActor in
+
             EventDetailsViewModel(
                 storeSessionService: self.storeSessionService(),
                 analyticsService: self.analyticsService()
             )
+
         }
 
     }
@@ -77,10 +87,12 @@ extension Container {
     var promotionProductListViewModel: Factory<PromotionProductListViewModel> {
 
         self { @MainActor in
+
             PromotionProductListViewModel(
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -89,6 +101,7 @@ extension Container {
     var productListViewModel: Factory<ProductListViewModel> {
 
         self { @MainActor in
+
             ProductListViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
@@ -96,6 +109,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -104,6 +118,7 @@ extension Container {
     var favoriteProductListViewModel: Factory<FavoriteProductListViewModel> {
 
         self { @MainActor in
+
             FavoriteProductListViewModel(
                 apiService: self.apiService(),
                 userDefaultsService: self.userDefaultsService(),
@@ -111,6 +126,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -119,6 +135,7 @@ extension Container {
     var productDetailsViewModel: Factory<ProductDetailsViewModel> {
 
         self { @MainActor in
+
             ProductDetailsViewModel(
                 apiService: self.apiService(),
                 storeSessionService: self.storeSessionService(),
@@ -126,6 +143,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -134,6 +152,7 @@ extension Container {
     var accountDetailsViewModel: Factory<AccountDetailsViewModel> {
 
         self { @MainActor in
+
             AccountDetailsViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
@@ -141,6 +160,7 @@ extension Container {
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }
@@ -149,12 +169,14 @@ extension Container {
     var loyaltyHistoryListViewModel: Factory<LoyaltyHistoryListViewModel> {
 
         self { @MainActor in
+
             LoyaltyHistoryListViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
 
     }

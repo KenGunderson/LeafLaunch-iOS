@@ -9,7 +9,10 @@ struct StoreEventCard: View {
     let onSelect: () -> Void
 
     private var schedule: StoreEventSchedule {
-        StoreEventSchedule(event: self.event, location: self.location)
+        StoreEventSchedule(
+            event: self.event,
+            location: self.location
+        )
     }
 
     private var scheduleDescription: String {
@@ -19,7 +22,11 @@ struct StoreEventCard: View {
         }
 
         let time = startsAt.formatted(
-            Date.FormatStyle(date: .omitted, time: .shortened, timeZone: self.schedule.timeZone)
+            Date.FormatStyle(
+                date: .omitted,
+                time: .shortened,
+                timeZone: self.schedule.timeZone
+            )
         )
 
         return [time, self.location?.name]
@@ -37,7 +44,10 @@ struct StoreEventCard: View {
             cornerRadius: .large
         ) {
 
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.none)
+            ) {
 
                 eventImage()
                 eventDetails()
@@ -46,16 +56,19 @@ struct StoreEventCard: View {
 
         }
         .contentShape(Rectangle())
-        .asButton(action: self.onSelect)
+        .runeAsButton(action: self.onSelect)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventImage() -> some View {
 
         StoreMarketingImage(
             url: self.event.image?.url,
-            placeholder: ImageResource(name: "StoreEventFallback", bundle: .main)
+            placeholder: ImageResource(
+                name: "StoreEventFallback",
+                bundle: .main
+            )
         )
         .frame(maxWidth: .infinity)
         .frame(height: 104)
@@ -63,10 +76,10 @@ struct StoreEventCard: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventDetails() -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
             dateBadge()
             dateDivider()
@@ -74,72 +87,89 @@ struct StoreEventCard: View {
             disclosureIndicator()
 
         }
-        .padding(.horizontal, .small2)
-        .padding(.vertical, .small)
+        .runePadding(.horizontal, LLSpacing.cardContent)
+        .runePadding(.vertical, LLSpacing.groupedContent)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func dateBadge() -> some View {
 
-        VStack(spacing: 0) {
+        VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             if let startsAt = self.schedule.startsAt {
 
                 Text(startsAt.formatted(
-                    Date.FormatStyle(date: .omitted, time: .omitted, timeZone: self.schedule.timeZone)
+                    Date.FormatStyle(
+                        date: .omitted,
+                        time: .omitted,
+                        timeZone: self.schedule.timeZone
+                    )
                         .month(.abbreviated)
                 ))
-                .appFont(with: .NOTE_2)
+                .runeFont(with: .NOTE_2)
                 .textCase(.uppercase)
-                .foregroundStyle(.text(.body))
+                .runeTextColor(.body)
 
                 Text(startsAt.formatted(
-                    Date.FormatStyle(date: .omitted, time: .omitted, timeZone: self.schedule.timeZone)
+                    Date.FormatStyle(
+                        date: .omitted,
+                        time: .omitted,
+                        timeZone: self.schedule.timeZone
+                    )
                         .day()
                 ))
-                .appFont(with: .HEADER_3)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .HEADER_3)
+                .runeTextColor(.title)
 
             } else {
 
-                ImageSource.systemImage("calendar")
+                RNImageSource.systemImage("calendar")
                     .view(shouldResize: false)
-                    .foregroundStyle(.text(.body))
+                    .runeTextColor(.body)
 
                 Text(String(localized: "TBA"))
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(.text(.title))
+                    .runeFont(with: .TITLE_2)
+                    .runeTextColor(.title)
 
             }
 
         }
-        .fixedSize(horizontal: true, vertical: true)
+        .fixedSize(
+            horizontal: true,
+            vertical: true
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func dateDivider() -> some View {
 
         Rectangle()
-            .fill(self.style.background(.border))
-            .frame(width: 1, height: self.style.spacing(.large2))
+            .runeFill(RNColorSource.background(.border))
+            .frame(
+                width: 1,
+                height: self.style.spacing(.large2)
+            )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventCaption() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.event.title)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
                 .lineLimit(2)
 
             Text(self.scheduleDescription)
-                .appFont(with: .NOTE_2)
-                .foregroundStyle(.text(.body))
+                .runeFont(with: .NOTE_2)
+                .runeTextColor(.body)
                 .lineLimit(1)
 
         }
@@ -147,13 +177,13 @@ struct StoreEventCard: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func disclosureIndicator() -> some View {
 
-        ImageSource.systemImage("chevron.right")
+        RNImageSource.systemImage("chevron.right")
             .view(shouldResize: false)
-            .appFont(with: .TITLE_2)
-            .foregroundStyle(self.style.foreground(.tertiary))
+            .runeFont(with: .TITLE_2)
+            .runeForeground(.tertiary)
 
     }
 
@@ -163,9 +193,13 @@ struct StoreEventCard: View {
 
     if let event = MockCustomerModels.events.first {
 
-        StoreEventCard(event: event, location: MockCustomerModels.locationDetails.location, onSelect: {})
+        StoreEventCard(
+            event: event,
+            location: MockCustomerModels.locationDetails.location,
+            onSelect: {}
+        )
             .frame(width: 240)
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
             .withMockPreviews()
 
     }

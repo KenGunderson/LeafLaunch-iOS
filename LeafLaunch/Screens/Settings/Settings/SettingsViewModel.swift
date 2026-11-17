@@ -15,7 +15,7 @@ final class SettingsViewModel: ViewModel {
 
     private let authService: AuthServiceProtocol
     private let apiService: APIServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -25,7 +25,6 @@ final class SettingsViewModel: ViewModel {
     private var logoutTask: Task<Void, Never>?
 
     @Published private(set) var shouldDismiss: Bool = false
-
     @Published var shouldShowRateAppAlert: Bool = false
     @Published var shouldShowMailComposer: Bool = false
 
@@ -37,20 +36,21 @@ final class SettingsViewModel: ViewModel {
 
     }
 
-    var emailData: EmailComposerData {
+    var emailData: RNEmailComposerData {
 
         return .init(
             subject: "Customer Support",
             recipients: [Constants.Legal.supportEmail],
             body: "",
             isHTML: false,
-            attachments: [])
+            attachments: []
+        )
 
     }
 
     init(authService: AuthServiceProtocol,
          apiService: APIServiceProtocol,
-         alertService: AlertServiceProtocol,
+         alertService: RNAlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          environmentService: EnvironmentServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
@@ -83,9 +83,7 @@ final class SettingsViewModel: ViewModel {
 
             presentLogoutAlert()
 
-        case .contactSupport:
-
-            self.shouldShowMailComposer = true
+        case .contactSupport: self.shouldShowMailComposer = true
 
         case .rateApp:
 
@@ -154,7 +152,7 @@ final class SettingsViewModel: ViewModel {
     private func presentLogoutAlert() {
 
         self.alertService
-            .showAlert(.init(.appAlert(.init(
+            .showAlert(.init(.runeAlert(.init(
                 title: "Logout?",
                 message: "Are you sure you want to logout?",
                 primaryButtonTitle: "Yes",
@@ -174,7 +172,7 @@ final class SettingsViewModel: ViewModel {
     private func presentLogoutError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
                     message: Constants.Message.logoutErrorMessage,
                     action: {}

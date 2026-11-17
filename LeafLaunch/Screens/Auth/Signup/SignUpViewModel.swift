@@ -14,7 +14,7 @@ final class SignUpViewModel: ViewModel {
     internal let loggerName: String = "SIGN_UP_VIEW_MODEL"
     internal let loggerEmoji: String = "👤"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -29,7 +29,6 @@ final class SignUpViewModel: ViewModel {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var agreedToTerms: Bool = false
-
     @Published private var currentNonce: String?
     @Published private(set) var isLoading: Bool = false
 
@@ -45,7 +44,7 @@ final class SignUpViewModel: ViewModel {
 
     }
 
-    init(alertService: AlertServiceProtocol,
+    init(alertService: RNAlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
@@ -92,7 +91,7 @@ final class SignUpViewModel: ViewModel {
 
                 guard !Task.isCancelled else { return }
 
-                let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+                let loadingIndicator = RNAlert(.simpleLoadingIndicator)
                 alertService.showAlert(loadingIndicator)
 
                 defer {
@@ -133,6 +132,7 @@ final class SignUpViewModel: ViewModel {
             }
 
         case .failure(let error):
+
             presentAuthError(error)
         }
 
@@ -160,7 +160,7 @@ final class SignUpViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             alertService.showAlert(loadingIndicator)
 
             defer {
@@ -226,7 +226,7 @@ final class SignUpViewModel: ViewModel {
            case .emailAlreadyInUse = firebaseError {
 
             self.alertService.showAlert(.init(
-                .appAlert(
+                .runeAlert(
                     .error(
                         message: Constants.Message.existingLeafLaunchAccountMessage,
                         action: { [weak self] in self?.navigationService?.replaceStack(.auth(.login)) }
@@ -238,7 +238,7 @@ final class SignUpViewModel: ViewModel {
         }
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
                     message: Constants.Message.signupErrorMessage,
                     action: {}

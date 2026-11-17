@@ -13,7 +13,7 @@ struct AppRootView<Content: View>: View {
     private let content: Content
 
     init(navigationService: Binding<NavigationService>,
-         @ViewBuilder content: () -> Content) {
+         @ContentBuilder content: () -> Content) {
 
         self._navigationService = navigationService
         self.content = content()
@@ -21,7 +21,7 @@ struct AppRootView<Content: View>: View {
     }
 
     init(navigationService: Bindable<NavigationService>,
-         @ViewBuilder content: () -> Content) {
+         @ContentBuilder content: () -> Content) {
 
         self._navigationService = .constant(navigationService.wrappedValue)
         self.content = content()

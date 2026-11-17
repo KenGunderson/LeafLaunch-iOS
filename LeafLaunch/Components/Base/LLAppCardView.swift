@@ -2,19 +2,19 @@ import SwiftUI
 
 struct LLAppCardView<Content: View>: View {
 
-    private let verticalPadding: Theme.SpacingKey
-    private let horizontalPadding: Theme.SpacingKey
-    private let backgroundStyle: ColorSource
-    private let cornerRadius: Theme.RadiusKey
-    private let borderColor: ColorSource?
+    private let verticalPadding: RNTheme.SpacingKey
+    private let horizontalPadding: RNTheme.SpacingKey
+    private let backgroundStyle: RNColorSource
+    private let cornerRadius: RNTheme.RadiusKey
+    private let borderColor: RNColorSource?
     private let content: Content
 
-    init(verticalPadding: Theme.SpacingKey = .medium,
-         horizontalPadding: Theme.SpacingKey = .medium,
-         backgroundStyle: ColorSource = .background(.secondary),
-         cornerRadius: Theme.RadiusKey = .small2,
-         borderColor: ColorSource? = nil,
-         @ViewBuilder content: () -> Content) {
+    init(verticalPadding: RNTheme.SpacingKey = LLSpacing.pageInset,
+         horizontalPadding: RNTheme.SpacingKey = LLSpacing.pageInset,
+         backgroundStyle: RNColorSource = .background(.secondary),
+         cornerRadius: RNTheme.RadiusKey = .small2,
+         borderColor: RNColorSource? = nil,
+         @ContentBuilder content: () -> Content) {
 
         self.verticalPadding = verticalPadding
         self.horizontalPadding = horizontalPadding
@@ -27,7 +27,7 @@ struct LLAppCardView<Content: View>: View {
 
     var body: some View {
 
-        AppCardView(
+        RNCardView(
             verticalPadding: self.verticalPadding,
             horizontalPadding: self.horizontalPadding,
             backgroundStyle: self.backgroundStyle,
@@ -36,7 +36,7 @@ struct LLAppCardView<Content: View>: View {
         ) {
             self.content
         }
-        .appBorder(
+        .runeBorder(
             cornerRadius: self.cornerRadius,
             color: self.borderColor ?? .background(.border),
             lineWidth: 0.8
@@ -51,11 +51,11 @@ struct LLAppCardView<Content: View>: View {
     LLAppCardView {
 
         Text(MockCustomerModels.store.name)
-            .appFont(with: .TITLE_4)
-            .foregroundStyle(.text(.title))
+            .runeFont(with: .TITLE_4)
+            .runeTextColor(.title)
 
     }
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

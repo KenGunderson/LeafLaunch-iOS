@@ -16,7 +16,7 @@ struct RestrictCaptureView<Content: View>: UIViewControllerRepresentable {
 
     init(colorScheme: ColorScheme? = nil,
          statusBarStyle: UIUserInterfaceStyle,
-         @ViewBuilder content: @escaping () -> Content) {
+         @ContentBuilder content: @escaping () -> Content) {
 
         self.colorScheme = colorScheme
         self.statusBarStyle = statusBarStyle
@@ -66,7 +66,10 @@ final class ViewController: UIViewController {
         self.colorScheme = colorScheme
         self.statusBarStyle = statusBarStyle
         self.hostingController = UIHostingController(rootView: rootView)
-        super.init(nibName: nil, bundle: nil)
+        super.init(
+            nibName: nil,
+            bundle: nil
+        )
 
     }
 
@@ -129,7 +132,7 @@ final class ViewController: UIViewController {
 
 public extension View {
 
-    @ViewBuilder
+    @ContentBuilder
     func restrictCapture(_ restrict: Bool = true,
                          colorScheme: ColorScheme? = .light,
                          statusBarStyle: UIUserInterfaceStyle = .light) -> some View {
@@ -172,7 +175,9 @@ extension UIView {
         textField.isUserInteractionEnabled = false
 
         guard let secureView = textField.layer.sublayers?.first?.delegate as? UIView else {
+
             return .init()
+
         }
 
         secureView.subviews.forEach { subview in

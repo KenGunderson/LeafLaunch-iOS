@@ -18,9 +18,13 @@ struct StoreAccountLinksView: View {
 
     var body: some View {
 
-        LLAppCardView(verticalPadding: .none, horizontalPadding: .none, cornerRadius: .large) {
+        LLAppCardView(
+            verticalPadding: .none,
+            horizontalPadding: .none,
+            cornerRadius: .large
+        ) {
 
-            VStack(spacing: 0) {
+            VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
                 accountLink(
                     title: String(localized: "Saved Products"),
@@ -44,48 +48,54 @@ struct StoreAccountLinksView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func accountLink(title: String,
                              subtitle: String? = nil,
                              systemImage: String,
                              action: @escaping () -> Void) -> some View {
 
-        HStack(spacing: self.style.spacing(.medium)) {
+        HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
-            ImageSource.systemImage(systemImage)
+            RNImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
-                .appFont(with: .TITLE_6)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_6)
+                .runeTextColor(.title)
                 .frame(width: self.style.spacing(.large2))
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.metadata)
+            ) {
 
                 Text(title)
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(self.style.textColor(.title))
+                    .runeFont(with: .TITLE_3)
+                    .runeTextColor(.title)
 
                 if let subtitle {
 
                     Text(subtitle)
-                        .appFont(with: .BODY_1)
-                        .foregroundStyle(self.style.textColor(.body))
+                        .runeFont(with: .BODY_1)
+                        .runeTextColor(.body)
 
                 }
 
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .fixedSize(
+                horizontal: false,
+                vertical: true
+            )
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            ImageSource.systemImage("chevron.right")
+            RNImageSource.systemImage("chevron.right")
                 .view(shouldResize: false)
-                .appFont(with: .TITLE_1)
-                .foregroundStyle(self.style.textColor(.placeholder))
+                .runeFont(with: .TITLE_1)
+                .runeTextColor(.placeholder)
 
         }
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
-        .asButton(action: action)
+        .runeAsButton(action: action)
 
     }
 

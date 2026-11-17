@@ -22,8 +22,13 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
     var isAuthorized: Bool {
 
         switch self.manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse: return true
-        default: return false
+        case .authorizedAlways,
+                .authorizedWhenInUse:
+
+            return true
+
+        default:
+            return false
         }
 
     }
@@ -89,6 +94,7 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
         guard let location = locations.last, location.horizontalAccuracy >= 0 else {
 
             finish(.failure(CLError(.locationUnknown)))
+
             return
 
         }
@@ -112,6 +118,7 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
         guard let request = MKGeocodingRequest(addressString: address) else {
 
             finish(.failure(CLError(.geocodeFoundNoResult)))
+
             return
 
         }
@@ -125,7 +132,12 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
             guard let self, let request, self.geocodingRequest === request else { return }
 
             if let location = mapItems?.first?.location {
-                self.finish(.success(LocationSearchResult(location: location, postalCode: nil)))
+
+                self.finish(.success(LocationSearchResult(
+                    location: location,
+                    postalCode: nil
+                )))
+
             } else {
                 self.finish(.failure(error ?? CLError(.geocodeFoundNoResult)))
             }
@@ -138,7 +150,11 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
 
         guard let request = MKReverseGeocodingRequest(location: location) else {
 
-            finish(.success(LocationSearchResult(location: location, postalCode: nil)))
+            finish(.success(LocationSearchResult(
+                location: location,
+                postalCode: nil
+            )))
+
             return
 
         }
@@ -152,7 +168,10 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
 
             // MapKit's replacement address representations do not expose a structured postal code.
             let postalCode = mapItems?.first?.placemark.postalCode
-            self.finish(.success(LocationSearchResult(location: location, postalCode: postalCode)))
+            self.finish(.success(LocationSearchResult(
+                location: location,
+                postalCode: postalCode
+            )))
 
         }
 
@@ -170,22 +189,28 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
             guard self.canRequestAuthorization else {
 
                 finish(.failure(CLError(.denied)))
+
                 return
 
             }
 
             self.manager.requestWhenInUseAuthorization()
 
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedAlways,
+                .authorizedWhenInUse:
 
             guard !self.hasRequestedLocation else { return }
             self.hasRequestedLocation = true
             startTimeout()
             self.manager.requestLocation()
 
-        case .denied, .restricted:
+        case .denied,
+                .restricted:
+
             finish(.failure(CLError(.denied)))
+
         @unknown default:
+
             finish(.failure(CLError(.locationUnknown)))
         }
 
@@ -201,7 +226,11 @@ final class LocationSearchLocator: NSObject, @preconcurrency CLLocationManagerDe
                 try Task.checkCancellation()
                 self?.finish(.failure(CLError(.locationUnknown)))
 
-            } catch {}
+            } catch {
+
+                guard !Task.isCancelled else { return }
+
+            }
 
         }
 

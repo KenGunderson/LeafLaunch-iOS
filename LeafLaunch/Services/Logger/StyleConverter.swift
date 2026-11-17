@@ -29,13 +29,19 @@ enum StyleConverter: String, CaseIterable {
     private func toWords(_ input: String) -> [String] {
 
         switch self {
-        case .snakeCase, .screamingSnakeCase:
+        case .snakeCase,
+                .screamingSnakeCase:
 
             return input.lowercased().split(separator: "_").map(String.init)
 
-        case .camelCase, .pascalCase:
+        case .camelCase,
+                .pascalCase:
 
-            return input.replacingOccurrences(of: "([A-Z])", with: " $1", options: .regularExpression)
+            return input.replacingOccurrences(
+                of: "([A-Z])",
+                with: " $1",
+                options: .regularExpression
+            )
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .lowercased()
                 .split(separator: " ")
@@ -48,7 +54,6 @@ enum StyleConverter: String, CaseIterable {
         case .sentenceCase:
 
             return input.lowercased().split(separator: " ").map(String.init)
-
         }
 
     }
@@ -79,7 +84,6 @@ enum StyleConverter: String, CaseIterable {
         case .sentenceCase:
 
             return words.enumerated().map { $0 == 0 ? $1.capitalized : $1 }.joined(separator: " ")
-
         }
 
     }
@@ -91,7 +95,8 @@ extension String {
     func convertNamingStyle(from currentStyle: StyleConverter, to targetStyle: StyleConverter) -> String {
 
         return StyleConverter.convert(
-            self, from: currentStyle,
+            self,
+            from: currentStyle,
             to: targetStyle
         )
 

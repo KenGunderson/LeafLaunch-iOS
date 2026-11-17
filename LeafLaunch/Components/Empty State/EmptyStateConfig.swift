@@ -9,7 +9,7 @@ struct EmptyStateConfig {
 
     let title: String
     let message: String?
-    let image: ImageSource
+    let image: RNImageSource
     let actionTitle: String?
     let action: (() -> Void)?
 

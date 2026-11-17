@@ -5,8 +5,8 @@
 
 import Foundation
 
-// Rune Theme contains ColorSource and UIFont and is not Codable. Cache the
-// validated definition and reconstruct the actual Rune Theme before rendering.
+// RNTheme contains RNColorSource and UIFont and is not Codable. Cache the
+// validated definition and reconstruct the actual RNTheme before rendering.
 nonisolated struct CachedStoreTheme: Codable, Sendable {
 
     static let currentSchemaVersion = 2
@@ -35,13 +35,19 @@ nonisolated struct CachedStoreTheme: Codable, Sendable {
     @MainActor
     var matchesCurrentTarget: Bool {
 
-        (self.schemaVersion == 1 || self.schemaVersion == Self.currentSchemaVersion)
-            && BusinessConfig.isConfigured
-            && self.businessId == BusinessConfig.businessId
-            && self.appKey == BusinessConfig.appKey
-            && self.bundleIdentifier == BusinessConfig.bundleIdentifier
-            && AvailableTheme(rawValue: self.baseTheme) != nil
-            && (self.schemaVersion == 1 || self.branding.radius?.isComplete == true)
+        let hasSupportedSchema = self.schemaVersion == 1 || self.schemaVersion == Self.currentSchemaVersion
+        guard hasSupportedSchema, BusinessConfig.isConfigured else { return false }
+
+        let matchesBusiness = self.businessId == BusinessConfig.businessId
+        guard matchesBusiness else { return false }
+
+        let matchesAppKey = self.appKey == BusinessConfig.appKey
+        guard matchesAppKey else { return false }
+
+        let matchesBundle = self.bundleIdentifier == BusinessConfig.bundleIdentifier
+        guard matchesBundle, AvailableTheme(rawValue: self.baseTheme) != nil else { return false }
+
+        return self.schemaVersion == 1 || self.branding.radius?.isComplete == true
 
     }
 

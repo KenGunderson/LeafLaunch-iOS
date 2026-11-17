@@ -9,7 +9,7 @@ final class EventListViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let storeSessionService: StoreSessionServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -30,10 +30,12 @@ final class EventListViewModel: ViewModel {
 
     }
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.apiService = apiService
         self.storeSessionService = storeSessionService
@@ -67,14 +69,31 @@ final class EventListViewModel: ViewModel {
         track()
     }
 
-    func loadData(showHud: Bool) {
-        loadEvents(reset: true, showHud: showHud)
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadEventsTask
+        await loadTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
+
+        loadEvents(
+            reset: true,
+            showHud: showHud
+        )
+
     }
 
     func loadMore() {
 
         guard self.hasMoreEvents else { return }
-        loadEvents(reset: false, showHud: false)
+        loadEvents(
+            reset: false,
+            showHud: false
+        )
 
     }
 
@@ -82,7 +101,10 @@ final class EventListViewModel: ViewModel {
 
         guard let locationId = self.locationId,
               self.events.contains(where: { $0.id == event.id }) else { return }
-        self.navigationService?.push(.customer(.event(locationId: locationId, event: event)))
+        self.navigationService?.push(.customer(.event(
+            locationId: locationId,
+            event: event
+        )))
 
     }
 
@@ -107,7 +129,7 @@ final class EventListViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -121,7 +143,11 @@ final class EventListViewModel: ViewModel {
 
             do {
 
-                var page = try await apiService.getCustomerEvents(locationId: locationId, offset: offset, limit: limit)
+                var page = try await apiService.getCustomerEvents(
+                    locationId: locationId,
+                    offset: offset,
+                    limit: limit
+                )
                 guard !Task.isCancelled else { return }
 
                 var receivedEvents = page.data
@@ -170,9 +196,12 @@ final class EventListViewModel: ViewModel {
     private func presentEventsError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: .get, "events"),
+                    message: Constants.Message.errorMessage(
+                        context: .get,
+                        "events"
+                    ),
                     action: {}
                 )
             )

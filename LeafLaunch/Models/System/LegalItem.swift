@@ -29,8 +29,14 @@ struct LegalItem: Identifiable, Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = UUID().uuidString
-        self.title = try container.decode(String.self, forKey: .title)
-        self.sections = try container.decode([String].self, forKey: .sections)
+        self.title = try container.decode(
+            String.self,
+            forKey: .title
+        )
+        self.sections = try container.decode(
+            [String].self,
+            forKey: .sections
+        )
 
     }
 

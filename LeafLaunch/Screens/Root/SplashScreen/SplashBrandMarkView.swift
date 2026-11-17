@@ -10,19 +10,34 @@ struct SplashBrandMarkView: View {
 
     var body: some View {
 
-        ImageSource.image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
+        RNImageSource.image(ImageResource(
+            name: BusinessConfig.logoAssetName,
+            bundle: .main
+        ))
             .view()
             .aspectRatio(contentMode: .fit)
-            .frame(width: self.logoSize, height: self.logoSize)
-            .background(self.style.background(.tertiary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.extraLarge), style: .continuous))
+            .frame(
+                width: self.logoSize,
+                height: self.logoSize
+            )
+            .runeBackground(.tertiary)
+            .clipShape(RoundedRectangle(
+                cornerRadius: self.style.radius(.extraLarge),
+                style: .continuous
+            ))
             .overlay {
 
-                RoundedRectangle(cornerRadius: self.style.radius(.extraLarge), style: .continuous)
-                    .strokeBorder(self.style.background(.border).opacity(0.5), lineWidth: 1)
+                RoundedRectangle(
+                    cornerRadius: self.style.radius(.extraLarge),
+                    style: .continuous
+                )
+                    .strokeBorder(
+                        RNColorSource.background(.border).opacity(0.5),
+                        lineWidth: 1
+                    )
 
             }
-            .appShadow(.offset)
+            .runeShadow(.offset)
             .accessibilityHidden(true)
 
     }
@@ -32,7 +47,7 @@ struct SplashBrandMarkView: View {
 #Preview {
 
     SplashBrandMarkView()
-        .padding(.large)
+        .runePadding(LLSpacing.content)
         .withMockPreviews()
 
 }

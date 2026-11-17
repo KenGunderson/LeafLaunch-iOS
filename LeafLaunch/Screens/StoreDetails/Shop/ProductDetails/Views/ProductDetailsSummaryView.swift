@@ -8,13 +8,19 @@ struct ProductDetailsSummaryView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.product.displayName)
-                .appFont(with: .TITLE_7)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .TITLE_7)
+                .runeTextColor(.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .fixedSize(horizontal: false, vertical: true)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
             categoryNames()
 
@@ -23,7 +29,7 @@ struct ProductDetailsSummaryView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func categoryNames() -> some View {
 
         let categories = [self.product.category?.name, self.product.subcategory?.name]
@@ -34,9 +40,12 @@ struct ProductDetailsSummaryView: View {
         if !categories.isEmpty {
 
             Text(categories)
-                .appFont(with: .BODY_3)
-                .foregroundStyle(.text(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_3)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
         }
 
@@ -49,7 +58,7 @@ struct ProductDetailsSummaryView: View {
     if let product = MockCustomerModels.products.first {
 
         ProductDetailsSummaryView(product: product)
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
             .withMockPreviews()
 
     }

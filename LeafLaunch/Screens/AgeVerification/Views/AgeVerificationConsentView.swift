@@ -19,7 +19,10 @@ struct AgeVerificationConsentView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             ageRequirement()
             location()
@@ -29,84 +32,100 @@ struct AgeVerificationConsentView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func ageRequirement() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             ageBadge()
             ageConfirmation()
 
         }
-        .padding(.horizontal, .small)
+        .runePadding(.horizontal, LLSpacing.groupedContent)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func ageBadge() -> some View {
 
         Text("\(self.minimumAge)+")
-            .appFont(with: .BILLBOARD_3)
+            .runeFont(with: .BILLBOARD_3)
             .monospacedDigit()
             .lineLimit(1)
             .minimumScaleFactor(0.5)
-            .foregroundStyle(self.style.palette(.link))
+            .foregroundStyle(RNColorSource.palette(.link))
             .frame(
                 width: self.style.spacing(.extraLarge2) * 2,
                 height: self.style.spacing(.extraLarge2) * 2
             )
             .background {
 
-                self.style.palette(.link).view()
+                RNColorSource.palette(.link).view()
                     .opacity(0.08)
 
             }
-            .cornerRadius(.extraLarge)
+            .runeCornerRadius(.extraLarge)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func ageConfirmation() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             Text(String(localized: "Age Confirmation"))
-                .appFont(with: .TITLE_2)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .TITLE_2)
+                .runeTextColor(.body)
 
             confirmationCopy()
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func confirmationCopy() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text(String(localized: "Adults Only."))
-                .appFont(with: .BILLBOARD_2)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .BILLBOARD_2)
+                .runeTextColor(.title)
 
             Text(String(localized: "Please confirm you're \(self.minimumAge) or older to continue."))
-                .appFont(with: .BODY_3)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .BODY_3)
+                .runeTextColor(.body)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func location() -> some View {
 
         if let details = self.locationDetails {
 
-            LLAppCardView(verticalPadding: .small2, horizontalPadding: .medium, cornerRadius: .medium2) {
+            LLAppCardView(
+                verticalPadding: .small2,
+                horizontalPadding: .medium,
+                cornerRadius: .medium2
+            ) {
 
-                HStack(spacing: self.style.spacing(.medium)) {
+                HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                     locationIcon()
                     locationInformation(details)
@@ -116,63 +135,72 @@ struct AgeVerificationConsentView: View {
 
             }
             .contentShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-            .asButton(action: self.changeLocationAction)
+            .runeAsButton(action: self.changeLocationAction)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationIcon() -> some View {
 
-        ImageSource.systemImage("mappin")
+        RNImageSource.systemImage("mappin")
             .view(shouldResize: false)
-            .appFont(with: .HEADER_4)
-            .foregroundStyle(self.style.palette(.link))
+            .runeFont(with: .HEADER_4)
+            .foregroundStyle(RNColorSource.palette(.link))
             .frame(width: self.style.spacing(.large2))
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationInformation(_ details: CustomerLocationDetails) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(details.location.name)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_4)
+                .runeTextColor(.title)
 
             let address = self.regionDescription.isEmpty ? details.address : self.regionDescription
 
             if !address.isEmpty {
 
                 Text(address)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
 
             }
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func changeLocation() -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
             Text(String(localized: "Change"))
-                .appFont(with: .BODY_2)
+                .runeFont(with: .BODY_2)
 
-            ImageSource.systemImage("chevron.right")
+            RNImageSource.systemImage("chevron.right")
                 .view(shouldResize: false)
-                .appFont(with: .TITLE_3)
+                .runeFont(with: .TITLE_3)
 
         }
-        .foregroundStyle(self.style.palette(.link))
-        .fixedSize(horizontal: true, vertical: false)
+        .foregroundStyle(RNColorSource.palette(.link))
+        .fixedSize(
+            horizontal: true,
+            vertical: false
+        )
 
     }
 
@@ -187,7 +215,7 @@ struct AgeVerificationConsentView: View {
         locationDetails: details,
         changeLocationAction: {}
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

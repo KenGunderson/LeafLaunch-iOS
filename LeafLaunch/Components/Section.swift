@@ -12,20 +12,22 @@ struct SectionView<Trailing: View>: View {
     @Environment(\.style) private var style
 
     let leadingTitle: String
-    let leadingForegroundColor: ColorSource
+    let leadingForegroundColor: RNColorSource
     let showDivider: Bool
     let dividerLineWidth: CGFloat
     let trailingTitle: String
     let trailingAction: (() -> Void)?
     let trailingView: Trailing?
+    let titleFont: RNTheme.FontKey
 
     init(leadingTitle: String,
-         leadingForegroundColor: ColorSource = .text(.title),
+         leadingForegroundColor: RNColorSource = .text(.title),
          showDivider: Bool = false,
          dividerLineWidth: CGFloat = 1.5,
          trailingTitle: String = "View All",
          trailingAction: (() -> Void)? = nil,
-         @ViewBuilder trailingView: () -> Trailing) {
+         titleFont: RNTheme.FontKey = LeafLaunchThemeTokens.headingFont,
+         @ContentBuilder trailingView: () -> Trailing) {
 
         self.leadingTitle = leadingTitle
         self.leadingForegroundColor = leadingForegroundColor
@@ -34,16 +36,18 @@ struct SectionView<Trailing: View>: View {
         self.trailingTitle = trailingTitle
         self.trailingAction = trailingAction
         self.trailingView = trailingView()
+        self.titleFont = titleFont
 
     }
 
     private init(leadingTitle: String,
-                 leadingForegroundColor: ColorSource,
+                 leadingForegroundColor: RNColorSource,
                  showDivider: Bool,
                  dividerLineWidth: CGFloat,
                  trailingTitle: String,
                  trailingAction: (() -> Void)?,
-                 trailingView: Trailing?) {
+                 trailingView: Trailing?,
+                 titleFont: RNTheme.FontKey) {
 
         self.leadingTitle = leadingTitle
         self.leadingForegroundColor = leadingForegroundColor
@@ -52,6 +56,7 @@ struct SectionView<Trailing: View>: View {
         self.trailingTitle = trailingTitle
         self.trailingAction = trailingAction
         self.trailingView = trailingView
+        self.titleFont = titleFont
 
     }
 
@@ -59,18 +64,15 @@ struct SectionView<Trailing: View>: View {
 
         VStack(
             alignment: .leading,
-            spacing: self.style.spacing(.extraSmall)
+            spacing: self.style.spacing(LLSpacing.metadata)
         ) {
 
-            HStack {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Text(self.leadingTitle)
-                    .appFont(with: LeafLaunchThemeTokens.headingFont)
+                    .runeFont(with: self.titleFont)
                     .foregroundStyle(self.leadingForegroundColor)
-                    .frame(
-                        maxWidth: .infinity,
-                        alignment: .leading
-                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 self.trailingContent
 
@@ -79,7 +81,7 @@ struct SectionView<Trailing: View>: View {
             if self.showDivider {
 
                 Capsule()
-                    .fill(.background(.quaternary))
+                    .runeFill(.background(.quaternary))
                     .frame(height: self.dividerLineWidth)
 
             }
@@ -88,7 +90,7 @@ struct SectionView<Trailing: View>: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private var trailingContent: some View {
 
         if let trailingView = self.trailingView {
@@ -97,19 +99,22 @@ struct SectionView<Trailing: View>: View {
 
         } else if let trailingAction = self.trailingAction {
 
-            HStack {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Text(self.trailingTitle)
-                    .appFont(with: .BODY_2)
+                    .runeFont(with: .BODY_2)
 
-                ImageSource.systemImage("arrow.right")
+                RNImageSource.systemImage("arrow.right")
                     .view()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 12, height: 12)
+                    .frame(
+                        width: 12,
+                        height: 12
+                    )
 
             }
-            .foregroundStyle(.text(.body))
-            .asButton {
+            .runeTextColor(.body)
+            .runeAsButton {
                 trailingAction()
             }
 
@@ -122,11 +127,12 @@ struct SectionView<Trailing: View>: View {
 extension SectionView where Trailing == EmptyView {
 
     init(leadingTitle: String,
-         leadingForegroundColor: ColorSource = .text(.title),
+         leadingForegroundColor: RNColorSource = .text(.title),
          showDivider: Bool = false,
          dividerLineWidth: CGFloat = 1.5,
          trailingTitle: String = "View All",
-         trailingAction: (() -> Void)? = nil) {
+         trailingAction: (() -> Void)? = nil,
+         titleFont: RNTheme.FontKey = LeafLaunchThemeTokens.headingFont) {
 
         self.init(
             leadingTitle: leadingTitle,
@@ -135,7 +141,8 @@ extension SectionView where Trailing == EmptyView {
             dividerLineWidth: dividerLineWidth,
             trailingTitle: trailingTitle,
             trailingAction: trailingAction,
-            trailingView: nil
+            trailingView: nil,
+            titleFont: titleFont
         )
 
     }
@@ -144,9 +151,11 @@ extension SectionView where Trailing == EmptyView {
 
 #Preview {
 
-    AppBaseView {
+    @Previewable @Environment(\.style) var style
 
-        VStack {
+    RNBaseView {
+
+        VStack(spacing: style.spacing(LLSpacing.listRow)) {
 
             SectionView(
                 leadingTitle: "Section 1",
@@ -172,26 +181,32 @@ extension SectionView where Trailing == EmptyView {
                 dividerLineWidth: 6
             ) {
 
-                HStack(spacing: 2) {
+                HStack(spacing: style.spacing(LLSpacing.tightMetadata)) {
 
-                    ImageSource.systemImage("sparkles")
+                    RNImageSource.systemImage("sparkles")
                         .view()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 16, height: 16)
+                        .frame(
+                            width: 16,
+                            height: 16
+                        )
 
                     Text("Custom View")
-                        .appFont(with: .BODY_2)
+                        .runeFont(with: .BODY_2)
 
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal, 8)
-                .appBorder(cornerRadius: .extraLarge, color: .palette(.link))
-                .foregroundStyle(.palette(.link))
+                .runePadding(.vertical, LLSpacing.compact)
+                .runePadding(.horizontal, LLSpacing.groupedContent)
+                .runeBorder(
+                    cornerRadius: .extraLarge,
+                    color: .palette(.link)
+                )
+                .foregroundStyle(RNColorSource.palette(.link))
 
             }
 
         }
-        .padding(.horizontal, .large)
+        .runePadding(.horizontal, LLSpacing.content)
 
     }
 

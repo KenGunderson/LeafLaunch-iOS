@@ -11,7 +11,6 @@ import Charts
 struct DevUserDefaultsScreen: GPView {
 
     @Environment(\.style) private var style
-
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject var viewModel: DevUserDefaultsViewModel
@@ -39,7 +38,7 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func headerView() -> some View {
 
         NavHeader(
@@ -50,10 +49,10 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(spacing: self.style.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
             sectionView(
                 title: "Flags",
@@ -71,29 +70,35 @@ struct DevUserDefaultsScreen: GPView {
             )
 
         }
-        .appFont(with: .BODY_4)
+        .runeFont(with: .BODY_4)
         .onTapGesture {
             self.dismissKeyboard()
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func flags() -> some View {
 
         Group {
 
-            Toggle("didRateMyAppAlertShow", isOn: self.$viewModel.didRateMyAppAlertShow)
-            Toggle("shouldHideScreenshots", isOn: self.$viewModel.shouldHideScreenshots)
+            Toggle(
+                "didRateMyAppAlertShow",
+                isOn: self.$viewModel.didRateMyAppAlertShow
+            )
+            Toggle(
+                "shouldHideScreenshots",
+                isOn: self.$viewModel.shouldHideScreenshots
+            )
 
-            HStack {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
-                TokenView(
+                RNTokenView(
                     text: "Reset Flags",
                     foregroundStyle: .color(.white),
                     backgroundStyle: .color(.red)
                 )
-                .asButton {
+                .runeAsButton {
                     self.viewModel.resetDevFlags()
                 }
 
@@ -104,10 +109,13 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func data() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.listRow)
+        ) {
 
             outlineView(
                 title: "Themes",
@@ -118,59 +126,77 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func simulations() -> some View {
 
-        Toggle("No Network", isOn: self.$viewModel.shouldShowNoNetworkError)
-        Toggle("Force Update", isOn: self.$viewModel.shouldShowForceUpdateError)
-        Toggle("Health Check", isOn: self.$viewModel.shouldShowHealthCheckError)
+        Toggle(
+            "No Network",
+            isOn: self.$viewModel.shouldShowNoNetworkError
+        )
+        Toggle(
+            "Force Update",
+            isOn: self.$viewModel.shouldShowForceUpdateError
+        )
+        Toggle(
+            "Health Check",
+            isOn: self.$viewModel.shouldShowHealthCheckError
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func sectionView(title: String,
                              contentView: some View) -> some View {
 
         LLAppCardView {
 
-            VStack(alignment: .leading) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 Text(title)
-                    .appFont(with: LeafLaunchThemeTokens.headingFont)
+                    .runeFont(with: LeafLaunchThemeTokens.headingFont)
 
                 contentView
 
             }
-            .foregroundStyle(.text(.title))
+            .runeTextColor(.title)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func outlineView(title: String,
                              contentView: some View) -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.none)
+        ) {
 
-            HStack(spacing: 0) {
+            HStack(spacing: self.style.spacing(LLSpacing.none)) {
 
-                VStack(alignment: .leading) {
+                VStack(
+                    alignment: .leading,
+                    spacing: self.style.spacing(LLSpacing.groupedContent)
+                ) {
 
                     Text(title)
-                        .appFont(with: LeafLaunchThemeTokens.headingFont)
-                        .padding(.horizontal, self.style.spacing(.medium))
+                        .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                        .runePadding(.horizontal, LLSpacing.pageInset)
 
                     contentView
 
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, .medium)
+                .runePadding(.vertical, LLSpacing.listRow)
 
             }
 
         }
-        .cornerRadius(self.style.radius(.small2))
+        .runeCornerRadius(.small2)
         .overlay {
 
             RoundedRectangle(cornerRadius: self.style.radius(.small2))
@@ -180,40 +206,45 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func themeChoicesView() -> some View {
 
         let selectedTheme = self.viewModel.theme
 
-        VStack(alignment: .leading,
-                      spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
-            HStack(spacing: self.style.spacing(.none)) {
+            HStack(spacing: self.style.spacing(LLSpacing.none)) {
 
                 Text("Selected Theme: ")
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(.text(.body))
+                    .runeFont(with: .TITLE_3)
+                    .runeTextColor(.body)
 
                 Text(selectedTheme?.displayName ?? "N/A")
-                    .appFont(with: .TITLE_3)
-                    .foregroundStyle(.text(.body))
+                    .runeFont(with: .TITLE_3)
+                    .runeTextColor(.body)
 
                 Circle()
-                    .fill(selectedTheme?.theme().foreground.primary ?? .color(.red))
-                    .frame(width: 32, height: 32)
-                    .padding(.horizontal, .small)
+                    .runeFill(selectedTheme?.theme().foreground.primary ?? .color(.red))
+                    .frame(
+                        width: 32,
+                        height: 32
+                    )
+                    .runePadding(.horizontal, LLSpacing.groupedContent)
 
             }
-            .padding(.horizontal, .medium)
+            .runePadding(.horizontal, LLSpacing.pageInset)
 
             ScrollView(.horizontal) {
 
-                HStack(spacing: self.style.spacing(.medium)) {
+                HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                     ForEach(AvailableTheme.allCases, id: \.self) { themeChoice in
 
                         themeChoiceView(themeChoice)
-                            .asButton {
+                            .runeAsButton {
 
                                 withAnimation(.bouncy) {
 
@@ -227,7 +258,7 @@ struct DevUserDefaultsScreen: GPView {
                     }
 
                 }
-                .padding(.horizontal, self.style.spacing(.medium))
+                .runePadding(.horizontal, LLSpacing.pageInset)
 
             }
 
@@ -235,18 +266,21 @@ struct DevUserDefaultsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     func themeChoiceView(_ themeChoice: AvailableTheme) -> some View {
 
-        VStack {
+        VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             Text(themeChoice.displayName)
-                .appFont(with: .TITLE_5)
+                .runeFont(with: .TITLE_5)
                 .fontWeight(.heavy)
 
             Circle()
-                .fill(themeChoice.theme().foreground.primary)
-                .frame(width: 64, height: 64)
+                .runeFill(themeChoice.theme().foreground.primary)
+                .frame(
+                    width: 64,
+                    height: 64
+                )
 
         }
 

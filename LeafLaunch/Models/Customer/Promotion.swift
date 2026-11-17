@@ -11,24 +11,6 @@ nonisolated struct Promotion: Codable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let storeId: String
-    let image: MarketingImage?
-    let url: String?
-    let linkedProducts: [PromotionLinkedProduct]
-    let linkedProductIds: [String]
-    let title: String
-    let description: String?
-    let kind: Kind
-    let status: ContentStatus
-    let startsAt: Date?
-    let endsAt: Date?
-    let publishedAt: Date?
-    let displayOrder: Int
-    let createdAt: Date
-    let updatedAt: Date
-    let locations: [PromotionLocation]?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -50,5 +32,23 @@ nonisolated struct Promotion: Codable, Identifiable, Sendable {
         case locations
 
     }
+
+    let id: String
+    let storeId: String
+    let image: MarketingImage?
+    let url: String?
+    let linkedProducts: [PromotionLinkedProduct]
+    let linkedProductIds: [String]
+    let title: String
+    let description: String?
+    let kind: Kind
+    let status: ContentStatus
+    let startsAt: Date?
+    let endsAt: Date?
+    let publishedAt: Date?
+    let displayOrder: Int
+    let createdAt: Date
+    let updatedAt: Date
+    let locations: [PromotionLocation]?
 
 }

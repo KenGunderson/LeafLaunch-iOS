@@ -13,7 +13,7 @@ final class MainViewModel: ViewModel {
     internal let loggerName: String = "MAIN_VIEW_MODEL"
     internal let loggerEmoji: String = "🫚"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let appDelegateService: AppDelegateServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let pushNotificationsService: PushNotificationServiceProtocol
@@ -32,14 +32,17 @@ final class MainViewModel: ViewModel {
 
     var storeErrorMessage: String? {
         guard self.storeSessionService.error != nil else { return nil }
-        return Constants.Message.errorMessage(context: .get, "store information")
+        return Constants.Message.errorMessage(
+            context: .get,
+            "store information"
+        )
     }
 
     var updateURL: URL? {
         return self.storeSessionService.configuration?.updateURL
     }
 
-    var readOnlyAlertService: any AlertServiceProtocol {
+    var readOnlyAlertService: any RNAlertServiceProtocol {
         return self.alertService
     }
 
@@ -47,7 +50,7 @@ final class MainViewModel: ViewModel {
         return self.environmentService.environment != .production
     }
 
-    init(alertService: AlertServiceProtocol,
+    init(alertService: RNAlertServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          pushNotificationsService: PushNotificationServiceProtocol,
@@ -131,7 +134,8 @@ final class MainViewModel: ViewModel {
         guard let navigationService = self.navigationService else { return }
 
         switch state {
-        case .locations, .ageVerification:
+        case .locations,
+                .ageVerification:
 
             if navigationService.sheet != .locations {
                 navigationService.modal(sheet: .locations)
@@ -153,9 +157,12 @@ final class MainViewModel: ViewModel {
         case .loading:
             break
 
-        case .configurationRequired, .unavailable, .updateRequired, .failed:
-            navigationService.dismissSheet()
+        case .configurationRequired,
+                .unavailable,
+                .updateRequired,
+                .failed:
 
+            navigationService.dismissSheet()
         }
 
     }

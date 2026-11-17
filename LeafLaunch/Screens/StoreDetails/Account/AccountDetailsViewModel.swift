@@ -11,7 +11,7 @@ final class AccountDetailsViewModel: ViewModel {
     private let authService: AuthServiceProtocol
     private let storeSessionService: StoreSessionServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -33,16 +33,20 @@ final class AccountDetailsViewModel: ViewModel {
         return self.storeSessionService.locations.first { $0.id == self.locationId }?.name
     }
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
+
         self.apiService = apiService
         self.authService = authService
         self.storeSessionService = storeSessionService
         self.analyticsService = analyticsService
         self.alertService = alertService
+        self.user = authService.currentUser
 
         logInit()
 
@@ -105,7 +109,16 @@ final class AccountDetailsViewModel: ViewModel {
         self.navigationService?.push(.auth(.login))
     }
 
-    func loadData(showHud: Bool) {
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadAccountTask
+        await loadTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
 
         let user = self.authService.currentUser
 
@@ -113,14 +126,20 @@ final class AccountDetailsViewModel: ViewModel {
             updateUser(user)
         }
 
-        loadAccount(shouldJoin: false, showHud: showHud)
+        loadAccount(
+            shouldJoin: false,
+            showHud: showHud
+        )
 
     }
 
     func joinMembership() {
 
         guard self.membership == nil else { return }
-        loadAccount(shouldJoin: true, showHud: true)
+        loadAccount(
+            shouldJoin: true,
+            showHud: true
+        )
 
     }
 
@@ -141,7 +160,7 @@ final class AccountDetailsViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -169,6 +188,7 @@ final class AccountDetailsViewModel: ViewModel {
                     self?.membership = nil
                     self?.history = []
                     self?.hasCompletedInitialLoad = true
+
                     return
 
                 }
@@ -194,7 +214,10 @@ final class AccountDetailsViewModel: ViewModel {
 
                 self?.membership = membership
 
-                let history = try await apiService.getCustomerLoyaltyHistory(locationId: locationId, offset: 0)
+                let history = try await apiService.getCustomerLoyaltyHistory(
+                    locationId: locationId,
+                    offset: 0
+                )
                 guard !Task.isCancelled, self?.requestId == requestId else { return }
 
                 self?.history = Array(history.data.prefix(1))
@@ -258,9 +281,12 @@ final class AccountDetailsViewModel: ViewModel {
     private func presentAccountError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "account details"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "account details"
+                    ),
                     action: {}
                 )
             )

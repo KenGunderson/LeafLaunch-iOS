@@ -76,7 +76,7 @@ class MockAppAssembler {
             return self.container.loyaltyHistoryListViewModel() as! T
         }
 
-        if type == AlertServiceProtocol.self {
+        if type == RNAlertServiceProtocol.self {
             return self.container.alertService() as! T
         }
 
@@ -141,16 +141,21 @@ class MockAppAssembler {
 
 private struct PreviewWrapper<Content: View>: View {
 
+    @State private var alertServiceWrapper: RNObservableAlertServiceWrapper
+
     let content: () -> Content
 
-    init(@ViewBuilder content: @escaping () -> Content) {
+    init(@ContentBuilder content: @escaping () -> Content) {
+
+        self._alertServiceWrapper = State(wrappedValue: RNObservableAlertServiceWrapper(alertService: mockResolve(RNAlertServiceProtocol.self)))
         self.content = content
+
     }
 
     var body: some View {
 
-        content()
-            .withWindowAlertService(ObservableAlertServiceWrapper(alertService: mockResolve(AlertServiceProtocol.self)))
+        self.content()
+            .runeWithWindowAlertService(self.alertServiceWrapper)
 
     }
 
@@ -160,7 +165,7 @@ extension View {
 
     func withMockPreviews() -> some View {
 
-        AppBaseView {
+        RNBaseView {
             self
         }
         .withMockServices()
@@ -175,18 +180,19 @@ extension View {
         .if(withNaivgationService) { view in
             view.environment(NavigationService())
         }
-        .withWindowToastOverlay()
-        .withWindowTooltipOverlay()
-        .withWindowDynamicIslandService()
+        .runeWithWindowToastOverlay()
+        .runeWindowTooltipOverlay()
+        .runeWithWindowDynamicIslandService()
         .environment(TabBarNavigationService())
-        .runeStyle()
+        .runeImageCache(.standard)
+        .runeStyle(RNStyle.shared)
 
     }
 
 }
 
 // Global function for resolving mock dependencies
-func mockResolve(_ type: (any AlertServiceProtocol).Type) -> any AlertServiceProtocol {
+func mockResolve(_ type: (any RNAlertServiceProtocol).Type) -> any RNAlertServiceProtocol {
     MockAppAssembler.shared.container.alertService()
 }
 

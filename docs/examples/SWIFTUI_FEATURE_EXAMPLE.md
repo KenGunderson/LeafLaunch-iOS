@@ -1,8 +1,8 @@
 # SwiftUI Feature Example
 
-This documentation-only example shows a user-profile screen using the [implementation rules](IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse LeafLaunch's existing `LLUser`, `AuthServiceProtocol.reloadUser()`, profile analytics event, navigation service, and UI components.
+This documentation-only example shows a user-profile screen using the [implementation rules](../guides/IMPLEMENTATION_BEST_PRACTICES.md). The three types below are illustrative new types, not additions to the app. They reuse LeafLaunch's existing `LLUser`, `AuthServiceProtocol.reloadUser()`, profile analytics event, navigation service, and UI components.
 
-The screen owns lifecycle wiring. Its ViewModel owns fetching, AlertService presentation, and navigation actions. The card receives a user, loading state, and an action, so it does not need a ViewModel or service dependency.
+The screen owns lifecycle wiring. Its ViewModel owns fetching, RNAlertService presentation, and navigation actions. The card receives a user, loading state, and an action, so it does not need a ViewModel or service dependency.
 
 The snippets follow the project's Swift formatting: expanded bodies and nested groups have blank lines inside their braces, while short helpers and closures stay compact. Preserve this layout when using the example; it is LeafLaunch's default style, not an exception for older files.
 
@@ -10,7 +10,7 @@ If implemented, keep the files together under `LeafLaunch/Screens/UserDetails/`,
 
 ## ViewModel: UserDetailsViewModel.swift
 
-The route installs the current customer `userId` before the screen appears. The first-appearance entry point tracks the screen; a separate `.task` triggers `loadData(showHud: true)`. Repeated refresh calls cancel the previous task before replacing it. Cancellation guards keep a superseded request from publishing values or clearing the new request’s loading state; the authenticated user ID remains an additional context guard.
+The route installs the current customer `userId` before the screen appears. The first-appearance entry point tracks the screen; a separate `.task` triggers `loadData(showHud: self.viewModel.isFirstLoad)`. Repeated refresh calls cancel the previous task before replacing it. Cancellation guards keep a superseded request from publishing values or clearing the new request’s loading state; the authenticated user ID remains an additional context guard.
 
 ```swift
 import SwiftUI
@@ -23,7 +23,7 @@ final class UserDetailsViewModel: ViewModel {
 
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var userId: String?
@@ -31,10 +31,11 @@ final class UserDetailsViewModel: ViewModel {
 
     @Published private(set) var user: LLUser?
     @Published private(set) var isLoading: Bool = false
+    @Published private(set) var isFirstLoad: Bool = true
 
     init(authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.authService = authService
         self.analyticsService = analyticsService
@@ -69,7 +70,7 @@ final class UserDetailsViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func loadData(showHud: Bool = false) {
 
         guard let userId = self.userId else { return }
 
@@ -83,7 +84,7 @@ final class UserDetailsViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -109,6 +110,7 @@ final class UserDetailsViewModel: ViewModel {
                       user.id == userId else { return }
 
                 self?.user = user
+                self?.isFirstLoad = false
 
             } catch {
 
@@ -129,9 +131,12 @@ final class UserDetailsViewModel: ViewModel {
     private func presentProfileError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: .get, "profile"),
+                    message: Constants.Message.errorMessage(
+                        context: .get,
+                        "profile"
+                    ),
                     action: {}
                 )
             )
@@ -153,7 +158,7 @@ extension UserDetailsViewModel {
 }
 ```
 
-There are no publisher subscriptions, so there is no `CancelBag` or empty `bindSubscribers()` method. The task captures dependencies and the user ID before suspension, holds the ViewModel weakly, and checks cancellation before publishing a result or presenting an error. Cleanup dismisses the exact loader through `defer`, including deinitialization cancellation. Only the current uncancelled task clears its handle and loading state. The screen’s `.task` starts a separate ViewModel-owned task and does not automatically cancel that task on disappearance. A context reset or explicit lifecycle cancellation must reset its own state; see the [loading contract](VIEW_MODEL_LOADING_AND_ALERTS.md). Existing content stays visible if a refresh fails.
+There are no publisher subscriptions, so there is no `CancelBag` or empty `bindSubscribers()` method. The task captures dependencies and the user ID before suspension, holds the ViewModel weakly, and checks cancellation before publishing a result or presenting an error. Cleanup dismisses the exact loader through `defer`, including deinitialization cancellation. Only the current uncancelled task clears its handle and loading state. A successful uncancelled load clears `isFirstLoad`; reappearance refreshes silently while an initial failure leaves modal retry recovery available. The screen’s `.task` starts a separate ViewModel-owned task and does not automatically cancel that task on disappearance. A context reset or explicit lifecycle cancellation must reset its own state; see the [loading contract](VIEW_MODEL_LOADING_AND_ALERTS.md). Existing content stays visible if a refresh fails.
 
 ## Screen: UserDetailsScreen.swift
 
@@ -181,16 +186,18 @@ struct UserDetailsScreen: GPView {
             content()
         }
         .onFirstAppear { [weak viewModel] in
+
             viewModel?.setup(navigationService: self.navigationService)
             viewModel?.handleFirstAppear()
+
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -203,21 +210,24 @@ struct UserDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.listRow)
+        ) {
 
             profile()
             loadProfile()
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, .medium)
+        .runePadding(.top, .medium)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func profile() -> some View {
 
         if let user = self.viewModel.user {
@@ -226,7 +236,7 @@ struct UserDetailsScreen: GPView {
                 user: user,
                 isRefreshing: self.viewModel.isLoading,
                 onRefresh: { [weak viewModel] in
-                    viewModel?.loadData(showHud: true)
+                    viewModel?.loadData(showHud: false)
                 }
             )
 
@@ -234,7 +244,7 @@ struct UserDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadProfile() -> some View {
 
         if self.viewModel.user == nil && !self.viewModel.isLoading {
@@ -260,7 +270,7 @@ struct UserDetailsScreen: GPView {
 }
 ```
 
-`content()` reads as `profile()` followed by `loadProfile()`. These small named `@ViewBuilder` methods are required even for a helper with one root container. Each helper owns its visible responsibility and state branch. A failed initial request offers another load without pretending that a successful empty response occurred. This feature reloads one authenticated customer profile, so list-specific empty-state flags and overlays would add unnecessary state. The preview assumes the mock registrations shown below, and uses the existing fixture and environment wrapper.
+`content()` reads as `profile()` followed by `loadProfile()`. These small named `@ContentBuilder` methods are required even for a helper with one root container. Each helper owns its visible responsibility and state branch. A failed initial request offers another load without pretending that a successful empty response occurred. This feature reloads one authenticated customer profile, so list-specific empty-state flags and overlays would add unnecessary state. The preview assumes the mock registrations shown below, and uses the existing fixture and environment wrapper.
 
 ## View component: views/UserDetailsCard.swift
 
@@ -291,7 +301,10 @@ struct UserDetailsCard: View {
 
         LeafLaunchCardView(title: self.user.fullName) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 profileDetails()
                 refreshButton()
@@ -302,17 +315,17 @@ struct UserDetailsCard: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func profileDetails() -> some View {
 
         Text(self.user.email)
-            .appFont(with: .BODY_2)
-            .foregroundStyle(.text(.body))
+            .runeFont(with: .BODY_2)
+            .runeTextColor(.body)
             .textSelection(.enabled)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func refreshButton() -> some View {
 
         LeafLaunchButton(
@@ -328,7 +341,7 @@ struct UserDetailsCard: View {
 
 #Preview {
 
-    AppBaseView {
+    RNBaseView {
 
         UserDetailsCard(
             user: MockModels.MockUser.user1,
@@ -342,13 +355,13 @@ struct UserDetailsCard: View {
 }
 ```
 
-The component uses environment spacing, semantic text styling, and `ImageSource` through `LeafLaunchButton`. It receives immutable values rather than creating another `@StateObject`. An extracted form that edits the same screen state would instead use `@ObservedObject` with the screen's existing ViewModel instance.
+The component uses environment spacing, semantic text styling, and `RNImageSource` through `LeafLaunchButton`. It receives immutable values rather than creating another `@StateObject`. An extracted form that edits the same screen state would instead use `@ObservedObject` with the screen's existing ViewModel instance.
 
 ## Integration excerpts
 
 These excerpts illustrate the existing FactoryKit and navigation patterns. They are documentation, not changes to the files linked below. Applying the three Swift types to the app would also require all applicable wiring here and explicit target membership in `project.pbxproj`.
 
-In [live ViewModel factories](../LeafLaunch/DI/Live/ViewModelAssembly.swift), add the factory using only the three dependencies the feature needs:
+In [live ViewModel factories](../../LeafLaunch/DI/Live/ViewModelAssembly.swift), add the factory using only the three dependencies the feature needs:
 
 ```swift
 extension Container {
@@ -356,18 +369,20 @@ extension Container {
     @MainActor
     var userDetailsViewModel: Factory<UserDetailsViewModel> {
         self { @MainActor in
+
             UserDetailsViewModel(
                 authService: self.authService(),
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService()
             )
+
         }
     }
 
 }
 ```
 
-Inside the existing [mock ViewModel assembly](../LeafLaunch/DI/Mock/MockViewModelAssembly.swift) `assemble(container:)`, register the same constructor against mock services:
+Inside the existing [mock ViewModel assembly](../../LeafLaunch/DI/Mock/MockViewModelAssembly.swift) `assemble(container:)`, register the same constructor against mock services:
 
 ```swift
 container.userDetailsViewModel.register { @MainActor in
@@ -381,7 +396,7 @@ container.userDetailsViewModel.register { @MainActor in
 }
 ```
 
-Inside the existing [mock resolver](../LeafLaunch/DI/Mock/MockAssembler.swift) `resolve<T>(_:)`, before its fallback, follow the current resolver convention:
+Inside the existing [mock resolver](../../LeafLaunch/DI/Mock/MockAssembler.swift) `resolve<T>(_:)`, before its fallback, follow the current resolver convention:
 
 ```swift
 if type == UserDetailsViewModel.self {
@@ -389,13 +404,13 @@ if type == UserDetailsViewModel.self {
 }
 ```
 
-For a dedicated destination, a new case in the existing [Route enum](../LeafLaunch/Services/Navigation/Models/Routes.swift) would carry its required context:
+For a dedicated destination, a new case in the existing [Route enum](../../LeafLaunch/Services/Navigation/Models/Routes.swift) would carry its required context:
 
 ```swift
 case userDetails(userId: String)
 ```
 
-Its corresponding branch in the outer route switch of the existing [navigation destination builder](../LeafLaunch/Services/Navigation/NavigationService.swift) would configure the resolved ViewModel before constructing the screen:
+Its corresponding branch in the outer route switch of the existing [navigation destination builder](../../LeafLaunch/Services/Navigation/NavigationService.swift) would configure the resolved ViewModel before constructing the screen:
 
 ```swift
 case .userDetails(let userId):

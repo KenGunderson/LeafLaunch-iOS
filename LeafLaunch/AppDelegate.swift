@@ -65,11 +65,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotifi
                 Task { @MainActor [weak self] in
 
                     if let error {
+
                         self?.logError(
                             title: "FCM Registration Token Error",
                             message: error.getMessageForError()
                         )
                         return
+
                     }
 
                     if let token {

@@ -14,23 +14,6 @@ nonisolated struct Store: Codable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let createdAt: Date
-    let updatedAt: Date
-    let name: String
-    let legalName: String?
-    let categoryIds: [String]
-    let createdByAccountId: String
-    let assignedAdminAccountId: String?
-    let stripeCustomerId: String?
-    let status: Status
-    let statusEffectiveAt: Date?
-    let archivedAt: Date?
-    let locations: CustomerPage<StoreLocation>?
-    let appConfiguration: StoreAppConfiguration?
-    let promotions: CustomerPage<Promotion>?
-    let events: CustomerPage<StoreEvent>?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -51,5 +34,22 @@ nonisolated struct Store: Codable, Identifiable, Sendable {
         case events
 
     }
+
+    let id: String
+    let createdAt: Date
+    let updatedAt: Date
+    let name: String
+    let legalName: String?
+    let categoryIds: [String]
+    let createdByAccountId: String
+    let assignedAdminAccountId: String?
+    let stripeCustomerId: String?
+    let status: Status
+    let statusEffectiveAt: Date?
+    let archivedAt: Date?
+    let locations: CustomerPage<StoreLocation>?
+    let appConfiguration: StoreAppConfiguration?
+    let promotions: CustomerPage<Promotion>?
+    let events: CustomerPage<StoreEvent>?
 
 }

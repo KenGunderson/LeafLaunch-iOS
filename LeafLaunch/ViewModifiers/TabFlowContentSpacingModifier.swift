@@ -10,7 +10,7 @@ private struct TabFlowContentSpacingModifier: ViewModifier {
     func body(content: Content) -> some View {
 
         content
-            .padding(.bottom, .custom(120))
+            .runePadding(.bottom, .custom(120))
 
     }
 

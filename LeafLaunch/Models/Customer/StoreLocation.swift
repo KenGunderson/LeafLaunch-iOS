@@ -13,6 +13,28 @@ nonisolated struct StoreLocation: Codable, Identifiable, Sendable {
 
     }
 
+    private enum CodingKeys: String, CodingKey {
+
+        case id
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case storeId = "store_id"
+        case name
+        case status
+        case addressLine1 = "address_line_1"
+        case addressLine2 = "address_line_2"
+        case city
+        case region
+        case postalCode = "postal_code"
+        case countryCode = "country_code"
+        case timezone
+        case currencyCode = "currency_code"
+        case archiveEffectiveAt = "archive_effective_at"
+        case hours
+        case scheduleExceptions = "schedule_exceptions"
+
+    }
+
     let id: String
     let createdAt: Date
     let updatedAt: Date
@@ -41,35 +63,14 @@ nonisolated struct StoreLocation: Codable, Identifiable, Sendable {
     var isAvailable: Bool {
 
         switch self.status {
-        case .active:
-            return true
+        case .active: return true
+
         case .pendingArchive:
+
             return self.archiveEffectiveAt.map { $0 > Date() } ?? false
-        default:
-            return false
+
+        default: return false
         }
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case id
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case storeId = "store_id"
-        case name
-        case status
-        case addressLine1 = "address_line_1"
-        case addressLine2 = "address_line_2"
-        case city
-        case region
-        case postalCode = "postal_code"
-        case countryCode = "country_code"
-        case timezone
-        case currencyCode = "currency_code"
-        case archiveEffectiveAt = "archive_effective_at"
-        case hours
-        case scheduleExceptions = "schedule_exceptions"
 
     }
 

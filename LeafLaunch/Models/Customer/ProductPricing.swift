@@ -10,12 +10,6 @@ nonisolated struct ProductPricing: Codable, Equatable, Hashable, Identifiable, S
 
     }
 
-    let id: String
-    let productVariantId: String
-    let displayPrice: Decimal?
-    let availability: Availability
-    let name: String
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -25,5 +19,11 @@ nonisolated struct ProductPricing: Codable, Equatable, Hashable, Identifiable, S
         case name
 
     }
+
+    let id: String
+    let productVariantId: String
+    let displayPrice: Decimal?
+    let availability: Availability
+    let name: String
 
 }

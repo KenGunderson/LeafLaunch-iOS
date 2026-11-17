@@ -17,7 +17,7 @@ final class LegalDetailsViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
 
@@ -30,7 +30,7 @@ final class LegalDetailsViewModel: ViewModel {
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol,
+         alertService: RNAlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
 

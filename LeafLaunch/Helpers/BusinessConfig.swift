@@ -20,10 +20,12 @@ enum BusinessConfig {
 
     static var isConfigured: Bool {
 
-        UUID(uuidString: businessId) != nil
-            && UUID(uuidString: appKey) != nil
-            && !bundleIdentifier.isEmpty
-            && bundleIdentifier == Bundle.main.bundleIdentifier
+        let hasValidIdentifiers = UUID(uuidString: businessId) != nil && UUID(uuidString: appKey) != nil
+        var matchesAppBundle: Bool {
+            !bundleIdentifier.isEmpty && bundleIdentifier == Bundle.main.bundleIdentifier
+        }
+
+        return hasValidIdentifiers && matchesAppBundle
 
     }
 

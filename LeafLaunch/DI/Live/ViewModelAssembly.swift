@@ -15,6 +15,7 @@ extension Container {
     @MainActor
     var rootViewModel: Factory<RootViewModel> {
         self { @MainActor in
+
             RootViewModel(
                 analyticsService: self.analyticsService(),
                 alertService: self.alertService(),
@@ -25,6 +26,7 @@ extension Container {
                 startupService: self.rootStartupService(),
                 mainViewModel: self.mainViewModel()
             )
+
         }
     }
 
@@ -33,6 +35,7 @@ extension Container {
     @MainActor
     var mainViewModel: Factory<MainViewModel> {
         self { @MainActor in
+
             MainViewModel(
                 alertService: self.alertService(),
                 appDelegateService: self.appDelegateService(),
@@ -43,6 +46,7 @@ extension Container {
                 tabBarNavigationService: self.tabBarNavigationService(),
                 makeStoreContainerViewModel: { self.storeContainerViewModel() }
             )
+
         }
     }
 
@@ -58,6 +62,7 @@ extension Container {
     @MainActor
     var welcomeViewModel: Factory<WelcomeViewModel> {
         self { @MainActor in
+
             WelcomeViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -65,6 +70,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -73,6 +79,7 @@ extension Container {
     @MainActor
     var loginViewModel: Factory<LoginViewModel> {
         self { @MainActor in
+
             LoginViewModel(
                 alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
@@ -80,6 +87,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -88,6 +96,7 @@ extension Container {
     @MainActor
     var signUpViewModel: Factory<SignUpViewModel> {
         self { @MainActor in
+
             SignUpViewModel(
                 alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
@@ -95,6 +104,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -103,6 +113,7 @@ extension Container {
     @MainActor
     var settingsViewModel: Factory<SettingsViewModel> {
         self { @MainActor in
+
             SettingsViewModel(
                 authService: self.authService(),
                 apiService: self.apiService(),
@@ -112,6 +123,7 @@ extension Container {
                 userDefaultsService: self.userDefaultsService(),
                 viewLifecycleService: self.viewLifecycleService()
             )
+
         }
     }
 
@@ -120,6 +132,7 @@ extension Container {
     @MainActor
     var legalDetailsViewModel: Factory<LegalDetailsViewModel> {
         self { @MainActor in
+
             LegalDetailsViewModel(
                 apiService: self.apiService(),
                 authService: self.authService(),
@@ -128,6 +141,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -136,6 +150,7 @@ extension Container {
     @MainActor
     var devSettingsViewModel: Factory<DevSettingsViewModel> {
         self { @MainActor in
+
             DevSettingsViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
@@ -145,6 +160,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -153,12 +169,14 @@ extension Container {
     @MainActor
     var devRouteListViewModel: Factory<DevRouteListViewModel> {
         self { @MainActor in
+
             DevRouteListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -167,12 +185,14 @@ extension Container {
     @MainActor
     var devDeeplinkListViewModel: Factory<DevDeeplinkListViewModel> {
         self { @MainActor in
+
             DevDeeplinkListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 
@@ -181,6 +201,7 @@ extension Container {
     @MainActor
     var devUserDefaultsViewModel: Factory<DevUserDefaultsViewModel> {
         self { @MainActor in
+
             DevUserDefaultsViewModel(
                 alertService: self.alertService(),
                 analyticsService: self.analyticsService(),
@@ -189,6 +210,7 @@ extension Container {
                 environmentService: self.environmentService(),
                 userDefaultsService: self.userDefaultsService()
             )
+
         }
     }
 
@@ -197,12 +219,14 @@ extension Container {
     @MainActor
     var devAnalyticsListViewModel: Factory<DevAnalyticsListViewModel> {
         self { @MainActor in
+
             DevAnalyticsListViewModel(
                 analyticsService: self.analyticsService(),
                 authService: self.authService(),
                 viewLifecycleService: self.viewLifecycleService(),
                 environmentService: self.environmentService()
             )
+
         }
     }
 

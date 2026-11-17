@@ -133,7 +133,11 @@ enum MockCustomerModels {
     }
 
     static var user: LLUser {
-        LLUser(customerAccount: account, externalId: externalId, email: email)
+        LLUser(
+            customerAccount: account,
+            externalId: externalId,
+            email: email
+        )
     }
 
     static func newAccount(displayName: String) -> CustomerAccount {
@@ -162,7 +166,10 @@ enum MockCustomerModels {
 
         return names.enumerated().map { index, name in
 
-            let categoryId = fixtureId("92000000", index + 1)
+            let categoryId = fixtureId(
+                "92000000",
+                index + 1
+            )
             let attributeIds = catalog
                 .filter { $0.categoryIndex == index }
                 .flatMap { productAttributes(for: $0.name).map(\.id) }
@@ -172,14 +179,20 @@ enum MockCustomerModels {
                 revision: 1,
                 subcategories: [
                     ProductSubcategory(
-                        id: fixtureId("a9100000", index + 1),
+                        id: fixtureId(
+                            "a9100000",
+                            index + 1
+                        ),
                         name: subcategories[index],
                         categoryId: categoryId
                     )
                 ],
                 pricingPresets: [
                     CategoryPricingPreset(
-                        id: fixtureId("b7000000", index + 1),
+                        id: fixtureId(
+                            "b7000000",
+                            index + 1
+                        ),
                         label: packages[index],
                         unit: index == 0 ? nil : "piece",
                         quantity: index == 0 ? nil : (index == 1 ? 1 : 5)
@@ -251,14 +264,20 @@ enum MockCustomerModels {
             guard status == .published || status == .temporarilyUnavailable else { return nil }
 
             let category = categories[item.categoryIndex]
-            let productId = fixtureId("ad100000", index + 1)
+            let productId = fixtureId(
+                "ad100000",
+                index + 1
+            )
             let listingNumber = (locationIndex + 1) * 1_000 + index + 1
             let basePrice: Decimal? = index == 0 && locationIndex == 1
                 ? nil
                 : Decimal(locationIndex > 0 && index.isMultiple(of: 2) ? 21 : 18) + Decimal(index) * Decimal(string: "1.25")!
 
             return Product(
-                id: fixtureId("ad300000", listingNumber),
+                id: fixtureId(
+                    "ad300000",
+                    listingNumber
+                ),
                 storeProductId: productId,
                 storeLocationId: locationId,
                 displayName: item.name,
@@ -268,7 +287,10 @@ enum MockCustomerModels {
                 media: (0..<2).map { mediaIndex in
 
                     ProductMedia(
-                        id: fixtureId("ad400000", (index + 1) * 10 + mediaIndex),
+                        id: fixtureId(
+                            "ad400000",
+                            (index + 1) * 10 + mediaIndex
+                        ),
                         storeProductId: productId,
                         url: imageURL(seed: "\(productId)-\(mediaIndex)"),
                         width: 640,
@@ -291,11 +313,23 @@ enum MockCustomerModels {
 
                     return ProductPricing(
                         id: optionIndex == 0
-                            ? fixtureId("ad450000", listingNumber)
-                            : fixtureId("ad480000", listingNumber * 10 + optionIndex),
+                            ? fixtureId(
+                                "ad450000",
+                                listingNumber
+                            )
+                            : fixtureId(
+                                "ad480000",
+                                listingNumber * 10 + optionIndex
+                            ),
                         productVariantId: optionIndex == 0
-                            ? fixtureId("ad200000", index + 1)
-                            : fixtureId("ad210000", (index + 1) * 10 + optionIndex),
+                            ? fixtureId(
+                                "ad200000",
+                                index + 1
+                            )
+                            : fixtureId(
+                                "ad210000",
+                                (index + 1) * 10 + optionIndex
+                            ),
                         displayPrice: price,
                         availability: status == .temporarilyUnavailable ? .temporarilyUnavailable : .available,
                         name: option.name
@@ -311,15 +345,15 @@ enum MockCustomerModels {
     private static func pricingOptions(for name: String) -> [(name: String, multiplier: Decimal)] {
 
         switch name {
-        case "Harbor House Blend", "Cedar Reserve":
+        case "Harbor House Blend",
+                "Cedar Reserve":
+
             return [("3.5 g", 1), ("7 g", 2), ("14 g", 4)]
 
         case "Blood Orange Gummies":
             return [("5 Pieces", 1), ("10 Pieces", 2), ("20 Pieces", 4)]
-
         case "Amber Glass Storage Jar":
             return [("120 ml", 1), ("240 ml", 2), ("480 ml", 4)]
-
         default:
             return [("Default", 1)]
         }
@@ -331,7 +365,9 @@ enum MockCustomerModels {
         let details: [(id: Int, name: String, type: ProductAttribute.ValueType, value: ProductAttributeValue)]
 
         switch name {
-        case "Harbor House Blend", "Cedar Reserve":
+        case "Harbor House Blend",
+                "Cedar Reserve":
+
             details = [
                 (2, "Cultivation", .text, .text("Indoor")),
                 (3, "Aroma", .multiSelect, .selection(["Citrus", "Pine"])),
@@ -339,13 +375,18 @@ enum MockCustomerModels {
             ]
 
         case "Blood Orange Gummies":
+
             details = [
                 (5, "Flavor", .text, .text("Blood Orange")),
                 (6, "Vegan", .boolean, .boolean(true)),
-                (7, "Piece Weight", .measurement, .measurement(.init(amount: 4, unit: "g")))
+                (7, "Piece Weight", .measurement, .measurement(.init(
+                    amount: 4,
+                    unit: "g"
+                )))
             ]
 
         case "Amber Glass Storage Jar":
+
             details = [
                 (8, "Material", .text, .text("Amber Glass")),
                 (9, "Closure", .text, .text("Airtight Screw Lid")),
@@ -353,13 +394,19 @@ enum MockCustomerModels {
             ]
 
         case "Cooling Mint Lotion":
+
             details = [
                 (11, "Scent", .text, .text("Cooling Mint")),
-                (12, "Volume", .measurement, .measurement(.init(amount: 100, unit: "ml"))),
+                (12, "Volume", .measurement, .measurement(.init(
+                    amount: 100,
+                    unit: "ml"
+                ))),
                 (13, "Packaging", .text, .text("Recyclable Pump Bottle"))
             ]
 
-        case "Sea Salt Caramels", "Dark Chocolate Bites":
+        case "Sea Salt Caramels",
+                "Dark Chocolate Bites":
+
             details = [
                 (14, "Allergens", .multiSelect, .selection(["Milk", "Soy"])),
                 (15, "Storage", .text, .text("Keep in a cool, dry place"))
@@ -370,7 +417,10 @@ enum MockCustomerModels {
         }
 
         let brand = ProductAttribute(
-            id: fixtureId("a9300000", 1),
+            id: fixtureId(
+                "a9300000",
+                1
+            ),
             name: "Brand",
             valueType: .text,
             value: .text("High Standards"),
@@ -380,7 +430,10 @@ enum MockCustomerModels {
         return [brand] + details.map { detail in
 
             ProductAttribute(
-                id: fixtureId("a9300000", detail.id),
+                id: fixtureId(
+                    "a9300000",
+                    detail.id
+                ),
                 name: detail.name,
                 valueType: detail.type,
                 value: detail.value,
@@ -428,7 +481,10 @@ enum MockCustomerModels {
                 hours: (0..<7).map { weekday in
 
                     StoreHours(
-                        id: fixtureId("ad460000", (index + 1) * 10 + weekday),
+                        id: fixtureId(
+                            "ad460000",
+                            (index + 1) * 10 + weekday
+                        ),
                         storeLocationId: seed.id,
                         weekday: weekday,
                         sequence: 0,
@@ -458,7 +514,10 @@ enum MockCustomerModels {
         return entries.enumerated().map { index, entry in
 
             ScheduleException(
-                id: fixtureId("ad470000", index + 1),
+                id: fixtureId(
+                    "ad470000",
+                    index + 1
+                ),
                 storeLocationId: primaryLocationId,
                 localDate: entry.date,
                 label: entry.label,
@@ -487,8 +546,15 @@ enum MockCustomerModels {
         return CustomerLocationDetails(
             location: location,
             agePolicy: agePolicy(for: location),
-            openNow: isOpen(location: location, at: now, calendar: calendar),
-            localDate: localDate(now, calendar: calendar),
+            openNow: isOpen(
+                location: location,
+                at: now,
+                calendar: calendar
+            ),
+            localDate: localDate(
+                now,
+                calendar: calendar
+            ),
             mapsAddress: location.address
         )
 
@@ -496,22 +562,46 @@ enum MockCustomerModels {
 
     private static func localDate(_ date: Date, calendar: Calendar) -> String {
 
-        let components = calendar.dateComponents([.year, .month, .day], from: date)
-        return String(format: "%04d-%02d-%02d", components.year ?? 0, components.month ?? 0, components.day ?? 0)
+        let components = calendar.dateComponents(
+            [.year, .month, .day],
+            from: date
+        )
+        return String(
+            format: "%04d-%02d-%02d",
+            components.year ?? 0,
+            components.month ?? 0,
+            components.day ?? 0
+        )
 
     }
 
-    private static func isOpen(location: StoreLocation, at now: Date, calendar: Calendar) -> Bool {
+    private static func isOpen(location: StoreLocation,
+                               at now: Date,
+                               calendar: Calendar) -> Bool {
 
         let today = calendar.startOfDay(for: now)
-        guard let yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return false }
+        guard let yesterday = calendar.date(
+            byAdding: .day,
+            value: -1,
+            to: today
+        ) else { return false }
 
         for day in [yesterday, today] {
 
-            let date = localDate(day, calendar: calendar)
+            let date = localDate(
+                day,
+                calendar: calendar
+            )
             let exceptions = (location.scheduleExceptions ?? []).filter { $0.localDate == date }
             let intervals: [(String?, String?, Bool)] = exceptions.isEmpty
-                ? (location.hours ?? []).filter { $0.weekday == calendar.component(.weekday, from: day) - 1 }
+                ? (location.hours ?? []).filter {
+
+                    $0.weekday == calendar.component(
+                        .weekday,
+                        from: day
+                    ) - 1
+
+                }
                 .map { ($0.opensAt, $0.closesAt, $0.closed) }
                 : exceptions.map { ($0.opensAt, $0.closesAt, $0.closed) }
 
@@ -521,11 +611,27 @@ enum MockCustomerModels {
                 let start = opens.split(separator: ":").compactMap { Int($0) }
                 let end = closes.split(separator: ":").compactMap { Int($0) }
                 guard start.count == 2, end.count == 2,
-                      let opening = calendar.date(bySettingHour: start[0], minute: start[1], second: 0, of: day),
-                      var closing = calendar.date(bySettingHour: end[0], minute: end[1], second: 0, of: day) else { continue }
+                      let opening = calendar.date(
+                          bySettingHour: start[0],
+                          minute: start[1],
+                          second: 0,
+                          of: day
+                      ),
+                      var closing = calendar.date(
+                          bySettingHour: end[0],
+                          minute: end[1],
+                          second: 0,
+                          of: day
+                      ) else { continue }
 
                 if closing <= opening {
-                    closing = calendar.date(byAdding: .day, value: 1, to: closing) ?? closing
+
+                    closing = calendar.date(
+                        byAdding: .day,
+                        value: 1,
+                        to: closing
+                    ) ?? closing
+
                 }
 
                 if now >= opening && now < closing { return true }
@@ -547,7 +653,10 @@ enum MockCustomerModels {
         let locationProducts = products(locationId: locationId)
         let businessProducts = catalog.enumerated().map { index, item in
 
-            let id = fixtureId("ad100000", index + 1)
+            let id = fixtureId(
+                "ad100000",
+                index + 1
+            )
 
             return PromotionLinkedProduct(
                 id: id,
@@ -613,7 +722,10 @@ enum MockCustomerModels {
         return examples.enumerated().map { promotionIndex, example in
 
             let index = promotionIndex * 6 + 2
-            let id = fixtureId("ad500000", locationNumber * 100 + index + 1)
+            let id = fixtureId(
+                "ad500000",
+                locationNumber * 100 + index + 1
+            )
             let startsAt = sessionDate.addingTimeInterval(-24 * 3_600)
             let endsAt = sessionDate.addingTimeInterval(24 * 3_600)
 
@@ -636,7 +748,10 @@ enum MockCustomerModels {
                 updatedAt: sessionDate.addingTimeInterval(-96 * 3_600),
                 locations: [
                     PromotionLocation(
-                        id: fixtureId("ad520000", locationNumber * 100 + index + 1),
+                        id: fixtureId(
+                            "ad520000",
+                            locationNumber * 100 + index + 1
+                        ),
                         promotionId: id,
                         storeLocationId: locationId,
                         timezone: "America/Los_Angeles",
@@ -662,7 +777,10 @@ enum MockCustomerModels {
 
         return (0..<32).filter { $0 % 6 == 1 }.map { index in
 
-            let id = fixtureId("ad600000", locationNumber * 100 + index + 1)
+            let id = fixtureId(
+                "ad600000",
+                locationNumber * 100 + index + 1
+            )
             let startsAt = sessionDate.addingTimeInterval(Double(24 + index) * 3_600)
             let endsAt = index % 7 == 0 ? nil : sessionDate.addingTimeInterval(Double(72 + index) * 3_600)
 
@@ -681,7 +799,10 @@ enum MockCustomerModels {
                 updatedAt: sessionDate.addingTimeInterval(-96 * 3_600),
                 locations: [
                     EventLocation(
-                        id: fixtureId("ad610000", locationNumber * 100 + index + 1),
+                        id: fixtureId(
+                            "ad610000",
+                            locationNumber * 100 + index + 1
+                        ),
                         eventId: id,
                         storeLocationId: locationId,
                         timezone: "America/Los_Angeles",
@@ -712,13 +833,17 @@ enum MockCustomerModels {
                            existingMembership: CustomerLocationMembership? = nil) -> CustomerLocationMembership {
 
         let isSeededCustomer = customerAccount.id == account.id
-        let isSeededMembership = isSeededCustomer && (locationId == primaryLocationId || locationId == secondaryLocationId)
+        var isSeededLocation: Bool { locationId == primaryLocationId || locationId == secondaryLocationId }
+        let isSeededMembership = isSeededCustomer && isSeededLocation
         let membershipIndex = locationId == primaryLocationId ? 1 : (locationId == secondaryLocationId ? 9 : 14)
         let joinedAt = existingMembership?.joinedAt
             ?? (isSeededMembership ? createdAt.addingTimeInterval(locationId == secondaryLocationId ? -20 * 3_600 : 0) : Date())
 
         return CustomerLocationMembership(
-            id: existingMembership?.id ?? (isSeededCustomer ? fixtureId("98600000", membershipIndex) : UUID().uuidString),
+            id: existingMembership?.id ?? (isSeededCustomer ? fixtureId(
+                "98600000",
+                membershipIndex
+            ) : UUID().uuidString),
             loyaltyAccountId: existingMembership?.loyaltyAccountId
                 ?? (isSeededCustomer ? "98650000-0000-4000-8000-000000000001" : customerAccount.accountId),
             customerAccountId: customerAccount.id,
@@ -743,12 +868,18 @@ enum MockCustomerModels {
             (.redemption, "-100", "Member reward redeemed.", "Member Appreciation Reward"),
             (.correction, "-25", "Purchase points corrected.", nil),
             (.reversal, "100", "Reward redemption reversed.", "Member Appreciation Reward")
-        ] + Array(repeating: (.award, "10", "Points earned for a completed purchase.", nil), count: 26)
+        ] + Array(
+            repeating: (.award, "10", "Points earned for a completed purchase.", nil),
+            count: 26
+        )
 
         return entries.enumerated().map { index, entry in
 
             LoyaltyHistoryEntry(
-                id: fixtureId("98800000", index + 1),
+                id: fixtureId(
+                    "98800000",
+                    index + 1
+                ),
                 entryType: entry.0,
                 pointsDelta: entry.1,
                 customerReason: entry.2,

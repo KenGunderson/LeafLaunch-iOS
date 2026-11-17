@@ -31,7 +31,10 @@ public struct EmptyStateOverlayModifier: ViewModifier {
                     }
 
                 }
-                .animation(self.animation, value: self.shouldShow)
+                .animation(
+                    self.animation,
+                    value: self.shouldShow
+                )
 
             }
 

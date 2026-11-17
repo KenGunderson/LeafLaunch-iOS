@@ -70,6 +70,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
          authService: AuthServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          tabBarNavigationService: TabBarNavigationService) {
+
         self.apiService = apiService
         self.authService = authService
         self.userDefaultsService = userDefaultsService
@@ -97,14 +98,19 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         guard BusinessConfig.isConfigured else {
 
             self.state = .configurationRequired
+
             return
 
         }
 
-        let isChoosingLocation = self.state == .locations ||
-            self.state == .ageVerification ||
-            self.selectLocationTask != nil ||
-            (self.selectionId != nil && self.pendingLocationDetails != nil)
+        let isLocationSelectionState = self.state == .locations || self.state == .ageVerification
+        var hasPendingLocationSelection: Bool {
+
+            var hasSelectionDetails: Bool { self.selectionId != nil && self.pendingLocationDetails != nil }
+            return self.selectLocationTask != nil || hasSelectionDetails
+
+        }
+        let isChoosingLocation = isLocationSelectionState || hasPendingLocationSelection
         let bootstrapId = UUID()
         self.bootstrapId = bootstrapId
         self.isBootstrapping = true
@@ -139,8 +145,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
                 self.state = .unavailable
                 return
 
-            case .available:
-                break
+            case .available: break
             }
 
             if isChoosingLocation {
@@ -159,7 +164,10 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
                         locationId: locationId
                     )
                     guard !Task.isCancelled, self.bootstrapId == bootstrapId else { return }
-                    try validate(details: details, locationId: locationId)
+                    try validate(
+                        details: details,
+                        locationId: locationId
+                    )
 
                     self.pendingLocationDetails = details
                     evaluateAgeVerification()
@@ -167,7 +175,6 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
                 } catch {
 
                     guard !Task.isCancelled, self.bootstrapId == bootstrapId else { return }
-
                     if self.locationDetails == nil {
                         self.userDefaultsService.set(lastSelectedLocationId: nil)
                     }
@@ -191,7 +198,10 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
                         locationId: location.id
                     )
                     guard !Task.isCancelled, self.bootstrapId == bootstrapId else { return }
-                    try validate(details: details, locationId: location.id)
+                    try validate(
+                        details: details,
+                        locationId: location.id
+                    )
 
                     self.pendingLocationDetails = details
                     evaluateAgeVerification()
@@ -246,9 +256,15 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
             do {
 
-                let details = try await apiService.getCustomerLocation(businessId: businessId, locationId: id)
+                let details = try await apiService.getCustomerLocation(
+                    businessId: businessId,
+                    locationId: id
+                )
                 guard !Task.isCancelled, self?.selectionId == selectionId else { return }
-                try self?.validate(details: details, locationId: id)
+                try self?.validate(
+                    details: details,
+                    locationId: id
+                )
 
                 self?.pendingLocationDetails = details
                 self?.evaluateAgeVerification(allowsAgePresentation: true)
@@ -267,7 +283,8 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
     func showLocations() {
 
-        let allowsDismissal = (self.state == .store && self.locationDetails != nil) || self.canDismissLocationSelection
+        let hasActiveStore = self.state == .store && self.locationDetails != nil
+        let allowsDismissal = hasActiveStore || self.canDismissLocationSelection
         showLocations(allowsDismissal: allowsDismissal)
 
     }
@@ -326,7 +343,13 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         )
 
         if self.authService.currentUser != nil {
-            recordAgeAcceptance(locationId: locationId, userId: userId, policy: policy)
+
+            recordAgeAcceptance(
+                locationId: locationId,
+                userId: userId,
+                policy: policy
+            )
+
         }
 
         enterStore(locationId: locationId)
@@ -353,11 +376,14 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         }
 
         let policy = details.agePolicy
+        var meetsConfiguredAgePolicy: Bool {
+            guard self.configuration?.ageGateRequired == true else { return true }
+            return policy.required && policy.minimumAge >= (self.configuration?.minimumAge ?? 1)
+        }
         guard policy.isValid,
               policy.canonicalCountryCode == normalizedScope(details.location.countryCode),
               policy.canonicalRegion == normalizedScope(details.location.region),
-              self.configuration?.ageGateRequired != true ||
-              (policy.required && policy.minimumAge >= (self.configuration?.minimumAge ?? 1)) else {
+              meetsConfiguredAgePolicy else {
             throw StoreSessionError.invalidAgePolicy
         }
 
@@ -383,6 +409,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
             self.error = StoreSessionError.invalidAgePolicy
             self.state = .failed
+
             return
 
         }
@@ -392,6 +419,7 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
         guard policy.required else {
 
             enterStore(locationId: locationId)
+
             return
 
         }
@@ -440,9 +468,14 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
                       self?.ageVerificationDetails?.location.id == locationId,
                       self?.ageVerificationDetails?.agePolicy == policy else { return }
 
-                guard acceptance?.applies(to: policy, businessId: businessId, customerAccountId: userId) == true else {
+                guard acceptance?.applies(
+                    to: policy,
+                    businessId: businessId,
+                    customerAccountId: userId
+                ) == true else {
 
                     self?.requireAgeVerification(allowsPresentation: allowsAgePresentation)
+
                     return
 
                 }
@@ -527,7 +560,8 @@ final class StoreSessionService: StoreSessionServiceProtocol, Loggable {
 
                 }
 
-                guard self.state == .store || self.state == .ageVerification || self.state == .loading,
+                let canRefreshAgePolicy = self.state == .store || self.state == .ageVerification
+                guard canRefreshAgePolicy || self.state == .loading,
                       self.selectLocationTask == nil || self.pendingLocationDetails != nil else { return }
                 self.evaluateAgeVerification()
 
@@ -566,26 +600,31 @@ extension StoreSessionService {
                 guard !Task.isCancelled,
                       authService.currentUser?.id == userId else { return }
 
-                let acceptance = try await apiService.acceptCustomerAgeGate(locationId: locationId, policy: policy)
+                let acceptance = try await apiService.acceptCustomerAgeGate(
+                    locationId: locationId,
+                    policy: policy
+                )
                 guard !Task.isCancelled,
                       self?.ageEvaluationId == evaluationId,
                       authService.currentUser?.id == userId,
                       self?.locationDetails?.location.id == locationId,
                       self?.locationDetails?.agePolicy == policy else { return }
 
-                guard acceptance.applies(to: policy, businessId: businessId, customerAccountId: userId) else {
+                guard acceptance.applies(
+                    to: policy,
+                    businessId: businessId,
+                    customerAccountId: userId
+                ) else {
                     throw StoreSessionError.invalidAgePolicy
                 }
 
             } catch {
 
                 guard !Task.isCancelled,
-                      !(error is CancellationError),
                       self?.ageEvaluationId == evaluationId,
                       authService.currentUser?.id == userId,
                       self?.locationDetails?.location.id == locationId,
                       self?.locationDetails?.agePolicy == policy else { return }
-
                 self?.logError(
                     title: "Age Acceptance Error",
                     message: error.getMessageForError()

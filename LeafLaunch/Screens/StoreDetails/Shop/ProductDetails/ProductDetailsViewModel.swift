@@ -12,7 +12,7 @@ final class ProductDetailsViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -27,6 +27,8 @@ final class ProductDetailsViewModel: ViewModel {
     @Published private(set) var isFavorite: Bool = false
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
+
+    var isFirstLoad: Bool { self.product == nil }
 
     var storeName: String {
 
@@ -60,7 +62,10 @@ final class ProductDetailsViewModel: ViewModel {
         guard !address.isEmpty else { return nil }
 
         var components = URLComponents(string: "https://maps.apple.com/")
-        components?.queryItems = [URLQueryItem(name: "q", value: address)]
+        components?.queryItems = [URLQueryItem(
+            name: "q",
+            value: address
+        )]
         return components?.url
 
     }
@@ -93,7 +98,8 @@ final class ProductDetailsViewModel: ViewModel {
          storeSessionService: StoreSessionServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
+
         self.apiService = apiService
         self.storeSessionService = storeSessionService
         self.userDefaultsService = userDefaultsService
@@ -147,7 +153,19 @@ final class ProductDetailsViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadProductTask
+        await loadTask?.value
+        guard !Task.isCancelled else { return }
+        let recommendationsTask = self.loadRecommendationsTask
+        await recommendationsTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
 
         guard self.loadProductTask == nil,
               let locationId = self.locationId,
@@ -162,7 +180,7 @@ final class ProductDetailsViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -180,7 +198,10 @@ final class ProductDetailsViewModel: ViewModel {
 
             do {
 
-                let product = try await apiService.getCustomerProduct(locationId: locationId, productId: productId)
+                let product = try await apiService.getCustomerProduct(
+                    locationId: locationId,
+                    productId: productId
+                )
                 guard !Task.isCancelled else { return }
 
                 self?.product = product
@@ -210,8 +231,14 @@ final class ProductDetailsViewModel: ViewModel {
         guard product.id == self.product?.id || self.recommendedProducts.contains(where: { $0.id == product.id }) else { return }
 
         let isFavorite = !self.favoriteProductIds.contains(product.id)
-        self.userDefaultsService.setFavorite(productId: product.id, isFavorite: isFavorite)
-        presentFavoriteToast(title: product.displayName, isFavorite: isFavorite)
+        self.userDefaultsService.setFavorite(
+            productId: product.id,
+            isFavorite: isFavorite
+        )
+        presentFavoriteToast(
+            title: product.displayName,
+            isFavorite: isFavorite
+        )
 
     }
 
@@ -219,7 +246,10 @@ final class ProductDetailsViewModel: ViewModel {
 
         guard let locationId = self.locationId,
               self.recommendedProducts.contains(where: { $0.id == product.id }) else { return }
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: product.id)))
+        self.navigationService?.push(.customer(.product(
+            locationId: locationId,
+            productId: product.id
+        )))
 
     }
 
@@ -227,7 +257,10 @@ final class ProductDetailsViewModel: ViewModel {
 
         guard let url = self.directionsURL else { return }
 
-        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+        UIApplication.shared.open(
+            url,
+            options: [:]
+        ) { [weak self] didOpen in
 
             guard !didOpen else { return }
             self?.presentContactError(message: Constants.Message.storeDirectionsErrorMessage)
@@ -240,7 +273,10 @@ final class ProductDetailsViewModel: ViewModel {
 
         guard let url = self.phoneURL else { return }
 
-        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+        UIApplication.shared.open(
+            url,
+            options: [:]
+        ) { [weak self] didOpen in
 
             guard !didOpen else { return }
             self?.presentContactError(message: Constants.Message.storePhoneErrorMessage)
@@ -253,7 +289,10 @@ final class ProductDetailsViewModel: ViewModel {
 
         guard let url = self.emailURL else { return }
 
-        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+        UIApplication.shared.open(
+            url,
+            options: [:]
+        ) { [weak self] didOpen in
 
             guard !didOpen else { return }
             self?.presentContactError(message: Constants.Message.storeEmailErrorMessage)
@@ -290,13 +329,18 @@ final class ProductDetailsViewModel: ViewModel {
               let categoryId = product.category?.id else {
 
             self.recommendedProducts = []
+
             return
 
         }
 
         let apiService = self.apiService
         let productId = product.id
-        let query = ProductQuery(categoryId: categoryId, sort: .featured, limit: 7)
+        let query = ProductQuery(
+            categoryId: categoryId,
+            sort: .featured,
+            limit: 7
+        )
 
         self.recommendedProducts = self.recommendedProducts.filter {
             $0.id != productId && $0.category?.id == categoryId
@@ -316,7 +360,10 @@ final class ProductDetailsViewModel: ViewModel {
 
             do {
 
-                let page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
+                let page = try await apiService.getCustomerProducts(
+                    locationId: locationId,
+                    query: query
+                )
                 guard !Task.isCancelled,
                       self?.locationId == locationId,
                       self?.product?.id == productId else { return }
@@ -332,7 +379,10 @@ final class ProductDetailsViewModel: ViewModel {
                       self?.product?.id == productId else { return }
 
                 // Recommendations are optional; retain existing results if their refresh fails.
-                self?.logError(title: "Recommended Products Error", message: error.getMessageForError())
+                self?.logError(
+                    title: "Recommended Products Error",
+                    message: error.getMessageForError()
+                )
 
             }
 
@@ -343,8 +393,11 @@ final class ProductDetailsViewModel: ViewModel {
     private func presentContactError(message: String) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
-                .error(message: message, action: {})
+            .runeAlert(
+                .error(
+                    message: message,
+                    action: {}
+                )
             )
         ))
 
@@ -353,9 +406,12 @@ final class ProductDetailsViewModel: ViewModel {
     private func presentProductError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "product"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "product"
+                    ),
                     action: {}
                 )
             )
@@ -365,10 +421,17 @@ final class ProductDetailsViewModel: ViewModel {
 
     private func presentFavoriteToast(title: String, isFavorite: Bool) {
 
-        ToastManager.shared.present(toastItem: .init(
+        RNToastManager.shared.present(toastItem: .init(
             timing: .medium,
             direction: .top,
-            content: { ProductFavoriteToastView(productTitle: title, isFavorite: isFavorite) }
+            content: {
+
+                ProductFavoriteToastView(
+                    productTitle: title,
+                    isFavorite: isFavorite
+                )
+
+            }
         ))
 
     }
@@ -380,7 +443,10 @@ extension ProductDetailsViewModel {
     func track() {
 
         guard let locationId = self.locationId, let productId = self.productId else { return }
-        self.analyticsService.track(screen: .customer(.product(locationId: locationId, productId: productId)))
+        self.analyticsService.track(screen: .customer(.product(
+            locationId: locationId,
+            productId: productId
+        )))
 
     }
 

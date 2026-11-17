@@ -15,7 +15,7 @@ struct BubbleTabBarView: View {
 
     var body: some View {
 
-        HStack(spacing: self.style.spacing(.none)) {
+        HStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             ForEach(Tab.allCases, id: \.self) { tab in
 
@@ -25,7 +25,7 @@ struct BubbleTabBarView: View {
 
         }
         .frame(maxWidth: .infinity)
-        .padding(.top, self.style.spacing(.medium))
+        .runePadding(.top, LLSpacing.listRow)
         .background(.backgroundTappable)
         .background(alignment: .bottom) {
 
@@ -38,15 +38,23 @@ struct BubbleTabBarView: View {
                 ),
                 style: .continuous
             )
-            .fill(self.style.background(.secondary))
-            .ignoresSafeArea(.container, edges: .bottom)
+            .runeFill(RNColorSource.background(.secondary))
+            .ignoresSafeArea(
+                .container,
+                edges: .bottom
+            )
 
         }
-        .appShadow(.custom(color: .black.opacity(0.3), radius: 10, x: 0, y: 2))
+        .runeShadow(.custom(
+            color: .black.opacity(0.3),
+            radius: 10,
+            x: 0,
+            y: 2
+        ))
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func tabItem(_ tab: Tab) -> some View {
 
         TabItemView(
@@ -67,8 +75,6 @@ struct BubbleTabBarView: View {
 
 private struct TabSelectionAnimation: ViewModifier {
 
-    let isSelected: Bool
-
     struct Values {
 
         var scale: CGFloat = 1
@@ -77,37 +83,76 @@ private struct TabSelectionAnimation: ViewModifier {
 
     }
 
+    let isSelected: Bool
+
     func body(content: Content) -> some View {
 
         content
             .opacity(self.isSelected ? 1 : 0.62)
             .scaleEffect(self.isSelected ? 1 : 0.97)
-            .animation(.bouncy, value: self.isSelected)
+            .animation(
+                .bouncy,
+                value: self.isSelected
+            )
             .keyframeAnimator(
                 initialValue: Values(),
                 trigger: self.isSelected
             ) { view, value in
+
                 view
                     .scaleEffect(self.isSelected ? value.scale : 1)
                     .opacity(self.isSelected ? value.opacity : 1)
                     .offset(y: self.isSelected ? value.y : 0)
+
             } keyframes: { _ in
+
                 KeyframeTrack(\.scale) {
-                    CubicKeyframe(0.98, duration: 0.06)
-                    CubicKeyframe(1.045, duration: 0.14)
-                    CubicKeyframe(1, duration: 0.18)
+
+                    CubicKeyframe(
+                        0.98,
+                        duration: 0.06
+                    )
+                    CubicKeyframe(
+                        1.045,
+                        duration: 0.14
+                    )
+                    CubicKeyframe(
+                        1,
+                        duration: 0.18
+                    )
+
                 }
 
                 KeyframeTrack(\.opacity) {
-                    CubicKeyframe(0.88, duration: 0.06)
-                    CubicKeyframe(1, duration: 0.20)
+
+                    CubicKeyframe(
+                        0.88,
+                        duration: 0.06
+                    )
+                    CubicKeyframe(
+                        1,
+                        duration: 0.20
+                    )
+
                 }
 
                 KeyframeTrack(\.y) {
-                    CubicKeyframe(1.5, duration: 0.06)
-                    CubicKeyframe(-1.5, duration: 0.14)
-                    CubicKeyframe(0, duration: 0.18)
+
+                    CubicKeyframe(
+                        1.5,
+                        duration: 0.06
+                    )
+                    CubicKeyframe(
+                        -1.5,
+                        duration: 0.14
+                    )
+                    CubicKeyframe(
+                        0,
+                        duration: 0.18
+                    )
+
                 }
+
             }
 
     }

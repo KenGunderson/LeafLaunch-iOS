@@ -24,7 +24,7 @@ struct CatalogCategoryFilters: View {
 
     var body: some View {
 
-        VStack(spacing: 0) {
+        VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             if !self.categories.isEmpty {
 
@@ -34,17 +34,29 @@ struct CatalogCategoryFilters: View {
             }
 
         }
-        .animation(self.selectionAnimation, value: self.categories.isEmpty)
-        .animation(self.selectionAnimation, value: self.selectedCategory?.subcategories.isEmpty ?? true)
-        .animation(self.selectionAnimation, value: self.selectedCategoryId)
-        .animation(self.selectionAnimation, value: self.selectedSubcategoryId)
+        .animation(
+            self.selectionAnimation,
+            value: self.categories.isEmpty
+        )
+        .animation(
+            self.selectionAnimation,
+            value: self.selectedCategory?.subcategories.isEmpty ?? true
+        )
+        .animation(
+            self.selectionAnimation,
+            value: self.selectedCategoryId
+        )
+        .animation(
+            self.selectionAnimation,
+            value: self.selectedSubcategoryId
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func categoryContent() -> some View {
 
-        VStack(spacing: 0) {
+        VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             categoryRail()
 
@@ -52,7 +64,7 @@ struct CatalogCategoryFilters: View {
 
                 subcategoryRail(category: category)
                     .id(category.id)
-                    .padding(.top, .extraSmall)
+                    .runePadding(.top, LLSpacing.metadata)
                     .transition(AnyTransition(.blurReplace))
 
             }
@@ -61,12 +73,12 @@ struct CatalogCategoryFilters: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func categoryRail() -> some View {
 
         ScrollView(.horizontal) {
 
-            HStack(spacing: self.style.spacing(.medium)) {
+            HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                 ForEach(self.categories) { category in
                     categoryTab(category)
@@ -84,16 +96,19 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .safeAreaPadding(
+            .horizontal,
+            self.style.spacing(LLSpacing.listRow)
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func subcategoryRail(category: ProductCategory) -> some View {
 
         ScrollView(.horizontal) {
 
-            HStack(spacing: self.style.spacing(.medium)) {
+            HStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                 ForEach(category.subcategories) { subcategory in
                     subcategoryTab(subcategory)
@@ -111,11 +126,14 @@ struct CatalogCategoryFilters: View {
 
         }
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .safeAreaPadding(
+            .horizontal,
+            self.style.spacing(LLSpacing.listRow)
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func categoryTab(_ category: ProductCategory) -> some View {
 
         CatalogCategoryTab(
@@ -133,7 +151,7 @@ struct CatalogCategoryFilters: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func subcategoryTab(_ subcategory: ProductSubcategory) -> some View {
 
         CatalogCategoryTab(
@@ -151,15 +169,20 @@ struct CatalogCategoryFilters: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func selectionUnderline(selectedId: String?, namespace: Namespace.ID) -> some View {
 
         if let selectedId {
 
             Capsule()
-                .fill(self.style.palette(.link))
+                .runeFill(RNColorSource.palette(.link))
                 .frame(height: 3)
-                .matchedGeometryEffect(id: selectedId, in: namespace, properties: .frame, isSource: false)
+                .matchedGeometryEffect(
+                    id: selectedId,
+                    in: namespace,
+                    properties: .frame,
+                    isSource: false
+                )
                 .allowsHitTesting(false)
 
         }

@@ -2,13 +2,6 @@ import Foundation
 
 nonisolated struct CustomerNotificationPreference: Codable, Identifiable, Sendable {
 
-    let id: String
-    let membershipId: String
-    let appMasterEnabled: Bool
-    let locationEnabled: Bool
-    let createdAt: Date
-    let updatedAt: Date
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -19,5 +12,12 @@ nonisolated struct CustomerNotificationPreference: Codable, Identifiable, Sendab
         case updatedAt = "updated_at"
 
     }
+
+    let id: String
+    let membershipId: String
+    let appMasterEnabled: Bool
+    let locationEnabled: Bool
+    let createdAt: Date
+    let updatedAt: Date
 
 }

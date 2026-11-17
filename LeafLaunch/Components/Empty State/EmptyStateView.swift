@@ -15,25 +15,28 @@ struct EmptyStateView: View {
 
     var body: some View {
 
-        VStack(spacing: self.style.spacing(.small2)) {
+        VStack(spacing: self.style.spacing(LLSpacing.section)) {
 
             self.config
                 .image
                 .view()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(.text(.title))
-                .frame(width: 100, height: 120)
+                .runeTextColor(.title)
+                .frame(
+                    width: 100,
+                    height: 120
+                )
 
             Text(self.config.title)
-                .appFont(with: .HEADER_4)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .HEADER_4)
+                .runeTextColor(.title)
                 .multilineTextAlignment(.center)
 
             if let message = self.config.message {
 
                 Text(message)
-                    .appFont(with: .BODY_3)
-                    .foregroundStyle(.text(.body))
+                    .runeFont(with: .BODY_3)
+                    .runeTextColor(.body)
                     .multilineTextAlignment(.center)
 
             }
@@ -43,12 +46,12 @@ struct EmptyStateView: View {
                 LeafLaunchButton(title: actionTitle) {
                     self.config.action?()
                 }
-                .padding(.top, .small)
+                .runePadding(.top, LLSpacing.groupedContent)
 
             }
 
         }
-        .padding(.horizontal, .large)
+        .runePadding(.horizontal, LLSpacing.content)
 
     }
 
@@ -58,7 +61,7 @@ struct EmptyStateView: View {
 
     @Previewable @State var showEmptyState: Bool = true
 
-    AppBaseView {
+    RNBaseView {
 
         ScrollView {
 
@@ -69,8 +72,8 @@ struct EmptyStateView: View {
                     ForEach(0...50) { index in
 
                         Text("\(index)")
-                            .appFont(with: .TITLE_5)
-                            .foregroundStyle(.text(.title))
+                            .runeFont(with: .TITLE_5)
+                            .runeTextColor(.title)
 
                     }
                     .border(.red)
@@ -82,11 +85,7 @@ struct EmptyStateView: View {
                 }
 
             }
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .top
-            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
         }
 
@@ -110,12 +109,15 @@ struct EmptyStateView: View {
     )
     .safeAreaInset(edge: .bottom) {
 
-        CommonButton(title: "Show / Hide") {
+        LeafLaunchButton(title: "Show / Hide") {
             showEmptyState.toggle()
         }
-        .padding(.horizontal, .large)
+        .runePadding(.horizontal, LLSpacing.content)
 
     }
-    .animation(.bouncy, value: showEmptyState)
+    .animation(
+        .bouncy,
+        value: showEmptyState
+    )
 
 }

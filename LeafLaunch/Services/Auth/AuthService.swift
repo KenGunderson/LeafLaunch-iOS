@@ -79,6 +79,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             if self.currentUser != nil || self.firebaseService.user != nil {
                 try? await self.logout()
             }
@@ -114,6 +115,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             if self.currentUser != nil || self.firebaseService.user != nil {
                 try? await self.logout()
             }
@@ -139,6 +141,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Update Email Error",
                 message: error.getMessageForError()
@@ -197,6 +200,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "User Info Error",
                 message: error.getMessageForError()
@@ -218,6 +222,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Reload User Error",
                 message: error.getMessageForError()
@@ -243,6 +248,7 @@ final class AuthService: AuthServiceProtocol {
                 }
                 catch {
 
+                    guard !Task.isCancelled else { throw CancellationError() }
                     self.logError(
                         title: "Device Sign Out Error",
                         message: error.getMessageForError()
@@ -261,6 +267,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Logout Error",
                 message: error.getMessageForError()
@@ -308,6 +315,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Delete User Error",
                 message: error.getMessageForError()
@@ -339,8 +347,10 @@ final class AuthService: AuthServiceProtocol {
             ) { name, email, idTokenString, nonce, error in
 
                 if let error {
+
                     continuation.resume(throwing: error)
                     return
+
                 }
 
                 continuation.resume(returning: (
@@ -373,6 +383,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             if self.currentUser != nil || self.firebaseService.user != nil {
                 try? await self.logout()
             }
@@ -396,6 +407,7 @@ final class AuthService: AuthServiceProtocol {
         }
         catch(let error) {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Reset Password Error",
                 message: error.getMessageForError()
@@ -425,6 +437,7 @@ final class AuthService: AuthServiceProtocol {
                     self.initialUserLoadTask?.cancel()
                     self.currentUser = nil
                     self.onInitialLoadCompleted.send(true)
+
                     return
 
                 }
@@ -500,7 +513,6 @@ final class AuthService: AuthServiceProtocol {
 
                 guard !Task.isCancelled,
                       self?.initialUserLoadId == loadId else { return }
-
                 self?.logError(
                     title: "Load Initial User Error",
                     message: error.getMessageForError()

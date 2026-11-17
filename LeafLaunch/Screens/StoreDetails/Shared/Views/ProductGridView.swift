@@ -13,7 +13,11 @@ struct ProductGridView: View {
     private var columns: [GridItem] {
 
         Array(
-            repeating: GridItem(.flexible(minimum: 0), spacing: self.style.spacing(.small2), alignment: .top),
+            repeating: GridItem(
+                .flexible(minimum: 0),
+                spacing: self.style.spacing(LLSpacing.cardContent),
+                alignment: .top
+            ),
             count: self.dynamicTypeSize.isAccessibilitySize ? 1 : 2
         )
 
@@ -21,9 +25,11 @@ struct ProductGridView: View {
 
     var body: some View {
 
-        LazyVGrid(columns: self.columns,
-                  alignment: .leading,
-                  spacing: self.style.spacing(.medium)) {
+        LazyVGrid(
+            columns: self.columns,
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.listRow)
+        ) {
 
             ForEach(self.products) { product in
 
@@ -35,7 +41,7 @@ struct ProductGridView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productCard(_ product: Product) -> some View {
 
         ProductCardView(
@@ -69,7 +75,7 @@ struct ProductGridView: View {
 
             }
         )
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
 
     }
     .withMockPreviews()

@@ -11,18 +11,6 @@ nonisolated struct CustomerAccount: Codable, Equatable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let accountId: String
-    let storeId: String
-    let storeName: String
-    let membershipCode: String
-    let cachedPointsBalance: String
-    let displayName: String
-    let status: Status
-    let anonymizedAt: Date?
-    let createdAt: Date
-    let updatedAt: Date
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -38,5 +26,17 @@ nonisolated struct CustomerAccount: Codable, Equatable, Identifiable, Sendable {
         case updatedAt = "updated_at"
 
     }
+
+    let id: String
+    let accountId: String
+    let storeId: String
+    let storeName: String
+    let membershipCode: String
+    let cachedPointsBalance: String
+    let displayName: String
+    let status: Status
+    let anonymizedAt: Date?
+    let createdAt: Date
+    let updatedAt: Date
 
 }

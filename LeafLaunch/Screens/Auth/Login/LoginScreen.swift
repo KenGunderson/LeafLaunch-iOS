@@ -11,6 +11,13 @@ import AuthenticationServices
 
 struct LoginScreen: GPView {
 
+    enum FocusedField: Hashable {
+
+        case email
+        case password
+
+    }
+
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
@@ -19,25 +26,8 @@ struct LoginScreen: GPView {
 
     @FocusState private var focusedField: FocusedField?
 
-    enum FocusedField: Hashable {
-
-        case email
-        case password
-
-    }
-
     init(viewModel: LoginViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-
-    private func handleOnSubmit() {
-
-        if self.focusedField == .email {
-            self.focusedField = .password
-        } else {
-            self.focusedField = nil
-        }
-
     }
 
     var body: some View {
@@ -52,7 +42,7 @@ struct LoginScreen: GPView {
             handleOnSubmit()
         }
 
-        .alertView(
+        .runeAlertView(
             isPresented: self.$viewModel.shouldPresentForgotPassword,
             shouldDismissOnTouch: true,
             alertStyle: .forgotPassword(action: { email in
@@ -69,7 +59,17 @@ struct LoginScreen: GPView {
 
     }
 
-    @ViewBuilder
+    private func handleOnSubmit() {
+
+        if self.focusedField == .email {
+            self.focusedField = .password
+        } else {
+            self.focusedField = nil
+        }
+
+    }
+
+    @ContentBuilder
     private func headerView() -> some View {
 
         NavHeader(
@@ -81,24 +81,27 @@ struct LoginScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contentView() -> some View {
 
-        VStack(alignment: .trailing, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .trailing,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             fields()
             forgotPassword()
             loginAction()
 
         }
-        .padding(.bottom, .medium)
+        .runePadding(.bottom, LLSpacing.listRow)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func fields() -> some View {
 
-        VStack(spacing: self.style.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
             textField(fieldToFocus: .email)
 
@@ -111,19 +114,19 @@ struct LoginScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func forgotPassword() -> some View {
 
         Text("Forgot Password?")
-            .appFont(with: .TITLE_3)
-            .foregroundStyle(.foreground(.primary))
-            .asButton {
+            .runeFont(with: .TITLE_3)
+            .runeForeground(.primary)
+            .runeAsButton {
                 self.viewModel.handleForgotPassword()
             }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loginAction() -> some View {
 
         LeafLaunchButton(
@@ -134,18 +137,18 @@ struct LoginScreen: GPView {
         ) {
             self.viewModel.handleLogin()
         }
-        .padding(.vertical, .small)
+        .runePadding(.vertical, LLSpacing.groupedContent)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func textField(fieldToFocus: FocusedField,
                            isSecureEntry: Bool = false) -> some View {
 
         let text = fieldToFocus == .email ? self.$viewModel.email : self.$viewModel.password
         let title = fieldToFocus == .email ? "Email" : "Password"
         let placeholder = fieldToFocus == .email ? "jamie@example.com" : "e.g. CedarLeaf42!"
-        let icon: ImageSource = .systemImage(fieldToFocus == .email ? "envelope" : "lock")
+        let icon: RNImageSource = .systemImage(fieldToFocus == .email ? "envelope" : "lock")
         let isFocused = fieldToFocus == .email ? (self.focusedField == .email) : (self.focusedField == .password)
 
         Group {
@@ -157,22 +160,24 @@ struct LoginScreen: GPView {
                 SecureField(
                     title,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
+                    prompt: Text(placeholder).runeTextColor(.placeholder)
                 )
-
 
             } else {
 
                 TextField(
                     title,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
+                    prompt: Text(placeholder).runeTextColor(.placeholder)
                 )
 
             }
 
         }
-        .focused(self.$focusedField, equals: fieldToFocus)
+        .focused(
+            self.$focusedField,
+            equals: fieldToFocus
+        )
         .llTextFieldStyle(
             title: title,
             icon: icon,
@@ -186,31 +191,31 @@ struct LoginScreen: GPView {
         .overlay(alignment: .bottomTrailing) {
             passwordEyeOverlay(isSecureEntry: isSecureEntry)
         }
-        .appOnTapGesture(isSimultaneous: true) {
+        .runeOnTapGesture(isSimultaneous: true) {
             self.focusedField = fieldToFocus
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func passwordEyeOverlay(isSecureEntry: Bool) -> some View {
 
         if isSecureEntry {
 
-            ImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
+            RNImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
                 .view(shouldResize: false)
                 .scaledToFit()
                 .frame(maxWidth: 24, maxHeight: 24)
-                .asButton {
+                .runeAsButton {
 
                     withAnimation(.smooth) {
                         self.showPassword.toggle()
                     }
 
                 }
-                .foregroundStyle(.text(.placeholder))
-                .padding(.trailing, .medium)
-                .padding(.bottom, .small2)
+                .runeTextColor(.placeholder)
+                .runePadding(.trailing, LLSpacing.pageInset)
+                .runePadding(.bottom, LLSpacing.cardContent)
                 .contentTransition(.symbolEffect(.replace))
 
         }

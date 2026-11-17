@@ -13,17 +13,17 @@ struct ProductImageView: View {
 
     var body: some View {
 
-        self.style.background(.quinary).view()
+        RNColorSource.background(.quinary).view()
             .overlay {
 
                 if let url = self.url {
 
-                    ImageSource.remote(
+                    RNImageSource.remote(
                         url: url,
                         contentMode: .fill,
                         placeholder: AnyView(placeholder(isLoading: self.failedImageURL != url)),
                         onSuccess: { _ in self.failedImageURL = nil },
-                        onError: { _ in self.failedImageURL = url }
+                        onFailure: { _ in self.failedImageURL = url }
                     )
                     .view()
 
@@ -39,21 +39,21 @@ struct ProductImageView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func placeholder(isLoading: Bool) -> some View {
 
-        VStack(spacing: self.style.spacing(.small)) {
+        VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             if isLoading {
 
                 ProgressView()
-                    .tint(self.style.foreground(.primary).resolvedColor(style: self.style))
+                    .runeTint(.primary)
 
             } else {
 
-                ImageSource.systemImage("photo")
+                RNImageSource.systemImage("photo")
                     .view(shouldResize: false)
-                    .appFont(with: .HEADER_3)
+                    .runeFont(with: .HEADER_3)
 
             }
 
@@ -66,14 +66,14 @@ struct ProductImageView: View {
                             ? String(localized: "Image Unavailable")
                             : String(localized: "No Product Image")
                 )
-                    .appFont(with: .NOTE_1)
+                    .runeFont(with: .NOTE_1)
                     .multilineTextAlignment(.center)
 
             }
 
         }
-        .foregroundStyle(.text(.body))
-        .padding(.small)
+        .runeTextColor(.body)
+        .runePadding(LLSpacing.groupedContent)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
 
     }
@@ -87,8 +87,11 @@ struct ProductImageView: View {
         ProductImageView(
             url: product.activeImages.first?.url
         )
-        .aspectRatio(1, contentMode: .fit)
-        .padding(.medium)
+        .aspectRatio(
+            1,
+            contentMode: .fit
+        )
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
     }
@@ -97,18 +100,30 @@ struct ProductImageView: View {
 
 #Preview("Loading") {
 
-    ProductImageView(url: nil, isLoading: true)
-        .aspectRatio(1, contentMode: .fit)
-        .padding(.medium)
+    ProductImageView(
+        url: nil,
+        isLoading: true
+    )
+        .aspectRatio(
+            1,
+            contentMode: .fit
+        )
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }
 
 #Preview("Unavailable") {
 
-    ProductImageView(url: nil, isUnavailable: true)
-        .aspectRatio(1, contentMode: .fit)
-        .padding(.medium)
+    ProductImageView(
+        url: nil,
+        isUnavailable: true
+    )
+        .aspectRatio(
+            1,
+            contentMode: .fit
+        )
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

@@ -9,18 +9,6 @@ nonisolated struct ProductCategory: Codable, Equatable, Hashable, Identifiable, 
 
     }
 
-    let id: String
-    let revision: Int
-    let subcategories: [ProductSubcategory]
-    let pricingPresets: [CategoryPricingPreset]
-    let attributeIds: [String]
-    let name: String
-    let imageURL: URL?
-    let status: Status
-    let displayOrder: Int
-    let createdAt: Date?
-    let updatedAt: Date?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -36,5 +24,17 @@ nonisolated struct ProductCategory: Codable, Equatable, Hashable, Identifiable, 
         case updatedAt = "updated_at"
 
     }
+
+    let id: String
+    let revision: Int
+    let subcategories: [ProductSubcategory]
+    let pricingPresets: [CategoryPricingPreset]
+    let attributeIds: [String]
+    let name: String
+    let imageURL: URL?
+    let status: Status
+    let displayOrder: Int
+    let createdAt: Date?
+    let updatedAt: Date?
 
 }

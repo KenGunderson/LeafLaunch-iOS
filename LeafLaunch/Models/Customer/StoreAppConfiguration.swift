@@ -12,32 +12,6 @@ nonisolated struct StoreAppConfiguration: Codable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let revision: Int
-    let createdAt: Date
-    let updatedAt: Date
-    let storeId: String
-    let appKey: String
-    let publicName: String
-    let readinessStatus: ReadinessStatus
-    let iosBundleId: String?
-    let androidPackageName: String?
-    let firebaseProjectId: String?
-    let firebaseIosAppId: String?
-    let firebaseAndroidAppId: String?
-    let supportEmail: String?
-    let supportPhone: String?
-    let websiteURL: URL?
-    let ageGateRequired: Bool
-    let minimumAge: Int
-    let ageGateVersion: Int
-    let branding: StoreAppBranding?
-    let iosMinimumVersion: String?
-    let androidMinimumVersion: String?
-    let iosUpdateURL: URL?
-    let androidUpdateURL: URL?
-    let featureFlags: [String: Bool]?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -67,5 +41,31 @@ nonisolated struct StoreAppConfiguration: Codable, Identifiable, Sendable {
         case featureFlags = "feature_flags"
 
     }
+
+    let id: String
+    let revision: Int
+    let createdAt: Date
+    let updatedAt: Date
+    let storeId: String
+    let appKey: String
+    let publicName: String
+    let readinessStatus: ReadinessStatus
+    let iosBundleId: String?
+    let androidPackageName: String?
+    let firebaseProjectId: String?
+    let firebaseIosAppId: String?
+    let firebaseAndroidAppId: String?
+    let supportEmail: String?
+    let supportPhone: String?
+    let websiteURL: URL?
+    let ageGateRequired: Bool
+    let minimumAge: Int
+    let ageGateVersion: Int
+    let branding: StoreAppBranding?
+    let iosMinimumVersion: String?
+    let androidMinimumVersion: String?
+    let iosUpdateURL: URL?
+    let androidUpdateURL: URL?
+    let featureFlags: [String: Bool]?
 
 }

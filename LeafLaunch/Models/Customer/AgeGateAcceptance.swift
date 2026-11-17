@@ -2,6 +2,21 @@ import Foundation
 
 nonisolated struct AgeGateAcceptance: Codable, Identifiable, Sendable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case id
+        case customerAccountId = "customer_account_id"
+        case storeId = "store_id"
+        case locationId = "location_id"
+        case countryCode = "country_code"
+        case region
+        case minimumAge = "minimum_age"
+        case gateVersion = "gate_version"
+        case approvalRevision = "approval_revision"
+        case acceptedAt = "accepted_at"
+
+    }
+
     let id: String
     let customerAccountId: String
     let storeId: String
@@ -26,30 +41,25 @@ nonisolated struct AgeGateAcceptance: Codable, Identifiable, Sendable {
             approvalRevision: self.approvalRevision
         )
 
-        return policy.isValid
-            && acceptedPolicy.isValid
-            && UUID(uuidString: self.locationId) != nil
-            && self.storeId.lowercased() == businessId.lowercased()
-            && self.customerAccountId.lowercased() == customerAccountId.lowercased()
-            && acceptedPolicy.canonicalCountryCode == policy.canonicalCountryCode
-            && acceptedPolicy.canonicalRegion == policy.canonicalRegion
-            && self.minimumAge >= policy.minimumAge
-            && self.approvalRevision >= policy.approvalRevision
+        guard policy.isValid,
+              acceptedPolicy.isValid,
+              UUID(uuidString: self.locationId) != nil else { return false }
 
-    }
+        let matchesStore = self.storeId.lowercased() == businessId.lowercased()
+        guard matchesStore else { return false }
 
-    private enum CodingKeys: String, CodingKey {
+        let matchesCustomer = self.customerAccountId.lowercased() == customerAccountId.lowercased()
+        guard matchesCustomer else { return false }
 
-        case id
-        case customerAccountId = "customer_account_id"
-        case storeId = "store_id"
-        case locationId = "location_id"
-        case countryCode = "country_code"
-        case region
-        case minimumAge = "minimum_age"
-        case gateVersion = "gate_version"
-        case approvalRevision = "approval_revision"
-        case acceptedAt = "accepted_at"
+        let matchesCountry = acceptedPolicy.canonicalCountryCode == policy.canonicalCountryCode
+        guard matchesCountry else { return false }
+
+        let matchesRegion = acceptedPolicy.canonicalRegion == policy.canonicalRegion
+        guard matchesRegion else { return false }
+
+        let coversMinimumAge = self.minimumAge >= policy.minimumAge
+        var coversApprovalRevision: Bool { self.approvalRevision >= policy.approvalRevision }
+        return coversMinimumAge && coversApprovalRevision
 
     }
 

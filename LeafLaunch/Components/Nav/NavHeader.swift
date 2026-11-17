@@ -15,28 +15,28 @@ struct NavHeader: View {
     private let subtitle: String?
     private let subtitleAction: (() -> Void)?
     private let status: String?
-    private let statusColor: ColorSource
-    private let leadingImage: ImageSource?
+    private let statusColor: RNColorSource
+    private let leadingImage: RNImageSource?
     private let showLogo: Bool
-    private let backgroundStyle: ColorSource
+    private let backgroundStyle: RNColorSource
     private let leadingNavButtons: [NavBarButton.Style]
     private let leadingNavButtonsAction: ((NavBarButton.Style) -> Void)?
     private let trailingNavButtons: [NavBarButton.Style]
-    private let trailingNavButtonsForegroundColor: ColorSource
+    private let trailingNavButtonsForegroundColor: RNColorSource
     private let trailingNavButtonsAction: ((NavBarButton.Style) -> Void)?
 
     init(title: String,
          subtitle: String? = nil,
          subtitleAction: (() -> Void)? = nil,
          status: String? = nil,
-         statusColor: ColorSource = .palette(.link),
-         leadingImage: ImageSource? = nil,
+         statusColor: RNColorSource = .palette(.link),
+         leadingImage: RNImageSource? = nil,
          showLogo: Bool = false,
-         backgroundStyle: ColorSource = .background(.primary),
+         backgroundStyle: RNColorSource = .background(.primary),
          leadingNavButtons: [NavBarButton.Style] = [],
          leadingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil,
          trailingNavButtons: [NavBarButton.Style] = [],
-         trailingNavButtonsForegroundColor: ColorSource = .text(.title),
+         trailingNavButtonsForegroundColor: RNColorSource = .text(.title),
          trailingNavButtonsAction: ((NavBarButton.Style) -> Void)? = nil) {
 
         self.title = title
@@ -57,7 +57,7 @@ struct NavHeader: View {
 
     var body: some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(LLSpacing.section)) {
 
             if !self.leadingNavButtons.isEmpty {
 
@@ -70,10 +70,13 @@ struct NavHeader: View {
 
             if self.showLogo {
 
-                ImageSource.image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
+                RNImageSource.image(ImageResource(
+                    name: BusinessConfig.logoAssetName,
+                    bundle: .main
+                ))
                     .view()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: self.style.spacing(.large2))
+                    .frame(height: 32)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
             } else {
@@ -98,12 +101,12 @@ struct NavHeader: View {
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .medium)
+        .runePadding(.horizontal, LLSpacing.pageInset)
         .background(self.backgroundStyle)
         .background {
 
             Rectangle()
-                .fill(self.backgroundStyle)
+                .runeFill(self.backgroundStyle)
                 .blur(radius: 2)
                 .offset(y: 10)
 
@@ -111,11 +114,15 @@ struct NavHeader: View {
 
     }
 
-    @ViewBuilder
-    private func brandImage(_ image: ImageSource) -> some View {
+    @ContentBuilder
+    private func brandImage(_ image: RNImageSource) -> some View {
 
-        self.style.background(.tertiary).view()
-            .frame(width: self.style.spacing(.medium2) * 2, height: self.style.spacing(.medium2) * 2)
+        Rectangle()
+            .runeFill(.background(.tertiary))
+            .frame(
+                width: 40,
+                height: 40
+            )
             .overlay {
 
                 image.view()
@@ -123,18 +130,21 @@ struct NavHeader: View {
 
             }
             .clipped()
-            .cornerRadius(.medium2)
+            .runeCornerRadius(.medium2)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func titleSubtitleView() -> some View {
 
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.none)
+        ) {
 
             Text(self.title)
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
 
             if let subtitle = self.subtitle {
 
@@ -151,59 +161,74 @@ struct NavHeader: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func statusView(_ status: String) -> some View {
 
-        HStack(spacing: self.style.spacing(.extraSmall)) {
+        HStack(spacing: self.style.spacing(LLSpacing.metadata)) {
 
             Circle()
-                .fill(self.statusColor)
-                .frame(width: self.style.spacing(.small), height: self.style.spacing(.small))
+                .runeFill(self.statusColor)
+                .frame(
+                    width: 8,
+                    height: 8
+                )
 
             Text(status)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(.text(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func subtitleView(_ subtitle: String) -> some View {
 
         if let subtitleAction = self.subtitleAction {
 
-            HStack(alignment: .center, spacing: self.style.spacing(.extraSmall)) {
+            HStack(
+                alignment: .center,
+                spacing: self.style.spacing(LLSpacing.metadata)
+            ) {
 
                 Text(subtitle)
-                    .fixedSize(horizontal: false, vertical: true)
-                ImageSource.systemImage("chevron.down")
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
+                RNImageSource.systemImage("chevron.down")
                     .view(shouldResize: false)
 
             }
-            .appFont(with: .BODY_1)
-            .foregroundStyle(.text(.body))
+            .runeFont(with: .BODY_1)
+            .runeTextColor(.body)
             .contentShape(Rectangle())
-            .asButton(action: subtitleAction)
+            .runeAsButton(action: subtitleAction)
 
         } else {
 
             Text(subtitle)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(.text(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navButtons(_ buttons: [NavBarButton.Style],
-                            foregroundColor: ColorSource = .text(.title),
+                            foregroundColor: RNColorSource = .text(.title),
                             action: ((NavBarButton.Style) -> Void)? = nil) -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             ForEach(buttons, id: \.self) { navStyle in
 
@@ -224,9 +249,11 @@ struct NavHeader: View {
 
 #Preview {
 
-    AppBaseView {
+    @Previewable @Environment(\.style) var style
 
-        VStack(spacing: 32) {
+    RNBaseView {
+
+        VStack(spacing: style.spacing(LLSpacing.hero)) {
 
             NavHeader(
                 title: "Good Morning, Sako",
@@ -259,7 +286,7 @@ struct NavHeader: View {
             )
 
         }
-        .padding(.horizontal, .medium)
+        .runePadding(.horizontal, LLSpacing.pageInset)
 
     }
 
@@ -267,42 +294,47 @@ struct NavHeader: View {
 
 #Preview {
 
-    AppHeaderScrollView(navBarContent: {
+    @Previewable @Environment(\.style) var style
 
-        NavHeader(
-            title: "Good Morning, Sako",
-            subtitle: "Select where you're working today",
-            showLogo: true,
-            trailingNavButtons: [
-                .bell(notificationCount: 1),
-                .settings
-            ]
-        ) { navItem in
-            print(navItem)
+    RNHeaderScrollView(
+        navBarContent: {
+
+            NavHeader(
+                title: "Good Morning, Sako",
+                subtitle: "Select where you're working today",
+                showLogo: true,
+                trailingNavButtons: [
+                    .bell(notificationCount: 1),
+                    .settings
+                ]
+            ) { navItem in
+                print(navItem)
+            }
+
+        },
+        scrollViewContent: {
+
+            VStack(spacing: style.spacing(LLSpacing.content)) {
+
+                RoundedRectangle(cornerRadius: style.radius(.custom(16)))
+                    .runeFill(.color(.red))
+                    .frame(height: 120)
+
+                RoundedRectangle(cornerRadius: style.radius(.custom(16)))
+                    .runeFill(.color(.red))
+                    .frame(height: 120)
+
+                RoundedRectangle(cornerRadius: style.radius(.custom(16)))
+                    .runeFill(.color(.red))
+                    .frame(height: 120)
+
+                RoundedRectangle(cornerRadius: style.radius(.custom(16)))
+                    .runeFill(.color(.red))
+                    .frame(height: 120)
+
+            }
+
         }
-
-    }, scrollViewContent: {
-
-        VStack(spacing: 24) {
-
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.red)
-                .frame(height: 120)
-
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.red)
-                .frame(height: 120)
-
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.red)
-                .frame(height: 120)
-
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.red)
-                .frame(height: 120)
-
-        }
-
-    })
+    )
 
 }

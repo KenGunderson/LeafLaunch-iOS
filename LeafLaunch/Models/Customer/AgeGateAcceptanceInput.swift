@@ -2,6 +2,15 @@ import Foundation
 
 nonisolated struct AgeGateAcceptanceInput: Encodable, Sendable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case locationId = "location_id"
+        case minimumAge = "minimum_age"
+        case gateVersion = "gate_version"
+        case accepted
+
+    }
+
     let locationId: String
     let minimumAge: Int
     let gateVersion: Int
@@ -16,15 +25,6 @@ nonisolated struct AgeGateAcceptanceInput: Encodable, Sendable {
         self.minimumAge = minimumAge
         self.gateVersion = gateVersion
         self.accepted = accepted
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case locationId = "location_id"
-        case minimumAge = "minimum_age"
-        case gateVersion = "gate_version"
-        case accepted
 
     }
 

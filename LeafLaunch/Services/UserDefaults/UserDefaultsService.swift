@@ -19,7 +19,7 @@ import Combine
 
 final class UserDefaultsService: UserDefaultsServiceProtocol {
 
-    private let style: any StyleProtocol
+    private let style: any RNStyleProtocol
     private let defaults = UserDefaults.standard
 
     internal let loggerName: String = "USER_DEFAULTS_SERVICE"
@@ -70,7 +70,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         }
 
         let identity = "guest:\(UUID().uuidString)"
-        self.defaults.set(identity, forKey: key)
+        self.defaults.set(
+            identity,
+            forKey: key
+        )
         return identity
 
     }
@@ -80,9 +83,13 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         let key = customerKey(.ageVerificationApprovals)
 
         guard let data = self.defaults.data(forKey: key) else { return [:] }
-        guard let approvals = try? JSONDecoder().decode([String: [String]].self, from: data) else {
+        guard let approvals = try? JSONDecoder().decode(
+            [String: [String]].self,
+            from: data
+        ) else {
 
             self.defaults.removeObject(forKey: key)
+
             return [:]
 
         }
@@ -96,9 +103,13 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         let key = customerKey(.ageVerificationApprovalMetadata)
 
         guard let data = self.defaults.data(forKey: key) else { return [:] }
-        guard let metadata = try? JSONDecoder().decode([String: [String: AgeVerificationApproval]].self, from: data) else {
+        guard let metadata = try? JSONDecoder().decode(
+            [String: [String: AgeVerificationApproval]].self,
+            from: data
+        ) else {
 
             self.defaults.removeObject(forKey: key)
+
             return [:]
 
         }
@@ -114,7 +125,7 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     }
 
-    init(style: any StyleProtocol) {
+    init(style: any RNStyleProtocol) {
 
         self.style = style
 
@@ -154,7 +165,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
         let key = self.securityPinsDictionaryData
 
-        if var dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
+        if var dict = try? JSONSerialization.jsonObject(
+            with: key ?? Data(),
+            options: []
+        ) as? [String: String?] {
 
             dict[businessId] = securityPin
 
@@ -190,7 +204,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
         let key = self.securityPinsDictionaryData
 
-        if let dict = try? JSONSerialization.jsonObject(with: key ?? Data(), options: []) as? [String: String?] {
+        if let dict = try? JSONSerialization.jsonObject(
+            with: key ?? Data(),
+            options: []
+        ) as? [String: String?] {
             return dict[businessId] ?? nil
         }
 
@@ -203,10 +220,14 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
         guard let cachedTheme = loadCachedStoreTheme(),
               let baseTheme = AvailableTheme(rawValue: cachedTheme.baseTheme),
-              let storeTheme = StoreThemeBuilder.makeTheme(branding: cachedTheme.branding, baseTheme: baseTheme) else {
+              let storeTheme = StoreThemeBuilder.makeTheme(
+                  branding: cachedTheme.branding,
+                  baseTheme: baseTheme
+              ) else {
 
             self.defaults.removeObject(forKey: customerKey(.cachedStoreTheme))
             self.style.updateTheme(self.theme.theme())
+
             return false
 
         }
@@ -225,22 +246,33 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
             self.defaults.removeObject(forKey: key)
             self.style.updateTheme(self.theme.theme())
+
             return true
 
         }
 
         guard BusinessConfig.isConfigured,
-              let cachedTheme = CachedStoreTheme(branding: branding, baseTheme: self.theme),
-              let storeTheme = StoreThemeBuilder.makeTheme(branding: cachedTheme.branding, baseTheme: self.theme),
+              let cachedTheme = CachedStoreTheme(
+                  branding: branding,
+                  baseTheme: self.theme
+              ),
+              let storeTheme = StoreThemeBuilder.makeTheme(
+                  branding: cachedTheme.branding,
+                  baseTheme: self.theme
+              ),
               let encodedTheme = try? JSONEncoder().encode(cachedTheme) else {
 
             self.defaults.removeObject(forKey: key)
             self.style.updateTheme(self.theme.theme())
+
             return false
 
         }
 
-        self.defaults.set(encodedTheme, forKey: key)
+        self.defaults.set(
+            encodedTheme,
+            forKey: key
+        )
         self.style.updateTheme(storeTheme)
         return true
 
@@ -254,15 +286,21 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         guard let locationId, !locationId.isEmpty else {
 
             self.defaults.removeObject(forKey: key)
+
             return
 
         }
 
-        self.defaults.set(locationId, forKey: key)
+        self.defaults.set(
+            locationId,
+            forKey: key
+        )
 
     }
 
-    func hasApprovedAge(userId: String, state: String, policy: EffectiveAgePolicy) -> Bool {
+    func hasApprovedAge(userId: String,
+                        state: String,
+                        policy: EffectiveAgePolicy) -> Bool {
 
         let approvedState = normalizedState(state)
         guard !userId.isEmpty,
@@ -275,7 +313,9 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
 
     }
 
-    func approveAge(userId: String, state: String, policy: EffectiveAgePolicy) {
+    func approveAge(userId: String,
+                    state: String,
+                    policy: EffectiveAgePolicy) {
 
         let approvedState = normalizedState(state)
         guard !userId.isEmpty,
@@ -296,8 +336,14 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         guard let approvalData = try? JSONEncoder().encode(approvals),
               let metadataData = try? JSONEncoder().encode(metadata) else { return }
 
-        self.defaults.set(metadataData, forKey: customerKey(.ageVerificationApprovalMetadata))
-        self.defaults.set(approvalData, forKey: customerKey(.ageVerificationApprovals))
+        self.defaults.set(
+            metadataData,
+            forKey: customerKey(.ageVerificationApprovalMetadata)
+        )
+        self.defaults.set(
+            approvalData,
+            forKey: customerKey(.ageVerificationApprovals)
+        )
 
     }
 
@@ -314,7 +360,10 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
             favoriteIds.remove(identifier)
         }
 
-        self.defaults.set(favoriteIds.sorted(), forKey: customerKey(.favoriteProductIds))
+        self.defaults.set(
+            favoriteIds.sorted(),
+            forKey: customerKey(.favoriteProductIds)
+        )
         self.favoriteProductIdsPublisher.send(favoriteIds)
 
     }
@@ -324,12 +373,19 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         let key = customerKey(.cachedStoreTheme)
 
         guard let data = self.defaults.data(forKey: key) else { return nil }
-        guard let cachedTheme = try? JSONDecoder().decode(CachedStoreTheme.self, from: data),
+        guard let cachedTheme = try? JSONDecoder().decode(
+            CachedStoreTheme.self,
+            from: data
+        ),
               cachedTheme.matchesCurrentTarget,
               let baseTheme = AvailableTheme(rawValue: cachedTheme.baseTheme),
-              let currentTheme = CachedStoreTheme(branding: cachedTheme.branding, baseTheme: baseTheme) else {
+              let currentTheme = CachedStoreTheme(
+                  branding: cachedTheme.branding,
+                  baseTheme: baseTheme
+              ) else {
 
             self.defaults.removeObject(forKey: key)
+
             return nil
 
         }
@@ -338,7 +394,12 @@ final class UserDefaultsService: UserDefaultsServiceProtocol {
         // defaults once and persist the complete version 2 definition synchronously.
         if cachedTheme.schemaVersion != CachedStoreTheme.currentSchemaVersion,
            let migratedData = try? JSONEncoder().encode(currentTheme) {
-            self.defaults.set(migratedData, forKey: key)
+
+            self.defaults.set(
+                migratedData,
+                forKey: key
+            )
+
         }
 
         return currentTheme

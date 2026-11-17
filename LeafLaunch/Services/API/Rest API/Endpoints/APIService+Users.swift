@@ -91,7 +91,6 @@ extension APIService {
     @concurrent
     func deleteUser(user: LLUser) async throws {
 
-
         _ = try await buildRequest(
             method: .delete,
             apiPath: .init(path: .user("\(user.id)"))

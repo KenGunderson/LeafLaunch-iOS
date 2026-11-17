@@ -15,6 +15,7 @@ class MockViewModelAssembly {
         // RootViewModel
 
         container.rootViewModel.register { @MainActor in
+
             RootViewModel(
                 analyticsService: container.analyticsService(),
                 alertService: container.alertService(),
@@ -25,11 +26,13 @@ class MockViewModelAssembly {
                 startupService: container.rootStartupService(),
                 mainViewModel: container.mainViewModel()
             )
+
         }
 
         // MainViewModel
 
         container.mainViewModel.register { @MainActor in
+
             MainViewModel(
                 alertService: container.alertService(),
                 appDelegateService: container.appDelegateService(),
@@ -40,6 +43,7 @@ class MockViewModelAssembly {
                 tabBarNavigationService: container.tabBarNavigationService(),
                 makeStoreContainerViewModel: { container.storeContainerViewModel() }
             )
+
         }
 
         // Home
@@ -51,6 +55,7 @@ class MockViewModelAssembly {
         // Auth - Welcome
 
         container.welcomeViewModel.register { @MainActor in
+
             WelcomeViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -58,11 +63,13 @@ class MockViewModelAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // Auth - Login
 
         container.loginViewModel.register { @MainActor in
+
             LoginViewModel(
                 alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
@@ -70,11 +77,13 @@ class MockViewModelAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // Auth - SignUp
 
         container.signUpViewModel.register { @MainActor in
+
             SignUpViewModel(
                 alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
@@ -82,11 +91,13 @@ class MockViewModelAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // Settings
 
         container.settingsViewModel.register { @MainActor in
+
             SettingsViewModel(
                 authService: container.authService(),
                 apiService: container.apiService(),
@@ -96,11 +107,13 @@ class MockViewModelAssembly {
                 userDefaultsService: container.userDefaultsService(),
                 viewLifecycleService: container.viewLifecycleService()
             )
+
         }
 
         // Settings - Legal
 
         container.legalDetailsViewModel.register { @MainActor in
+
             LegalDetailsViewModel(
                 apiService: container.apiService(),
                 authService: container.authService(),
@@ -109,11 +122,13 @@ class MockViewModelAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // DevSettings
 
         container.devSettingsViewModel.register { @MainActor in
+
             DevSettingsViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
@@ -123,33 +138,39 @@ class MockViewModelAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // DevSettings - Routes
 
         container.devRouteListViewModel.register { @MainActor in
+
             DevRouteListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // DevSettings - Deeplinks
 
         container.devDeeplinkListViewModel.register { @MainActor in
+
             DevDeeplinkListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
         // DevSettings - UserDefaults
 
         container.devUserDefaultsViewModel.register { @MainActor in
+
             DevUserDefaultsViewModel(
                 alertService: container.alertService(),
                 analyticsService: container.analyticsService(),
@@ -158,17 +179,20 @@ class MockViewModelAssembly {
                 environmentService: container.environmentService(),
                 userDefaultsService: container.userDefaultsService()
             )
+
         }
 
         // DevSettings - Analytics
 
         container.devAnalyticsListViewModel.register { @MainActor in
+
             DevAnalyticsListViewModel(
                 analyticsService: container.analyticsService(),
                 authService: container.authService(),
                 viewLifecycleService: container.viewLifecycleService(),
                 environmentService: container.environmentService()
             )
+
         }
 
     }

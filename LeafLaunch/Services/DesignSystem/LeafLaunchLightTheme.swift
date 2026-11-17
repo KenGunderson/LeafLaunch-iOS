@@ -7,10 +7,10 @@ import SwiftUI
 
 // Resolved from LeafLaunch-Web/src/app/theme.css, including its final Leaf Launch overrides.
 // Rune foreground roles drive brand controls; background.primary is the app canvas.
-public extension Theme {
+public extension RNTheme {
 
     @MainActor
-    static let leafLaunchLight = Theme(
+    static let leafLaunchLight = RNTheme(
         id: "leafLaunchLight",
         isLightMode: true,
         foreground: .init(

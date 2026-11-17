@@ -11,7 +11,7 @@ final class FavoriteProductListViewModel: ViewModel {
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let tabBarNavigationService: TabBarNavigationService
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -24,11 +24,13 @@ final class FavoriteProductListViewModel: ViewModel {
     @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var hasLoadFailed: Bool = false
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          tabBarNavigationService: TabBarNavigationService,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
@@ -67,7 +69,16 @@ final class FavoriteProductListViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadFavoritesTask
+        await loadTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
 
         guard self.loadFavoritesTask == nil, let locationId = self.locationId else { return }
 
@@ -80,7 +91,7 @@ final class FavoriteProductListViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -99,7 +110,10 @@ final class FavoriteProductListViewModel: ViewModel {
 
                 while true {
 
-                    let page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
+                    let page = try await apiService.getCustomerProducts(
+                        locationId: locationId,
+                        query: query
+                    )
                     guard !Task.isCancelled else { return }
 
                     products.append(contentsOf: page.data)
@@ -132,7 +146,10 @@ final class FavoriteProductListViewModel: ViewModel {
     func openProduct(id: String) {
 
         guard let locationId = self.locationId else { return }
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: id)))
+        self.navigationService?.push(.customer(.product(
+            locationId: locationId,
+            productId: id
+        )))
 
     }
 
@@ -141,7 +158,10 @@ final class FavoriteProductListViewModel: ViewModel {
         guard let product = self.products.first(where: { $0.id == id }),
               self.userDefaultsService.favoriteProductIds.contains(id) else { return }
 
-        self.userDefaultsService.setFavorite(productId: id, isFavorite: false)
+        self.userDefaultsService.setFavorite(
+            productId: id,
+            isFavorite: false
+        )
         presentFavoriteRemovedToast(productTitle: product.displayName)
 
     }
@@ -177,9 +197,12 @@ final class FavoriteProductListViewModel: ViewModel {
     private func presentFavoritesError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "favorite products"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "favorite products"
+                    ),
                     action: {}
                 )
             )
@@ -189,10 +212,17 @@ final class FavoriteProductListViewModel: ViewModel {
 
     private func presentFavoriteRemovedToast(productTitle: String) {
 
-        ToastManager.shared.present(toastItem: .init(
+        RNToastManager.shared.present(toastItem: .init(
             timing: .medium,
             direction: .top,
-            content: { ProductFavoriteToastView(productTitle: productTitle, isFavorite: false) }
+            content: {
+
+                ProductFavoriteToastView(
+                    productTitle: productTitle,
+                    isFavorite: false
+                )
+
+            }
         ))
 
     }

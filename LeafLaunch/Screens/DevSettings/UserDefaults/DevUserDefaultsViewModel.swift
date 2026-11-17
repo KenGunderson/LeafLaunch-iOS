@@ -13,7 +13,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     internal let loggerName: String = "DEV"
     internal let loggerEmoji: String = "🔧"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
@@ -21,11 +21,9 @@ final class DevUserDefaultsViewModel: ViewModel {
     public var userDefaultsService: UserDefaultsServiceProtocol
 
     @Published var fullScreenCover: FullScreenCover?
-
     @Published var theme: AvailableTheme!
     @Published var didRateMyAppAlertShow: Bool!
     @Published var shouldHideScreenshots: Bool!
-
     @Published var shouldShowNoNetworkError: Bool = false
     @Published var shouldShowHealthCheckError: Bool = false
     @Published var shouldShowForceUpdateError: Bool = false
@@ -33,7 +31,7 @@ final class DevUserDefaultsViewModel: ViewModel {
     private weak var navigationService: NavigationService?
     private var cancelBag: CancelBag!
 
-    init(alertService: AlertServiceProtocol,
+    init(alertService: RNAlertServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,

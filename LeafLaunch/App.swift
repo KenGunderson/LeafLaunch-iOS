@@ -38,7 +38,8 @@ struct LeafLaunchApp: App {
                         .setup(appDelegate: self.appDelegate)
 
                 }
-                .runeStyle()
+                .runeImageCache(.standard)
+                .runeStyle(RNStyle.shared)
 
         }
 

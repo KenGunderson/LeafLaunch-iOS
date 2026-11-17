@@ -39,7 +39,10 @@ struct StoreInfoView: View {
         guard let address = self.address else { return nil }
 
         var components = URLComponents(string: "https://maps.apple.com/")
-        components?.queryItems = [URLQueryItem(name: "q", value: address)]
+        components?.queryItems = [URLQueryItem(
+            name: "q",
+            value: address
+        )]
         return components?.url
 
     }
@@ -55,20 +58,23 @@ struct StoreInfoView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.listRow)
+        ) {
 
             openingHours()
             contactDetails()
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, .medium)
-        .padding(.top, .large)
+        .runePadding(.horizontal, LLSpacing.pageInset)
+        .runePadding(.top, LLSpacing.content)
         .tabFlowContentSpacing()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func openingHours() -> some View {
 
         if let details = self.details {
@@ -81,18 +87,23 @@ struct StoreInfoView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contactDetails() -> some View {
 
-        if self.address != nil || self.phone != nil || self.email != nil {
+        let hasContactDetails = self.address != nil || self.phone != nil || self.email != nil
+
+        if hasContactDetails {
 
             CommerceSurface {
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+                VStack(
+                    alignment: .leading,
+                    spacing: self.style.spacing(LLSpacing.groupedContent)
+                ) {
 
                     Text(String(localized: "Get In Touch"))
-                        .appFont(with: LeafLaunchThemeTokens.headingFont)
-                        .foregroundStyle(self.style.textColor(.title))
+                        .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                        .runeTextColor(.title)
 
                     contactRows()
 
@@ -104,7 +115,7 @@ struct StoreInfoView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contactRows() -> some View {
 
         if let address = self.address {
@@ -127,7 +138,10 @@ struct StoreInfoView: View {
             contactRow(
                 title: String(localized: "Call The Store"),
                 value: phone,
-                url: contactURL(scheme: "tel", value: phone),
+                url: contactURL(
+                    scheme: "tel",
+                    value: phone
+                ),
                 systemImage: "phone"
             )
 
@@ -142,7 +156,10 @@ struct StoreInfoView: View {
             contactRow(
                 title: String(localized: "Email The Store"),
                 value: email,
-                url: contactURL(scheme: "mailto", value: email),
+                url: contactURL(
+                    scheme: "mailto",
+                    value: email
+                ),
                 systemImage: "envelope"
             )
 
@@ -150,7 +167,7 @@ struct StoreInfoView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contactRow(title: String,
                             value: String,
                             url: URL?,

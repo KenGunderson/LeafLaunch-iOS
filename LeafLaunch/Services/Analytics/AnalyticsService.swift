@@ -62,6 +62,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
 
                 FirebaseApp.configureIfNeeded()
                 self?.setupAmplitude()
+
             }
             .store(in: &self.cancelBag)
 
@@ -128,11 +129,17 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         guard self.environmentService.environment == .production else { return }
 
         let identify = AMPIdentify()
-        identify.set(key, value: value as NSString)
+        identify.set(
+            key,
+            value: value as NSString
+        )
         self.amplitude?.identify(identify)
 
         FirebaseApp.configureIfNeeded()
-        Analytics.setUserProperty(value, forName: key)
+        Analytics.setUserProperty(
+            value,
+            forName: key
+        )
 
         // Logging
 
@@ -175,9 +182,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
         var debugLogMessage = "Analytics event"
 
         switch type {
-        case .app:
-
-            debugLogMessage = "App: \(data.name)"
+        case .app: debugLogMessage = "App: \(data.name)"
 
         case .screen:
 
@@ -196,7 +201,6 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             else {
                 debugLogMessage = "Error event"
             }
-
         }
 
         self.log(message: "\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
@@ -260,7 +264,10 @@ final class AnalyticsService: AnalyticsServiceProtocol {
             .properties?
             .forEach { key, value in
 
-                Crashlytics.crashlytics().setCustomValue(value, forKey: key)
+                Crashlytics.crashlytics().setCustomValue(
+                    value,
+                    forKey: key
+                )
 
             }
 

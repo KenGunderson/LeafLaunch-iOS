@@ -61,22 +61,21 @@ struct RootScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func backgroundView() -> some View {
 
-        self.style
-            .background(.primary)
+        RNColorSource.background(.primary)
             .view()
             .ignoresSafeArea()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func mainView() -> some View {
 
         GeometryReader { _ in
 
-            VStack(spacing: self.style.spacing(.none)) {
+            VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
                 if self.viewModel.launchState == .completed {
 
@@ -91,7 +90,7 @@ struct RootScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func splashScreenView() -> some View {
 
         SplashScreenView {
@@ -102,7 +101,10 @@ struct RootScreen: GPView {
         }
         .opacity(self.viewModel.launchState == .completed ? 0 : 1)
         .allowsHitTesting(self.viewModel.launchState != .completed)
-        .animation(.smooth(duration: 0.6), value: viewModel.launchState)
+        .animation(
+            .smooth(duration: 0.6),
+            value: viewModel.launchState
+        )
         .onFirstAppear { [weak viewModel] in
 
             viewModel?

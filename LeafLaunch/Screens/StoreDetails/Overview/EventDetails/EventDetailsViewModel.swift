@@ -25,7 +25,10 @@ final class EventDetailsViewModel: ViewModel {
     var schedule: StoreEventSchedule? {
 
         guard let event = self.event else { return nil }
-        return StoreEventSchedule(event: event, location: self.locationDetails?.location)
+        return StoreEventSchedule(
+            event: event,
+            location: self.locationDetails?.location
+        )
 
     }
 
@@ -34,7 +37,10 @@ final class EventDetailsViewModel: ViewModel {
         guard let address = self.locationDetails?.address, !address.isEmpty else { return nil }
 
         var components = URLComponents(string: "https://maps.apple.com/")
-        components?.queryItems = [URLQueryItem(name: "q", value: address)]
+        components?.queryItems = [URLQueryItem(
+            name: "q",
+            value: address
+        )]
         return components?.url
 
     }
@@ -84,7 +90,10 @@ extension EventDetailsViewModel {
 
         guard let locationId = self.locationId,
               let event = self.event else { return }
-        self.analyticsService.track(screen: .customer(.event(locationId: locationId, eventId: event.id)))
+        self.analyticsService.track(screen: .customer(.event(
+            locationId: locationId,
+            eventId: event.id
+        )))
 
     }
 

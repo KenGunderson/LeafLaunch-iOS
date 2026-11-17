@@ -4,6 +4,18 @@ import Foundation
 // Omitted roles retain the built-in LeafLaunchThemeTokens radius values.
 nonisolated struct StoreAppRadius: Codable, Equatable, Sendable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case extraSmall = "extra_small"
+        case small
+        case small2
+        case medium
+        case medium2
+        case large
+        case extraLarge = "extra_large"
+
+    }
+
     let extraSmall: Double?
     let small: Double?
     let small2: Double?
@@ -42,18 +54,6 @@ nonisolated struct StoreAppRadius: Codable, Equatable, Sendable {
 
         [self.extraSmall, self.small, self.small2, self.medium, self.medium2, self.large, self.extraLarge]
             .allSatisfy { $0 != nil }
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case extraSmall = "extra_small"
-        case small
-        case small2
-        case medium
-        case medium2
-        case large
-        case extraLarge = "extra_large"
 
     }
 

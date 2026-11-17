@@ -7,7 +7,7 @@ final class PromotionProductListViewModel: ViewModel {
     let loggerEmoji: String = "🏷️"
 
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -17,7 +17,7 @@ final class PromotionProductListViewModel: ViewModel {
     @Published private(set) var products: [PromotionLinkedProduct] = []
 
     init(analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.analyticsService = analyticsService
         self.alertService = alertService
@@ -60,11 +60,15 @@ final class PromotionProductListViewModel: ViewModel {
         guard let listingId = product.locationProductListingId else {
 
             presentUnavailableProduct()
+
             return
 
         }
 
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: listingId)))
+        self.navigationService?.push(.customer(.product(
+            locationId: locationId,
+            productId: listingId
+        )))
 
     }
 
@@ -75,7 +79,10 @@ final class PromotionProductListViewModel: ViewModel {
     private func presentUnavailableProduct() {
 
         self.alertService.showAlert(.init(
-            .appAlert(.error(message: Constants.Message.promotionProductUnavailableMessage, action: {}))
+            .runeAlert(.error(
+                message: Constants.Message.promotionProductUnavailableMessage,
+                action: {}
+            ))
         ))
 
     }
@@ -87,7 +94,10 @@ extension PromotionProductListViewModel {
     func track() {
 
         guard let locationId = self.locationId, let promotionId = self.promotionId else { return }
-        self.analyticsService.track(screen: .customer(.promotionProducts(locationId: locationId, promotionId: promotionId)))
+        self.analyticsService.track(screen: .customer(.promotionProducts(
+            locationId: locationId,
+            promotionId: promotionId
+        )))
 
     }
 

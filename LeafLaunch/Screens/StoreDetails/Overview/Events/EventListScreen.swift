@@ -13,7 +13,7 @@ struct EventListScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        LLAppHeaderScrollView(onRefresh: { [weak viewModel] in await viewModel?.refreshData() }) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -25,12 +25,12 @@ struct EventListScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -41,10 +41,13 @@ struct EventListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             emptyContent()
             events()
@@ -55,10 +58,10 @@ struct EventListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func events() -> some View {
 
-        LazyVStack(spacing: self.style.spacing(.small2)) {
+        LazyVStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
             ForEach(self.viewModel.events) { event in
                 eventCard(event)
@@ -68,21 +71,26 @@ struct EventListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventCard(_ event: StoreEvent) -> some View {
 
-        StoreEventCard(event: event, location: self.viewModel.location) { [weak viewModel] in
+        StoreEventCard(
+            event: event,
+            location: self.viewModel.location
+        ) { [weak viewModel] in
             viewModel?.openEvent(event)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func emptyContent() -> some View {
 
-        if self.viewModel.events.isEmpty && !self.viewModel.isLoading {
+        let hasResolvedEvents = self.viewModel.hasCompletedInitialLoad || !self.viewModel.isLoading
 
-            if self.viewModel.hasLoadFailed {
+        if self.viewModel.events.isEmpty && hasResolvedEvents {
+
+            if self.viewModel.hasLoadFailed && !self.viewModel.hasCompletedInitialLoad {
 
                 CommerceEmptyState(
                     systemImage: "wifi.exclamationmark",
@@ -108,7 +116,7 @@ struct EventListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadMoreAction() -> some View {
 
         if self.viewModel.hasMoreEvents {

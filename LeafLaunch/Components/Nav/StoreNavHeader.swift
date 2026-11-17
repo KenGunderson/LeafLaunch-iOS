@@ -22,14 +22,19 @@ struct StoreNavHeader: View {
 
     }
 
-    private var fallbackLogo: ImageSource {
-        .image(ImageResource(name: BusinessConfig.logoAssetName, bundle: .main))
+    private var fallbackLogo: RNImageSource {
+        .image(ImageResource(
+            name: BusinessConfig.logoAssetName,
+            bundle: .main
+        ))
     }
 
-    private var logo: ImageSource {
+    private var logo: RNImageSource {
 
         guard let url = self.configuration?.branding?.iconURL ?? self.configuration?.branding?.logoURL else {
+
             return self.fallbackLogo
+
         }
 
         return .remote(

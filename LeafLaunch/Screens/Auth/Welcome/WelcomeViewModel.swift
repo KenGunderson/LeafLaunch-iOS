@@ -15,7 +15,7 @@ final class WelcomeViewModel: ViewModel {
 
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let viewLifecycleService: ViewLifecycleServiceProtocol
     private let environmentService: EnvironmentServiceProtocol
 
@@ -27,7 +27,7 @@ final class WelcomeViewModel: ViewModel {
 
     init(analyticsService: AnalyticsServiceProtocol,
          authService: AuthServiceProtocol,
-         alertService: AlertServiceProtocol,
+         alertService: RNAlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
 

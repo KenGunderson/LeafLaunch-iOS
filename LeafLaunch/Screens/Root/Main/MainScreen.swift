@@ -5,21 +5,25 @@ struct MainScreen: GPView {
     @Environment(\.style) private var style
     @Environment(NavigationService.self) private var navigationService
 
+    @State private var alertServiceWrapper: RNObservableAlertServiceWrapper
     @StateObject private var viewModel: MainViewModel
 
     init(viewModel: MainViewModel) {
+
+        self._alertServiceWrapper = State(wrappedValue: RNObservableAlertServiceWrapper(alertService: viewModel.readOnlyAlertService))
         self._viewModel = StateObject(wrappedValue: viewModel)
+
     }
 
     var body: some View {
 
         customerFlow()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(self.style.background(.primary))
+            .runeBackground(.primary)
             .environment(self.viewModel.tabBarNavigationService)
-            .withWindowToastOverlay()
-            .withWindowAlertService(.init(alertService: self.viewModel.readOnlyAlertService))
-            .withWindowDynamicIslandService()
+            .runeWithWindowToastOverlay()
+            .runeWithWindowAlertService(self.alertServiceWrapper)
+            .runeWithWindowDynamicIslandService()
             .withFullScreenCover(Bindable(self.navigationService).fullScreenCover)
             .withSheet(Bindable(self.navigationService).sheet) { [weak viewModel] in
                 viewModel?.handleSheetDismissal()
@@ -36,11 +40,14 @@ struct MainScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func customerFlow() -> some View {
 
         switch self.viewModel.storeState {
-        case .loading, .locations, .ageVerification, .store:
+        case .loading,
+                .locations,
+                .ageVerification,
+                .store:
 
             StoreContainerScreen(viewModel: self.viewModel.storeContainerViewModel)
                 .id(self.viewModel.storeContainerViewModel.locationId)
@@ -60,32 +67,35 @@ struct MainScreen: GPView {
             updateRequiredStatus()
 
         case .failed:
-            failureStatus()
 
+            failureStatus()
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func statusBox<Content: View>(title: LocalizedStringKey,
-                                          @ViewBuilder content: () -> Content) -> some View {
+                                          @ContentBuilder content: () -> Content) -> some View {
 
         CommerceSurface {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.listRow)
+            ) {
 
-                Text(title).appFont(with: .TITLE_3)
+                Text(title).runeFont(with: .TITLE_3)
                 content()
 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
         }
-        .padding(self.style.spacing(.medium))
+        .runePadding(LLSpacing.pageInset)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func unavailableStatus() -> some View {
 
         statusBox(title: "Store Unavailable") {
@@ -97,7 +107,7 @@ struct MainScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func updateRequiredStatus() -> some View {
 
         statusBox(title: "App Update Required") {
@@ -105,7 +115,12 @@ struct MainScreen: GPView {
             Text("Update this app to continue browsing.")
 
             if let updateURL = self.viewModel.updateURL {
-                Link("Update App", destination: updateURL)
+
+                Link(
+                    "Update App",
+                    destination: updateURL
+                )
+
             }
 
             LeafLaunchButton(title: "Check Again") { self.viewModel.retryStoreLoading() }
@@ -114,7 +129,7 @@ struct MainScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func failureStatus() -> some View {
 
         statusBox(title: "Unable To Load Stores") {
@@ -122,8 +137,8 @@ struct MainScreen: GPView {
             Text(self.viewModel.storeErrorMessage ?? "Check your connection and try again.")
             LeafLaunchButton(title: "Try Again") { self.viewModel.retryStoreLoading() }
             Text("Choose Another Location")
-                .foregroundStyle(.foreground(.primary))
-                .asButton { self.viewModel.chooseAnotherLocation() }
+                .runeForeground(.primary)
+                .runeAsButton { self.viewModel.chooseAnotherLocation() }
 
         }
 

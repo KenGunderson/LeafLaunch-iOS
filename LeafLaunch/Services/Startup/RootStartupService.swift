@@ -285,7 +285,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
                       self?.deviceRegistrationId == registrationId,
                       authService.currentUser?.id == userId,
                       firebaseService.user?.uid == externalId else { return }
-
                 self?.logError(
                     title: "Device Token Registration Error",
                     message: error.getMessageForError()
@@ -353,7 +352,6 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
             catch {
 
                 guard !Task.isCancelled else { return }
-
                 self?.logError(
                     title: "Health Check Error",
                     message: error.getMessageForError()
@@ -362,8 +360,10 @@ final class RootStartupService: RootStartupServiceProtocol, Loggable {
                 if let apiError = error as? APIError,
                    case let .serverError(statusCode, _) = apiError,
                    statusCode == 426 {
+
                     onHealthCheckResult(true)
                     return
+
                 }
 
                 onHealthCheckResult(false)

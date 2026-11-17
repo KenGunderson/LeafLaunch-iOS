@@ -15,11 +15,9 @@ protocol RootStartupServiceProtocol: AnyObject {
     func setLaunchState(_ state: LaunchScreenService.State)
     func markSplashAnimationCompleted()
 
-    func start(
-        onLaunchStateChanged: @escaping (LaunchScreenService.State) -> Void,
-        onAuthError: @escaping (Error) -> Void,
-        onNoNetwork: @escaping () -> Void,
-        onHealthCheckResult: @escaping (_ requiresForceUpdate: Bool) -> Void
-    )
+    func start(onLaunchStateChanged: @escaping (LaunchScreenService.State) -> Void,
+               onAuthError: @escaping (Error) -> Void,
+               onNoNetwork: @escaping () -> Void,
+               onHealthCheckResult: @escaping (_ requiresForceUpdate: Bool) -> Void)
 
 }

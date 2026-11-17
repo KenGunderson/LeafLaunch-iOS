@@ -17,7 +17,7 @@ final class LoyaltyHistoryListViewModel: ViewModel {
     private let apiService: APIServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -34,10 +34,12 @@ final class LoyaltyHistoryListViewModel: ViewModel {
     @Published private(set) var hasLoadFailed: Bool = false
     @Published private(set) var hasMoreHistory: Bool = false
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          authService: AuthServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.apiService = apiService
         self.authService = authService
@@ -76,19 +78,41 @@ final class LoyaltyHistoryListViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
-        loadHistory(reset: true, showHud: showHud)
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadHistoryTask
+        await loadTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
+
+        loadHistory(
+            reset: true,
+            showHud: showHud
+        )
+
     }
 
     func loadMore() {
 
         guard self.hasMoreHistory else { return }
-        loadHistory(reset: false, showHud: false)
+        loadHistory(
+            reset: false,
+            showHud: false
+        )
 
     }
 
     func retry() {
-        loadHistory(reset: self.shouldRetryFromStart, showHud: false)
+
+        loadHistory(
+            reset: self.shouldRetryFromStart,
+            showHud: false
+        )
+
     }
 
     func dismiss() {
@@ -102,6 +126,7 @@ final class LoyaltyHistoryListViewModel: ViewModel {
 
             clearHistory()
             self.navigationService?.popToRoot()
+
             return
 
         }
@@ -122,7 +147,7 @@ final class LoyaltyHistoryListViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -140,7 +165,10 @@ final class LoyaltyHistoryListViewModel: ViewModel {
 
             do {
 
-                var page = try await apiService.getCustomerLoyaltyHistory(locationId: locationId, offset: offset)
+                var page = try await apiService.getCustomerLoyaltyHistory(
+                    locationId: locationId,
+                    offset: offset
+                )
                 guard !Task.isCancelled, self?.requestId == requestId, authService.currentUser?.id == userId else { return }
 
                 var receivedHistory = page.data
@@ -151,7 +179,10 @@ final class LoyaltyHistoryListViewModel: ViewModel {
                     guard let nextOffset = page.page.nextOffset, nextOffset > pageOffset else { break }
                     pageOffset = nextOffset
 
-                    page = try await apiService.getCustomerLoyaltyHistory(locationId: locationId, offset: pageOffset)
+                    page = try await apiService.getCustomerLoyaltyHistory(
+                        locationId: locationId,
+                        offset: pageOffset
+                    )
                     guard !Task.isCancelled, self?.requestId == requestId, authService.currentUser?.id == userId else { return }
                     receivedHistory.append(contentsOf: page.data)
 
@@ -167,7 +198,8 @@ final class LoyaltyHistoryListViewModel: ViewModel {
                 }
 
                 self?.nextOffset = page.page.nextOffset
-                self?.hasMoreHistory = page.page.hasMore && !page.data.isEmpty && (page.page.nextOffset ?? pageOffset) > pageOffset
+                let hasNextPage = page.page.hasMore && !page.data.isEmpty
+                self?.hasMoreHistory = hasNextPage && (page.page.nextOffset ?? pageOffset) > pageOffset
                 self?.hasCompletedInitialLoad = true
 
             } catch {
@@ -221,8 +253,11 @@ final class LoyaltyHistoryListViewModel: ViewModel {
     private func presentHistoryError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(.error(
-                message: Constants.Message.errorMessage(context: .get, "points activity"),
+            .runeAlert(.error(
+                message: Constants.Message.errorMessage(
+                    context: .get,
+                    "points activity"
+                ),
                 action: {}
             ))
         ))

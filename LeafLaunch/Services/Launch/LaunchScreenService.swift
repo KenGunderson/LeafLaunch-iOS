@@ -9,15 +9,15 @@ import Combine
 
 final class LaunchScreenService: LaunchScreenServiceProtocol {
 
-    internal let loggerName: String = "LAUNCH_SERVICE"
-    internal let loggerEmoji: String = "🚀"
-
     enum State {
 
         case loading
         case completed
 
     }
+
+    internal let loggerName: String = "LAUNCH_SERVICE"
+    internal let loggerEmoji: String = "🚀"
 
     private(set) var onLaunchStateChanged = CurrentValueSubject<LaunchScreenService.State, Never>(.loading)
 

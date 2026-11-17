@@ -12,30 +12,21 @@ struct StoreAccountHistoryView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
-
-            sectionHeader()
+        LLSection(
+            title: String(localized: "Points Activity"),
+            actionTitle: String(localized: "View All"),
+            action: self.canViewAllHistory ? self.viewAllAction : nil
+        ) {
             historyContent()
 
         }
 
     }
 
-    @ViewBuilder
-    private func sectionHeader() -> some View {
-
-        CommerceSectionHeader(
-            title: String(localized: "Points Activity"),
-            actionTitle: self.canViewAllHistory ? String(localized: "View All") : nil,
-            action: self.canViewAllHistory ? self.viewAllAction : nil
-        )
-
-    }
-
-    @ViewBuilder
+    @ContentBuilder
     private func historyContent() -> some View {
 
-        if self.hasCompletedInitialLoad && self.history.isEmpty && !self.isLoading {
+        if self.hasCompletedInitialLoad && self.history.isEmpty {
 
             CommerceSurface {
 
@@ -52,7 +43,7 @@ struct StoreAccountHistoryView: View {
             CommerceSurface {
 
                 ProgressView(String(localized: "Loading Points Activity"))
-                    .tint(self.style.palette(.link))
+                    .tint(RNColorSource.palette(.link))
 
             }
 
@@ -64,7 +55,7 @@ struct StoreAccountHistoryView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func historyRow(_ entry: LoyaltyHistoryEntry) -> some View {
 
         CommerceSurface {
@@ -86,7 +77,7 @@ struct StoreAccountHistoryView: View {
             canViewAllHistory: true,
             viewAllAction: {}
         )
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
 
     }
     .withMockPreviews()

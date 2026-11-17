@@ -13,9 +13,17 @@ nonisolated enum ProductAttributeValue: Codable, Equatable, Hashable, Sendable {
         switch self {
         case .text(let value): return value
         case .number(let value): return NSDecimalNumber(decimal: value).stringValue
-        case .boolean(let value): return value ? "Yes" : "No"
-        case .selection(let values): return values.joined(separator: ", ")
+
+        case .boolean(let value):
+
+            return value ? "Yes" : "No"
+
+        case .selection(let values):
+
+            return values.joined(separator: ", ")
+
         case .measurement(let value):
+
             return "\(NSDecimalNumber(decimal: value.amount).stringValue) \(value.unit)"
         }
 
@@ -48,11 +56,25 @@ nonisolated enum ProductAttributeValue: Codable, Equatable, Hashable, Sendable {
         var container = encoder.singleValueContainer()
 
         switch self {
-        case .text(let value): try container.encode(value)
-        case .number(let value): try container.encode(value)
-        case .boolean(let value): try container.encode(value)
-        case .selection(let value): try container.encode(value)
-        case .measurement(let value): try container.encode(value)
+        case .text(let value):
+
+            try container.encode(value)
+
+        case .number(let value):
+
+            try container.encode(value)
+
+        case .boolean(let value):
+
+            try container.encode(value)
+
+        case .selection(let value):
+
+            try container.encode(value)
+
+        case .measurement(let value):
+
+            try container.encode(value)
         }
 
     }

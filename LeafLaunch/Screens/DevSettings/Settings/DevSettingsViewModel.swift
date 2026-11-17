@@ -13,7 +13,7 @@ final class DevSettingsViewModel: ViewModel {
     internal let loggerName: String = "DEV"
     internal let loggerEmoji: String = "🔧"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let authService: AuthServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     let firebaseService: FirebaseServiceProtocol
@@ -35,7 +35,7 @@ final class DevSettingsViewModel: ViewModel {
          authService: AuthServiceProtocol,
          firebaseService: FirebaseServiceProtocol,
          appDelegateService: AppDelegateServiceProtocol,
-         alertService: AlertServiceProtocol,
+         alertService: RNAlertServiceProtocol,
          viewLifecycleService: ViewLifecycleServiceProtocol,
          environmentService: EnvironmentServiceProtocol) {
 
@@ -101,7 +101,7 @@ final class DevSettingsViewModel: ViewModel {
 
         UIPasteboard.general.string = self.firebaseService.currentAccessToken ?? ""
 
-        ToastManager.shared.present(toastItem: .init(
+        RNToastManager.shared.present(toastItem: .init(
             title: "Auth Token Copied",
             titleColor: .text(.title),
             message: "Your Auth Token Is Now Saved On Your Clipboard",
@@ -120,10 +120,20 @@ final class DevSettingsViewModel: ViewModel {
         var appEnviornments: [AppEnvironment] = [.localhost, .development, .production]
 
         if case let .custom(address) = self.selectedEnviornment {
-            appEnviornments.insert(.custom(address: address), at: 0)
+
+            appEnviornments.insert(
+                .custom(address: address),
+                at: 0
+            )
+
         }
         else {
-            appEnviornments.insert(.custom(address: Constants.URLs.defaultCustomEnvironmentAddress), at: 0)
+
+            appEnviornments.insert(
+                .custom(address: Constants.URLs.defaultCustomEnvironmentAddress),
+                at: 0
+            )
+
         }
 
         return appEnviornments
@@ -226,7 +236,7 @@ final class DevSettingsViewModel: ViewModel {
     private func presentLogoutError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
                     message: Constants.Message.logoutErrorMessage,
                     action: {}

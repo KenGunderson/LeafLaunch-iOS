@@ -14,7 +14,7 @@ final class RootViewModel: ViewModel {
     internal let loggerName: String = "ROOT_VIEW_MODEL"
     internal let loggerEmoji: String = "🪾"
 
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
     private let authService: AuthServiceProtocol
     private let pushNotificationService: PushNotificationServiceProtocol
@@ -30,10 +30,10 @@ final class RootViewModel: ViewModel {
     private(set) weak var navigationService: NavigationService?
     private var logoutTask: Task<Void, Never>?
 
-    var observableAlertServiceWrapper: ObservableAlertServiceWrapper!
+    var observableAlertServiceWrapper: RNObservableAlertServiceWrapper!
 
     init(analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol,
+         alertService: RNAlertServiceProtocol,
          authService: AuthServiceProtocol,
          pushNotificationService: PushNotificationServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
@@ -49,7 +49,7 @@ final class RootViewModel: ViewModel {
         self.deeplinkService = deeplinkService
         self.startupService = startupService
         self.mainViewModel = mainViewModel
-        self.observableAlertServiceWrapper = ObservableAlertServiceWrapper(alertService: alertService)
+        self.observableAlertServiceWrapper = RNObservableAlertServiceWrapper(alertService: alertService)
 
         self.logInit()
 
@@ -118,8 +118,10 @@ final class RootViewModel: ViewModel {
 
         self.alertService
             .showAlert(.init(.enviornmentAlert(.init(config: Constants.HEALTH_CHECK_ENV_ALERT { [weak self] in
+
                 self?.alertService.dismissAll()
                 self?.mainViewModel.retryStoreLoading()
+
             }))))
 
     }
@@ -128,8 +130,10 @@ final class RootViewModel: ViewModel {
 
         self.alertService
             .showAlert(.init(.enviornmentAlert(.init(config: Constants.NO_NETWORK_ENV_ALERT { [weak self] in
+
                 self?.alertService.dismissAll()
                 self?.mainViewModel.retryStoreLoading()
+
             }))))
 
     }
@@ -172,8 +176,10 @@ final class RootViewModel: ViewModel {
                 guard let self else { return }
 
                 if requiresForceUpdate {
+
                     self.presentForceUpdateAlert()
                     return
+
                 }
 
                 self.presentHealthCheckAlert()
@@ -186,40 +192,42 @@ final class RootViewModel: ViewModel {
     private func showAuthError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
-                .error(message: Constants.Message.authenticationErrorMessage,
-                       action: { [weak self] in
+            .runeAlert(
+                .error(
+                    message: Constants.Message.authenticationErrorMessage,
+                    action: { [weak self] in
 
-                           guard let self,
-                                 self.logoutTask == nil else { return }
+                        guard let self,
+                              self.logoutTask == nil else { return }
 
-                           let authService = self.authService
+                        let authService = self.authService
 
-                           self.logoutTask = Task { @MainActor [weak self] in
+                        self.logoutTask = Task { @MainActor [weak self] in
 
-                               guard !Task.isCancelled else { return }
+                            guard !Task.isCancelled else { return }
 
-                               defer {
+                            defer {
 
-                                   if !Task.isCancelled { self?.logoutTask = nil }
+                                if !Task.isCancelled { self?.logoutTask = nil }
 
-                               }
+                            }
 
-                               do {
+                            do {
 
-                                   try await authService.logout()
-                                   guard !Task.isCancelled else { return }
+                                try await authService.logout()
+                                guard !Task.isCancelled else { return }
 
-                               } catch {
+                            } catch {
 
-                                   guard !Task.isCancelled else { return }
-                                   self?.presentLogoutError()
+                                guard !Task.isCancelled else { return }
+                                self?.presentLogoutError()
 
-                               }
+                            }
 
-                           }
+                        }
 
-                       }))
+                    }
+                ))
         ))
 
     }
@@ -227,7 +235,7 @@ final class RootViewModel: ViewModel {
     private func presentLogoutError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
                     message: Constants.Message.logoutErrorMessage,
                     action: {}

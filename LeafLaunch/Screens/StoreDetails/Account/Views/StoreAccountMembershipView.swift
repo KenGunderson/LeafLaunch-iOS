@@ -16,7 +16,10 @@ struct StoreAccountMembershipView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             if let account = self.account {
 
@@ -25,9 +28,12 @@ struct StoreAccountMembershipView: View {
                 }
 
                 Text(String(localized: "Member Since \(account.createdAt.formatted(date: .abbreviated, time: .omitted))"))
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                    .runeFont(with: .BODY_1)
+                    .runeTextColor(.body)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
                 enrollmentAction()
 
@@ -53,19 +59,25 @@ struct StoreAccountMembershipView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func enrollmentAction() -> some View {
 
-        if self.hasSelectedLocation && self.membership == nil && self.hasCompletedInitialLoad && !self.isLoading {
+        let needsEnrollment = self.hasSelectedLocation && self.membership == nil
+        let canEnroll = self.hasCompletedInitialLoad && !self.isLoading
 
-            LeafLaunchButton(title: String(localized: "Enable Location Activity"), action: self.joinAction)
-                .padding(.top, .small)
+        if needsEnrollment && canEnroll {
+
+            LeafLaunchButton(
+                title: String(localized: "Enable Location Activity"),
+                action: self.joinAction
+            )
+                .runePadding(.top, LLSpacing.groupedContent)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func membershipPlaceholder() -> some View {
 
         CommerceSurface {
@@ -73,13 +85,13 @@ struct StoreAccountMembershipView: View {
             if self.isLoading {
 
                 ProgressView(String(localized: "Loading Membership"))
-                    .tint(self.style.palette(.link))
+                    .tint(RNColorSource.palette(.link))
 
             } else {
 
                 Text(String(localized: "Your membership details will appear here."))
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
 
             }
 
@@ -100,7 +112,7 @@ struct StoreAccountMembershipView: View {
         hasCompletedInitialLoad: true,
         joinAction: {}
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }
@@ -116,7 +128,7 @@ struct StoreAccountMembershipView: View {
         hasCompletedInitialLoad: true,
         joinAction: {}
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

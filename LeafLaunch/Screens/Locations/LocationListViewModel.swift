@@ -11,11 +11,11 @@ final class LocationListViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
     private let apiService: APIServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var sessionSubscription: AnyCancellable?
-    private var loadingIndicator: RuneAlert?
+    private var loadingIndicator: RNAlert?
     private var lastPresentedErrorMessage: String?
     private var loadLocationsTask: Task<Void, Never>?
     private var locationSearchLocator: LocationSearchLocator?
@@ -27,6 +27,7 @@ final class LocationListViewModel: ViewModel {
     private var hasAttemptedLocationPrefill: Bool = false
     private var shouldPresentSearchErrors: Bool = true
 
+    @Published private(set) var hasCompletedInitialLoad: Bool = false
     @Published private(set) var locations: [BootstrapLocation] = []
     @Published private(set) var locationDetails: [String: CustomerLocationDetails] = [:]
     @Published private(set) var failedLocationIds: Set<String> = []
@@ -42,6 +43,8 @@ final class LocationListViewModel: ViewModel {
     @Published var search: String = "" {
         didSet { handleSearchChange() }
     }
+
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
 
     var configuration: CustomerBootstrap? { self.storeSessionService.configuration }
 
@@ -100,7 +103,7 @@ final class LocationListViewModel: ViewModel {
     init(storeSessionService: StoreSessionServiceProtocol,
          apiService: APIServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.storeSessionService = storeSessionService
         self.apiService = apiService
@@ -182,7 +185,10 @@ final class LocationListViewModel: ViewModel {
     func useCurrentLocation() {
 
         self.hasAttemptedLocationPrefill = true
-        locateCurrentLocation(using: LocationSearchLocator(), isAutomatic: false)
+        locateCurrentLocation(
+            using: LocationSearchLocator(),
+            isAutomatic: false
+        )
 
     }
 
@@ -239,7 +245,7 @@ final class LocationListViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func loadData(showHud: Bool = false) {
 
         cancelLocationDetailsLoad()
         guard self.step == .locationSelection else { return }
@@ -249,6 +255,8 @@ final class LocationListViewModel: ViewModel {
 
             self.isLoading = false
             self.loadLocationsTask = nil
+            self.hasCompletedInitialLoad = true
+
             return
 
         }
@@ -265,7 +273,7 @@ final class LocationListViewModel: ViewModel {
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -297,7 +305,10 @@ final class LocationListViewModel: ViewModel {
                             return (locationId, details)
 
                         } catch {
+
+                            guard !Task.isCancelled else { return (locationId, nil) }
                             return (locationId, nil)
+
                         }
 
                     }
@@ -309,6 +320,7 @@ final class LocationListViewModel: ViewModel {
                     guard !Task.isCancelled else {
 
                         group.cancelAll()
+
                         return
 
                     }
@@ -329,6 +341,8 @@ final class LocationListViewModel: ViewModel {
 
             if self?.failedLocationIds.isEmpty == false {
                 self?.presentLocationError(context: .get)
+            } else {
+                self?.hasCompletedInitialLoad = true
             }
 
         }
@@ -381,8 +395,7 @@ final class LocationListViewModel: ViewModel {
 
             }
 
-        default:
-            break
+        default: break
         }
 
         if state == .loading {
@@ -391,7 +404,7 @@ final class LocationListViewModel: ViewModel {
 
             if self.loadingIndicator == nil {
 
-                let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+                let loadingIndicator = RNAlert(.simpleLoadingIndicator)
                 self.loadingIndicator = loadingIndicator
                 self.alertService.showAlert(loadingIndicator)
 
@@ -418,9 +431,12 @@ final class LocationListViewModel: ViewModel {
     private func presentLocationError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "location"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "location"
+                    ),
                     action: {}
                 )
             )
@@ -453,7 +469,10 @@ final class LocationListViewModel: ViewModel {
         guard locator.isAuthorized else { return }
 
         self.hasAttemptedLocationPrefill = true
-        locateCurrentLocation(using: locator, isAutomatic: true)
+        locateCurrentLocation(
+            using: locator,
+            isAutomatic: true
+        )
 
     }
 
@@ -487,7 +506,10 @@ final class LocationListViewModel: ViewModel {
 
                     self.search = ""
                     self.shouldPresentSearchErrors = !isAutomatic
-                    self.searchNearby(center: result.location, debounce: false)
+                    self.searchNearby(
+                        center: result.location,
+                        debounce: false
+                    )
 
                 }
 
@@ -500,7 +522,6 @@ final class LocationListViewModel: ViewModel {
                 }
 
                 self.presentLocationSearchError(error)
-
             }
 
         }
@@ -532,7 +553,10 @@ final class LocationListViewModel: ViewModel {
               self.searchCenter != nil || self.postalCodeQuery != nil else { return }
         self.nearbySearchTask?.cancel()
         self.nearbySearchLocator?.cancel()
-        searchNearby(center: self.searchCenter, debounce: false)
+        searchNearby(
+            center: self.searchCenter,
+            debounce: false
+        )
 
     }
 
@@ -652,11 +676,23 @@ final class LocationListViewModel: ViewModel {
     private func postalCode(from search: String) -> String? {
 
         let query = search.trimmingCharacters(in: .whitespacesAndNewlines)
-        let parts = query.split(separator: "-", omittingEmptySubsequences: false)
-        guard parts.count == 1 || parts.count == 2,
+        let parts = query.split(
+            separator: "-",
+            omittingEmptySubsequences: false
+        )
+        let hasValidPartCount = parts.count == 1 || parts.count == 2
+        guard hasValidPartCount,
               parts[0].count == 5,
-              parts[0].allSatisfy({ $0.isASCII && $0.isNumber }),
-              parts.count == 1 || (parts[1].count == 4 && parts[1].allSatisfy({ $0.isASCII && $0.isNumber })) else { return nil }
+              parts[0].allSatisfy({ $0.isASCII && $0.isNumber }) else { return nil }
+
+        if parts.count == 2 {
+
+            guard parts[1].count == 4 else { return nil }
+            let extensionIsNumeric = parts[1].allSatisfy { $0.isASCII && $0.isNumber }
+            guard extensionIsNumeric else { return nil }
+
+        }
+
         return String(parts[0])
 
     }
@@ -664,7 +700,10 @@ final class LocationListViewModel: ViewModel {
     private func presentAgeVerificationError() {
 
         self.alertService.showAlert(.init(
-            .appAlert(.error(message: Constants.Message.ageVerificationErrorMessage, action: {}))
+            .runeAlert(.error(
+                message: Constants.Message.ageVerificationErrorMessage,
+                action: {}
+            ))
         ))
 
     }
@@ -677,7 +716,10 @@ final class LocationListViewModel: ViewModel {
             : Constants.Message.locationSearchErrorMessage
 
         self.alertService.showAlert(.init(
-            .appAlert(.error(message: message, action: {}))
+            .runeAlert(.error(
+                message: message,
+                action: {}
+            ))
         ))
 
     }

@@ -20,7 +20,10 @@ enum Route: Navigation, Hashable, Sendable {
         case pointsActivity(locationId: String)
         case events(locationId: String)
         case event(locationId: String, event: StoreEvent)
-        case promotionProducts(locationId: String, promotionId: String, title: String, products: [PromotionLinkedProduct])
+        case promotionProducts(locationId: String,
+                               promotionId: String,
+                               title: String,
+                               products: [PromotionLinkedProduct])
 
     }
 
@@ -50,7 +53,7 @@ enum Route: Navigation, Hashable, Sendable {
             }
         }
 
-        var icon: ImageSource {
+        var icon: RNImageSource {
             switch self {
             case .contactSupport: return .systemImage("envelope.fill")
             case .rateApp: return .systemImage("star.fill")
@@ -60,7 +63,7 @@ enum Route: Navigation, Hashable, Sendable {
             }
         }
 
-        var tintColor: ColorSource {
+        var tintColor: RNColorSource {
             switch self {
             case .logout: .palette(.error)
             default: .foreground(.primary)
@@ -69,9 +72,18 @@ enum Route: Navigation, Hashable, Sendable {
 
         var category: String {
             switch self {
-            case .contactSupport, .rateApp: return "Help & Feedback"
-            case .privacyPolicy, .termsOfService: return "Legal"
-            case .logout: return "Logout"
+            case .contactSupport,
+                    .rateApp:
+
+                return "Help & Feedback"
+
+            case .privacyPolicy,
+                    .termsOfService:
+
+                return "Legal"
+
+            case .logout:
+                return "Logout"
             }
         }
 

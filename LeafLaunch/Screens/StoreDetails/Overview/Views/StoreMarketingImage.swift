@@ -10,13 +10,17 @@ struct StoreMarketingImage: View {
     var body: some View {
 
         Rectangle()
-            .fill(self.style.background(.tertiary))
+            .runeFill(RNColorSource.background(.tertiary))
             .overlay {
 
                 GeometryReader { geometry in
 
                     image()
-                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                        .frame(
+                            width: geometry.size.width,
+                            height: geometry.size.height,
+                            alignment: .center
+                        )
                         .clipped()
 
                 }
@@ -26,12 +30,12 @@ struct StoreMarketingImage: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func image() -> some View {
 
         if let url = self.url {
 
-            ImageSource.remote(
+            RNImageSource.remote(
                 url: url,
                 contentMode: .fill,
                 placeholder: AnyView(fallbackImage())
@@ -46,10 +50,10 @@ struct StoreMarketingImage: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func fallbackImage() -> some View {
 
-        ImageSource.image(self.placeholder)
+        RNImageSource.image(self.placeholder)
             .view()
             .scaledToFill()
 
@@ -61,11 +65,17 @@ struct StoreMarketingImage: View {
 
     StoreMarketingImage(
         url: nil,
-        placeholder: ImageResource(name: "StoreEventFallback", bundle: .main)
+        placeholder: ImageResource(
+            name: "StoreEventFallback",
+            bundle: .main
+        )
     )
-        .aspectRatio(1.6, contentMode: .fit)
-        .cornerRadius(.large)
-        .padding(.medium)
+        .aspectRatio(
+            1.6,
+            contentMode: .fit
+        )
+        .runeCornerRadius(.large)
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

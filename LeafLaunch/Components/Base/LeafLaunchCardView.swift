@@ -13,7 +13,7 @@ struct LeafLaunchCardView<Content: View>: View {
     private let content: Content
 
     init(title: String,
-         @ViewBuilder content: () -> Content) {
+         @ContentBuilder content: () -> Content) {
 
         self.title = title
         self.content = content()
@@ -26,12 +26,12 @@ struct LeafLaunchCardView<Content: View>: View {
 
             VStack(
                 alignment: .leading,
-                spacing: self.style.spacing(.small)
+                spacing: self.style.spacing(LLSpacing.groupedContent)
             ) {
 
                 Text(self.title)
-                    .appFont(with: LeafLaunchThemeTokens.headingFont)
-                    .foregroundStyle(.text(.title))
+                    .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                    .runeTextColor(.title)
 
                 self.content
 

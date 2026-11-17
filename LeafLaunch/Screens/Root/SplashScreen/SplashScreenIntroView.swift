@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SplashScreenIntroView: View {
 
+    @Environment(\.style) private var style
+
     private enum Phase {
 
         case explode
@@ -36,7 +38,6 @@ struct SplashScreenIntroView: View {
 
     @State private var currentPhase: Phase = .explode
     @State private var lettersShown: [Bool] = []
-
     @State private var completionScale: Bool = false
     @State private var completionBackground: Bool = false
 
@@ -46,20 +47,17 @@ struct SplashScreenIntroView: View {
             .onAppear {
                 setupState()
             }
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity
-            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func wordsView() -> some View {
 
-        let foregroundStyle: ColorSource = self.completionBackground ? .text(.titleInverted) : .palette(.link)
-        let backgroundStyle: ColorSource = self.completionBackground ? .palette(.highlight) : .background(.primary)
+        let foregroundStyle: RNColorSource = self.completionBackground ? .text(.titleInverted) : .palette(.link)
+        let backgroundStyle: RNColorSource = self.completionBackground ? .palette(.highlight) : .background(.primary)
 
-        HStack(spacing: 0) {
+        HStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             ForEach(Array(self.text.enumerated()), id: \.offset) { index, character in
 
@@ -77,11 +75,14 @@ struct SplashScreenIntroView: View {
         .background(backgroundStyle)
         .background {
 
-            VStack {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Rectangle()
-                    .fill(backgroundStyle)
-                    .frame(height: self.completionBackground ? nil : 0, alignment: .bottom)
+                    .runeFill(backgroundStyle)
+                    .frame(
+                        height: self.completionBackground ? nil : 0,
+                        alignment: .bottom
+                    )
                     .ignoresSafeArea()
 
             }
@@ -89,14 +90,31 @@ struct SplashScreenIntroView: View {
 
         }
         .scaleEffect(self.completionScale ? 1.30 : 1.0)
-        .animation(.interpolatingSpring(mass: 0.25, stiffness: 200, damping: 4), value: self.completionScale)
-        .animation(.interpolatingSpring(mass: 0.25, stiffness: 200, damping: 18), value: self.completionBackground)
+        .animation(
+            .interpolatingSpring(
+                mass: 0.25,
+                stiffness: 200,
+                damping: 4
+            ),
+            value: self.completionScale
+        )
+        .animation(
+            .interpolatingSpring(
+                mass: 0.25,
+                stiffness: 200,
+                damping: 18
+            ),
+            value: self.completionBackground
+        )
 
     }
 
     private func setupState() {
 
-        self.lettersShown = Array(repeating: false, count: text.count)
+        self.lettersShown = Array(
+            repeating: false,
+            count: text.count
+        )
         self.completionScale = false
         self.completionBackground = false
 
@@ -184,7 +202,7 @@ fileprivate struct LetterJumpView: View {
     var body: some View {
 
         Text(String(self.character))
-            .appFont(with: .BILLBOARD_2)
+            .runeFont(with: .BILLBOARD_2)
             .offset(y: self.offsetY)
             .scaleEffect(self.scale)
             .opacity(self.isShown ? 1 : 0)
@@ -198,7 +216,11 @@ fileprivate struct LetterJumpView: View {
                 }
 
                 // Then settle down with a spring, tiny overshoot polish
-                withAnimation(.interpolatingSpring(mass: 0.22, stiffness: 220, damping: 17).delay(0.02)) {
+                withAnimation(.interpolatingSpring(
+                    mass: 0.22,
+                    stiffness: 220,
+                    damping: 17
+                ).delay(0.02)) {
                     self.didComplete = true
                 }
 

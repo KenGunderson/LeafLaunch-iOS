@@ -13,7 +13,7 @@ struct HomeScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView {
+        RNHeaderScrollView {
             navHeader()
         } scrollViewContent: {
             EmptyView()
@@ -27,7 +27,7 @@ struct HomeScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(

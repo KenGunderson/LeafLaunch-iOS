@@ -40,7 +40,10 @@ internal struct APIRetryPolicy: Sendable {
 
         guard !self.rateLimitRetryDelays.isEmpty else { return 0 }
 
-        let delayIndex = max(0, min(attempt - 1, self.rateLimitRetryDelays.count - 1))
+        let requestedIndex = attempt - 1
+        let lastDelayIndex = self.rateLimitRetryDelays.count - 1
+        let cappedIndex = min(requestedIndex, lastDelayIndex)
+        let delayIndex = max(0, cappedIndex)
         return self.rateLimitRetryDelays[delayIndex]
 
     }

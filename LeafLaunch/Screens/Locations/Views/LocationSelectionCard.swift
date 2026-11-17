@@ -40,106 +40,130 @@ struct LocationSelectionCard: View {
             verticalPadding: .none,
             horizontalPadding: .none,
             cornerRadius: .large,
-            borderColor: self.isSelected ? self.style.palette(.link) : nil
+            borderColor: self.isSelected ? RNColorSource.palette(.link) : nil
         ) {
 
-            HStack(alignment: .top, spacing: self.style.spacing(.small2)) {
+            HStack(
+                alignment: .top,
+                spacing: self.style.spacing(LLSpacing.cardContent)
+            ) {
 
                 storeIcon()
                 locationInformation()
                 selectionIndicator()
 
             }
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background {
 
                 if self.isSelected {
 
-                    self.style.palette(.link).view()
+                    RNColorSource.palette(.link).view()
                         .opacity(0.08)
 
                 }
 
             }
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.large)))
+            .runeCornerRadius(.large)
 
         }
         .contentShape(Rectangle())
-        .asButton(action: self.selectAction)
-        .animation(.bouncy, value: self.isSelected)
+        .runeAsButton(action: self.selectAction)
+        .animation(
+            .bouncy,
+            value: self.isSelected
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func storeIcon() -> some View {
 
-        ImageSource.systemImage("storefront")
+        RNImageSource.systemImage("storefront")
             .view(shouldResize: false)
-            .appFont(with: .TITLE_5)
-            .foregroundStyle(self.isSelected ? ColorSource.color(.white) : self.style.textColor(.title))
-            .frame(width: self.style.spacing(.extraLarge), height: self.style.spacing(.extraLarge))
-            .background(self.isSelected ? self.style.palette(.link) : self.style.background(.tertiary), in: Circle())
+            .runeFont(with: .TITLE_5)
+            .foregroundStyle(self.isSelected ? RNColorSource.color(.white) : RNColorSource.text(.title))
+            .frame(
+                width: self.style.spacing(.extraLarge),
+                height: self.style.spacing(.extraLarge)
+            )
+            .background(
+                self.isSelected ? RNColorSource.palette(.link) : RNColorSource.background(.tertiary),
+                in: Circle()
+            )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationInformation() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.location.name)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
 
             address()
             openStatus()
-                .animation(self.reduceMotion ? nil : .bouncy, value: self.details?.openNow)
+                .animation(
+                    self.reduceMotion ? nil : .bouncy,
+                    value: self.details?.openNow
+                )
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func address() -> some View {
 
         if !self.regionDescription.isEmpty {
 
             Text(self.regionDescription)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.body)
 
         }
 
         if !self.streetAddress.isEmpty {
 
             Text(self.streetAddress)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.body)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func openStatus() -> some View {
 
         if let details = self.details {
 
-            HStack(alignment: .firstTextBaseline, spacing: self.style.spacing(.small)) {
+            HStack(
+                alignment: .firstTextBaseline,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
-                ImageSource.systemImage("circle.fill")
+                RNImageSource.systemImage("circle.fill")
                     .view(shouldResize: false)
                     .imageScale(.small)
 
                 Text(details.openNow ? String(localized: "Open Now") : String(localized: "Closed Now"))
 
             }
-            .appFont(with: .NOTE_1)
-            .foregroundStyle(details.openNow ? self.style.palette(.success) : self.style.textColor(.body))
-            .padding(.top, .extraSmall)
+            .runeFont(with: .NOTE_1)
+            .foregroundStyle(details.openNow ? RNColorSource.palette(.success) : RNColorSource.text(.body))
+            .runePadding(.top, LLSpacing.metadata)
             .id(details.openNow)
             .transition(.blurReplace)
 
@@ -148,23 +172,23 @@ struct LocationSelectionCard: View {
             Text(self.isLoading
                  ? String(localized: "Loading Store Details…")
                  : String(localized: "Store Details Unavailable"))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(self.style.textColor(.body))
-                .padding(.top, .extraSmall)
+                .runeFont(with: .NOTE_1)
+                .runeTextColor(.body)
+                .runePadding(.top, LLSpacing.metadata)
                 .transition(.blurReplace)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func selectionIndicator() -> some View {
 
-        ImageSource.systemImage(self.isSelected ? "checkmark.circle.fill" : "circle")
+        RNImageSource.systemImage(self.isSelected ? "checkmark.circle.fill" : "circle")
             .view(shouldResize: false)
-            .appFont(with: .TITLE_5)
-            .foregroundStyle(self.isSelected ? self.style.palette(.link) : self.style.textColor(.placeholder))
-            .padding(.top, .extraSmall)
+            .runeFont(with: .TITLE_5)
+            .foregroundStyle(self.isSelected ? RNColorSource.palette(.link) : RNColorSource.text(.placeholder))
+            .runePadding(.top, LLSpacing.metadata)
 
     }
 
@@ -181,7 +205,7 @@ struct LocationSelectionCard: View {
             isSelected: true,
             selectAction: {}
         )
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
     }

@@ -11,7 +11,6 @@ import Charts
 struct LegalDetailsScreen: View {
 
     @Environment(\.style) private var style
-
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject var viewModel: LegalDetailsViewModel
@@ -35,7 +34,7 @@ struct LegalDetailsScreen: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func headerView() -> some View {
 
         NavHeader(
@@ -46,16 +45,19 @@ struct LegalDetailsScreen: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
         let items = self.viewModel.legalItems
 
-        VStack(alignment: .leading) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             let config = Constants.StaggerAnimation.config(interitemSpacing: 16)
 
-            StaggeredView(config: config) {
+            RNStaggeredView(config: config) {
 
                 if !items.isEmpty {
 
@@ -67,14 +69,20 @@ struct LegalDetailsScreen: View {
 
         }
         .frame(maxWidth: .infinity)
-        .animation(.spring, value: self.viewModel.legalItems)
+        .animation(
+            .spring,
+            value: self.viewModel.legalItems
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func legalSections(_ items: [LegalItem]) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             ForEach(items, id: \.id) { item in
                 section(legalItem: item)
@@ -85,26 +93,31 @@ struct LegalDetailsScreen: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func messageRow(_ message: String) -> some View {
 
         Text(message)
-            .appFont(with: .BODY_2)
-            .foregroundStyle(.text(.body))
+            .runeFont(with: .BODY_2)
+            .runeTextColor(.body)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func section(legalItem: LegalItem) -> some View {
 
-        VStack(alignment: .leading,
-               spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             Text(legalItem.title)
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 ForEach(legalItem.sections, id: \.self) { message in
 

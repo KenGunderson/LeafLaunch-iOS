@@ -41,7 +41,10 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
 
         guard pushNotification.request.trigger is UNPushNotificationTrigger else { return }
 
-        parseRemoteNotification(pushNotification, isTapped: isTapped)
+        parseRemoteNotification(
+            pushNotification,
+            isTapped: isTapped
+        )
 
     }
 
@@ -101,6 +104,7 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
         }
 
         return notification
+
     }
 
     private func handleRemoteNotificationReceived(_ notification: PushNotification) {
@@ -120,8 +124,13 @@ final class PushNotificationService: NSObject, UNUserNotificationCenterDelegate,
     private func handleNavigationForRemoteNotification(_ notification: PushNotification) {
 
         switch notification.type {
-        case .test: print("TEST PUSH")
-        case .generic: print("THIS IS A GENERIC PUSH")
+        case .test:
+
+            print("TEST PUSH")
+
+        case .generic:
+
+            print("THIS IS A GENERIC PUSH")
         }
 
     }

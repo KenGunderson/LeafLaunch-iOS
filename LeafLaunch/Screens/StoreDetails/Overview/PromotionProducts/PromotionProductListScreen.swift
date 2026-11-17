@@ -27,7 +27,7 @@ struct PromotionProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -38,10 +38,13 @@ struct PromotionProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             CommerceSectionHeader(title: self.viewModel.title)
             products()
@@ -51,7 +54,7 @@ struct PromotionProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func products() -> some View {
 
         if self.viewModel.products.isEmpty {
@@ -64,7 +67,7 @@ struct PromotionProductListScreen: GPView {
 
         } else {
 
-            LazyVStack(spacing: self.style.spacing(.small2)) {
+            LazyVStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
                 ForEach(self.viewModel.products) { product in
                     productRow(product)
@@ -76,45 +79,54 @@ struct PromotionProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productRow(_ product: PromotionLinkedProduct) -> some View {
 
         CommerceSurface {
 
-            HStack(spacing: self.style.spacing(.small2)) {
+            HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
                 productLabel(product)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                ImageSource.systemImage(product.locationProductListingId == nil ? "info.circle" : "chevron.right")
+                RNImageSource.systemImage(product.locationProductListingId == nil ? "info.circle" : "chevron.right")
                     .view(shouldResize: false)
-                    .foregroundStyle(self.style.foreground(.secondary))
+                    .runeForeground(.secondary)
 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .contentShape(Rectangle())
 
         }
-        .asButton { [weak viewModel] in viewModel?.openProduct(product) }
+        .runeAsButton { [weak viewModel] in viewModel?.openProduct(product) }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productLabel(_ product: PromotionLinkedProduct) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(product.displayName)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.text(.title))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
             if product.locationProductListingId == nil {
 
                 Text(String(localized: "Unavailable At This Location"))
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(.text(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
             }
 

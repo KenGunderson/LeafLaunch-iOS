@@ -22,7 +22,7 @@ public extension Loggable {
 
         Logger(
             subsystem: Bundle.main.bundleIdentifier ?? "com.your.app",
-            category: loggerName
+            category: self.loggerName
         )
 
     }
@@ -34,8 +34,11 @@ public extension Loggable {
                                                  function: StaticString,
                                                  line: UInt) -> String {
 
-        let icons = String(repeating: loggerEmoji, count: 5)
-        let header = "\(icons) [\(loggerName.uppercased())]"
+        let icons = String(
+            repeating: self.loggerEmoji,
+            count: 5
+        )
+        let header = "\(icons) [\(self.loggerName.uppercased())]"
 
         let fileURLPath = URL(fileURLWithPath: "\(file)").pathComponents
         let formattedFile = fileURLPath.suffix(3).joined(separator: "/")
@@ -67,12 +70,12 @@ public extension Loggable {
         LoggedEventsStore.shared.append(.init(
             title: "Init",
             message: formattedString,
-            source: loggerName,
+            source: self.loggerName,
             level: .info,
-            emoji: loggerEmoji
+            emoji: self.loggerEmoji
         ))
 
-        logger.log(
+        self.logger.log(
             level: .info,
             "\(formattedString)"
         )
@@ -94,24 +97,23 @@ public extension Loggable {
         LoggedEventsStore.shared.append(.init(
             title: "Deinit",
             message: formattedString,
-            source: loggerName,
+            source: self.loggerName,
             level: .info,
-            emoji: loggerEmoji
+            emoji: self.loggerEmoji
         ))
 
-        logger.log(
+        self.logger.log(
             level: .info,
             "\(formattedString)"
         )
 
     }
 
-    nonisolated func log(
-        level: OSLogType = .debug,
-        message: String,
-        file: StaticString = #file,
-        function: StaticString = #function,
-        line: UInt = #line) {
+    nonisolated func log(level: OSLogType = .debug,
+                         message: String,
+                         file: StaticString = #file,
+                         function: StaticString = #function,
+                         line: UInt = #line) {
 
         let formattedString = formattedString(
             message: message,
@@ -124,12 +126,12 @@ public extension Loggable {
         LoggedEventsStore.shared.append(.init(
             title: "Log",
             message: formattedString,
-            source: loggerName,
+            source: self.loggerName,
             level: level,
-            emoji: loggerEmoji
+            emoji: self.loggerEmoji
         ))
 
-        logger.log(
+        self.logger.log(
             level: level,
             "\(formattedString)"
         )
@@ -154,12 +156,12 @@ public extension Loggable {
         LoggedEventsStore.shared.append(.init(
             title: "Error",
             message: formattedString,
-            source: loggerName,
+            source: self.loggerName,
             level: .error,
-            emoji: loggerEmoji
+            emoji: self.loggerEmoji
         ))
 
-        logger.log(
+        self.logger.log(
             level: .error,
             "\(formattedString)"
         )

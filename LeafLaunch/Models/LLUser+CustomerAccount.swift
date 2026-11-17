@@ -6,7 +6,10 @@ extension LLUser {
          externalId: String,
          email: String) {
 
-        let nameParts = customerAccount.displayName.split(separator: " ", maxSplits: 1)
+        let nameParts = customerAccount.displayName.split(
+            separator: " ",
+            maxSplits: 1
+        )
 
         self.init(
             id: customerAccount.id,

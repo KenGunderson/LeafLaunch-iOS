@@ -14,9 +14,6 @@ import Combine
 
 final class FirebaseService: FirebaseServiceProtocol {
 
-    internal let loggerName: String = "FIREBASE_SERVICE"
-    internal let loggerEmoji: String = "🔥"
-
     enum AppleAuthorizationError: Error, AppCustomError {
 
         case missingCurrentNonce
@@ -44,14 +41,23 @@ final class FirebaseService: FirebaseServiceProtocol {
 
         var message: String {
             switch self {
-            case .generic(let error): return error.getMessageForError()
+            case .generic(let error):
+
+                return error.getMessageForError()
+
             case .notFound: return "Account Not found"
             case .emailAlreadyInUse: return "Email already in use"
-            case .wrongPassword: return "The email or password you entered is incorrect. Please check your details and try again."
+
+            case .wrongPassword:
+
+                return "The email or password you entered is incorrect. Please check your details and try again."
             }
         }
 
     }
+
+    internal let loggerName: String = "FIREBASE_SERVICE"
+    internal let loggerEmoji: String = "🔥"
 
     @Published private(set) var user: FirebaseAuth.User?
     var userPublisher: AnyPublisher<FirebaseAuth.User?, Never> {
@@ -135,12 +141,14 @@ final class FirebaseService: FirebaseServiceProtocol {
                 password: password
             )
 
+            try Task.checkCancellation()
             self.user = result.user
 
             try await self.getAccessTokenForCurrentUser()
 
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.clearAuthContext()
 
             self.logError(
@@ -175,10 +183,12 @@ final class FirebaseService: FirebaseServiceProtocol {
                 password: password
             )
 
+            try Task.checkCancellation()
             self.user = result.user
 
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.clearAuthContext()
 
             self.logError(
@@ -194,7 +204,6 @@ final class FirebaseService: FirebaseServiceProtocol {
                 case .invalidEmail: throw FirebaseError.notFound
                 case .invalidCredential: throw FirebaseError.wrongPassword
                 case .accountExistsWithDifferentCredential: throw FirebaseError.wrongPassword
-
                 default: throw FirebaseError.generic(error)
                 }
 
@@ -219,12 +228,14 @@ final class FirebaseService: FirebaseServiceProtocol {
         do {
 
             let result = try await Auth.auth().signIn(with: credential)
+            try Task.checkCancellation()
             self.user = result.user
 
             try await getAccessTokenForCurrentUser()
 
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.clearAuthContext()
 
             self.logError(
@@ -248,9 +259,12 @@ final class FirebaseService: FirebaseServiceProtocol {
 
     func freshAuthToken() async throws -> String? {
 
+        try Task.checkCancellation()
+
         guard let user = Auth.auth().currentUser else {
 
             self.clearCurrentAccessToken()
+
             return nil
 
         }
@@ -267,12 +281,16 @@ final class FirebaseService: FirebaseServiceProtocol {
                 throw CancellationError()
             }
 
-            setAccessToken(result, userId: user.uid)
+            setAccessToken(
+                result,
+                userId: user.uid
+            )
 
             return result.token
 
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             if error is CancellationError { throw error }
 
             self.logError(
@@ -292,6 +310,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             try await Auth.auth().sendPasswordReset(withEmail: email)
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Reset Password Error",
                 message: error.getMessageForError()
@@ -311,6 +330,7 @@ final class FirebaseService: FirebaseServiceProtocol {
             try await user.sendEmailVerification(beforeUpdatingEmail: newEmail)
         } catch let error {
 
+            guard !Task.isCancelled else { throw CancellationError() }
             self.logError(
                 title: "Update Email Error",
                 message: error.getMessageForError()
@@ -348,10 +368,9 @@ final class FirebaseService: FirebaseServiceProtocol {
 
     func handleAppleSignupOrLogin(currentNonce: String?,
                                   authorization: ASAuthorization,
-                                  completion: @escaping (String?, String?, String, String, Error?) -> ()) {
+                                  completion: @escaping (String?, String?, String, String, Error?) -> Void) {
 
         switch authorization.credential {
-
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
 
             guard let nonce = currentNonce else {
@@ -361,7 +380,13 @@ final class FirebaseService: FirebaseServiceProtocol {
                     message: "Invalid state: A login callback was received, but no login request was sent."
                 )
 
-                return completion(nil, nil, "", "", AppleAuthorizationError.missingCurrentNonce)
+                return completion(
+                    nil,
+                    nil,
+                    "",
+                    "",
+                    AppleAuthorizationError.missingCurrentNonce
+                )
 
             }
 
@@ -372,18 +397,33 @@ final class FirebaseService: FirebaseServiceProtocol {
                     message: "Invalid state: A login callback was received, but no login request was sent."
                 )
 
-                return completion(nil, nil, "", "", AppleAuthorizationError.missingIdentityToken)
+                return completion(
+                    nil,
+                    nil,
+                    "",
+                    "",
+                    AppleAuthorizationError.missingIdentityToken
+                )
 
             }
 
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            guard let idTokenString = String(
+                data: appleIDToken,
+                encoding: .utf8
+            ) else {
 
                 self.logError(
                     title: "Apple Sign Up Error",
                     message: "Unable to serialize token string from data: \(appleIDToken.debugDescription)"
                 )
 
-                return completion(nil, nil, "", "", AppleAuthorizationError.missingIdToken)
+                return completion(
+                    nil,
+                    nil,
+                    "",
+                    "",
+                    AppleAuthorizationError.missingIdToken
+                )
 
             }
 
@@ -397,20 +437,30 @@ final class FirebaseService: FirebaseServiceProtocol {
             let fullName = "\(appleIDCredential.fullName?.givenName ?? "") \(appleIDCredential.fullName?.familyName ?? "")"
             let email = appleIDCredential.email
 
-            completion(fullName, email, idTokenString, nonce, nil)
+            completion(
+                fullName,
+                email,
+                idTokenString,
+                nonce,
+                nil
+            )
 
         default:
 
             self.log(message: "\(AppleAuthorizationError.authenticationFailed.message)")
-            return completion(nil, nil, "", "", AppleAuthorizationError.authenticationFailed)
-
+            return completion(
+                nil,
+                nil,
+                "",
+                "",
+                AppleAuthorizationError.authenticationFailed
+            )
         }
 
     }
 
     func uploadImage(imageData: Data,
                      bucket: Query.Bucket) async throws -> URL {
-
 
         return try await withCheckedThrowingContinuation { continuation in
 
@@ -419,7 +469,10 @@ final class FirebaseService: FirebaseServiceProtocol {
             let bucketRef = storageRef.child(bucket.rawValue)
             let imageRef = bucketRef.child(UUID().uuidString + ".png" )
 
-            imageRef.putData(imageData, metadata: nil) { metadata, error in
+            imageRef.putData(
+                imageData,
+                metadata: nil
+            ) { metadata, error in
 
                 if let error = error {
 
@@ -469,6 +522,7 @@ final class FirebaseService: FirebaseServiceProtocol {
 
                     guard !Task.isCancelled else { return }
                     await MainActor.run { self?.clearCurrentAccessToken() }
+
                     return
 
                 }
@@ -482,14 +536,16 @@ final class FirebaseService: FirebaseServiceProtocol {
 
                         guard !Task.isCancelled,
                               Auth.auth().currentUser?.uid == user.uid else { return }
-                        self?.setAccessToken(result, userId: user.uid)
+                        self?.setAccessToken(
+                            result,
+                            userId: user.uid
+                        )
 
                     }
 
                 } catch {
 
                     guard !Task.isCancelled else { return }
-
                     self?.logError(
                         title: "IDToken Listener Error",
                         message: error.getMessageForError()

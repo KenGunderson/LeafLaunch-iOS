@@ -29,16 +29,16 @@ struct TabItemView: View {
     var body: some View {
 
         let isSelectedTab = self.tab == self.selectedTab
-        let foregroundColor = isSelectedTab ? self.style.accent : self.style.textColor(.body)
+        let foregroundColor = isSelectedTab ? RNColorSource.foreground(.primary) : RNColorSource.text(.body)
 
-        VStack(spacing: self.style.spacing(.extraSmall)) {
+        VStack(spacing: self.style.spacing(LLSpacing.metadata)) {
 
             tabIcon()
 
             Text(self.tab.title)
                 .scaleEffect(isSelectedTab ? 1.10 : 1)
                 .foregroundStyle(foregroundColor)
-                .appFont(with: .BODY_1)
+                .runeFont(with: .BODY_1)
                 .fontWeight(isSelectedTab ? .semibold : .regular)
                 .transition(.opacity)
                 .id(self.tab.title)
@@ -46,34 +46,43 @@ struct TabItemView: View {
         }
         .contentShape(.rect)
         .frame(minHeight: 44)
-        .asButton {
+        .runeAsButton {
             self.selectedTab = self.tab
         }
-        .animation(.bouncy, value: self.selectedTab)
+        .animation(
+            .bouncy,
+            value: self.selectedTab
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func tabIcon() -> some View {
 
         let isSelectedTab = self.tab == self.selectedTab
-        let foregroundColor = isSelectedTab ? self.style.accent : self.style.textColor(.body)
+        let foregroundColor = isSelectedTab ? RNColorSource.foreground(.primary) : RNColorSource.text(.body)
         let icon = isSelectedTab ? self.tab.selectedIcon : self.tab.unselectedIcon
         let badgeText = self.badgeCount > 99 ? "99+" : "\(self.badgeCount)"
 
-        ImageSource
+        RNImageSource
             .systemImage(icon)
             .view()
             .scaledToFit()
-            .frame(width: 24, height: 24)
+            .frame(
+                width: 24,
+                height: 24
+            )
             .scaleEffect(isSelectedTab ? 1.10 : 1)
             .foregroundStyle(foregroundColor)
-            .appFont(with: .BODY_4)
-            .commonBadge(
+            .runeFont(with: .BODY_4)
+            .runeBadge(
                 contentStyle: .text(Text(badgeText)),
                 placement: .init(
                     overlapStyle: .circular,
-                    offset: CGSize(width: -2, height: 2),
+                    offset: CGSize(
+                        width: -2,
+                        height: 2
+                    ),
                     anchorOutset: 4,
                     circularOverlapOutset: 0
                 ),

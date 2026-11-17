@@ -27,11 +27,11 @@ enum AppEvent: AnalyticsEvent {
             case .loginIntent: eventName = "login_intent"
             case .appleLoginIntent: eventName = "apple_login_intent"
             case .forgotPasswordIntent: eventName = "forgot_password_intent"
+
             case .forgotPassword(let email):
 
                 eventName = "forgot_password"
                 properties = ["email" : email]
-
             }
 
             // Preserve the existing authentication analytics names.

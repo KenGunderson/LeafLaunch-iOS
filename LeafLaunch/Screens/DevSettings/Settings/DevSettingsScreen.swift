@@ -10,7 +10,6 @@ import SwiftUI
 struct DevSettingsScreen: GPView {
 
     @Environment(\.style) private var style
-
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: DevSettingsViewModel
     @State private var navigationService = NavigationService()
@@ -55,14 +54,14 @@ struct DevSettingsScreen: GPView {
 
             // Full Screen Cover
             .fullScreenCover(isPresented: self.$shouldShowComponentsView) {
-                DemoView()
+                RNDemoView()
             }
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navBarView() -> some View {
 
         NavHeader(
@@ -73,10 +72,10 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(spacing: 24) {
+        VStack(spacing: self.style.spacing(LLSpacing.content)) {
 
             informationSection()
             diagnosticsSection()
@@ -84,22 +83,28 @@ struct DevSettingsScreen: GPView {
 
         }
         .frame(maxWidth: .infinity)
-        .animation(.smooth(duration: 0.4), value: self.viewModel.selectedEnviornment)
+        .animation(
+            .smooth(duration: 0.4),
+            value: self.viewModel.selectedEnviornment
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func informationSection() -> some View {
 
-        VStack(alignment: .leading) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text("Information")
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
 
             LLAppCardView {
 
-                VStack(spacing: self.style.spacing(.small)) {
+                VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                     environmentControls()
 
@@ -107,7 +112,7 @@ struct DevSettingsScreen: GPView {
                         title: "Host",
                         subtitle: Constants.URLs.urlForEnvironment(self.viewModel.selectedEnviornment!)
                     )
-                    .padding(.bottom, .medium)
+                    .runePadding(.bottom, LLSpacing.listRow)
 
                     lineItemView(
                         title: "Name",
@@ -130,18 +135,21 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func diagnosticsSection() -> some View {
 
-        VStack(alignment: .leading) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text("Diagnostics")
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
 
             LLAppCardView {
 
-                VStack(spacing: self.style.spacing(.small)) {
+                VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                     lineItemView(
                         title: "Version",
@@ -187,22 +195,25 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func routeSection() -> some View {
 
-        VStack(alignment: .leading) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text("Sections")
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
 
-            VStack {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 listSectionItemView(
                     title: "Components",
                     icon: "wrench.and.screwdriver.fill"
                 )
-                .asButton {
+                .runeAsButton {
                     self.shouldShowComponentsView = true
                 }
 
@@ -219,7 +230,7 @@ struct DevSettingsScreen: GPView {
                         icon: "person.fill",
                         colorOverride: .palette(.error)
                     )
-                    .asButton {
+                    .runeAsButton {
 
                         self.viewModel
                             .logout()
@@ -235,33 +246,36 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     func lineItemView(title: String,
                       subtitle: String) -> some View {
 
-        HStack(alignment: .top) {
+        HStack(
+            alignment: .top,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text(title + ": ")
-                .appFont(with: .TITLE_3)
+                .runeFont(with: .TITLE_3)
 
             Text(subtitle)
-                .appFont(with: .BODY_2)
+                .runeFont(with: .BODY_2)
                 .multilineTextAlignment(.trailing)
                 .frame(maxWidth: .infinity, alignment: .trailing)
 
         }
-        .foregroundStyle(.text(.title))
+        .runeTextColor(.title)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     func listSectionItemView(title: String,
                              icon: String,
-                             colorOverride: ColorSource = .foreground(.primary)) -> some View {
+                             colorOverride: RNColorSource = .foreground(.primary)) -> some View {
 
         LLAppCardView {
 
-            HStack {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Label(
                     title,
@@ -269,7 +283,7 @@ struct DevSettingsScreen: GPView {
                 )
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-                ImageSource.systemImage("chevron.right")
+                RNImageSource.systemImage("chevron.right")
                     .view(shouldResize: false)
 
             }
@@ -279,29 +293,29 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func environmentControls() -> some View {
 
-        CommonSegmentedControl(
+        LLSegmentedControl(
             selectedOption: self.$viewModel.selectedEnviornment,
             options: self.viewModel.getAppEnviornments(),
             selectedTextColor: .text(.titleInverted)
         )
-        .padding(.bottom, .small)
+        .runePadding(.bottom, LLSpacing.groupedContent)
 
         customEnvironmentField()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func copyAuthTokenAction() -> some View {
 
         Text("Copy Auth Token")
-            .appFont(with: .TITLE_5)
-            .foregroundStyle(.text(.title))
+            .runeFont(with: .TITLE_5)
+            .runeTextColor(.title)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, self.style.spacing(.small))
-            .padding(.vertical, self.style.spacing(.medium))
+            .runePadding(.horizontal, LLSpacing.groupedContent)
+            .runePadding(.vertical, LLSpacing.listRow)
             .background(.backgroundTappable)
             .background {
 
@@ -312,21 +326,21 @@ struct DevSettingsScreen: GPView {
                     )
 
             }
-            .asButton {
+            .runeAsButton {
                 self.viewModel.copyAuthTokenToNotepad()
             }
-            .padding(.top, .small)
+            .runePadding(.top, LLSpacing.groupedContent)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func routeRow(_ route: Route.DevSettingRoute) -> some View {
 
         listSectionItemView(
             title: route.displayName,
             icon: route.icon
         )
-        .asButton {
+        .runeAsButton {
 
             self.viewModel
                 .navigate(to: route.routeForDevSetting)
@@ -335,18 +349,26 @@ struct DevSettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func customEnvironmentField() -> some View {
 
         if case .custom = self.viewModel.selectedEnviornment {
 
-            TextField("Title", text: self.$viewModel.customAPIEnviornmentPath)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(.text(.title))
-                .padding(8)
+            TextField(
+                "Title",
+                text: self.$viewModel.customAPIEnviornmentPath
+            )
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
+                .runePadding(LLSpacing.groupedContent)
                 .overlay {
+
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(uiColor: .lightGray), lineWidth: 1.5)
+                        .stroke(
+                            Color(uiColor: .lightGray),
+                            lineWidth: 1.5
+                        )
+
                 }
                 .onSubmit { [weak viewModel] in
 
@@ -357,7 +379,7 @@ struct DevSettingsScreen: GPView {
                 .transition(
                     .move(edge: .top).combined(with: .opacity)
                 )
-                .padding(.bottom, .small)
+                .runePadding(.bottom, LLSpacing.groupedContent)
 
         }
 

@@ -10,45 +10,50 @@ struct LLCommonTextFieldStyle: TextFieldStyle {
 
     @Environment(\.style) private var style
 
-    private let icon: ImageSource
+    private let icon: RNImageSource
     private let isFocused: Bool
 
-    init(icon: ImageSource, isFocused: Bool) {
+    init(icon: RNImageSource, isFocused: Bool) {
+
         self.icon = icon
         self.isFocused = isFocused
+
     }
 
     func _body(configuration: TextField<Self._Label>) -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(LLSpacing.section)) {
 
             leadingIcon()
             configuration
 
         }
         .frame(height: 48)
-        .padding(.horizontal, .medium)
-        .appFont(with: .BODY_3)
-        .foregroundStyle(self.style.textColor(.title))
-        .background(self.style.background(.secondary))
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-        .appBorder(
+        .runePadding(.horizontal, LLSpacing.pageInset)
+        .runeFont(with: .BODY_3)
+        .runeTextColor(.title)
+        .runeBackground(.secondary)
+        .runeCornerRadius(.medium2)
+        .runeBorder(
             cornerRadius: .medium2,
-            color: self.isFocused ? self.style.accent : self.style.background(.border),
+            color: self.isFocused ? .foreground(.primary) : .background(.border),
             lineWidth: 0.8,
             outerBorder: false
         )
-        .tint(self.style.accent)
+        .runeTint(.primary)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func leadingIcon() -> some View {
 
         self.icon.view()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 18, height: 18)
-            .foregroundStyle(self.isFocused ? self.style.accent : self.style.textColor(.placeholder))
+            .frame(
+                width: 18,
+                height: 18
+            )
+            .foregroundStyle(self.isFocused ? RNColorSource.foreground(.primary) : .text(.placeholder))
             .accessibilityHidden(true)
 
     }
@@ -57,29 +62,37 @@ struct LLCommonTextFieldStyle: TextFieldStyle {
 
 #Preview {
 
+    @Previewable @Environment(\.style) var style
+
     @Previewable @State var email = ""
     @Previewable @State var password = ""
 
-    AppBaseView {
+    RNBaseView {
 
-        VStack(spacing: 16) {
+        VStack(spacing: style.spacing(LLSpacing.listRow)) {
 
             TextField(
                 "Email",
                 text: $email,
-                prompt: Text("jamie@example.com").foregroundStyle(.text(.placeholder))
+                prompt: Text("jamie@example.com").runeTextColor(.placeholder)
             )
-            .textFieldStyle(LLCommonTextFieldStyle(icon: .systemImage("envelope"), isFocused: false))
+            .textFieldStyle(LLCommonTextFieldStyle(
+                icon: .systemImage("envelope"),
+                isFocused: false
+            ))
 
             SecureField(
                 "Password",
                 text: $password,
-                prompt: Text("e.g. CedarLeaf42!").foregroundStyle(.text(.placeholder))
+                prompt: Text("e.g. CedarLeaf42!").runeTextColor(.placeholder)
             )
-            .textFieldStyle(LLCommonTextFieldStyle(icon: .systemImage("lock"), isFocused: true))
+            .textFieldStyle(LLCommonTextFieldStyle(
+                icon: .systemImage("lock"),
+                isFocused: true
+            ))
 
         }
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
 
     }
     .withMockPreviews()

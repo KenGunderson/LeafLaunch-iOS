@@ -13,6 +13,19 @@ struct LLUser: Codable,
     Sendable,
     Mockable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case email
+        case phoneNumber = "phone_number"
+        case externalId = "external_id"
+        case _dateOfBirth = "date_of_birth"
+        case imageURL = "image_url"
+
+    }
+
     let id: String
     let firstName: String
     let lastName: String
@@ -57,19 +70,6 @@ struct LLUser: Codable,
 
     mutating func setDateOfBirth(dateString: String) {
         self._dateOfBirth = dateString
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case email
-        case phoneNumber = "phone_number"
-        case externalId = "external_id"
-        case _dateOfBirth = "date_of_birth"
-        case imageURL = "image_url"
-
     }
 
 }

@@ -2,6 +2,16 @@ import Foundation
 
 nonisolated struct CustomerLocationDetails: Codable, Sendable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case location
+        case agePolicy = "age_policy"
+        case openNow = "open_now"
+        case localDate = "local_date"
+        case mapsAddress = "maps_address"
+
+    }
+
     let location: StoreLocation
     let agePolicy: EffectiveAgePolicy
     let openNow: Bool
@@ -24,7 +34,13 @@ nonisolated struct CustomerLocationDetails: Codable, Sendable {
         if !exceptions.isEmpty {
 
             return exceptions.map {
-                StoreHoursFormatter.hours(closed: $0.closed, opensAt: $0.opensAt, closesAt: $0.closesAt)
+
+                StoreHoursFormatter.hours(
+                    closed: $0.closed,
+                    opensAt: $0.opensAt,
+                    closesAt: $0.closesAt
+                )
+
             }
             .joined(separator: ", ")
 
@@ -41,7 +57,10 @@ nonisolated struct CustomerLocationDetails: Codable, Sendable {
 
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = .gmt
-        let weekday = calendar.component(.weekday, from: date) - 1
+        let weekday = calendar.component(
+            .weekday,
+            from: date
+        ) - 1
         let hours = (self.location.hours ?? [])
             .filter { $0.weekday == weekday }
             .sorted { ($0.sequence, $0.id) < ($1.sequence, $1.id) }
@@ -49,19 +68,15 @@ nonisolated struct CustomerLocationDetails: Codable, Sendable {
         guard !hours.isEmpty else { return String(localized: "Hours Unavailable") }
 
         return hours.map {
-            StoreHoursFormatter.hours(closed: $0.closed, opensAt: $0.opensAt, closesAt: $0.closesAt)
+
+            StoreHoursFormatter.hours(
+                closed: $0.closed,
+                opensAt: $0.opensAt,
+                closesAt: $0.closesAt
+            )
+
         }
         .joined(separator: ", ")
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case location
-        case agePolicy = "age_policy"
-        case openNow = "open_now"
-        case localDate = "local_date"
-        case mapsAddress = "maps_address"
 
     }
 

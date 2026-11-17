@@ -10,19 +10,6 @@ nonisolated struct CustomerBootstrap: Codable, Equatable, Sendable {
 
     }
 
-    let appKey: String
-    let storeId: String
-    let store: PublicStore
-    let publicName: String
-    let state: State
-    let updateURL: URL?
-    let branding: StoreAppBranding?
-    let ageGateRequired: Bool
-    let minimumAge: Int
-    let ageGateVersion: Int
-    let featureFlags: [String: Bool]?
-    let locations: [BootstrapLocation]
-
     private enum CodingKeys: String, CodingKey {
 
         case appKey = "app_key"
@@ -39,5 +26,18 @@ nonisolated struct CustomerBootstrap: Codable, Equatable, Sendable {
         case locations
 
     }
+
+    let appKey: String
+    let storeId: String
+    let store: PublicStore
+    let publicName: String
+    let state: State
+    let updateURL: URL?
+    let branding: StoreAppBranding?
+    let ageGateRequired: Bool
+    let minimumAge: Int
+    let ageGateVersion: Int
+    let featureFlags: [String: Bool]?
+    let locations: [BootstrapLocation]
 
 }

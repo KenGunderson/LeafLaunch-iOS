@@ -11,30 +11,41 @@ struct CommerceEmptyState: View {
 
     var body: some View {
 
-        VStack(spacing: self.style.spacing(.small2)) {
+        VStack(spacing: self.style.spacing(LLSpacing.section)) {
 
-            ImageSource.systemImage(self.systemImage)
+            RNImageSource.systemImage(self.systemImage)
                 .view()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: self.style.spacing(.large2), height: self.style.spacing(.large2))
-                .foregroundStyle(self.style.foreground(.secondary))
-                .padding(.medium)
-                .background(self.style.background(.tertiary), in: Circle())
+                .frame(
+                    width: 32,
+                    height: 32
+                )
+                .runeForeground(.secondary)
+                .runePadding(LLSpacing.pageInset)
+                .background {
+
+                    Circle()
+                        .runeFill(.background(.tertiary))
+
+                }
 
             Text(self.title)
-                .appFont(with: .TITLE_5)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_5)
+                .runeTextColor(.title)
 
             Text(self.message)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(self.style.textColor(.body))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.body)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
-        .padding(.vertical, .large)
-        .padding(.horizontal, .medium)
+        .runePadding(.vertical, LLSpacing.content)
+        .runePadding(.horizontal, LLSpacing.pageInset)
 
     }
 

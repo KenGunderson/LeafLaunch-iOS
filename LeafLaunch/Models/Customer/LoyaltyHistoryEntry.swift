@@ -11,13 +11,6 @@ nonisolated struct LoyaltyHistoryEntry: Codable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let entryType: EntryType
-    let pointsDelta: String
-    let customerReason: String
-    let rewardTitleSnapshot: String?
-    let createdAt: Date
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -28,5 +21,12 @@ nonisolated struct LoyaltyHistoryEntry: Codable, Identifiable, Sendable {
         case createdAt = "created_at"
 
     }
+
+    let id: String
+    let entryType: EntryType
+    let pointsDelta: String
+    let customerReason: String
+    let rewardTitleSnapshot: String?
+    let createdAt: Date
 
 }

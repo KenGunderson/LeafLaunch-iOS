@@ -28,14 +28,14 @@ struct StoreContainerScreen: GPView {
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(self.style.background(.primary))
-        .tint(self.style.palette(.link))
+        .runeBackground(.primary)
+        .tint(RNColorSource.palette(.link))
         .environment(self.viewModel.tabBarNavigationService)
         .onFirstAppear { [weak viewModel] in viewModel?.handleFirstAppear() }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func tabContent(selectedTab: Binding<Tab>) -> some View {
 
         TabView(selection: selectedTab) {
@@ -43,19 +43,31 @@ struct StoreContainerScreen: GPView {
             ForEach(Tab.allCases, id: \.self) { tab in
 
                 tabRoot(tab)
-                    .toolbarVisibility(.hidden, for: .tabBar)
-                    .toolbarBackgroundVisibility(.hidden, for: .tabBar)
+                    .toolbarVisibility(
+                        .hidden,
+                        for: .tabBar
+                    )
+                    .toolbarBackgroundVisibility(
+                        .hidden,
+                        for: .tabBar
+                    )
                     .tag(tab)
 
             }
 
         }
-        .scrollEdgeEffectHidden(true, for: .bottom)
-        .ignoresSafeArea(.container, edges: .bottom)
+        .scrollEdgeEffectHidden(
+            true,
+            for: .bottom
+        )
+        .ignoresSafeArea(
+            .container,
+            edges: .bottom
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func tabRoot(_ tab: Tab) -> some View {
 
         let tabBarNavigationService = self.viewModel.tabBarNavigationService
@@ -78,17 +90,19 @@ struct StoreContainerScreen: GPView {
             AppRootView(navigationService: Bindable(tabBarNavigationService.tab3NavigationService)) {
                 AccountDetailsScreen(viewModel: self.viewModel.accountDetailsViewModel)
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
+            .safeAreaInset(
+                edge: .bottom,
+                spacing: 0
+            ) {
 
                 accountTabInset()
 
             }
-
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func accountTabInset() -> some View {
 
         if let route = self.viewModel.tabBarNavigationService.tab3NavigationService.routes.last,

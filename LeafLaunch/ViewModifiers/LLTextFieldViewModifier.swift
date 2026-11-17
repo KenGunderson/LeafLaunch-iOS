@@ -10,16 +10,19 @@ private struct LLTextFieldViewModifier: ViewModifier {
     @Environment(\.style) private var style
 
     let title: String
-    let icon: ImageSource
+    let icon: RNImageSource
     let isFocused: Bool
 
     func body(content: Content) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             Text(self.title)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.title)
 
             content
                 .textFieldStyle(LLCommonTextFieldStyle(
@@ -36,7 +39,7 @@ private struct LLTextFieldViewModifier: ViewModifier {
 extension View {
 
     func llTextFieldStyle(title: String,
-                          icon: ImageSource,
+                          icon: RNImageSource,
                           isFocused: Bool) -> some View {
 
         modifier(LLTextFieldViewModifier(

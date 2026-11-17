@@ -14,6 +14,7 @@ final class HomeViewModel: ViewModel {
     private weak var navigationService: NavigationService?
 
     init(analyticsService: AnalyticsServiceProtocol) {
+
         self.analyticsService = analyticsService
 
         self.logInit()

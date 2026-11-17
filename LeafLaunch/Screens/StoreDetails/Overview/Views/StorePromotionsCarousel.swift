@@ -25,15 +25,6 @@ struct StorePromotionsCarousel: View {
         self.promotions.firstIndex { $0.id == self.currentPromotionId } ?? 0
     }
 
-    private var selection: Binding<String?> {
-
-        Binding(
-            get: { self.currentPromotionId },
-            set: { self.selectedPromotionId = $0 }
-        )
-
-    }
-
     private var autoScrollKey: [String] {
 
         guard self.scenePhase == .active,
@@ -52,19 +43,35 @@ struct StorePromotionsCarousel: View {
         do {
             try await Task.sleep(for: .seconds(5))
         } catch {
+
+            guard !Task.isCancelled else { return }
             return
+
         }
 
         guard !Task.isCancelled else { return }
         let index = (self.currentIndex + 1) % self.promotions.count
 
-        self.selectedPromotionId = self.promotions[index].id
+        scrollToPromotion(
+            at: index,
+            animated: true
+        )
+
+    }
+
+    private func scrollToPromotion(at index: Int, animated: Bool) {
+
+        guard self.promotions.indices.contains(index) else { return }
+
+        withAnimation(animated ? .easeInOut(duration: 0.65) : nil) {
+            self.selectedPromotionId = self.promotions[index].id
+        }
 
     }
 
     var body: some View {
 
-        VStack(spacing: 6) {
+        VStack(spacing: self.style.spacing(LLSpacing.compact)) {
 
             pages()
 
@@ -77,61 +84,79 @@ struct StorePromotionsCarousel: View {
             await advancePromotion()
         }
         .onChange(of: self.promotions.map(\.id)) { _, _ in
-            self.selectedPromotionId = self.currentPromotionId
+
+            scrollToPromotion(
+                at: self.currentIndex,
+                animated: false
+            )
+
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func pages() -> some View {
 
         ScrollView(.horizontal) {
 
-            HStack(alignment: .top, spacing: self.style.spacing(.small)) {
+            HStack(
+                alignment: .top,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 ForEach(self.promotions) { promotion in
                     promotionCard(promotion)
                 }
 
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .fixedSize(
+                horizontal: false,
+                vertical: true
+            )
             .scrollTargetLayout()
 
         }
-        .scrollTargetBehavior(.viewAligned(anchor: .center))
-        .scrollPosition(id: self.selection, anchor: .center)
+        .safeAreaPadding(.horizontal, self.style.spacing(.medium))
+        .scrollPosition(
+            id: self.$selectedPromotionId,
+            anchor: .leading
+        )
         .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal, self.style.spacing(self.promotions.count > 1 ? .large2 : .medium))
+        .scrollTargetBehavior(.viewAligned)
         .onScrollPhaseChange { _, phase in
             self.isScrolling = phase != .idle
         }
-        .animation(.easeInOut(duration: 0.65), value: self.selectedPromotionId)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func promotionCard(_ promotion: Promotion) -> some View {
 
         StorePromotionCard(promotion: promotion) {
             self.onOpen(promotion)
         }
-        .containerRelativeFrame(.horizontal)
+        .containerRelativeFrame(.horizontal) { width, _ in
+            return width
+        }
         .id(promotion.id)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func pageIndicators() -> some View {
 
         if self.promotions.count <= 8 {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 ForEach(self.promotions) { promotion in
 
                     Circle()
-                        .fill(promotion.id == self.currentPromotionId ? self.style.palette(.link) : self.style.background(.border))
-                        .frame(width: self.style.spacing(.small), height: self.style.spacing(.small))
+                        .runeFill(promotion.id == self.currentPromotionId ? RNColorSource.palette(.link) : RNColorSource.background(.border))
+                        .frame(
+                            width: self.style.spacing(LLSpacing.groupedContent),
+                            height: self.style.spacing(LLSpacing.groupedContent)
+                        )
 
                 }
 
@@ -140,9 +165,9 @@ struct StorePromotionsCarousel: View {
         } else {
 
             Text(String(localized: "\(self.currentIndex + 1) of \(self.promotions.count)"))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(.text(.body))
                 .monospacedDigit()
+                .runeFont(with: .NOTE_1)
+                .runeTextColor(.body)
 
         }
 
@@ -153,9 +178,7 @@ struct StorePromotionsCarousel: View {
 #Preview {
 
     ScrollView {
-
         StorePromotionsCarousel(promotions: MockCustomerModels.promotions) { _ in }
-
     }
     .withMockPreviews()
 

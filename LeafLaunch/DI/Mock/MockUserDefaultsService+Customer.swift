@@ -13,6 +13,7 @@ extension MockUserDefaultsService {
         guard let branding = self.cachedStoreBranding else {
 
             self.customerTheme = self.theme.theme()
+
             return false
 
         }
@@ -28,14 +29,19 @@ extension MockUserDefaultsService {
 
             self.cachedStoreBranding = nil
             self.customerTheme = self.theme.theme()
+
             return true
 
         }
 
-        guard let storeTheme = StoreThemeBuilder.makeTheme(branding: branding, baseTheme: self.theme) else {
+        guard let storeTheme = StoreThemeBuilder.makeTheme(
+            branding: branding,
+            baseTheme: self.theme
+        ) else {
 
             self.cachedStoreBranding = nil
             self.customerTheme = self.theme.theme()
+
             return false
 
         }
@@ -53,7 +59,9 @@ extension MockUserDefaultsService {
 
     }
 
-    func hasApprovedAge(userId: String, state: String, policy: EffectiveAgePolicy) -> Bool {
+    func hasApprovedAge(userId: String,
+                        state: String,
+                        policy: EffectiveAgePolicy) -> Bool {
 
         let approvedState = normalizedCustomerState(state)
         guard !userId.isEmpty,
@@ -66,7 +74,9 @@ extension MockUserDefaultsService {
 
     }
 
-    func approveAge(userId: String, state: String, policy: EffectiveAgePolicy) {
+    func approveAge(userId: String,
+                    state: String,
+                    policy: EffectiveAgePolicy) {
 
         let approvedState = normalizedCustomerState(state)
         guard !userId.isEmpty,

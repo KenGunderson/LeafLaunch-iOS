@@ -19,11 +19,17 @@ struct LocationListScreen: GPView {
             content()
         }
         .scrollDismissesKeyboard(.interactively)
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        .safeAreaInset(
+            edge: .bottom,
+            spacing: 0
+        ) {
             flowActions()
         }
         .interactiveDismissDisabled(!self.viewModel.canDismiss)
-        .animation(.bouncy, value: self.viewModel.step)
+        .animation(
+            .bouncy,
+            value: self.viewModel.step
+        )
         .onFirstAppear { [weak viewModel] in
 
             viewModel?.setup(navigationService: self.navigationService)
@@ -31,13 +37,13 @@ struct LocationListScreen: GPView {
 
         }
         .task(id: self.viewModel.step) { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
         .onDisappear { [weak viewModel] in viewModel?.cancelLocationSelectionWork() }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         switch self.viewModel.step {
@@ -49,7 +55,10 @@ struct LocationListScreen: GPView {
                 onDismiss: self.viewModel.canDismiss ? { [weak viewModel] in viewModel?.dismiss() } : nil
             )
             .transition(.blurReplace)
-            .safeAreaPadding(.top, self.style.spacing(.medium))
+            .safeAreaPadding(
+                .top,
+                self.style.spacing(LLSpacing.listRow)
+            )
 
         case .ageVerification:
 
@@ -57,15 +66,17 @@ struct LocationListScreen: GPView {
                 configuration: self.viewModel.configuration,
                 subtitle: nil
             )
-            .safeAreaPadding(.top, self.style.spacing(.medium))
+            .safeAreaPadding(
+                .top,
+                self.style.spacing(LLSpacing.listRow)
+            )
             .transition(.blurReplace)
             .disabled(self.viewModel.isApproving)
-
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
         Group {
@@ -86,21 +97,24 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationSelection() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             LocationSearchControls(viewModel: self.viewModel)
             locationResults()
             retryAction()
 
         }
-        .padding(.bottom, .large)
+        .runePadding(.bottom, LLSpacing.content)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func ageVerification() -> some View {
 
         AgeVerificationConsentView(
@@ -109,15 +123,20 @@ struct LocationListScreen: GPView {
             changeLocationAction: { [weak viewModel] in viewModel?.changeLocation() }
         )
         .disabled(self.viewModel.isApproving)
-        .padding(.top, .large2)
-        .padding(.bottom, .large)
+        .runePadding(.top, LLSpacing.hero)
+        .runePadding(.bottom, LLSpacing.content)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationResults() -> some View {
 
-        if self.viewModel.locations.isEmpty {
+        if self.viewModel.locations.isEmpty && self.viewModel.isFirstLoad {
+
+            ProgressView()
+                .frame(maxWidth: .infinity)
+
+        } else if self.viewModel.locations.isEmpty {
 
             CommerceEmptyState(
                 systemImage: "mappin.and.ellipse",
@@ -127,7 +146,7 @@ struct LocationListScreen: GPView {
 
         } else if self.viewModel.filteredLocations.isEmpty {
 
-            VStack(spacing: self.style.spacing(.small)) {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 CommerceEmptyState(
                     systemImage: "magnifyingglass",
@@ -147,10 +166,10 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locations() -> some View {
 
-        LazyVStack(spacing: self.style.spacing(.small2)) {
+        LazyVStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
             ForEach(self.viewModel.filteredLocations, id: \.id) { location in
                 locationRow(location)
@@ -160,7 +179,7 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationRow(_ location: BootstrapLocation) -> some View {
 
         LocationSelectionCard(
@@ -175,7 +194,7 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func flowActions() -> some View {
 
         Group {
@@ -193,9 +212,9 @@ struct LocationListScreen: GPView {
             }
 
         }
-        .padding(.horizontal, .medium)
-        .padding(.top, .small)
-        .background(self.style.background(.secondary))
+        .runePadding(.horizontal, LLSpacing.pageInset)
+        .runePadding(.top, LLSpacing.groupedContent)
+        .runeBackground(.secondary)
         .overlay(alignment: .top) {
             LLDivider()
         }
@@ -205,7 +224,7 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func selectionFooter() -> some View {
 
         LocationSelectionFooter(
@@ -216,10 +235,10 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func approvalActions() -> some View {
 
-        VStack(spacing: self.style.spacing(.extraSmall)) {
+        VStack(spacing: self.style.spacing(LLSpacing.metadata)) {
 
             LeafLaunchButton(
                 title: String(localized: "I'm \(self.viewModel.minimumAge) Or Older"),
@@ -237,21 +256,21 @@ struct LocationListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func exitAction() -> some View {
 
         Text(String(localized: "Exit"))
-            .appFont(with: .SUBTITLE_3)
-            .foregroundStyle(self.style.palette(.link))
+            .runeFont(with: .SUBTITLE_3)
+            .foregroundStyle(RNColorSource.palette(.link))
             .frame(maxWidth: .infinity)
             .frame(minHeight: self.style.spacing(.extraLarge))
             .contentShape(Rectangle())
-            .asButton { [weak viewModel] in viewModel?.changeLocation() }
+            .runeAsButton { [weak viewModel] in viewModel?.changeLocation() }
             .disabled(self.viewModel.isApproving)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func retryAction() -> some View {
 
         if !self.viewModel.failedLocationIds.isEmpty {

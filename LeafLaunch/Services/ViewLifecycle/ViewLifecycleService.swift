@@ -107,9 +107,11 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
 
         let willEnterForegroundObserver = NotificationCenter
             .default
-            .addObserver(forName: UIApplication.willEnterForegroundNotification,
-                         object: nil,
-                         queue: .main) { [weak self] notification in
+            .addObserver(
+                forName: UIApplication.willEnterForegroundNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
 
                 let notificationName = notification.name.rawValue
 
@@ -126,9 +128,11 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
 
         let didBecomeActiveObserver = NotificationCenter
             .default
-            .addObserver(forName: UIApplication.didBecomeActiveNotification,
-                         object: nil,
-                         queue: .main) { [weak self] notification in
+            .addObserver(
+                forName: UIApplication.didBecomeActiveNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
 
                 let notificationName = notification.name.rawValue
 
@@ -145,9 +149,11 @@ final class ViewLifecycleService: ViewLifecycleServiceProtocol {
 
         let didEnterBackgroundObserver = NotificationCenter
             .default
-            .addObserver(forName: UIApplication.didEnterBackgroundNotification,
-                         object: nil,
-                         queue: .main) { [weak self] notification in
+            .addObserver(
+                forName: UIApplication.didEnterBackgroundNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
 
                 let notificationName = notification.name.rawValue
 

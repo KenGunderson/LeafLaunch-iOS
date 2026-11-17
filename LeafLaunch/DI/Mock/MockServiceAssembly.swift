@@ -45,6 +45,7 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
         )
 
         sessionEvents.append(loggingEvent)
+
     }
 
     func setUserProperty(_ key: String, value: String) {
@@ -58,6 +59,7 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
         )
 
         sessionEvents.append(loggingEvent)
+
     }
 
     func track(_ app: AppEvent) {
@@ -98,10 +100,10 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
         var debugLogMessage = "Analytics event"
 
         switch type {
-        case .app:
-            debugLogMessage = "App: \(data.name)"
+        case .app: debugLogMessage = "App: \(data.name)"
 
         case .screen:
+
             if let screenName = data.properties?["screen"] as? String {
                 debugLogMessage = "Screen: \(screenName)"
             }
@@ -110,6 +112,7 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
             }
 
         case .error:
+
             if let errorName = data.properties?["name"] as? String {
                 debugLogMessage = "Error: \(errorName)"
             }
@@ -121,17 +124,18 @@ final class MockAnalyticsService: AnalyticsServiceProtocol {
         self.log(message: "\(type.displayName.uppercased()):\n\(message)\n\(debugLogMessage)")
 
         sessionEvents.append(data)
+
     }
 
 }
 
 // MARK: - MockAlertService
 
-final class MockAlertService: AlertServiceProtocol, ObservableObject, @unchecked Sendable {
+final class MockAlertService: RNAlertServiceProtocol, ObservableObject, @unchecked Sendable {
 
-    @Published var alerts: [RuneAlert] = []
+    @Published var alerts: [RNAlert] = []
 
-    var alertsPublisher: AnyPublisher<[RuneAlert], Never> {
+    var alertsPublisher: AnyPublisher<[RNAlert], Never> {
         return self.$alerts.eraseToAnyPublisher()
     }
 
@@ -140,11 +144,11 @@ final class MockAlertService: AlertServiceProtocol, ObservableObject, @unchecked
         return self.$requestedToDeleteAlert.eraseToAnyPublisher()
     }
 
-    func showAlert(_ alert: RuneAlert) {
+    func showAlert(_ alert: RNAlert) {
         self.alerts.append(alert)
     }
 
-    func dismissAlert(_ alert: RuneAlert) {
+    func dismissAlert(_ alert: RNAlert) {
         self.alerts.removeAll { alert.id == $0.id }
     }
 
@@ -279,13 +283,17 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
 
     init(apiService: APIServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol) {
+
         self.apiService = apiService
         self.userDefaultsService = userDefaultsService
         self.currentUser = MockCustomerModels.user
 
     }
 
-    func signup(firstName: String, lastName: String, email: String, password: String) async throws {
+    func signup(firstName: String,
+                lastName: String,
+                email: String,
+                password: String) async throws {
 
         self.apiService.accessToken = UUID().uuidString
         let account = try await self.apiService.registerCustomerAccount(
@@ -294,7 +302,11 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
         )
         try Task.checkCancellation()
 
-        self.currentUser = LLUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
+        self.currentUser = LLUser(
+            customerAccount: account,
+            externalId: MockCustomerModels.externalId,
+            email: email
+        )
 
     }
 
@@ -306,12 +318,23 @@ final class MockAuthService: AuthServiceProtocol, @unchecked Sendable {
         )
         try Task.checkCancellation()
 
-        self.currentUser = LLUser(customerAccount: account, externalId: MockCustomerModels.externalId, email: email)
+        self.currentUser = LLUser(
+            customerAccount: account,
+            externalId: MockCustomerModels.externalId,
+            email: email
+        )
 
     }
 
-    func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, isLogin: Bool) async throws {
-        try await login(email: MockModels.MockUser.user1.email, password: "")
+    func handleAppleSignupOrLogin(currentNonce: String?,
+                                  authorization: ASAuthorization,
+                                  isLogin: Bool) async throws {
+
+        try await login(
+            email: MockModels.MockUser.user1.email,
+            password: ""
+        )
+
     }
 
     func fetchUserInfoWithToken() async throws {
@@ -425,18 +448,24 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     var isLoginContext: Bool = false
 
     func beginSignUpContext() {
+
         self.isSignUpContext = true
         self.isLoginContext = false
+
     }
 
     func beginLoginContext() {
+
         self.isSignUpContext = false
         self.isLoginContext = true
+
     }
 
     func clearAuthContext() {
+
         self.isSignUpContext = false
         self.isLoginContext = false
+
     }
 
     func setup() -> Self { self }
@@ -444,7 +473,9 @@ final class MockFirebaseService: FirebaseServiceProtocol, @unchecked Sendable {
     func signup(email: String, password: String) async throws {}
     func login(email: String, password: String) async throws {}
     func login(token: String, nonce: String) async throws {}
-    func handleAppleSignupOrLogin(currentNonce: String?, authorization: ASAuthorization, completion: @escaping (String?, String?, String, String, Error?) -> ()) {}
+    func handleAppleSignupOrLogin(currentNonce: String?,
+                                  authorization: ASAuthorization,
+                                  completion: @escaping (String?, String?, String, String, Error?) -> Void) {}
     func logout() throws {}
     func getAccessTokenForCurrentUser() async throws {}
     func freshAuthToken() async throws -> String? { return self.currentAccessToken }
@@ -502,7 +533,7 @@ final class MockUserDefaultsService: UserDefaultsServiceProtocol, @unchecked Sen
     var favoriteProductIds: Set<String> = []
     let favoriteProductIdsPublisher = CurrentValueSubject<Set<String>, Never>([])
     var cachedStoreBranding: StoreAppBranding?
-    var customerTheme: Theme?
+    var customerTheme: RNTheme?
 
     var themePublisher = PassthroughSubject<AvailableTheme, Never>()
     var didRateMyAppAlertShowPublisher = PassthroughSubject<Bool, Never>()
@@ -560,10 +591,12 @@ final class MockServiceAssembly {
         container.connectivityService.register { @MainActor in MockConnectivityService() }
         container.apiService.register { @MainActor in MockAPIService() }
         container.authService.register { @MainActor in
+
             MockAuthService(
                 apiService: container.apiService(),
                 userDefaultsService: container.userDefaultsService()
             )
+
         }
 
     }
@@ -583,21 +616,26 @@ final class MockServiceAssembly {
         container.viewLifecycleService.register { @MainActor in MockViewLifecycleService() }
         container.apiService.register { @MainActor in MockAPIService() }
         container.authService.register { @MainActor in
+
             MockAuthService(
                 apiService: container.apiService(),
                 userDefaultsService: container.userDefaultsService()
             )
+
         }
         container.tabBarNavigationService.register { @MainActor in TabBarNavigationService() }
         container.storeSessionService.register { @MainActor in
+
             StoreSessionService(
                 apiService: container.apiService(),
                 authService: container.authService(),
                 userDefaultsService: container.userDefaultsService(),
                 tabBarNavigationService: container.tabBarNavigationService()
             )
+
         }
         container.rootStartupService.register { @MainActor in
+
             RootStartupService(
                 launchService: container.launchScreenService(),
                 environmentService: container.environmentService(),
@@ -609,6 +647,7 @@ final class MockServiceAssembly {
                 viewLifecycleService: container.viewLifecycleService(),
                 storeSessionService: container.storeSessionService()
             )
+
         }
 
     }

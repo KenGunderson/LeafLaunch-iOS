@@ -7,7 +7,7 @@ struct LLDivider: View {
     var body: some View {
 
         Capsule()
-            .fill(self.style.background(.quaternary))
+            .runeFill(.background(.quaternary))
             .frame(height: 1.25)
             .frame(maxWidth: .infinity)
 
@@ -18,7 +18,7 @@ struct LLDivider: View {
 #Preview {
 
     LLDivider()
-        .padding(.medium)
+        .runePadding(LLSpacing.pageInset)
         .withMockPreviews()
 
 }

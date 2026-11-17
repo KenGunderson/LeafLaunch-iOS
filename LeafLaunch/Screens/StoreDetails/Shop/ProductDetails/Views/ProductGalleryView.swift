@@ -29,14 +29,24 @@ struct ProductGalleryView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             if self.images.isEmpty {
 
                 ProductImageView(url: nil)
-                    .aspectRatio(1, contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-                    .appBorder(cornerRadius: .medium2, lineWidth: 1, outerBorder: false)
+                    .aspectRatio(
+                        1,
+                        contentMode: .fit
+                    )
+                    .runeCornerRadius(.medium2)
+                    .runeBorder(
+                        cornerRadius: .medium2,
+                        lineWidth: 1,
+                        outerBorder: false
+                    )
 
             } else {
 
@@ -58,7 +68,7 @@ struct ProductGalleryView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func pages() -> some View {
 
         TabView(selection: self.selection) {
@@ -71,19 +81,29 @@ struct ProductGalleryView: View {
 
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .aspectRatio(1, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-        .appBorder(cornerRadius: .medium2, lineWidth: 1, outerBorder: false)
-        .animation(.bouncy, value: self.selectedImageId)
+        .aspectRatio(
+            1,
+            contentMode: .fit
+        )
+        .runeCornerRadius(.medium2)
+        .runeBorder(
+            cornerRadius: .medium2,
+            lineWidth: 1,
+            outerBorder: false
+        )
+        .animation(
+            .bouncy,
+            value: self.selectedImageId
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func thumbnails() -> some View {
 
         ScrollView(.horizontal) {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 ForEach(self.images) { image in
 
@@ -98,7 +118,7 @@ struct ProductGalleryView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func thumbnail(_ image: ProductMedia) -> some View {
 
         let isSelected = self.selection.wrappedValue == image.id
@@ -107,26 +127,29 @@ struct ProductGalleryView: View {
             url: image.url,
             showsPlaceholderLabel: false
         )
-        .frame(width: 72, height: 72)
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium)))
+        .frame(
+            width: 72,
+            height: 72
+        )
+        .runeCornerRadius(.medium)
         .overlay {
 
             RoundedRectangle(cornerRadius: self.style.radius(.medium))
                 .strokeBorder(
                     isSelected
-                        ? self.style.palette(.link)
-                        : self.style.background(.border),
+                        ? RNColorSource.palette(.link)
+                        : RNColorSource.background(.border),
                     lineWidth: isSelected ? 2 : 1
                 )
 
         }
-        .asButton {
+        .runeAsButton {
             self.selectedImageId = image.id
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func imagePage(_ image: ProductMedia) -> some View {
 
         ProductImageView(url: image.url)
@@ -143,7 +166,7 @@ struct ProductGalleryView: View {
         ScrollView {
 
             ProductGalleryView(product: product)
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
 
         }
         .withMockPreviews()

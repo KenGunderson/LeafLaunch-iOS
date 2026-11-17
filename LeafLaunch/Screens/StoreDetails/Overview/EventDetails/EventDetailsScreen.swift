@@ -27,7 +27,7 @@ struct EventDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -38,10 +38,13 @@ struct EventDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             if let event = self.viewModel.event {
 
@@ -54,39 +57,51 @@ struct EventDetailsScreen: GPView {
             }
 
         }
-        .padding(.top, .small)
+        .runePadding(.top, LLSpacing.groupedContent)
         .tabFlowContentSpacing()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventImage(_ event: StoreEvent) -> some View {
 
         StoreMarketingImage(
             url: event.image?.url,
-            placeholder: ImageResource(name: "StoreEventFallback", bundle: .main)
+            placeholder: ImageResource(
+                name: "StoreEventFallback",
+                bundle: .main
+            )
         )
-        .aspectRatio(1.5, contentMode: .fit)
-        .cornerRadius(.large)
+        .aspectRatio(
+            1.5,
+            contentMode: .fit
+        )
+        .runeCornerRadius(.large)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func eventTitle(_ event: StoreEvent) -> some View {
 
         Text(event.title)
-            .appFont(with: .HEADER_3)
-            .foregroundStyle(self.style.textColor(.title))
-            .fixedSize(horizontal: false, vertical: true)
+            .runeFont(with: .HEADER_3)
+            .runeTextColor(.title)
+            .fixedSize(
+                horizontal: false,
+                vertical: true
+            )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func visitDetails() -> some View {
 
         CommerceSurface {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.listRow)
+            ) {
 
                 schedule()
 
@@ -103,68 +118,86 @@ struct EventDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func schedule() -> some View {
 
         if let schedule = self.viewModel.schedule {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
-                detailLabel(String(localized: "When"), systemImage: "calendar")
+                detailLabel(
+                    String(localized: "When"),
+                    systemImage: "calendar"
+                )
 
                 if let startsAt = schedule.startsAt {
 
                     Text(String(localized: "Starts \(schedule.formattedDate(startsAt))"))
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(self.style.textColor(.title))
+                        .runeFont(with: .BODY_2)
+                        .runeTextColor(.title)
 
                 } else {
 
                     Text(String(localized: "Date To Be Announced"))
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(self.style.textColor(.body))
+                        .runeFont(with: .BODY_2)
+                        .runeTextColor(.body)
 
                 }
 
                 if let endsAt = schedule.endsAt {
 
                     Text(String(localized: "Ends \(schedule.formattedDate(endsAt))"))
-                        .appFont(with: .BODY_2)
-                        .foregroundStyle(self.style.textColor(.body))
+                        .runeFont(with: .BODY_2)
+                        .runeTextColor(.body)
 
                 }
 
                 if schedule.startsAt != nil {
 
-                    Text(schedule.timeZone.localizedName(for: .generic, locale: .current) ?? schedule.timeZone.identifier)
-                        .appFont(with: .NOTE_1)
-                        .foregroundStyle(self.style.textColor(.body))
+                    Text(schedule.timeZone.localizedName(
+                        for: .generic,
+                        locale: .current
+                    ) ?? schedule.timeZone.identifier)
+                        .runeFont(with: .NOTE_1)
+                        .runeTextColor(.body)
 
                 }
 
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .fixedSize(
+                horizontal: false,
+                vertical: true
+            )
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func location(_ details: CustomerLocationDetails) -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
-            detailLabel(String(localized: "Where"), systemImage: "mappin.and.ellipse")
+            detailLabel(
+                String(localized: "Where"),
+                systemImage: "mappin.and.ellipse"
+            )
 
             Text(details.location.name)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
 
             if !details.address.isEmpty {
 
                 Text(details.address)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
                     .textSelection(.enabled)
 
             }
@@ -172,45 +205,59 @@ struct EventDetailsScreen: GPView {
             if let directionsURL = self.viewModel.directionsURL {
 
                 Link(destination: directionsURL) {
-                    actionLabel(String(localized: "Get Directions"), systemImage: "arrow.up.right")
+
+                    actionLabel(
+                        String(localized: "Get Directions"),
+                        systemImage: "arrow.up.right"
+                    )
+
                 }
 
             }
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func detailLabel(_ title: String, systemImage: String) -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
-            ImageSource.systemImage(systemImage)
+            RNImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
             Text(title)
 
         }
-        .appFont(with: LeafLaunchThemeTokens.headingFont)
-        .foregroundStyle(self.style.textColor(.body))
+        .runeFont(with: LeafLaunchThemeTokens.headingFont)
+        .runeTextColor(.body)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func description(_ event: StoreEvent) -> some View {
 
         if let description = event.description?.trimmingCharacters(in: .whitespacesAndNewlines),
            !description.isEmpty {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 CommerceSectionHeader(title: String(localized: "About This Event"))
 
                 Text(description)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
                     .textSelection(.enabled)
 
             }
@@ -219,7 +266,7 @@ struct EventDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func externalAction(_ event: StoreEvent) -> some View {
 
         if let url = event.externalURL {
@@ -227,7 +274,12 @@ struct EventDetailsScreen: GPView {
             CommerceSurface {
 
                 Link(destination: url) {
-                    actionLabel(String(localized: "Visit Event Website"), systemImage: "arrow.up.right")
+
+                    actionLabel(
+                        String(localized: "Visit Event Website"),
+                        systemImage: "arrow.up.right"
+                    )
+
                 }
 
             }
@@ -236,21 +288,24 @@ struct EventDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func actionLabel(_ title: String, systemImage: String) -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             Text(title)
-                .fixedSize(horizontal: false, vertical: true)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            ImageSource.systemImage(systemImage)
+            RNImageSource.systemImage(systemImage)
                 .view(shouldResize: false)
 
         }
-        .appFont(with: .TITLE_3)
-        .foregroundStyle(self.style.foreground(.primary))
+        .runeFont(with: .TITLE_3)
+        .runeForeground(.primary)
         .frame(minHeight: 44)
         .contentShape(Rectangle())
 
@@ -264,7 +319,10 @@ struct EventDetailsScreen: GPView {
 
         EventDetailsScreen(
             viewModel: mockResolve(EventDetailsViewModel.self)
-                .setup(locationId: MockCustomerModels.primaryLocationId, event: event)
+                .setup(
+                    locationId: MockCustomerModels.primaryLocationId,
+                    event: event
+                )
         )
         .withMockPreviews()
 

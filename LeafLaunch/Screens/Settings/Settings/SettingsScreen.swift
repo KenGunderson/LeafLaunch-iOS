@@ -11,7 +11,6 @@ import StoreKit
 struct SettingsScreen: GPView {
 
     @Environment(\.style) private var style
-
     @Environment(\.dismiss) private var dismiss
     @Environment(\.requestReview) var requestReview
 
@@ -26,13 +25,10 @@ struct SettingsScreen: GPView {
                 navBar()
             } scrollViewContent: {
 
-                VStack(spacing: 0) {
+                VStack(spacing: self.style.spacing(LLSpacing.none)) {
                     content()
                 }
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity
-                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             }
 
@@ -73,7 +69,7 @@ struct SettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navBar() -> some View {
 
         NavHeader(
@@ -84,15 +80,18 @@ struct SettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
         let settings: [Route.SettingRoute] = Route.SettingRoute.allCases
-        let groups = Dictionary(grouping: settings, by: { $0.category })
+        let groups = Dictionary(
+            grouping: settings,
+            by: { $0.category }
+        )
         let categories = groups.keys.sorted()
-        let config = Constants.StaggerAnimation.config(interitemSpacing: self.style.spacing(.small))
+        let config = Constants.StaggerAnimation.config(interitemSpacing: self.style.spacing(LLSpacing.groupedContent))
 
-        StaggeredView(config: config) {
+        RNStaggeredView(config: config) {
 
             ForEach(categories, id: \.self) { category in
 
@@ -110,59 +109,90 @@ struct SettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func settingsSection(category: String,
-                                  settings: [Route.SettingRoute],
-                                  isFirst: Bool) -> some View {
+                                 settings: [Route.SettingRoute],
+                                 isFirst: Bool) -> some View {
 
-        let isLogout = category == "Logout"
+        if category == "Logout" {
 
-        if !isLogout {
+            ForEach(settings, id: \.self) { setting in
 
-            SectionView(leadingTitle: category.capitalized)
-                .padding(.bottom, .extraSmall)
-                .padding(.top, isFirst ? .none : .medium)
+                LLAppCardView(cornerRadius: .medium) {
+                    settingItem(setting)
+                }
+                .runePadding(.top, LLSpacing.listRow)
 
-        }
+            }
 
-        ForEach(settings, id: \.self) { setting in
+        } else {
 
-            settingItem(setting)
-                .padding(.top, isLogout ? .medium : .none)
+            LLSection(
+                title: category,
+                headingSpacing: LLSpacing.metadata,
+                contentSpacing: LLSpacing.none
+            ) {
+
+                LLAppCardView(cornerRadius: .medium) {
+                    settingRows(settings)
+                }
+
+            }
+            .runePadding(.top, isFirst ? LLSpacing.none : LLSpacing.listRow)
 
         }
 
     }
 
-    @ViewBuilder
-    private func settingItem(_ item: Route.SettingRoute) -> some View {
+    @ContentBuilder
+    private func settingRows(_ settings: [Route.SettingRoute]) -> some View {
 
-        LLAppCardView(cornerRadius: .medium) {
+        VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            ForEach(settings, id: \.self) { setting in
 
-                item
-                    .icon
-                    .view(renderingMode: .template)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(item.tintColor)
+                if setting != settings.first {
+                    LLDivider()
+                }
 
-                Text(item.displayName)
-                    .appFont(with: .TITLE_4)
-                    .foregroundStyle(.text(.title))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                ImageSource.systemImage("chevron.right")
-                    .view(shouldResize: false)
-                    .foregroundStyle(.text(.title))
-                    .opacity(0.5)
+                settingItem(setting)
+                    .runePadding(.vertical, LLSpacing.groupedContent)
 
             }
 
         }
-        .asButton {
+
+    }
+
+    @ContentBuilder
+    private func settingItem(_ item: Route.SettingRoute) -> some View {
+
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
+
+            item
+                .icon
+                .view(renderingMode: .template)
+                .aspectRatio(contentMode: .fit)
+                .frame(
+                    width: 20,
+                    height: 20
+                )
+                .runeFont(with: .TITLE_4)
+                .foregroundStyle(item.tintColor)
+
+            Text(item.displayName)
+                .runeFont(with: .TITLE_4)
+                .runeTextColor(.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            RNImageSource.systemImage("chevron.right")
+                .view(shouldResize: false)
+                .runeTextColor(.title)
+                .opacity(0.5)
+
+        }
+        .contentShape(Rectangle())
+        .runeAsButton {
 
             withAnimation(.smooth) {
 
@@ -175,16 +205,16 @@ struct SettingsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func versionItem() -> some View {
 
         Text(String(localized: "App Version \(self.viewModel.appVersion)"))
-            .appFont(with: .NOTE_2)
-            .foregroundStyle(.text(.body))
+            .runeFont(with: .NOTE_2)
+            .runeTextColor(.body)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
-            .padding(.top, .extraSmall)
-            .padding(.bottom, .large)
+            .runePadding(.top, LLSpacing.metadata)
+            .runePadding(.bottom, LLSpacing.content)
 
     }
 

@@ -23,8 +23,13 @@ enum FullScreenCover: Identifiable, Hashable, Equatable {
     func hash(into hasher: inout Hasher) {
 
         switch self {
-        case .devSettings: return hasher.combine(0)
-        case .settings: return hasher.combine(2)
+        case .devSettings:
+
+            return hasher.combine(0)
+
+        case .settings:
+
+            return hasher.combine(2)
         }
 
     }

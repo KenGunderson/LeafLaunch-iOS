@@ -13,7 +13,7 @@ struct ProductCategoryImageView: View {
 
                 if let image = UIImage(contentsOfFile: self.url.path) {
 
-                    ImageSource.uiImage(image)
+                    RNImageSource.uiImage(image)
                         .view()
                         .scaledToFit()
 
@@ -25,7 +25,7 @@ struct ProductCategoryImageView: View {
 
             } else {
 
-                ImageSource.remote(
+                RNImageSource.remote(
                     url: self.url,
                     contentMode: .fit,
                     placeholder: AnyView(placeholder())
@@ -38,13 +38,13 @@ struct ProductCategoryImageView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func placeholder() -> some View {
 
-        ImageSource.systemImage("leaf")
+        RNImageSource.systemImage("leaf")
             .view()
             .scaledToFit()
-            .foregroundStyle(.text(.body))
+            .runeTextColor(.body)
 
     }
 

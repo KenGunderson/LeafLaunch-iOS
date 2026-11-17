@@ -10,14 +10,6 @@ import AuthenticationServices
 
 struct SignUpScreen: GPView {
 
-    @Environment(\.style) private var style
-    @Environment(NavigationService.self) private var navigationService
-
-    @StateObject private var viewModel: SignUpViewModel
-    @State private var showPassword: Bool = false
-
-    @FocusState private var focusedField: FocusedField?
-
     enum FocusedField: Hashable {
 
         case firstName
@@ -27,20 +19,16 @@ struct SignUpScreen: GPView {
 
     }
 
+    @Environment(\.style) private var style
+    @Environment(NavigationService.self) private var navigationService
+
+    @StateObject private var viewModel: SignUpViewModel
+    @State private var showPassword: Bool = false
+
+    @FocusState private var focusedField: FocusedField?
+
     init(viewModel: SignUpViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-
-    private func handleOnSubmit() {
-
-        switch self.focusedField {
-        case .firstName: self.focusedField = .lastName
-        case .lastName: self.focusedField = .email
-        case .email: self.focusedField = .password
-        case .password: self.focusedField = nil
-        default: self.focusedField = nil
-        }
-
     }
 
     var body: some View {
@@ -66,7 +54,19 @@ struct SignUpScreen: GPView {
 
     }
 
-    @ViewBuilder
+    private func handleOnSubmit() {
+
+        switch self.focusedField {
+        case .firstName: self.focusedField = .lastName
+        case .lastName: self.focusedField = .email
+        case .email: self.focusedField = .password
+        case .password: self.focusedField = nil
+        default: self.focusedField = nil
+        }
+
+    }
+
+    @ContentBuilder
     private func headerView() -> some View {
 
         NavHeader(
@@ -78,23 +78,29 @@ struct SignUpScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contentView() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.medium)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.listRow)
+        ) {
 
             fields()
             signUpActions()
 
         }
-        .padding(.bottom, .medium)
+        .runePadding(.bottom, LLSpacing.listRow)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func signUpActions() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.groupedContent)
+        ) {
 
             termsAgreement()
             signUpAction()
@@ -103,10 +109,10 @@ struct SignUpScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func fields() -> some View {
 
-        VStack(spacing: self.style.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
             textField(fieldToFocus: .firstName)
             textField(fieldToFocus: .lastName)
@@ -117,7 +123,7 @@ struct SignUpScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func termsAgreement() -> some View {
 
         Toggle(isOn: self.$viewModel.agreedToTerms) {
@@ -129,36 +135,45 @@ struct SignUpScreen: GPView {
             unselectedColor: .background(.quaternary),
             horizontalSpacing: .small,
             cornerRadius: .extraSmall,
-            animation: .bouncy(duration: 0.3, extraBounce: 0.2)
+            animation: .bouncy(
+                duration: 0.3,
+                extraBounce: 0.2
+            )
         ))
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityLabel(String(localized: "Agree To Terms Of Service"))
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func termsCopy() -> some View {
 
-        AttributedText {
+        RNAttributedText {
 
             Text("By signing up, you agree to our ")
-                .foregroundStyle(.text(.body))
+                .runeTextColor(.body)
                 .font(self.style.font(.NOTE_2))
 
             Text("[Terms Of Service](https://apple.com)")
                 .font(self.style.font(.NOTE_2))
-                .foregroundStyle(.foreground(.primary))
+                .runeForeground(.primary)
                 .underline()
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
-        .environment(\.openURL, .init(handler: { _ in .handled }))
-        .tint(.init(.foreground(.primary)))
+        .environment(
+            \.openURL,
+            .init(handler: { _ in .handled })
+        )
+        .runeTint(.primary)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func signUpAction() -> some View {
 
         LeafLaunchButton(
@@ -180,7 +195,7 @@ struct SignUpScreen: GPView {
         var text: Binding<String> = .constant("")
         var title: String = ""
         var placeholder: String = ""
-        var icon: ImageSource = .systemImage("person")
+        var icon: RNImageSource = .systemImage("person")
         var isFocused: Bool = false
         var keyboardType: UIKeyboardType = .default
         var textContentType: UITextContentType = .emailAddress
@@ -241,7 +256,7 @@ struct SignUpScreen: GPView {
                 SecureField(
                     title,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
+                    prompt: Text(placeholder).runeTextColor(.placeholder)
                 )
 
             } else {
@@ -249,13 +264,16 @@ struct SignUpScreen: GPView {
                 TextField(
                     title,
                     text: text,
-                    prompt: Text(placeholder).foregroundStyle(.text(.placeholder))
+                    prompt: Text(placeholder).runeTextColor(.placeholder)
                 )
 
             }
 
         }
-        .focused(self.$focusedField, equals: fieldToFocus)
+        .focused(
+            self.$focusedField,
+            equals: fieldToFocus
+        )
         .llTextFieldStyle(
             title: title,
             icon: icon,
@@ -269,31 +287,34 @@ struct SignUpScreen: GPView {
         .overlay(alignment: .bottomTrailing) {
             passwordEyeOverlay(fieldToFocus: fieldToFocus)
         }
-        .appOnTapGesture(isSimultaneous: true) {
+        .runeOnTapGesture(isSimultaneous: true) {
             self.focusedField = fieldToFocus
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func passwordEyeOverlay(fieldToFocus: FocusedField) -> some View {
 
         if fieldToFocus == .password {
 
-            ImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
+            RNImageSource.systemImage(self.showPassword ? "eye.slash" : "eye")
                 .view()
                 .scaledToFit()
-                .foregroundStyle(.text(.placeholder))
-                .frame(width: 24, height: 24)
-                .asButton {
+                .runeTextColor(.placeholder)
+                .frame(
+                    width: 24,
+                    height: 24
+                )
+                .runeAsButton {
 
                     withAnimation(.spring) {
                         self.showPassword.toggle()
                     }
 
                 }
-                .padding(.trailing, .medium)
-                .padding(.bottom, .small2)
+                .runePadding(.trailing, LLSpacing.pageInset)
+                .runePadding(.bottom, LLSpacing.cardContent)
                 .contentTransition(.symbolEffect(.replace))
 
         }

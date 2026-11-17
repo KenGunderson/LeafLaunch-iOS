@@ -8,7 +8,7 @@ import SwiftUI
 enum StoreThemeBuilder {
 
     static func makeTheme(branding: StoreAppBranding,
-                          baseTheme: AvailableTheme) -> Theme? {
+                          baseTheme: AvailableTheme) -> RNTheme? {
 
         guard let branding = validatedDefinition(branding: branding) else { return nil }
 
@@ -24,17 +24,22 @@ enum StoreThemeBuilder {
 
         let colors = StoreThemeColors.resolve(
             branding: branding,
-            defaults: StoreThemeBaseColors(background: background,
-                                           contentBackground: contentBackground,
-                                           title: title,
-                                           body: body,
-                                           accent: accent,
-                                           button: button,
-                                           icon: icon)
+            defaults: StoreThemeBaseColors(
+                background: background,
+                contentBackground: contentBackground,
+                title: title,
+                body: body,
+                accent: accent,
+                button: button,
+                icon: icon
+            )
         )
 
-        return Theme(
-            id: themeId(branding: branding, baseTheme: baseTheme),
+        return RNTheme(
+            id: themeId(
+                branding: branding,
+                baseTheme: baseTheme
+            ),
             isLightMode: isLightMode,
             foreground: .init(
                 primary: colorSource(colors.foreground["primary"]) ?? fallback.foreground.primary,
@@ -82,7 +87,10 @@ enum StoreThemeBuilder {
                 large: CGFloat(branding.radius?.large ?? Double(fallback.radius.large)),
                 extraLarge: CGFloat(branding.radius?.extraLarge ?? Double(fallback.radius.extraLarge))
             ),
-            fonts: .storeBranding(familyName: branding.fontFamily, fallback: fallback.fonts),
+            fonts: .storeBranding(
+                familyName: branding.fontFamily,
+                fallback: fallback.fonts
+            ),
             shadow: fallback.shadow,
             buttonBounceStyle: fallback.buttonBounceStyle,
             alertStyle: fallback.alertStyle
@@ -134,20 +142,35 @@ enum StoreThemeBuilder {
 
     }
 
-    private static func colorSource(_ hex: String?) -> ColorSource? {
+    private static func colorSource(_ hex: String?) -> RNColorSource? {
         hex.map { .color(Color(hex: $0)) }
     }
 
     private static func isValidHexColor(_ hex: String) -> Bool {
-        hex.range(of: "^#[0-9a-fA-F]{6}$", options: .regularExpression) != nil
+
+        hex.range(
+            of: "^#[0-9a-fA-F]{6}$",
+            options: .regularExpression
+        ) != nil
+
     }
 
-    private static func hexColor(_ source: ColorSource) -> String? {
+    private static func hexColor(_ source: RNColorSource) -> String? {
 
         guard let color = source.asColor else { return nil }
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
-        guard UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha) else { return nil }
-        return String(format: "#%02X%02X%02X", Int((red * 255).rounded()), Int((green * 255).rounded()), Int((blue * 255).rounded()))
+        guard UIColor(color).getRed(
+            &red,
+            green: &green,
+            blue: &blue,
+            alpha: &alpha
+        ) else { return nil }
+        return String(
+            format: "#%02X%02X%02X",
+            Int((red * 255).rounded()),
+            Int((green * 255).rounded()),
+            Int((blue * 255).rounded())
+        )
 
     }
 

@@ -10,20 +10,6 @@ nonisolated struct CustomerLocationMembership: Codable, Identifiable, Sendable {
 
     }
 
-    let id: String
-    let loyaltyAccountId: String
-    let customerAccountId: String
-    let storeLocationId: String
-    let membershipCode: String
-    let status: Status
-    let cachedPointsBalance: String
-    let joinedAt: Date
-    let leftAt: Date?
-    let createdAt: Date
-    let updatedAt: Date
-    let notificationPreference: CustomerNotificationPreference?
-    let customerDisplayName: String?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -41,5 +27,19 @@ nonisolated struct CustomerLocationMembership: Codable, Identifiable, Sendable {
         case customerDisplayName = "customer_display_name"
 
     }
+
+    let id: String
+    let loyaltyAccountId: String
+    let customerAccountId: String
+    let storeLocationId: String
+    let membershipCode: String
+    let status: Status
+    let cachedPointsBalance: String
+    let joinedAt: Date
+    let leftAt: Date?
+    let createdAt: Date
+    let updatedAt: Date
+    let notificationPreference: CustomerNotificationPreference?
+    let customerDisplayName: String?
 
 }

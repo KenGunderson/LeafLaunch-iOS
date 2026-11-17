@@ -35,12 +35,16 @@ extension APIService {
     }
 
     @concurrent
-    func getCustomerEvents(locationId: String, offset: Int, limit: Int) async throws -> CustomerPage<StoreEvent> {
+    func getCustomerEvents(locationId: String,
+                           offset: Int,
+                           limit: Int) async throws -> CustomerPage<StoreEvent> {
 
+        let minimumLimit = max(1, limit)
+        let limit = min(100, minimumLimit)
         let data = try await buildRequest(
             method: .get,
             apiPath: .init(path: .customerPublic("locations/\(locationId)/events")),
-            queryParameters: ["limit": String(min(100, max(1, limit))), "offset": String(max(0, offset))],
+            queryParameters: ["limit": String(limit), "offset": String(max(0, offset))],
             requiresAuthentication: false
         )
         let response: CustomerPage<StoreEvent> = try await parseData(data: data)

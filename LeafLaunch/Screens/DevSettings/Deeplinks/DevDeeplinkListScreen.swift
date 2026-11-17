@@ -11,7 +11,6 @@ import Charts
 struct DevDeeplinkListScreen: GPView {
 
     @Environment(\.style) private var style
-
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject var viewModel: DevDeeplinkListViewModel
@@ -41,7 +40,7 @@ struct DevDeeplinkListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func headerView() -> some View {
 
         NavHeader(
@@ -52,10 +51,10 @@ struct DevDeeplinkListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(spacing: self.style.spacing(.medium)) {
+        VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
             // Tab
 
@@ -80,47 +79,51 @@ struct DevDeeplinkListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func section(title: String) -> some View {
 
         Group {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.metadata)
+            ) {
 
                 Text(title)
-                    .appFont(with: LeafLaunchThemeTokens.headingFont)
+                    .runeFont(with: LeafLaunchThemeTokens.headingFont)
 
                 LLDivider()
 
             }
 
         }
-        .foregroundStyle(.text(.title))
+        .runeTextColor(.title)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func route(title: String,
                        deeplink: String) -> some View {
 
         LLAppCardView {
 
-            VStack(alignment: .leading,
-                   spacing: self.style.spacing(.small2)
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.cardContent)
             ) {
 
                 Text(title)
-                    .appFont(with: .TITLE_5)
+                    .runeFont(with: .TITLE_5)
 
                 Text(deeplink)
-                    .appFont(with: .TITLE_3)
+                    .runeFont(with: .TITLE_3)
                     .fontDesign(.monospaced)
 
             }
 
         }
-        .foregroundStyle(.text(.title))
-        .appOnTapGesture {
+        .runeTextColor(.title)
+        .runeOnTapGesture {
 
             if let deeplinkURL = URL(string: "\(self.basePath)\(deeplink)") {
                 self.viewModel.handleDeeplink(url: deeplinkURL)

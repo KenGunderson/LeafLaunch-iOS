@@ -10,12 +10,12 @@ import SwiftUI
 struct NavBarButton: View {
 
     private let style: Style
-    private let foregroundColor: ColorSource
+    private let foregroundColor: RNColorSource
     private let size: CGFloat = 34
     private let action: () -> Void
 
     init(style: Style,
-         foregroundColor: ColorSource = .text(.title),
+         foregroundColor: RNColorSource = .text(.title),
          action: @escaping () -> Void) {
 
         self.style = style
@@ -43,26 +43,32 @@ struct NavBarButton: View {
                 width: self.size,
                 height: self.size
             )
-            .background(.background(.secondary))
+            .runeBackground(.secondary)
             .clipShape(.circle)
             .overlay {
 
                 Circle()
-                    .strokeBorder(.background(.border), lineWidth: 0.8)
+                    .strokeBorder(
+                        .background(.border),
+                        lineWidth: 0.8
+                    )
                     .allowsHitTesting(false)
 
             }
             .compositingGroup()
-            .appShadow(.subtle)
+            .runeShadow(.subtle)
             .contentShape(Rectangle().inset(by: -(44 - self.size) / 2))
-            .asButton {
+            .runeAsButton {
                 self.action()
             }
-            .commonBadge(
+            .runeBadge(
                 contentStyle: .text(Text(notificationText)),
                 placement: .init(
                     overlapStyle: .circular,
-                    offset: CGSize(width: -2, height: 2),
+                    offset: CGSize(
+                        width: -2,
+                        height: 2
+                    ),
                     anchorOutset: 4,
                     circularOverlapOutset: 0
                 ),
@@ -94,18 +100,44 @@ struct NavBarButton: View {
 
 #Preview {
 
-    AppBaseView {
+    @Previewable @Environment(\.style) var style
 
-        VStack {
+    RNBaseView {
 
-            NavBarButton(style: .back, action: {})
-            NavBarButton(style: .close, action: {})
-            NavBarButton(style: .settings, action: {})
-            NavBarButton(style: .plus, action: {})
-            NavBarButton(style: .filter(isFilled: true), action: {})
-            NavBarButton(style: .filter(isFilled: false), action: {})
-            NavBarButton(style: .bell(notificationCount: 6), action: {})
-            NavBarButton(style: .bell(notificationCount: 65), action: {})
+        VStack(spacing: style.spacing(LLSpacing.listRow)) {
+
+            NavBarButton(
+                style: .back,
+                action: {}
+            )
+            NavBarButton(
+                style: .close,
+                action: {}
+            )
+            NavBarButton(
+                style: .settings,
+                action: {}
+            )
+            NavBarButton(
+                style: .plus,
+                action: {}
+            )
+            NavBarButton(
+                style: .filter(isFilled: true),
+                action: {}
+            )
+            NavBarButton(
+                style: .filter(isFilled: false),
+                action: {}
+            )
+            NavBarButton(
+                style: .bell(notificationCount: 6),
+                action: {}
+            )
+            NavBarButton(
+                style: .bell(notificationCount: 65),
+                action: {}
+            )
 
         }
 

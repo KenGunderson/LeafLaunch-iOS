@@ -9,24 +9,41 @@ struct CommerceSectionHeader: View {
     var systemImage: String?
     var actionTitle: String?
     var action: (() -> Void)?
+    var titleFont: RNTheme.FontKey = LeafLaunchThemeTokens.headingFont
+    var titleColor: RNColorSource = .text(.title)
+    var imageSource: RNImageSource?
+    var imageColor: RNColorSource = .foreground(.secondary)
+    var imageSize: CGFloat = 20
+    var actionFont: RNTheme.FontKey = .TITLE_2
+    var actionColor: RNColorSource = .palette(.link)
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
-                if let systemImage = self.systemImage {
+                if let imageSource = self.imageSource ?? self.systemImage.map(RNImageSource.systemImage) {
 
-                    ImageSource.systemImage(systemImage)
+                    imageSource
                         .view()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
-                        .foregroundStyle(self.style.foreground(.secondary))
+                        .frame(
+                            width: self.imageSize,
+                            height: self.imageSize
+                        )
+                        .foregroundStyle(self.imageColor)
 
                 }
 
-                SectionView(leadingTitle: self.title) {
+                SectionView(
+                    leadingTitle: self.title,
+                    leadingForegroundColor: self.titleColor,
+                    titleFont: self.titleFont
+                ) {
                     sectionAction()
                 }
 
@@ -35,9 +52,12 @@ struct CommerceSectionHeader: View {
             if let subtitle = self.subtitle, !subtitle.isEmpty {
 
                 Text(subtitle)
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                    .runeFont(with: .BODY_1)
+                    .runeTextColor(.body)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
             }
 
@@ -46,17 +66,20 @@ struct CommerceSectionHeader: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func sectionAction() -> some View {
 
         if let actionTitle = self.actionTitle, let action = self.action {
 
             Text(actionTitle)
-                .appFont(with: .TITLE_2)
-                .foregroundStyle(self.style.palette(.link))
-                .fixedSize(horizontal: true, vertical: true)
-                .contentShape(Rectangle().inset(by: -self.style.spacing(.small2)))
-                .asButton(action: action)
+                .runeFont(with: self.actionFont)
+                .foregroundStyle(self.actionColor)
+                .fixedSize(
+                    horizontal: true,
+                    vertical: true
+                )
+                .contentShape(Rectangle().inset(by: -self.style.spacing(LLSpacing.section)))
+                .runeAsButton(action: action)
 
         }
 
@@ -71,7 +94,7 @@ struct CommerceSectionHeader: View {
         subtitle: "Available At This Location",
         systemImage: "heart"
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

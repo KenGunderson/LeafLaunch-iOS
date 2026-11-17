@@ -81,6 +81,7 @@ final class NavigationService: NavigationServiceProtocol, Equatable {
         self.replaceStackTask?.cancel()
 
         self.replaceStackTask = Task { @MainActor [weak self] in
+
             //The time delay may be device/app specific.
             try? await Task.sleep(nanoseconds: 400_000_000)
             guard !Task.isCancelled else { return }
@@ -117,22 +118,36 @@ extension View {
         return navigationDestination(for: Route.self) { route in
 
             switch route {
-            case .auth(let route): auth(route: route)
-            case .settings(let route): settings(route: route)
-            case .devSetting(let route): devSettings(route: route)
-            case .customer(let route): customer(route: route)
+            case .auth(let route):
+
+                auth(route: route)
+
+            case .settings(let route):
+
+                settings(route: route)
+
+            case .devSetting(let route):
+
+                devSettings(route: route)
+
+            case .customer(let route):
+
+                customer(route: route)
             }
 
         }
 
-        @ViewBuilder
+        @ContentBuilder
         func customer(route: Route.CustomerRoute) -> some View {
 
             switch route {
             case .product(let locationId, let productId):
 
                 let viewModel = Container.shared.productDetailsViewModel()
-                    .setup(locationId: locationId, productId: productId)
+                    .setup(
+                        locationId: locationId,
+                        productId: productId
+                    )
 
                 ProductDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -164,7 +179,10 @@ extension View {
             case .event(let locationId, let event):
 
                 let viewModel = Container.shared.eventDetailsViewModel()
-                    .setup(locationId: locationId, event: event)
+                    .setup(
+                        locationId: locationId,
+                        event: event
+                    )
 
                 EventDetailsScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
@@ -172,16 +190,20 @@ extension View {
             case .promotionProducts(let locationId, let promotionId, let title, let products):
 
                 let viewModel = Container.shared.promotionProductListViewModel()
-                    .setup(locationId: locationId, promotionId: promotionId, title: title, products: products)
+                    .setup(
+                        locationId: locationId,
+                        promotionId: promotionId,
+                        title: title,
+                        products: products
+                    )
 
                 PromotionProductListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
-
             }
 
         }
 
-        @ViewBuilder
+        @ContentBuilder
         func auth(route: Route.AuthRoute) -> some View {
 
             switch route {
@@ -209,12 +231,13 @@ extension View {
 
         }
 
-        @ViewBuilder
+        @ContentBuilder
         func settings(route: Route.SettingRoute) -> some View {
 
             switch route {
             case .contactSupport: EmptyView()
             case .rateApp: EmptyView()
+
             case .privacyPolicy:
 
                 let viewModel = Container.shared.legalDetailsViewModel()
@@ -236,7 +259,7 @@ extension View {
 
         }
 
-        @ViewBuilder
+        @ContentBuilder
         func devSettings(route: Route.DevSettingRoute) -> some View {
 
             switch route {
@@ -267,7 +290,6 @@ extension View {
 
                 DevAnalyticsListScreen(viewModel: viewModel)
                     .navigationBarBackButtonHidden()
-
             }
 
         }
@@ -297,7 +319,10 @@ extension View {
     func withSheet(_ navigationSheet: Binding<NavigationSheet?>,
                    onDismiss: (() -> Void)? = nil) -> some View {
 
-        sheet(item: navigationSheet, onDismiss: onDismiss) { sheet in
+        sheet(
+            item: navigationSheet,
+            onDismiss: onDismiss
+        ) { sheet in
 
             switch sheet {
             case .locations:
@@ -305,7 +330,6 @@ extension View {
                 let viewModel = Container.shared.locationListViewModel()
 
                 LocationListScreen(viewModel: viewModel)
-
             }
 
         }

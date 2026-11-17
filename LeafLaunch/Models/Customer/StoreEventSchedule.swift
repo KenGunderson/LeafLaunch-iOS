@@ -23,7 +23,13 @@ nonisolated struct StoreEventSchedule: Sendable {
     }
 
     func formattedDate(_ date: Date) -> String {
-        date.formatted(Date.FormatStyle(date: .abbreviated, time: .shortened, timeZone: self.timeZone))
+
+        date.formatted(Date.FormatStyle(
+            date: .abbreviated,
+            time: .shortened,
+            timeZone: self.timeZone
+        ))
+
     }
 
 }

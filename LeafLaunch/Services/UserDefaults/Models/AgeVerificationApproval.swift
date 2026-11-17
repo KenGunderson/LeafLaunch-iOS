@@ -11,6 +11,7 @@ nonisolated struct AgeVerificationApproval: Codable, Sendable {
     let approvalRevision: Int
 
     init(policy: EffectiveAgePolicy) {
+
         self.countryCode = policy.canonicalCountryCode
         self.region = policy.canonicalRegion
         self.minimumAge = policy.minimumAge
@@ -21,14 +22,20 @@ nonisolated struct AgeVerificationApproval: Codable, Sendable {
 
     func approves(policy: EffectiveAgePolicy) -> Bool {
 
-        return policy.isValid
-            && (1...100).contains(self.minimumAge)
-            && self.gateVersion > 0
-            && self.approvalRevision > 0
-            && self.countryCode == policy.canonicalCountryCode
-            && self.region == policy.canonicalRegion
-            && self.minimumAge >= policy.minimumAge
-            && self.approvalRevision >= policy.approvalRevision
+        guard policy.isValid,
+              (1...100).contains(self.minimumAge),
+              self.gateVersion > 0,
+              self.approvalRevision > 0 else { return false }
+
+        let matchesCountry = self.countryCode == policy.canonicalCountryCode
+        guard matchesCountry else { return false }
+
+        let matchesRegion = self.region == policy.canonicalRegion
+        guard matchesRegion else { return false }
+
+        let coversMinimumAge = self.minimumAge >= policy.minimumAge
+        var coversApprovalRevision: Bool { self.approvalRevision >= policy.approvalRevision }
+        return coversMinimumAge && coversApprovalRevision
 
     }
 

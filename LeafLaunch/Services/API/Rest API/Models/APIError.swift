@@ -11,9 +11,6 @@ enum APIError: Error, AppCustomError {
 
     enum PlatformError: Decodable {
 
-        case test(name: String, test: String)
-        case unknown(code: String, message: String?)
-
         private enum CodingKeys: String, CodingKey {
 
             case code
@@ -23,24 +20,39 @@ enum APIError: Error, AppCustomError {
 
         }
 
+        case test(name: String, test: String)
+        case unknown(code: String, message: String?)
+
         init(from decoder: Decoder) throws {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            let type = try container.decode(String.self, forKey: .type)
+            let type = try container.decode(
+                String.self,
+                forKey: .type
+            )
 
             switch type {
             case "test":
 
                 self = .test(
-                    name: try container.decode(String.self, forKey: .name),
-                    test: try container.decode(String.self, forKey: .type)
+                    name: try container.decode(
+                        String.self,
+                        forKey: .name
+                    ),
+                    test: try container.decode(
+                        String.self,
+                        forKey: .type
+                    )
                 )
 
             default:
 
                 self = .unknown(
                     code: "unkown",
-                    message: try container.decodeIfPresent(String.self, forKey: .message)
+                    message: try container.decodeIfPresent(
+                        String.self,
+                        forKey: .message
+                    )
                 )
             }
 
@@ -48,6 +60,7 @@ enum APIError: Error, AppCustomError {
 
     }
 
+    case cancelled
     case badURL
     case missingAccessToken
     case serverError(statusCode: Int, errorMessage: String)
@@ -58,18 +71,19 @@ enum APIError: Error, AppCustomError {
     var message: String {
 
         switch self {
+        case .cancelled: return "The request was cancelled."
         case .badURL: return "Invalid URL"
         case .missingAccessToken: return "Missing access token"
         case .serverError(_, let errorMessage): return errorMessage
         case .decodingError: return "There was an error decoding the response."
         case .unknownError: return "An unknown error occurred."
+
         case .platformError(let error):
 
             switch error {
             case .test(let name, let test): return "\(name) \(test)"
             case .unknown(_, let message): return message ?? "An unknown platform error occurred."
             }
-
         }
 
     }

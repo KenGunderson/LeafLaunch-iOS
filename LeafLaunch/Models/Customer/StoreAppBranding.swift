@@ -2,6 +2,24 @@ import Foundation
 
 nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
 
+    private enum CodingKeys: String, CodingKey {
+
+        case contentBackgroundColor = "content_background_color"
+        case titleColor = "title_color"
+        case bodyColor = "body_color"
+        case iconColor = "icon_color"
+        case accentColor = "accent_color"
+        case buttonColor = "button_color"
+        case buttonTitleColor = "button_title_color"
+        case backgroundColor = "background_color"
+        case logoURL = "logo_url"
+        case iconURL = "icon_url"
+        case splashURL = "splash_url"
+        case fontFamily = "font_family"
+        case radius
+
+    }
+
     let contentBackgroundColor: String?
     let titleColor: String?
     let bodyColor: String?
@@ -43,24 +61,6 @@ nonisolated struct StoreAppBranding: Codable, Equatable, Sendable {
         self.splashURL = splashURL
         self.fontFamily = fontFamily
         self.radius = radius
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case contentBackgroundColor = "content_background_color"
-        case titleColor = "title_color"
-        case bodyColor = "body_color"
-        case iconColor = "icon_color"
-        case accentColor = "accent_color"
-        case buttonColor = "button_color"
-        case buttonTitleColor = "button_title_color"
-        case backgroundColor = "background_color"
-        case logoURL = "logo_url"
-        case iconURL = "icon_url"
-        case splashURL = "splash_url"
-        case fontFamily = "font_family"
-        case radius
 
     }
 

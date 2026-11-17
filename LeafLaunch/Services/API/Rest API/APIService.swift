@@ -38,12 +38,15 @@ final class APIService: APIServiceProtocol {
         do {
 
             let token = try await self.firebaseService.freshAuthToken()
+            guard !Task.isCancelled else { throw APIError.cancelled }
+
             self.accessToken = token
             return token
 
         }
         catch {
 
+            guard !Task.isCancelled else { throw APIError.cancelled }
             self.logError(
                 title: "Auth Token Refresh Error",
                 message: error.getMessageForError()

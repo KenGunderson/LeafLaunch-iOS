@@ -4,7 +4,7 @@ struct CommerceSurface<Content: View>: View {
 
     private let content: Content
 
-    init(@ViewBuilder content: () -> Content) {
+    init(@ContentBuilder content: () -> Content) {
         self.content = content()
     }
 
@@ -20,22 +20,27 @@ struct CommerceSurface<Content: View>: View {
 
 #Preview {
 
+    @Previewable @Environment(\.style) var style
+
     CommerceSurface {
 
-        VStack(alignment: .leading) {
+        VStack(
+            alignment: .leading,
+            spacing: style.spacing(LLSpacing.listRow)
+        ) {
 
             Text(MockCustomerModels.store.name)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .TITLE_4)
+                .runeTextColor(.title)
 
             Text(MockCustomerModels.locationDetails.location.name)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(.text(.body))
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.body)
 
         }
 
     }
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

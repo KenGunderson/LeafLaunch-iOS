@@ -15,6 +15,16 @@ nonisolated struct ProductAttribute: Codable, Equatable, Hashable, Identifiable,
 
     }
 
+    private enum CodingKeys: String, CodingKey {
+
+        case id
+        case name
+        case valueType = "value_type"
+        case value
+        case unit
+
+    }
+
     let id: String
     let name: String
     let valueType: ValueType
@@ -28,16 +38,6 @@ nonisolated struct ProductAttribute: Codable, Equatable, Hashable, Identifiable,
         }
 
         return [self.value.displayValue, self.unit].compactMap { $0 }.joined(separator: " ")
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case id
-        case name
-        case valueType = "value_type"
-        case value
-        case unit
 
     }
 

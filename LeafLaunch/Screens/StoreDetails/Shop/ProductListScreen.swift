@@ -13,7 +13,8 @@ struct ProductListScreen: GPView {
     @FocusState private var isSearchFocused: Bool
 
     private var isLoadingProducts: Bool {
-        self.viewModel.isLoading && self.viewModel.products.isEmpty
+        let hasNoProducts = self.viewModel.products.isEmpty && !self.viewModel.hasCompletedInitialLoad
+        return self.viewModel.isLoading && hasNoProducts
     }
 
     private var selectedSectionTitle: String {
@@ -41,7 +42,7 @@ struct ProductListScreen: GPView {
 
     var body: some View {
 
-        AppHeaderScrollView(
+        RNHeaderScrollView(
             horizontalPadding: .medium,
             refreshConfiguration: .init(
                 isRefreshing: self.$isRefreshing,
@@ -80,12 +81,12 @@ struct ProductListScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         StoreNavHeader(
@@ -97,24 +98,30 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             catalogControls()
             productFeed()
 
         }
-        .foregroundStyle(self.style.textColor(.body))
+        .runeTextColor(.body)
         .tabFlowContentSpacing()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func catalogControls() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             menuTitle()
             searchAndFilters()
@@ -126,26 +133,26 @@ struct ProductListScreen: GPView {
                 onCategorySelected: { self.viewModel.selectCategory(id: $0) },
                 onSubcategorySelected: { self.viewModel.selectSubcategory(id: $0) }
             )
-            .padding(.horizontal, -self.style.spacing(.medium))
+            .runePadding(.horizontal, .custom(-self.style.spacing(LLSpacing.listRow)))
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func menuTitle() -> some View {
 
         Text(String(localized: "Menu"))
-            .appFont(with: LeafLaunchThemeTokens.headingFont)
-            .foregroundStyle(self.style.textColor(.title))
+            .runeFont(with: LeafLaunchThemeTokens.headingFont)
+            .runeTextColor(.title)
             .frame(maxWidth: .infinity, alignment: .leading)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func searchAndFilters() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             searchField()
             filtersMenu()
@@ -154,20 +161,26 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func searchField() -> some View {
 
-        HStack(spacing: self.style.spacing(.small2)) {
+        HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
-            ImageSource.systemImage("magnifyingglass")
+            RNImageSource.systemImage("magnifyingglass")
                 .view()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
-                .foregroundStyle(self.isSearchFocused ? self.style.foreground(.primary) : self.style.textColor(.body))
+                .frame(
+                    width: self.style.spacing(.medium2),
+                    height: self.style.spacing(.medium2)
+                )
+                .foregroundStyle(self.isSearchFocused ? RNColorSource.foreground(.primary) : RNColorSource.text(.body))
 
-            TextField(String(localized: "Search The Menu"), text: self.$viewModel.search)
-                .appFont(with: .BODY_2)
-                .foregroundStyle(self.style.textColor(.title))
+            TextField(
+                String(localized: "Search The Menu"),
+                text: self.$viewModel.search
+            )
+                .runeFont(with: .BODY_2)
+                .runeTextColor(.title)
                 .focused(self.$isSearchFocused)
                 .submitLabel(.search)
                 .autocorrectionDisabled()
@@ -175,14 +188,20 @@ struct ProductListScreen: GPView {
 
             if !self.viewModel.search.isEmpty {
 
-                ImageSource.systemImage("xmark.circle.fill")
+                RNImageSource.systemImage("xmark.circle.fill")
                     .view()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: self.style.spacing(.medium2), height: self.style.spacing(.medium2))
-                    .foregroundStyle(self.style.textColor(.body))
-                    .frame(minWidth: 44, minHeight: 44)
+                    .frame(
+                        width: self.style.spacing(.medium2),
+                        height: self.style.spacing(.medium2)
+                    )
+                    .runeTextColor(.body)
+                    .frame(
+                        minWidth: 44,
+                        minHeight: 44
+                    )
                     .contentShape(Rectangle())
-                    .asButton {
+                    .runeAsButton {
 
                         self.viewModel.clearSearch()
                         self.isSearchFocused = true
@@ -192,23 +211,29 @@ struct ProductListScreen: GPView {
             }
 
         }
-        .padding(.leading, .medium)
-        .padding(.trailing, .small)
+        .runePadding(.leading, LLSpacing.pageInset)
+        .runePadding(.trailing, LLSpacing.groupedContent)
         .frame(minHeight: 48)
-        .background(self.style.background(.secondary))
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+        .runeBackground(.secondary)
+        .runeCornerRadius(.medium2)
         .overlay {
 
             RoundedRectangle(cornerRadius: self.style.radius(.medium2))
-                .strokeBorder(self.isSearchFocused ? self.style.foreground(.primary) : self.style.background(.border), lineWidth: 1)
+                .strokeBorder(
+                    self.isSearchFocused ? RNColorSource.foreground(.primary) : RNColorSource.background(.border),
+                    lineWidth: 1
+                )
                 .allowsHitTesting(false)
 
         }
-        .animation(.bouncy, value: self.isSearchFocused)
+        .animation(
+            .bouncy,
+            value: self.isSearchFocused
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func filtersMenu() -> some View {
 
         Menu {
@@ -226,34 +251,40 @@ struct ProductListScreen: GPView {
 
         } label: {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
-                ImageSource.systemImage("slider.horizontal.3")
+                RNImageSource.systemImage("slider.horizontal.3")
                     .view(shouldResize: false)
 
                 Text(String(localized: "Filters"))
 
             }
-            .appFont(with: .BODY_2)
-            .foregroundStyle(self.viewModel.hasActiveFilters ? self.style.palette(.link) : self.style.textColor(.title))
-            .padding(.horizontal, .small2)
+            .runeFont(with: .BODY_2)
+            .foregroundStyle(self.viewModel.hasActiveFilters ? RNColorSource.palette(.link) : RNColorSource.text(.title))
+            .runePadding(.horizontal, LLSpacing.cardContent)
             .frame(minHeight: 48)
-            .background(self.style.background(.secondary))
-            .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+            .runeBackground(.secondary)
+            .runeCornerRadius(.medium2)
             .overlay {
 
                 RoundedRectangle(cornerRadius: self.style.radius(.medium2))
-                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                    .strokeBorder(
+                        RNColorSource.background(.border),
+                        lineWidth: 1
+                    )
                     .allowsHitTesting(false)
 
             }
 
         }
-        .fixedSize(horizontal: true, vertical: false)
+        .fixedSize(
+            horizontal: true,
+            vertical: false
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func categoryPicker() -> some View {
 
         Picker(
@@ -274,7 +305,7 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func subcategoryPicker() -> some View {
 
         if !self.viewModel.subcategories.isEmpty {
@@ -299,12 +330,15 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func feedHeader() -> some View {
 
         ViewThatFits(in: .horizontal) {
 
-            HStack(alignment: .center, spacing: self.style.spacing(.small)) {
+            HStack(
+                alignment: .center,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 feedTitle()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -313,7 +347,10 @@ struct ProductListScreen: GPView {
 
             }
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.groupedContent)
+            ) {
 
                 feedTitle()
                 sortMenu()
@@ -323,36 +360,42 @@ struct ProductListScreen: GPView {
         }
 
     }
-    
-    @ViewBuilder
+
+    @ContentBuilder
     private func feedTitle() -> some View {
-        
-        VStack(alignment: .leading, spacing: self.style.spacing(.none)) {
-            
+
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.none)
+        ) {
+
             Text(self.selectedSectionTitle)
-                .appFont(with: .HEADER_2)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .HEADER_2)
+                .runeTextColor(.title)
                 .minimumScaleFactor(0.75)
                 .contentTransition(.numericText())
-                .animation(self.reduceMotion ? nil : .bouncy, value: self.selectedSectionTitle)
-            
+                .animation(
+                    self.reduceMotion ? nil : .bouncy,
+                    value: self.selectedSectionTitle
+                )
+
             if !self.viewModel.products.isEmpty {
-                
+
                 Text(self.viewModel.hasMoreProducts
                      ? String(localized: "\(self.viewModel.products.count)+ Products")
                      : String(localized: "\(self.viewModel.products.count) Products"))
                 .monospacedDigit()
-                .appFont(with: .NOTE_2)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .NOTE_2)
+                .runeTextColor(.body)
                 .contentTransition(.numericText())
-                
+
             }
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func sortMenu() -> some View {
 
         Menu {
@@ -375,57 +418,74 @@ struct ProductListScreen: GPView {
 
         } label: {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Text(self.viewModel.sort.compactTitle)
                     .contentTransition(.numericText())
                     .accessibilityLabel(self.viewModel.sort.title)
 
-                ImageSource.systemImage("chevron.down")
+                RNImageSource.systemImage("chevron.down")
                     .view(shouldResize: false)
 
             }
-            .appFont(with: .TITLE_1)
-            .foregroundStyle(self.style.textColor(.title))
-            .padding(.horizontal, .small2)
+            .runeFont(with: .TITLE_1)
+            .runeTextColor(.title)
+            .runePadding(.horizontal, LLSpacing.cardContent)
             .frame(minHeight: 44)
-            .background(self.style.background(.secondary))
+            .runeBackground(.secondary)
             .clipShape(Capsule())
             .overlay {
 
                 Capsule()
-                    .strokeBorder(self.style.background(.border), lineWidth: 1)
+                    .strokeBorder(
+                        RNColorSource.background(.border),
+                        lineWidth: 1
+                    )
                     .allowsHitTesting(false)
 
             }
-            .animation(self.reduceMotion ? nil : .bouncy, value: self.viewModel.sort)
+            .animation(
+                self.reduceMotion ? nil : .bouncy,
+                value: self.viewModel.sort
+            )
 
         }
-        .fixedSize(horizontal: true, vertical: false)
+        .fixedSize(
+            horizontal: true,
+            vertical: false
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productFeed() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             feedHeader()
             activeFilters()
 
             productResults()
-                .id(self.resultTransitionId)
-                .transition(.blurReplace.combined(with: .scale(0.75)))
+                .llBlurReplace(
+                    value: self.resultTransitionId,
+                    transition: AnyTransition(.blurReplace).combined(with: .scale(scale: 0.75)),
+                    animation: self.reduceMotion ? nil : .bouncy
+                )
 
         }
-        .animation(self.reduceMotion ? nil : .bouncy, value: self.resultTransitionId)
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func productResults() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             loadingProducts()
 
@@ -444,23 +504,26 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func activeFilters() -> some View {
 
         if self.viewModel.hasActiveFilters {
 
-            HStack(spacing: self.style.spacing(.small)) {
+            HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 Text(String(localized: "Filtered Results"))
-                    .appFont(with: .NOTE_1)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .NOTE_1)
+                    .runeTextColor(.body)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Text(String(localized: "Reset"))
-                    .appFont(with: .TITLE_2)
-                    .foregroundStyle(self.style.palette(.link))
-                    .frame(minWidth: 44, minHeight: 44)
-                    .asButton { self.viewModel.clearFilters() }
+                    .runeFont(with: .TITLE_2)
+                    .foregroundStyle(RNColorSource.palette(.link))
+                    .frame(
+                        minWidth: 44,
+                        minHeight: 44
+                    )
+                    .runeAsButton { self.viewModel.clearFilters() }
 
             }
 
@@ -468,12 +531,15 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func feedState() -> some View {
 
-        if self.viewModel.hasLoadFailed && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+        let hasNoProducts = self.viewModel.products.isEmpty
+        let hasInitialFailure = self.viewModel.hasLoadFailed && !self.viewModel.hasCompletedInitialLoad
 
-            VStack(spacing: self.style.spacing(.small)) {
+        if hasInitialFailure && hasNoProducts && !self.viewModel.isLoading {
+
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 CommerceEmptyState(
                     systemImage: "wifi.exclamationmark",
@@ -487,9 +553,9 @@ struct ProductListScreen: GPView {
 
             }
 
-        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty && !self.viewModel.isLoading {
+        } else if self.viewModel.hasCompletedInitialLoad && self.viewModel.products.isEmpty {
 
-            VStack(spacing: self.style.spacing(.small)) {
+            VStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
                 CommerceEmptyState(
                     systemImage: "magnifyingglass",
@@ -500,10 +566,10 @@ struct ProductListScreen: GPView {
                 if self.viewModel.hasActiveFilters {
 
                     Text(String(localized: "Clear Filters"))
-                        .appFont(with: .TITLE_2)
-                        .foregroundStyle(self.style.palette(.link))
+                        .runeFont(with: .TITLE_2)
+                        .foregroundStyle(RNColorSource.palette(.link))
                         .frame(maxWidth: .infinity, minHeight: 44)
-                        .asButton {
+                        .runeAsButton {
                             self.viewModel.clearFilters()
                         }
 
@@ -515,22 +581,22 @@ struct ProductListScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadingProducts() -> some View {
 
         if self.isLoadingProducts {
 
             ProgressView(String(localized: "Loading Products"))
-                .tint(self.style.accent)
-                .appFont(with: .BODY_2)
+                .runeTint(.primary)
+                .runeFont(with: .BODY_2)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, .large)
+                .runePadding(.vertical, LLSpacing.content)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func feedActions() -> some View {
 
         if self.viewModel.hasMoreProducts {

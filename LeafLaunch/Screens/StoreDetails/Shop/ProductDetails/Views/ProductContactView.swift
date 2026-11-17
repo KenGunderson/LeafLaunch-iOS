@@ -16,7 +16,10 @@ struct ProductContactView: View {
 
         LLAppCardView(cornerRadius: .medium2) {
 
-            VStack(alignment: .leading, spacing: self.style.spacing(.small2)) {
+            VStack(
+                alignment: .leading,
+                spacing: self.style.spacing(LLSpacing.cardContent)
+            ) {
 
                 heading()
                 contactActions()
@@ -28,22 +31,31 @@ struct ProductContactView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func heading() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(String(localized: "Questions About This Product?"))
-                .appFont(with: LeafLaunchThemeTokens.headingFont)
-                .foregroundStyle(self.style.textColor(.title))
-                .fixedSize(horizontal: false, vertical: true)
+                .runeFont(with: LeafLaunchThemeTokens.headingFont)
+                .runeTextColor(.title)
+                .fixedSize(
+                    horizontal: false,
+                    vertical: true
+                )
 
             if !self.storeName.isEmpty {
 
                 Text(self.storeName)
-                    .appFont(with: .BODY_2)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .fixedSize(horizontal: false, vertical: true)
+                    .runeFont(with: .BODY_2)
+                    .runeTextColor(.body)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
 
             }
 
@@ -51,10 +63,10 @@ struct ProductContactView: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func contactActions() -> some View {
 
-        HStack(spacing: self.style.spacing(.extraSmall)) {
+        HStack(spacing: self.style.spacing(LLSpacing.metadata)) {
 
             LeafLaunchButton(
                 title: String(localized: "Map"),
@@ -84,7 +96,7 @@ struct ProductContactView: View {
             .frame(maxWidth: .infinity)
 
         }
-        .appFont(with: .TITLE_3)
+        .runeFont(with: .TITLE_3)
 
     }
 
@@ -101,7 +113,7 @@ struct ProductContactView: View {
         onCall: {},
         onEmail: {}
     )
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

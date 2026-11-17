@@ -19,7 +19,7 @@ struct LocationSearchControls: View {
 
         ViewThatFits(in: .horizontal) {
 
-            HStack(spacing: self.style.spacing(.small2)) {
+            HStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
                 searchField()
                     .frame(minWidth: 180)
@@ -27,7 +27,7 @@ struct LocationSearchControls: View {
 
             }
 
-            VStack(spacing: self.style.spacing(.small2)) {
+            VStack(spacing: self.style.spacing(LLSpacing.cardContent)) {
 
                 searchField()
                 locationButton()
@@ -39,18 +39,21 @@ struct LocationSearchControls: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func searchField() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
-            ImageSource.systemImage("magnifyingglass")
+            RNImageSource.systemImage("magnifyingglass")
                 .view(shouldResize: false)
-                .foregroundStyle(self.style.textColor(.placeholder))
+                .runeTextColor(.placeholder)
 
-            TextField(String(localized: "City Or ZIP Code"), text: self.$viewModel.search)
-                .appFont(with: .BODY_1)
-                .foregroundStyle(self.style.textColor(.title))
+            TextField(
+                String(localized: "City Or ZIP Code"),
+                text: self.$viewModel.search
+            )
+                .runeFont(with: .BODY_1)
+                .runeTextColor(.title)
                 .focused(self.$isSearchFocused)
                 .submitLabel(.search)
                 .autocorrectionDisabled()
@@ -64,18 +67,21 @@ struct LocationSearchControls: View {
             if self.viewModel.isSearchingNearby {
 
                 ProgressView()
-                    .tint(self.style.palette(.link))
+                    .tint(RNColorSource.palette(.link))
 
             }
 
             if !self.viewModel.search.isEmpty {
 
-                ImageSource.systemImage("xmark.circle.fill")
+                RNImageSource.systemImage("xmark.circle.fill")
                     .view(shouldResize: false)
-                    .foregroundStyle(self.style.textColor(.body))
-                    .frame(minWidth: 44, minHeight: 44)
+                    .runeTextColor(.body)
+                    .frame(
+                        minWidth: 44,
+                        minHeight: 44
+                    )
                     .contentShape(Rectangle())
-                    .asButton {
+                    .runeAsButton {
 
                         self.viewModel.clearSearch()
                         self.isSearchFocused = true
@@ -85,41 +91,50 @@ struct LocationSearchControls: View {
             }
 
         }
-        .padding(.horizontal, .small2)
+        .runePadding(.horizontal, LLSpacing.cardContent)
         .frame(minHeight: 56)
-        .background(self.style.background(.secondary))
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
+        .runeBackground(.secondary)
+        .runeCornerRadius(.medium2)
         .overlay {
 
             RoundedRectangle(cornerRadius: self.style.radius(.medium2))
-                .strokeBorder(self.isSearchFocused ? self.style.palette(.link) : self.style.background(.border), lineWidth: 1)
+                .strokeBorder(
+                    self.isSearchFocused ? RNColorSource.palette(.link) : RNColorSource.background(.border),
+                    lineWidth: 1
+                )
                 .allowsHitTesting(false)
 
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationButton() -> some View {
 
-        HStack(spacing: self.style.spacing(.small)) {
+        HStack(spacing: self.style.spacing(LLSpacing.groupedContent)) {
 
             locationButtonIcon()
 
             Text(String(localized: "Use My\nLocation"))
-                .appFont(with: .TITLE_1)
-                .foregroundStyle(self.style.textColor(.title))
-                .fixedSize(horizontal: true, vertical: true)
+                .runeFont(with: .TITLE_1)
+                .runeTextColor(.title)
+                .fixedSize(
+                    horizontal: true,
+                    vertical: true
+                )
                 .multilineTextAlignment(.leading)
 
         }
-        .padding(.horizontal, .small2)
+        .runePadding(.horizontal, LLSpacing.cardContent)
         .frame(minHeight: 56)
-        .background(self.style.background(.secondary))
-        .clipShape(RoundedRectangle(cornerRadius: self.style.radius(.medium2)))
-        .appBorder(cornerRadius: .medium2, lineWidth: 1)
+        .runeBackground(.secondary)
+        .runeCornerRadius(.medium2)
+        .runeBorder(
+            cornerRadius: .medium2,
+            lineWidth: 1
+        )
         .contentShape(Rectangle())
-        .asButton {
+        .runeAsButton {
 
             self.isSearchFocused = false
             self.viewModel.useCurrentLocation()
@@ -129,7 +144,7 @@ struct LocationSearchControls: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func locationButtonIcon() -> some View {
 
         ZStack {
@@ -137,19 +152,22 @@ struct LocationSearchControls: View {
             if self.viewModel.isLocating {
 
                 ProgressView()
-                    .tint(self.style.palette(.link))
+                    .tint(RNColorSource.palette(.link))
 
             } else {
 
-                ImageSource.systemImage("location")
+                RNImageSource.systemImage("location")
                     .view(shouldResize: false)
-                    .appFont(with: .TITLE_5)
-                    .foregroundStyle(self.style.palette(.link))
+                    .runeFont(with: .TITLE_5)
+                    .foregroundStyle(RNColorSource.palette(.link))
 
             }
 
         }
-        .frame(width: self.style.spacing(.large), height: self.style.spacing(.large))
+        .frame(
+            width: self.style.spacing(.large),
+            height: self.style.spacing(.large)
+        )
 
     }
 

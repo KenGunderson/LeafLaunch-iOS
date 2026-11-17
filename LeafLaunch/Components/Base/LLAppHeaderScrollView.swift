@@ -7,11 +7,20 @@ import SwiftUI
 
 struct LLAppHeaderScrollView<NavBarContent: View, ScrollViewContent: View>: View {
 
+    @State private var isRefreshing = false
+
+    private let horizontalPadding: RNTheme.SpacingKey
+    private let onRefresh: (() async -> Void)?
     private let navBarContent: NavBarContent
     private let scrollViewContent: ScrollViewContent
 
-    init(@ViewBuilder navBarContent: () -> NavBarContent,
-         @ViewBuilder scrollViewContent: () -> ScrollViewContent) {
+    init(horizontalPadding: RNTheme.SpacingKey = LLSpacing.pageInset,
+         onRefresh: (() async -> Void)? = nil,
+         @ContentBuilder navBarContent: () -> NavBarContent,
+         @ContentBuilder scrollViewContent: () -> ScrollViewContent) {
+
+        self.horizontalPadding = horizontalPadding
+        self.onRefresh = onRefresh
 
         self.navBarContent = navBarContent()
         self.scrollViewContent = scrollViewContent()
@@ -20,13 +29,30 @@ struct LLAppHeaderScrollView<NavBarContent: View, ScrollViewContent: View>: View
 
     var body: some View {
 
-        AppHeaderScrollView(horizontalPadding: .medium) {
+        if let onRefresh = self.onRefresh {
 
-            self.navBarContent
+            RNHeaderScrollView(
+                horizontalPadding: self.horizontalPadding,
+                refreshConfiguration: RNHeaderScrollViewRefreshConfiguration(
+                    isRefreshing: self.$isRefreshing,
+                    onRefresh: onRefresh,
+                    indicator: { context in
+                        LLRefreshIndicator(context: context)
+                    }
+                )
+            ) {
+                self.navBarContent
+            } scrollViewContent: {
+                self.scrollViewContent
+            }
 
-        } scrollViewContent: {
+        } else {
 
-            self.scrollViewContent
+            RNHeaderScrollView(horizontalPadding: self.horizontalPadding) {
+                self.navBarContent
+            } scrollViewContent: {
+                self.scrollViewContent
+            }
 
         }
 
@@ -45,8 +71,8 @@ struct LLAppHeaderScrollView<NavBarContent: View, ScrollViewContent: View>: View
         CommerceSurface {
 
             Text(MockCustomerModels.locationDetails.location.name)
-                .appFont(with: .TITLE_4)
-                .foregroundStyle(.text(.title))
+                .runeFont(with: .TITLE_4)
+                .runeTextColor(.title)
 
         }
 

@@ -88,54 +88,101 @@ extension Date {
 
 #Preview {
 
-    AppBaseView {
+    @Previewable @Environment(\.style) var style
 
-        VStack {
+    RNBaseView {
+
+        VStack(spacing: style.spacing(LLSpacing.listRow)) {
 
             Text(Date().relativeDateStringWithOverride())
-            Text(Date().dateByAdding(-1, .minute).dateByAdding(-1, .second).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(-1, .hour).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(-1, .day).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(-1, .month).date.relativeDateStringWithOverride())
-            Text(Date().dateByAdding(-1, .year).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(
+                -1,
+                .minute
+            ).dateByAdding(
+                -1,
+                .second
+            ).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(
+                -1,
+                .hour
+            ).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(
+                -1,
+                .day
+            ).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(
+                -1,
+                .month
+            ).date.relativeDateStringWithOverride())
+            Text(Date().dateByAdding(
+                -1,
+                .year
+            ).date.relativeDateStringWithOverride())
 
             Rectangle()
-                .fill(.clear)
+                .runeFill(.color(.clear))
                 .frame(height: 32)
 
             Text(Date().date.calendarDayRelativeString())
 
             Text(Date().date
-                .dateByAdding(-1, .day)
-                .dateByAdding(-1, .second)
+                .dateByAdding(
+                    -1,
+                    .day
+                )
+                .dateByAdding(
+                    -1,
+                    .second
+                )
                 .date
                 .calendarDayRelativeString())
 
             Text(Date().date
-                .dateByAdding(1, .day)
-                .dateByAdding(1, .second)
+                .dateByAdding(
+                    1,
+                    .day
+                )
+                .dateByAdding(
+                    1,
+                    .second
+                )
                 .date
                 .calendarDayRelativeString())
 
             Text(Date().date
-                .dateByAdding(2, .day)
-                .dateByAdding(1, .second)
+                .dateByAdding(
+                    2,
+                    .day
+                )
+                .dateByAdding(
+                    1,
+                    .second
+                )
                 .date
                 .calendarDayRelativeString())
 
             Text(Date().date
-                .dateByAdding(1, .month)
-                .dateByAdding(1, .second)
+                .dateByAdding(
+                    1,
+                    .month
+                )
+                .dateByAdding(
+                    1,
+                    .second
+                )
                 .date
                 .calendarDayRelativeString())
 
             Text(Date().date
-                .dateByAdding(1, .year)
+                .dateByAdding(
+                    1,
+                    .year
+                )
                 .date
                 .calendarDayRelativeString())
 
         }
-        .appFont(with: .HEADER_3)
+        .runeFont(with: .HEADER_3)
 
     }
 

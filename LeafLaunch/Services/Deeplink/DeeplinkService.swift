@@ -19,6 +19,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
     private let duplicateSuppressionInterval: TimeInterval = 1
 
     init(lifecycleService: ViewLifecycleServiceProtocol) {
+
         self.lifecycleService = lifecycleService
         self.logInit()
 
@@ -47,6 +48,7 @@ final class DeeplinkService: DeeplinkServiceProtocol {
 
             self.pendingURL = url
             self.log(message: "Queue URL until navigation is ready: \(url)")
+
             return
 
         }
@@ -63,16 +65,23 @@ final class DeeplinkService: DeeplinkServiceProtocol {
 
         }
 
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+        guard let components = URLComponents(
+            url: url,
+            resolvingAgainstBaseURL: true
+        ),
               components.host != nil else { return }
 
         let route = components.path.split(separator: "/").first.map(String.init) ?? components.host
 
         switch route {
         case "home":
+
             navigateHome(using: navigationService)
+
         case "settings":
+
             navigationService.modal(fullScreenCover: .settings)
+
         case "tab":
 
             let tabValue = components.queryItems?.first(where: { $0.name == "tab" })?.value
@@ -82,14 +91,14 @@ final class DeeplinkService: DeeplinkServiceProtocol {
             guard tab == .tab1 else {
 
                 self.log(message: "Tab link reserved for a future child flow: \(tab.rawValue)")
+
                 return
 
             }
 
             navigateHome(using: navigationService)
 
-        default:
-            return
+        default: return
         }
 
         self.lastProcessedURLString = urlString

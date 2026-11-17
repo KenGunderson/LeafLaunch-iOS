@@ -11,7 +11,7 @@ final class ProductListViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -67,11 +67,13 @@ final class ProductListViewModel: ViewModel {
             self.selectedSubcategoryId != self.subcategories.first?.id
     }
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.apiService = apiService
         self.storeSessionService = storeSessionService
@@ -133,11 +135,14 @@ final class ProductListViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func loadData(showHud: Bool = false) {
 
         self.searchTask?.cancel()
         self.searchTask = nil
-        loadProducts(reset: true, showHud: showHud)
+        loadProducts(
+            reset: true,
+            showHud: showHud
+        )
 
     }
 
@@ -149,7 +154,11 @@ final class ProductListViewModel: ViewModel {
         self.searchTask?.cancel()
         self.searchTask = nil
 
-        guard let loadTask = loadProducts(reset: true, showHud: false, reloadCategories: true) else { return nil }
+        guard let loadTask = loadProducts(
+            reset: true,
+            showHud: false,
+            reloadCategories: true
+        ) else { return nil }
         let loadId = self.loadId
 
         await withTaskCancellationHandler {
@@ -192,14 +201,20 @@ final class ProductListViewModel: ViewModel {
     func loadMore(showHud: Bool = false) {
 
         guard self.hasMoreProducts else { return }
-        loadProducts(reset: false, showHud: showHud)
+        loadProducts(
+            reset: false,
+            showHud: showHud
+        )
 
     }
 
     func openProduct(id: String) {
 
         guard let locationId = self.locationId else { return }
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: id)))
+        self.navigationService?.push(.customer(.product(
+            locationId: locationId,
+            productId: id
+        )))
 
     }
 
@@ -223,12 +238,17 @@ final class ProductListViewModel: ViewModel {
             productId: id,
             isFavorite: isFavorite
         )
-        presentFavoriteToast(title: product.displayName, isFavorite: isFavorite)
+        presentFavoriteToast(
+            title: product.displayName,
+            isFavorite: isFavorite
+        )
 
     }
 
     @discardableResult
-    private func loadProducts(reset: Bool, showHud: Bool, reloadCategories: Bool = false) -> Task<Void, Never>? {
+    private func loadProducts(reset: Bool,
+                              showHud: Bool,
+                              reloadCategories: Bool = false) -> Task<Void, Never>? {
 
         guard let locationId = self.locationId else { return nil }
         guard reset || self.loadProductsTask == nil else { return nil }
@@ -254,7 +274,7 @@ final class ProductListViewModel: ViewModel {
 
         let loadTask = Task { @MainActor [weak self] in
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
 
             defer {
 
@@ -319,7 +339,10 @@ final class ProductListViewModel: ViewModel {
 
                 }
 
-                let page = try await apiService.getCustomerProducts(locationId: locationId, query: query)
+                let page = try await apiService.getCustomerProducts(
+                    locationId: locationId,
+                    query: query
+                )
                 guard !Task.isCancelled, self?.loadId == loadId else { return }
 
                 if let refreshedCategories {
@@ -386,10 +409,16 @@ final class ProductListViewModel: ViewModel {
                 guard !Task.isCancelled else { return }
 
                 self?.searchTask = nil
-                self?.loadProducts(reset: true, showHud: false)
+                self?.loadProducts(
+                    reset: true,
+                    showHud: false
+                )
 
             } catch {
+
+                guard !Task.isCancelled else { return }
                 return
+
             }
 
         }
@@ -408,9 +437,12 @@ final class ProductListViewModel: ViewModel {
     private func presentProductsError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "products"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "products"
+                    ),
                     action: {}
                 )
             )
@@ -420,10 +452,17 @@ final class ProductListViewModel: ViewModel {
 
     private func presentFavoriteToast(title: String, isFavorite: Bool) {
 
-        ToastManager.shared.present(toastItem: .init(
+        RNToastManager.shared.present(toastItem: .init(
             timing: .medium,
             direction: .top,
-            content: { ProductFavoriteToastView(productTitle: title, isFavorite: isFavorite) }
+            content: {
+
+                ProductFavoriteToastView(
+                    productTitle: title,
+                    isFavorite: isFavorite
+                )
+
+            }
         ))
 
     }

@@ -24,7 +24,10 @@ public struct APILogResponse: Sendable {
     public var responseJSON: [String: Any]? {
 
         if let responseData,
-           let json = try? JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any] {
+           let json = try? JSONSerialization.jsonObject(
+               with: responseData,
+               options: []
+           ) as? [String: Any] {
             return json
         }
 

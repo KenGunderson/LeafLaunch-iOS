@@ -11,7 +11,7 @@ final class StoreDetailsViewModel: ViewModel {
     private let storeSessionService: StoreSessionServiceProtocol
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let analyticsService: AnalyticsServiceProtocol
-    private let alertService: AlertServiceProtocol
+    private let alertService: RNAlertServiceProtocol
 
     private weak var navigationService: NavigationService?
     private var locationId: String?
@@ -29,11 +29,13 @@ final class StoreDetailsViewModel: ViewModel {
     var store: PublicStore? { self.storeSessionService.store }
     var locationDetails: CustomerLocationDetails? { self.storeSessionService.locationDetails }
 
+    var isFirstLoad: Bool { !self.hasCompletedInitialLoad }
+
     init(apiService: APIServiceProtocol,
          storeSessionService: StoreSessionServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol,
          analyticsService: AnalyticsServiceProtocol,
-         alertService: AlertServiceProtocol) {
+         alertService: RNAlertServiceProtocol) {
 
         self.apiService = apiService
         self.storeSessionService = storeSessionService
@@ -72,21 +74,33 @@ final class StoreDetailsViewModel: ViewModel {
 
     }
 
-    func loadData(showHud: Bool) {
+    func refreshData() async {
+
+        guard !Task.isCancelled else { return }
+        loadData()
+        let loadTask = self.loadOverviewTask
+        await loadTask?.value
+
+    }
+
+    func loadData(showHud: Bool = false) {
 
         guard self.loadOverviewTask == nil,
               let locationId = self.locationId else { return }
 
         let apiService = self.apiService
         let alertService = self.alertService
-        let featuredQuery = ProductQuery(sort: .featured, limit: 6)
+        let featuredQuery = ProductQuery(
+            sort: .featured,
+            limit: 6
+        )
         self.isLoading = true
 
         self.loadOverviewTask = Task { @MainActor [weak self] in
 
             guard !Task.isCancelled else { return }
 
-            let loadingIndicator = RuneAlert(.simpleLoadingIndicator)
+            let loadingIndicator = RNAlert(.simpleLoadingIndicator)
             if showHud { alertService.showAlert(loadingIndicator) }
 
             defer {
@@ -101,8 +115,15 @@ final class StoreDetailsViewModel: ViewModel {
             do {
 
                 async let promotions = apiService.getCustomerPromotions(locationId: locationId)
-                async let events = apiService.getCustomerEvents(locationId: locationId, offset: 0, limit: 10)
-                async let featuredProducts = apiService.getCustomerProducts(locationId: locationId, query: featuredQuery)
+                async let events = apiService.getCustomerEvents(
+                    locationId: locationId,
+                    offset: 0,
+                    limit: 10
+                )
+                async let featuredProducts = apiService.getCustomerProducts(
+                    locationId: locationId,
+                    query: featuredQuery
+                )
                 let (loadedPromotions, loadedEvents, loadedFeaturedProducts) = try await (promotions, events, featuredProducts)
                 guard !Task.isCancelled else { return }
 
@@ -138,7 +159,10 @@ final class StoreDetailsViewModel: ViewModel {
         guard let locationId = self.locationId,
               self.events.contains(where: { $0.id == event.id }) else { return }
 
-        self.navigationService?.push(.customer(.event(locationId: locationId, event: event)))
+        self.navigationService?.push(.customer(.event(
+            locationId: locationId,
+            event: event
+        )))
 
     }
 
@@ -151,11 +175,13 @@ final class StoreDetailsViewModel: ViewModel {
         case .general:
             return
 
-        case .sale, .newProduct:
+        case .sale,
+                .newProduct:
 
             guard !promotion.linkedProducts.isEmpty else {
 
                 presentPromotionError(message: Constants.Message.promotionProductsErrorMessage)
+
                 return
 
             }
@@ -165,11 +191,15 @@ final class StoreDetailsViewModel: ViewModel {
                 guard let listingId = product.locationProductListingId else {
 
                     presentPromotionError(message: Constants.Message.promotionProductUnavailableMessage)
+
                     return
 
                 }
 
-                self.navigationService?.push(.customer(.product(locationId: locationId, productId: listingId)))
+                self.navigationService?.push(.customer(.product(
+                    locationId: locationId,
+                    productId: listingId
+                )))
 
             } else {
 
@@ -183,8 +213,8 @@ final class StoreDetailsViewModel: ViewModel {
             }
 
         case .link:
-            openPromotionLink(promotion.url)
 
+            openPromotionLink(promotion.url)
         }
 
     }
@@ -193,7 +223,10 @@ final class StoreDetailsViewModel: ViewModel {
 
         guard let locationId = self.locationId,
               self.featuredProducts.contains(where: { $0.id == id }) else { return }
-        self.navigationService?.push(.customer(.product(locationId: locationId, productId: id)))
+        self.navigationService?.push(.customer(.product(
+            locationId: locationId,
+            productId: id
+        )))
 
     }
 
@@ -206,7 +239,10 @@ final class StoreDetailsViewModel: ViewModel {
             productId: id,
             isFavorite: isFavorite
         )
-        presentFavoriteToast(title: product.displayName, isFavorite: isFavorite)
+        presentFavoriteToast(
+            title: product.displayName,
+            isFavorite: isFavorite
+        )
 
     }
 
@@ -222,14 +258,17 @@ final class StoreDetailsViewModel: ViewModel {
     private func presentOverviewError(context: Constants.Message.Context) {
 
         self.alertService.showAlert(.init(
-            .appAlert(
+            .runeAlert(
                 .error(
-                    message: Constants.Message.errorMessage(context: context, "store information"),
+                    message: Constants.Message.errorMessage(
+                        context: context,
+                        "store information"
+                    ),
                     action: {}
                 )
             )
         ))
-        
+
     }
 
     private func openPromotionLink(_ value: String?) {
@@ -242,11 +281,15 @@ final class StoreDetailsViewModel: ViewModel {
               let url = components.url else {
 
             presentPromotionError(message: Constants.Message.promotionLinkErrorMessage)
+
             return
 
         }
 
-        UIApplication.shared.open(url, options: [:]) { [weak self] didOpen in
+        UIApplication.shared.open(
+            url,
+            options: [:]
+        ) { [weak self] didOpen in
 
             guard !didOpen else { return }
             self?.presentPromotionError(message: Constants.Message.promotionLinkErrorMessage)
@@ -258,27 +301,29 @@ final class StoreDetailsViewModel: ViewModel {
     private func presentPromotionError(message: String) {
 
         self.alertService.showAlert(.init(
-            .appAlert(.error(message: message, action: {}))
+            .runeAlert(.error(
+                message: message,
+                action: {}
+            ))
         ))
 
     }
-    
+
     private func presentFavoriteToast(title: String, isFavorite: Bool) {
-        
-        ToastManager.shared.present(toastItem: .init(
+
+        RNToastManager.shared.present(toastItem: .init(
             timing: .medium,
             direction: .top,
             content: {
-                
+
                 ProductFavoriteToastView(
                     productTitle: title,
                     isFavorite: isFavorite
                 )
-                
+
             }
-            
         ))
-        
+
     }
 
 }

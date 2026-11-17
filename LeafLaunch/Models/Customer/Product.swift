@@ -12,6 +12,24 @@ nonisolated struct Product: Codable, Equatable, Hashable, Identifiable, Sendable
 
     }
 
+    private enum CodingKeys: String, CodingKey {
+
+        case id
+        case storeProductId = "store_product_id"
+        case storeLocationId = "store_location_id"
+        case displayName = "display_name"
+        case description
+        case status
+        case publishedAt = "published_at"
+        case media
+        case currencyCode = "currency_code"
+        case category
+        case subcategory
+        case attributes
+        case variants
+
+    }
+
     let id: String
     let storeProductId: String
     let storeLocationId: String
@@ -47,24 +65,6 @@ nonisolated struct Product: Codable, Equatable, Hashable, Identifiable, Sendable
 
         guard self.status == .published else { return nil }
         return self.variants.filter { $0.availability == .available }.compactMap(\.displayPrice).min()
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case id
-        case storeProductId = "store_product_id"
-        case storeLocationId = "store_location_id"
-        case displayName = "display_name"
-        case description
-        case status
-        case publishedAt = "published_at"
-        case media
-        case currencyCode = "currency_code"
-        case category
-        case subcategory
-        case attributes
-        case variants
 
     }
 

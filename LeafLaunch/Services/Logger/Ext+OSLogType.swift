@@ -11,6 +11,7 @@ import SwiftUI
 extension OSLogType {
 
     static func allOptions() -> [String] {
+
         return [
             "Default",
             "Info",
@@ -18,6 +19,7 @@ extension OSLogType {
             "Error",
             "Fault"
         ]
+
     }
 
     func displayName() -> String {

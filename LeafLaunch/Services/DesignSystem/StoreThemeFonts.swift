@@ -5,18 +5,23 @@
 
 import UIKit
 
-extension Theme.Fonts {
+extension RNTheme.Fonts {
 
-    static func storeBranding(familyName: StoreAppFontFamily?, fallback: Theme.Fonts) -> Theme.Fonts {
+    static func storeBranding(familyName: StoreAppFontFamily?, fallback: RNTheme.Fonts) -> RNTheme.Fonts {
 
         guard let familyName, familyName != .system,
               !UIFont.fontNames(forFamilyName: familyName.rawValue).isEmpty else { return fallback }
 
         func font(_ base: UIFont) -> UIFont {
-            UIFont(descriptor: base.fontDescriptor.withFamily(familyName.rawValue), size: base.pointSize)
+
+            UIFont(
+                descriptor: base.fontDescriptor.withFamily(familyName.rawValue),
+                size: base.pointSize
+            )
+
         }
 
-        return Theme.Fonts(
+        return RNTheme.Fonts(
             BILLBOARD_1: font(fallback.BILLBOARD_1),
             BILLBOARD_2: font(fallback.BILLBOARD_2),
             BILLBOARD_3: font(fallback.BILLBOARD_3),

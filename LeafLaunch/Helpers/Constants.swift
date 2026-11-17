@@ -22,7 +22,10 @@ struct Constants {
 
     struct PList {
 
-        static let url: URL = Bundle.main.url(forResource: "Info", withExtension: "plist")!
+        static let url: URL = Bundle.main.url(
+            forResource: "Info",
+            withExtension: "plist"
+        )!
 
     }
 
@@ -75,10 +78,22 @@ struct Constants {
         static func urlForEnvironment(_ env: AppEnvironment) -> String {
 
             switch env {
-            case .custom(let address): return validatedAPIURL(address) ?? ""
+            case .custom(let address):
+
+                return validatedAPIURL(address) ?? ""
+
             case .localhost: return self.defaultCustomEnvironmentAddress
-            case .development: return validatedAPIURL(BusinessConfig.developmentAPIURL) ?? ""
-            case .production: return validatedAPIURL(BusinessConfig.productionAPIURL, production: true) ?? ""
+
+            case .development:
+
+                return validatedAPIURL(BusinessConfig.developmentAPIURL) ?? ""
+
+            case .production:
+
+                return validatedAPIURL(
+                    BusinessConfig.productionAPIURL,
+                    production: true
+                ) ?? ""
             }
 
         }
@@ -124,13 +139,16 @@ struct Constants {
 
     struct StaggerAnimation {
 
-        static func config(interitemSpacing: CGFloat = 8) -> StaggeredConfig {
+        static func config(interitemSpacing: CGFloat = 8) -> RNStaggeredConfig {
 
-            return StaggeredConfig(
+            return RNStaggeredConfig(
                 delay: 0.05,
                 maxDelay: 0.05,
                 blurRadius: 0.5,
-                offset: .init(width: 0, height: 100),
+                offset: .init(
+                    width: 0,
+                    height: 100
+                ),
                 scale: 1,
                 scaleAnchor: .center,
                 animation: .smooth.delay(0.3),
@@ -172,6 +190,24 @@ struct Constants {
 
     struct Message {
 
+        enum Context {
+
+            case get
+            case create
+            case update
+            case delete
+
+            var verbDescription: String {
+                switch self {
+                case .get: return "getting"
+                case .create: return "creating"
+                case .update: return "updating"
+                case .delete: return "deleting"
+                }
+            }
+
+        }
+
         static let loginErrorMessage = "Something went wrong while signing you in. Please try again."
         static let existingLeafLaunchAccountMessage = "You already have an account with LeafLaunch. Please sign in to use it with this business."
         static let customerDisplayName = "Customer"
@@ -192,24 +228,6 @@ struct Constants {
         static let promotionLinkErrorMessage = "Unable to open this promotion's link. Please try again later."
         static let promotionProductsErrorMessage = "This promotion's products are unavailable. Please try again later."
         static let promotionProductUnavailableMessage = "This product is unavailable at your current location. Choose another location to check its availability."
-
-        enum Context {
-
-            case get
-            case create
-            case update
-            case delete
-
-            var verbDescription: String {
-                switch self {
-                case .get: return "getting"
-                case .create: return "creating"
-                case .update: return "updating"
-                case .delete: return "deleting"
-                }
-            }
-
-        }
 
         static func errorMessage(context: Context = .get, _ topic: String) -> String {
             return "Something went wrong while \(context.verbDescription) your \(topic). Please try again later."
@@ -239,7 +257,7 @@ extension Constants {
 
     // MARK: - STATES
 
-    enum USState: String, CaseIterable, Selectable {
+    enum USState: String, CaseIterable, RNSelectable {
 
         var id: String { return self.rawValue }
 
@@ -311,14 +329,15 @@ extension Constants {
 
     // MARK: - ALERTS
 
-    static func INVALID_EMAIL_ALERT() -> RuneAlert {
+    static func INVALID_EMAIL_ALERT() -> RNAlert {
 
-        return .init(.appAlert(.error(
+        return .init(.runeAlert(.error(
             message: "Your email address is invalid. Please try again.",
             buttonTitle: "Okay",
             action: {
 
-            })))
+            }
+        )))
 
     }
 
@@ -326,7 +345,7 @@ extension Constants {
 
 extension Constants {
 
-    static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
+    static func HEALTH_CHECK_ENV_ALERT(action: @escaping () -> Void) -> RNEnvironmentAlertViewConfig {
 
         .init(
             title: "API Down 🙃",
@@ -345,7 +364,7 @@ extension Constants {
 
     }
 
-    static func NO_NETWORK_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
+    static func NO_NETWORK_ENV_ALERT(action: @escaping () -> Void) -> RNEnvironmentAlertViewConfig {
 
         .init(
             title: "No Network",
@@ -364,7 +383,7 @@ extension Constants {
 
     }
 
-    static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> ()) -> EnvironmentAlertViewConfig {
+    static func FORCE_UPDATE_ENV_ALERT(action: @escaping () -> Void) -> RNEnvironmentAlertViewConfig {
 
         .init(
             title: "Old App Version",

@@ -44,11 +44,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
 
             switch self {
             case .root: eventName = "root"
+
             case .tabIntent(let tab):
 
                 eventName = "tab_intent"
                 properties = ["tab" : tab.rawValue]
-
             }
 
             return EventData(
@@ -170,12 +170,14 @@ indirect enum ScreenEvent: AnalyticsEvent {
         switch self {
         case .root: screenName = "root"
         case .launch: screenName = "launch"
+
         case .main(let screen):
 
             screenName = screen.data.name
             properties = screen.data.properties
 
         case .home: screenName = "home"
+
         case .customer(let screen):
 
             screenName = screen.screenName
@@ -184,11 +186,11 @@ indirect enum ScreenEvent: AnalyticsEvent {
         case .auth(let screen): screenName = screen.screenName
         case .devSettings(let screen): screenName = screen.screenName
         case .settings(let screen): screenName = screen.screenName
+
         case .profile(let screen):
 
             screenName = screen.screenName
             properties = screen.properties
-
         }
 
         var _properties = properties ?? [:]

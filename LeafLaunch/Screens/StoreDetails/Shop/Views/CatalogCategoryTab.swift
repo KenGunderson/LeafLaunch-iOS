@@ -13,14 +13,17 @@ struct CatalogCategoryTab: View {
     var body: some View {
 
         Text(self.title)
-            .appFont(with: .TITLE_3)
-            .padding(.horizontal, .extraSmall)
+            .runeFont(with: .TITLE_3)
+            .runePadding(.horizontal, LLSpacing.metadata)
             .frame(minHeight: 44)
-            .padding(.bottom, 3)
-            .foregroundStyle(self.isSelected ? self.style.palette(.link) : self.style.textColor(.body))
-            .fixedSize(horizontal: true, vertical: false)
+            .runePadding(.bottom, .custom(3))
+            .foregroundStyle(self.isSelected ? RNColorSource.palette(.link) : RNColorSource.text(.body))
+            .fixedSize(
+                horizontal: true,
+                vertical: false
+            )
             .contentShape(Rectangle())
-            .asButton(action: self.action)
+            .runeAsButton(action: self.action)
             .overlay(alignment: .bottom) {
 
                 Color.clear
@@ -44,7 +47,7 @@ struct CatalogCategoryTab: View {
     @Previewable @State var selectedId = "flower"
     @Previewable @Namespace var underlineNamespace
 
-    HStack {
+    HStack(spacing: RNStyle.shared.spacing(LLSpacing.groupedContent)) {
 
         CatalogCategoryTab(
             title: "Edibles",
@@ -70,11 +73,16 @@ struct CatalogCategoryTab: View {
         Capsule()
             .fill(.tint)
             .frame(height: 3)
-            .matchedGeometryEffect(id: selectedId, in: underlineNamespace, properties: .frame, isSource: false)
+            .matchedGeometryEffect(
+                id: selectedId,
+                in: underlineNamespace,
+                properties: .frame,
+                isSource: false
+            )
             .allowsHitTesting(false)
 
     }
-    .padding(.medium)
+    .runePadding(LLSpacing.pageInset)
     .withMockPreviews()
 
 }

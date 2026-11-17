@@ -8,16 +8,20 @@
 import SwiftUI
 
 @MainActor
-extension AppCardConfig {
+extension RNAlertCardConfig {
 
     static func invitationAlert(name: String,
                                 businessName: String,
-                                doneAction: @escaping () -> Void) -> AppCardConfig {
+                                style: any RNStyleProtocol,
+                                doneAction: @escaping () -> Void) -> RNAlertCardConfig {
 
         return .init(
             viewBuilder: { dismissAction in
 
-                InvitationAlertView(name: name, businessName: businessName) {
+                InvitationAlertView(
+                    name: name,
+                    businessName: businessName
+                ) {
 
                     dismissAction()
                     doneAction()
@@ -26,9 +30,19 @@ extension AppCardConfig {
                 .asAnyView()
 
             },
-            cornerRadius: Style.shared.radius(.large),
-            backgroundCardInset: .init(top: 0, left: 24, bottom: Style.shared.spacing(.large), right: 24),
-            contentCardInset: .init(top: 40, left: 16, bottom: 40, right: 16),
+            cornerRadius: .theme(.large),
+            backgroundCardInset: .init(
+                top: style.spacing(LLSpacing.none),
+                left: style.spacing(LLSpacing.content),
+                bottom: style.spacing(LLSpacing.content),
+                right: style.spacing(LLSpacing.content)
+            ),
+            contentCardInset: .init(
+                top: style.spacing(.custom(40)),
+                left: style.spacing(LLSpacing.pageInset),
+                bottom: style.spacing(.custom(40)),
+                right: style.spacing(LLSpacing.pageInset)
+            ),
             cardBackgroundColor: .background(.secondary),
             shouldDismissOnOutsideTouch: false,
             shouldDismissOnDrag: false
@@ -40,23 +54,26 @@ extension AppCardConfig {
 
 #Preview {
 
-    let alertService = mockResolve(AlertServiceProtocol.self)
+    @Previewable @Environment(\.style) var style: any RNStyleProtocol
 
-    AppBaseView(alignment: .bottom) {
+    let alertService = mockResolve(RNAlertServiceProtocol.self)
 
-        CommonButton(title: "Show Alert") {
+    RNBaseView(alignment: .bottom) {
+
+        LeafLaunchButton(title: "Show Alert") {
 
             alertService.showAlert(
                 .init(.card(.invitationAlert(
                     name: "Sako Hovaguimian",
-                    businessName: "Bronx Tales"
+                    businessName: "Bronx Tales",
+                    style: style
                 ) {
                     print("Testing")
                 }
                 )))
 
         }
-        .padding(.horizontal, .large2)
+        .runePadding(.horizontal, LLSpacing.hero)
 
     }
     .withMockServices()

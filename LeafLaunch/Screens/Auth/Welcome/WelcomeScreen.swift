@@ -10,7 +10,6 @@ import SwiftUI
 struct WelcomeScreen: GPView {
 
     @Environment(\.style) private var style
-
     @Environment(NavigationService.self) private var navigationService
 
     @StateObject var viewModel: WelcomeViewModel
@@ -43,10 +42,10 @@ struct WelcomeScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(spacing: self.style.spacing(.none)) {
+        VStack(spacing: self.style.spacing(LLSpacing.none)) {
 
             welcomeImage()
 
@@ -54,18 +53,18 @@ struct WelcomeScreen: GPView {
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(.background(.primary))
+        .runeBackground(.primary)
         .ignoresSafeArea()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func welcomeImage() -> some View {
 
-        ImageSource.systemImage("person.fill")
+        RNImageSource.systemImage("person.fill")
             .view()
             .if(self.orientation == .landscapeLeft || self.orientation == .landscapeRight) { view in
-                view.scaledToFit().cornerRadius(.large)
+                view.scaledToFit().runeCornerRadius(.large)
             }
             .if(self.orientation == .portrait || self.orientation == .portraitUpsideDown) { view in
                 view.frame(height: Constants.Runtime.deviceHeight / 1.95)
@@ -74,40 +73,40 @@ struct WelcomeScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func introduction() -> some View {
 
-        VStack(spacing: self.style.spacing(.large)) {
+        VStack(spacing: self.style.spacing(LLSpacing.content)) {
 
-            ImageSource.systemImage("person.fill")
+            RNImageSource.systemImage("person.fill")
                 .view()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
 
             Text("Capture photos, create before & afters, and showcase your results.")
-                .appFont(with: .BODY_4)
+                .runeFont(with: .BODY_4)
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.text(.body))
-                .padding(.horizontal, .extraLarge)
+                .runeTextColor(.body)
+                .runePadding(.horizontal, .extraLarge)
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .background(.background(.primary))
-        .padding(.bottom, self.footerSize.height + self.style.spacing(.medium))
+        .runeBackground(.primary)
+        .runePadding(.bottom, .custom(self.footerSize.height + self.style.spacing(LLSpacing.listRow)))
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func footer() -> some View {
 
-        VStack(spacing: 16) {
+        VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
             signUpButton()
             loginButton()
 
         }
-        .padding(.horizontal, 32)
+        .runePadding(.horizontal, LLSpacing.hero)
         .customSafeAreaPadding()
         .onGeometryChange(for: CGSize.self) { proxy in
             return proxy.size
@@ -117,7 +116,7 @@ struct WelcomeScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func signUpButton() -> some View {
 
         LeafLaunchButton(
@@ -125,21 +124,23 @@ struct WelcomeScreen: GPView {
             cornerRadius: .medium2,
             action: {
                 self.viewModel.navigateToSignUp()
-            })
+            }
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loginButton() -> some View {
 
-        CommonButton(
+        LeafLaunchButton(
             style: .outline(lineWidth: 3),
             title: "Login",
             titleColor: .accent,
             cornerRadius: .medium2,
             action: {
                 self.viewModel.navigateToLogin()
-            })
+            }
+        )
 
     }
 

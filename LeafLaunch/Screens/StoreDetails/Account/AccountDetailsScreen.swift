@@ -13,7 +13,7 @@ struct AccountDetailsScreen: GPView {
 
     var body: some View {
 
-        LLAppHeaderScrollView {
+        LLAppHeaderScrollView(onRefresh: { [weak viewModel] in await viewModel?.refreshData() }) {
             navHeader()
         } scrollViewContent: {
             content()
@@ -25,12 +25,12 @@ struct AccountDetailsScreen: GPView {
 
         }
         .task { [weak viewModel] in
-            viewModel?.loadData(showHud: true)
+            viewModel?.loadData(showHud: self.viewModel.isFirstLoad)
         }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func navHeader() -> some View {
 
         NavHeader(
@@ -41,10 +41,13 @@ struct AccountDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func content() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.large)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.content)
+        ) {
 
             if self.viewModel.user == nil {
 
@@ -60,18 +63,21 @@ struct AccountDetailsScreen: GPView {
             }
 
         }
-        .appFont(with: .BODY_2)
-        .foregroundStyle(self.style.textColor(.body))
+        .runeFont(with: .BODY_2)
+        .runeTextColor(.body)
         .tabFlowContentSpacing()
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func account() -> some View {
 
         if let user = self.viewModel.user {
 
-            StoreAccountProfileView(user: user, account: self.viewModel.account)
+            StoreAccountProfileView(
+                user: user,
+                account: self.viewModel.account
+            )
 
         }
 
@@ -79,11 +85,16 @@ struct AccountDetailsScreen: GPView {
             loadFailure()
         }
 
-        if self.viewModel.account != nil || self.viewModel.hasCompletedInitialLoad || self.viewModel.membership != nil || !self.viewModel.hasLoadFailed {
+        let hasAccountDetails = self.viewModel.account != nil || self.viewModel.membership != nil
+        let shouldShowLoyalty = hasAccountDetails || self.viewModel.hasCompletedInitialLoad || !self.viewModel.hasLoadFailed
+
+        if shouldShowLoyalty {
             loyalty()
         }
 
-        if self.viewModel.hasCompletedInitialLoad || !self.viewModel.history.isEmpty || self.viewModel.isLoading {
+        let shouldShowHistory = self.viewModel.hasCompletedInitialLoad || !self.viewModel.history.isEmpty || self.viewModel.isLoading
+
+        if shouldShowHistory {
             pointsHistory()
         }
 
@@ -91,7 +102,7 @@ struct AccountDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loyalty() -> some View {
 
         StoreAccountMembershipView(
@@ -106,7 +117,7 @@ struct AccountDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func pointsHistory() -> some View {
 
         StoreAccountHistoryView(
@@ -119,7 +130,7 @@ struct AccountDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func accountLinks() -> some View {
 
         StoreAccountLinksView(
@@ -131,12 +142,12 @@ struct AccountDetailsScreen: GPView {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func loadFailure() -> some View {
 
         CommerceSurface {
 
-            VStack(spacing: self.style.spacing(.medium)) {
+            VStack(spacing: self.style.spacing(LLSpacing.listRow)) {
 
                 CommerceEmptyState(
                     systemImage: "arrow.clockwise",

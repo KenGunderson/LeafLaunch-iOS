@@ -43,13 +43,19 @@ struct StoreAccountHistoryRow: View {
 
     var body: some View {
 
-        HStack(alignment: .center, spacing: self.style.spacing(.small2)) {
+        HStack(
+            alignment: .center,
+            spacing: self.style.spacing(LLSpacing.cardContent)
+        ) {
 
             transactionIcon()
 
             if self.dynamicTypeSize.isAccessibilitySize {
 
-                VStack(alignment: .leading, spacing: self.style.spacing(.small)) {
+                VStack(
+                    alignment: .leading,
+                    spacing: self.style.spacing(LLSpacing.groupedContent)
+                ) {
 
                     transactionDetails()
                     points()
@@ -68,62 +74,80 @@ struct StoreAccountHistoryRow: View {
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func transactionIcon() -> some View {
 
-        ImageSource.systemImage(self.entryIcon)
+        RNImageSource.systemImage(self.entryIcon)
             .view(shouldResize: false)
-            .appFont(with: .TITLE_6)
-            .foregroundStyle(self.style.palette(.link))
-            .frame(width: 44, height: 44)
+            .runeFont(with: .TITLE_6)
+            .foregroundStyle(RNColorSource.palette(.link))
+            .frame(
+                width: 44,
+                height: 44
+            )
             .background {
-                Circle().fill(self.style.palette(.link)).opacity(0.08)
+                Circle().runeFill(RNColorSource.palette(.link)).opacity(0.08)
             }
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func transactionDetails() -> some View {
 
-        VStack(alignment: .leading, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .leading,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.entry.customerReason.isEmpty ? self.entryTitle : self.entry.customerReason)
-                .appFont(with: .TITLE_3)
-                .foregroundStyle(self.style.textColor(.title))
+                .runeFont(with: .TITLE_3)
+                .runeTextColor(.title)
 
             if let rewardTitle = self.entry.rewardTitleSnapshot, !rewardTitle.isEmpty {
 
                 Text(rewardTitle)
-                    .appFont(with: .BODY_1)
-                    .foregroundStyle(self.style.textColor(.body))
+                    .runeFont(with: .BODY_1)
+                    .runeTextColor(.body)
 
             }
 
-            Text(self.entry.createdAt.formatted(date: .abbreviated, time: .shortened))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(self.style.textColor(.body))
+            Text(self.entry.createdAt.formatted(
+                date: .abbreviated,
+                time: .shortened
+            ))
+                .runeFont(with: .NOTE_1)
+                .runeTextColor(.body)
 
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(
+            horizontal: false,
+            vertical: true
+        )
 
     }
 
-    @ViewBuilder
+    @ContentBuilder
     private func points() -> some View {
 
-        VStack(alignment: .trailing, spacing: self.style.spacing(.extraSmall)) {
+        VStack(
+            alignment: .trailing,
+            spacing: self.style.spacing(LLSpacing.metadata)
+        ) {
 
             Text(self.signedPoints)
-                .appFont(with: .TITLE_4)
+                .runeFont(with: .TITLE_4)
                 .monospacedDigit()
-                .foregroundStyle(self.isDeduction ? self.style.palette(.destructive) : self.style.palette(.link))
+                .foregroundStyle(self.isDeduction ? RNColorSource.palette(.destructive) : RNColorSource.palette(.link))
 
             Text(String(localized: "points"))
-                .appFont(with: .NOTE_1)
-                .foregroundStyle(self.style.textColor(.body))
+                .runeFont(with: .NOTE_1)
+                .runeTextColor(.body)
 
         }
-        .fixedSize(horizontal: true, vertical: false)
+        .fixedSize(
+            horizontal: true,
+            vertical: false
+        )
 
     }
 
@@ -134,7 +158,7 @@ struct StoreAccountHistoryRow: View {
     if let entry = MockCustomerModels.loyaltyHistory.first {
 
         StoreAccountHistoryRow(entry: entry)
-            .padding(.medium)
+            .runePadding(LLSpacing.pageInset)
             .withMockPreviews()
 
     }

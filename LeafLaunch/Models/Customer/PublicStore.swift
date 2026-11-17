@@ -3,13 +3,6 @@ import Foundation
 // Customer-safe Store details supplied by the public app bootstrap.
 nonisolated struct PublicStore: Codable, Equatable, Identifiable, Sendable {
 
-    let id: String
-    let name: String
-    let legalName: String?
-    let supportEmail: String?
-    let supportPhone: String?
-    let websiteURL: URL?
-
     private enum CodingKeys: String, CodingKey {
 
         case id
@@ -20,5 +13,12 @@ nonisolated struct PublicStore: Codable, Equatable, Identifiable, Sendable {
         case websiteURL = "website_url"
 
     }
+
+    let id: String
+    let name: String
+    let legalName: String?
+    let supportEmail: String?
+    let supportPhone: String?
+    let websiteURL: URL?
 
 }

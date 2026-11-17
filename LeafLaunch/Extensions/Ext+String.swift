@@ -24,8 +24,15 @@ extension String {
         do {
 
             let regex = try NSRegularExpression(pattern: pattern)
-            let range = NSRange(location: 0, length: utf16.count)
-            return regex.firstMatch(in: self, options: [], range: range) != nil
+            let range = NSRange(
+                location: 0,
+                length: self.utf16.count
+            )
+            return regex.firstMatch(
+                in: self,
+                options: [],
+                range: range
+            ) != nil
 
         } catch {
 

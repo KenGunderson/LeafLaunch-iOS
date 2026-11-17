@@ -44,7 +44,12 @@ extension APIService {
         guard details.location.id.lowercased() == locationId.lowercased(),
               details.location.storeId.lowercased() == businessId.lowercased(),
               details.location.isAvailable else {
-            throw APIError.serverError(statusCode: 404, errorMessage: "This location is unavailable for this business.")
+
+            throw APIError.serverError(
+                statusCode: 404,
+                errorMessage: "This location is unavailable for this business."
+            )
+
         }
 
         return details

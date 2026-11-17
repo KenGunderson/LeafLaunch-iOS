@@ -21,9 +21,9 @@ extension Container {
 
     // ALERT
 
-    var alertService: Factory<AlertServiceProtocol> {
+    var alertService: Factory<RNAlertServiceProtocol> {
         self { @MainActor in
-            AlertService()
+            RNAlertService()
         }
         .singleton
     }
@@ -32,9 +32,11 @@ extension Container {
 
     var analyticsService: Factory<AnalyticsServiceProtocol> {
         self { @MainActor in
+
             AnalyticsService(
                 environmentService: self.environmentService()
             )
+
         }
         .singleton
     }
@@ -52,9 +54,11 @@ extension Container {
 
     var deeplinkService: Factory<DeeplinkServiceProtocol> {
         self { @MainActor in
+
             DeeplinkService(
                 lifecycleService: self.viewLifecycleService()
             )
+
         }
         .singleton
     }
@@ -72,7 +76,7 @@ extension Container {
 
     var userDefaultsService: Factory<UserDefaultsServiceProtocol> {
         self { @MainActor in
-            UserDefaultsService(style: Style.shared)
+            UserDefaultsService(style: RNStyle.shared)
         }
         .singleton
     }
@@ -90,9 +94,11 @@ extension Container {
 
     var pushNotificationService: Factory<PushNotificationServiceProtocol> {
         self { @MainActor in
+
             PushNotificationService(
                 viewLifecycleService: self.viewLifecycleService()
             )
+
         }
         .singleton
     }
@@ -119,12 +125,14 @@ extension Container {
 
     var apiService: Factory<APIServiceProtocol> {
         self { @MainActor in
+
             APIService(
                 analyticsService: self.analyticsService(),
                 environmentService: self.environmentService(),
                 appDelegateService: self.appDelegateService(),
                 firebaseService: self.firebaseService()
             )
+
         }
         .singleton
     }
@@ -138,12 +146,14 @@ extension Container {
 
     var storeSessionService: Factory<StoreSessionServiceProtocol> {
         self { @MainActor in
+
             StoreSessionService(
                 apiService: self.apiService(),
                 authService: self.authService(),
                 userDefaultsService: self.userDefaultsService(),
                 tabBarNavigationService: self.tabBarNavigationService()
             )
+
         }
         .singleton
     }
@@ -152,12 +162,14 @@ extension Container {
 
     var authService: Factory<AuthServiceProtocol> {
         self { @MainActor in
+
             AuthService(
                 firebaseService: self.firebaseService(),
                 apiService: self.apiService(),
                 analyticsService: self.analyticsService(),
                 userDefaultsService: self.userDefaultsService()
             )
+
         }
         .singleton
     }
@@ -166,6 +178,7 @@ extension Container {
 
     var rootStartupService: Factory<RootStartupServiceProtocol> {
         self { @MainActor in
+
             RootStartupService(
                 launchService: self.launchScreenService(),
                 environmentService: self.environmentService(),
@@ -177,6 +190,7 @@ extension Container {
                 viewLifecycleService: self.viewLifecycleService(),
                 storeSessionService: self.storeSessionService()
             )
+
         }
         .singleton
     }
